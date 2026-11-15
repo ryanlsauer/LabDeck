@@ -479,7 +479,7 @@ kbd{font-family:inherit;font-size:.75rem;border:1px solid var(--line-2);border-b
 .chipbtn.sm{padding:4px 10px;font-size:.82rem}
 .objlist{margin:6px 0 14px;padding-left:22px;display:flex;flex-direction:column;gap:10px}
 .objlist li{font-size:.93rem;line-height:1.45}
-.objlist li span:first-child{display:block}
+.objlist li>.otext{display:block}
 .rate3{display:inline-flex;gap:4px;margin-top:6px;flex-wrap:wrap}
 .rate3 button{border:1px solid var(--line-2);background:var(--surface);border-radius:999px;padding:3px 10px;font-size:.78rem;font-weight:600;color:var(--ink-2)}
 .rate3 .r0.on{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
@@ -755,6 +755,103 @@ details.unit>.lesson-row:last-child{margin-bottom:8px}
 .badge .when{color:var(--good);font-weight:700}
 .bprog{display:block;height:4px;border-radius:999px;background:var(--line);overflow:hidden;margin-top:4px}
 .bprog i{display:block;height:100%;background:var(--violet)}
+/* ===== v11: dashboard, tidy tools, journal, new games ===== */
+.dash{background:#23263A;color:#ECEAF3;border-radius:20px;padding:22px 22px 16px;margin-bottom:16px;display:flex;flex-direction:column;gap:16px}
+.dtop{display:grid;grid-template-columns:1fr;gap:16px}
+@media (min-width:700px){.dtop{grid-template-columns:1.4fr 1fr}}
+.ddate{font-size:.78rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#A9A6C2}
+.ddue{display:flex;align-items:baseline;gap:10px;margin-top:4px}
+.ddue b{font-family:var(--font-display);font-size:3.2rem;line-height:1;font-weight:700}
+.ddue span{color:#C9C6DC;font-weight:600}
+.dnote{margin:6px 0 0;color:#C9C6DC;font-size:.92rem}
+.dbtn{background:#fff;color:#23263A;border-color:#fff}
+.dbtn:hover{background:#ECE8FF}
+.dbtn.ghost{background:transparent;color:#ECEAF3;border-color:rgba(255,255,255,.3)}
+.dbtn.ghost:hover{background:rgba(255,255,255,.08)}
+.dbtn[disabled]{opacity:.6}
+.dside{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-content:start}
+.dgoal{grid-column:1/-1;display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.06);border-radius:14px;padding:10px 12px}
+.gring{width:60px;height:60px;flex:none}
+.dgoal b,.dstat b{display:block;font-family:var(--font-display);font-size:1.35rem}
+.dgoal small,.dstat small{color:#A9A6C2;font-size:.8rem}
+.dstat{background:rgba(255,255,255,.06);border-radius:14px;padding:10px 12px}
+.wbars{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;height:74px;align-items:end}
+.wb{display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end}
+.wb i{display:block;width:100%;max-width:30px;background:rgba(168,151,255,.45);border-radius:6px 6px 3px 3px}
+.wb.today i{background:#A897FF}
+.wb small{color:#A9A6C2;font-size:.72rem}
+.ystrip{display:flex;gap:14px;align-items:center;border-top:1px solid rgba(255,255,255,.1);padding-top:12px;flex-wrap:wrap}
+.ystrip>span{font-size:.75rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#A9A6C2;min-width:80px}
+.ystrip.empty p{margin:0;color:#C9C6DC;font-size:.92rem}
+.ytiles{display:flex;gap:18px;flex-wrap:wrap;flex:1}
+.ytiles b{display:block;font-family:var(--font-display);font-size:1.2rem}
+.ytiles small{color:#A9A6C2;font-size:.78rem}
+:root[data-theme="dark"] .dash{background:#2A2640}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .dash{background:#2A2640}}
+.planonly .prep{grid-template-columns:1fr;margin-bottom:8px}
+.twocol{display:grid;gap:0 16px;grid-template-columns:1fr}
+@media (min-width:760px){.twocol{grid-template-columns:1fr 1fr}}
+.toolcard{border:1px solid var(--line);border-radius:16px;background:var(--surface);overflow:hidden}
+.toolline{display:grid;grid-template-columns:84px 1fr;gap:10px;align-items:center;padding:12px 14px;border-bottom:1px solid var(--line)}
+.toolline:last-child{border-bottom:0}
+@media (max-width:560px){.toolline{grid-template-columns:1fr}}
+.toolcat{padding-top:0}
+.toolcat.c-play{color:#B07A12}
+.pill.c-play svg{color:#B07A12}
+.toolline .pill{background:var(--surface-2);border-color:transparent}
+.toolline .pill:hover{border-color:var(--line-2);background:var(--surface)}
+/* course page units */
+.cu-body{padding:4px 0 12px}
+.cu-actions{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.cu-actions .btn{border:1px solid var(--line);background:var(--surface-2)}
+.cu-row{display:grid;grid-template-columns:72px 1fr;gap:8px;align-items:start;margin:8px 0}
+.cu-lab{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-3);padding-top:6px}
+.cu-chips{display:flex;flex-wrap:wrap;gap:6px}
+.cu-more{display:contents}
+.cu-more.hidden{display:none}
+.objlist{border-top:1px solid var(--line);padding-top:12px;margin-top:12px;gap:0}
+.objlist li{padding:10px 0;border-bottom:1px solid var(--line)}
+.objlist li:last-child{border-bottom:0}
+@media (min-width:760px){.objlist li{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:start}.objlist .rate3{margin-top:0}}
+.otext{line-height:1.5}
+.otext .ac{display:inline}
+/* journal */
+.jstats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.jstats>div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px}
+.jstats b{display:block;font-family:var(--font-display);font-size:1.6rem}
+.jstats span{font-size:.82rem;color:var(--ink-3)}
+.jbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.jlist{display:flex;flex-direction:column;gap:10px}
+.jcard{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px}
+.jcard.conf{border-left:4px solid var(--bad)}
+.jmeta{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:.8rem;color:var(--ink-3)}
+.tag{font-size:.72rem;font-weight:800;padding:2px 8px;border-radius:999px;background:var(--surface-2);color:var(--ink-2)}
+.tag.bad{background:var(--bad-soft);color:var(--bad)} .tag.good{background:var(--good-soft);color:var(--good)}
+.jq{font-weight:700;line-height:1.4}
+.jans{display:grid;grid-template-columns:1fr 1fr;gap:10px;background:var(--surface-2);border-radius:10px;padding:10px 12px}
+.jnote{background:var(--violet-soft);padding:8px 10px;border-radius:8px}
+/* new games */
+.sedsvg{display:block;width:100%;max-width:340px;margin:8px auto 0;border-radius:12px;border:1px solid var(--line)}
+.panelwrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.agpanel{border-collapse:collapse;width:100%;min-width:620px;font-size:.85rem;font-variant-numeric:tabular-nums}
+.agpanel th,.agpanel td{padding:6px 6px;text-align:center;border-bottom:1px solid var(--line)}
+.agpanel th{background:var(--surface-2);font-weight:800}
+.agpanel th button{border:0;background:none;font:inherit;font-weight:800;cursor:pointer;padding:2px 4px;border-radius:6px;color:var(--violet-deep)}
+.agpanel th button:hover{background:var(--violet-soft)}
+.agpanel .x{background:repeating-linear-gradient(135deg,transparent 0 6px,rgba(184,52,75,.12) 6px 8px);color:var(--ink-3);text-decoration:line-through}
+.agpanel tr.pos .res{color:var(--bad);font-weight:800}
+.agpanel td:first-child{font-weight:700;color:var(--ink-3)}
+.pal.on{border-color:var(--violet);background:var(--violet-soft)}
+.abgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:6px}
+.abgrid>div{background:var(--surface-2);border-radius:12px;padding:10px;text-align:center}
+.abgrid span{display:block;font-size:.8rem;color:var(--ink-3);font-weight:700}
+.abgrid b{display:block;font-family:var(--font-display);font-size:1.6rem}
+.abgrid small{color:var(--ink-3);font-size:.72rem}
+.mapcard{border:1px solid var(--line);border-radius:16px;background:var(--surface);padding:14px;display:flex;flex-direction:column;gap:10px}
+.maphead{display:flex;gap:12px;align-items:center}
+.mapgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.mapgrid p{margin:4px 0 0;line-height:1.5}
+.mapcard .btn{align-self:flex-start}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -841,7 +938,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "10.0";
+const APP_VERSION = "11.0";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -1003,6 +1100,7 @@ function mergeRemote(r) {
   m.games = m.games || {}; for (const [k, v] of Object.entries(rm.games || {})) { const c = m.games[k]; if (!c || (v.level || 0) > (c.level || 0)) m.games[k] = v; }
   { const ids = new Set((m.rotlog || []).map(x => x.id)); m.rotlog = [...(m.rotlog || []), ...(rm.rotlog || []).filter(x => !ids.has(x.id))]; }
   m.gameOverride = Object.assign({}, rm.gameOverride || {}, m.gameOverride || {});
+  m.daily = m.daily || {}; for (const [d, v] of Object.entries(rm.daily || {})) { const c = m.daily[d] = m.daily[d] || {}; for (const [k, n] of Object.entries(v)) if ((c[k] || 0) < n) c[k] = n; }
   m.badges = m.badges || {}; for (const [k, v] of Object.entries(rm.badges || {})) if (!m.badges[k]) m.badges[k] = v;
   m.focus = m.focus || {}; for (const [k, v] of Object.entries(rm.focus || {})) if ((m.focus[k] || 0) < v) m.focus[k] = v;
   { const ids = new Set((m.journal || []).map(x => x.id)); m.journal = [...(m.journal || []), ...(rm.journal || []).filter(x => !ids.has(x.id))].sort((a, b) => b.t - a.t).slice(0, 300); }
@@ -1140,6 +1238,7 @@ function previewIv(st, g) {
 function recordReview(deckId, key, g, isNew) {
   S.srs[deckId] = S.srs[deckId] || {};
   const { s, requeue } = nextState(S.srs[deckId][key], g);
+  { const d = dayKey(); const D = S.meta.daily = S.meta.daily || {}; D[d] = D[d] || {}; D[d][g > 1 ? "right" : "wrong"] = (D[d][g > 1 ? "right" : "wrong"] || 0) + 1; }
   const ex = nextExamFor(deckId);
   if (!requeue && ex) { const left = (examTime(ex) - Date.now()) / DAY; if (left >= 1 && s.i > left / 2) { s.i = Math.max(1, Math.floor(left / 2)); const due = new Date(Date.now() + s.i * DAY); due.setHours(4, 0, 0, 0); s.d = due.getTime(); } }
   S.srs[deckId][key] = s;
@@ -1149,6 +1248,7 @@ function recordReview(deckId, key, g, isNew) {
 }
 /* quiz-style modes nudge the schedule: misses come back today, hits count toward accuracy */
 function recordQuiz(f, correct) {
+  { const d = dayKey(); const D = S.meta.daily = S.meta.daily || {}; D[d] = D[d] || {}; D[d][correct ? "right" : "wrong"] = (D[d][correct ? "right" : "wrong"] || 0) + 1; }
   const id = f.deck.id; S.srs[id] = S.srs[id] || {};
   const st = S.srs[id][f.key];
   if (correct) { if (st) { st.c = (st.c || 0) + 1; st.s = Date.now(); } }
@@ -2249,7 +2349,7 @@ function runMC(d, qs) {
   function answer(k) {
     if (answered) return; answered = true;
     const q = qs[i]; const ok = q.options[k] === q.answer;
-    if (ok) score++; else { missed.push(q); logMistake({ src: "Quiz", q: qLabel(q), yours: q.options[k], right: q.answer, opts: q.options, why: q.f && q.f.card && q.f.card.note || "" }); }
+    if (ok) score++; else { missed.push(q); logMistake({ src: "Quiz", q: (q.kicker && q.f.kind === "field" && !q.identify ? q.kicker + " of " : "") + qLabel(q), yours: q.options[k], right: q.answer, opts: q.options, why: q.f && q.f.card && q.f.card.note || "", pack: q.f && q.f.deck && q.f.deck.pack || "" }); }
     if (!q.identify) recordQuiz(q.f, ok);
     $("#opts").classList.add("locked");
     $$("#opts .opt").forEach((b, j) => { if (q.options[j] === q.answer) b.classList.add("right"); else if (j === k) b.classList.add("wrong"); });
@@ -4061,7 +4161,7 @@ function startLesson(l, jumpToCheck) {
   function finish(score, missed) {
     const r = rec(); const passedNow = score >= 80;
     r.best = Math.max(r.best || 0, score); r.last = Date.now();
-    if (passedNow) prep().lastDay = dayKey();
+    if (passedNow) { prep().lastDay = dayKey(); if (!(r.best >= 80 && r.passedOnce)) { r.passedOnce = 1; dayStat("lessons"); } }
     bumpHistory(false); saveMeta(true); setProg(1);
     const canUnlock = (l.unlock || []).length && !r.unlocked;
     const nCards = (l.unlock || []).reduce((n, u) => n + packCount(u.pack), 0);
@@ -4497,11 +4597,14 @@ function renderCourse(ci) {
   const unitHtml = ({ u, ui }) => {
     const vals = u.obj.map((_, oi) => objVal(objKey(ci, ui, oi)));
     const conf = vals.filter(v => v === 2).length;
-    return `<details class="cunit"><summary><span style="flex:1;min-width:0"><b>${escG(u.name)}</b><br><span class="small muted">${u.ch ? esc(u.ch) + " · " : ""}${u.obj.length ? `${conf} of ${u.obj.length} objectives confident` : "No written objectives"}</span></span><span class="minibar"><i style="width:${u.obj.length ? conf / u.obj.length * 100 : 0}%"></i></span></summary>
-      ${u.lessons.length || u.packs.length ? `<div class="linkrow">${u.lessons.length ? `<span class="small muted">Learn:</span>${[...new Set(u.lessons)].map(lessonBtn).join("")}` : ""}${u.packs.length ? `<span class="small muted">Cards:</span>${[...new Set(u.packs)].map(packBtn).join("")}` : ""}</div>` : ""}
-      <div class="row" style="margin:8px 0"><button class="btn sm ghost" data-ld="${ui}">${icon("calendar")}${lectures()[lectKey(ci, ui)] ? "Lecture " + new Date(lectures()[lectKey(ci, ui)] + "T12:00").toLocaleDateString(undefined, { month: "short", day: "numeric" }) : "Set lecture date"}</button>${lectures()[lectKey(ci, ui)] ? `<button class="btn sm ghost" data-lec="${ui}">Open lecture companion</button>` : ""}</div>
-      ${u.obj.length ? `<div class="row" style="margin:8px 0"><button class="btn sm" data-tri="${ui}">${icon("check")}Rate this unit</button></div>
-      <ol class="objlist">${u.obj.map((o, oi) => { const v = vals[oi]; return `<li><span>${escG(o)}</span><span class="rate3" data-k="${esc(objKey(ci, ui, oi))}">${[["Not yet", 0], ["Shaky", 1], ["Confident", 2]].map(([lab, n]) => `<button class="r${n} ${v === n ? "on" : ""}" data-v="${n}" aria-pressed="${v === n}">${lab}</button>`).join("")}</span></li>`; }).join("")}</ol>` : ""}
+    const L = [...new Set(u.lessons)], P = [...new Set(u.packs)], ld = lectures()[lectKey(ci, ui)];
+    return `<details class="cunit"><summary><span style="flex:1;min-width:0"><b>${esc(u.name)}</b><br><span class="small muted">${u.ch ? esc(u.ch) + " · " : ""}${u.obj.length ? `${conf} of ${u.obj.length} objectives confident` : "No written objectives"}</span></span><span class="minibar"><i style="width:${u.obj.length ? conf / u.obj.length * 100 : 0}%"></i></span></summary>
+      <div class="cu-body">
+        <div class="cu-actions"><button class="btn sm ghost" data-ld="${ui}">${icon("calendar")}${ld ? "Lecture " + new Date(ld + "T12:00").toLocaleDateString(undefined, { month: "short", day: "numeric" }) : "Set lecture date"}</button>${ld ? `<button class="btn sm ghost" data-lec="${ui}">${icon("book")}Lecture page</button>` : ""}${u.obj.length ? `<button class="btn sm ghost" data-tri="${ui}">${icon("check")}Rate this unit</button>` : ""}</div>
+        ${L.length ? `<div class="cu-row"><span class="cu-lab">Lessons</span><div class="cu-chips">${L.slice(0, 4).map(lessonBtn).join("")}${L.length > 4 ? `<span class="cu-more hidden">${L.slice(4).map(lessonBtn).join("")}</span><button class="chipbtn sm ghost" data-more>+${L.length - 4} more</button>` : ""}</div></div>` : ""}
+        ${P.length ? `<div class="cu-row"><span class="cu-lab">Cards</span><div class="cu-chips">${P.map(packBtn).join("")}</div></div>` : ""}
+        ${u.obj.length ? `<ol class="objlist">${u.obj.map((o, oi) => { const v = vals[oi]; return `<li><div class="otext">${escG(o)}</div><div class="rate3" data-k="${esc(objKey(ci, ui, oi))}">${[["Not yet", 0], ["Shaky", 1], ["Confident", 2]].map(([lab, n]) => `<button class="r${n} ${v === n ? "on" : ""}" data-v="${n}" aria-pressed="${v === n}">${lab}</button>`).join("")}</div></li>`; }).join("")}</ol>` : ""}
+      </div>
     </details>`;
   };
   $("#view").innerHTML = `
@@ -4517,6 +4620,7 @@ function renderCourse(ci) {
   $$("[data-pack]").forEach(b => b.onclick = () => { let d = findPackDeck(b.dataset.pack); if (!d) { const p = PACKS.find(x => x.id === b.dataset.pack); d = packToDeck(p); S.decks[d.id] = d; saveDeck(d); toast(`Added “${p.name}”`); } go("d-" + d.id); });
   $$(".rate3").forEach(g => g.onclick = e => { const b = e.target.closest("button"); if (!b) return; const v = +b.dataset.v; setObj(g.dataset.k, v); $$("button", g).forEach(x => { x.classList.toggle("on", +x.dataset.v === v); x.setAttribute("aria-pressed", +x.dataset.v === v); }); });
   $$("[data-tri]").forEach(b => b.onclick = () => startObjTriage(ci, +b.dataset.tri));
+  $$("[data-more]").forEach(b => b.onclick = () => { b.previousElementSibling.classList.remove("hidden"); b.remove(); });
   $$("[data-addex]").forEach(b => b.onclick = () => addProgramExam(ci, b.dataset.addex));
   $("#triC").onclick = () => startObjTriage(ci);
   $("#nextL") && ($("#nextL").onclick = () => { const l = s.lessons.find(x => !lessonState(x).passed) || s.lessons[0]; startLesson(l); });
@@ -5030,7 +5134,7 @@ function startBootcamp(l) {
   openStudy("Bootcamp: " + l.title);
   const beats = l.beats; let i = 0;
   const allBlanks = beats.flatMap(b => bootParts(b[0]).filter(p => p.b).map(p => p.b));
-  const renderText = (text, mode) => bootParts(text).map((p, k) => p.t != null ? escG(p.t) : mode === "read" ? `<mark class="key">${esc(p.b)}</mark>` : `<input class="blankin" data-ans="${esc(p.b)}" style="width:${Math.max(4, p.b.length + 2)}ch" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Missing word">`).join("");
+  const renderText = (text, mode) => bootParts(text).map((p, k) => p.t != null ? escG(p.t) : mode === "read" ? escG(p.b) : `<input class="blankin" data-ans="${esc(p.b)}" style="width:${Math.max(4, p.b.length + 2)}ch" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Missing word">`).join("");
   function head() { setProg(i / beats.length); ST.right.innerHTML = `<span class="small muted">Step ${i + 1} of ${beats.length}</span>`; }
   function read() {
     if (i >= beats.length) return done();
@@ -5096,7 +5200,7 @@ function startBootcamp(l) {
     const r = prep().lessons[l.id] = prep().lessons[l.id] || {}; r.read = r.read || Date.now(); saveMeta(true);
     ST.stage.innerHTML = `<div class="results"><p class="coach good">All ${beats.length} steps complete.</p><h2>Ready for your checkpoint?</h2><p class="muted" style="max-width:42ch">${plural(l.quiz.length, "question")} mixing what you just practiced. Score 80% or better to pass. You can retake it anytime.</p>
       <div class="row" style="justify-content:center"><button class="btn primary" id="go">Start the checkpoint</button><button class="btn" id="again">Run through again</button></div></div>`;
-    $("#go").onclick = () => startLesson(l, true);
+    $("#go").onclick = () => bootChallenge(l, () => startLesson(l, true));
     $("#again").onclick = () => startBootcamp(l);
     ST.onKey = e => { if (e.key === "Enter") $("#go").click(); };
   }
@@ -5321,11 +5425,17 @@ function startRotations() {
 }
 
 /* ===================== Mistake journal ===================== */
+const VISUAL_SRC = { "Smear practice": "smear", "Smear game": "smear", "Westgard judge": "westgard" };
 function logMistake(e) {
   const J = S.meta.journal = S.meta.journal || [];
   if (!e || !e.q || !e.right) return;
-  J.unshift({ ...e, t: Date.now(), id: uid() });
-  if (J.length > 300) J.length = 300;
+  if (!e.game && VISUAL_SRC[e.src]) e.game = VISUAL_SRC[e.src];
+  if (e.opts) e.opts = [...new Set(e.opts.filter(Boolean))];
+  const ex = J.findIndex(x => x.q === e.q && x.right === e.right && x.src === e.src);
+  if (ex >= 0) { const old = J.splice(ex, 1)[0]; J.unshift({ ...old, ...e, id: old.id, count: (old.count || 1) + 1, fixes: 0, note: old.note, t: Date.now(), confident: old.confident || e.confident }); }
+  else J.unshift({ ...e, t: Date.now(), id: uid(), count: 1, fixes: 0 });
+  if (J.length > 400) J.length = 400;
+  const d = dayKey(); const D = S.meta.daily = S.meta.daily || {}; D[d] = D[d] || {}; D[d].misses = (D[d].misses || 0) + 1;
   saveMeta();
 }
 function startJournal() {
@@ -6115,7 +6225,7 @@ function startTubeTrainer() {
         <div class="seq-pool">${pool.map((t, k) => `<button class="seq-item" data-q="${k}"><span class="sw" style="--c:${CAPS[t.cap]}"></span><span>${esc(t.name)}</span></button>`).join("")}</div><div id="fb"></div>`;
       if (!checked) { $$("[data-q]").forEach(b => b.onclick = () => { picked.push(pool.splice(+b.dataset.q, 1)[0]); draw(); }); $$("[data-p]").forEach(b => b.onclick = () => { pool.push(picked.splice(+b.dataset.p, 1)[0]); draw(); }); }
       if (!pool.length && !checked) { $("#fb").innerHTML = `<button class="btn primary" id="chk" style="width:100%">Check order</button>`; $("#chk").onclick = () => draw(true); }
-      if (checked) { const ok = picked.every((t, k) => t.rank === sorted[k].rank); if (!ok) logMistake({ src: "Tube trainer", q: "Order: " + items.map(t => t.name).join(", "), yours: picked.map(t => t.name).join(" → "), right: sorted.map(t => t.name).join(" → ") }); $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? "Correct order" : "Not quite"}<span class="det">${sorted.map(t => esc(t.name)).join(" → ")}</span><span class="det small muted">Same-rank tubes (red/gold, lavender/pink) can go in either order.</span></div></div><div class="row" style="margin-top:10px"><div class="spacer"></div><button class="btn primary" id="nx">Continue</button></div>`; $("#nx").onclick = () => onDone(ok); }
+      if (checked) { const ok = picked.every((t, k) => t.rank === sorted[k].rank); if (!ok) logMistake({ src: "Tube trainer", game: "tubes", q: "Put in order of draw: " + items.map(t => t.name).join(", "), yours: picked.map(t => t.name).join(" → "), right: sorted.map(t => t.name).join(" → ") }); $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? "Correct order" : "Not quite"}<span class="det">${sorted.map(t => esc(t.name)).join(" → ")}</span><span class="det small muted">Same-rank tubes (red/gold, lavender/pink) can go in either order.</span></div></div><div class="row" style="margin-top:10px"><div class="spacer"></div><button class="btn primary" id="nx">Continue</button></div>`; $("#nx").onclick = () => onDone(ok); }
     };
     draw();
   };
@@ -6144,7 +6254,7 @@ function startTubeTrainer() {
             const ok = covered && !useless.length && ordered && !extraSameNeed; if (ok) score++;
             draw(true);
             const ideal = [...new Set(tests.map(t => t[1][0]))].sort((a, b) => T_BY[a].rank - T_BY[b].rank);
-            if (!ok) logMistake({ src: "Tube trainer", q: "Tubes for: " + tests.map(t => t[0]).join(", "), yours: picked.map(id => T_BY[id].name).join(" → ") || "none", right: ideal.map(id => T_BY[id].name).join(" → ") });
+            if (!ok) logMistake({ src: "Tube trainer", game: "tubes", q: "Which tubes, in order, for: " + tests.map(t => t[0]).join(", "), yours: picked.map(id => T_BY[id].name).join(" → ") || "none", right: ideal.map(id => T_BY[id].name).join(" → ") });
             $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? "Correct" : !covered ? "A test isn’t covered by any tube you chose" : useless.length ? "You drew a tube no test needs" : extraSameNeed ? "You drew more tubes than needed" : "Right tubes, wrong order"}
               <span class="det">${tests.map(t => `${esc(t[0])}: ${t[1].map(id => esc(T_BY[id].name)).join(" or ")}`).join("<br>")}</span><span class="det">One good draw: ${ideal.map(id => esc(T_BY[id].name)).join(" → ")}</span></div></div><div class="row" style="margin-top:10px"><div class="spacer"></div><button class="btn primary" id="nx">Next patient</button></div>`;
             $("#nx").onclick = () => { i++; go(); };
@@ -6260,7 +6370,7 @@ function startBench() {
       $$("[data-f]").forEach(b => b.onclick = () => { shown.add(b.dataset.f); pts = Math.max(10, pts - 12); draw(); });
       $$("#opts .opt").forEach(b => b.onclick = () => {
         if (b.dataset.o === name) { solved = true; total += pts; stat("benchSolved"); fields.forEach(f => shown.add(f)); draw(`<div class="feedback ok"><div style="flex:1">Correct: ${escG(name)} (+${pts})</div></div><div class="row" style="margin-top:10px"><div class="spacer"></div><button class="btn primary" id="nx">Next unknown</button></div>`); $("#nx").onclick = () => { round++; next(); }; }
-        else { pts = Math.max(10, pts - 25); logMistake({ src: "Bench unknown", q: "Identify the unknown (" + [...shown].map(f => f + ": " + vals[p.fields.indexOf(f)]).join("; ") + ")", yours: b.dataset.o, right: name }); b.disabled = true; b.classList.add("wrong"); toast("Not that one"); }
+        else { pts = Math.max(10, pts - 25); logMistake({ src: "Bench unknown", q: "Identify the unknown: " + [...shown].map(f => f + " " + (vals[p.fields.indexOf(f)] || "n/a")).join("; "), yours: b.dataset.o, right: name, opts: p.rows.map(r => r[0]) }); b.disabled = true; b.classList.add("wrong"); toast("Not that one"); }
       });
     };
     draw();
@@ -6382,7 +6492,7 @@ function startCritical() {
       ST.stage.innerHTML = `<div class="qcard"><div class="kicker">Result ${i + 1} of ${qs.length}</div><div class="qtext">${escG(q.c.t)}</div><div class="bigval">${fmtN(q.v, q.c.dec)} <span>${esc(q.c.u)}</span></div><p class="small muted">Reference ${q.c.ref.join("–")} ${esc(q.c.u)}</p>${q.issue ? `<div class="callout key" style="margin-top:10px"><b>Specimen note</b><p>${escG(q.issueText)}</p></div>` : `<p class="small muted" style="margin-top:8px">Specimen: acceptable, labeled correctly.</p>`}</div>
         <div class="opts three" id="opts">${["Report", "Call critical", "Recollect"].map(a => `<button class="opt" data-a="${a}"><span>${a}</span></button>`).join("")}</div><div id="fb"></div>`;
       let done = false;
-      $$("#opts .opt").forEach(b => b.onclick = () => { if (done) return; done = true; const ok = b.dataset.a === q.action; if (ok) score++; else logMistake({ src: "Critical call", q: `${q.c.t} ${q.v} ${q.c.u}${q.issue ? " (" + q.issueText + ")" : ""}`, yours: b.dataset.a, right: q.action, why: q.why });
+      $$("#opts .opt").forEach(b => b.onclick = () => { if (done) return; done = true; const ok = b.dataset.a === q.action; if (ok) score++; else logMistake({ src: "Critical call", q: `${q.c.t} ${q.v} ${q.c.u}${q.issue ? ". " + q.issueText : ". Specimen acceptable."} Report, call critical or recollect?`, yours: b.dataset.a, right: q.action, why: q.why, opts: ["Report", "Call critical", "Recollect"] });
         $("#opts").classList.add("locked"); $$("#opts .opt").forEach(x => { if (x.dataset.a === q.action) x.classList.add("right"); else if (x === b) x.classList.add("wrong"); });
         $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? "Correct" : "Answer: " + q.action}<span class="det">${escG(q.why)}</span></div></div><div class="row" style="margin-top:10px"><div class="spacer"></div><button class="btn primary" id="nx">Next result</button></div>`; $("#nx").onclick = () => { i++; next(); }; });
     };
@@ -6444,7 +6554,7 @@ function startLookalike() {
       setProg(i / items.length); const it = items[i];
       ST.stage.innerHTML = `<div class="qcard"><div class="kicker">Which one?</div><div class="qtext" style="font-size:1.2rem">${escG(it.s)}</div></div><div class="opts two" id="opts">${[0, 1].map(k => `<button class="opt" data-k="${k}"><span class="k">${k + 1}</span><span>${escG(it.p[k])}</span></button>`).join("")}</div><div id="fb"></div>`;
       let done = false;
-      $$("#opts .opt").forEach(b => b.onclick = () => { if (done) return; done = true; const ok = +b.dataset.k === it.w; if (ok) score++; else logMistake({ src: "Look-alikes", q: `${it.s} (${it.p[0]} vs ${it.p[1]})`, yours: it.p[+b.dataset.k], right: it.p[it.w] });
+      $$("#opts .opt").forEach(b => b.onclick = () => { if (done) return; done = true; const ok = +b.dataset.k === it.w; if (ok) score++; else logMistake({ src: "Look-alikes", q: `Which one: ${it.s}?`, yours: it.p[+b.dataset.k], right: it.p[it.w], opts: [it.p[0], it.p[1]] });
         $("#opts").classList.add("locked"); $$("#opts .opt").forEach(x => { if (+x.dataset.k === it.w) x.classList.add("right"); else if (x === b) x.classList.add("wrong"); });
         $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? "Correct" : "That’s " + escG(it.p[it.w])}</div></div><div class="row" style="margin-top:10px"><div class="spacer"></div><button class="btn primary" id="nx">Next</button></div>`; $("#nx").onclick = () => { i++; next(); }; });
       ST.onKey = e => { if (/^[12]$/.test(e.key)) $$("#opts .opt")[+e.key - 1]?.click(); else if (e.key === "Enter") $("#nx")?.click(); };
@@ -6640,6 +6750,409 @@ function startBadges() {
   ST.right.innerHTML = `<span class="small muted">${Object.keys(got).length} of ${BADGES2.length}</span>`;
   ST.stage.innerHTML = Object.entries(BCAT).map(([k, name]) => `<div class="panel"><h3 style="margin-bottom:10px">${esc(name)}</h3><div class="badges">${BADGES2.filter(b => b.cat === k).map(b => badgeCard(b, got[b.id])).join("")}</div></div>`).join("");
 }
+/* ===================== Mistake journal, rebuilt ===================== */
+const GAME_OPEN = { smear: ["Smear practice", () => startSmear()], westgard: ["Westgard judge", () => startWestgard()], tubes: ["Tube trainer", () => startTubeTrainer()], sediment: ["Urine sediment", () => startSediment()], panel: ["Antibody panel", () => startPanel()], acidbase: ["Acid-base", () => startAcidBase()] };
+const jAll = () => S.meta.journal || [];
+const jKind = x => x.game && GAME_OPEN[x.game] ? "game" : (x.opts && x.opts.length >= 2 && x.opts.includes(x.right)) ? "choice" : "self";
+function jClear(id, silent) { S.meta.journal = jAll().filter(x => x.id !== id); stat("jcleared"); const d = dayKey(); const D = S.meta.daily = S.meta.daily || {}; D[d] = D[d] || {}; D[d].cleared = (D[d].cleared || 0) + 1; saveMeta(); if (!silent) toast("Cleared from your journal"); }
+startJournal = function () {
+  openStudy("Mistake journal");
+  let filter = "all", src = "All", q = "";
+  const draw = () => {
+    const J = jAll(); const wk = Date.now() - 7 * DAY;
+    const srcs = ["All", ...new Set(J.map(x => x.src))];
+    let list = J.filter(x => (src === "All" || x.src === src) && (filter === "all" || (filter === "conf" && x.confident) || (filter === "rep" && (x.count || 1) > 1) || (filter === "week" && x.t > wk)) && (!q || norm(x.q + " " + x.right).includes(norm(q))));
+    list.sort((a, b) => (b.confident ? 2 : 0) + ((b.count || 1) > 1 ? 1 : 0) - ((a.confident ? 2 : 0) + ((a.count || 1) > 1 ? 1 : 0)) || b.t - a.t);
+    const bySrc = {}; J.forEach(x => bySrc[x.src] = (bySrc[x.src] || 0) + (x.count || 1));
+    const top = Object.entries(bySrc).sort((a, b) => b[1] - a[1]).slice(0, 4);
+    const games = Object.entries(J.reduce((m, x) => (x.game ? (m[x.game] = (m[x.game] || 0) + 1, m) : m), {}));
+    const retryable = list.filter(x => jKind(x) !== "game");
+    setProg(1);
+    ST.stage.innerHTML = `
+      <div class="jstats"><div><b>${J.length}</b><span>open mistakes</span></div><div><b>${J.filter(x => x.confident).length}</b><span>confident misses</span></div><div><b>${J.filter(x => (x.count || 1) > 1).length}</b><span>missed more than once</span></div><div><b>${(S.meta.stats || {}).jcleared || 0}</b><span>cleared all time</span></div></div>
+      ${J.length ? `
+      ${top.length ? `<div class="panel"><p class="lbl" style="margin-bottom:8px">Where your misses come from</p>${top.map(([s, n]) => `<div class="deckbar" style="grid-template-columns:minmax(0,1fr) 2fr auto"><span>${esc(s)}</span><div class="mastery"><i class="m" style="width:${n / top[0][1] * 100}%;background:var(--safranin)"></i></div><span class="small muted">${n}</span></div>`).join("")}</div>` : ""}
+      ${games.length ? `<div class="panel"><p class="lbl" style="margin-bottom:8px">Visual mistakes are practiced in their game</p><div class="row">${games.map(([g, n]) => `<button class="btn sm" data-game="${g}">${esc(GAME_OPEN[g][0])} · ${n}</button>`).join("")}</div></div>` : ""}
+      <div class="jbar"><div class="seg" id="jf">${[["all", "All"], ["conf", "Confident misses"], ["rep", "Repeated"], ["week", "This week"]].map(([k, l]) => `<button data-f="${k}" class="${filter === k ? "on" : ""}">${l}</button>`).join("")}</div>
+        <label class="search" style="flex:1;min-width:180px">${icon("search")}<input id="jq" placeholder="Search mistakes" value="${esc(q)}"></label>
+        <button class="btn primary" id="retry" ${retryable.length ? "" : "disabled"}>${icon("rotate")}Retry ${Math.min(10, retryable.length)}</button></div>
+      <div class="pickchips">${srcs.map(s => `<button class="chipbtn sm ${s === src ? "on" : ""}" data-s="${esc(s)}">${esc(s)}</button>`).join("")}</div>
+      <p class="small muted">Getting a mistake right twice in a retry clears it automatically.</p>
+      <div class="jlist">${list.slice(0, 60).map(x => { const lesson = x.pack ? lessonsForPack(x.pack)[0] : null; return `<div class="jcard ${x.confident ? "conf" : ""}">
+        <div class="jmeta">${x.confident ? `<span class="tag bad">Confident miss</span>` : ""}${(x.count || 1) > 1 ? `<span class="tag">Missed ${x.count}×</span>` : ""}<span>${esc(x.src)}</span><span>· ${new Date(x.t).toLocaleDateString(undefined, { month: "short", day: "numeric" })}</span>${x.fixes ? `<span class="tag good">${x.fixes}/2 fixed</span>` : ""}</div>
+        <div class="jq">${escG(x.q)}</div>
+        <div class="jans"><div><span class="small muted">You answered</span><div class="bad-t">${escG(x.yours || "—")}</div></div><div><span class="small muted">Correct</span><div class="good-t">${escG(x.right)}</div></div></div>
+        ${x.why ? `<p class="small" style="color:var(--ink-2)">${escG(x.why)}</p>` : ""}
+        ${x.note ? `<p class="small jnote"><b>Your note:</b> ${esc(x.note)}</p>` : ""}
+        <div class="row" style="gap:6px">${x.game ? `<button class="btn sm" data-game="${x.game}">Practice in ${esc(GAME_OPEN[x.game][0])}</button>` : ""}${lesson ? `<button class="btn sm ghost" data-les="${lesson.id}">${icon("book")}Lesson</button>` : ""}<button class="btn sm ghost" data-note="${x.id}">${icon("edit")}${x.note ? "Edit note" : "Add note"}</button><div class="spacer"></div><button class="btn sm ghost" data-del="${x.id}">Got it, clear</button></div>
+      </div>`; }).join("") || `<p class="muted">Nothing matches these filters.</p>`}</div>` : `<div class="empty"><p>No mistakes logged. Missed questions from quizzes, lessons, cases, exams and games will show up here.</p></div>`}`;
+    $$("#jf button").forEach(b => b.onclick = () => { filter = b.dataset.f; draw(); });
+    $$("[data-s]").forEach(b => b.onclick = () => { src = b.dataset.s; draw(); });
+    const jq = $("#jq"); if (jq) jq.oninput = () => { q = jq.value; const pos = jq.selectionStart; draw(); const n = $("#jq"); n.focus(); n.setSelectionRange(pos, pos); };
+    $$("[data-game]").forEach(b => b.onclick = () => GAME_OPEN[b.dataset.game][1]());
+    $$("[data-les]").forEach(b => b.onclick = () => startLesson(LESSONS.find(l => l.id === b.dataset.les)));
+    $$("[data-del]").forEach(b => b.onclick = () => { jClear(b.dataset.del); draw(); });
+    $$("[data-note]").forEach(b => b.onclick = () => { const x = jAll().find(y => y.id === b.dataset.note); modal(`${mhead("Note to self")}<p class="small muted" style="margin-bottom:8px">${escG(x.q)}</p><textarea class="input" id="jn" rows="4" placeholder="Why you missed it, or how to remember it…">${esc(x.note || "")}</textarea><div class="modal-foot"><button class="btn" data-close>Cancel</button><button class="btn primary" id="jns">Save</button></div>`, (s, close) => { $("#jns", s).onclick = () => { x.note = $("#jn", s).value.trim(); saveMeta(); close(); draw(); }; }); });
+    $("#retry") && ($("#retry").onclick = () => retry(shuffle(retryable).slice(0, 10)));
+  };
+  const retry = items => {
+    let i = 0, right = 0;
+    const done = () => { setProg(1); ST.right.innerHTML = ""; ST.stage.innerHTML = `<div class="results">${ring(Math.round(right / items.length * 100))}<h2>${right} of ${items.length} right</h2><p class="muted">Mistakes answered correctly twice are cleared.</p><button class="btn primary" id="back">Back to journal</button></div>`; $("#back").onclick = draw; };
+    const mark = (x, ok) => { if (ok) { right++; x.fixes = (x.fixes || 0) + 1; if (x.fixes >= 2) jClear(x.id, true); else saveMeta(); } else { x.fixes = 0; x.count = (x.count || 1) + 1; x.t = Date.now(); saveMeta(); } };
+    const next = () => {
+      if (i >= items.length) return done();
+      const x = items[i]; setProg(i / items.length); ST.right.innerHTML = `<span class="small muted">${i + 1} of ${items.length}</span>`;
+      if (jKind(x) === "choice") {
+        const opts = shuffle(x.opts.slice(0, 6).includes(x.right) ? x.opts.slice(0, 6) : [x.right, ...x.opts.filter(o => o !== x.right).slice(0, 3)]);
+        ST.stage.innerHTML = `<div class="qcard"><div class="kicker">${esc(x.src)}</div><div class="qtext" style="font-size:1.15rem">${escG(x.q)}</div></div><div class="opts" id="opts">${opts.map((o, k) => `<button class="opt" data-k="${k}"><span class="k">${k + 1}</span><span>${escG(o)}</span></button>`).join("")}</div><div id="fb"></div>`;
+        let answered = false;
+        $$("#opts .opt").forEach(b => b.onclick = () => { if (answered) return; answered = true; const ok = opts[+b.dataset.k] === x.right; mark(x, ok);
+          $("#opts").classList.add("locked"); $$("#opts .opt").forEach((y, k) => { if (opts[k] === x.right) y.classList.add("right"); else if (y === b) y.classList.add("wrong"); });
+          $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? (x.fixes >= 2 ? "Correct. Cleared from your journal." : "Correct. One more to clear it.") : "Not yet"}${x.why ? `<span class="det">${escG(x.why)}</span>` : ""}</div></div><div class="row" style="margin-top:10px"><div class="spacer"></div><button class="btn primary" id="nx">Next</button></div>`; $("#nx").onclick = () => { i++; next(); }; });
+      } else {
+        ST.stage.innerHTML = `<div class="qcard"><div class="kicker">${esc(x.src)} · recall it, then check</div><div class="qtext" style="font-size:1.15rem">${escG(x.q)}</div></div><div id="rv"><button class="btn primary" id="show" style="width:100%">Show the answer</button></div>`;
+        $("#show").onclick = () => { $("#rv").innerHTML = `<div class="panel"><b class="good-t">${escG(x.right)}</b>${x.why ? `<p class="small" style="margin-top:6px">${escG(x.why)}</p>` : ""}</div><div class="row"><button class="btn" id="miss">I missed it</button><div class="spacer"></div><button class="btn primary" id="got">I got it</button></div>`; $("#got").onclick = () => { mark(x, true); i++; next(); }; $("#miss").onclick = () => { mark(x, false); i++; next(); }; };
+      }
+    };
+    next();
+  };
+  draw();
+};
+/* ===================== daily stats for the dashboard ===================== */
+function dayStat(k, n = 1) { const d = dayKey(); const D = S.meta.daily = S.meta.daily || {}; D[d] = D[d] || {}; D[d][k] = (D[d][k] || 0) + n; saveMeta(); }
+Object.assign(GAME_REQ, { sediment: ["b-ua", "l-ua2"], panel: ["b-bbid", "l-bbid"], acidbase: ["b-lytes", "l-lytes"] });
+const unlockMsg = (gs, lvl, total) => { if (gs.level < lvl && lvl <= total) { gs.level = lvl; toast(`Level ${lvl} unlocked`); } };
+function leveledGame(id, title, LV, intros, runners) {
+  const gs = gstate(id); let lv = Math.min(gs.level, LV.length);
+  openStudy(title); dayStat("games");
+  const menu = () => {
+    ST.right.innerHTML = ""; setProg(0); lv = Math.min(lv, gs.level);
+    ST.stage.innerHTML = `${levelTabs(LV, lv, gs.level)}<div class="qcard"><p>${intros[lv - 1]}</p></div><button class="btn primary" id="go">Start level ${lv}</button>`;
+    $$(".lvl").forEach(b => b.onclick = () => { lv = +b.dataset.lv; menu(); });
+    $("#go").onclick = () => runners[lv - 1](result);
+  };
+  const result = (score, total, need) => {
+    gs.plays++; const pass = score >= need; if (pass) { unlockMsg(gs, lv + 1, LV.length); if (lv === LV.length) statMax(id + "Master", 1); } saveMeta(); stat(id + "Rounds");
+    setProg(1); ST.right.innerHTML = "";
+    ST.stage.innerHTML = `<div class="results">${ring(Math.round(score / total * 100))}<h2>${score} of ${total}</h2><p class="muted">${pass ? (lv < LV.length ? "Next level unlocked." : "Top level cleared.") : `Score ${need} of ${total} to move on.`}</p><div class="row" style="justify-content:center"><button class="btn primary" id="again">Play again</button><button class="btn" id="lvls">Levels</button><button class="btn" id="dn">Done</button></div></div>`;
+    lv = pass ? Math.min(lv + 1, gs.level) : lv;
+    $("#again").onclick = () => runners[lv - 1](result); $("#lvls").onclick = menu; $("#dn").onclick = () => closeStudy();
+  };
+  menu();
+}
+function mcRounds(items, label, onEnd, need) {
+  let i = 0, score = 0;
+  const next = () => {
+    if (i >= items.length) return onEnd(score, items.length, need);
+    const it = items[i]; setProg(i / items.length); ST.right.innerHTML = `<span class="small muted">${i + 1} of ${items.length} · ${score} right</span>`;
+    const opts = it.keep ? it.opts : shuffle(it.opts);
+    ST.stage.innerHTML = `<div class="qcard">${it.kicker ? `<div class="kicker">${esc(it.kicker)}</div>` : ""}${it.html || ""}${it.q ? `<div class="qtext" style="font-size:1.15rem;margin-top:8px">${escG(it.q)}</div>` : ""}</div><div class="opts ${opts.length <= 4 && opts.every(o => o.length < 34) ? "two" : ""}" id="opts">${opts.map((o, k) => `<button class="opt" data-k="${k}"><span class="k">${k + 1}</span><span>${escG(o)}</span></button>`).join("")}</div><div id="fb"></div>`;
+    let done = false;
+    $$("#opts .opt").forEach(b => b.onclick = () => { if (done) return; done = true; const pickd = opts[+b.dataset.k]; const ok = pickd === it.a; if (ok) score++; else logMistake({ src: label, game: it.game, q: it.mq || it.q, yours: pickd, right: it.a, opts: it.game ? undefined : opts, why: it.why });
+      $("#opts").classList.add("locked"); $$("#opts .opt").forEach((x, k) => { if (opts[k] === it.a) x.classList.add("right"); else if (x === b) x.classList.add("wrong"); });
+      $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? "Correct" : "Answer: " + escG(it.a)}${it.why ? `<span class="det">${escG(it.why)}</span>` : ""}</div></div><div class="row" style="margin-top:10px"><div class="spacer"></div><button class="btn primary" id="nx">Next</button></div>`; $("#nx").onclick = () => { i++; next(); }; $("#nx").focus(); });
+    ST.onKey = e => { if (!done && /^[1-9]$/.test(e.key)) $$("#opts .opt")[+e.key - 1]?.click(); else if (done && e.key === "Enter") $("#nx")?.click(); };
+  };
+  next();
+}
+
+/* ===================== Urine sediment ===================== */
+const cyl = (inner, fill = "#EEEAF3", stroke = "#B4ACC5", extra = "") => `<rect x="20" y="52" width="160" height="46" rx="23" fill="${fill}" stroke="${stroke}" stroke-width="2" ${extra}/>${inner}`;
+const dots = (n, r, col, x0 = 34, x1 = 166, y0 = 60, y1 = 90) => Array.from({ length: n }, () => `<circle cx="${(x0 + Math.random() * (x1 - x0)).toFixed(1)}" cy="${(y0 + Math.random() * (y1 - y0)).toFixed(1)}" r="${r}" fill="${col}"/>`).join("");
+const SED = [
+  { id: "hyaline", name: "Hyaline cast", type: "Cast", ab: false, sig: "Normal in small numbers; seen after exercise or dehydration", pH: "", draw: () => cyl("", "#F1EEF6", "#C9C2D6", 'opacity=".9"') },
+  { id: "granular", name: "Granular cast", type: "Cast", ab: true, sig: "Urinary stasis or renal disease (can follow strenuous exercise)", pH: "", draw: () => cyl(dots(40, 1.6, "#8E86A0")) },
+  { id: "waxy", name: "Waxy cast", type: "Cast", ab: true, sig: "Chronic renal failure (extreme stasis)", pH: "", draw: () => `<path d="M30 54 H170 l8 10 -6 6 6 6 -6 6 6 6 -8 10 H30 l-8 -10 6 -6 -6 -6 6 -6 -6 -6z" fill="#E2DCC8" stroke="#A39977" stroke-width="2.2"/>` },
+  { id: "rbccast", name: "RBC cast", type: "Cast", ab: true, sig: "Glomerulonephritis", pH: "", draw: () => cyl(dots(16, 5, "#E08A7A"), "#F6E3E0", "#C9A39C") },
+  { id: "wbccast", name: "WBC cast", type: "Cast", ab: true, sig: "Pyelonephritis", pH: "", draw: () => cyl(Array.from({ length: 6 }, (_, k) => `<circle cx="${40 + k * 24}" cy="${70 + (k % 2) * 8}" r="9" fill="#E9E3F1" stroke="#9C91B0"/><circle cx="${37 + k * 24}" cy="${68 + (k % 2) * 8}" r="3" fill="#6E5B91"/><circle cx="${43 + k * 24}" cy="${72 + (k % 2) * 8}" r="3" fill="#6E5B91"/>`).join("")) },
+  { id: "fatty", name: "Fatty cast", type: "Cast", ab: true, sig: "Nephrotic syndrome", pH: "", draw: () => cyl(Array.from({ length: 10 }, () => { const x = 36 + Math.random() * 128, y = 62 + Math.random() * 26, r = 3 + Math.random() * 4; return `<circle cx="${x}" cy="${y}" r="${r}" fill="#FFF6D8" stroke="#B9A36A"/><circle cx="${x - r / 3}" cy="${y - r / 3}" r="${r / 3}" fill="#fff"/>`; }).join("")) },
+  { id: "caox", name: "Calcium oxalate crystals", type: "Crystal", ab: false, sig: "Usually normal; many monohydrate forms suggest ethylene glycol poisoning", pH: "Acid or neutral", draw: () => [[60, 60, 22], [130, 85, 16], [150, 40, 12]].map(([x, y, s]) => `<rect x="${x - s}" y="${y - s}" width="${2 * s}" height="${2 * s}" fill="none" stroke="#6F7C8F" stroke-width="2"/><path d="M${x - s} ${y - s}L${x + s} ${y + s}M${x + s} ${y - s}L${x - s} ${y + s}" stroke="#6F7C8F" stroke-width="1.6"/>`).join("") },
+  { id: "uric", name: "Uric acid crystals", type: "Crystal", ab: false, sig: "Usually normal; also gout and chemotherapy", pH: "Acid", draw: () => [[60, 70, 30], [130, 55, 22], [140, 105, 18]].map(([x, y, s]) => `<path d="M${x - s} ${y} Q${x} ${y - s * .7} ${x + s} ${y} Q${x} ${y + s * .7} ${x - s} ${y}z" fill="#E7C46A" stroke="#A8822C" stroke-width="1.5"/>`).join("") },
+  { id: "triple", name: "Triple phosphate crystals", type: "Crystal", ab: false, sig: "Normal; also UTI with urease-producing bacteria", pH: "Alkaline", draw: () => [[70, 70, 1], [140, 60, .7]].map(([x, y, s]) => `<g transform="translate(${x} ${y}) scale(${s})"><path d="M-40 0 L-28 -18 H28 L40 0 L28 18 H-28z" fill="#F4F6F9" stroke="#7D8796" stroke-width="2"/><path d="M-28 -18 L-16 0 L-28 18 M28 -18 L16 0 L28 18 M-16 0 H16" stroke="#7D8796" stroke-width="1.4" fill="none"/></g>`).join("") },
+  { id: "cystine", name: "Cystine crystals", type: "Crystal", ab: true, sig: "Cystinuria (inherited; causes stones)", pH: "Acid", draw: () => [[65, 70, 30], [135, 60, 22], [130, 108, 14]].map(([x, y, r]) => `<polygon points="${Array.from({ length: 6 }, (_, k) => `${(x + r * Math.cos(k * Math.PI / 3)).toFixed(1)},${(y + r * Math.sin(k * Math.PI / 3)).toFixed(1)}`).join(" ")}" fill="#F7F8FA" stroke="#7D8796" stroke-width="2"/>`).join("") },
+  { id: "tyrosine", name: "Tyrosine crystals", type: "Crystal", ab: true, sig: "Severe liver disease", pH: "Acid", draw: () => [[70, 75], [135, 65]].map(([x, y]) => Array.from({ length: 14 }, (_, k) => { const a = (k / 14) * Math.PI * 2; return `<line x1="${x}" y1="${y}" x2="${(x + 30 * Math.cos(a)).toFixed(1)}" y2="${(y + 30 * Math.sin(a)).toFixed(1)}" stroke="#C9A43A" stroke-width="1.4"/>`; }).join("")).join("") },
+  { id: "chol", name: "Cholesterol crystals", type: "Crystal", ab: true, sig: "Nephrotic syndrome", pH: "Acid", draw: () => [[50, 40, 90, 55], [80, 75, 80, 45]].map(([x, y, w, h]) => `<path d="M${x} ${y} h${w} v${h} h-${w - 18} v-18 h-18z" fill="#F7F8FA" stroke="#7D8796" stroke-width="2"/>`).join("") },
+  { id: "squam", name: "Squamous epithelial cells", type: "Cell", ab: false, sig: "Normal; many suggest a contaminated (not clean-catch) specimen", pH: "", draw: () => `<polygon points="30,40 120,25 175,70 150,120 60,125 25,90" fill="#EEF0F6" stroke="#9AA0B4" stroke-width="2"/><circle cx="100" cy="75" r="7" fill="#7C6A9C"/>` },
+  { id: "rtc", name: "Renal tubular epithelial cell", type: "Cell", ab: true, sig: "Tubular damage", pH: "", draw: () => `<rect x="70" y="45" width="60" height="60" rx="14" fill="#ECE6F2" stroke="#9C91B0" stroke-width="2"/><circle cx="112" cy="70" r="11" fill="#6E5B91"/>` }
+];
+const sedSvg = el => `<svg viewBox="0 0 200 150" class="sedsvg" role="img" aria-label="Urine sediment drawing"><rect width="200" height="150" fill="#F5F3EC"/>${el.draw()}</svg>`;
+const SED_CASES = [
+  ["A 9-year-old has cola-colored urine and puffy eyes two weeks after strep throat.", "rbccast", "Glomerulonephritis"],
+  ["A woman has fever, flank pain and a positive leukocyte esterase.", "wbccast", "Pyelonephritis"],
+  ["A patient with heavy proteinuria and swelling of the legs.", "fatty", "Nephrotic syndrome"],
+  ["A dialysis patient with long-standing kidney failure.", "waxy", "Chronic renal failure"],
+  ["A 19-year-old with recurrent kidney stones and a family history of the same.", "cystine", "Cystinuria"],
+  ["A patient with severe liver failure and jaundice.", "tyrosine", "Severe liver disease"],
+  ["A healthy runner’s urine right after a marathon.", "hyaline", "Normal (exercise or dehydration)"],
+  ["A clean-catch specimen was not collected properly.", "squam", "Contaminated specimen"]
+];
+function startSediment() {
+  const pickSet = (el, pool) => [el.name, ...pick(pool.filter(x => x.id !== el.id).map(x => x.name), 3)];
+  leveledGame("sediment", "Urine sediment", ["Identify it", "Interpret it", "Clinical link"], [
+    "Name the cast, crystal or cell shown. Score 8 of 10 to unlock Level 2.",
+    "Now decide what each finding means: the urine pH it forms in, and whether it’s normal or abnormal. Score 8 of 10.",
+    "A patient story and their sediment. Choose what the finding points to. Score 6 of 8 to clear the game."
+  ], [
+    done => mcRounds(shuffle(SED).slice(0, 10).map(el => ({ kicker: "What is this?", html: sedSvg(el), opts: pickSet(el, SED.filter(x => x.type === el.type).length >= 4 ? SED.filter(x => x.type === el.type) : SED), a: el.name, why: `${el.name}: ${el.sig}.`, game: "sediment", mq: "Identify the urine sediment element" })), "Urine sediment", done, 8),
+    done => mcRounds(Array.from({ length: 10 }, () => { const el = rpick(SED); if (el.pH && Math.random() < .55) return { kicker: el.name, mq: el.name + ": which urine pH does it form in?", html: sedSvg(el), q: "This crystal typically forms in urine that is:", opts: ["Acid", "Alkaline", "Acid or neutral"], keep: true, a: el.pH, why: `${el.name}: ${el.pH.toLowerCase()} urine. ${el.sig}.` }; return { kicker: el.name, mq: el.name + ": normal or abnormal?", html: sedSvg(el), q: "Is this finding normal or abnormal?", opts: ["Usually normal", "Abnormal"], keep: true, a: el.ab ? "Abnormal" : "Usually normal", why: `${el.sig}.` }; }), "Urine sediment", done, 8),
+    done => mcRounds(shuffle(SED_CASES).map(([story, id, ans]) => { const el = SED.find(x => x.id === id); return { kicker: "Patient", html: `<p style="margin-bottom:8px">${escG(story)}</p>${sedSvg(el)}`, q: "This finding points to:", opts: [ans, ...pick(SED_CASES.map(c => c[2]).filter(x => x !== ans), 3)], a: ans, why: `${el.name}: ${el.sig}.`, mq: story + " What does the sediment point to?" }; }), "Urine sediment", done, 6)
+  ]);
+}
+
+/* ===================== Antibody panel ===================== */
+const AG = ["D", "C", "E", "c", "e", "K", "k", "Fya", "Fyb", "Jka", "Jkb", "M", "N", "S", "s"];
+const AGF = { D: .85, C: .68, E: .3, c: .8, e: .97, K: .1, k: .99, Fya: .66, Fyb: .83, Jka: .77, Jkb: .72, M: .78, N: .72, S: .55, s: .89 };
+const PAIRS = [["C", "c"], ["E", "e"], ["K", "k"], ["Fya", "Fyb"], ["Jka", "Jkb"], ["M", "N"], ["S", "s"]];
+const AG_LABEL = { Fya: "Fyᵃ", Fyb: "Fyᵇ", Jka: "Jkᵃ", Jkb: "Jkᵇ" };
+const agl = a => AG_LABEL[a] || a;
+function makeCell(force = {}) {
+  const c = {}; AG.forEach(a => c[a] = Math.random() < AGF[a] ? 1 : 0);
+  PAIRS.forEach(([x, y]) => { if (!c[x] && !c[y]) c[Math.random() < .5 ? x : y] = 1; });
+  Object.assign(c, force); PAIRS.forEach(([x, y]) => { if (!c[x] && !c[y]) c[x === Object.keys(force)[0] ? y : x] = 1; });
+  return c;
+}
+function makePanel(targets) {
+  for (let tries = 0; tries < 2000; tries++) {
+    const cells = Array.from({ length: 10 }, () => makeCell());
+    const react = cells.map(c => targets.some(t => c[t]) ? 1 : 0);
+    if (react.filter(Boolean).length < 3 || react.filter(r => !r).length < 3) continue;
+    const ruled = new Set(); cells.forEach((c, i) => { if (!react[i]) AG.forEach(a => { if (c[a]) ruled.add(a); }); });
+    if (targets.some(t => ruled.has(t))) continue;
+    const left = AG.filter(a => !ruled.has(a));
+    if (left.length !== targets.length) continue;
+    if (targets.length === 2 && !targets.every(t => cells.some((c, i) => react[i] && c[t] && !targets.filter(o => o !== t).some(o => c[o])))) continue;
+    return { cells, react };
+  }
+  return null;
+}
+function panelHtml(p, crossed = new Set(), clickable = false) {
+  return `<div class="panelwrap"><table class="agpanel"><thead><tr><th>Cell</th>${AG.map(a => `<th class="${crossed.has(a) ? "x" : ""}">${clickable ? `<button data-ag="${a}">${agl(a)}</button>` : agl(a)}</th>`).join("")}<th>Result</th></tr></thead>
+    <tbody>${p.cells.map((c, i) => `<tr class="${p.react[i] ? "pos" : "neg"}"><td>${i + 1}</td>${AG.map(a => `<td class="${crossed.has(a) ? "x" : ""}">${c[a] ? "+" : "0"}</td>`).join("")}<td class="res">${p.react[i] ? (p.react[i] === 1 ? "2+" : p.react[i]) : "0"}</td></tr>`).join("")}<tr class="neg"><td>AC</td>${AG.map(a => `<td class="${crossed.has(a) ? "x" : ""}"></td>`).join("")}<td class="res">0</td></tr></tbody></table></div>
+    <p class="small muted">“+” means the antigen is on that cell. AC is the autocontrol (patient’s own cells), negative here.</p>`;
+}
+function startPanel() {
+  const singles = ["E", "c", "K", "Fya", "Jka", "S", "Fyb", "Jkb", "C", "M"];
+  const run1 = done => { const items = Array.from({ length: 5 }, () => { let t, p; for (let k = 0; k < 20 && !p; k++) { t = rpick(singles); p = makePanel([t]); } return { t, p }; }).filter(x => x.p);
+    mcRounds(items.map(({ t, p }) => ({ kicker: "Antibody identification", html: panelHtml(p), q: "Which antibody explains this panel?", opts: ["Anti-" + agl(t), ...pick(singles.filter(x => x !== t), 3).map(x => "Anti-" + agl(x))], a: "Anti-" + agl(t), why: `Every reactive cell carries ${agl(t)}, and every other antigen appears on at least one nonreactive cell, so it’s ruled out. Confirm with the rule of three and by showing the patient lacks ${agl(t)}.`, mq: "Identify the antibody on a panel", game: "panel" })), "Antibody panel", done, 4); };
+  const run2 = done => {
+    let i = 0, score = 0; const N = 5;
+    const next = () => {
+      if (i >= N) return done(score, N, 4);
+      let t, p; for (let k = 0; k < 20 && !p; k++) { t = rpick(singles); p = makePanel([t]); }
+      const crossed = new Set(); setProg(i / N); ST.right.innerHTML = `<span class="small muted">${i + 1} of ${N} · ${score} right</span>`;
+      const draw = () => {
+        ST.stage.innerHTML = `<div class="qcard"><div class="kicker">Do the rule-outs</div><p>Tap each antigen you can rule out (it’s on a nonreactive cell). The antigen left standing is your antibody.</p></div>${panelHtml(p, crossed, true)}<div class="row"><span class="small muted">${crossed.size} crossed out</span><div class="spacer"></div><button class="btn primary" id="chk">Done ruling out</button></div><div id="fb"></div>`;
+        $$("[data-ag]").forEach(b => b.onclick = () => { const a = b.dataset.ag; crossed.has(a) ? crossed.delete(a) : crossed.add(a); draw(); });
+        $("#chk").onclick = () => {
+          const shouldX = AG.filter(a => a !== t); const missed = shouldX.filter(a => !crossed.has(a)); const wrongX = crossed.has(t);
+          const ok = !missed.length && !wrongX; if (ok) score++; else logMistake({ src: "Antibody panel", game: "panel", q: "Rule out antigens on a panel (antibody was anti-" + agl(t) + ")", yours: wrongX ? `Crossed out ${agl(t)}` : `Missed ${missed.map(agl).join(", ")}`, right: "Anti-" + agl(t) });
+          $("#chk").remove();
+          $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? "Clean rule-outs" : wrongX ? `${agl(t)} can’t be ruled out: it isn’t on any nonreactive cell.` : `Still standing: ${missed.map(agl).join(", ")}. Each of these is on a nonreactive cell.`}<span class="det">The antibody is anti-${agl(t)}.</span></div></div>
+            <div class="qcard" style="margin-top:12px"><div class="qtext" style="font-size:1.05rem">Which units should this patient receive?</div></div><div class="opts two" id="opts">${shuffle([`${agl(t)}-negative units`, `${agl(t)}-positive units`, "Any group O units", "Only plasma"]).map(o => `<button class="opt" data-o="${esc(o)}"><span>${esc(o)}</span></button>`).join("")}</div><div id="fb2"></div>`;
+          $$("#opts .opt").forEach(b => b.onclick = () => { const good = b.dataset.o === `${agl(t)}-negative units`; $("#opts").classList.add("locked"); $$("#opts .opt").forEach(x => x.classList.add(x.dataset.o === `${agl(t)}-negative units` ? "right" : x === b ? "wrong" : "z")); $("#fb2").innerHTML = `<p class="small" style="margin:8px 0">${good ? "Correct." : "Give antigen-negative units so the antibody has nothing to attack."}</p><div class="row"><div class="spacer"></div><button class="btn primary" id="nx">Next panel</button></div>`; $("#nx").onclick = () => { i++; next(); }; });
+        };
+      };
+      draw();
+    };
+    next();
+  };
+  const run3 = done => {
+    let i = 0, score = 0; const N = 4;
+    const next = () => {
+      if (i >= N) return done(score, N, 3);
+      let ts, p; for (let k = 0; k < 40 && !p; k++) { ts = pick(singles, 2); p = makePanel(ts); }
+      if (!p) { i++; return next(); }
+      const sel = new Set(); setProg(i / N);
+      const draw = () => {
+        ST.stage.innerHTML = `<div class="qcard"><div class="kicker">Two antibodies</div><p>This patient has two antibodies. Rule out what you can, then choose both.</p></div>${panelHtml(p)}<div class="palette">${AG.map(a => `<button class="pal ${sel.has(a) ? "on" : ""}" data-a="${a}">Anti-${agl(a)}</button>`).join("")}</div><div class="row"><div class="spacer"></div><button class="btn primary" id="chk" ${sel.size === 2 ? "" : "disabled"}>Check (${sel.size}/2)</button></div><div id="fb"></div>`;
+        $$("[data-a]").forEach(b => b.onclick = () => { const a = b.dataset.a; if (sel.has(a)) sel.delete(a); else if (sel.size < 2) sel.add(a); draw(); });
+        $("#chk").onclick = () => { const ok = ts.every(t => sel.has(t)); if (ok) score++; else logMistake({ src: "Antibody panel", game: "panel", q: "Identify two antibodies on a panel", yours: [...sel].map(a => "anti-" + agl(a)).join(" + "), right: ts.map(a => "anti-" + agl(a)).join(" + ") });
+          $("#chk").remove(); $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? "Correct" : "Answer: " + ts.map(a => "anti-" + agl(a)).join(" and ")}<span class="det">Cells react if they carry either antigen. Look for reactive cells that carry only one of the two, which proves each antibody separately.</span></div></div><div class="row" style="margin-top:10px"><div class="spacer"></div><button class="btn primary" id="nx">Next</button></div>`; $("#nx").onclick = () => { i++; next(); }; };
+      };
+      draw();
+    };
+    next();
+  };
+  leveledGame("panel", "Antibody panel", ["Identify it", "Do the rule-outs", "Two antibodies"], [
+    "Read the panel and name the antibody. Score 4 of 5 to unlock Level 2.",
+    "Cross out every antigen found on a nonreactive cell, then choose the right units. Score 4 of 5.",
+    "Harder: two antibodies at once. Score 3 of 4 to clear the game."
+  ], [run1, run2, run3]);
+}
+
+/* ===================== Acid-base ===================== */
+const ABR = (a, b, d = 2) => +(a + Math.random() * (b - a)).toFixed(d);
+function abCase(primary, comp) {
+  const R = {
+    "Metabolic acidosis": { unc: [[7.15, 7.32], [36, 44], [12, 20]], par: [[7.25, 7.34], [25, 34], [12, 20]], full: [[7.35, 7.39], [25, 33], [14, 20]] },
+    "Metabolic alkalosis": { unc: [[7.47, 7.55], [36, 44], [30, 38]], par: [[7.46, 7.5], [46, 52], [30, 38]], full: [[7.41, 7.45], [46, 55], [30, 38]] },
+    "Respiratory acidosis": { unc: [[7.2, 7.32], [50, 70], [23, 26]], par: [[7.28, 7.34], [50, 70], [28, 34]], full: [[7.35, 7.39], [50, 65], [30, 38]] },
+    "Respiratory alkalosis": { unc: [[7.47, 7.58], [25, 32], [23, 26]], par: [[7.46, 7.5], [25, 32], [17, 21]], full: [[7.41, 7.45], [25, 32], [16, 21]] }
+  }[primary][comp];
+  return { pH: ABR(...R[0]), pco2: Math.round(ABR(...R[1], 0)), hco3: Math.round(ABR(...R[2], 0)) };
+}
+const abHtml = v => `<div class="abgrid"><div><span>pH</span><b>${v.pH.toFixed(2)}</b><small>7.35–7.45</small></div><div><span>pCO₂</span><b>${v.pco2}</b><small>35–45 mmHg</small></div><div><span>HCO₃⁻</span><b>${v.hco3}</b><small>22–26 mmol/L</small></div></div>`;
+const PRIM = ["Metabolic acidosis", "Metabolic alkalosis", "Respiratory acidosis", "Respiratory alkalosis"];
+const COMP = { unc: "Uncompensated", par: "Partially compensated", full: "Fully compensated" };
+function startAcidBase() {
+  const hint = "ROME: Respiratory Opposite (pH and pCO₂ move opposite ways), Metabolic Equal (pH and HCO₃ move the same way).";
+  leveledGame("acidbase", "Acid-base", ["Acid or base?", "Primary disorder", "Compensation", "Anion gap"], [
+    "Look at the pH: acidosis, alkalosis or normal? Score 8 of 10 to unlock Level 2.",
+    "Which value explains the pH change? Name the primary disorder. Score 8 of 10.",
+    "Name the primary disorder and how well the body has compensated. Score 7 of 10.",
+    "Metabolic acidosis cases with electrolytes: calculate the anion gap and pick the likely cause. Score 6 of 8."
+  ], [
+    done => mcRounds(Array.from({ length: 10 }, () => { if (Math.random() < .2) { const v = { pH: ABR(7.36, 7.44), pco2: Math.round(ABR(37, 43, 0)), hco3: Math.round(ABR(23, 26, 0)) }; return { kicker: "Arterial blood gas", game: "acidbase", html: abHtml(v), q: "The pH shows:", opts: ["Acidosis", "Alkalosis", "Normal"], keep: true, a: "Normal", why: "pH 7.35–7.45 with normal pCO₂ and HCO₃." }; } const p = rpick(PRIM); const v = abCase(p, "unc"); return { kicker: "Arterial blood gas", game: "acidbase", html: abHtml(v), q: "The pH shows:", opts: ["Acidosis", "Alkalosis", "Normal"], keep: true, a: v.pH < 7.35 ? "Acidosis" : "Alkalosis", why: `pH ${v.pH.toFixed(2)} is ${v.pH < 7.35 ? "below 7.35" : "above 7.45"}.` }; }), "Acid-base", done, 8),
+    done => mcRounds(Array.from({ length: 10 }, () => { const p = rpick(PRIM); const v = abCase(p, rpick(["unc", "unc", "par"])); return { kicker: "Arterial blood gas", game: "acidbase", html: abHtml(v), q: "What’s the primary disorder?", opts: PRIM, keep: true, a: p, why: `${p}. ${hint}` }; }), "Acid-base", done, 8),
+    done => mcRounds(Array.from({ length: 10 }, () => { const p = rpick(PRIM), c = rpick(Object.keys(COMP)); const v = abCase(p, c); const a = `${p}, ${COMP[c].toLowerCase()}`; const opts = [a, ...pick(PRIM.flatMap(x => Object.values(COMP).map(y => `${x}, ${y.toLowerCase()}`)).filter(x => x !== a && (x.startsWith(p) || Math.random() < .25)), 3)]; return { kicker: "Arterial blood gas", game: "acidbase", html: abHtml(v), q: "Classify the disorder:", opts, a, why: `${c === "unc" ? "The other value is still normal, so no compensation yet." : c === "par" ? "The other value has moved to compensate, but pH is still abnormal." : "The other value has compensated enough to bring pH back into 7.35–7.45."} ${hint}` }; }), "Acid-base", done, 7),
+    done => mcRounds(Array.from({ length: 8 }, () => { const high = Math.random() < .55; const na = Math.round(ABR(134, 144, 0)); const hco3 = Math.round(ABR(10, 18, 0)); const ag = high ? Math.round(ABR(20, 30, 0)) : Math.round(ABR(8, 12, 0)); const cl = na - hco3 - ag; const v = abCase("Metabolic acidosis", "par"); v.hco3 = hco3;
+      const cause = high ? rpick(["Diabetic ketoacidosis", "Lactic acidosis", "Kidney failure", "Methanol or ethylene glycol"]) : rpick(["Severe diarrhea", "Renal tubular acidosis"]);
+      const opts = [`High (${ag}): ${cause.toLowerCase()} fits`, `Normal (${ag}): ${cause.toLowerCase()} fits`]; const a = high ? opts[0] : opts[1];
+      return { kicker: "Metabolic acidosis", game: "acidbase", html: abHtml(v) + `<div class="abgrid" style="margin-top:8px"><div><span>Na⁺</span><b>${na}</b></div><div><span>Cl⁻</span><b>${cl}</b></div><div><span>HCO₃⁻</span><b>${hco3}</b></div></div>`, q: `Anion gap = Na − (Cl + HCO₃). Is the gap high or normal, and does ${cause.toLowerCase()} fit?`, opts, keep: true, a, why: `${na} − (${cl} + ${hco3}) = ${ag}. ${high ? "A gap above about 16 means unmeasured acids (MUDPILES causes such as DKA, lactic acidosis, uremia, toxic alcohols)." : "A normal gap with low HCO₃ means bicarbonate was lost (diarrhea) or not reclaimed (renal tubular acidosis), and chloride rises to replace it."}` }; }), "Acid-base", done, 6)
+  ]);
+}
+
+/* ===================== Bootcamp challenge step ===================== */
+function bootChallenge(l, then) {
+  const withBlanks = l.beats.filter(b => /\{\{/.test(b[0]));
+  if (withBlanks.length < 3) return then();
+  const a = withBlanks[Math.floor(withBlanks.length * .25)], b = withBlanks[withBlanks.length - 1];
+  const parts = [a[0], b[0]].map(t => bootParts(t));
+  ST.stage.innerHTML = `<p class="coach">Challenge: two ideas from this lesson, every blank, no word bank, no hints.</p>
+    <div class="bootcard">${parts.map(ps => `<p class="boottext" style="margin-bottom:14px">${ps.map(p => p.t != null ? escG(p.t) : `<input class="blankin" data-ans="${esc(p.b)}" style="width:${Math.max(5, p.b.length + 2)}ch" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Missing term">`).join("")}</p>`).join("")}</div>
+    <div id="cfb"></div><div class="row"><button class="btn ghost sm" id="skip">Skip</button><div class="spacer"></div><button class="btn primary" id="cchk">Check</button></div>`;
+  if (matchMedia("(hover:hover)").matches) $(".blankin")?.focus();
+  $("#skip").onclick = then;
+  $("#cchk").onclick = () => {
+    let right = 0; const ins = $$(".blankin");
+    ins.forEach(x => { const ok = norm(x.value) === norm(x.dataset.ans) || (x.dataset.ans.length >= 6 && lev(norm(x.value), norm(x.dataset.ans)) <= 1); x.classList.add(ok ? "ok" : "bad"); if (!ok) x.value = x.value ? `${x.value} → ${x.dataset.ans}` : x.dataset.ans; x.disabled = true; if (ok) right++; });
+    if (right === ins.length) stat("challengesAced");
+    $("#cfb").innerHTML = `<p class="coach ${right === ins.length ? "good" : ""}">${right} of ${ins.length} recalled with no help.</p>`;
+    $("#cchk").outerHTML = `<button class="btn primary" id="cgo">Continue to the checkpoint</button>`; $("#cgo").onclick = then; $("#skip").remove();
+  };
+}
+
+/* ===================== Course map ===================== */
+const GAME_NAMES = { tubes: "Tube trainer", smear: "Smear practice", bench: "Bench unknown", gram: "Gram sorter", westgard: "Westgard judge", critical: "Critical call", flow: "ID flowcharts", sediment: "Urine sediment", panel: "Antibody panel", acidbase: "Acid-base" };
+function startCourseMap() {
+  openStudy("Course map"); setProg(1);
+  ST.stage.innerHTML = `<p class="muted">What each Head start course teaches and unlocks: lessons, games, starter decks and its wrap-up.</p>
+    ${UNITS.map(u => {
+      const ls = LESSONS.filter(l => l.unit === u.id); const passed = ls.filter(l => lessonState(l).passed).length;
+      const gamesHere = Object.entries(GAME_REQ).filter(([g, req]) => req.length && req.some(lid => (LESSONS.find(l => l.id === lid) || {}).unit === u.id));
+      const packs = [...new Set(ls.flatMap(l => (l.unlock || []).map(x => x.pack)))]; const packsOn = packs.filter(pid => { const d = findPackDeck(pid); return d && d.cards.some(c => prep().cards[c.id]); }).length;
+      const wrap = ls.find(l => l.wrap); const next = ls.find(l => !lessonState(l).passed);
+      return `<div class="mapcard" style="--cap:${CAPS[u.color]}"><div class="maphead"><span class="cap sm"></span><div style="flex:1;min-width:0"><b>${esc(u.name)}</b><div class="thinbar" style="margin-top:6px"><i style="width:${ls.length ? passed / ls.length * 100 : 0}%"></i></div></div><span class="small muted">${passed}/${ls.length}</span></div>
+        <div class="mapgrid"><div><span class="lbl">Lessons</span><p class="small">${ls.filter(l => l.boot && !l.wrap).length} Bootcamp, ${ls.filter(l => !l.boot).length} core${wrap ? ", 1 wrap-up" : ""}</p></div>
+          <div><span class="lbl">Unlocks games</span><p class="small">${gamesHere.length ? gamesHere.map(([g]) => `${gameUnlocked(g) ? "✓" : "○"} ${GAME_NAMES[g]}`).join("<br>") : "—"}</p></div>
+          <div><span class="lbl">Starter decks</span><p class="small">${packs.length ? `${packsOn} of ${packs.length} unlocked` : "—"}</p></div>
+          <div><span class="lbl">Wrap-up</span><p class="small">${wrap ? (lessonState(wrap).passed ? "✓ Passed" : "Not yet") : "—"}</p></div></div>
+        ${next ? `<button class="btn sm" data-les="${next.id}">Next: ${esc(next.title)}</button>` : `<span class="small good-t">Course complete</span>`}</div>`;
+    }).join("")}`;
+  $$("[data-les]").forEach(b => b.onclick = () => startLesson(LESSONS.find(l => l.id === b.dataset.les)));
+}
+/* ===================== Home: dashboard + organized tools ===================== */
+["startTubeTrainer", "startBench", "startGram", "startWestgard", "startCritical", "startLookalike", "startMixed"].forEach(n => { const f = window[n] || eval(n); const w = function (...a) { dayStat("games"); return f.apply(this, a); }; eval(n + " = w"); });
+const _sm = startSmear; startSmear = function () { dayStat("games"); return _sm(); };
+const _sf = startFlow; startFlow = function (id) { dayStat("games"); return _sf(id); };
+TOOLS.learn = [["hsBtn", "book", "Head start"], ["gloBtn", "book", "Glossary"], ["formBtn", "quiz", "Formula sheet"], ["teachBtn", "brain", "Explain it"], ["listenBtn", "listen", "Listen"]];
+TOOLS.test = [["mixBtn", "shuffle", "Mixed practice"], ["lookBtn", "columns", "Look-alikes"], ["boardBtn", "exam", "Board practice"], ["compBtn", "exam", "Comprehensive exam"], ["casesBtn", "micro", "Case studies"], ["mathBtn", "type", "Lab math"], ["rangeBtn", "target", "Range drills"], ["mistBtn", "rotate", "Mistake journal"]];
+delete TOOLS.games;
+TOOLS.play = [["tubeBtn", "order", "Tube trainer", "tubes"], ["smearBtn", "target", "Smear practice", "smear"], ["sedBtn", "micro", "Urine sediment", "sediment"], ["benchBtn", "micro", "Bench unknown", "bench"], ["gramBtn", "grid", "Gram sorter", "gram"], ["panelBtn", "grid", "Antibody panel", "panel"], ["abBtn", "chart", "Acid-base", "acidbase"], ["westBtn", "chart", "Westgard judge", "westgard"], ["critBtn", "flag", "Critical call", "critical"], ["flowBtn", "flow", "ID flowcharts", "flow"]];
+TOOLS.plan = [["mapBtn", "layers", "Course map"], ["timerBtn", "timer", "Study timer"], ["planBtn", "calendar", "Study plan"], ["rotBtn", "check", "Rotation prep"], ["packsBtn", "layers", "Starter packs"]];
+const ORDERED_TOOLS = () => ({ learn: TOOLS.learn, test: TOOLS.test, play: TOOLS.play, plan: TOOLS.plan });
+toolsHtml = function () {
+  const names = { learn: "Teach", test: "Test", play: "Play", plan: "Plan" };
+  return `<div class="toolcard">${Object.entries(ORDERED_TOOLS()).map(([k, list]) => `<div class="toolline"><span class="toolcat c-${k}">${names[k]}</span><div class="toolpills">${list.filter(([id]) => !(id === "hsBtn" && prepOn())).map(([id, ic, t, g]) => { const locked = g && !gameUnlocked(g); return `<button class="pill c-${k} ${locked ? "locked" : ""}" id="${id}" ${locked ? `title="Unlocks with your Head start lessons"` : ""}>${icon(locked ? "flag" : ic)}${t}</button>`; }).join("")}</div></div>`).join("")}</div>`;
+};
+function yesterdayHtml() {
+  const y = dayKey(Date.now() - DAY); const D = (S.meta.daily || {})[y] || {};
+  const reviews = (S.meta.history || {})[y] || 0, focus = (S.meta.focus || {})[y] || 0;
+  const acc = (D.right || 0) + (D.wrong || 0) ? Math.round((D.right || 0) / ((D.right || 0) + (D.wrong || 0)) * 100) : null;
+  const badges = BADGES2.filter(b => { const t = (S.meta.badges || {})[b.id]; return t && dayKey(t) === y; });
+  const tiles = [[reviews, "cards reviewed"], [acc == null ? null : acc + "%", "accuracy"], [focus, "focus minutes"], [D.lessons || 0, "lessons passed"], [D.games || 0, "games played"], [D.cleared || 0, "mistakes cleared"]].filter(([v]) => v !== null && v !== 0);
+  if (!tiles.length && !badges.length) return `<div class="ystrip empty"><span>Yesterday</span><p>No study logged. Today’s a clean slate.</p></div>`;
+  return `<div class="ystrip"><span>Yesterday</span><div class="ytiles">${tiles.map(([v, l]) => `<div><b>${v}</b><small>${l}</small></div>`).join("")}${badges.length ? `<div class="ybadges"><b>${badges.map(b => b.e).join(" ")}</b><small>${badges.length === 1 ? esc(badges[0].name) : plural(badges.length, "badge")} earned</small></div>` : ""}</div></div>`;
+}
+function weekBars() {
+  const days = Array.from({ length: 7 }, (_, i) => dayKey(Date.now() - (6 - i) * DAY));
+  const v = days.map(d => (S.meta.history || {})[d] || 0); const mx = Math.max(10, ...v);
+  return `<div class="wbars">${days.map((d, i) => `<div class="wb ${i === 6 ? "today" : ""}" title="${d}: ${v[i]}"><i style="height:${Math.max(4, v[i] / mx * 100)}%"></i><small>${new Date(d + "T12:00").toLocaleDateString(undefined, { weekday: "narrow" })}</small></div>`).join("")}</div>`;
+}
+function goalRing(f) { const r = 30, C = 2 * Math.PI * r; return `<svg viewBox="0 0 76 76" class="gring"><circle cx="38" cy="38" r="${r}" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="7"/><circle cx="38" cy="38" r="${r}" fill="none" stroke="${f >= 1 ? "#3CC79D" : "#A897FF"}" stroke-width="7" stroke-linecap="round" stroke-dasharray="${C * Math.min(1, f)} ${C}" transform="rotate(-90 38 38)"/></svg>`; }
+function dashHtml(decks) {
+  let due = 0, nw = 0; decks.forEach(d => { const c = deckCounts(d); due += c.due; nw += c.nw; });
+  const newToday = Math.min(nw, newLeftToday());
+  const today = S.meta.history[dayKey()] || 0, goal = S.meta.settings.dailyGoal || 50, st = streak();
+  const boost = examBoostInfo(); const week = Object.keys(S.meta.history || {}).filter(k => k >= dayKey(Date.now() - 6 * DAY)).reduce((a, k) => a + S.meta.history[k], 0);
+  const p = prepOn() ? prep() : null; const passed = p ? LESSONS.filter(l => lessonState(l).passed).length : 0; const dleft = p && p.start ? dayDiff(p.start) : null;
+  return `<section class="dash">
+    <div class="dtop">
+      <div class="dmain">
+        <span class="ddate">${new Date().toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" })}</span>
+        <div class="ddue"><b>${due}</b><span>due today${newToday ? ` · ${newToday} new` : ""}</span></div>
+        ${boost ? `<p class="dnote">${esc(boost)}</p>` : p ? `<p class="dnote">Head start: ${passed} of ${LESSONS.length} lessons passed${dleft != null && dleft > 0 ? ` · ${dleft} days to day one` : ""}</p>` : ""}
+        <div class="row" style="margin-top:12px"><button class="btn dbtn" id="startAll" ${due + newToday ? "" : "disabled"}>${icon("brain")}${due + newToday ? "Start review" : "All caught up"}</button>${p && nextLesson() ? `<button class="btn dbtn ghost" id="dashLesson">${icon("book")}Next lesson</button>` : ""}</div>
+      </div>
+      <div class="dside">
+        <div class="dgoal">${goalRing(today / goal)}<div><b>${today}/${goal}</b><small>daily goal</small></div></div>
+        <div class="dstat"><b>${st}</b><small>day streak${st >= 3 ? " 🔥" : ""}</small></div>
+        <div class="dstat"><b>${week}</b><small>reviews this week</small></div>
+      </div>
+    </div>
+    ${weekBars()}
+    ${yesterdayHtml()}
+  </section>`;
+}
+renderHome = function (decks) {
+  const exams = upcomingExams(); const lect = lecturesSoon();
+  const hr = new Date().getHours(); const hello = hr < 12 ? "Good morning" : hr < 18 ? "Good afternoon" : "Good evening";
+  const [prepTop, prepPath] = prepOn() ? prepHomeHtml().split("<!--PATH-->") : ["", ""];
+  const weak = decks.reduce((n, d) => n + factsOf(d).filter(f => isWeak(stOf(f))).length, 0);
+  $("#view").innerHTML = `
+    ${topbar()}
+    <h1 style="margin-bottom:14px">${hello}</h1>
+    ${dashHtml(decks)}
+    ${homeNotice(decks)}
+    ${prepOn() ? `<div class="planonly">${prepTop}</div>` : ""}
+    ${weak ? `<button class="linkbtn" id="weakBtn" style="margin:4px 0 0">${plural(weak, "weak spot")} to drill →</button>` : ""}
+    ${lect.length || exams.length ? `<div class="twocol">
+      ${lect.length ? `<div><div class="section-head"><h2>Lectures</h2></div><div class="list">${lect.map(x => `<button class="listrow" data-lect="${x.ci}|${x.ui}"><span class="when">${x.when}</span><span style="flex:1;min-width:0"><b>${esc(x.u.name)}</b><br><span class="small muted">${esc(x.c.code)}${x.u.ch ? " · " + esc(x.u.ch) : ""}</span></span></button>`).join("")}</div></div>` : ""}
+      ${exams.length ? `<div><div class="section-head"><h2>Exams</h2><button class="btn sm ghost" id="addExam">${icon("plus")}Add</button></div><div class="list">${exams.map(ex => { const d = daysUntil(ex); return `<div class="listrow" data-exam="${ex.id}" role="button" tabindex="0"><span class="when ${d <= 3 ? "soon" : ""}">${d <= 0 ? "Today" : d + "d"}</span><span style="flex:1;min-width:0"><b>${esc(ex.name)}</b><br><span class="small muted">${new Date(ex.date + "T12:00").toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" })}</span></span>${d <= 2 ? `<button class="btn sm" data-cram="${ex.id}">Cram</button>` : ""}<button class="btn ghost icon sm" data-exedit aria-label="Edit">${icon("edit")}</button></div>`; }).join("")}</div></div>` : ""}
+    </div>` : ""}
+    <div class="section-head"><h2>Lab tools</h2>${!exams.length && decks.length ? `<button class="btn sm ghost" id="addExam">${icon("calendar")}Add an exam</button>` : ""}</div>
+    ${toolsHtml()}
+    ${prepPath}
+    <div class="section-head"><h2>Decks</h2>${decks.length ? `<button class="btn sm ghost" id="newDeck2">${icon("plus")}New deck</button>` : ""}</div>
+    ${decks.length ? groupDecksByLabel(decks).map(g => `<section class="lgroup"><div class="lgroup-head">${g.l ? labelChip(g.l) : `<span class="lchip"><i style="background:var(--line-2)"></i><span><b>No label</b><small>Your own decks</small></span></span>`}<span class="small muted">${plural(g.decks.length, "deck")}</span></div><div class="decks">${g.decks.map(deckTile).join("")}</div></section>`).join("") :
+      `<div class="empty"><h3>No decks yet</h3><p>Start with Head start’s lessons, add starter packs, or make your own deck.</p><div class="row" style="justify-content:center"><button class="btn primary" id="addStarters">${icon("layers")}Browse starter packs</button><button class="btn" id="newDeck">${icon("plus")}Create a deck</button></div></div>`}`;
+  $(".planonly .prep-hero")?.remove();
+  const on = (id, fn) => { const el = $("#" + id); if (el) el.onclick = fn; };
+  on("newDeck", () => editDeckModal()); on("newDeck2", () => editDeckModal()); on("startAll", () => startLearn(null)); on("weakBtn", () => startLearn(null, { weak: true }));
+  on("dashLesson", () => { const l = nextLesson(); l && startLesson(l); });
+  on("addStarters", packsModal); on("packsBtn", packsModal); on("addExam", () => examModal());
+  on("boardBtn", () => startBoard()); on("casesBtn", startCases); on("mathBtn", startLabMath); on("rangeBtn", startRanges); on("listenBtn", () => startListen(null));
+  on("formBtn", startFormulas); on("planBtn", startPlan); on("gloBtn", () => startGlossary()); on("hsBtn", () => prepSetupModal()); on("mapBtn", startCourseMap);
+  on("compBtn", startComprehensive); on("teachBtn", () => startTeachFizz()); on("mistBtn", startJournal); on("timerBtn", timerModal); on("rotBtn", startRotations);
+  on("mixBtn", startMixed); on("lookBtn", startLookalike);
+  on("tubeBtn", gated("tubes", "Tube trainer", startTubeTrainer)); on("smearBtn", gated("smear", "Smear practice", () => startSmear())); on("benchBtn", gated("bench", "Bench unknown", startBench)); on("gramBtn", gated("gram", "Gram sorter", startGram)); on("westBtn", gated("westgard", "Westgard judge", startWestgard)); on("critBtn", gated("critical", "Critical call", startCritical)); on("flowBtn", gated("flow", "ID flowcharts", () => startFlow("gpc")));
+  on("sedBtn", gated("sediment", "Urine sediment", () => startSediment())); on("panelBtn", gated("panel", "Antibody panel", () => startPanel())); on("abBtn", gated("acidbase", "Acid-base", () => startAcidBase()));
+  on("hsOn", () => prepSetupModal()); on("fixEarly", removePacksModal); on("addAllP", () => { const n = addAllPacks(); toast(plural(n, "pack") + " added"); render(); });
+  on("pmGo", () => { const e = pastExams().find(e => daysUntil(e) >= -5 && !pms()[e.id]); if (e) postMortemModal(e, render); });
+  $$("[data-nx]").forEach(b => b.onclick = () => { S.meta.noticeSeen = S.meta.noticeSeen || {}; S.meta.noticeSeen[b.dataset.nx + dayKey(weekStart())] = 1; if (b.dataset.nx === "hs") prep().seen = true; if (b.dataset.nx === "packs") S.meta.packsDismissed = missingPacks().map(p => p.id); if (b.dataset.nx === "prog") S.meta.programSeen = 1; if (b.dataset.nx === "week") S.meta.weekSeen = dayKey(weekStart()); saveMeta(); render(); });
+  $$("[data-nseen]").forEach(b => b.addEventListener("click", () => { if (b.dataset.nseen === "prog") { S.meta.programSeen = 1; saveMeta(); } }));
+  $$("[data-exam]").forEach(b => b.onclick = e => { if (e.target.closest("[data-cram]")) return startLearn(null, { exam: b.dataset.exam, cram: true }); if (e.target.closest("[data-exedit]")) return examModal(S.meta.exams.find(x => x.id === b.dataset.exam)); startLearn(null, { exam: b.dataset.exam }); });
+  $$("[data-lect]").forEach(b => b.onclick = () => { const [ci, ui] = b.dataset.lect.split("|").map(Number); startLecture(ci, ui); });
+  if (prepOn()) bindPrepHome();
+  checkBadges();
+};
+BADGES2.push(
+  { id: "sedm", cat: "g", e: "🫙", name: "Sediment savant", desc: "Clear every Urine sediment level", target: 1, cur: () => sv("sedimentMaster") },
+  { id: "panelm", cat: "g", e: "🧷", name: "Panel solver", desc: "Clear every Antibody panel level", target: 1, cur: () => sv("panelMaster") },
+  { id: "abm", cat: "g", e: "⚗️", name: "Acid-base ace", desc: "Clear every Acid-base level", target: 1, cur: () => sv("acidbaseMaster") },
+  { id: "chal5", cat: "b", e: "🎯", name: "No hints needed", desc: "Ace 5 Bootcamp challenges", target: 5, cur: () => sv("challengesAced") },
+  { id: "games10", cat: "g", e: "🎮", name: "Game day", desc: "Play 10 games in one day", target: 10, cur: () => Math.max(0, ...Object.values(S.meta.daily || {}).map(d => d.games || 0)) }
+);
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
