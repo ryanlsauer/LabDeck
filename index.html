@@ -969,6 +969,260 @@ h2{font-size:1.1rem}
 .modes[hidden]{display:none!important}
 .dgoal{grid-column:auto!important}
 @media (max-width:520px){.dtop{grid-template-columns:1fr!important}}
+/* ===== v14 ===== */
+@media (min-width:900px){body{font-size:16.5px}.opt{font-size:1.02rem}.qtext{font-size:1.35rem}.small{font-size:.86rem}}
+h1{font-size:clamp(1.7rem,3.2vw,2.15rem)}
+h2{font-size:1.22rem}
+h3{font-size:1.06rem}
+.section-head h2{font-size:1.2rem}
+/* deck + study headers */
+.deckh1{display:flex;align-items:center;gap:12px;font-size:clamp(1.8rem,3.4vw,2.3rem)}
+.studyhead{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.studyhead small{display:block;font-size:.78rem;font-weight:700;color:var(--ink-3);letter-spacing:.02em;text-transform:uppercase}
+.studyhead b{display:block;font-family:var(--font-display);font-size:1.3rem;line-height:1.2}
+/* checkpoint / review look */
+.qbanner{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 14px;border-radius:6px;font-size:.88rem;flex-wrap:wrap}
+.qbanner b{letter-spacing:.06em;text-transform:uppercase;font-size:.8rem}
+.qb-check{background:#FFF4D6;color:#7A5300;border:1px solid #F0D58A}
+.qb-review{background:#DDF4EE;color:#0F5E50;border:1px solid #9FD9C9}
+.qb-course{background:#E6ECFB;color:#26408B;border:1px solid #B5C6EE}
+.qb-retry{background:var(--bad-soft);color:var(--bad);border:1px solid color-mix(in srgb,var(--bad) 35%,transparent)}
+.qc-check{border-top:4px solid #E3B53E!important}
+.qc-review{border-top:4px solid #2FA58A!important}
+.qc-course{border-top:4px solid #4F6FD0!important}
+.study.qm-check{background:linear-gradient(#FFFBF0,var(--bg) 220px)}
+.study.qm-review{background:linear-gradient(#F0FAF7,var(--bg) 220px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .study.qm-check,:root:not([data-theme="light"]) .study.qm-review{background:var(--bg)}:root:not([data-theme="light"]) .qb-check{background:#3A2F10;color:#F2D58A;border-color:#5B4718}:root:not([data-theme="light"]) .qb-review{background:#12342C;color:#8EE0C9;border-color:#1F5446}}
+/* tools: toned section color */
+.toolline.tl-learn .toolcat b{color:var(--violet-deep)} .toolline.tl-learn .pill svg{color:var(--violet)!important}
+.toolline.tl-test .toolcat b{color:#9C2F4A} .toolline.tl-test .pill svg{color:#B8344B!important}
+.toolline.tl-play .toolcat b{color:#1C7A5A} .toolline.tl-play .pill svg{color:#22946C!important}
+.toolline.tl-plan .toolcat b{color:#3A5A8C} .toolline.tl-plan .pill svg{color:#4A6FA8!important}
+.toolline{border-left:3px solid transparent}
+.toolline.tl-learn{border-left-color:color-mix(in srgb,var(--violet) 55%,transparent)}
+.toolline.tl-test{border-left-color:rgba(184,52,75,.5)}
+.toolline.tl-play{border-left-color:rgba(34,148,108,.5)}
+.toolline.tl-plan{border-left-color:rgba(74,111,168,.5)}
+/* today's targets */
+.targets{border:1px solid #C9BEF5;border-radius:8px;background:var(--surface);margin:0 0 16px;overflow:hidden}
+.tg-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 16px;background:linear-gradient(135deg,#EFEAFF,#E6F7F1);border-bottom:1px solid #D9D0FA;flex-wrap:wrap}
+.tg-head h2{margin:0;font-size:1.12rem}
+.tg-head span{font-size:.84rem;color:var(--ink-2)}
+.tg-count{display:flex;align-items:center;gap:10px;min-width:150px}
+.tg-count b{font-family:var(--font-display);font-size:1.25rem}
+.tg-bar{flex:1;height:8px;border-radius:999px;background:rgba(0,0,0,.08);overflow:hidden}
+.tg-bar i{display:block;height:100%;background:linear-gradient(90deg,#2FA58A,#3CC79D);border-radius:999px;transition:width .4s}
+.tg-item{display:flex;align-items:center;gap:12px;padding:11px 16px;border-bottom:1px solid var(--line)}
+.tg-item:last-child{border-bottom:0}
+.tg-ic{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--line-2);display:inline-flex;align-items:center;justify-content:center;color:var(--violet);flex:none;background:var(--surface)}
+.tg-ic svg{width:15px;height:15px}
+.tg-item.done .tg-ic{background:#2FA58A;border-color:#2FA58A;color:#fff}
+.tg-txt{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.3}
+.tg-txt span{font-size:.86rem;color:var(--ink-3)}
+.tg-item.done .tg-txt b{color:var(--ink-2)}
+.tg-ok{font-size:.8rem;font-weight:800;color:#1F8A6E}
+.tg-opt{font-size:.68rem;font-weight:800;color:var(--ink-3);border:1px solid var(--line-2);border-radius:2em;padding:0 6px;vertical-align:2px}
+.tg-mini{height:4px;border-radius:999px;background:var(--line);overflow:hidden;margin-top:5px;max-width:240px}
+.tg-mini i{display:block;height:100%;background:var(--violet)}
+.targets.complete{border-color:#8FD3BE}
+.targets.complete .tg-head{background:linear-gradient(135deg,#DDF6EC,#E9FAF3)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tg-head{background:linear-gradient(135deg,#2A2442,#173229)}:root:not([data-theme="light"]) .targets{border-color:#3A3460}}
+:root[data-theme="dark"] .tg-head{background:linear-gradient(135deg,#2A2442,#173229)}
+/* dashboard week tiles */
+.wtiles{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.wt{background:rgba(168,151,255,var(--lvl));border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:7px 4px;text-align:center;display:flex;flex-direction:column;gap:1px;min-width:0}
+.wt .wd{font-size:.7rem;color:#C9C6DC;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.wt b{font-family:var(--font-display);font-size:1.15rem;color:#fff}
+.wt .wm{font-size:.68rem;color:#C9C6DC;min-height:1em}
+.wt.met{background:rgba(60,199,157,calc(.25 + var(--lvl) * .5));border-color:rgba(60,199,157,.5)}
+.wt.met .wm{color:#C8F5E6;font-weight:700}
+.wt.today{outline:2px solid #fff;outline-offset:-2px}
+/* games: arcade-lite shell */
+.study.gamemode{background:radial-gradient(circle at 20% 0%,#2A2450 0,transparent 55%),radial-gradient(circle at 90% 10%,#173B33 0,transparent 50%),#15132A;color:#ECEAF3}
+.study.gamemode .study-top{background:rgba(20,18,40,.85);border-bottom:1px solid rgba(255,255,255,.08)}
+.study.gamemode .study-top .t{color:#fff}
+.study.gamemode .study-top .btn{color:#fff}
+.study.gamemode .prog{background:rgba(255,255,255,.1)} .study.gamemode .prog i{background:linear-gradient(90deg,#8B74F2,#3CC79D)}
+.study.gamemode .qcard,.study.gamemode .panel,.study.gamemode .results .panel{background:rgba(255,255,255,.06)!important;border-color:rgba(255,255,255,.12)!important;color:#ECEAF3}
+.study.gamemode .qtext,.study.gamemode h2,.study.gamemode b{color:#fff}
+.study.gamemode .muted,.study.gamemode .small.muted,.study.gamemode .kicker{color:#B7B3D3!important}
+.study.gamemode .opt{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);color:#ECEAF3;font-weight:600}
+.study.gamemode .opt:hover:not([disabled]){background:rgba(139,116,242,.25);border-color:#8B74F2}
+.study.gamemode .opt .k{background:rgba(255,255,255,.12);color:#fff}
+.study.gamemode .opt.right{background:rgba(60,199,157,.25);border-color:#3CC79D;animation:pop .35s}
+.study.gamemode .opt.wrong{background:rgba(232,112,127,.22);border-color:#E8707F;animation:shake .3s}
+.study.gamemode .feedback.ok{background:rgba(60,199,157,.15);color:#B9F1DF;border-color:#3CC79D}
+.study.gamemode .feedback.no{background:rgba(232,112,127,.14);color:#FFC9D0;border-color:#E8707F}
+.study.gamemode .btn{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18);color:#fff}
+.study.gamemode .btn.primary{background:linear-gradient(135deg,#8B74F2,#6B4BE0);border-color:transparent}
+.study.gamemode .lvl{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.14);color:#ECEAF3}
+.study.gamemode .lvl.on{background:rgba(139,116,242,.3);border-color:#A897FF}
+.study.gamemode .lvl span{color:#A897FF}
+.study.gamemode .ptschip{background:linear-gradient(135deg,#FFD66B,#F2A93B);color:#2A1E00;border-color:transparent;box-shadow:0 0 12px rgba(255,200,80,.35)}
+.study.gamemode .smearwrap,.study.gamemode .sedsvg,.study.gamemode .panelwrap{border-color:rgba(255,255,255,.18)}
+.study.gamemode .panelwrap{background:#fff;color:#1E1B29}
+.study.gamemode .panelwrap b{color:#1E1B29}
+.study.gamemode .abgrid>div{background:rgba(255,255,255,.08)} .study.gamemode .abgrid span,.study.gamemode .abgrid small{color:#B7B3D3}
+.study.gamemode .thumbitem{border-color:rgba(255,255,255,.12)} .study.gamemode .thumbitem small{color:#D8D5EA}
+.study.gamemode .seq-item,.study.gamemode .pal,.study.gamemode .sercell{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.16);color:#ECEAF3}
+.study.gamemode .serrow{border-color:rgba(255,255,255,.2)} .study.gamemode .serrow.pool{background:rgba(255,255,255,.04)}
+.study.gamemode .ring circle:first-child{stroke:rgba(255,255,255,.12)} .study.gamemode .ring text{fill:#fff}
+@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.03)}100%{transform:scale(1)}}
+.gramsvg{background:#F6EEF2}
+/* day one */
+.d1hero{display:flex;justify-content:space-between;align-items:center;gap:14px;background:#23263A;color:#ECEAF3;border-radius:8px;padding:18px;flex-wrap:wrap}
+.d1hero h2{color:#fff;margin:2px 0 4px}
+.d1hero p{margin:0;color:#C9C6DC}
+.d1courses{display:flex;flex-direction:column;gap:10px}
+.d1c{display:flex;align-items:center;gap:12px}
+.d1ms{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:6px}
+.d1ms>div{display:flex;gap:8px;align-items:center;font-size:.92rem;color:var(--ink-2)}
+.d1ms>div span{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--line-2);display:inline-flex;align-items:center;justify-content:center;font-size:.72rem;flex:none;color:var(--ink-3)}
+.d1ms>div.ok span{background:#2FA58A;border-color:#2FA58A;color:#fff}
+.d1tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px}
+.d1tools .choicebtn b{display:flex;align-items:center;gap:6px}
+.d1tools .choicebtn b svg{width:16px;height:16px}
+.opt.idk{opacity:.8;border-style:dashed}
+/* formula sheet */
+.fsl{display:flex;flex-direction:column;gap:14px}
+.fsec{border:1px solid var(--line-2);border-radius:8px;overflow:hidden;background:var(--surface)}
+.fsec-h{padding:10px 14px;border-bottom:1px solid var(--line-2);background:linear-gradient(90deg,color-mix(in srgb,var(--fc) 22%,var(--surface)),var(--surface));border-left:4px solid var(--fc);display:flex;flex-direction:column}
+.fsec-h b{font-size:1.05rem}
+.fsec-h small{color:var(--ink-3)}
+.fitem{padding:12px 14px;border-bottom:1px solid var(--line)}
+.fitem:last-child{border-bottom:0}
+.fbox{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:1rem;background:var(--btn-bg);border:1px solid var(--line-2);border-radius:6px;padding:10px 12px}
+.flhs{font-weight:800;color:var(--violet-deep)}
+.feq{color:var(--ink-3);font-weight:700}
+.frhs{color:var(--ink)}
+.fnote{margin:6px 0 0;font-size:.9rem;color:var(--ink-2)}
+.fex{margin-top:6px}
+.fex summary{cursor:pointer;font-size:.86rem;font-weight:700;color:var(--violet-deep)}
+.fex p{margin:6px 0}
+/* ===== v15 ===== */
+/* bento dashboard (light, matches the site) */
+.bento{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:16px}
+.bt{background:var(--surface);border:1px solid var(--line-2);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:4px;min-width:0;text-align:left;font:inherit;color:inherit;line-height:1.25}
+.btl{font-size:.72rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3)}
+.bbig{font-family:var(--font-display);font-size:1.7rem;line-height:1.1}
+.bbig small,.bt-goal b small{font-size:.9rem;color:var(--ink-3);font-weight:600}
+.bsub{font-size:.82rem;color:var(--ink-3)}
+.bt-hero{grid-column:span 2;grid-row:span 2;background:linear-gradient(140deg,#4B33C4,#6B4BE0 60%,#7B5CE8);color:#fff;border-color:transparent;padding:16px 18px;gap:8px}
+.bt-hero .btl{color:rgba(255,255,255,.75)}
+.bhero{display:flex;align-items:flex-end;gap:12px}
+.bhero b{font-family:var(--font-display);font-size:4rem;line-height:.9}
+.bhero span{font-weight:600;color:rgba(255,255,255,.85);padding-bottom:6px}
+.btn.bwhite{background:#fff;color:#3B2A9C;border-color:#fff} .btn.bwhite:hover:not([disabled]){background:#F1EDFF}
+.btn.bghost{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.3)} .btn.bghost:hover{background:rgba(255,255,255,.2)}
+.bt-goal{flex-direction:row;align-items:center;gap:12px}
+.bt-goal b{font-family:var(--font-display);font-size:1.5rem;display:block}
+.bring{width:56px;height:56px;flex:none}
+.bt-week,.bt-y{grid-column:span 2}
+.bweek{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-top:4px}
+.bwd{border:1px solid var(--line);border-radius:6px;padding:5px 2px;text-align:center;display:flex;flex-direction:column;gap:1px;position:relative;background:var(--btn-bg)}
+.bwd span{font-size:.68rem;color:var(--ink-3);font-weight:700}
+.bwd b{font-size:.98rem}
+.bwd.some{background:var(--violet-soft);border-color:color-mix(in srgb,var(--violet) 30%,transparent)}
+.bwd.met{background:#DDF4EE;border-color:#9FD9C9}
+.bwd.met b{color:#1F7A62}
+.bwd i{position:absolute;top:2px;right:4px;font-style:normal;font-size:.62rem;color:#1F8A6E;font-weight:800}
+.bwd.today{outline:2px solid var(--violet);outline-offset:-1px}
+.bbar{height:6px;border-radius:999px;background:var(--line);overflow:hidden;margin-top:6px}
+.bbar i{display:block;height:100%;background:var(--violet)}
+.ychips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.ychips span{font-size:.84rem;background:var(--btn-bg);border:1px solid var(--line);border-radius:2em;padding:3px 10px;color:var(--ink-2)}
+.bt-link{cursor:pointer} .bt-link:hover{border-color:var(--ink-3)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .bwd.met{background:#173229;border-color:#24584A}}
+@media (max-width:760px){.bento{grid-template-columns:repeat(2,minmax(0,1fr))}.bt-hero,.bt-week,.bt-y{grid-column:span 2}.bt-hero{grid-row:auto}.bhero b{font-size:3.2rem}}
+/* tube rack */
+.rack2{display:flex;gap:8px;padding:14px 12px 10px;border-radius:8px;background:linear-gradient(#EDE9F6,#E2DCF0);border:1px solid var(--line-2);overflow-x:auto;min-height:130px;align-items:flex-end}
+.slot{position:relative;min-width:76px;height:112px;border:2px dashed #BDB3D9;border-radius:8px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px;background:rgba(255,255,255,.35);flex:1}
+.slot.full{border-style:solid;border-color:transparent;background:rgba(255,255,255,.6)}
+.slot.over{border-color:var(--violet);background:var(--violet-soft)}
+.slot.right{border:2px solid #2FA58A} .slot.wrong{border:2px solid var(--bad)}
+.slotn{font-weight:800;color:#9F95C4;font-size:1.1rem;align-self:center}
+.rankn{position:absolute;top:4px;left:6px;font-size:.78rem;font-weight:900;width:20px;height:20px;border-radius:50%;background:#23263A;color:#fff;display:flex;align-items:center;justify-content:center}
+.slot.wrong .rankn{background:var(--bad)}
+.tray{display:flex;flex-wrap:wrap;gap:10px;padding:12px;border:1px solid var(--line-2);border-radius:8px;background:var(--btn-bg);min-height:120px;align-items:flex-end}
+.tubeitem{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;padding:4px;border-radius:6px;transition:transform .15s}
+.tubeitem:hover{transform:translateY(-3px)}
+.tubeitem small{font-size:.7rem;font-weight:700;max-width:80px;text-align:center;line-height:1.15;color:var(--ink-2)}
+.tubeitem.ghost{position:fixed;z-index:200;pointer-events:none;transform:rotate(-6deg) scale(1.08);filter:drop-shadow(0 8px 12px rgba(0,0,0,.35))}
+.study.gamemode .rack2{background:linear-gradient(#2B2650,#221E40);border-color:rgba(255,255,255,.14)}
+.study.gamemode .slot{border-color:rgba(255,255,255,.25);background:rgba(255,255,255,.04)}
+.study.gamemode .slot.full{background:rgba(255,255,255,.1)}
+.study.gamemode .tray{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.14)}
+.study.gamemode .tubeitem small{color:#E2DFF2}
+.study.gamemode .capico path[fill="var(--surface)"]{fill:#F4F2FA}
+/* sleek inline blanks */
+.blankin{border:0!important;border-bottom:2px solid var(--ink-3)!important;border-radius:0!important;background:transparent!important;padding:0 1px 1px!important;margin:0 1px!important;font:inherit!important;font-weight:700!important;color:var(--violet-deep)!important;text-align:center;min-width:2.5ch;outline:none!important;box-shadow:none!important;transition:border-color .15s,background .15s}
+.blankin:focus{border-bottom-color:var(--violet)!important;background:var(--violet-soft)!important}
+.blankin.ok{border-bottom-color:#2FA58A!important;color:#1F7A62!important}
+.blankin.bad{border-bottom-color:var(--bad)!important;color:var(--bad)!important}
+.blankin::placeholder{color:var(--ink-3);font-weight:600;opacity:.7}
+/* teaching text */
+.bootcard{padding:20px 22px}
+.tlead{font-size:clamp(1.12rem,2.8vw,1.28rem);line-height:1.6;margin:0 0 8px;font-weight:500}
+.tline{margin:8px 0 0;line-height:1.6}
+.tlist{margin:6px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+.tlist li{position:relative;padding:8px 12px 8px 30px;background:var(--btn-bg);border:1px solid var(--line);border-radius:6px;line-height:1.5}
+.tlist li::before{content:"";position:absolute;left:12px;top:15px;width:8px;height:8px;border-radius:2px;background:var(--violet)}
+.tdefs{display:flex;flex-direction:column;gap:8px}
+.tdef{display:grid;grid-template-columns:minmax(110px,30%) 1fr;gap:12px;border:1px solid var(--line-2);border-left:4px solid var(--violet);border-radius:6px;padding:10px 12px;background:var(--surface);line-height:1.5}
+.tdef b{color:var(--violet-deep)}
+@media (max-width:560px){.tdef{grid-template-columns:1fr;gap:2px}}
+.num{font-weight:800;color:var(--ink);background:color-mix(in srgb,#FFD66B 35%,transparent);padding:0 3px;border-radius:3px}
+.tpara{display:flex;flex-direction:column;gap:6px;margin:0 0 10px}
+.tbul{position:relative;padding-left:18px;line-height:1.55}.tbul::before{content:"";position:absolute;left:4px;top:10px;width:6px;height:6px;border-radius:50%;background:var(--violet)}
+.acx{color:var(--ink-2)!important;opacity:1!important;font-size:.92em!important}
+/* glossary popover button */
+.acpop [data-gopen]{background:var(--btn-bg)!important;border:1px solid var(--btn-border)!important;color:var(--ink)!important;margin-top:8px}
+.acpop{padding:12px 14px!important}
+/* path: progress bar on started units */
+.ubar{height:4px;border-radius:999px;background:var(--line);overflow:hidden;margin-top:6px;max-width:260px}
+.ubar i{display:block;height:100%;background:var(--violet)}
+/* lives + pH */
+.lives{color:#FF6B8A;font-size:1rem;letter-spacing:1px;margin-right:8px}.lives i{font-style:normal;opacity:.25}
+.phgauge{margin:4px 0 10px}
+.phtrack{position:relative;height:14px;border-radius:999px;background:linear-gradient(90deg,#E8707F 0%,#F2B26B 35%,#3CC79D 50%,#6FA8F2 65%,#8B74F2 100%)}
+.phnorm{position:absolute;left:50%;width:11.1%;top:-3px;bottom:-3px;border:2px solid rgba(255,255,255,.9);border-radius:4px}
+.phmark{position:absolute;top:-24px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center}
+.phmark b{font-size:.8rem;background:#fff;color:#1E1B29;padding:1px 6px;border-radius:4px}
+.phmark::after{content:"";width:3px;height:30px;background:#fff;border-radius:2px;box-shadow:0 0 0 1px rgba(0,0,0,.3)}
+.phlbl{display:flex;justify-content:space-between;font-size:.72rem;color:var(--ink-3);margin-top:6px}
+.study.gamemode .phlbl{color:#B7B3D3}
+/* microscope vignette on drawn fields */
+.smearwrap,.sedsvg{box-shadow:inset 0 0 40px rgba(0,0,0,.18)}
+.study.gamemode .smearwrap{box-shadow:0 0 0 4px rgba(255,255,255,.06),0 10px 30px rgba(0,0,0,.4)}
+/* ===== mobile pass ===== */
+@media (max-width:640px){
+  .toolline{grid-template-columns:1fr!important;gap:8px;padding:10px 12px}
+  .toolcat{flex-direction:row!important;align-items:baseline;gap:8px}
+  .toolpills{gap:6px}
+  .pill{font-size:.84rem;padding:5px 9px;white-space:nowrap}
+  h1{font-size:1.6rem}
+  .deckh1{font-size:1.6rem}
+  .tg-head{padding:10px 12px}.tg-item{padding:10px 12px;gap:10px}
+  .tg-count{min-width:0;width:100%}
+  .studyhead b{font-size:1.1rem}
+  .bootcard{padding:16px}
+  .opts.two{grid-template-columns:1fr}
+  .jstats{grid-template-columns:repeat(2,1fr)}
+  .jans{grid-template-columns:1fr}
+  .fbox{font-size:.9rem;padding:8px 10px}
+  .d1hero{padding:14px}
+  .slot{min-width:64px;height:100px}
+  .stage{padding-left:12px;padding-right:12px}
+  .qbanner{font-size:.8rem}
+  .lgroup .decks{grid-template-columns:1fr}
+  .cu-row{grid-template-columns:1fr}
+  .section-head{flex-wrap:wrap;gap:6px}
+  .levels{grid-template-columns:repeat(2,1fr)}
+  .thumbs{grid-template-columns:repeat(3,1fr)}
+  .dtop{grid-template-columns:1fr!important}
+}
+@media (max-width:640px){.card-row{grid-template-columns:1fr!important}.card-row .acts{justify-content:flex-start;flex-wrap:wrap}}
+.bento{grid-auto-flow:row dense}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -1055,7 +1309,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "13.0";
+const APP_VERSION = "15.0";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -1622,7 +1876,7 @@ function renderDeck(d) {
     <div class="deck-head" style="--cap:${capOf(d)}">
       <div style="flex:1;min-width:0">
         <div class="row" style="gap:8px;margin-bottom:6px">${labelChip(labelOf(d), true)}${starterBadge(d)}</div>
-        <h1>${esc(d.name)}</h1>
+        <h1 class="deckh1">${(() => { const lb = labelOf(d); return capIcon(lb ? lb.color : d.color, lb && lb.shape, 30); })()}<span>${esc(d.name)}</span></h1>
         <p class="muted" style="margin-top:4px">${plural(d.cards.length, "card")}, ${plural(c.total, "fact")}. ${c.mastered} mastered.${c.locked ? ` ${c.locked} waiting on Head start lessons.` : ""}</p>
       </div>
       ${d.pack && lessonsForPack(d.pack).length ? `<button class="btn sm" id="deckLesson">${icon("book")}Lesson</button>` : ""}
@@ -2299,7 +2553,7 @@ function startLearn(deck, opts = {}) {
   function show() {
     if (i >= queue.length) return finish();
     const f = queue[i]; flipped = false;
-    ST.stage.innerHTML = `${flipCard(f.deck.name, capOf(f.deck), (stOf(f) || f.kind !== "basic" ? "" : `<div class="kicker">New</div>`) + (opts.reverse && f.kind === "basic" && f.a ? revFront(f) : factFront(f)), opts.reverse && f.kind === "basic" && f.a ? revBack(f) : factBack(f))}
+    ST.stage.innerHTML = `${studyHead(f.deck)}${flipCard(f.deck.name, capOf(f.deck), (stOf(f) || f.kind !== "basic" ? "" : `<div class="kicker">New</div>`) + (opts.reverse && f.kind === "basic" && f.a ? revFront(f) : factFront(f)), opts.reverse && f.kind === "basic" && f.a ? revBack(f) : factBack(f))}
       <div id="ctl"><button class="btn primary" id="show" style="width:100%;min-height:54px">Show answer</button><p class="tap-hint kbd-hint" style="margin-top:8px"><kbd>Space</kbd> to flip</p></div>`;
     sizeFlip();
     $("#fc").onclick = flip; $("#show").onclick = flip;
@@ -2309,7 +2563,7 @@ function startLearn(deck, opts = {}) {
     if (flipped) return; flipped = true;
     const f = queue[i], st = stOf(f);
     $("#fc").classList.add("on");
-    $("#ctl").innerHTML = `<div class="grades">${[[1, "Again"], [2, "Hard"], [3, "Good"], [4, "Easy"]].map(([g, l]) => `<button class="g${g}" data-g="${g}">${l}<small>${opts.cram ? (g === 1 ? "repeat" : "") : previewIv(st, g)}</small></button>`).join("")}</div>
+    $("#ctl").innerHTML = `<div class="grades">${[[1, "Again"], [2, "Hard"], [3, "Good"], [4, "Easy"]].map(([g, l]) => `<button class="g${g}" data-g="${g}">${l}</button>`).join("")}</div>
       <div class="row" style="justify-content:center;margin-top:10px"><button class="btn sm ghost" id="whyB">${icon("brain")}Why?</button>${f.deck.pack && lessonsForPack(f.deck.pack).length ? `<button class="btn sm ghost" id="teach">${icon("book")}Teach me this</button>` : ""}</div>
       <p class="tap-hint" style="margin-top:6px">Again = still learning · Good = know it</p><p class="tap-hint kbd-hint" style="margin-top:2px"><kbd>1</kbd>–<kbd>4</kbd> to grade, <kbd>U</kbd> to undo</p>`;
     $("#whyB").onclick = () => whyModal(f);
@@ -2489,7 +2743,7 @@ function runMC(d, qs) {
   function finish() {
     setProg(1); ST.right.innerHTML = "";
     const pct = Math.round(score / qs.length * 100); const cm = (S.meta.journal || []).filter(x => x.t >= t0 && x.confident).length;
-    ST.stage.innerHTML = `<div class="results">${ring(pct)}<h2>${score} of ${qs.length} correct</h2>${cm ? `<p class="muted" style="max-width:46ch">${plural(cm, "confident miss", "confident misses")}: you were sure and wrong. Those are the most dangerous gaps, so they’re pinned to the top of your mistake journal.</p>` : ""}
+    ST.stage.innerHTML = `<div class="results">${ring(pct)}<h2>${score} of ${qs.length} correct</h2>${cm ? `<p class="muted" style="max-width:46ch">${plural(cm, "repeat miss", "repeat misses")}: you were sure and wrong. Those are the most dangerous gaps, so they’re pinned to the top of your mistake journal.</p>` : ""}
       <div class="row" style="justify-content:center">${missed.length ? `<button class="btn primary" id="retry">Retry ${missed.length} missed</button>` : ""}<button class="btn" id="newq">New quiz</button><button class="btn" id="dn">Done</button></div>
       ${missed.length ? `<div class="missed-list"><h3 style="margin-top:12px">Review these</h3>${missed.map(q => `<div class="card-row"><div><b>${escG(qLabel(q))}</b>${q.f.kind === "field" && !q.identify ? ` <span class="chip">${escG(q.kicker)}</span>` : ""}<div class="a" style="margin-top:4px">${escG(q.answer)}</div></div></div>`).join("")}</div>` : ""}</div>`;
     $("#retry") && ($("#retry").onclick = () => runMC(d, shuffle(missed).map(q => ({ ...q, options: shuffle(q.options) }))));
@@ -4194,7 +4448,7 @@ function prepHomeHtml() {
       const ls = states.filter(s => s.l.unit === u.id); const done = ls.filter(s => s.passed).length; const allRead = ls.every(s => s.r.read);
       const ub = p.units[u.id];
       const isCur = nl && ls.some(x => x.l.id === nl.id);
-      return `<details class="unit" style="--cap:${CAPS[u.color]}" ${isCur ? "open" : ""}><summary class="unit-head">${capIcon(u.color, u.shape, 22)}<div style="flex:1;min-width:0"><h3>${esc(u.name)}</h3><p class="small muted">${done} of ${ls.length} passed${ub != null ? ` · unit review best ${ub}%` : ""}${isCur ? " · you are here" : ""}</p></div>${allRead ? `<button class="btn sm" data-unit="${u.id}">Unit review</button>` : ""}</summary>
+      return `<details class="unit" style="--cap:${CAPS[u.color]}" ${isCur ? "open" : ""}><summary class="unit-head">${capIcon(u.color, u.shape, 22)}<div style="flex:1;min-width:0"><h3>${esc(u.name)}</h3><p class="small muted">${done} of ${ls.length} passed${ub != null ? ` · unit review best ${ub}%` : ""}${isCur ? " · you are here" : ""}</p>${done ? `<div class="ubar"><i style="width:${done / ls.length * 100}%"></i></div>` : ""}</div>${allRead ? `<button class="btn sm" data-unit="${u.id}">Unit review</button>` : ""}</summary>
         ${ls.map(s => `<button class="lesson-row ${s.status}" data-lesson="${s.l.id}"><span class="lstat ${s.status}">${s.mastered ? "★" : s.passed ? "✓" : s.r.read ? "·" : ""}</span><span style="flex:1;min-width:0"><b>${escG(s.l.title)}</b>${s.l.boot ? ` <span class="bootchip">Bootcamp</span>` : ""}<span class="small muted"> · ${s.l.mins} min</span></span><span class="lmeta">${{ mastered: "Mastered", practicing: s.facts.length ? `${Math.round(s.solid * 100)}% solid` : "Passed", unlock: "Add cards", read: "Check pending", new: nl && nl.id === s.l.id ? "Next" : "" }[s.status]}</span></button>`).join("")}
       </details>`;
     }).join("")}</div>`;
@@ -4225,22 +4479,30 @@ function prepSetupModal(after) {
 /* ---------- lesson player ---------- */
 function speakText(t) { if (!("speechSynthesis" in window)) { toast("Audio isn’t supported in this browser"); return; } speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(speakable(t)); u.rate = S.meta.settings.rate || 1; speechSynthesis.speak(u); }
 function quizRunner(items, title, onDone) {
-  const qs = shuffle(items).map(([q, opts, a, why], n) => { const order = shuffle(opts.map((_, i) => i)); return { n, q, why, opts: order.map(i => opts[i]), a: order.indexOf(a) }; });
-  const N = qs.length; let i = 0, answered = false; const missed = [], firstWrong = new Set();
+  const mk = (tpl, n) => { const [q, opts, a, why] = varyItem(tpl); const order = shuffle(opts.map((_, i) => i)); return { n, tpl, q, why, opts: order.map(i => opts[i]), a: order.indexOf(a) }; };
+  const qs = shuffle(items).map((it, n) => mk(it, n));
+  const N = qs.length; let i = 0, answered = false; const missed = [], firstWrong = new Set(), misses = {};
   function show() {
     if (i >= qs.length) return onDone(Math.round((N - firstWrong.size) / N * 100), missed);
     const q = qs[i]; answered = false;
-    const left = qs.length - i;
-    ST.stage.innerHTML = `<div class="qcard"><div class="kicker">${esc(title)} · ${Math.min(N, N - left + 1 + (qs.length - N))} of ${N}${firstWrong.has(q.n) ? " · second try" : ""}</div><div class="qtext">${escG(q.q)}</div></div>${confBar()}
+    const qmode = /checkpoint|lesson check/i.test(title) ? "check" : /unit review/i.test(title) ? "review" : /^MT /.test(title) ? "course" : /mistake/i.test(title) ? "retry" : "";
+    if (qmode) ST.el.classList.add("qm-" + qmode);
+    const extra = qs.length - N, doneFirst = Math.min(N, i + 1);
+    ST.stage.innerHTML = `${qmode ? `<div class="qbanner qb-${qmode}"><b>${{ check: "Checkpoint", review: "Unit review", course: "Course quiz", retry: "Mistake retry" }[qmode]}</b><span>Goal: 100% · a miss comes back twice</span></div>` : ""}<div class="qcard qc-${qmode}"><div class="kicker">${esc(title)} · ${i < N ? `${doneFirst} of ${N}` : `review ${i - N + 1} of ${extra}`}${misses[q.n] ? " · try again" : ""}</div><div class="qtext">${escG(q.q)}</div></div>
       <div class="opts" id="opts">${q.opts.map((o, k) => `<button class="opt" data-k="${k}"><span class="k">${k + 1}</span><span>${escG(o)}</span></button>`).join("")}</div><div id="fb"></div>`;
-    $$("#opts .opt").forEach(b => b.onclick = () => answer(+b.dataset.k)); bindConf();
-    setProg(Math.min(.98, (i) / qs.length));
+    $$("#opts .opt").forEach(b => b.onclick = () => answer(+b.dataset.k));
+    setProg(Math.min(.98, i / qs.length));
   }
   function answer(k) {
     if (answered) return; answered = true; const q = qs[i]; const ok = k === q.a;
-    if (!ok) { if (!firstWrong.has(q.n)) { firstWrong.add(q.n); missed.push(q); logMistake({ src: title, q: q.q, yours: q.opts[k], right: q.opts[q.a], opts: q.opts, why: q.why }); } const order = shuffle(q.opts.map((_, x) => x)); qs.push({ ...q, opts: order.map(x => q.opts[x]), a: order.indexOf(q.a) }); }
+    if (!ok) {
+      misses[q.n] = (misses[q.n] || 0) + 1;
+      if (!firstWrong.has(q.n)) { firstWrong.add(q.n); missed.push(q); }
+      logMistake({ src: title, q: isVariant(q.tpl) ? q.tpl[0] : q.q, yours: q.opts[k], right: q.opts[q.a], opts: q.opts, why: q.why });
+      qs.splice(Math.min(qs.length, i + 3), 0, mk(q.tpl, q.n)); qs.push(mk(q.tpl, q.n));
+    }
     $("#opts").classList.add("locked"); $$("#opts .opt").forEach((b, j) => { if (j === q.a) b.classList.add("right"); else if (j === k) b.classList.add("wrong"); });
-    $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? "Correct" : "Not quite. This one comes back until you get it."}<span class="det">${escG(q.why)}</span></div></div><div class="row" style="margin-top:12px"><div class="spacer"></div><button class="btn primary" id="next">${i + 1 < qs.length ? "Next" : "Finish"}</button></div>`;
+    $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? "Correct" : `Not quite. You’ll see this twice more${isVariant(q.tpl) ? " with new numbers" : ""}.${misses[q.n] >= 2 ? " Flagged as a repeat miss." : ""}`}<span class="det">${escG(q.why)}</span></div></div><div class="row" style="margin-top:12px"><div class="spacer"></div><button class="btn primary" id="next">${i + 1 < qs.length ? "Next" : "Finish"}</button></div>`;
     $("#next").onclick = () => { i++; show(); }; $("#next").focus();
   }
   ST.onKey = e => { if (!answered && /^[1-4]$/.test(e.key)) $(`#opts .opt[data-k="${+e.key - 1}"]`)?.click(); else if (answered && e.key === "Enter") $("#next")?.click(); };
@@ -4253,14 +4515,15 @@ function startLesson(l, jumpToCheck) {
   const rec = () => (prep().lessons[l.id] = prep().lessons[l.id] || {});
   const steps = l.steps; let i = 0;
   const totalSteps = steps.length + 1;
-  function guide() { return `<div class="guide small muted">${esc(unit.name)}</div>`; }
+  function guide() { return lessonHead(l); }
   function show() {
     if (i >= steps.length) return toCheck();
-    const s = steps[i];
+    const s0 = steps[i]; const s = s0.t === "check" ? (() => { const v = varyItem([s0.q, s0.opts, s0.a, s0.why]); return { ...s0, q: v[0], opts: v[1], a: v[2], why: v[3] }; })() : s0;
     setProg(i / totalSteps); ST.right.innerHTML = `<span class="small muted">${i + 1} of ${steps.length}</span>`;
     if (s.t === "teach") {
-      ST.stage.innerHTML = `<div class="lesson">${guide()}<h2>${escG(s.h)}</h2>${s.body.split("\n\n").map(p => `<p>${escG(p).replace(/\n/g, "<br>")}</p>`).join("")}
-        ${s.key ? `<div class="callout key"><b>Key point</b><p>${escG(s.key)}</p></div>` : ""}${s.hook ? `<div class="callout hook"><b>Memory hook</b><p>${escG(s.hook)}</p></div>` : ""}</div>
+      const tseen = new Set(); const et = x => gloss(esc(x), tseen, true);
+      ST.stage.innerHTML = `<div class="lesson">${guide()}<h2>${escG(s.h)}</h2>${s.body.split("\n\n").map(p => teachPara(p, tseen)).join("")}
+        ${s.key ? `<div class="callout key"><b>Key point</b><p>${et(s.key)}</p></div>` : ""}${s.hook ? `<div class="callout hook"><b>Memory hook</b><p>${et(s.hook)}</p></div>` : ""}</div>
         <div class="row"><button class="btn icon" id="bk" ${i ? "" : "disabled"} aria-label="Back">${icon("left")}</button><button class="btn sm ghost" id="say">${icon("listen")}Read aloud</button>${i === 0 && rec().read ? `<button class="btn sm ghost" id="skip">Skip to the check</button>` : ""}<div class="spacer"></div><button class="btn primary" id="nx">${i + 1 < steps.length ? "Next" : "Take the check"}</button></div>`;
       $("#say").onclick = () => speakText(s.h + ". " + s.body + (s.key ? ". Key point: " + s.key : "") + (s.hook ? ". Memory hook: " + s.hook : ""));
       $("#skip") && ($("#skip").onclick = toCheck);
@@ -5043,15 +5306,15 @@ const GLOSS = {
 function buildGlossRe() { return new RegExp("(^|[^A-Za-z0-9])(" + Object.keys(GLOSS).sort((a, b) => b.length - a.length).map(k => k.replace(/[.*+?^${}()|[\]\\\/&]/g, "\\$&").replace(/&/g, "&amp;")).join("|") + ")(?![A-Za-z0-9])", "g"); }
 let GLOSS_RE = buildGlossRe();
 /* takes already-escaped HTML text and marks abbreviations */
-function gloss(html, seen) {
+function gloss(html, seen, force) {
   if (!html) return html;
-  const expand = S.meta.settings.beginner === true; seen = seen || new Set();
+  const expand = force || S.meta.settings.beginner === true; seen = seen || new Set();
   return String(html).replace(GLOSS_RE, (whole, pre, k, off, str) => {
     const m = k; const key = k.replace(/&amp;/g, "&"); const g = GLOSS[key]; if (!g) return whole;
     const end = off + whole.length; const after = str.slice(end, end + 3);
     if (/;$/.test(pre) && /&[a-z#0-9]*$/.test(str.slice(Math.max(0, off - 8), off + 1))) return whole;
     let x = "";
-    if (expand && !seen.has(key) && !after.startsWith(" (") && !str.toLowerCase().includes(g[0].split(" (")[0].toLowerCase())) x = `<span class="acx"> (${esc(g[0])})</span>`;
+    if (expand && !seen.has(key) && !after.startsWith(" (") && !str.toLowerCase().includes(g[0].split(" (")[0].toLowerCase())) x = `<span class="acx"> (${esc(g[0].split(" (or")[0])})</span>`;
     seen.add(key);
     return `${pre}<span class="ac" data-ac="${esc(key)}" tabindex="0" role="button" title="${esc(g[0])}">${m}</span>${x}`;
   });
@@ -5265,13 +5528,13 @@ function startBootcamp(l) {
   prepBootLesson(l);
   openStudy("Bootcamp: " + l.title);
   const beats = l.beats; let i = 0;
-  const allBlanks = beats.flatMap(b => bootParts(b[0]).filter(p => p.b).map(p => p.b));
-  const renderText = (text, mode) => bootParts(text).map((p, k) => p.t != null ? escG(p.t) : mode === "read" ? escG(p.b) : `<input class="blankin" data-ans="${esc(p.b)}" style="width:${Math.max(4, p.b.length + 2)}ch" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Missing word">`).join("");
+  const allBlanks = beats.flatMap(b => bootParts(b[0]).filter(p => p.b).flatMap(p => p.b.split(/\s+/)));
+  const renderText = (text, mode) => bootParts(text).map((p, k) => p.t != null ? escG(p.t) : mode === "read" ? escG(p.b) : blankInputs(p.b)).join("");
   function head() { setProg(i / beats.length); ST.right.innerHTML = `<span class="small muted">Step ${i + 1} of ${beats.length}</span>`; }
   function read() {
     if (i >= beats.length) return done();
     head(); const [text] = beats[i];
-    ST.stage.innerHTML = `${fizzSays(pickLine("read"))}<div class="bootcard"><p class="boottext">${renderText(text, "read")}</p></div>
+    ST.stage.innerHTML = `${lessonHead(l)}${fizzSays(pickLine("read"))}<div class="bootcard">${formatTeach(text)}</div>
       <div class="row"><button class="btn icon" id="bk" ${i ? "" : "disabled"} aria-label="Back">${icon("left")}</button><button class="btn sm ghost" id="say">${icon("listen")}Read aloud</button><div class="spacer"></div><button class="btn primary" id="nx">Continue</button></div>`;
     $("#say").onclick = () => speakText(text.replace(/\{\{(.+?)\}\}/g, "$1"));
     $("#bk").onclick = () => { i--; read(); };
@@ -5279,10 +5542,10 @@ function startBootcamp(l) {
     ST.onKey = e => { if (e.key === "Enter" || e.key === "ArrowRight") { e.preventDefault(); $("#nx").click(); } else if (e.key === "ArrowLeft") $("#bk")?.click(); };
   }
   function recall() {
-    const [text] = beats[i]; const ans = bootParts(text).filter(p => p.b).map(p => p.b);
+    const text = moreBlanks(beats[i][0]); const ans = bootParts(text).filter(p => p.b).flatMap(p => p.b.split(/\s+/));
     let tries = 0, copying = false;
     const bank = shuffle([...ans, ...distinctOthers(allBlanks.filter(w => !ans.includes(w)), ans[0], 2)]);
-    ST.stage.innerHTML = `${fizzSays(pickLine("recall"))}<div class="bootcard"><p class="boottext">${renderText(text, "recall")}</p></div>
+    ST.stage.innerHTML = `${lessonHead(l)}${fizzSays(pickLine("recall"))}<div class="bootcard"><p class="boottext">${renderText(text, "recall")}</p></div>
       <div id="bank" class="wordbank hidden">${bank.map(w => `<button class="chipbtn" data-w="${esc(w)}">${esc(w)}</button>`).join("")}</div>
       <div id="rfb"></div>
       <div class="row"><button class="btn sm ghost" id="wb">Show word bank</button><button class="btn sm ghost" id="show">Show me</button><div class="spacer"></div><button class="btn primary" id="chk">Check</button></div>`;
@@ -5314,9 +5577,9 @@ function startBootcamp(l) {
     ST.onKey = e => { if (e.key === "Enter") { e.preventDefault(); $("#chk").click(); } };
   }
   function think() {
-    const [q, opts, a, why] = beats[i][1];
+    const [q, opts, a, why] = varyItem(beats[i][1]);
     const order = shuffle(opts.map((_, k) => k));
-    ST.stage.innerHTML = `${fizzSays(pickLine("think"))}<div class="qcard"><div class="qtext" style="font-size:1.2rem">${escG(q)}</div></div>
+    ST.stage.innerHTML = `${lessonHead(l)}${fizzSays(pickLine("think"))}<div class="qcard"><div class="qtext" style="font-size:1.2rem">${escG(q)}</div></div>
       <div class="opts" id="opts">${order.map((k, j) => `<button class="opt" data-k="${k}"><span class="k">${j + 1}</span><span>${escG(opts[k])}</span></button>`).join("")}</div><div id="fb"></div>`;
     let answered = false;
     $$("#opts .opt").forEach(b => b.onclick = () => {
@@ -5565,7 +5828,7 @@ function logMistake(e) {
   if (!e.game && VISUAL_SRC[e.src]) e.game = VISUAL_SRC[e.src];
   if (e.opts) e.opts = [...new Set(e.opts.filter(Boolean))];
   const ex = J.findIndex(x => x.q === e.q && x.right === e.right && x.src === e.src);
-  if (ex >= 0) { const old = J.splice(ex, 1)[0]; J.unshift({ ...old, ...e, id: old.id, count: (old.count || 1) + 1, fixes: 0, note: old.note, t: Date.now(), confident: old.confident || e.confident }); }
+  if (ex >= 0) { const old = J.splice(ex, 1)[0]; J.unshift({ ...old, ...e, id: old.id, count: (old.count || 1) + 1, fixes: 0, note: old.note, t: Date.now(), confident: true }); }
   else J.unshift({ ...e, t: Date.now(), id: uid(), count: 1, fixes: 0 });
   if (J.length > 400) J.length = 400;
   const d = dayKey(); const D = S.meta.daily = S.meta.daily || {}; D[d] = D[d] || {}; D[d].misses = (D[d].misses || 0) + 1;
@@ -6349,19 +6612,7 @@ function startTubeTrainer() {
   };
   const advance = (ok, toLevel) => { gs.plays++; if (ok && gs.level < toLevel) { gs.level = toLevel; toast(toLevel > 4 ? "Tube trainer mastered" : `Level ${toLevel} unlocked`); } saveMeta(); stat("tubeRounds"); };
   /* ordering widget shared by levels 1 and 2 */
-  const orderRound = (items, onDone) => {
-    let pool = shuffle(items), picked = [];
-    const draw = (checked) => {
-      const sorted = items.slice().sort((a, b) => a.rank - b.rank);
-      ST.stage.innerHTML = `<div class="qcard"><div class="qtext" style="font-size:1.1rem">Tap the tubes in the order you’d draw them</div><p class="small muted">${items.length} tubes. Tap a placed tube to send it back.</p></div>
-        <div class="seq-picked">${picked.map((t, k) => `<button class="seq-item ${checked ? (t.rank === sorted[k].rank ? "right" : "wrong") : ""}" data-p="${k}"><span class="n">${k + 1}</span><span class="sw" style="--c:${CAPS[t.cap]}"></span><span style="flex:1">${esc(t.name)}</span><span class="small muted">${esc(t.add)}</span></button>`).join("")}</div>
-        <div class="seq-pool">${pool.map((t, k) => `<button class="seq-item" data-q="${k}"><span class="sw" style="--c:${CAPS[t.cap]}"></span><span>${esc(t.name)}</span></button>`).join("")}</div><div id="fb"></div>`;
-      if (!checked) { $$("[data-q]").forEach(b => b.onclick = () => { picked.push(pool.splice(+b.dataset.q, 1)[0]); draw(); }); $$("[data-p]").forEach(b => b.onclick = () => { pool.push(picked.splice(+b.dataset.p, 1)[0]); draw(); }); }
-      if (!pool.length && !checked) { $("#fb").innerHTML = `<button class="btn primary" id="chk" style="width:100%">Check order</button>`; $("#chk").onclick = () => draw(true); }
-      if (checked) { const ok = picked.every((t, k) => t.rank === sorted[k].rank); if (!ok) logMistake({ src: "Tube trainer", game: "tubes", q: "Put in order of draw: " + items.map(t => t.name).join(", "), yours: picked.map(t => t.name).join(" → "), right: sorted.map(t => t.name).join(" → ") }); $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? "Correct order" : "Not quite"}<span class="det">${sorted.map(t => esc(t.name)).join(" → ")}</span><span class="det small muted">Same-rank tubes (red/gold, lavender/pink) can go in either order.</span></div></div><div class="row" style="margin-top:10px"><div class="spacer"></div><button class="btn primary" id="nx">Continue</button></div>`; $("#nx").onclick = () => onDone(ok); }
-    };
-    draw();
-  };
+  const orderRound = (items, onDone) => dragOrder(items, onDone);
   const l1 = () => { let wins = 0, tries = 0; const go = () => { setProg(tries / 4); orderRound(TUBES, ok => { tries++; if (ok) wins++; if (wins >= 2 || tries >= 4) { advance(wins >= 2, 2); finish(wins >= 2, `${wins} perfect run${wins === 1 ? "" : "s"}`); } else go(); }); }; go(); };
   const l2 = () => { let i = 0, score = 0; const go = () => { if (i >= 5) { advance(score >= 5, 3); return finish(score >= 5, `${score} of 5 correct`); } setProg(i / 5); const n = rint(3, 5); const set = shuffle(TUBES).slice(0, n); orderRound(set, ok => { if (ok) score++; i++; go(); }); }; go(); };
   const l3 = () => {
@@ -6648,7 +6899,7 @@ function startMixed() {
 
 /* ===================== Confidence on quiz answers ===================== */
 let CONF = 0;
-const confBar = () => `<div class="confbar"><span class="small muted">Before answering:</span><div class="seg" id="conf"><button data-c="1" class="${CONF ? "on" : ""}">I’m sure</button><button data-c="0" class="${CONF ? "" : "on"}">Not sure</button></div></div>`;
+const confBar = () => ""; const _oldConfBar = () => `<div class="confbar"><span class="small muted">Before answering:</span><div class="seg" id="conf"><button data-c="1" class="${CONF ? "on" : ""}">I’m sure</button><button data-c="0" class="${CONF ? "" : "on"}">Not sure</button></div></div>`;
 function bindConf() { $$("#conf button").forEach(b => b.onclick = () => { CONF = +b.dataset.c; $$("#conf button").forEach(x => x.classList.toggle("on", x === b)); }); }
 const _logMistake = logMistake;
 logMistake = function (e) { if (e && CONF && !e.confident) { e.confident = true; stat("confidentMisses"); } _logMistake(e); };
@@ -6846,7 +7097,7 @@ const BADGES2 = [
   B("zero", "b", "🌱", "From zero", "Finish the Start here unit", () => LESSONS.filter(l => l.unit === "zero").length, () => lessonsPassedN(l => l.unit === "zero")),
   B("w1", "b", "🧩", "It connects", "Pass a course wrap-up", 1, unitsWrapped), B("w5", "b", "🔗", "Linked up", "Pass 5 course wrap-ups", 5, unitsWrapped), B("wall", "b", "🌐", "Big picture", "Pass every course wrap-up", () => LESSONS.filter(l => l.wrap).length, unitsWrapped),
   B("m25", "m", "🔒", "Locked in", "Master 25 facts", 25, masteredNow), B("m100", "m", "🧬", "Long-term memory", "Master 100 facts", 100, masteredNow), B("m250", "m", "🗄️", "Filing cabinet", "Master 250 facts", 250, masteredNow), B("m500", "m", "🏰", "Memory palace", "Master 500 facts", 500, masteredNow), B("m1000", "m", "🧠", "Encyclopedic", "Master 1,000 facts", 1000, masteredNow),
-  B("jclear", "m", "🧹", "Clean slate", "Clear 10 mistakes from your journal", 10, () => sv("jcleared")), B("conf", "m", "⚖️", "Honest grader", "Rate your confidence and catch a confident miss", 1, () => sv("confidentMisses")),
+  B("jclear", "m", "🧹", "Clean slate", "Clear 10 mistakes from your journal", 10, () => sv("jcleared")), B("conf", "m", "⚖️", "Second chance", "Clear a repeat miss from your journal", 1, () => sv("jcleared")),
   B("obj50", "p", "🎯", "Self-aware", "Rate 50 course objectives", 50, () => Object.keys(S.meta.objr || {}).length), B("obj250", "p", "📋", "Taking stock", "Rate 250 objectives", 250, () => Object.keys(S.meta.objr || {}).length), B("obj1000", "p", "🗂️", "Every objective", "Rate 1,000 objectives", 1000, () => Object.keys(S.meta.objr || {}).length),
   B("drill10", "p", "✍️", "Own study guide", "Write 10 objective drill answers", 10, () => Object.keys(S.meta.objnotes || {}).length),
   B("ready70", "p", "📶", "Over the line", "Get a course to 70% ready", 1, () => courseReady(70)), B("ready80", "p", "🛡️", "Cushion", "Get a course to 80% ready", 1, () => courseReady(80)), B("readyall", "p", "🎓", "Program ready", "Get every course to 80% ready", () => PROGRAM.courses.length, () => courseReady(80)),
@@ -6903,17 +7154,17 @@ startJournal = function () {
     const retryable = list.filter(x => jKind(x) !== "game");
     setProg(1);
     ST.stage.innerHTML = `
-      <div class="jstats"><div><b>${J.length}</b><span>open mistakes</span></div><div><b>${J.filter(x => x.confident).length}</b><span>confident misses</span></div><div><b>${J.filter(x => (x.count || 1) > 1).length}</b><span>missed more than once</span></div><div><b>${(S.meta.stats || {}).jcleared || 0}</b><span>cleared all time</span></div></div>
+      <div class="jstats"><div><b>${J.length}</b><span>open mistakes</span></div><div><b>${J.filter(x => x.confident).length}</b><span>repeat misses</span></div><div><b>${J.filter(x => (x.count || 1) > 1).length}</b><span>missed more than once</span></div><div><b>${(S.meta.stats || {}).jcleared || 0}</b><span>cleared all time</span></div></div>
       ${J.length ? `
       ${top.length ? `<div class="panel"><p class="lbl" style="margin-bottom:8px">Where your misses come from</p>${top.map(([s, n]) => `<div class="deckbar" style="grid-template-columns:minmax(0,1fr) 2fr auto"><span>${esc(s)}</span><div class="mastery"><i class="m" style="width:${n / top[0][1] * 100}%;background:var(--safranin)"></i></div><span class="small muted">${n}</span></div>`).join("")}</div>` : ""}
       ${games.length ? `<div class="panel"><p class="lbl" style="margin-bottom:8px">Visual mistakes are practiced in their game</p><div class="row">${games.map(([g, n]) => `<button class="btn sm" data-game="${g}">${esc(GAME_OPEN[g][0])} · ${n}</button>`).join("")}</div></div>` : ""}
-      <div class="jbar"><div class="seg" id="jf">${[["all", "All"], ["conf", "Confident misses"], ["rep", "Repeated"], ["week", "This week"]].map(([k, l]) => `<button data-f="${k}" class="${filter === k ? "on" : ""}">${l}</button>`).join("")}</div>
+      <div class="jbar"><div class="seg" id="jf">${[["all", "All"], ["conf", "Repeat misses"], ["rep", "Repeated"], ["week", "This week"]].map(([k, l]) => `<button data-f="${k}" class="${filter === k ? "on" : ""}">${l}</button>`).join("")}</div>
         <label class="search" style="flex:1;min-width:180px">${icon("search")}<input id="jq" placeholder="Search mistakes" value="${esc(q)}"></label>
         <button class="btn primary" id="retry" ${retryable.length ? "" : "disabled"}>${icon("rotate")}Retry ${Math.min(10, retryable.length)}</button></div>
       <div class="pickchips">${srcs.map(s => `<button class="chipbtn sm ${s === src ? "on" : ""}" data-s="${esc(s)}">${esc(s)}</button>`).join("")}</div>
       <p class="small muted">Getting a mistake right twice in a retry clears it automatically.</p>
       <div class="jlist">${list.slice(0, 60).map(x => { const lesson = x.pack ? lessonsForPack(x.pack)[0] : null; return `<div class="jcard ${x.confident ? "conf" : ""}">
-        <div class="jmeta">${x.confident ? `<span class="tag bad">Confident miss</span>` : ""}${(x.count || 1) > 1 ? `<span class="tag">Missed ${x.count}×</span>` : ""}<span>${esc(x.src)}</span><span>· ${new Date(x.t).toLocaleDateString(undefined, { month: "short", day: "numeric" })}</span>${x.fixes ? `<span class="tag good">${x.fixes}/2 fixed</span>` : ""}</div>
+        <div class="jmeta">${x.confident ? `<span class="tag bad">Repeat miss</span>` : ""}${(x.count || 1) > 1 ? `<span class="tag">Missed ${x.count}×</span>` : ""}<span>${esc(x.src)}</span><span>· ${new Date(x.t).toLocaleDateString(undefined, { month: "short", day: "numeric" })}</span>${x.fixes ? `<span class="tag good">${x.fixes}/2 fixed</span>` : ""}</div>
         <div class="jq">${escG(x.q)}</div>
         <div class="jans"><div><span class="small muted">You answered</span><div class="bad-t">${escG(x.yours || "—")}</div></div><div><span class="small muted">Correct</span><div class="good-t">${escG(x.right)}</div></div></div>
         ${x.why ? `<p class="small" style="color:var(--ink-2)">${escG(x.why)}</p>` : ""}
@@ -7126,7 +7377,7 @@ function abCase(primary, comp) {
   }[primary][comp];
   return { pH: ABR(...R[0]), pco2: Math.round(ABR(...R[1], 0)), hco3: Math.round(ABR(...R[2], 0)) };
 }
-const abHtml = v => `<div class="abgrid"><div><span>pH</span><b>${v.pH.toFixed(2)}</b><small>7.35–7.45</small></div><div><span>pCO₂</span><b>${v.pco2}</b><small>35–45 mmHg</small></div><div><span>HCO₃⁻</span><b>${v.hco3}</b><small>22–26 mmol/L</small></div></div>`;
+const abHtml = v => `<div class="phgauge"><div class="phtrack"><span class="phnorm"></span><span class="phmark" style="left:${Math.max(0, Math.min(100, (v.pH - 6.9) / .9 * 100))}%"><b>${v.pH.toFixed(2)}</b></span></div><div class="phlbl"><span>6.90 acid</span><span>7.35–7.45</span><span>base 7.80</span></div></div><div class="abgrid"><div><span>pH</span><b>${v.pH.toFixed(2)}</b><small>7.35–7.45</small></div><div><span>pCO₂</span><b>${v.pco2}</b><small>35–45 mmHg</small></div><div><span>HCO₃⁻</span><b>${v.hco3}</b><small>22–26 mmol/L</small></div></div>`;
 const PRIM = ["Metabolic acidosis", "Metabolic alkalosis", "Respiratory acidosis", "Respiratory alkalosis"];
 const COMP = { unc: "Uncompensated", par: "Partially compensated", full: "Fully compensated" };
 function startAcidBase() {
@@ -7154,10 +7405,11 @@ function bootChallenge(l, then) {
   const a = withBlanks[Math.floor(withBlanks.length * .25)], b = withBlanks[withBlanks.length - 1];
   const parts = [a[0], b[0]].map(t => bootParts(t));
   ST.stage.innerHTML = `<p class="coach">Challenge: two ideas from this lesson, every blank, no word bank, no hints.</p>
-    <div class="bootcard">${parts.map(ps => `<p class="boottext" style="margin-bottom:14px">${ps.map(p => p.t != null ? escG(p.t) : `<input class="blankin" data-ans="${esc(p.b)}" style="width:${Math.max(5, p.b.length + 2)}ch" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Missing term">`).join("")}</p>`).join("")}</div>
+    <div class="bootcard">${parts.map(ps => `<p class="boottext" style="margin-bottom:14px">${ps.map(p => p.t != null ? escG(p.t) : blankInputs(p.b)).join("")}</p>`).join("")}</div>
     <div id="cfb"></div><div class="row"><button class="btn ghost sm" id="skip">Skip</button><div class="spacer"></div><button class="btn primary" id="cchk">Check</button></div>`;
   if (matchMedia("(hover:hover)").matches) $(".blankin")?.focus();
   $("#skip").onclick = then;
+  ST.onKey = e => { if (e.key === "Enter") { e.preventDefault(); ($("#cchk") || $("#cgo"))?.click(); } };
   $("#cchk").onclick = () => {
     let right = 0; const ins = $$(".blankin");
     ins.forEach(x => { const ok = norm(x.value) === norm(x.dataset.ans) || (x.dataset.ans.length >= 6 && lev(norm(x.value), norm(x.dataset.ans)) <= 1); x.classList.add(ok ? "ok" : "bad"); if (!ok) x.value = x.value ? `${x.value} → ${x.dataset.ans}` : x.dataset.ans; x.disabled = true; if (ok) right++; });
@@ -7361,9 +7613,9 @@ function syncUnitColors() {
 function capIcon(color, shape = "tube", size = 18) {
   const c = CAPS[color] || color || CAPS.lavender, h = size, w = Math.round(size * .62);
   const glass = `fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.2"`;
-  if (shape === "cup") return `<svg class="capico" width="${Math.round(h * .9)}" height="${h}" viewBox="0 0 18 20" aria-hidden="true"><rect x="2" y="1.5" width="14" height="4.5" rx="1" fill="${c}"/><path d="M3 6h12l-1.2 12a1.4 1.4 0 0 1-1.4 1.2H5.6a1.4 1.4 0 0 1-1.4-1.2z" ${glass}/><path d="M4.3 12h9.4l-.6 6H4.9z" fill="#F1D88A" opacity=".8"/></svg>`;
-  if (shape === "bottle") return `<svg class="capico" width="${Math.round(h * .75)}" height="${h}" viewBox="0 0 15 20" aria-hidden="true"><rect x="4" y="1" width="7" height="4" rx="1" fill="${c}"/><path d="M5 5h5v2.5l2.6 2.2a1.6 1.6 0 0 1 .5 1.2v6.6a1.5 1.5 0 0 1-1.5 1.5H3.4a1.5 1.5 0 0 1-1.5-1.5v-6.6a1.6 1.6 0 0 1 .5-1.2L5 7.5z" ${glass}/><path d="M2 13.5h11v4a1.5 1.5 0 0 1-1.5 1.5H3.5A1.5 1.5 0 0 1 2 17.5z" fill="#E7C6C9" opacity=".8"/></svg>`;
-  return `<svg class="capico" width="${w}" height="${h}" viewBox="0 0 10 20" aria-hidden="true"><rect x=".8" y=".8" width="8.4" height="4.6" rx="1.2" fill="${c}"/><path d="M1.8 5.4h6.4v11.1a3.2 3.2 0 0 1-6.4 0z" ${glass}/></svg>`;
+  if (shape === "cup") return `<svg class="capico" width="${Math.round(h * .9)}" height="${h}" viewBox="0 0 18 20" aria-hidden="true"><rect x="2" y="1.5" width="14" height="4.5" rx="1" fill="${c}"/><path d="M3 6h12l-1.2 12a1.4 1.4 0 0 1-1.4 1.2H5.6a1.4 1.4 0 0 1-1.4-1.2z" fill="var(--surface)"/><path d="M4.4 12.2h9.2l-.55 5.4a.8.8 0 0 1-.8.7H5.75a.8.8 0 0 1-.8-.7z" fill="#F1D88A"/><path d="M3 6h12l-1.2 12a1.4 1.4 0 0 1-1.4 1.2H5.6a1.4 1.4 0 0 1-1.4-1.2z" fill="none" stroke="var(--ink-3)" stroke-width="1.2"/></svg>`;
+  if (shape === "bottle") return `<svg class="capico" width="${Math.round(h * .75)}" height="${h}" viewBox="0 0 15 20" aria-hidden="true"><rect x="4" y="1" width="7" height="4" rx="1" fill="${c}"/><path d="M5 5h5v2.5l2.6 2.2a1.6 1.6 0 0 1 .5 1.2v6.6a1.5 1.5 0 0 1-1.5 1.5H3.4a1.5 1.5 0 0 1-1.5-1.5v-6.6a1.6 1.6 0 0 1 .5-1.2L5 7.5z" fill="var(--surface)"/><path d="M2.5 13.6h10.1v3.9a1 1 0 0 1-1 1H3.5a1 1 0 0 1-1-1z" fill="#E7C6C9"/><path d="M5 5h5v2.5l2.6 2.2a1.6 1.6 0 0 1 .5 1.2v6.6a1.5 1.5 0 0 1-1.5 1.5H3.4a1.5 1.5 0 0 1-1.5-1.5v-6.6a1.6 1.6 0 0 1 .5-1.2L5 7.5z" fill="none" stroke="var(--ink-3)" stroke-width="1.2"/></svg>`;
+  return `<svg class="capico" width="${w}" height="${h}" viewBox="0 0 10 20" aria-hidden="true"><rect x=".8" y=".8" width="8.4" height="4.6" rx="1.2" fill="${c}"/><path d="M1.8 5.4h6.4v11.1a3.2 3.2 0 0 1-6.4 0z" fill="var(--surface)"/><path d="M2.4 11h5.2v5.5a2.6 2.6 0 0 1-5.2 0z" fill="${c}" opacity=".35"/><path d="M1.8 5.4h6.4v11.1a3.2 3.2 0 0 1-6.4 0z" fill="none" stroke="var(--ink-3)" stroke-width="1.2"/></svg>`;
 }
 const _labelChip = labelChip;
 labelChip = (l, small) => l ? `<span class="lchip ${small ? "sm" : ""}">${capIcon(l.color, l.shape || SHAPE_OF[l.id], small ? 16 : 20)}<span><b>${esc(l.name)}</b><small>${esc(CAP_DESC[l.color] || "")}</small></span></span>` : "";
@@ -7385,7 +7637,7 @@ function cardStatusMap(d) {
 function deckModesHtml(modes) {
   const M = Object.fromEntries(modes.map(m => [m[0], m]));
   const rows = [["Study", ["learn", "listen", "compare"]], ["Test", ["mc", "type", "sata", "unknown", "picture"]], ["Play", ["match", "seq"]]];
-  return `<div class="toolcard">${rows.map(([lab, ids]) => `<div class="toolline"><span class="toolcat">${lab}</span><div class="toolpills">${ids.map(id => M[id]).filter(Boolean).map(([id, ic, name, sub, ok, why]) => `<button class="pill" data-mode="${id}" ${ok ? "" : "disabled"} title="${esc(ok ? sub : why)}">${icon(ic)}${id === "learn" ? "Study" : name}${id === "learn" && ok ? `<small>${esc(sub)}</small>` : ""}</button>`).join("")}</div></div>`).join("")}</div>`;
+  return `<div class="toolcard">${rows.filter(([, ids]) => ids.some(id => M[id] && M[id][4])).map(([lab, ids]) => `<div class="toolline"><span class="toolcat">${lab}</span><div class="toolpills">${ids.map(id => M[id]).filter(m => m && m[4]).map(([id, ic, name, sub, ok, why]) => `<button class="pill" data-mode="${id}" ${ok ? "" : "disabled"} title="${esc(ok ? sub : why)}">${icon(ic)}${id === "learn" ? "Study" : name}${id === "learn" && ok ? `<small>${esc(sub)}</small>` : ""}</button>`).join("")}</div></div>`).join("")}</div>`;
 }
 const _startMode = startMode;
 startMode = function (m, d) { if (m === "learn" || m === "flash") return startStudy(d); return _startMode(m, d); };
@@ -7648,7 +7900,7 @@ function buildPlan() {
   const weak = decks.reduce((n, d) => n + factsOf(d).filter(f => isWeak(stOf(f))).length, 0);
   if (weak) add(4, { ic: "target", t: `Drill ${plural(weak, "weak spot")}`, s: "Facts you keep missing.", btn: "Drill", fn: () => startLearn(null, { weak: true }) });
   const cm = (S.meta.journal || []).filter(x => x.confident).length;
-  if (cm) add(4, { ic: "rotate", t: `Fix ${plural(cm, "confident miss", "confident misses")}`, s: "You were sure and wrong. Most dangerous gaps.", btn: "Open", fn: startJournal });
+  if (cm) add(4, { ic: "rotate", t: `Fix ${plural(cm, "repeat miss", "repeat misses")}`, s: "Missed more than once: your weakest spots.", btn: "Open", fn: startJournal });
   const fresh = Object.keys(GAME_NAMES).find(g => gameUnlocked(g) && (GAME_REQ[g] || []).length && !(gstate(g).plays) && !(S.meta.stats || {})["pts_" + g]);
   if (fresh && prepOn()) add(5, { ic: "target", t: `Play: ${GAME_NAMES[fresh]}`, s: "Unlocked by your lessons. Apply what you learned.", btn: "Play", fn: () => document.getElementById({ tubes: "tubeBtn", smear: "smearBtn", bench: "benchBtn", gram: "gramBtn", westgard: "westBtn", critical: "critBtn", flow: "flowBtn", sediment: "sedBtn", panel: "panelBtn", acidbase: "abBtn" }[fresh])?.click() });
   const soonL = lecturesSoon().find(x => x.dd >= 0 && x.dd <= 3 && x.u.obj.length && x.u.obj.some((_, oi) => objVal(objKey(x.ci, x.ui, oi)) == null));
@@ -7701,10 +7953,8 @@ const _renderHome2 = renderHome;
 renderHome = function (decks) {
   _renderHome2(decks);
   $(".planonly")?.remove(); $("#weakBtn")?.remove();
-  const dash = $(".dash"); if (dash) dash.insertAdjacentHTML("afterend", planHtml());
+  const dash = $(".bento") || $(".dash"); if (dash) dash.insertAdjacentHTML("afterend", planHtml());
   $$("[data-plan]").forEach(b => b.onclick = () => (window._planFns[+b.dataset.plan] || (() => { }))());
-  const best = { smearBtn: "pts_smear", sedBtn: "pts_sediment", panelBtn: "pts_panel", abBtn: "pts_acidbase", westBtn: "pts_westgard", critBtn: "pts_critical", benchBtn: "benchBest", gramBtn: "gramBest" };
-  Object.entries(best).forEach(([id, k]) => { const v = (S.meta.stats || {})[k]; const b = $("#" + id); if (v && b && !b.classList.contains("locked")) b.insertAdjacentHTML("beforeend", `<small>${v.toLocaleString()}</small>`); });
 };
 /* Tools: neutral and described */
 toolsHtml = function () {
@@ -7718,6 +7968,687 @@ startBadges = function () {
   ST.right.innerHTML = `<span class="small muted">${Object.keys(got).length} of ${BADGES2.length}</span>`;
   ST.stage.innerHTML = `<div class="badgelist">${Object.entries(BCAT).map(([k, name]) => { const list = BADGES2.filter(b => b.cat === k); return `<h4 class="bhead">${esc(name)} <span class="small muted">${list.filter(b => got[b.id]).length}/${list.length}</span></h4><div class="badges">${list.map(b => badgeCard(b, got[b.id])).join("")}</div>`; }).join("")}</div>`;
 };
+/* ===================== Headers that ground you ===================== */
+function studyHead(deck) {
+  const lb = labelOf(deck);
+  return `<div class="studyhead">${capIcon(lb ? lb.color : deck.color, lb && lb.shape, 30)}<div><small>${esc(lb ? lb.name : "Your deck")}${lb && lb.course ? " · " + esc(lb.course) : ""}</small><b>${esc(deck.name)}</b></div></div>`;
+}
+function lessonHead(l) {
+  const u = UNITS.find(x => x.id === l.unit) || {};
+  return `<div class="studyhead">${capIcon(u.color, u.shape, 30)}<div><small>${esc(u.name || "")}${l.boot ? " · Bootcamp" : ""}</small><b>${esc(l.title)}</b></div></div>`;
+}
+
+/* ===================== Bootcamp: more blanks to recall ===================== */
+const STOPW = new Set("because without between through another usually called means which their there about these those other after before under while where being little should around inside outside something everything really always enough every person people things thing during within almost though rather either neither second already instead mostly simply".split(" "));
+function moreBlanks(text, max) {
+  const parts = text.split(/(\{\{.+?\}\})/);
+  const have = parts.filter(p => /^\{\{/.test(p)).length;
+  const words = text.replace(/\{\{.+?\}\}/g, "").split(/\s+/).length;
+  const target = Math.max(have, Math.min(max || 4, Math.max(3, Math.round(words / 9))));
+  if (have >= target) return text;
+  const cands = [];
+  parts.forEach((p, pi) => {
+    if (/^\{\{/.test(p)) return;
+    const re = /(\d+(?:\.\d+)?(?:\s?(?:%|°C|mL|dL|µL|L|mg|g|days?))?)|([A-Za-z][A-Za-z’'\-]{5,})|(\b[A-Z][A-Za-z0-9]{1,6}\b)/g; let m;
+    while ((m = re.exec(p))) {
+      const w = m[0]; const lw = w.toLowerCase();
+      if (STOPW.has(lw)) continue;
+      let sc = 1; if (GLOSS[w]) sc = 3.2; else if (/^\d/.test(w)) sc = 2.6; else if (w.length >= 9) sc = 2; else if (/^[A-Z]/.test(w) && m.index > 0) sc = 1.8;
+      cands.push({ pi, start: m.index, end: m.index + w.length, w, sc: sc + Math.random() * .4 });
+    }
+  });
+  const chosen = [];
+  cands.sort((a, b) => b.sc - a.sc).forEach(c => { if (chosen.length >= target - have) return; if (chosen.some(x => x.pi === c.pi && Math.abs(x.start - c.start) < 14)) return; chosen.push(c); });
+  chosen.sort((a, b) => a.pi - b.pi || b.start - a.start).forEach(c => { const p = parts[c.pi]; parts[c.pi] = p.slice(0, c.start) + "{{" + c.w + "}}" + p.slice(c.end); });
+  return parts.join("");
+}
+
+/* ===================== Today's targets: a daily standard with an end ===================== */
+const DS = () => ((S.meta.daily || {})[dayKey()] || {});
+function planCandidates() {
+  const decks = Object.values(S.decks); let due = 0, nw = 0; decks.forEach(d => { const c = deckCounts(d); due += c.due; nw += c.nw; });
+  const newToday = Math.min(nw, newLeftToday()); const out = [];
+  upcomingExams().forEach(ex => { const d = daysUntil(ex); if (d <= 2) out.push({ id: "cram:" + ex.id, pri: 1 }); else if (d <= 14) out.push({ id: "exam:" + ex.id, pri: 2 }); });
+  const pm = pastExams().find(e => daysUntil(e) >= -5 && !pms()[e.id]); if (pm) out.push({ id: "pm:" + pm.id, pri: 2 });
+  lecturesSoon().forEach(x => { if (x.dd === 1) out.push({ id: `lprep:${x.ci}|${x.ui}`, pri: 3 }); if (x.dd === 0 || x.dd === -1) out.push({ id: `lrev:${x.ci}|${x.ui}`, pri: 2 }); });
+  if (due + newToday) out.push({ id: "review", pri: 2, n0: due + newToday });
+  out.push({ id: "goal", pri: 3 });
+  if (prepOn() && nextLesson()) out.push({ id: "lessons", pri: 3, n: paceLessonsToday() });
+  else if (nextLesson() && LESSONS.some(l => lessonState(l).passed)) out.push({ id: "lessons", pri: 4, n: 1 });
+  if (decks.some(d => factsOf(d).some(f => isWeak(stOf(f))))) out.push({ id: "weak", pri: 4 });
+  if ((S.meta.journal || []).some(x => x.confident)) out.push({ id: "conf", pri: 4 });
+  const fresh = Object.keys(GAME_NAMES).find(g => gameUnlocked(g) && (GAME_REQ[g] || []).length && !gstate(g).plays);
+  if (fresh && prepOn()) out.push({ id: "game:" + fresh, pri: 5 });
+  out.push({ id: "focus", pri: 6 });
+  return out.sort((a, b) => a.pri - b.pri);
+}
+function todayPlan() {
+  const k = dayKey(); let P = S.meta.plan;
+  if (!P || P.day !== k) { P = S.meta.plan = { day: k, items: planCandidates().slice(0, 6) }; saveMeta(); }
+  else { const have = new Set(P.items.map(x => x.id)); planCandidates().filter(c => !have.has(c.id) && (c.pri <= 2 || P.items.length < 7)).forEach(c => { if (P.items.length < 8) { P.items.push(c); have.add(c.id); } }); P.items.sort((a, b) => a.pri - b.pri); saveMeta(); }
+  return P.items;
+}
+const GOAL = () => S.meta.settings.dailyGoal || 50;
+function planView(it) {
+  const D = DS(); const k = dayKey(); const reviewed = (S.meta.history || {})[k] || 0;
+  const [kind, ref] = it.id.split(/:(.+)/);
+  const ex = ref && (S.meta.exams || []).find(e => e.id === ref);
+  const lect = ref && ref.includes("|") ? lecturesSoon().concat([]).find(x => `${x.ci}|${x.ui}` === ref) : null;
+  let decks = Object.values(S.decks), due = 0; decks.forEach(d => due += deckCounts(d).due);
+  switch (kind) {
+    case "review": return { ic: "brain", t: "Clear today’s reviews", s: due ? `${due} still due` : `${reviewed} reviewed`, done: due === 0 && reviewed > 0, prog: Math.min(1, reviewed / Math.max(1, it.n0 || 1)), btn: "Review", fn: () => startLearn(null) };
+    case "goal": return { ic: "target", t: `Hit your daily goal of ${GOAL()}`, s: `${Math.min(reviewed, GOAL())} of ${GOAL()} answers`, done: reviewed >= GOAL(), prog: Math.min(1, reviewed / GOAL()), btn: due ? "Review" : "Practice", fn: () => due ? startLearn(null) : startMixed() };
+    case "lessons": { const n = it.n || 1, got = D.lessons || 0, nl = nextLesson(); return { ic: "book", t: n > 1 ? `Complete ${n} lessons` : "Complete a lesson", s: nl ? `Next: ${nl.title}` : "All lessons done", done: got >= n, prog: Math.min(1, got / n), btn: "Start", fn: () => nl && startLesson(nl) }; }
+    case "weak": return { ic: "target", t: "Drill your weak spots", s: "Facts you keep missing", done: (D.weak || 0) >= 1, btn: "Drill", fn: () => startLearn(null, { weak: true }) };
+    case "conf": return { ic: "rotate", t: "Fix a repeat miss", s: "Missed more than once: your weakest spots", done: (D.cleared || 0) >= 1, btn: "Journal", fn: startJournal };
+    case "game": return { ic: "target", t: `Play ${GAME_NAMES[ref]}`, s: "Unlocked by your lessons", done: (gstate(ref).plays || 0) > 0 || (D.games || 0) >= 1, btn: "Play", fn: () => document.getElementById(GAME_BTN[ref])?.click() };
+    case "focus": return { ic: "timer", t: "One focused block", s: "25 minutes, phone away", done: ((S.meta.focus || {})[k] || 0) > 0, btn: "Timer", fn: timerModal, optional: true };
+    case "exam": return ex ? { ic: "exam", t: `Prep for ${ex.name}`, s: `In ${daysUntil(ex)} days`, done: (D.examPrep || 0) >= 1, btn: "Prep", fn: () => startLearn(null, { exam: ex.id }) } : null;
+    case "cram": return ex ? { ic: "exam", t: `Cram for ${ex.name}`, s: daysUntil(ex) <= 0 ? "Today" : `In ${plural(daysUntil(ex), "day")}`, done: (D.examPrep || 0) >= 1, btn: "Cram", fn: () => startLearn(null, { exam: ex.id, cram: true }) } : null;
+    case "pm": return ex ? { ic: "exam", t: `Post-mortem: ${ex.name}`, s: "Log what hurt", done: !!pms()[ex.id], btn: "Log", fn: () => postMortemModal(ex, render) } : null;
+    case "lprep": case "lrev": { const [ci, ui] = ref.split("|").map(Number); const u = PROGRAM.courses[ci].units[ui]; return { ic: "book", t: kind === "lprep" ? "Before tomorrow’s lecture" : "Review this lecture tonight", s: `${PROGRAM.courses[ci].code}: ${u.name}`, done: (D.lecture || 0) >= 1, btn: "Open", fn: () => startLecture(ci, ui) }; }
+  }
+  return null;
+}
+const GAME_BTN = { tubes: "tubeBtn", smear: "smearBtn", bench: "benchBtn", gram: "gramBtn", westgard: "westBtn", critical: "critBtn", flow: "flowBtn", sediment: "sedBtn", panel: "panelBtn", acidbase: "abBtn" };
+planHtml = function () {
+  const views = todayPlan().map(planView).filter(Boolean);
+  window._planFns = views.map(v => v.fn);
+  if (!views.length) return "";
+  const req = views.filter(v => !v.optional), done = req.filter(v => v.done).length, all = done === req.length && req.length > 0;
+  return `<section class="targets ${all ? "complete" : ""}">
+    <div class="tg-head"><div><h2>${all ? "Today’s targets: done ✓" : "Today’s targets"}</h2><span>${all ? "Everything from here is bonus." : "A realistic standard for today. Low stakes, big payoff."}</span></div><div class="tg-count"><b>${done}/${req.length}</b><div class="tg-bar"><i style="width:${req.length ? done / req.length * 100 : 0}%"></i></div></div></div>
+    ${views.map((v, k) => `<div class="tg-item ${v.done ? "done" : ""}"><span class="tg-ic">${v.done ? `<svg viewBox="0 0 20 20" width="16" height="16"><path d="M4.5 10.5l3.5 3.5 7.5-8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>` : icon(v.ic)}</span><div class="tg-txt"><b>${esc(v.t)}${v.optional ? ` <span class="tg-opt">bonus</span>` : ""}</b><span>${escG(v.s)}</span>${v.prog != null && !v.done ? `<div class="tg-mini"><i style="width:${Math.round(v.prog * 100)}%"></i></div>` : ""}</div>${v.done ? `<span class="tg-ok">Done</span>` : `<button class="btn sm" data-plan="${k}">${v.btn}</button>`}</div>`).join("")}
+  </section>`;
+};
+/* progress hooks */
+{ const s = startLearn; startLearn = function (deck, opts = {}) { if (opts.exam) dayStat("examPrep"); if (opts.weak) dayStat("weak"); return s(deck, opts); }; }
+{ const s = startLecture; startLecture = function (ci, ui) { dayStat("lecture"); return s(ci, ui); }; }
+{ const s = setObj; setObj = function (k, v) { s(k, v); dayStat("rated"); }; }
+
+/* ===================== Dashboard: a readable week ===================== */
+weekBars = function () {
+  const goal = GOAL(); const days = Array.from({ length: 7 }, (_, i) => dayKey(Date.now() - (6 - i) * DAY));
+  const v = days.map(d => (S.meta.history || {})[d] || 0); const mx = Math.max(goal, ...v);
+  return `<div class="wtiles">${days.map((d, i) => { const n = v[i], met = n >= goal, dt = new Date(d + "T12:00"); return `<div class="wt ${i === 6 ? "today" : ""} ${met ? "met" : n ? "some" : ""}" style="--lvl:${n ? .18 + .62 * Math.min(1, n / mx) : 0}"><span class="wd">${dt.toLocaleDateString(undefined, { weekday: "short" })}</span><b>${n || "–"}</b><span class="wm">${met ? "✓ goal" : n ? Math.round(n / goal * 100) + "%" : ""}</span></div>`; }).join("")}</div>`;
+};
+
+/* ===================== Tools: toned color by section ===================== */
+toolsHtml = function () {
+  const names = { learn: ["Teach", "Lessons and references"], test: ["Test", "Graded practice with explanations"], play: ["Play", "Games with levels and scores"], plan: ["Plan", "Schedule and track"] };
+  return `<div class="toolcard">${Object.entries(ORDERED_TOOLS()).map(([k, list]) => `<div class="toolline tl-${k}"><span class="toolcat"><b>${names[k][0]}</b><small>${names[k][1]}</small></span><div class="toolpills">${list.filter(([id]) => !(id === "hsBtn" && prepOn())).map(([id, ic, t, g]) => { const locked = g && !gameUnlocked(g); return `<button class="pill ${locked ? "locked" : ""}" id="${id}" ${locked ? `title="Unlocks with your Head start lessons"` : ""}>${icon(locked ? "flag" : ic)}${t}</button>`; }).join("")}</div></div>`).join("")}</div>`;
+};
+
+/* ===================== Game look: a distinct arcade-lite shell ===================== */
+function gameShell() { if (ST && ST.el) ST.el.classList.add("gamemode"); }
+["startTubeTrainer", "startBench", "startWestgard", "startCritical", "startSmear", "leveledGame"].forEach(n => { const f = eval(n); const w = function (...a) { const r = f.apply(this, a); gameShell(); return r; }; eval(n + " = w"); });
+
+/* ===================== Glossary: every shorthand defined ===================== */
+Object.assign(BUILTIN_GLOSS, {
+  "PPV": ["positive predictive value", "Of everyone who tests positive, the share who truly have the disease. TP ÷ (TP + FP)."],
+  "NPV": ["negative predictive value", "Of everyone who tests negative, the share who truly don’t have it. TN ÷ (TN + FN)."],
+  "TP": ["true positive", "Test says positive and the disease is really there."], "TN": ["true negative", "Test says negative and the disease really isn’t there."],
+  "FP": ["false positive", "Test says positive but the disease isn’t there."], "FN": ["false negative", "Test says negative but the disease is there."],
+  "RPI": ["reticulocyte production index", "Retic count corrected for anemia and early release; above 2 means the marrow is responding."],
+  "AG": ["anion gap", "Na − (Cl + HCO₃). High values mean unmeasured acids."], "mEq": ["milliequivalent", "Amount of an ion by its charge: mmol × valence."],
+  "mmol": ["millimole", "One thousandth of a mole."], "M:E": ["myeloid-to-erythroid ratio", "Ratio of white-cell precursors to red-cell precursors in marrow; normally about 3:1."],
+  "SI": ["International System of Units", "The metric unit system; for example mmol/L instead of mg/dL."], "%T": ["percent transmittance", "Share of light passing through a sample; absorbance = 2 − log %T."],
+  "LJ": ["Levey-Jennings chart", "QC chart with the mean and ±1, 2, 3 SD lines."], "pCO₂": ["partial pressure of carbon dioxide", "Respiratory part of acid-base; normal about 35–45 mmHg."],
+  "HCO₃": ["bicarbonate", "Main blood buffer, the metabolic part of acid-base; normal about 22–26 mmol/L."], "pO₂": ["partial pressure of oxygen", "Oxygen dissolved in arterial blood; normal about 80–100 mmHg."],
+  "CrCl": ["creatinine clearance", "Volume of plasma cleared of creatinine per minute: (U × V) ÷ P."], "SEC": ["squamous epithelial cells", "Flat cells from skin or mouth; many in sputum mean saliva contamination."],
+  "LPF": ["low-power field", "The view through the 10× objective."], "HPF": ["high-power field", "The view through the 40× objective."], "OIF": ["oil immersion field", "The view through the 100× oil objective."],
+  "BOC": ["Board of Certification", "The ASCP group that gives the MLS certification exam."], "CNS": ["coagulase-negative staphylococci", "Staph that don’t make coagulase, like S. epidermidis; frequent contaminants."],
+  "GNDC": ["Gram-negative diplococci", "Pink paired cocci, like Neisseria."], "GPC": ["Gram-positive cocci", "Purple round bacteria, like staph and strep."], "GNR": ["Gram-negative rods", "Pink rod-shaped bacteria, like E. coli."], "GPR": ["Gram-positive rods", "Purple rod-shaped bacteria, like Bacillus and Clostridium."]
+});
+try { applyUserGloss(); } catch { }
+/* ===================== Gram stain microscope ===================== */
+const GP = "#3E2A8C", GN = "#D44A7A", GBG = "#F6EEF2";
+const gR = (a, b) => a + Math.random() * (b - a);
+const pmn = (x, y, inner = "") => `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${Math.floor(gR(0, 360))})"><circle r="10" fill="#F1D3DD"/>${[[-3.5, -1.5], [1.5, -3.5], [3.5, 2], [-1, 3.5]].map(([a, b]) => `<ellipse cx="${a}" cy="${b}" rx="2.6" ry="2.9" fill="#C34A6E"/>`).join("")}${inner}</g>`;
+const squam = (x, y) => { const r = gR(26, 34); const pts = Array.from({ length: 7 }, (_, k) => { const t = k / 7 * 6.283 + gR(-.2, .2), rr = r * gR(.8, 1.1); return `${(x + Math.cos(t) * rr).toFixed(1)},${(y + Math.sin(t) * rr).toFixed(1)}`; }).join(" "); return `<polygon points="${pts}" fill="#F4D7DF" stroke="#E2B4C2" stroke-width="1"/><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.4" fill="#C34A6E"/>`; };
+const BUG = {
+  gpc_cluster: { n: "Gram-positive cocci in clusters", draw: (x, y) => Array.from({ length: 9 }, () => `<circle cx="${(x + gR(-6, 6)).toFixed(1)}" cy="${(y + gR(-6, 6)).toFixed(1)}" r="2.1" fill="${GP}"/>`).join("") },
+  gpc_chain: { n: "Gram-positive cocci in chains", draw: (x, y) => { const a = gR(0, 3.14), n = Math.floor(gR(5, 9)); let s = "", px = x, py = y, t = a; for (let k = 0; k < n; k++) { s += `<circle cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="2.1" fill="${GP}"/>`; t += gR(-.35, .35); px += Math.cos(t) * 4.3; py += Math.sin(t) * 4.3; } return s; } },
+  gp_diplo: { n: "Gram-positive diplococci (lancet-shaped)", draw: (x, y) => { const a = gR(0, 180); return `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${a.toFixed(0)})"><path d="M-6 0 Q-3.5 -3 -.6 0 Q-3.5 3 -6 0Z" fill="${GP}"/><path d="M6 0 Q3.5 -3 .6 0 Q3.5 3 6 0Z" fill="${GP}"/><ellipse rx="8.5" ry="4.6" fill="none" stroke="#C9BCE6" stroke-width="1"/></g>`; } },
+  gndc: { n: "Gram-negative diplococci", draw: (x, y) => { const a = gR(0, 180); return `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${a.toFixed(0)})"><path d="M-.7 -2.6 A2.6 2.6 0 0 0 -.7 2.6 L-.7 2.6 Q-4.6 2.6 -4.6 0 Q-4.6 -2.6 -.7 -2.6Z" fill="${GN}"/><path d="M.7 -2.6 Q4.6 -2.6 4.6 0 Q4.6 2.6 .7 2.6Z" fill="${GN}"/></g>`; } },
+  gnr: { n: "Gram-negative rods", draw: (x, y) => `<rect x="${(x - 3.6).toFixed(1)}" y="${(y - 1.3).toFixed(1)}" width="7.2" height="2.6" rx="1.3" fill="${GN}" transform="rotate(${Math.floor(gR(0, 180))} ${x.toFixed(1)} ${y.toFixed(1)})"/>` },
+  gpr: { n: "Large Gram-positive rods", draw: (x, y) => `<rect x="${(x - 5.5).toFixed(1)}" y="${(y - 1.8).toFixed(1)}" width="11" height="3.6" rx=".8" fill="${GP}" transform="rotate(${Math.floor(gR(0, 180))} ${x.toFixed(1)} ${y.toFixed(1)})"/>` },
+  gpr_small: { n: "Small Gram-positive rods", draw: (x, y) => `<rect x="${(x - 2.8).toFixed(1)}" y="${(y - 1).toFixed(1)}" width="5.6" height="2" rx="1" fill="${GP}" transform="rotate(${Math.floor(gR(0, 180))} ${x.toFixed(1)} ${y.toFixed(1)})"/>` },
+  gncb: { n: "Gram-negative coccobacilli", draw: (x, y) => `<ellipse cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" rx="2" ry="1.3" fill="${GN}" transform="rotate(${Math.floor(gR(0, 180))} ${x.toFixed(1)} ${y.toFixed(1)})"/>` },
+  yeast: { n: "Budding yeast with pseudohyphae", draw: (x, y) => { const a = Math.floor(gR(0, 180)); return `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${a})"><ellipse rx="3.6" ry="2.7" fill="${GP}"/><ellipse cx="4.6" cy="-1.6" rx="2" ry="1.5" fill="${GP}"/><path d="M-3 1.5 l-4 4 l-5 2 l-5 4" stroke="${GP}" stroke-width="2.4" fill="none" stroke-linecap="round"/></g>`; } }
+};
+function gramField({ bug, n = 14, pmns = 6, squams = 0, intracell = false, W = 400, H = 260 }) {
+  let s = `<rect width="${W}" height="${H}" fill="${GBG}"/>`;
+  for (let k = 0; k < squams; k++) s += squam(gR(30, W - 30), gR(30, H - 30));
+  const cells = []; for (let k = 0; k < pmns; k++) { const x = gR(14, W - 14), y = gR(14, H - 14); cells.push([x, y]); s += pmn(x, y, intracell && k % 2 === 0 && bug ? [0, 1, 2].map(j => `<g transform="translate(${gR(-4, 4).toFixed(1)} ${gR(-4, 4).toFixed(1)}) scale(1.3)">${BUG[bug].draw(0, 0)}</g>`).join("") : ""); }
+  if (bug) for (let k = 0; k < n; k++) s += `<g transform="translate(${gR(14, W - 14).toFixed(1)} ${gR(14, H - 14).toFixed(1)}) scale(1.6)">${BUG[bug].draw(0, 0)}</g>`;
+  for (let k = 0; k < 40; k++) s += `<circle cx="${gR(0, W).toFixed(1)}" cy="${gR(0, H).toFixed(1)}" r="${gR(.4, 1.1).toFixed(1)}" fill="#E7C3D0" opacity=".7"/>`;
+  return `<svg class="smear gramsvg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Drawn Gram stain under oil immersion">${s}</svg>`;
+}
+const GRAM_CLIN = [
+  ["CSF from a college student with fever and a stiff neck", "gndc", "Neisseria meningitidis", true, "Gram-negative diplococci in CSF point to meningococcal meningitis: a critical call."],
+  ["Urethral discharge from a male patient", "gndc", "Neisseria gonorrhoeae (diagnostic in men)", true, "Intracellular Gram-negative diplococci in a male urethral discharge are diagnostic of gonorrhea."],
+  ["Endocervical swab from a female patient", "gndc", "Suggestive only; confirm with NAAT or culture", true, "Normal flora Neisseria and similar organisms live here, so the smear isn’t diagnostic in women or anorectal sites (objective 118)."],
+  ["Sputum from an older adult with lobar pneumonia", "gp_diplo", "Streptococcus pneumoniae", false, "Lancet-shaped Gram-positive diplococci with PMNs suggest pneumococcal pneumonia."],
+  ["Positive blood culture bottle", "gpc_cluster", "Staphylococcus (S. aureus vs. coagulase-negative)", false, "Clusters mean staph. Coagulase or a rapid test tells S. aureus from CNS, a common contaminant."],
+  ["Positive blood culture bottle", "gpc_chain", "Streptococcus or Enterococcus", false, "Chains point to strep or enterococci; catalase and PYR come next."],
+  ["Clean-catch urine from a woman with burning on urination", "gnr", "Escherichia coli (Enterobacterales)", false, "Gram-negative rods in urine most often mean E. coli."],
+  ["Deep wound with gas in the tissue", "gpr", "Clostridium perfringens", false, "Large boxcar Gram-positive rods in a gas-forming wound suggest C. perfringens."],
+  ["CSF from a 5-day-old infant", "gpr_small", "Listeria monocytogenes", false, "Small Gram-positive rods in neonatal CSF suggest Listeria (also consider GBS)."],
+  ["CSF from an unvaccinated toddler", "gncb", "Haemophilus influenzae", false, "Tiny Gram-negative coccobacilli in CSF suggest H. influenzae."],
+  ["Vaginal swab with itching and thick white discharge", "yeast", "Candida albicans", false, "Budding yeast with pseudohyphae point to Candida."]
+];
+function startGramStain() {
+  const morph = Object.keys(BUG);
+  leveledGame("gram", "Gram stain", ["Read the stain", "Clinical correlation", "Specimen quality", "Speed sort"], [
+    "Under oil: call the Gram reaction and morphology. Purple = Gram-positive, pink = Gram-negative. PMNs stain pink.",
+    "Specimen plus smear: what’s the most likely organism, or what should you report? (Micro objectives 20 and 118.)",
+    "Judge the specimen like objective 20 asks: local material, contamination and purulence. Accept or reject sputum before culture.",
+    "60 seconds. Sort organisms by how they look on Gram stain, as fast as you can without a miss."
+  ], [
+    done => mcRounds(Array.from({ length: 10 }, () => { const b = rpick(morph); return { kicker: "Oil immersion, 100×", html: gramField({ bug: b, n: Math.floor(gR(10, 18)), pmns: Math.floor(gR(3, 7)) }), q: "What do you see?", opts: [BUG[b].n, ...pick(morph.filter(x => x !== b).map(x => BUG[x].n), 3)], a: BUG[b].n, why: b.startsWith("gp") || b === "yeast" ? "Purple means the thick wall held crystal violet: Gram-positive (yeast also stain purple)." : "Pink means the thin wall lost crystal violet and took up safranin: Gram-negative.", game: "gram", mq: "Read a Gram stain" }; }), "Gram stain", done, 10),
+    done => mcRounds(shuffle(GRAM_CLIN).slice(0, 8).map(([spec, bug, ans, intra, why]) => ({ kicker: spec, html: gramField({ bug, n: intra ? 6 : 14, pmns: intra ? 8 : 5, intracell: intra }), q: "Most likely, or what do you report?", opts: [ans, ...pick(GRAM_CLIN.map(c => c[2]).filter(x => x !== ans), 3)], a: ans, why, mq: `${spec}: ${BUG[bug].n}. Most likely?` })), "Gram stain", done, 8),
+    done => mcRounds(Array.from({ length: 8 }, () => {
+      const kind = rpick(["good", "bad", "bad", "good", "purul", "contam"]);
+      const sq = kind === "bad" || kind === "contam" ? Math.floor(gR(4, 7)) : Math.floor(gR(0, 2)); const pm = kind === "bad" ? Math.floor(gR(1, 3)) : Math.floor(gR(10, 16));
+      const html = gramField({ bug: rpick(["gp_diplo", "gnr", "gpc_cluster"]), n: 10, pmns: pm, squams: sq }) + `<p class="small muted" style="margin-top:6px">Sputum, low power estimate: ${sq * 5}+ squamous epithelial cells and ${pm * 3}+ PMNs per LPF.</p>`;
+      if (kind === "purul") return { kicker: "Sputum Gram stain", html, q: "Which finding shows purulence (true lower-respiratory infection)?", opts: ["Many PMNs", "Many squamous epithelial cells", "Mixed bacteria on the cells", "Mucus strands"], a: "Many PMNs", why: "Neutrophils (PMNs) are the local inflammatory material that shows purulence." };
+      if (kind === "contam") return { kicker: "Sputum Gram stain", html, q: "Which cells show contamination with saliva (oral flora)?", opts: ["Squamous epithelial cells", "PMNs", "Alveolar macrophages", "Ciliated columnar cells"], a: "Squamous epithelial cells", why: "Squamous cells come from the mouth; many of them mean the sample is mostly saliva." };
+      const ok = sq * 5 < 10 && pm * 3 >= 25;
+      return { kicker: "Sputum Gram stain", html, q: "Is this sputum acceptable for culture?", opts: ["Acceptable: culture it", "Reject: request a new specimen"], keep: true, a: ok ? "Acceptable: culture it" : "Reject: request a new specimen", why: ok ? "Few squamous cells (under 10 per LPF) and many PMNs (25+): a good lower-respiratory sample." : "Ten or more squamous cells per LPF means saliva contamination; the culture would grow oral flora. Ask for a new specimen." };
+    }), "Gram stain", done, 8),
+    done => {
+      const cats = [...new Set(GRAM.map(g => g[1]))]; let score = 0, miss = 0; const end = Date.now() + 60000; const deck = shuffle(GRAM.concat(GRAM)); let i = 0; const sc = makeScorer("gram");
+      const t = setInterval(() => { const left = end - Date.now(); ST.right.innerHTML = `${sc.chip()}<span class="timer">${Math.max(0, Math.ceil(left / 1000))}s</span>`; setProg(1 - left / 60000); if (left <= 0) { clearInterval(t); LAST_PTS = sc.save(); statMax("gramBest", score); done(score, Math.max(12, score + miss), 0); } }, 200); ST.timers.push(t);
+      const show = () => { const [org, cat] = deck[i % deck.length]; sc.start(); ST.stage.innerHTML = `<div class="qcard"><div class="kicker">${score} sorted · ${miss} missed · no misses and 12+ to clear</div><div class="qtext"><i>${esc(org)}</i></div></div><div class="opts two" id="opts">${cats.map(c => `<button class="opt" data-c="${esc(c)}"><span>${esc(c)}</span></button>`).join("")}</div>`;
+        $$("#opts .opt").forEach(b => b.onclick = () => { const ok = b.dataset.c === cat; sc.hit(ok); if (ok) score++; else { miss++; logMistake({ src: "Gram stain", q: org + ": how does it look on Gram stain?", yours: b.dataset.c, right: cat, opts: cats }); toast(`${org}: ${cat}`); } i++; show(); }); };
+      show();
+    }
+  ]);
+}
+GAME_NAMES.gram = "Gram stain";
+/* ===================== Day One Ready ===================== */
+const dayone = () => (S.meta.dayone = S.meta.dayone || {});
+function paceInfo() {
+  const p = prep(); const left = LESSONS.filter(l => !lessonState(l).passed).length, done = LESSONS.length - left;
+  const days = p && p.start ? Math.max(1, dayDiff(p.start)) : null;
+  const D = dayone(); if (!D.begin) { D.begin = dayKey(); D.beginDone = done; saveMeta(); }
+  const total = days ? days + Math.max(0, -dayDiff(D.begin)) : null;
+  const expected = total ? Math.round(D.beginDone + (LESSONS.length - D.beginDone) * (Math.max(0, -dayDiff(D.begin)) / total)) : null;
+  const perDay = days ? Math.min(5, Math.max(1, Math.ceil(left / days))) : 1;
+  const wkStart = weekStart(); const thisWeek = LESSONS.filter(l => { const r = (prep().lessons || {})[l.id]; return r && r.done && (r.last || 0) >= wkStart; }).length;
+  return { left, done, days, perDay, perWeek: Math.min(left, perDay * 7), expected, ahead: expected == null ? 0 : done - expected, thisWeek };
+}
+function paceLessonsToday() { return prepOn() ? paceInfo().perDay : 1; }
+const MILESTONES = [
+  ["Set your program start date", () => !!(prep() && prep().start)],
+  ["Turn on sync or download a backup", () => Sync.on() || Date.now() - (S.meta.lastBackup || 0) < 14 * DAY],
+  ["Finish “Start here: science from zero”", () => LESSONS.filter(l => l.unit === "zero").every(l => lessonState(l).passed)],
+  ["Finish the Orientation Bootcamp", () => LESSONS.filter(l => l.unit === "mt410" && l.boot).every(l => lessonState(l).passed)],
+  ["Master the Tube trainer (all 4 levels)", () => gstate("tubes").level >= 5],
+  ["Reach Smear practice level 4", () => gstate("smear").level >= 4],
+  ["Reach Gram stain level 3", () => gstate("gram").level >= 3],
+  ["Reach Lab math level 3", () => (gstate("math").level || 1) >= 3],
+  ["Draft a chemistry case presentation", () => (S.meta.casepres || []).some(c => (c.sec?.paragraph || "").length > 200)],
+  ["Add a real slide photo", () => Object.values(S.decks).some(d => d.slides)],
+  ["Enter real exam dates", () => (S.meta.exams || []).length > 0]
+];
+function startDayOne() {
+  openStudy("Day One Ready"); setProg(1);
+  const p = prep(); const pi = paceInfo();
+  const order = lessonSeq().filter(l => !lessonState(l).passed);
+  const weekList = order.slice(0, Math.max(0, pi.perWeek - pi.thisWeek));
+  const ms = MILESTONES.map(([t, f]) => [t, (() => { try { return f(); } catch { return false; } })()]);
+  ST.stage.innerHTML = `
+    <div class="d1hero"><div><span class="ddate">Day One Ready</span><h2>${pi.days ? `${pi.days} days until your program starts` : "Set your program start date"}</h2><p>${pi.days ? `${pi.left} lessons left · about ${plural(pi.perDay, "lesson")} a day keeps you on pace` : "LabDeck paces your Head start lessons to that date."}${pi.expected != null ? ` · ${pi.ahead >= 0 ? `<b class="good-t">${pi.ahead ? pi.ahead + " ahead" : "on pace"}</b>` : `<b class="bad-t">${-pi.ahead} behind</b>`}` : ""}</p></div>${pi.days ? "" : `<button class="btn primary" id="setStart">Set start date</button>`}</div>
+    <div class="panel"><div class="row" style="justify-content:space-between"><h3>This week’s target</h3><span class="small muted">${pi.thisWeek} of ${pi.perWeek} done</span></div><div class="thinbar" style="margin:8px 0 10px"><i style="width:${pi.perWeek ? Math.min(100, pi.thisWeek / pi.perWeek * 100) : 0}%"></i></div>
+      ${weekList.length ? `<div class="list">${weekList.slice(0, 10).map(l => { const u = UNITS.find(x => x.id === l.unit); return `<button class="listrow" data-les="${l.id}">${capIcon(u.color, u.shape, 20)}<span style="flex:1;min-width:0"><b>${esc(l.title)}</b><br><span class="small muted">${esc(u.name)} · ${l.mins} min${l.boot ? " · Bootcamp" : ""}</span></span>${icon("right")}</button>`; }).join("")}</div>` : `<p class="small good-t">Week’s target met. Anything more is a head start on next week.</p>`}</div>
+    <div class="panel"><h3 style="margin-bottom:10px">Course by course</h3><div class="d1courses">${UNITS.map(u => { const ls = LESSONS.filter(l => l.unit === u.id); const dn = ls.filter(l => lessonState(l).passed).length; return `<div class="d1c">${capIcon(u.color, u.shape, 22)}<div style="flex:1;min-width:0"><b>${esc(u.name)}</b><div class="thinbar" style="margin-top:5px"><i style="width:${ls.length ? dn / ls.length * 100 : 0}%"></i></div><span class="small muted">${dn}/${ls.length} lessons</span></div>${dn < ls.length ? `<button class="btn sm" data-place="${u.id}" title="Test out of what you already know">Placement check</button>` : `<span class="small good-t">✓ Done</span>`}</div>`; }).join("")}</div></div>
+    <div class="panel"><h3 style="margin-bottom:10px">Milestones</h3><div class="d1ms">${ms.map(([t, ok]) => `<div class="${ok ? "ok" : ""}"><span>${ok ? "✓" : "○"}</span>${esc(t)}</div>`).join("")}</div></div>
+    <div class="panel"><h3 style="margin-bottom:10px">Get ready for the real thing</h3><div class="d1tools">
+      <button class="choicebtn" id="slideB"><b>${icon("camera")} Practice on real slides</b><span class="small muted">Snap smears, urine sediment or Gram stains in lab and turn them into Picture ID practice.</span></button>
+      <button class="choicebtn" id="caseB"><b>${icon("micro")} Case presentation builder</b><span class="small muted">Chemistry objective 145: three made-up cases with a typed paragraph, clinical correlation and follow-up tests.</span></button>
+      <button class="choicebtn" id="mathB"><b>${icon("type")} Lab math mastery</b><span class="small muted">Five levels, from dilutions to QC statistics. Math shows up in every course.</span></button>
+      <button class="choicebtn" id="bocB"><b>${icon("exam")} Board-style exam</b><span class="small muted">Weighted like the ASCP BOC MLS exam, so the habit carries past graduation.</span></button></div></div>`;
+  $("#setStart") && ($("#setStart").onclick = () => prepSetupModal());
+  $$("[data-les]").forEach(b => b.onclick = () => startLesson(LESSONS.find(l => l.id === b.dataset.les)));
+  $$("[data-place]").forEach(b => b.onclick = () => startPlacement(b.dataset.place));
+  $("#slideB").onclick = () => addSlideModal(); $("#caseB").onclick = startCasePres; $("#mathB").onclick = () => startLabMath(); $("#bocB").onclick = () => startComprehensive("boc");
+}
+
+/* ---------- placement check ---------- */
+function startPlacement(unitId) {
+  const u = UNITS.find(x => x.id === unitId);
+  const ls = LESSONS.filter(l => l.unit === unitId && !lessonState(l).passed && !l.wrap && l.quiz && l.quiz.length);
+  const items = shuffle(ls.flatMap(l => shuffle(l.quiz).slice(0, 2).map(q => ({ l, q })))).slice(0, 18);
+  openStudy("Placement: " + u.name);
+  if (!items.length) { noDataScreen("Nothing to place out of", "Every lesson here is already complete."); return; }
+  ST.stage.innerHTML = `${lessonHead({ unit: unitId, title: "Placement check" })}<div class="qcard"><p>${items.length} questions from ${plural(ls.length, "lesson")}. Lessons where you get every question right are marked complete and their cards join your reviews. No pressure: misses just mean the lesson is worth doing.</p></div><button class="btn primary" id="go">Start</button>`;
+  $("#go").onclick = () => {
+    let i = 0; const res = {};
+    const next = () => {
+      if (i >= items.length) return done();
+      const { l, q } = items[i]; const [qt, opts, a, why] = q; const ord = shuffle(opts.map((_, k) => k));
+      setProg(i / items.length); ST.right.innerHTML = `<span class="small muted">${i + 1} of ${items.length}</span>`;
+      ST.stage.innerHTML = `<div class="qcard"><div class="kicker">${esc(l.title)}</div><div class="qtext">${escG(qt)}</div></div><div class="opts" id="opts">${ord.map((k, j) => `<button class="opt" data-k="${k}"><span class="k">${j + 1}</span><span>${escG(opts[k])}</span></button>`).join("")}<button class="opt idk" data-k="-1"><span class="k">?</span><span>I don’t know yet</span></button></div>`;
+      $$("#opts .opt").forEach(b => b.onclick = () => { const ok = +b.dataset.k === a; res[l.id] = res[l.id] == null ? ok : res[l.id] && ok; i++; next(); });
+    };
+    const done = () => {
+      const passed = ls.filter(l => res[l.id] === true); let cards = 0;
+      passed.forEach(l => { const r = prep().lessons[l.id] = prep().lessons[l.id] || {}; r.done = 1; r.placed = 1; r.read = r.read || Date.now(); r.best = Math.max(r.best || 0, 100); r.last = Date.now(); if ((l.unlock || []).length) cards += unlockLesson(l) || 0; });
+      saveMeta(true); setProg(1); ST.right.innerHTML = "";
+      ST.stage.innerHTML = `<div class="results"><h2>${passed.length ? `Placed out of ${plural(passed.length, "lesson")}` : "Start from the beginning"}</h2><p class="muted" style="max-width:46ch">${passed.length ? `${cards ? plural(cards, "card") + " joined your reviews so you keep it fresh. " : ""}The rest are waiting in your path.` : "That’s useful to know: the lessons here will teach you from zero."}</p>
+        ${passed.length ? `<div class="list" style="text-align:left;width:100%;max-width:520px">${passed.map(l => `<div class="listrow" style="cursor:default"><span class="good-t">✓</span><span>${esc(l.title)}</span></div>`).join("")}</div>` : ""}
+        <div class="row" style="justify-content:center"><button class="btn primary" id="dn">Done</button></div></div>`;
+      $("#dn").onclick = () => closeStudy();
+    };
+    next();
+  };
+}
+
+/* ---------- your own slide photos ---------- */
+const SLIDE_KINDS = { smear: ["Blood smear", "lb-heme", "My slides: blood smears"], sed: ["Urine sediment", "lb-ua", "My slides: urine sediment"], gram: ["Gram stain", "lb-micro", "My slides: Gram stains"], other: ["Other", "", "My slides: other"] };
+function addSlideModal(kind = "smear") {
+  const names = [...Object.values(C).map(c => c.n), ...SED.map(s => s.name), ...Object.values(BUG).map(b => b.n), ...GRAM.map(g => g[0])];
+  modal(`${mhead("Add a slide photo")}<p class="small muted" style="margin-bottom:12px">Take a photo through the microscope (phone against the eyepiece works). Name what’s in it and it becomes a Picture ID card.</p>
+    <div class="field"><span class="lbl">Kind of slide</span><div class="seg" id="sk">${Object.entries(SLIDE_KINDS).map(([k, v]) => `<button data-k="${k}" class="${k === kind ? "on" : ""}">${v[0]}</button>`).join("")}</div></div>
+    <div class="field"><label class="btn" style="width:100%;justify-content:center">${icon("camera")}<span id="fname">Choose or take a photo</span><input type="file" accept="image/*" capture="environment" id="sf" hidden></label></div>
+    <div class="field"><label for="sn">What is it?</label><input class="input" id="sn" list="snames" placeholder="e.g. Target cell, Hyaline cast, Gram-positive cocci in clusters"><datalist id="snames">${[...new Set(names)].map(n => `<option value="${esc(n)}">`).join("")}</datalist></div>
+    <div class="field"><label for="snote">Note (optional)</label><input class="input" id="snote" placeholder="Where you saw it, stain, magnification…"></div>
+    <div class="modal-foot"><button class="btn" data-close>Cancel</button><button class="btn primary" id="ssave">Add card</button></div>`, (s, close) => {
+    let file = null;
+    $$("#sk button", s).forEach(b => b.onclick = () => { kind = b.dataset.k; $$("#sk button", s).forEach(x => x.classList.toggle("on", x === b)); });
+    $("#sf", s).onchange = e => { file = e.target.files[0]; $("#fname", s).textContent = file ? file.name : "Choose or take a photo"; };
+    $("#ssave", s).onclick = async () => {
+      const name = $("#sn", s).value.trim(); if (!file) { toast("Add a photo first"); return; } if (!name) { toast("Name what’s in it"); return; }
+      try {
+        const url = await fileToImage(file); const id = uid(); saveImage(id, url);
+        const [, lbl, dname] = SLIDE_KINDS[kind]; let d = Object.values(S.decks).find(x => x.slides === kind);
+        if (!d) { const l = labels().find(x => x.id === lbl); d = normalizeDeck({ id: uid(), name: dname, color: l ? l.color : "gray", label: lbl, slides: kind, fields: [], cards: [] }); S.decks[d.id] = d; }
+        d.cards.push({ id: uid(), type: "basic", front: "", back: name, img: id, imgSide: "front", note: $("#snote", s).value.trim() });
+        saveDeck(d); close(); stat("slides"); toast(`Added to “${d.name}”. ${d.cards.length >= 2 ? "Picture ID is ready." : "Add one more for Picture ID."}`);
+      } catch { toast("That photo couldn’t be read"); }
+    };
+  });
+}
+
+/* ---------- case presentation builder (Chemistry objective 145) ---------- */
+const CP_SECTIONS = [
+  ["history", "Patient and history", "Age, sex, symptoms, relevant history and medications. Make it realistic for your assigned disease."],
+  ["labs", "Laboratory results", "List each test with the result, units and reference range. Include the abnormal ones that tell the story and a couple of normals."],
+  ["interpret", "Clinical correlation", "For each abnormal result: why is it abnormal in this disease? Link physiology to the number."],
+  ["diff", "What else could it be?", "Two or three conditions with similar results, and what tells them apart."],
+  ["tests", "Follow-up and confirmatory tests", "Which tests would confirm the diagnosis or monitor treatment, and why."],
+  ["paragraph", "Typed paragraph (hand-in)", "One clear paragraph summarizing the case, the key results and the diagnosis. Aim for 150 to 250 words."]
+];
+const CP_QUESTIONS = ["Why is each abnormal result abnormal in this disease?", "What would the results look like if the disease were milder, or treated?", "Which single test best confirms your diagnosis, and why?", "What else could produce these results, and how would you tell?", "What preanalytical error could mimic part of this picture?", "How would the lab help monitor this patient’s treatment?"];
+const CP_SAMPLE = { id: "sample", title: "Sample: diabetic ketoacidosis", topic: "Diabetic ketoacidosis", sample: true, sec: {
+  history: "A 19-year-old man with type 1 diabetes comes to the emergency department with two days of vomiting, abdominal pain and deep, rapid breathing. He ran out of insulin three days ago. His breath has a fruity odor.",
+  labs: "Glucose 520 mg/dL (70–99)\nSodium 131 mmol/L (135–145)\nPotassium 5.8 mmol/L (3.5–5.1)\nChloride 95 mmol/L (98–107)\nBicarbonate 9 mmol/L (22–26)\nAnion gap 27 (8–16)\nBUN 30 mg/dL (7–20); creatinine 1.4 mg/dL (0.7–1.3)\nArterial pH 7.12; pCO₂ 22 mmHg\nBeta-hydroxybutyrate strongly elevated; urine glucose and ketones positive",
+  interpret: "Without insulin, cells can’t take up glucose, so it rises, and the body burns fat into ketoacids. The ketoacids consume bicarbonate, giving a high anion gap metabolic acidosis; the low pCO₂ is respiratory compensation (the deep Kussmaul breathing). Potassium is high even though total-body potassium is low, because acidosis and insulin lack shift it out of cells. Sodium is falsely low from water drawn into the blood by glucose; corrected sodium is about 138. BUN and creatinine are up from dehydration.",
+  diff: "Hyperosmolar hyperglycemic state (glucose often above 600, little or no ketosis, mild acidosis). Alcoholic ketoacidosis (ketosis with normal or low glucose). Lactic acidosis or toxic alcohols (high anion gap, but no ketones; check lactate and osmolal gap).",
+  tests: "Beta-hydroxybutyrate to confirm and follow ketosis. Basic metabolic panel every 1–2 hours during insulin therapy, especially potassium, which will fall as insulin drives it back into cells. Phosphate and magnesium. HbA1c for long-term control. Lactate and serum osmolality if the picture doesn’t fit.",
+  paragraph: "This 19-year-old with type 1 diabetes developed diabetic ketoacidosis after stopping insulin. Laboratory findings showed marked hyperglycemia (520 mg/dL), a high anion gap metabolic acidosis (bicarbonate 9 mmol/L, anion gap 27, pH 7.12) with respiratory compensation (pCO₂ 22 mmHg), and strongly positive ketones. The high potassium reflects a shift out of cells rather than excess body potassium, so levels must be watched closely once insulin is started. The low sodium is largely dilutional from hyperglycemia. Elevated BUN and creatinine point to dehydration. Hyperosmolar hyperglycemic state and alcoholic ketoacidosis were considered but are less likely given the strong ketosis with marked hyperglycemia. Serial electrolytes, beta-hydroxybutyrate and glucose will guide treatment, and an HbA1c will show long-term control." } };
+const caseList = () => (S.meta.casepres = S.meta.casepres || []);
+function startCasePres() {
+  openStudy("Case presentations"); setProg(1);
+  const list = caseList();
+  ST.stage.innerHTML = `<div class="qcard"><div class="kicker">Chemistry objective 145</div><p>Present three case studies you make up on assigned disease topics, with a typed paragraph on each. Show a working knowledge of the chemistry, clinically correlate the results, name follow-up tests, and be ready for classmates’ questions.</p></div>
+    <div class="list">${[CP_SAMPLE, ...list].map(c => { const filled = CP_SECTIONS.filter(([k]) => (c.sec?.[k] || "").trim().length > 20).length; return `<button class="listrow" data-cp="${c.id}"><span style="flex:1;min-width:0"><b>${esc(c.title)}</b><br><span class="small muted">${c.sample ? "Worked example to model" : `${filled} of ${CP_SECTIONS.length} sections drafted`}</span></span>${icon("right")}</button>`; }).join("")}</div>
+    <div class="row"><input class="input" id="cpt" placeholder="Assigned disease topic, e.g. acute pancreatitis" style="flex:1"><button class="btn primary" id="cpnew">${icon("plus")}New case</button></div>`;
+  $$("[data-cp]").forEach(b => b.onclick = () => editCase(b.dataset.cp === "sample" ? CP_SAMPLE : list.find(c => c.id === b.dataset.cp)));
+  $("#cpnew").onclick = () => { const t = $("#cpt").value.trim(); if (!t) { toast("Enter your assigned topic"); return; } const c = { id: uid(), title: t, topic: t, sec: {}, qa: {}, t: Date.now() }; list.push(c); saveMeta(true); editCase(c); };
+}
+function editCase(c) {
+  const ro = !!c.sample; let tab = "write";
+  const words = t => (t || "").trim().split(/\s+/).filter(Boolean).length;
+  const draw = () => {
+    const sec = c.sec || {};
+    const rub = [["Every section drafted", CP_SECTIONS.every(([k]) => words(sec[k]) >= 8)], ["Each abnormal result explained", words(sec.interpret) >= 60], ["Follow-up tests named", words(sec.tests) >= 15], ["Typed paragraph is 150–250 words", words(sec.paragraph) >= 150 && words(sec.paragraph) <= 260], ["Practiced at least 4 likely questions", Object.values(c.qa || {}).filter(a => words(a) >= 10).length >= 4]];
+    ST.stage.innerHTML = `<div class="studyhead">${capIcon(CAPS.gold ? "gold" : "gold", "tube", 30)}<div><small>Case presentation${ro ? " · worked example" : ""}</small><b>${esc(c.title)}</b></div></div>
+      <div class="seg" id="cptab">${[["write", "Write"], ["qa", "Practice questions"], ["check", "Checklist"]].map(([k, l]) => `<button data-t="${k}" class="${tab === k ? "on" : ""}">${l}</button>`).join("")}</div>
+      ${tab === "write" ? CP_SECTIONS.map(([k, t, h]) => `<div class="panel"><div class="row" style="justify-content:space-between"><h3>${t}</h3><span class="small muted">${words(sec[k])} words</span></div><p class="small muted" style="margin:4px 0 8px">${h}</p>${ro ? `<p style="white-space:pre-wrap">${escG(sec[k] || "")}</p>` : `<textarea class="input" data-s="${k}" rows="${k === "paragraph" ? 8 : 4}">${esc(sec[k] || "")}</textarea>`}</div>`).join("") :
+      tab === "qa" ? `<p class="muted">Classmates will ask. Answer out loud first, then type a short version.</p>${CP_QUESTIONS.map((q, k) => `<div class="panel"><b>${q}</b>${ro ? "" : `<textarea class="input" data-q="${k}" rows="3" style="margin-top:8px">${esc((c.qa || {})[k] || "")}</textarea>`}</div>`).join("")}` :
+      `<div class="panel">${rub.map(([t, ok]) => `<div class="d1ms"><div class="${ok ? "ok" : ""}"><span>${ok ? "✓" : "○"}</span>${t}</div></div>`).join("")}<p class="small muted" style="margin-top:10px">On the day: dress professionally, speak to the class rather than the slide, and keep each case to a few minutes.</p></div>`}
+      <div class="row">${!ro ? `<button class="btn danger" id="cpdel">${icon("trash")}Delete</button>` : ""}<div class="spacer"></div><button class="btn" id="cpcopy">${icon("download")}Download as text</button><button class="btn primary" id="cpback">Done</button></div>`;
+    $$("#cptab button").forEach(b => b.onclick = () => { tab = b.dataset.t; draw(); });
+    $$("[data-s]").forEach(t => t.oninput = () => { c.sec = c.sec || {}; c.sec[t.dataset.s] = t.value; c.t = Date.now(); saveMeta(); });
+    $$("[data-q]").forEach(t => t.oninput = () => { c.qa = c.qa || {}; c.qa[t.dataset.q] = t.value; saveMeta(); });
+    $("#cpcopy").onclick = () => download((c.title || "case").replace(/[^\w]+/g, "-") + ".txt", CP_SECTIONS.map(([k, t]) => `${t.toUpperCase()}\n${(c.sec || {})[k] || ""}`).join("\n\n"), "text/plain");
+    $("#cpdel") && ($("#cpdel").onclick = () => confirmModal("Delete this case?", "Your writing for it will be removed.", "Delete", () => { S.meta.casepres = caseList().filter(x => x.id !== c.id); saveMeta(true); startCasePres(); }));
+    $("#cpback").onclick = () => startCasePres();
+  };
+  draw();
+}
+
+/* ---------- lab math mastery levels ---------- */
+const _freeMath = startLabMath;
+const MATH_LV = [["Dilutions and solutions", m => m.topic === "Dilutions and solutions"], ["Hematology calculations", m => m.topic === "Hematology calculations"], ["Chemistry calculations", m => m.topic === "Chemistry calculations"], ["QC and statistics", m => m.topic === "Quality control math"], ["Mixed challenge", () => true]];
+startLabMath = function () {
+  const gs = gstate("math"); let lv = Math.min(gs.level || 1, MATH_LV.length);
+  openStudy("Lab math");
+  const menu = () => {
+    ST.right.innerHTML = ""; setProg(0);
+    ST.stage.innerHTML = `${levelTabs(MATH_LV.map(l => l[0]), lv, gs.level || 1)}<div class="qcard"><p>Fresh numbers every time. Work it on paper, then enter the answer. Misses come back with the worked steps until you get them. A perfect first try unlocks the next level.</p></div>
+      <div class="row"><button class="btn primary" id="go">Start level ${lv}</button><button class="btn" id="free">Free practice by topic</button><button class="btn ghost" id="fs">${icon("quiz")}Formula sheet</button></div>`;
+    $$(".lvl").forEach(b => b.onclick = () => { lv = +b.dataset.lv; menu(); });
+    $("#free").onclick = () => _freeMath(); $("#fs").onclick = startFormulas;
+    $("#go").onclick = () => run();
+  };
+  const run = () => {
+    const kinds = Object.entries(MATH).filter(([, m]) => MATH_LV[lv - 1][1](m)).map(([k]) => k);
+    const N = lv === MATH_LV.length ? 12 : Math.min(10, Math.max(6, kinds.length * 2));
+    const qs = shuffle(Array.from({ length: N }, (_, i) => { const k = kinds[i % kinds.length]; return { kind: k, n: i, ...MATH[k].make() }; }));
+    let i = 0; const wrong = new Set();
+    const show = () => {
+      if (i >= qs.length) return end();
+      const q = qs[i]; let state = "ask";
+      setProg(Math.min(.98, i / qs.length)); ST.right.innerHTML = `<span class="small muted">${Math.min(N, i + 1)} of ${N}${wrong.has(q.n) ? " · second try" : ""}</span>`;
+      ST.stage.innerHTML = `<div class="qcard"><div class="kicker">${escG(MATH[q.kind].topic)}</div><div class="qtext" style="font-size:1.25rem">${escG(q.q)}</div>${q.hint ? `<p class="small muted" style="margin-top:6px">${escG(q.hint)}</p>` : ""}</div>
+        <div class="typed"><div class="unitbox">${q.prefix ? `<span>${q.prefix}</span>` : ""}<input class="input" id="ans" inputmode="decimal" autocomplete="off" placeholder="Your answer" aria-label="Answer">${q.unit ? `<span>${escG(q.unit)}</span>` : ""}</div><button class="btn primary" id="chk">Check</button></div><div id="fb"></div>`;
+      if (matchMedia("(hover:hover)").matches) setTimeout(() => $("#ans")?.focus(), 40);
+      const check = () => {
+        if (state !== "ask") return; const raw = $("#ans").value.replace(/,/g, "").replace(/^1\s*:\s*/, "").trim(); if (!raw) { toast("Enter a number"); return; }
+        state = "shown"; const val = parseFloat(raw); const tol = Math.max(q.tol ?? 0.5 * 10 ** -q.dec, Math.abs(q.ans) * (q.tolPct ?? 1) / 100); const ok = isFinite(val) && Math.abs(val - q.ans) <= tol + 1e-9;
+        if (!ok) { if (!wrong.has(q.n)) { wrong.add(q.n); logMistake({ src: "Lab math", q: q.q, yours: raw, right: fmtN(q.ans, q.dec) + " " + (q.unit || ""), why: q.steps.join(" ") }); } qs.push({ ...q }); } else stat("mathCorrect");
+        bumpHistory(false);
+        $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? "Correct" : "Not quite. This one comes back."}: ${q.prefix || ""}${fmtN(q.ans, q.dec)} ${escG(q.unit || "")}<ol class="worked">${q.steps.map(s => `<li>${escG(s)}</li>`).join("")}</ol></div></div><div class="row" style="margin-top:10px"><div class="spacer"></div><button class="btn primary" id="nx">Next</button></div>`;
+        $("#chk").remove(); $("#ans").disabled = true; $("#nx").onclick = () => { i++; show(); }; $("#nx").focus();
+      };
+      $("#chk").onclick = check; ST.onKey = e => { if (e.key === "Enter") { e.preventDefault(); state === "ask" ? check() : $("#nx")?.click(); } };
+    };
+    const end = () => {
+      const first = N - wrong.size; const perfect = first === N;
+      if (perfect && (gs.level || 1) === lv && lv < MATH_LV.length) { gs.level = lv + 1; toast(`Level ${lv + 1} unlocked`); } if (perfect && lv === MATH_LV.length) statMax("mathMaster", 1);
+      saveMeta(); setProg(1); ST.right.innerHTML = "";
+      ST.stage.innerHTML = `<div class="results">${ring(Math.round(first / N * 100))}<h2>${first} of ${N} on the first try</h2><p class="muted">${perfect ? (lv < MATH_LV.length ? "Perfect. Next level unlocked." : "Every level mastered.") : "Get a perfect first try to unlock the next level."}</p><div class="row" style="justify-content:center"><button class="btn primary" id="again">New set</button><button class="btn" id="lvls">Levels</button><button class="btn" id="dn">Done</button></div></div>`;
+      lv = perfect ? Math.min(lv + 1, gs.level) : lv;
+      $("#again").onclick = run; $("#lvls").onclick = menu; $("#dn").onclick = () => closeStudy();
+    };
+    show();
+  };
+  menu();
+};
+
+/* ---------- comprehensive exam: program credits or ASCP BOC weighting ---------- */
+const BOC_AREAS = { "Blood bank": [19.5, ["MT 402"]], "Chemistry": [19.5, ["MT 403"]], "Hematology": [19.5, ["MT 400"]], "Microbiology": [19.5, ["MT 405"]], "Urinalysis and body fluids": [7.5, ["MT 404"]], "Immunology": [7.5, ["MT 401"]], "Laboratory operations": [7.5, ["MT 410", "MT 412/506", "MT 408", "MT 409"]] };
+startComprehensive = function (mode) {
+  openStudy("Comprehensive exam");
+  let n = 50, per = 1, w = mode === "boc" ? "boc" : "program";
+  const setup = () => {
+    ST.stage.innerHTML = `<div class="qcard"><h2 style="margin-bottom:6px">Comprehensive exam simulator</h2><p class="small muted">Questions from every course. Choose how they’re weighted.</p></div>
+      <div class="field"><span class="lbl">Weighting</span><div class="seg" id="cw"><button data-v="program" class="${w === "program" ? "on" : ""}">Your program (credit hours)</button><button data-v="boc" class="${w === "boc" ? "on" : ""}">ASCP BOC board exam</button></div></div>
+      <div class="row" style="gap:24px"><div><p class="lbl" style="margin-bottom:6px">Questions</p><div class="seg" id="cn">${[25, 50, 100].map(x => `<button data-v="${x}" class="${n === x ? "on" : ""}">${x}</button>`).join("")}</div></div>
+      <div><p class="lbl" style="margin-bottom:6px">Time</p><div class="seg" id="ct">${[[0, "Untimed"], [1, "1 min each"], [1.5, "1.5 min each"]].map(([v, l]) => `<button data-v="${v}" class="${per === v ? "on" : ""}">${l}</button>`).join("")}</div></div></div>
+      <div class="panel"><p class="lbl" style="margin-bottom:8px">${w === "boc" ? "BOC content areas (midpoint of each published range)" : "Weighting by credit hours"}</p>${w === "boc" ? Object.entries(BOC_AREAS).map(([a, [p]]) => `<div class="deckbar" style="grid-template-columns:1fr auto"><span>${esc(a)}</span><span class="small muted">${p}%</span></div>`).join("") : PROGRAM.courses.map(c => `<div class="deckbar" style="grid-template-columns:1fr auto"><span>${esc(c.code)} ${esc(c.name)}</span><span class="small muted">${c.credits} cr</span></div>`).join("")}</div>
+      <button class="btn primary" id="go" style="min-height:48px">${icon("exam")}Start exam</button>`;
+    $$("#cw button").forEach(b => b.onclick = () => { w = b.dataset.v; setup(); });
+    $$("#cn button").forEach(b => b.onclick = () => { n = +b.dataset.v; setup(); });
+    $$("#ct button").forEach(b => b.onclick = () => { per = +b.dataset.v; setup(); });
+    $("#go").onclick = build;
+  };
+  const build = () => {
+    let qs = [];
+    if (w === "boc") {
+      Object.entries(BOC_AREAS).forEach(([area, [pct, codes]]) => { const pool = shuffle(codes.flatMap(code => { const ci = PROGRAM.courses.findIndex(c => c.code === code); return ci < 0 ? [] : compItems(ci); })).map(q => ({ ...q, area })); qs.push(...pool.slice(0, Math.max(pool.length ? 1 : 0, Math.round(n * pct / 100)))); });
+    } else {
+      const tot = PROGRAM.courses.reduce((a, c) => a + c.credits, 0);
+      PROGRAM.courses.forEach((c, ci) => { const pool = compItems(ci); qs.push(...pool.slice(0, Math.max(pool.length ? 1 : 0, Math.round(n * c.credits / tot)))); });
+    }
+    qs = shuffle(qs).slice(0, n);
+    if (qs.length < 5) { noDataScreen("Not enough questions yet", "Pass a few Head start lessons or add starter packs, and the exam will fill in."); return; }
+    runExam(qs, per, w === "boc" ? "Board-style" : "Comprehensive");
+  };
+  setup();
+};
+BADGES2.push(
+  { id: "mathm", cat: "g", e: "📐", name: "Math mastered", desc: "Clear every Lab math level", target: 1, cur: () => sv("mathMaster") },
+  { id: "gramm", cat: "g", e: "🟣", name: "Gram stain pro", desc: "Clear every Gram stain level", target: 1, cur: () => sv("gramMaster") },
+  { id: "slide1", cat: "p", e: "📸", name: "Real slides", desc: "Add 5 of your own slide photos", target: 5, cur: () => sv("slides") },
+  { id: "case3", cat: "p", e: "🎤", name: "Presenter", desc: "Draft all three case presentations", target: 3, cur: () => (S.meta.casepres || []).filter(c => ((c.sec || {}).paragraph || "").trim().split(/\s+/).length >= 150).length }
+);
+/* ===================== Formula sheet, redesigned ===================== */
+const FTOPIC = { "Dilutions and solutions": ["violet", "Dilutions, concentrations and unit conversions"], "Hematology calculations": ["lavender", "Indices, counts and corrections"], "Chemistry calculations": ["gold", "Electrolytes, lipids and kidney function"], "Quality control math": ["lightblue", "Statistics for QC and test performance"] };
+startFormulas = function () {
+  openStudy("Formula sheet"); setProg(1);
+  const groups = {};
+  Object.values(MATH).forEach(m => { const ex = m.make(); const g = groups[m.topic] = groups[m.topic] || new Map(); if (!g.has(ex.steps[0])) g.set(ex.steps[0], { note: ex.note || "", ex }); });
+  EXTRA_FORMULAS.forEach(([t, f, n]) => { const g = groups[t] = groups[t] || new Map(); if (!g.has(f)) g.set(f, { note: n }); });
+  let q = "";
+  const draw = () => {
+    const nq = norm(q);
+    $("#fsl").innerHTML = Object.entries(groups).map(([t, m]) => { const items = [...m].filter(([f, v]) => !nq || norm(f + " " + v.note).includes(nq)); if (!items.length) return ""; const col = CAPS[(FTOPIC[t] || [])[0]] || "var(--violet)";
+      return `<section class="fsec" style="--fc:${col}"><div class="fsec-h"><b>${escG(t)}</b><small>${esc((FTOPIC[t] || [, ""])[1])}</small></div>${items.map(([f, v]) => { const [lhs, ...rhs] = f.split(" = "); return `<div class="fitem"><div class="fbox">${rhs.length ? `<span class="flhs">${escG(lhs)}</span><span class="feq">=</span><span class="frhs">${escG(rhs.join(" = "))}</span>` : `<span class="frhs">${escG(f)}</span>`}</div>${v.note ? `<p class="fnote">${escG(v.note)}</p>` : ""}${v.ex ? `<details class="fex"><summary>Worked example</summary><p>${escG(v.ex.q)}</p><ol class="worked">${v.ex.steps.map(s => `<li>${escG(s)}</li>`).join("")}</ol><p><b>Answer:</b> ${v.ex.prefix || ""}${fmtN(v.ex.ans, v.ex.dec)} ${escG(v.ex.unit || "")}</p></details>` : ""}</div>`; }).join("")}</section>`; }).join("") || `<p class="muted">No formulas match.</p>`;
+  };
+  ST.stage.innerHTML = `<div class="row"><label class="search" style="flex:1;min-width:200px">${icon("search")}<input id="fq" placeholder="Search formulas (e.g. dilution, MCV, anion)" aria-label="Search formulas"></label><button class="btn primary" id="pr">${icon("type")}Practice lab math</button></div>
+    <p class="small muted">Tap any dotted-underlined abbreviation for its meaning. Open “Worked example” to see the numbers plugged in.</p><div id="fsl" class="fsl"></div>`;
+  $("#fq").oninput = e => { q = e.target.value; draw(); };
+  $("#pr").onclick = () => startLabMath();
+  draw();
+};
+/* ===================== Home wiring ===================== */
+TOOLS.play = TOOLS.play.map(t => t[0] === "gramBtn" ? ["gramBtn", "micro", "Gram stain", "gram"] : t);
+TOOLS.plan = [["d1Btn", "flag", "Day One Ready"], ...TOOLS.plan.filter(t => t[0] !== "d1Btn"), ["caseBtn", "micro", "Case presentations"], ["slideBtn", "camera", "Add slide photo"]];
+const _rh14 = renderHome;
+renderHome = function (decks) {
+  _rh14(decks);
+  const gb = $("#gramBtn"); if (gb) gb.onclick = gated("gram", "Gram stain", startGramStain);
+  const on = (id, fn) => { const el = $("#" + id); if (el) el.onclick = fn; };
+  on("d1Btn", startDayOne); on("caseBtn", startCasePres); on("slideBtn", () => addSlideModal());
+  if (prepOn() && $(".dash")) { const pi = paceInfo(); $(".dash .dmain .row")?.insertAdjacentHTML("beforeend", `<button class="btn dbtn ghost" id="dashD1">${icon("flag")}Day One Ready${pi.days ? ` · ${pi.days}d` : ""}</button>`); on("dashD1", startDayOne); }
+};
+GAME_OPEN.gram = ["Gram stain", () => startGramStain()];
+{ const rd = renderDeck; renderDeck = function (d) { rd(d); $(".modes[hidden]")?.remove(); }; }
+/* ===================== Fresh numbers every time: test the HOW, not memory ===================== */
+const rr = (a, b, d = 0) => +(a + Math.random() * (b - a)).toFixed(d);
+const fx = (n, d = 1) => (+n).toFixed(d).replace(/\.0+$/, "");
+const ANALYTES = [["Glucose", "mg/dL", 70, 99, 0], ["Sodium", "mmol/L", 135, 145, 0], ["Potassium", "mmol/L", 3.5, 5.1, 1], ["Calcium", "mg/dL", 8.6, 10.3, 1], ["Chloride", "mmol/L", 98, 107, 0], ["BUN", "mg/dL", 7, 20, 0]];
+function classifyGen() {
+  const [n, u, lo, hi, d] = rpick(ANALYTES); const kind = rpick(["in", "in", "hi", "lo"]); const span = hi - lo;
+  const v = kind === "in" ? rr(lo + span * .1, hi - span * .1, d) : kind === "hi" ? rr(hi + span * .08, hi + span * .5, d) : rr(lo - span * .5, lo - span * .08, d);
+  const a = kind === "in" ? "Within the range" : kind === "hi" ? "High" : "Low";
+  return [`${n} ${fx(v, d)} ${u} with a reference range of ${fx(lo, d)} to ${fx(hi, d)} is:`, [a, ...["Within the range", "High", "Low"].filter(x => x !== a), "Impossible to say"], 0, `${fx(v, d)} is ${kind === "in" ? "between" : kind === "hi" ? "above" : "below"} ${kind === "lo" ? fx(lo, d) : kind === "hi" ? fx(hi, d) : `${fx(lo, d)} and ${fx(hi, d)}`}.`];
+}
+const VARIANTS = [
+  [/with a (?:reference )?range of/i, classifyGen],
+  [/^Sodium \d+ mmol\/L is:/, classifyGen],
+  [/^A WBC of [\d.]+ ×10³\/µL is:/, () => { const k = rpick(["hi", "lo", "in"]); const v = k === "hi" ? rr(12, 30, 1) : k === "lo" ? rr(1.5, 4, 1) : rr(5, 10.5, 1); const a = { hi: "High", lo: "Low", in: "Normal" }[k]; return [`A WBC of ${fx(v)} ×10³/µL (normal 4.5–11.0) is:`, [a, ...["High", "Low", "Normal"].filter(x => x !== a), "Impossible"], 0, k === "hi" ? "Above 11.0: often infection or inflammation." : k === "lo" ? "Below 4.5: the body may not fight infection well." : "Within 4.5–11.0."]; }],
+  [/^Hgb [\d.]+ g\/dL in an adult woman/, () => { const k = rpick(["lo", "lo", "in", "hi"]); const v = k === "lo" ? rr(6, 11.5, 1) : k === "in" ? rr(12.3, 15.2, 1) : rr(16.5, 19, 1); const a = { lo: "Anemia", in: "Normal", hi: "Too high (polycythemia)" }[k]; return [`Hgb ${fx(v)} g/dL in an adult woman (normal 12.0 to 15.5) means:`, [a, ...["Anemia", "Normal", "Too high (polycythemia)"].filter(x => x !== a), "Infection"], 0, k === "lo" ? "Below 12.0: low hemoglobin is the definition of anemia." : k === "in" ? "Within the range." : "Above the range: too many red cells."]; }],
+  [/^Platelets of [\d.]+ ×10³\/µL means:/, () => { const k = rpick(["lo", "lo", "in", "hi"]); const v = k === "lo" ? rr(10, 120) : k === "in" ? rr(170, 420) : rr(500, 900); const a = { lo: "Low, with bleeding risk", in: "Normal", hi: "High, with clotting risk" }[k]; return [`Platelets of ${v} ×10³/µL (normal 150–450) means:`, [a, ...["Low, with bleeding risk", "Normal", "High, with clotting risk"].filter(x => x !== a), "Infection"], 0, `${v} is ${k === "lo" ? "below 150" : k === "hi" ? "above 450" : "within 150–450"}.`]; }],
+  [/^Control results: [\d, ]+\. What’s the mean\?/, () => { const m = rr(80, 240); const sp = rr(1, 4); const n = rpick([3, 4, 5]); let xs = Array.from({ length: n }, () => m + rr(-sp, sp)); const diff = m * n - xs.reduce((a, b) => a + b, 0); xs[0] += diff; const mean = m; return [`Control results: ${xs.join(", ")}. What’s the mean?`, [String(mean), String(mean + 1), String(mean - 2), String(xs.reduce((a, b) => a + b, 0))], 0, `Add them (${xs.reduce((a, b) => a + b, 0)}) and divide by ${n}: ${mean}.`]; }],
+  [/^Mean [\d.]+, SD [\d.]+\. What’s the acceptable 2 SD range\?/, () => { const m = rr(80, 250), sd = rr(2, 8); return [`Mean ${m}, SD ${sd}. What’s the acceptable 2 SD range?`, [`${m - 2 * sd} to ${m + 2 * sd}`, `${m - sd} to ${m + sd}`, `${m - 3 * sd} to ${m + 3 * sd}`, `${m} to ${m + 2 * sd}`], 0, `2 × ${sd} = ${2 * sd}, so ${m} − ${2 * sd} to ${m} + ${2 * sd}.`]; }],
+  [/^Hgb is [\d.]+\. The Hct should be about:/, () => { const h = rr(8, 17); return [`Hgb is ${h} g/dL. By the rule of three, the Hct should be about:`, [`${h * 3}%`, `${h}%`, `${h * 2}%`, `${h * 4}%`], 0, `${h} × 3 = ${h * 3}.`]; }],
+  [/^An? MCV of \d+ fL means|^MCV \d+ fL means/, () => { const k = rpick(["mi", "ma", "no"]); const v = k === "mi" ? rr(58, 78) : k === "ma" ? rr(102, 125) : rr(82, 98); const a = { mi: "Small (microcytic)", ma: "Large (macrocytic)", no: "Normal size (normocytic)" }[k]; return [`An MCV of ${v} fL means the red cells are:`, [a, ...["Small (microcytic)", "Large (macrocytic)", "Normal size (normocytic)"].filter(x => x !== a), "Missing"], 0, `Normal MCV is 80–100 fL; ${v} is ${k === "mi" ? "below" : k === "ma" ? "above" : "within"} that.`]; }],
+  [/^To make a 1:\d+ dilution from [\d.]+ mL of serum/, () => { const r = rpick([2, 4, 5, 10, 20]), s = rpick([0.1, 0.2, 0.5, 1]); const dil = +(s * (r - 1)).toFixed(2); return [`To make a 1:${r} dilution from ${s} mL of serum, how much saline do you add?`, [`${dil} mL`, `${+(s * r).toFixed(2)} mL`, `${+(s * (r + 1)).toFixed(2)} mL`, `${s} mL`], 0, `Total = ${s} × ${r} = ${+(s * r).toFixed(2)} mL, so add ${+(s * r).toFixed(2)} − ${s} = ${dil} mL.`]; }],
+  [/^[\d.]+ mL serum \+ [\d.]+ mL saline =/, () => { const r = rpick([2, 3, 4, 5, 8, 10]), s = rpick([0.1, 0.2, 0.25, 0.5]); const d = +(s * (r - 1)).toFixed(2); return [`${s} mL serum + ${d} mL saline =`, [`1:${r}`, `1:${r - 1}`, `1:${r + 1}`, `${r}:1`], 0, `Total = ${+(s * r).toFixed(2)} mL; ${s} ÷ ${+(s * r).toFixed(2)} = 1/${r}.`]; }],
+  [/^A 1:\d+ diluted sample reads [\d.]+\. The real value is:/, () => { const r = rpick([2, 4, 5, 10]), v = rr(20, 180); return [`A 1:${r} diluted sample reads ${v}. The real value is:`, [String(v * r), String(+(v / r).toFixed(1)), String(v + r), String(v)], 0, `Multiply by the dilution factor: ${v} × ${r} = ${v * r}.`]; }],
+  [/^1:\d+ followed by 1:\d+ =/, () => { const a = rpick([2, 4, 5, 10]), b = rpick([2, 5, 10, 20]); return [`1:${a} followed by 1:${b} =`, [`1:${a * b}`, `1:${a + b}`, `1:${Math.max(a, b)}`, `1:${a * b * 10}`], 0, `Multiply the factors: ${a} × ${b} = ${a * b}.`]; }],
+  [/^You need [\d.]+ mL of [\d.]+% .+ from [\d.]+%/, () => { const c1 = rpick([10, 20, 25, 50, 95]), c2 = rpick([1, 2, 5, 10].filter(x => x < c1)), v2 = rpick([50, 100, 200, 250, 500]); const v1 = +(c2 * v2 / c1).toFixed(1); return [`You need ${v2} mL of ${c2}% solution from a ${c1}% stock. How much stock?`, [`${v1} mL`, `${+(c1 * v2 / c2).toFixed(1)} mL`, `${+(v2 - v1).toFixed(1)} mL`, `${c2} mL`], 0, `C₁V₁ = C₂V₂: ${c1} × V₁ = ${c2} × ${v2}, so V₁ = ${v1} mL. Then add diluent to ${v2} mL.`]; }],
+  [/^Reactions at 1:\d+/, () => { const stop = rpick([3, 4, 5, 6, 7]); const ds = Array.from({ length: stop + 1 }, (_, k) => 2 ** (k + 1)); const pos = ds.slice(0, stop); return [`Reactions at ${pos.map(x => "1:" + x).join(", ")}, but not 1:${ds[stop]}. The titer is:`, [String(pos[stop - 1]), String(ds[stop]), String(pos[0]), String(pos[Math.max(0, stop - 2)])], 0, `The titer is the highest dilution still positive: ${pos[stop - 1]}.`]; }],
+  [/^Platelets are \d+ ×10³\/µL\. How many/, () => { const v = rr(90, 480); return [`Platelets are ${v} ×10³/µL. How many platelets per µL is that?`, [(v * 1000).toLocaleString(), String(v), (v * 10).toLocaleString(), (v * 1e6).toLocaleString()], 0, `×10³ means multiply by 1,000: ${v} × 1,000.`]; }],
+  [/^Which is larger: [\d.]+ ×10/, () => { const a = rr(1, 9, 1), b = rr(1, 9, 1); const big = rpick([[`${a} ×10⁶`, `${b} ×10³`], [`${a} ×10⁹`, `${b} ×10⁶`], [`${a} ×10⁴`, `${b} ×10³`]]); return [`Which is larger: ${big[1]} or ${big[0]}?`, [big[0], big[1], "They’re equal", "Can’t tell"], 0, "Compare the powers of ten first; the bigger exponent wins."]; }],
+  [/^Convert \d+ mL to liters/, () => { const v = rpick([50, 125, 250, 500, 750, 1500, 2500]); return [`Convert ${v} mL to liters.`, [`${v / 1000} L`, `${v / 100} L`, `${v / 10} L`, `${v * 1000} L`], 0, `Smaller to bigger, divide by 1,000: ${v} ÷ 1,000.`]; }],
+  [/^Urine with a pH of [\d.]+ is:/, () => { const v = rr(4.5, 8.5, 1); const a = v < 7 ? "Acidic" : v > 7 ? "Basic (alkaline)" : "Neutral"; return [`Urine with a pH of ${v} is:`, [a, ...["Acidic", "Basic (alkaline)", "Neutral"].filter(x => x !== a), "Impossible"], 0, `Below 7 is acidic, above 7 is basic.`]; }],
+  [/^A blood pH of [\d.]+ is:/, () => { const k = rpick(["a", "b", "n"]); const v = k === "a" ? rr(7.05, 7.33, 2) : k === "b" ? rr(7.47, 7.6, 2) : rr(7.36, 7.44, 2); const a = { a: "Acidosis (too acidic)", b: "Alkalosis (too basic)", n: "Normal" }[k]; return [`A blood pH of ${v.toFixed(2)} is:`, [a, ...["Acidosis (too acidic)", "Alkalosis (too basic)", "Normal"].filter(x => x !== a), "Neutral"], 0, "Normal blood pH is 7.35–7.45."]; }],
+  [/^Na \d+, Cl \d+, HCO₃ \d+\. (?:The a|A)nion gap/, () => { const na = rr(132, 146), cl = rr(94, 108), h = rr(10, 28); const ag = na - cl - h; return [`Na ${na}, Cl ${cl}, HCO₃ ${h}. The anion gap is:`, [String(ag), String(na - cl), String(ag + 4), String(cl + h)], 0, `${na} − (${cl} + ${h}) = ${ag}.`]; }],
+  [/standard (?:of )?\d+ (?:mg\/dL )?reads [\d.]+/i, () => { const c = rpick([50, 100, 200]), as = rpick([0.2, 0.25, 0.4]), m = rpick([0.5, 1.5, 2, 3]); const au = +(as * m).toFixed(2); const ans = +(c * m).toFixed(0); return [`A ${c} mg/dL standard reads ${as} absorbance. A patient sample reads ${au}. Its concentration is:`, [`${ans} mg/dL`, `${+(c / m).toFixed(0)} mg/dL`, `${c} mg/dL`, `${+(ans + c).toFixed(0)} mg/dL`], 0, `Beer’s law: (${au} ÷ ${as}) × ${c} = ${ans}.`]; }],
+  [/^TC \d+, HDL \d+, TG \d+\. Calculated LDL\?/, () => { const tc = rr(160, 280), hdl = rr(30, 75), tg = rpick([80, 100, 120, 150, 200, 250]); const ldl = tc - hdl - tg / 5; return [`TC ${tc}, HDL ${hdl}, TG ${tg} mg/dL. Calculated LDL?`, [String(ldl), String(tc - hdl), String(tc - hdl - tg), String(ldl + 10)], 0, `${tc} − ${hdl} − (${tg} ÷ 5 = ${tg / 5}) = ${ldl}.`]; }],
+  [/^You count 100 white cells and \d+ are neutrophils/, () => { const n = rr(40, 80); const t = rpick([100, 200]); const c = Math.round(n * t / 100); return [`You count ${t} white cells and ${c} are neutrophils. Neutrophils are:`, [`${n}%`, `${100 - n}%`, `${c}%`, `${+(n / 10).toFixed(1)}%`], 0, `${c} ÷ ${t} × 100 = ${n}%.`]; }],
+  [/^In a 1:\d+ dilution, how many total parts/, () => { const r = rpick([2, 3, 4, 5, 8, 10, 20]); return [`In a 1:${r} dilution, how many total parts are there?`, [String(r), String(r - 1), String(r + 1), "1"], 0, "The second number is the total parts, not the amount added."]; }],
+  [/^After \d+ cycles, one DNA target becomes:/, () => { const c = rr(2, 6); return [`After ${c} PCR cycles, one DNA target becomes:`, [`${2 ** c} copies`, `${c} copies`, `${2 * c} copies`, `${c * c + 1} copies`], 0, `Each cycle doubles: 2^${c} = ${2 ** c}.`]; }],
+  [/^A titer goes from 1:\d+ to 1:\d+/, () => { const a = rpick([4, 8, 16, 32]); const k = rpick([1, 2, 3]); const b = a * 2 ** k; const a2 = k >= 2 ? "A significant rise (fourfold or more)" : "Not significant (less than fourfold)"; return [`A titer goes from 1:${a} to 1:${b} over three weeks. That’s:`, [a2, k >= 2 ? "Not significant (less than fourfold)" : "A significant rise (fourfold or more)", "A decrease", "Impossible to say"], 0, `${b} ÷ ${a} = ${2 ** k}-fold. Fourfold or more shows active infection.`]; }],
+  [/grams of salt are in 100 mL of [\d.]+% saline/, () => { const p = rpick([0.45, 0.9, 3, 5, 10]); const v = rpick([100, 200, 500]); return [`How many grams of solute are in ${v} mL of a ${p}% (w/v) solution?`, [`${+(p * v / 100).toFixed(2)} g`, `${p} g`, `${+(p * v / 10).toFixed(2)} g`, `${+(p * v).toFixed(2)} g`], 0, `% w/v = grams per 100 mL: ${p} × ${v / 100} = ${+(p * v / 100).toFixed(2)} g.`]; }],
+  [/^A control lands at \+?[\d.]+ SD\./, () => { const v = rpick([1.4, 2.3, 2.6, 3.2, 3.6]) * rpick([1, -1]); const a = Math.abs(v) > 3 ? "Reject: something is wrong with the test (1-3s)" : Math.abs(v) > 2 ? "Warning (1-2s): check the other rules" : "Normal variation: accept"; return [`A control lands at ${v > 0 ? "+" : ""}${v} SD. What should you do?`, [a, ...["Reject: something is wrong with the test (1-3s)", "Warning (1-2s): check the other rules", "Normal variation: accept"].filter(x => x !== a), "Change the mean"], 0, "Within 2 SD: accept. 2 to 3 SD: 1-2s warning. Beyond 3 SD: reject (1-3s)."]; }],
+  [/^Two controls in a row land at \+[\d.]+ and \+[\d.]+ SD/, () => { const s = rpick([1, -1]); const a = rr(2.1, 2.8, 1) * s, b = rr(2.1, 2.8, 1) * s; const f = x => (x > 0 ? "+" : "") + x.toFixed(1); return [`Two controls in a row land at ${f(a)} and ${f(b)} SD. Which rule is broken?`, ["2-2s", "1-3s", "1-2s only", "No rule"], 0, "Two consecutive controls beyond the same 2 SD line: 2-2s, a systematic error."]; }],
+  [/^Glucose \d+ mg\/dL with a range/, classifyGen]
+];
+function varyItem(it) { if (!it || !it[0]) return it; for (const [re, gen] of VARIANTS) if (re.test(it[0])) { try { return gen(); } catch { return it; } } return it; }
+const isVariant = it => it && it[0] && VARIANTS.some(([re]) => re.test(it[0]));
+/* hook: quiz runner items and requeues get fresh numbers */
+VARIANTS.push(
+  [/^Results of [\d, ]+ when the true value is \d+ are:/, () => { const tv = rr(80, 200); const k = rpick(["pna", "anp", "both", "neither"]); const sp = k === "pna" || k === "both" ? 1 : 12; const off = k === "pna" || k === "neither" ? rr(15, 30) : 0; const xs = [0, 1, 2].map(() => tv + off + rr(-sp, sp)); const a = { pna: "Precise but not accurate", anp: "Accurate but not precise", both: "Both accurate and precise", neither: "Neither accurate nor precise" }[k]; return [`Results of ${xs.join(", ")} when the true value is ${tv} are:`, [a, ...["Precise but not accurate", "Accurate but not precise", "Both accurate and precise", "Neither accurate nor precise"].filter(x => x !== a)], 0, "Precise = close to each other. Accurate = close to the true value."]; }],
+  [/^Method A has an SD of [\d.]+; method B has an SD of [\d.]+/, () => { const a = rr(1, 6), b = a + rr(2, 8); const sw = Math.random() < .5; const [x, y] = sw ? [b, a] : [a, b]; const ans = x < y ? "Method A" : "Method B"; return [`Method A has an SD of ${x}; method B has an SD of ${y} on the same control. Which is more precise?`, [ans, ans === "Method A" ? "Method B" : "Method A", "They’re equal", "Can’t tell"], 0, "Smaller SD means less scatter: more precise."]; }],
+  [/^One control is at \+[\d.]+ SD\. What does 1-2s tell you to do\?/, () => { const v = rr(2.1, 2.9, 1) * rpick([1, -1]); return [`One control is at ${v > 0 ? "+" : ""}${v} SD, and nothing else is out. What does the 1-2s rule tell you to do?`, ["Check the other rules before deciding", "Reject the run immediately", "Ignore it forever", "Recalibrate everything"], 0, "1-2s is a warning, not a rejection rule."]; }],
+  [/^A glucose control should read about \d+ but reads \d+/, () => { const t = rpick([90, 100, 120, 250]); const far = Math.random() < .7; const v = far ? t + rr(t * .3, t * .6) * rpick([1, -1]) : t + rr(-2, 2); const a = far ? "No: something is wrong with the test" : "Yes: the control is where it should be"; return [`A glucose control should read about ${t} mg/dL. Today it reads ${v}. Report patient results from that run?`, [a, far ? "Yes: the control is where it should be" : "No: something is wrong with the test", "Only if the patient looks sick", "Only half of them"], 0, far ? "A control far from its target means patient results are probably off too." : "The control is in range, so patient results can be trusted."]; }]
+);
+/* ===================== Tube rack: drag (or tap) tubes into order ===================== */
+const RANK_TXT = "1 Blood cultures → 2 Light blue → 3 Red or Gold → 4 Green → 5 Lavender or Pink → 6 Gray";
+const bigTube = (t, h = 74) => t.id === "cult" ? capIcon(t.cap, "bottle", h) : capIcon(t.cap, "tube", h);
+function dragOrder(items, onDone) {
+  const slots = Array(items.length).fill(null); let tray = shuffle(items.slice()); let checked = false;
+  const draw = () => {
+    const sorted = items.slice().sort((a, b) => a.rank - b.rank);
+    ST.stage.innerHTML = `<div class="qcard"><div class="qtext" style="font-size:1.1rem">Load the rack in order of draw</div><p class="small muted">Drag tubes into the rack, or tap a tube to place it in the next open slot. Tap a racked tube to take it back.</p></div>
+      <div class="rack2" id="rack">${slots.map((t, k) => `<div class="slot ${t ? "full" : ""} ${checked && t ? (k === 0 || slots[k - 1].rank <= t.rank ? "right" : "wrong") : ""}" data-slot="${k}">${t ? `<div class="tubeitem" data-from="slot" data-k="${k}">${bigTube(t)}<small>${esc(t.name)}</small></div>` : `<span class="slotn">${k + 1}</span>`}${checked && t ? `<span class="rankn" title="Draw position">${t.rank}</span>` : ""}</div>`).join("")}</div>
+      <div class="tray" id="tray">${tray.map((t, k) => `<div class="tubeitem" data-from="tray" data-k="${k}">${bigTube(t)}<small>${esc(t.name)}</small></div>`).join("") || `<span class="small muted">All tubes racked.</span>`}</div><div id="fb"></div>`;
+    if (!checked) bind();
+    if (!tray.length && !checked) { $("#fb").innerHTML = `<button class="btn primary" id="chk" style="width:100%">Check my rack</button>`; $("#chk").onclick = () => { checked = true; draw(); result(); }; }
+  };
+  const place = (t, k) => { if (k == null) k = slots.findIndex(x => !x); if (k < 0) return; if (slots[k]) tray.push(slots[k]); slots[k] = t; };
+  const bind = () => {
+    $$(".tubeitem").forEach(el => {
+      let ghost = null, sx = 0, sy = 0, moved = false;
+      const from = el.dataset.from, k = +el.dataset.k;
+      el.onpointerdown = e => { sx = e.clientX; sy = e.clientY; moved = false; el.setPointerCapture(e.pointerId); };
+      el.onpointermove = e => { if (!el.hasPointerCapture(e.pointerId)) return; if (!moved && Math.hypot(e.clientX - sx, e.clientY - sy) < 8) return; if (!moved) { moved = true; ghost = el.cloneNode(true); ghost.className = "tubeitem ghost"; document.body.appendChild(ghost); el.style.opacity = ".3"; } ghost.style.left = e.clientX - 30 + "px"; ghost.style.top = e.clientY - 40 + "px"; $$(".slot").forEach(s => { const r = s.getBoundingClientRect(); s.classList.toggle("over", e.clientX > r.left && e.clientX < r.right && e.clientY > r.top && e.clientY < r.bottom); }); };
+      el.onpointerup = e => {
+        if (ghost) ghost.remove(); el.style.opacity = "";
+        const t = from === "tray" ? tray[k] : slots[k];
+        if (!moved) { if (from === "tray") { tray.splice(k, 1); place(t); } else { slots[k] = null; tray.push(t); } return draw(); }
+        const target = $$(".slot").find(s => s.classList.contains("over"));
+        if (target) { const sk = +target.dataset.slot; if (from === "tray") { tray.splice(k, 1); place(t, sk); } else { const other = slots[sk]; slots[sk] = t; slots[k] = other; } }
+        draw();
+      };
+    });
+  };
+  const result = () => {
+    const ok = slots.every((t, k) => k === 0 || slots[k - 1].rank <= t.rank);
+    if (!ok) logMistake({ src: "Tube trainer", game: "tubes", q: "Put in order of draw: " + items.map(t => t.name).join(", "), yours: slots.map(t => t.name).join(" → "), right: items.slice().sort((a, b) => a.rank - b.rank).map(t => t.rank + " " + t.name).join(" → ") });
+    $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? "Correct order" : "Not quite. Red numbers are out of order."}<span class="det">The small number on each tube is its position in the order of draw. Tubes that share a number can go in either order.</span><span class="det small">${RANK_TXT}</span></div></div><div class="row" style="margin-top:10px"><div class="spacer"></div><button class="btn primary" id="nx">Continue</button></div>`;
+    $("#nx").onclick = () => onDone(ok);
+  };
+  draw();
+}
+
+/* ===================== Blanks: one sleek inline blank per word ===================== */
+function blankInputs(ans) {
+  return ans.split(/\s+/).map(w => `<input class="blankin" data-ans="${esc(w)}" style="width:${Math.max(3, w.length + 1.2)}ch" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Missing word">`).join(" ");
+}
+
+/* ===================== Teaching text: spelled out and easier to scan ===================== */
+const NUMRE = /(\d[\d.,]*(?:\s?(?:%|°C|mL|dL|µL|mg\/dL|g\/dL|mmol\/L|fL|days?|hours?|minutes?|×10[³⁶⁹]\/µL))?)/g;
+function hiNums(html) { return html.split(/(<[^>]+>)/).map(seg => seg.startsWith("<") ? seg : seg.replace(NUMRE, '<span class="num">$1</span>')).join(""); }
+function splitSent(t) { const m = t.match(/[^.!?]+[.!?]+["”’)]*(\s+|$)|[^.!?]+$/g); return (m || [t]).map(x => x.trim()).filter(Boolean); }
+function formatTeach(raw, seen = new Set()) {
+  const t = raw.replace(/\{\{(.+?)\}\}/g, "$1"); const sents = splitSent(t);
+  const G = s => hiNums(gloss(esc(s), seen, true));
+  const defRe = /^([A-Z][^,.:;]{0,42}?)\s(is|are|means)\s(.+)$/;
+  const defs = sents.filter(s => defRe.test(s) && !/^(This|That|It|They|There|These|Those|A|An|The|Most|Many|Some|Labs?|Your|Each|Every|When|If)\b/.test(s));
+  if (defs.length >= 2) {
+    return `<div class="tdefs">${sents.map(s => { const m = s.match(defRe); if (m && defs.includes(s)) return `<div class="tdef"><b>${G(m[1])}</b><span>${G(m[2] + " " + m[3])}</span></div>`; return `<p class="tline">${G(s)}</p>`; }).join("")}</div>`;
+  }
+  const colon = sents.find(s => /:\s/.test(s) && /,|\sand\s/.test(s.split(/:\s/)[1] || ""));
+  if (colon) {
+    const [head, rest] = [colon.slice(0, colon.indexOf(": ")), colon.slice(colon.indexOf(": ") + 2)];
+    const items = rest.replace(/[.]$/, "").split(/,\s(?:and\s|or\s)?|\sand\s(?=[^,]*$)/).map(x => x.trim()).filter(Boolean);
+    return `${sents.filter(s => s !== colon).length && sents.indexOf(colon) > 0 ? sents.slice(0, sents.indexOf(colon)).map(s => `<p class="tlead">${G(s)}</p>`).join("") : ""}<p class="tlead">${G(head)}:</p><ul class="tlist">${items.map(x => `<li>${G(x)}</li>`).join("")}</ul>${sents.slice(sents.indexOf(colon) + 1).map(s => `<p class="tline">${G(s)}</p>`).join("")}`;
+  }
+  if (sents.length === 1) return `<p class="tlead">${G(sents[0])}</p>`;
+  return `<p class="tlead">${G(sents[0])}</p><ul class="tlist">${sents.slice(1).map(s => `<li>${G(s)}</li>`).join("")}</ul>`;
+}
+function teachPara(p, seen) {
+  if (/^(\s*[-•]\s|\s*\d+\.\s)/m.test(p) || p.includes("\n")) return `<div class="tpara">${p.split("\n").map(line => { const m = line.match(/^\s*(?:[-•]|\d+\.)\s+(.*)/); return m ? `<div class="tbul">${hiNums(gloss(esc(m[1]), seen, true))}</div>` : `<p>${hiNums(gloss(esc(line), seen, true))}</p>`; }).join("")}</div>`;
+  const sents = splitSent(p);
+  if (sents.length >= 3) return `<div class="tpara"><p class="tlead">${hiNums(gloss(esc(sents[0]), seen, true))}</p><ul class="tlist">${sents.slice(1).map(s => `<li>${hiNums(gloss(esc(s), seen, true))}</li>`).join("")}</ul></div>`;
+  return `<p>${hiNums(gloss(esc(p), seen, true))}</p>`;
+}
+
+/* ===================== Play games: three lives ===================== */
+{
+  const mc = mcRounds;
+  mcRounds = function (items, label, onEnd, need) {
+    let lives = 3; const its = items.slice();
+    const wrapEnd = (score, total, nd) => onEnd(score, total, nd);
+    const origLog = logMistake;
+    const obs = new MutationObserver(() => { const fb = $("#fb .feedback.no"); if (fb && !fb.dataset.l) { fb.dataset.l = 1; lives--; heart(); if (lives <= 0) { obs.disconnect(); setTimeout(() => { const nx = $("#nx"); if (nx) { nx.textContent = "Out of lives"; nx.onclick = () => { LAST_PTS = null; onEnd(0, its.length, its.length); }; } }, 0); } } heart(); });
+    const heart = () => { const r = ST && ST.right; if (!r || r.querySelector(".lives")) { const h = r && r.querySelector(".lives"); if (h) h.innerHTML = "♥".repeat(Math.max(0, lives)) + "<i>" + "♥".repeat(3 - Math.max(0, lives)) + "</i>"; return; } r.insertAdjacentHTML("afterbegin", `<span class="lives">${"♥".repeat(lives)}</span>`); };
+    if (ST && ST.stage) obs.observe(ST.stage, { childList: true, subtree: true });
+    return mc(its, label, (s, t, n) => { obs.disconnect(); wrapEnd(s, t, n); }, need);
+  };
+}
+
+/* ===================== Formula sheet: real general formulas ===================== */
+const FORMULA_TEXT = {
+  dilution: ["Dilution = sample volume ÷ total volume", "Total volume = sample + diluent. Written 1:x, where x = total ÷ sample."],
+  serial: ["Final dilution = dilution 1 × dilution 2 × …", "Multiply each step’s dilution factor."],
+  c1v1: ["C₁ × V₁ = C₂ × V₂", "C = concentration, V = volume. 1 = the stock you have, 2 = what you want to make."],
+  molarity: ["Grams needed = molarity × molecular weight × liters", "Molarity (M) = moles of solute per liter of solution."],
+  glucoseconv: ["Glucose (mmol/L) = glucose (mg/dL) ÷ 18", "18 comes from glucose’s molecular weight (180) ÷ 10 (dL to L)."],
+  absolute: ["Absolute count = WBC × (differential % ÷ 100)", "Turns a percentage into cells per µL."],
+  correctedwbc: ["Corrected WBC = WBC × 100 ÷ (100 + nRBCs per 100 WBCs)", "Removes nucleated RBCs the analyzer counted as white cells."],
+  mcv: ["MCV (fL) = Hct (%) × 10 ÷ RBC (×10⁶/µL)", "Average red cell size. Normal about 80–100 fL."],
+  mch: ["MCH (pg) = Hgb (g/dL) × 10 ÷ RBC (×10⁶/µL)", "Average hemoglobin per red cell."],
+  mchc: ["MCHC (g/dL) = Hgb (g/dL) × 100 ÷ Hct (%)", "Hemoglobin concentration inside the cells. Normal about 32–36 g/dL."],
+  hemocytometer: ["Cells/µL = (cells counted × dilution) ÷ (mm² counted × 0.1 mm depth)", "Each large square is 1 mm × 1 mm × 0.1 mm = 0.1 µL."],
+  aniongap: ["Anion gap = Na⁺ − (Cl⁻ + HCO₃⁻)", "Normal about 8–16 mmol/L when potassium is left out."],
+  osmo: ["Calculated osmolality = 2 × Na + glucose ÷ 18 + BUN ÷ 2.8", "Na in mmol/L; glucose and BUN in mg/dL."],
+  ldl: ["LDL = total cholesterol − HDL − (triglycerides ÷ 5)", "Friedewald equation, in mg/dL. Not valid when triglycerides are above 400."],
+  crcl: ["Creatinine clearance = (U × V) ÷ P", "U = urine creatinine, V = urine volume per minute (mL/min), P = plasma creatinine. Often corrected to 1.73 m² body surface area."],
+  cv: ["CV (%) = SD ÷ mean × 100", "Precision as a percentage; lower is more precise."],
+  sdrange: ["Acceptable range = mean ± 2 SD", "About 95% of control values should fall inside."],
+  meq: ["mEq/L = (mg/dL × 10 × valence) ÷ atomic weight", "Converts a weight concentration into charge equivalents."],
+  normality: ["Normality (N) = molarity × equivalents per mole", "Equivalents = reactive H⁺, OH⁻ or charges per molecule."],
+  beer: ["Unknown = (A unknown ÷ A standard) × standard concentration", "Beer’s law: absorbance (A) rises in step with concentration."],
+  ppv: ["PPV = TP ÷ (TP + FP) × 100", "Sensitivity = TP ÷ (TP + FN); specificity = TN ÷ (TN + FP); NPV = TN ÷ (TN + FN)."],
+  metric: ["Each metric step (L → mL → µL → nL) = × 1,000", "Bigger unit to smaller: multiply. Smaller to bigger: divide."],
+  rpi: ["RPI = corrected retic % ÷ maturation time (days)", "Corrected retic % = retic % × (patient Hct ÷ 45). Maturation time is 1.0 to 2.5 days depending on Hct."],
+  pltest: ["Platelet estimate (/µL) = average platelets per oil field × 20,000", "Average 10 oil-immersion fields. Some labs use a factor of 15,000."]
+};
+startFormulas = function () {
+  openStudy("Formula sheet"); setProg(1);
+  const groups = {};
+  Object.entries(MATH).forEach(([k, m]) => { const ex = m.make(); const ft = FORMULA_TEXT[k] || [ex.steps[0], ex.note || ""]; (groups[m.topic] = groups[m.topic] || []).push({ f: ft[0], note: ft[1], ex }); });
+  EXTRA_FORMULAS.forEach(([t, f, n]) => (groups[t] = groups[t] || []).push({ f, note: n }));
+  let q = "";
+  const draw = () => {
+    const nq = norm(q);
+    $("#fsl").innerHTML = Object.entries(groups).map(([t, list]) => { const items = list.filter(v => !nq || norm(v.f + " " + v.note).includes(nq)); if (!items.length) return ""; const col = CAPS[(FTOPIC[t] || [])[0]] || "var(--violet)";
+      return `<section class="fsec" style="--fc:${col}"><div class="fsec-h"><b>${escG(t)}</b><small>${esc((FTOPIC[t] || [, ""])[1])}</small></div>${items.map(v => { const [lhs, ...rhs] = v.f.split(" = "); return `<div class="fitem"><div class="fbox">${rhs.length ? `<span class="flhs">${escG(lhs)}</span><span class="feq">=</span><span class="frhs">${escG(rhs.join(" = "))}</span>` : `<span class="frhs">${escG(v.f)}</span>`}</div>${v.note ? `<p class="fnote">${escG(v.note)}</p>` : ""}${v.ex ? `<details class="fex"><summary>Worked example</summary><p>${escG(v.ex.q)}</p><ol class="worked">${v.ex.steps.map(s => `<li>${escG(s)}</li>`).join("")}</ol><p><b>Answer:</b> ${v.ex.prefix || ""}${fmtN(v.ex.ans, v.ex.dec)} ${escG(v.ex.unit || "")}</p></details>` : ""}</div>`; }).join("")}</section>`; }).join("") || `<p class="muted">No formulas match.</p>`;
+  };
+  ST.stage.innerHTML = `<div class="row"><label class="search" style="flex:1;min-width:200px">${icon("search")}<input id="fq" placeholder="Search formulas (dilution, MCV, anion…)" aria-label="Search formulas"></label><button class="btn primary" id="pr">${icon("type")}Practice lab math</button></div><div id="fsl" class="fsl"></div>`;
+  $("#fq").oninput = e => { q = e.target.value; draw(); };
+  $("#pr").onclick = () => startLabMath();
+  draw();
+};
+
+/* ===================== Dashboard: a light bento grid ===================== */
+dashHtml = function (decks) {
+  let due = 0, nw = 0; decks.forEach(d => { const c = deckCounts(d); due += c.due; nw += c.nw; });
+  const newToday = Math.min(nw, newLeftToday());
+  const today = S.meta.history[dayKey()] || 0, goal = GOAL(), st = streak();
+  const wk = weekSum(S.meta.history), a7 = acc7(), mastered = masteredNow(), passed = LESSONS.filter(l => lessonState(l).passed).length;
+  const ex = upcomingExams()[0]; const p = prepOn() ? prep() : null; const dleft = p && p.start ? dayDiff(p.start) : null;
+  const jopen = (S.meta.journal || []).length, rep = (S.meta.journal || []).filter(x => x.confident).length;
+  const y = dayKey(Date.now() - DAY), Y = (S.meta.daily || {})[y] || {}, yRev = (S.meta.history || {})[y] || 0;
+  const yb = BADGES2.filter(b => { const t = (S.meta.badges || {})[b.id]; return t && dayKey(t) === y; });
+  const yAcc = (Y.right || 0) + (Y.wrong || 0) ? Math.round((Y.right || 0) / ((Y.right || 0) + (Y.wrong || 0)) * 100) : null;
+  const ring = f => { const r = 26, C = 2 * Math.PI * r; return `<svg viewBox="0 0 64 64" class="bring"><circle cx="32" cy="32" r="${r}" fill="none" stroke="var(--line)" stroke-width="7"/><circle cx="32" cy="32" r="${r}" fill="none" stroke="${f >= 1 ? "#2FA58A" : "var(--violet)"}" stroke-width="7" stroke-linecap="round" stroke-dasharray="${C * Math.min(1, f)} ${C}" transform="rotate(-90 32 32)"/></svg>`; };
+  const days = Array.from({ length: 7 }, (_, i) => dayKey(Date.now() - (6 - i) * DAY));
+  return `<section class="bento">
+    <div class="bt bt-hero"><span class="btl">${new Date().toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" })}</span>
+      <div class="bhero"><b>${due}</b><span>due today${newToday ? `<br>+ ${newToday} new` : ""}</span></div>
+      <div class="row" style="gap:8px;margin-top:auto"><button class="btn bwhite" id="startAll" ${due + newToday ? "" : "disabled"}>${icon("brain")}${due + newToday ? "Start review" : "All caught up"}</button>${nextLesson() && (prepOn() || passed) ? `<button class="btn bghost" id="dashLesson">${icon("book")}Next lesson</button>` : ""}</div></div>
+    <div class="bt bt-goal">${ring(today / goal)}<div><b>${today}<small>/${goal}</small></b><span class="btl">today’s goal</span></div></div>
+    <div class="bt"><span class="btl">Streak</span><b class="bbig">${st}<small> day${st === 1 ? "" : "s"}</small></b><span class="bsub">${st >= 3 ? "🔥 keep it going" : "Study today to build it"}</span></div>
+    <div class="bt"><span class="btl">${ex ? "Next exam" : dleft != null && dleft > 0 ? "Day one" : "Accuracy, 7 days"}</span><b class="bbig">${ex ? (daysUntil(ex) <= 0 ? "Today" : daysUntil(ex) + "<small> days</small>") : dleft != null && dleft > 0 ? dleft + "<small> days</small>" : a7 == null ? "–" : a7 + "%"}</b><span class="bsub">${ex ? esc(ex.name) : dleft != null && dleft > 0 ? "until your program starts" : "first-try answers"}</span></div>
+    <div class="bt bt-week"><span class="btl">This week · ${wk.toLocaleString()} reviews</span><div class="bweek">${days.map((d, i) => { const n = (S.meta.history || {})[d] || 0, met = n >= goal; return `<div class="bwd ${met ? "met" : n ? "some" : ""} ${i === 6 ? "today" : ""}"><span>${new Date(d + "T12:00").toLocaleDateString(undefined, { weekday: "narrow" })}</span><b>${n || "·"}</b>${met ? "<i>✓</i>" : ""}</div>`; }).join("")}</div></div>
+    <div class="bt"><span class="btl">Mastered</span><b class="bbig">${mastered.toLocaleString()}</b><span class="bsub">facts on 3-week+ intervals</span></div>
+    <div class="bt"><span class="btl">Lessons</span><b class="bbig">${passed}<small>/${LESSONS.length}</small></b><div class="bbar"><i style="width:${passed / LESSONS.length * 100}%"></i></div></div>
+    <div class="bt bt-y"><span class="btl">Yesterday</span>${yRev || Y.lessons || Y.games || yb.length ? `<div class="ychips">${yRev ? `<span><b>${yRev}</b> reviewed</span>` : ""}${yAcc != null ? `<span><b>${yAcc}%</b> accuracy</span>` : ""}${Y.lessons ? `<span><b>${Y.lessons}</b> lessons</span>` : ""}${Y.games ? `<span><b>${Y.games}</b> games</span>` : ""}${(S.meta.focus || {})[y] ? `<span><b>${S.meta.focus[y]}</b> focus min</span>` : ""}${yb.length ? `<span>${yb.map(b => b.e).join("")} <b>${yb.length}</b> badge${yb.length > 1 ? "s" : ""}</span>` : ""}</div>` : `<span class="bsub">No study logged. Clean slate today.</span>`}</div>
+    <button class="bt bt-link" id="dashJ"><span class="btl">Mistake journal</span><b class="bbig">${jopen}</b><span class="bsub">${rep ? `${rep} repeat miss${rep > 1 ? "es" : ""}` : "open mistakes"}</span></button>
+  </section>`;
+};
+{ const rh = renderHome; renderHome = function (decks) { rh(decks); const j = $("#dashJ"); if (j) j.onclick = startJournal; if (prepOn() && $(".bento") && !$("#dashD1")) { const pi = paceInfo(); $(".bt-hero .row")?.insertAdjacentHTML("beforeend", `<button class="btn bghost" id="dashD1">${icon("flag")}Day One${pi.days ? ` · ${pi.days}d` : ""}</button>`); $("#dashD1").onclick = startDayOne; } }; }
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
