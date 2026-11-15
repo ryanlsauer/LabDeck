@@ -853,10 +853,6 @@ details.unit>.lesson-row:last-child{margin-bottom:8px}
 .mapgrid p{margin:4px 0 0;line-height:1.5}
 .mapcard .btn{align-self:flex-start}
 /* ===== v12: cap color on top, like a tube cap ===== */
-.slide{flex-direction:column}
-.slide .label{width:auto!important;height:12px;flex:none;border-radius:0;box-shadow:inset 0 -3px 0 rgba(0,0,0,.14)}
-.slide .label::before{display:none}
-.slide .body{padding:12px 14px 14px}
 .face{flex-direction:column}
 .face .frost{width:auto!important;height:36px;flex:none;justify-content:flex-start;padding:0 18px;box-shadow:inset 0 -4px 0 rgba(0,0,0,.12)}
 .face .frost::before{display:none}
@@ -864,6 +860,115 @@ details.unit>.lesson-row:last-child{margin-bottom:8px}
 .flip.on .face:not(.back){pointer-events:none}
 .flip:not(.on) .face.back{pointer-events:none}
 .face .ac{position:relative;z-index:1}
+/* ===== v13: crisper, GitHub-like: slight radii, hairline dividers, flat buttons ===== */
+:root{--radius-lg:8px;--radius:6px;--btn-bg:#F6F8FA;--btn-border:rgba(31,35,40,.15);--btn-hover:#EEF1F4}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--btn-bg:#22202C;--btn-border:#3A354A;--btn-hover:#2A2736}}
+:root[data-theme="dark"]{--btn-bg:#22202C;--btn-border:#3A354A;--btn-hover:#2A2736}
+body{font-size:15px;line-height:1.5}
+h1{font-size:clamp(1.5rem,3vw,1.9rem);letter-spacing:-.01em}
+h2{font-size:1.1rem}
+.btn,.input,.opt,.tile,.qcard,.bootcard,.lesson,.panel,.stat,.slide,.course,.exam,.unit,.plan,.card-row,.mode,.lopt,.check,.listrow,.list,.toolcard,.notice,.cunit,.jcard,.jstats>div,.mapcard,.seq-item,.pal,.lvl,.feedback,.gitem,.acpop,.badge,.choicebtn,.lgroup,.prep-hero,.callout,.note,.search,.seg,.navgrid button,.smearwrap,.panelwrap,.jans,.abgrid>div,.tchip,.pill,.chipbtn,.dash,.dgoal,.dboxes>div,.plan2,.empty,.banner,.results .panel,.sercell,.thumbitem,.tag,.stage .panel{border-radius:6px!important}
+.modal{border-radius:8px!important}
+.face,.flip-inner{border-radius:8px!important}
+.seg button{border-radius:5px!important}
+.btn{background:var(--btn-bg);border:1px solid var(--btn-border);box-shadow:0 1px 0 rgba(31,35,40,.04);font-weight:600;min-height:34px;padding:5px 14px;font-size:.9rem;color:var(--ink)}
+.btn:hover:not([disabled]){background:var(--btn-hover);transform:none}
+.btn.sm{min-height:28px;padding:3px 10px;font-size:.84rem}
+.btn.primary{background:var(--violet);border-color:rgba(31,35,40,.15);color:#fff;box-shadow:0 1px 0 rgba(31,35,40,.1),inset 0 1px 0 rgba(255,255,255,.03)}
+.btn.primary:hover:not([disabled]){background:var(--violet-deep)}
+.btn.ghost{background:transparent;border-color:transparent;box-shadow:none}
+.btn.ghost:hover:not([disabled]){background:var(--btn-hover)}
+.btn.danger{color:var(--bad)}
+.input,.search{background:var(--btn-bg);border:1px solid var(--btn-border);box-shadow:inset 0 1px 0 rgba(208,215,222,.2)}
+.input:focus,.search:focus-within{background:var(--surface);border-color:var(--violet);box-shadow:0 0 0 3px var(--violet-soft)}
+.panel,.list,.toolcard,.cunit,.jcard,.mapcard,.lgroup,.plan2{border:1px solid var(--line-2);box-shadow:none}
+.section-head{border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:12px}
+.opt{border:1px solid var(--line-2);min-height:46px;padding:10px 14px;box-shadow:none}
+.opt:hover:not([disabled]){border-color:var(--ink-3);background:var(--btn-bg);transform:none}
+.opt .k{border-radius:4px}
+.qcard,.bootcard,.lesson{box-shadow:none;border:1px solid var(--line-2)}
+.chipbtn{border-radius:2em!important;padding:3px 10px;font-weight:600;font-size:.82rem}
+.pill{border-radius:6px!important;background:var(--btn-bg)!important;border:1px solid var(--btn-border)!important;color:var(--ink)!important;font-weight:600;font-size:.86rem;padding:5px 10px}
+.pill:hover:not([disabled]){background:var(--btn-hover)!important}
+.pill svg{color:var(--ink-3)!important;width:15px;height:15px}
+.pill small{margin-left:6px;color:var(--ink-3);font-weight:600;font-size:.76rem;padding-left:6px;border-left:1px solid var(--line-2)}
+.pill[disabled]{opacity:.45}
+.toolline{grid-template-columns:150px 1fr;padding:10px 14px}
+.toolcat{display:flex;flex-direction:column;gap:1px;color:var(--ink)!important;text-transform:none;letter-spacing:0;font-size:.88rem}
+.toolcat b{font-weight:700}
+.toolcat small{font-size:.74rem;color:var(--ink-3);font-weight:500;line-height:1.3}
+.mode .ic{background:var(--btn-bg)!important;color:var(--ink-2)!important;border:1px solid var(--line)}
+.mode.m-learn,.mode.m-test,.mode.m-plan{border-top:1px solid var(--line-2)}
+.mode:hover{border-color:var(--ink-3)!important}
+.legendline{display:none}
+/* lesson path: one neutral system */
+.lstat{width:20px;height:20px;border:1.5px solid var(--line-2)!important;background:transparent!important;color:var(--ink-3)!important;border-radius:50%!important;display:inline-flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800}
+.lstat.read{border-style:dashed!important}
+.lstat.practicing,.lstat.unlock{background:var(--surface-2)!important;color:var(--ink)!important;border-color:var(--ink-3)!important}
+.lstat.mastered{background:var(--ink)!important;color:var(--surface)!important;border-color:var(--ink)!important}
+.lmeta{font-size:.78rem;color:var(--ink-3);font-weight:600}
+.lesson-row .bootchip{color:var(--ink-3);background:transparent;border:1px solid var(--line-2)}
+.capico{flex:none;display:inline-block;vertical-align:middle}
+.lchip{align-items:center}
+.lopt .capico{margin-right:2px}
+.sgroup summary{align-items:center;white-space:nowrap}
+.sgname{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.side .navcount{margin-left:auto;font-size:.72rem;font-weight:800;background:var(--surface-2);border:1px solid var(--line-2);border-radius:2em;padding:0 7px}
+.rot-body{padding:4px 14px 14px;display:flex;flex-direction:column;gap:10px}
+.rot-body .tips{margin:0}
+.tile>span{display:block}
+/* card status chips in deck view */
+.cstat{font-size:.72rem;font-weight:700;padding:1px 8px;border-radius:2em;border:1px solid var(--line-2);color:var(--ink-3);white-space:nowrap;align-self:center}
+.cstat.due{color:var(--violet-deep);border-color:color-mix(in srgb,var(--violet) 40%,transparent)}
+.cstat.mastered{color:var(--good);border-color:color-mix(in srgb,var(--good) 40%,transparent)}
+.choicebtn.on{border-color:var(--violet);background:var(--violet-soft)}
+/* dashboard */
+.dash{gap:12px;padding:18px 18px 14px;line-height:1.25}
+.dtop{grid-template-columns:1fr auto!important;align-items:center}
+.ddue b{font-size:2.6rem}
+.dgoal{background:rgba(255,255,255,.06);padding:8px 14px}
+.dboxes{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+@media (max-width:640px){.dboxes{grid-template-columns:repeat(2,1fr)}}
+.dboxes>div{background:rgba(255,255,255,.06);padding:8px 10px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.dboxes b{font-family:var(--font-display);font-size:1.25rem;line-height:1.1}
+.dboxes small{color:#A9A6C2;font-size:.74rem;line-height:1.25}
+.dx{color:#C9C6DC}
+.wbars{height:58px}
+.ystrip{padding-top:10px;gap:10px}
+.ytiles{gap:14px}
+.ytiles b{font-size:1.05rem}
+/* plan */
+.plan2{background:var(--surface);margin:0 0 14px}
+.plan2-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line-2);background:var(--btn-bg);flex-wrap:wrap}
+.plan2-head h2{font-size:1rem;margin:0}
+.p2item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-bottom:1px solid var(--line)}
+.p2item:last-child{border-bottom:0}
+.p2ic{width:28px;height:28px;border-radius:6px;border:1px solid var(--line-2);display:inline-flex;align-items:center;justify-content:center;color:var(--ink-2);flex:none}
+.p2ic svg{width:15px;height:15px}
+.p2txt{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.3}
+.p2txt span{font-size:.84rem;color:var(--ink-3)}
+.p2item.done .p2txt b{color:var(--ink-3);text-decoration:line-through}
+.p2item.done .p2ic{color:var(--good);border-color:var(--good)}
+/* points */
+.ptschip{font-weight:800;font-size:.82rem;font-variant-numeric:tabular-nums;border:1px solid var(--line-2);border-radius:2em;padding:2px 10px;margin-right:8px;background:var(--btn-bg)}
+.ptsline{margin:-4px 0 6px;color:var(--ink-2)}
+/* smear */
+.thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:6px;margin-top:10px}
+.thumbitem{display:flex;flex-direction:column;align-items:center;gap:3px;border:1px solid var(--line);padding:6px;text-align:center}
+.thumbitem small{font-size:.68rem;line-height:1.2;color:var(--ink-2)}
+.cellthumb{width:52px;height:52px;border-radius:4px}
+.serrow{display:flex;flex-wrap:wrap;gap:8px;min-height:84px;padding:8px;border:1px dashed var(--line-2);border-radius:6px}
+.serrow.pool{border-style:solid;background:var(--btn-bg)}
+.sercell{display:flex;flex-direction:column;align-items:center;gap:2px;border:1px solid var(--line-2);border-radius:6px;background:var(--surface);padding:4px;cursor:pointer;font:inherit}
+.sercell small{font-size:.7rem;max-width:86px;text-align:center;line-height:1.2}
+.sercell.right{border-color:var(--good)} .sercell.wrong{border-color:var(--bad)}
+/* badges list */
+.badgelist{display:flex;flex-direction:column;gap:8px}
+.bhead{margin:12px 0 2px;padding-bottom:6px;border-bottom:1px solid var(--line);font-size:.95rem;display:flex;gap:8px;align-items:baseline}
+.bhead:first-child{margin-top:0}
+.modes[hidden]{display:none!important}
+.dgoal{grid-column:auto!important}
+@media (max-width:520px){.dtop{grid-template-columns:1fr!important}}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -950,7 +1055,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "12.0";
+const APP_VERSION = "13.0";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -1316,6 +1421,7 @@ const imgSrc = id => S.images[id] || "";
 
 function render() {
   applyTheme();
+  if (S.ready) { try { migrateLabels(); syncUnitColors(); } catch { } }
   const r = route();
   const decks = Object.values(S.decks).sort((a, b) => (b.updated || 0) - (a.updated || 0));
   const nav = (h, ic, label, on) => `<a href="#${h}" class="${on ? "on" : ""}">${icon(ic)}<span>${label}</span></a>`;
@@ -1324,10 +1430,11 @@ function render() {
     <aside class="side">
       <div class="brand">${BRAND}LabDeck</div>
       ${nav("home", "home", "Home", r.v === "home")}
+      <a href="#" id="sideReview">${icon("brain")}<span>Review</span>${S.ready ? (() => { let n = 0; decks.forEach(d => n += deckCounts(d).due); return n ? `<span class="navcount">${n}</span>` : ""; })() : ""}</a>
       ${nav("program", "school", "My program", r.v === "program" || r.v === "course")}
       ${nav("stats", "chart", "Progress", r.v === "stats")}
       ${nav("more", "gear", "Settings", r.v === "more")}
-      <div class="sidedecks">${groupDecksByLabel(decks.slice().sort((a, b) => a.name.localeCompare(b.name))).map(g => `<details class="sgroup" open><summary><span class="sq" style="background:${g.l ? CAPS[g.l.color] : "var(--line-2)"}"></span>${esc(g.l ? g.l.name : "No label")}<span class="small muted" style="margin-left:auto">${g.decks.length}</span></summary>${g.decks.map(d => `<a href="#d-${d.id}" class="${r.id === d.id ? "on" : ""}">${esc(d.name)}</a>`).join("")}</details>`).join("")}</div>
+      <div class="sidedecks">${groupDecksByLabel(decks.slice().sort((a, b) => a.name.localeCompare(b.name))).map(g => `<details class="sgroup" open><summary>${g.l ? capIcon(g.l.color, g.l.shape, 12) : `<span class="sq" style="background:var(--line-2)"></span>`}<span class="sgname">${esc(g.l ? g.l.name : "No label")}</span><span class="small muted" style="margin-left:auto">${g.decks.length}</span></summary>${g.decks.map(d => `<a href="#d-${d.id}" class="${r.id === d.id ? "on" : ""}">${esc(d.name)}</a>`).join("")}</details>`).join("")}</div>
       <div class="sync" id="syncline">${syncHtml()}</div>
     </aside>
     <main class="main"><div class="wrap" id="view"></div></main>
@@ -1340,6 +1447,7 @@ function render() {
     </nav>
   </div>`;
   $("#tabReview").onclick = e => { e.preventDefault(); startLearn(null); };
+  $("#sideReview").onclick = e => { e.preventDefault(); startLearn(null); };
   if (!S.ready) { $("#view").innerHTML = `<div class="loading">${SPIN}Loading your decks</div>`; return; }
   if (r.v === "deck" && S.decks[r.id]) renderDeck(S.decks[r.id]);
   else if (r.v === "stats") renderStats();
@@ -1507,10 +1615,11 @@ function renderDeck(d) {
   const q = norm(deckFilter.q);
   if (q) list = list.filter(x => norm(cardSearchText(x)).includes(q));
   if (deckFilter.star) list = list.filter(x => x.star);
+  const stMap = cardStatusMap(d);
+  if (deckFilter.status) list = list.filter(x => (stMap[x.id] || {}).k === deckFilter.status);
   $("#view").innerHTML = `
     <a class="backlink" href="#home">${icon("left")}All decks</a>
     <div class="deck-head" style="--cap:${capOf(d)}">
-      <div class="cap"></div>
       <div style="flex:1;min-width:0">
         <div class="row" style="gap:8px;margin-bottom:6px">${labelChip(labelOf(d), true)}${starterBadge(d)}</div>
         <h1>${esc(d.name)}</h1>
@@ -1521,8 +1630,8 @@ function renderDeck(d) {
       <button class="btn icon" id="editDeck" aria-label="Deck settings">${icon("gear")}</button>
     </div>
     ${leeches || susN ? `<button class="banner leech" id="leechBtn">${icon("target")}<div style="flex:1;text-align:left"><b>${leeches ? plural(leeches, "leech") : "Suspended facts"}</b><br><span class="small">${leeches ? "Facts you keep forgetting. Rewriting them works better than repeating them." : plural(susN, "fact") + " suspended from Learn."}</span></div><span class="btn sm">Fix</span></button>` : ""}
-    <p class="legendline"><span class="lg lg-learn"></span>Purple modes teach and review <span class="lg lg-test"></span>Pink modes test you</p>
-    <div class="modes">${modes.map(([id, ic, name, sub, ok, why]) => `<button class="mode ${["learn", "flash", "listen", "compare"].includes(id) ? "m-learn" : "m-test"}" data-mode="${id}" ${ok ? "" : "disabled"}><span class="ic">${icon(ic)}</span><b>${name}</b><small>${esc(ok ? sub : why)}</small></button>`).join("")}</div>
+    ${deckModesHtml(modes)}
+    <div class="modes" hidden>${modes.map(([id, ic, name, sub, ok, why]) => `<button class="mode ${["learn", "flash", "listen", "compare"].includes(id) ? "m-learn" : "m-test"}" data-mode="${id}" ${ok ? "" : "disabled"}><span class="ic">${icon(ic)}</span><b>${name}</b><small>${esc(ok ? sub : why)}</small></button>`).join("")}</div>
     <div class="section-head"><h2>Cards</h2></div>
     <div class="toolbar">
       <label class="search">${icon("search")}<input id="q" placeholder="Search cards" value="${esc(deckFilter.q)}" aria-label="Search cards"></label>
@@ -1531,9 +1640,11 @@ function renderDeck(d) {
       <button class="btn" id="imp">${icon("upload")}Import</button>
       <button class="btn primary" id="addCard">${icon("plus")}Add card</button>
     </div>
-    <div class="cards" id="cardlist">${list.length ? list.map(x => cardRow(d, x)).join("") : `<div class="empty"><p>${d.cards.length ? "No cards match." : "This deck is empty. Add a card, or import a list you already have."}</p></div>`}</div>
+    <div class="pickchips" style="margin:-4px 0 10px">${[["new", "New"], ["due", "Due"], ["learning", "Learning"], ["mastered", "Mastered"]].map(([k, l]) => `<button class="chipbtn sm ${deckFilter.status === k ? "on" : ""}" data-sf="${k}">${l} ${Object.values(stMap).filter(v => v.k === k).length}</button>`).join("")}</div>
+    <div class="cards" id="cardlist">${list.length ? list.map(x => cardRow(d, x, stMap[x.id])).join("") : `<div class="empty"><p>${d.cards.length ? "No cards match." : "This deck is empty. Add a card, or import a list you already have."}</p></div>`}</div>
   `;
-  $$(".mode[data-mode]").forEach(b => b.onclick = () => startMode(b.dataset.mode, d));
+  $$("[data-mode]").forEach(b => b.onclick = () => startMode(b.dataset.mode, d));
+  $$("[data-sf]").forEach(b => b.onclick = () => { deckFilter.status = deckFilter.status === b.dataset.sf ? "" : b.dataset.sf; renderDeck(d); });
   $("#editDeck").onclick = () => editDeckModal(d);
   $("#shareDeck").onclick = () => shareModal(d);
   $("#deckLesson") && ($("#deckLesson").onclick = () => startLesson(lessonsForPack(d.pack)[0]));
@@ -1554,8 +1665,8 @@ function renderDeck(d) {
 }
 const cardLabel = c => c.type === "profile" ? c.name : c.type === "cloze" ? "" : (c.back || "");
 const cardSearchText = x => x.type === "profile" ? x.name + " " + Object.values(x.values || {}).join(" ") : x.type === "cloze" ? (x.text || "").replace(/[{}]/g, "") : (x.front || "") + " " + (x.back || "");
-function cardRow(d, x) {
-  const acts = `<div class="acts">
+function cardRow(d, x, st) {
+  const acts = `<div class="acts">${st ? `<span class="cstat ${st.k}" title="${esc(st.t)}">${esc(st.l)}</span>` : ""}
     <button class="btn ghost icon sm star ${x.star ? "on" : ""}" data-act="star" data-id="${x.id}" aria-label="Star">${icon("star")}</button>
     <button class="btn ghost icon sm" data-act="edit" data-id="${x.id}" aria-label="Edit">${icon("edit")}</button>
     <button class="btn ghost icon sm" data-act="del" data-id="${x.id}" aria-label="Delete">${icon("trash")}</button></div>`;
@@ -1961,7 +2072,7 @@ function renderSettings() {
     <div class="panel">
       <div class="row" style="justify-content:space-between;margin-bottom:10px"><h3>Labels</h3><button class="btn sm" id="addLbl">${icon("plus")}New label</button></div>
       <p class="small muted" style="margin-bottom:10px">Course labels use the tube each department actually draws: lavender for hematology, light blue for coag, gold for chemistry, pink for blood bank, red for serology, yellow for blood cultures.</p>
-      <div class="lpick">${labels().map(l => `<button type="button" class="lopt" data-el="${l.id}" style="--c:${CAPS[l.color]}"><i></i><span><b>${esc(l.name)}</b><small>${esc(CAP_DESC[l.color])}${l.course ? " · " + esc(l.course) : ""}</small></span><span class="small muted" style="margin-left:auto">${Object.values(S.decks).filter(d => d.label === l.id).length}</span></button>`).join("")}</div>
+      <div class="lpick">${labels().map(l => `<button type="button" class="lopt" data-el="${l.id}">${capIcon(l.color, l.shape, 22)}<span><b>${esc(l.name)}</b><small>${esc(CAP_DESC[l.color])}${l.course ? " · " + esc(l.course) : ""}</small></span><span class="small muted" style="margin-left:auto">${Object.values(S.decks).filter(d => d.label === l.id).length}</span></button>`).join("")}</div>
     </div>
     <div class="panel">
       <h3 style="margin-bottom:12px">Appearance</h3>
@@ -2109,6 +2220,8 @@ function factFront(f) {
   const c = f.card;
   return `${c.imgSide !== "back" ? pic(c.img) : ""}${f.q ? `<div class="main-text">${escG(f.q)}</div>` : ""}`;
 }
+function revFront(f) { const c = f.card; return `${c.img && c.imgSide === "back" ? pic(c.img) : ""}<div class="kicker">Which term?</div><div class="main-text">${escG(f.a)}</div>`; }
+function revBack(f) { const c = f.card; return `${c.img ? pic(c.img, "cardimg small") : ""}<div class="kicker">${escG(f.a)}</div><div class="sub-text">${escG(f.q)}</div>${noteHtml(c)}`; }
 function factBack(f) {
   const c = f.card;
   if (f.kind === "field") return `<div class="kicker">${escG(f.field)} of ${escG(f.q)}</div><div class="main-text">${escG(f.a)}</div>${factsTable(c, f.deck, f.field)}${noteHtml(c)}`;
@@ -2137,7 +2250,8 @@ function startLearn(deck, opts = {}) {
   let queue;
   const cutoff = endOfToday();
   const weakScore = f => { const st = stOf(f); return (st.w || 0) * 2 + (st.l || 0) * 3 + Math.max(0, 10 - (st.i || 0)); };
-  if (opts.weak) queue = shuffle(all.filter(f => isWeak(stOf(f)))).slice(0, 40);
+  if (opts.queue) queue = opts.queue.slice();
+  else if (opts.weak) queue = shuffle(all.filter(f => isWeak(stOf(f)))).slice(0, 40);
   else if (opts.cram && exam) { const seen = all.filter(f => stOf(f)); queue = seen.length >= 5 ? seen.sort((a, b) => weakScore(b) - weakScore(a)).slice(0, 40) : shuffle(all).slice(0, 30); }
   else if (opts.cram) queue = shuffle(all).slice(0, 20);
   else if (opts.decks) {
@@ -2179,13 +2293,13 @@ function startLearn(deck, opts = {}) {
   const total = queue.length; let doneN = 0, i = 0, flipped = false, again = 0, good = 0;
   const seenNew = new Set(); const undo = [];
   function topRight() {
-    ST.right.innerHTML = `<button class="btn ghost icon sm" id="uBtn" aria-label="Undo last grade" ${undo.length ? "" : "disabled"}>${icon("undo")}</button><button class="btn ghost icon sm" id="eBtn" aria-label="Edit this card">${icon("edit")}</button><span class="small muted">${total - doneN} left</span>`;
-    $("#uBtn").onclick = doUndo; $("#eBtn").onclick = editCurrent;
+    ST.right.innerHTML = `<button class="btn ghost icon sm star ${(queue[i] && queue[i].card.star) ? "on" : ""}" id="sBtn" aria-label="Star this card">${icon("star")}</button><button class="btn ghost icon sm" id="uBtn" aria-label="Undo last grade" ${undo.length ? "" : "disabled"}>${icon("undo")}</button><button class="btn ghost icon sm" id="eBtn" aria-label="Edit this card">${icon("edit")}</button><span class="small muted">${total - doneN} left</span>`;
+    $("#uBtn").onclick = doUndo; $("#eBtn").onclick = editCurrent; $("#sBtn").onclick = () => { const f = queue[i]; if (!f) return; f.card.star = !f.card.star; saveDeck(f.deck); topRight(); toast(f.card.star ? "Starred" : "Unstarred"); };
   }
   function show() {
     if (i >= queue.length) return finish();
     const f = queue[i]; flipped = false;
-    ST.stage.innerHTML = `${flipCard(f.deck.name, capOf(f.deck), (stOf(f) || f.kind !== "basic" ? "" : `<div class="kicker">New</div>`) + factFront(f), factBack(f))}
+    ST.stage.innerHTML = `${flipCard(f.deck.name, capOf(f.deck), (stOf(f) || f.kind !== "basic" ? "" : `<div class="kicker">New</div>`) + (opts.reverse && f.kind === "basic" && f.a ? revFront(f) : factFront(f)), opts.reverse && f.kind === "basic" && f.a ? revBack(f) : factBack(f))}
       <div id="ctl"><button class="btn primary" id="show" style="width:100%;min-height:54px">Show answer</button><p class="tap-hint kbd-hint" style="margin-top:8px"><kbd>Space</kbd> to flip</p></div>`;
     sizeFlip();
     $("#fc").onclick = flip; $("#show").onclick = flip;
@@ -2197,7 +2311,7 @@ function startLearn(deck, opts = {}) {
     $("#fc").classList.add("on");
     $("#ctl").innerHTML = `<div class="grades">${[[1, "Again"], [2, "Hard"], [3, "Good"], [4, "Easy"]].map(([g, l]) => `<button class="g${g}" data-g="${g}">${l}<small>${opts.cram ? (g === 1 ? "repeat" : "") : previewIv(st, g)}</small></button>`).join("")}</div>
       <div class="row" style="justify-content:center;margin-top:10px"><button class="btn sm ghost" id="whyB">${icon("brain")}Why?</button>${f.deck.pack && lessonsForPack(f.deck.pack).length ? `<button class="btn sm ghost" id="teach">${icon("book")}Teach me this</button>` : ""}</div>
-      <p class="tap-hint kbd-hint" style="margin-top:8px"><kbd>1</kbd>–<kbd>4</kbd> to grade, <kbd>U</kbd> to undo</p>`;
+      <p class="tap-hint" style="margin-top:6px">Again = still learning · Good = know it</p><p class="tap-hint kbd-hint" style="margin-top:2px"><kbd>1</kbd>–<kbd>4</kbd> to grade, <kbd>U</kbd> to undo</p>`;
     $("#whyB").onclick = () => whyModal(f);
     $("#teach") && ($("#teach").onclick = () => startLesson(lessonsForPack(f.deck.pack)[0]));
     $$(".grades button").forEach(b => b.onclick = () => grade(+b.dataset.g));
@@ -2209,7 +2323,7 @@ function startLearn(deck, opts = {}) {
     if (undo.length > 30) undo.shift();
     const wasNew = !prev && !seenNew.has(f.key);
     let requeue;
-    if (opts.cram) { requeue = g === 1; recordQuiz(f, g > 1); }
+    if (opts.cram || opts.browse) { requeue = g === 1; recordQuiz(f, g > 1); }
     else { requeue = recordReview(f.deck.id, f.key, g, wasNew); if (wasNew) seenNew.add(f.key); if (g === 1 && (stOf(f) || {}).l === 4) setTimeout(() => toast("That one’s a leech. Find it under Leeches in the deck to rewrite it."), 400); }
     if (g === 1) again++; else good++;
     if (requeue) queue.splice(Math.min(queue.length, i + 4), 0, f); else doneN++;
@@ -4011,7 +4125,7 @@ function lessonState(l) {
   const r = prep().lessons[l.id] || {};
   const facts = lessonFacts(l);
   const solid = facts.length ? facts.filter(f => (stOf(f) || {}).i >= 7).length / facts.length : 0;
-  const passed = (r.best || 0) >= 80;
+  const passed = !!r.done || (r.best || 0) >= 80;
   const needsCards = (l.unlock || []).length > 0;
   const mastered = passed && (!needsCards || (r.unlocked && facts.length && solid >= 0.9));
   const status = mastered ? "mastered" : passed ? (needsCards && !r.unlocked ? "unlock" : "practicing") : r.read ? "read" : "new";
@@ -4080,8 +4194,8 @@ function prepHomeHtml() {
       const ls = states.filter(s => s.l.unit === u.id); const done = ls.filter(s => s.passed).length; const allRead = ls.every(s => s.r.read);
       const ub = p.units[u.id];
       const isCur = nl && ls.some(x => x.l.id === nl.id);
-      return `<details class="unit" style="--cap:${CAPS[u.color]}" ${isCur ? "open" : ""}><summary class="unit-head"><span class="cap sm"></span><div style="flex:1;min-width:0"><h3>${esc(u.name)}</h3><p class="small muted">${done} of ${ls.length} passed${ub != null ? ` · unit review best ${ub}%` : ""}${isCur ? " · you are here" : ""}</p></div>${allRead ? `<button class="btn sm" data-unit="${u.id}">Unit review</button>` : ""}</summary>
-        ${ls.map(s => `<button class="lesson-row ${s.status}" data-lesson="${s.l.id}"><span class="lstat">${s.mastered ? icon("star") : s.passed ? icon("check") : s.r.read ? icon("book") : ""}</span><span style="flex:1;min-width:0"><b>${escG(s.l.title)}</b>${s.l.boot ? ` <span class="bootchip">Bootcamp</span>` : ""}<span class="small muted"> · ${s.l.mins} min</span></span><span class="small lbl-${s.status}">${{ mastered: "Mastered", practicing: s.facts.length ? `Practicing, ${Math.round(s.solid * 100)}% solid` : "Passed", unlock: "Add cards", read: "Take the check", new: nl && nl.id === s.l.id ? "Up next" : "" }[s.status]}</span></button>`).join("")}
+      return `<details class="unit" style="--cap:${CAPS[u.color]}" ${isCur ? "open" : ""}><summary class="unit-head">${capIcon(u.color, u.shape, 22)}<div style="flex:1;min-width:0"><h3>${esc(u.name)}</h3><p class="small muted">${done} of ${ls.length} passed${ub != null ? ` · unit review best ${ub}%` : ""}${isCur ? " · you are here" : ""}</p></div>${allRead ? `<button class="btn sm" data-unit="${u.id}">Unit review</button>` : ""}</summary>
+        ${ls.map(s => `<button class="lesson-row ${s.status}" data-lesson="${s.l.id}"><span class="lstat ${s.status}">${s.mastered ? "★" : s.passed ? "✓" : s.r.read ? "·" : ""}</span><span style="flex:1;min-width:0"><b>${escG(s.l.title)}</b>${s.l.boot ? ` <span class="bootchip">Bootcamp</span>` : ""}<span class="small muted"> · ${s.l.mins} min</span></span><span class="lmeta">${{ mastered: "Mastered", practicing: s.facts.length ? `${Math.round(s.solid * 100)}% solid` : "Passed", unlock: "Add cards", read: "Check pending", new: nl && nl.id === s.l.id ? "Next" : "" }[s.status]}</span></button>`).join("")}
       </details>`;
     }).join("")}</div>`;
 }
@@ -4111,20 +4225,23 @@ function prepSetupModal(after) {
 /* ---------- lesson player ---------- */
 function speakText(t) { if (!("speechSynthesis" in window)) { toast("Audio isn’t supported in this browser"); return; } speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(speakable(t)); u.rate = S.meta.settings.rate || 1; speechSynthesis.speak(u); }
 function quizRunner(items, title, onDone) {
-  const qs = shuffle(items).map(([q, opts, a, why]) => { const order = shuffle(opts.map((_, i) => i)); return { q, why, opts: order.map(i => opts[i]), a: order.indexOf(a) }; });
-  let i = 0, score = 0, answered = false; const missed = [];
+  const qs = shuffle(items).map(([q, opts, a, why], n) => { const order = shuffle(opts.map((_, i) => i)); return { n, q, why, opts: order.map(i => opts[i]), a: order.indexOf(a) }; });
+  const N = qs.length; let i = 0, answered = false; const missed = [], firstWrong = new Set();
   function show() {
-    if (i >= qs.length) return onDone(Math.round(score / qs.length * 100), missed);
+    if (i >= qs.length) return onDone(Math.round((N - firstWrong.size) / N * 100), missed);
     const q = qs[i]; answered = false;
-    ST.stage.innerHTML = `<div class="qcard"><div class="kicker">${escG(title)} · ${i + 1} of ${qs.length}</div><div class="qtext">${escG(q.q)}</div></div>${confBar()}
+    const left = qs.length - i;
+    ST.stage.innerHTML = `<div class="qcard"><div class="kicker">${esc(title)} · ${Math.min(N, N - left + 1 + (qs.length - N))} of ${N}${firstWrong.has(q.n) ? " · second try" : ""}</div><div class="qtext">${escG(q.q)}</div></div>${confBar()}
       <div class="opts" id="opts">${q.opts.map((o, k) => `<button class="opt" data-k="${k}"><span class="k">${k + 1}</span><span>${escG(o)}</span></button>`).join("")}</div><div id="fb"></div>`;
     $$("#opts .opt").forEach(b => b.onclick = () => answer(+b.dataset.k)); bindConf();
+    setProg(Math.min(.98, (i) / qs.length));
   }
   function answer(k) {
-    if (answered) return; answered = true; const q = qs[i]; const ok = k === q.a; if (ok) score++; else { missed.push(q); logMistake({ src: title, q: q.q, yours: q.opts[k], right: q.opts[q.a], opts: q.opts, why: q.why }); }
+    if (answered) return; answered = true; const q = qs[i]; const ok = k === q.a;
+    if (!ok) { if (!firstWrong.has(q.n)) { firstWrong.add(q.n); missed.push(q); logMistake({ src: title, q: q.q, yours: q.opts[k], right: q.opts[q.a], opts: q.opts, why: q.why }); } const order = shuffle(q.opts.map((_, x) => x)); qs.push({ ...q, opts: order.map(x => q.opts[x]), a: order.indexOf(q.a) }); }
     $("#opts").classList.add("locked"); $$("#opts .opt").forEach((b, j) => { if (j === q.a) b.classList.add("right"); else if (j === k) b.classList.add("wrong"); });
-    $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? "Correct" : "Not quite"}<span class="det">${escG(q.why)}</span></div></div><div class="row" style="margin-top:12px"><div class="spacer"></div><button class="btn primary" id="next">${i + 1 < qs.length ? "Next" : "See results"}</button></div>`;
-    $("#next").onclick = () => { i++; show(); };
+    $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? "Correct" : "Not quite. This one comes back until you get it."}<span class="det">${escG(q.why)}</span></div></div><div class="row" style="margin-top:12px"><div class="spacer"></div><button class="btn primary" id="next">${i + 1 < qs.length ? "Next" : "Finish"}</button></div>`;
+    $("#next").onclick = () => { i++; show(); }; $("#next").focus();
   }
   ST.onKey = e => { if (!answered && /^[1-4]$/.test(e.key)) $(`#opts .opt[data-k="${+e.key - 1}"]`)?.click(); else if (answered && e.key === "Enter") $("#next")?.click(); };
   show();
@@ -4155,8 +4272,8 @@ function startLesson(l, jumpToCheck) {
       $$("#opts .opt").forEach(b => b.onclick = () => {
         const k = +b.dataset.k, ok = k === s.a; $("#opts").classList.add("locked");
         $$("#opts .opt").forEach(x => { const kk = +x.dataset.k; if (kk === s.a) x.classList.add("right"); else if (kk === k) x.classList.add("wrong"); });
-        $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? "Exactly" : "Not quite"}<span class="det">${escG(s.why)}</span></div></div>`;
-        $("#nx").disabled = false; $("#nx").focus();
+        $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? "Exactly" : "Not quite. Read the explanation, then try again."}<span class="det">${escG(s.why)}</span></div></div>${ok ? "" : `<button class="btn" id="retryQ" style="margin-top:10px">${icon("rotate")}Try again</button>`}`;
+        if (ok) { $("#nx").disabled = false; $("#nx").focus(); } else { $("#retryQ").onclick = () => show(); $("#retryQ").focus(); }
       });
     }
     $("#bk").onclick = () => { if (i > 0) { i--; show(); } };
@@ -4167,23 +4284,24 @@ function startLesson(l, jumpToCheck) {
     if (!rec().read) { rec().read = Date.now(); saveMeta(true); }
     setProg(steps.length / totalSteps); ST.right.innerHTML = "";
     if (l.beats) return quizRunner(l.quiz, "Checkpoint", finish);
-    ST.stage.innerHTML = `<div class="results"><h2>Lesson check</h2><p class="muted" style="max-width:40ch">${plural(l.quiz.length, "question")} on what you just learned. Score 80% or better to pass. You can retake it anytime.</p><button class="btn primary" id="go">Start the check</button></div>`;
+    ST.stage.innerHTML = `<div class="results"><h2>Lesson check</h2><p class="muted" style="max-width:40ch">${plural(l.quiz.length, "question")} on what you just learned. Goal: 100%. Anything you miss comes back until you get it right.</p><button class="btn primary" id="go">Start the check</button></div>`;
     $("#go").onclick = () => quizRunner(l.quiz, "Lesson check", finish);
     ST.onKey = e => { if (e.key === "Enter") $("#go")?.click(); };
   }
   function finish(score, missed) {
-    const r = rec(); const passedNow = score >= 80;
+    const r = rec(); const passedNow = true;
+    const firstTime = !r.done; r.done = 1;
     r.best = Math.max(r.best || 0, score); r.last = Date.now();
-    if (passedNow) { prep().lastDay = dayKey(); if (!(r.best >= 80 && r.passedOnce)) { r.passedOnce = 1; dayStat("lessons"); } }
+    prep().lastDay = dayKey(); if (firstTime) dayStat("lessons");
     bumpHistory(false); saveMeta(true); setProg(1);
     const canUnlock = (l.unlock || []).length && !r.unlocked;
     const nCards = (l.unlock || []).reduce((n, u) => n + packCount(u.pack), 0);
-    ST.stage.innerHTML = `<div class="results">${ring(score)}<h2>${passedNow ? "Lesson passed" : "Almost there"}</h2><p class="muted" style="max-width:44ch">${passedNow ? "Nice work. Now make it stick." : "Review the explanations, skim the lesson again, and retake the check when you’re ready."}</p></div>
+    ST.stage.innerHTML = `<div class="results">${ring(score)}<h2>${score === 100 ? "Perfect: 100% on the first try" : "Lesson complete"}</h2><p class="muted" style="max-width:44ch">First-try score ${score}%. ${score < 100 ? "The ones you missed are in your mistake journal. Retake anytime and aim for 100%." : "Now make it stick."}</p></div>
       ${canUnlock ? `<div class="panel unlock"><h3>${passedNow ? "Next: add this lesson’s cards" : "Want the cards anyway?"}</h3><p class="small muted" style="margin:4px 0 12px">${plural(nCards, "card")} will join your daily review, introduced a few at a time and brought back right before you’d forget them.</p><button class="btn primary" id="unl">${icon("plus")}Add ${plural(nCards, "card")} to my review</button></div>` : (l.unlock || []).length ? `<div class="panel unlock"><p class="small">${icon("check")} This lesson’s cards are in your daily review.</p></div>` : ""}
       ${passedNow && l.explain ? `<div class="panel explain"><h3>Explain it back</h3><p class="small muted" style="margin:4px 0 10px">Putting it in your own words is one of the strongest ways to learn. Write a sentence or two, then compare.</p><p><b>${esc(l.explain[0])}</b></p><textarea class="input" id="exT" rows="3" placeholder="In your own words…" style="margin-top:8px"></textarea><div class="row" style="margin-top:8px"><button class="btn sm primary" id="exC">Compare with a model answer</button></div><div id="exOut"></div></div>` : ""}
       <div class="panel"><h3 style="margin-bottom:8px">Key terms</h3><dl class="facts">${l.terms.map(([t, d]) => `<dt>${escG(t)}</dt><dd>${escG(d)}</dd>`).join("")}</dl></div>
       ${missed.length ? `<div class="panel"><h3 style="margin-bottom:8px">Review what you missed</h3>${missed.map(q => `<p style="margin-bottom:8px"><b>${escG(q.q)}</b><br><span class="small">${escG(q.opts[q.a])}. ${escG(q.why)}</span></p>`).join("")}</div>` : ""}
-      <div class="row" style="justify-content:center">${!passedNow ? `<button class="btn primary" id="retake">Retake the check</button><button class="btn" id="reread">Reread the lesson</button>` : ""}${l.tool ? `<button class="btn ${passedNow && !canUnlock ? "primary" : ""}" id="tool">${icon("target")}${escG(TOOL_NAMES[l.tool])}</button>` : ""}<button class="btn" id="dn">Back to my path</button></div>`;
+      <div class="row" style="justify-content:center">${score < 100 ? `<button class="btn" id="retake">Retake for 100%</button>` : ""}${l.tool ? `<button class="btn ${passedNow && !canUnlock ? "primary" : ""}" id="tool">${icon("target")}${escG(TOOL_NAMES[l.tool])}</button>` : ""}<button class="btn" id="dn">Back to my path</button></div>`;
     $("#exC") && ($("#exC").onclick = () => {
       $("#exOut").innerHTML = `<div class="callout key" style="margin-top:10px"><b>Model answer</b><p>${escG(l.explain[1])}</p></div><p class="small" style="margin-top:10px">How did yours compare?</p><div class="row" style="margin-top:6px">${[["got", "Nailed it"], ["part", "Partly"], ["miss", "Missed it"]].map(([k, t]) => `<button class="btn sm" data-ex="${k}">${t}</button>`).join("")}</div>`;
       $$("[data-ex]").forEach(b => b.onclick = () => { rec().explain = b.dataset.ex; saveMeta(); $("#exOut").insertAdjacentHTML("beforeend", `<p class="small muted" style="margin-top:8px">${b.dataset.ex === "got" ? "Great. That understanding will make the flashcards easy." : "Reread the model answer and the lesson’s key point. Explaining it again tomorrow will lock it in."}</p>`); $$("[data-ex]").forEach(x => x.disabled = true); });
@@ -4744,7 +4862,7 @@ function weeklyData() {
   const prevDays = Array.from({ length: 7 }, (_, i) => dayKey(Date.now() - (i + 7) * DAY));
   const reviews = days.reduce((a, k) => a + (S.meta.history[k] || 0), 0), prev = prevDays.reduce((a, k) => a + (S.meta.history[k] || 0), 0);
   const active = days.filter(k => S.meta.history[k]).length;
-  const lessons = Object.entries(prep().lessons).filter(([, r]) => (r.last || 0) > since && (r.best || 0) >= 80).length;
+  const lessons = Object.entries(prep().lessons).filter(([, r]) => (r.last || 0) > since && (r.done || (r.best || 0) >= 80)).length;
   const confident = Object.values(objR()).filter(([v, t]) => v === 2 && t > since).length;
   const w = S.meta.weekly || {}; const base = w[dayKey(weekStart())];
   const gained = base != null ? masteredNow() - base : 0;
@@ -4807,10 +4925,10 @@ function tagLabels() {
   Object.values(S.decks).forEach(d => { if (!d.label && d.pack && PACK_LABEL[d.pack]) { d.label = PACK_LABEL[d.pack]; n++; Store.save("deck-" + d.id, d); } });
   return n;
 }
-const labelChip = (l, small) => l ? `<span class="lchip ${small ? "sm" : ""}" style="--c:${CAPS[l.color]}"><i></i><span><b>${esc(l.name)}</b><small>${esc(CAP_DESC[l.color] || "")}</small></span></span>` : "";
+let labelChip = (l, small) => l ? `<span class="lchip ${small ? "sm" : ""}" style="--c:${CAPS[l.color]}"><i></i><span><b>${esc(l.name)}</b><small>${esc(CAP_DESC[l.color] || "")}</small></span></span>` : "";
 const starterBadge = d => d.pack ? `<span class="starter" title="A prebuilt starter deck">${icon("layers")}Starter</span>` : "";
 function labelPicker(cur, onPick) {
-  return `<div class="lpick">${labels().map(l => `<button type="button" class="lopt ${cur === l.id ? "on" : ""}" data-l="${l.id}" style="--c:${CAPS[l.color]}"><i></i><span><b>${esc(l.name)}</b><small>${esc(CAP_DESC[l.color])}${l.course ? " · " + esc(l.course) : ""}</small></span></button>`).join("")}
+  return `<div class="lpick">${labels().map(l => `<button type="button" class="lopt ${cur === l.id ? "on" : ""}" data-l="${l.id}">${capIcon(l.color, l.shape, 22)}<span><b>${esc(l.name)}</b><small>${esc(CAP_DESC[l.color])}${l.course ? " · " + esc(l.course) : ""}</small></span></button>`).join("")}
     <button type="button" class="lopt ${!cur ? "on" : ""}" data-l=""><i style="background:transparent;border:2px dashed var(--line-2)"></i><span><b>No label</b><small>Uncategorized</small></span></button>
     <button type="button" class="lopt new" id="newLbl"><i style="background:transparent">${icon("plus")}</i><span><b>New label</b><small>Name it and pick a cap color</small></span></button></div>`;
 }
@@ -4953,7 +5071,7 @@ function showGloss(el) {
 }
 document.addEventListener("click", e => {
   const a = e.target.closest(".ac");
-  if (a && !a.closest("button, a, .opt, .pal, .seq-item, .lopt, .listrow")) { e.preventDefault(); e.stopPropagation(); showGloss(a); return; }
+  if (a && !a.closest(".lopt, .pill, .chipbtn")) { e.preventDefault(); e.stopPropagation(); showGloss(a); return; }
   if (!e.target.closest(".acpop")) $$(".acpop").forEach(p => p.remove());
 }, true);
 document.addEventListener("keydown", e => { if (e.key === "Escape") $$(".acpop").forEach(p => p.remove()); if ((e.key === "Enter" || e.key === " ") && e.target.classList && e.target.classList.contains("ac")) { e.preventDefault(); e.stopPropagation(); showGloss(e.target); } }, true);
@@ -5204,7 +5322,8 @@ function startBootcamp(l) {
     $$("#opts .opt").forEach(b => b.onclick = () => {
       if (answered) return; answered = true; const k = +b.dataset.k, ok = k === a; if (!ok) logMistake({ src: "Bootcamp", q, yours: opts[k], right: opts[a], opts, why });
       $("#opts").classList.add("locked"); $$("#opts .opt").forEach(x => { const kk = +x.dataset.k; if (kk === a) x.classList.add("right"); else if (kk === k) x.classList.add("wrong"); });
-      $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? pickLine("right") : "Not quite. The answer is: " + escG(opts[a])}${why ? `<span class="det">${escG(why)}</span>` : ""}</div></div><div class="row" style="margin-top:12px"><div class="spacer"></div><button class="btn primary" id="nx">${i + 1 < beats.length ? "Next step" : "Finish"}</button></div>`;
+      if (!ok) { $("#fb").innerHTML = `<div class="feedback no"><div style="flex:1">Not quite.${why ? `<span class="det">${escG(why)}</span>` : ""}</div></div><div class="row" style="margin-top:12px"><div class="spacer"></div><button class="btn primary" id="again">${icon("rotate")}Try again</button></div>`; $("#again").onclick = think; $("#again").focus(); return; }
+      $("#fb").innerHTML = `<div class="feedback ok"><div style="flex:1">${pickLine("right")}${why ? `<span class="det">${escG(why)}</span>` : ""}</div></div><div class="row" style="margin-top:12px"><div class="spacer"></div><button class="btn primary" id="nx">${i + 1 < beats.length ? "Next step" : "Finish"}</button></div>`;
       $("#nx").onclick = () => { i++; read(); }; $("#nx").focus();
     });
     ST.onKey = e => { if (!answered && /^[1-4]$/.test(e.key)) $$("#opts .opt")[+e.key - 1]?.click(); else if (answered && e.key === "Enter") $("#nx")?.click(); };
@@ -5212,7 +5331,7 @@ function startBootcamp(l) {
   function done() {
     setProg(1); ST.right.innerHTML = "";
     const r = prep().lessons[l.id] = prep().lessons[l.id] || {}; r.read = r.read || Date.now(); saveMeta(true);
-    ST.stage.innerHTML = `<div class="results"><p class="coach good">All ${beats.length} steps complete.</p><h2>Ready for your checkpoint?</h2><p class="muted" style="max-width:42ch">${plural(l.quiz.length, "question")} mixing what you just practiced. Score 80% or better to pass. You can retake it anytime.</p>
+    ST.stage.innerHTML = `<div class="results"><p class="coach good">All ${beats.length} steps complete.</p><h2>Ready for your checkpoint?</h2><p class="muted" style="max-width:42ch">${plural(l.quiz.length, "question")} mixing what you just practiced. Goal: 100%. Anything you miss comes back until you get it.</p>
       <div class="row" style="justify-content:center"><button class="btn primary" id="go">Start the checkpoint</button><button class="btn" id="again">Run through again</button></div></div>`;
     $("#go").onclick = () => bootChallenge(l, () => startLesson(l, true));
     $("#again").onclick = () => startBootcamp(l);
@@ -5428,10 +5547,10 @@ function startRotations() {
     setProg(1);
     ST.stage.innerHTML = `<div class="qcard"><h2 style="margin-bottom:6px">Clinical rotations</h2><p class="small muted">Your program ends with about six months of rotations through the hospital lab. Use these checklists to know what to practice, then tick skills off as your preceptor signs you off.</p></div>
       <div class="panel"><h3 style="margin-bottom:6px">Every rotation</h3><ul class="tips"><li>Read the procedure before you perform it.</li><li>Carry a small notebook for each bench’s quirks.</li><li>Ask your preceptor for one goal each day.</li><li>Never guess on a patient result. Ask.</li><li>Keep your competency sign-offs up to date.</li></ul></div>
-      ${ROTATIONS.map(r => { const n = r.items.filter((_, i) => done()[r.id + "|" + i]).length; const lb = labels().find(l => l.id === r.label); return `<details class="cunit"><summary><span class="sq" style="background:${lb ? CAPS[lb.color] : "var(--line-2)"}"></span><span style="flex:1;min-width:0"><b>${esc(r.name)}</b><br><span class="small muted">${n} of ${r.items.length} skills</span></span><span class="minibar"><i style="width:${n / r.items.length * 100}%"></i></span></summary>
-        <div class="checks" style="margin-top:10px">${r.items.map((it, i) => `<label class="check"><input type="checkbox" data-rk="${r.id}|${i}" ${done()[r.id + "|" + i] ? "checked" : ""}><span>${escG(it)}</span></label>`).join("")}</div>
-        <p class="lbl" style="margin:12px 0 4px">Questions to ask your preceptor</p><ul class="tips">${r.ask.map(a => `<li>${escG(a)}</li>`).join("")}</ul>
-        <textarea class="input" data-rn="${r.id}" rows="3" placeholder="Notes for this bench…" style="margin:8px 0 12px">${esc(notes()[r.id] || "")}</textarea></details>`; }).join("")}`;
+      ${ROTATIONS.map(r => { const n = r.items.filter((_, i) => done()[r.id + "|" + i]).length; const lb = labels().find(l => l.id === r.label); return `<details class="cunit"><summary><span class="sq" style="background:${lb ? CAPS[lb.color] : "var(--line-2)"}"></span><span style="flex:1;min-width:0"><b>${esc(r.name)}</b><br><span class="small muted">${n} of ${r.items.length} skills</span></span><span class="minibar"><i style="width:${n / r.items.length * 100}%"></i></span></summary><div class="rot-body">
+        <div class="checks">${r.items.map((it, i) => `<label class="check"><input type="checkbox" data-rk="${r.id}|${i}" ${done()[r.id + "|" + i] ? "checked" : ""}><span>${escG(it)}</span></label>`).join("")}</div>
+        <p class="lbl">Questions to ask your preceptor</p><ul class="tips">${r.ask.map(a => `<li>${escG(a)}</li>`).join("")}</ul>
+        <textarea class="input" data-rn="${r.id}" rows="3" placeholder="Notes for this bench…">${esc(notes()[r.id] || "")}</textarea></div></details>`; }).join("")}`;
     $$("[data-rk]").forEach(c => c.onchange = () => { if (c.checked) done()[c.dataset.rk] = Date.now(); else delete done()[c.dataset.rk]; saveMeta(); });
     $$("[data-rn]").forEach(t => t.onchange = () => { notes()[t.dataset.rn] = t.value; saveMeta(); });
   };
@@ -5474,7 +5593,7 @@ function startJournal() {
 
 /* ===================== Badges ===================== */
 const totalReviews = () => Object.values(S.meta.history || {}).reduce((a, b) => a + b, 0);
-const lessonsPassed = () => Object.values((S.meta.prep || {}).lessons || {}).filter(r => (r.best || 0) >= 80).length;
+const lessonsPassed = () => LESSONS.filter(l => lessonState(l).passed).length;
 const BADGES = [
   ["r1", "🧪", "First review", "Finish your first review", () => totalReviews() >= 1],
   ["r100", "💯", "100 reviews", "100 reviews", () => totalReviews() >= 100],
@@ -6168,7 +6287,7 @@ function gameUnlocked(id) {
   if (!prepOn()) return true;
   const req = GAME_REQ[id] || []; if (!req.length) return true;
   if ((S.meta.gameOverride || {})[id]) return true;
-  return req.some(lid => (prep().lessons[lid] || {}).best >= 80);
+  return req.some(lid => { const l = LESSONS.find(x => x.id === lid); return l && lessonState(l).passed; });
 }
 function gameLockedScreen(id, name, start) {
   const req = (GAME_REQ[id] || []).map(lid => LESSONS.find(l => l.id === lid)).filter(Boolean);
@@ -6223,7 +6342,7 @@ function startTubeTrainer() {
   const menu = () => {
     setProg(0); ST.right.innerHTML = "";
     ST.stage.innerHTML = `${levelTabs(LV, lv, gs.level)}
-      <div class="qcard"><p>${["Put every tube in the CLSI order of draw. Get it fully right twice to unlock Level 2.", "Real draws rarely use every tube. Order a few random combinations. Score 4 of 5 to unlock Level 3.", "You’ll see the tests ordered. Choose the tubes needed and put them in order. Score 4 of 5 to unlock Level 4.", "Something went wrong during collection. Figure out what. Score 5 of 6 to master the trainer."][lv - 1]}</p><p class="small muted" style="margin-top:6px">Tube choices vary a little by lab; always follow your lab’s test directory.</p></div>
+      <div class="qcard"><p>${["Put every tube in the CLSI order of draw. Get it fully right twice to unlock Level 2.", "Real draws rarely use every tube. Order a few random combinations. Get all 5 right to unlock Level 3.", "You’ll see the tests ordered. Choose the tubes needed and put them in order. Get all 5 right to unlock Level 4.", "Something went wrong during collection. Figure out what. Get all 6 right to master the trainer."][lv - 1]}</p><p class="small muted" style="margin-top:6px">Tube choices vary a little by lab; always follow your lab’s test directory.</p></div>
       <button class="btn primary" id="go">Start level ${lv}</button>`;
     $$(".lvl").forEach(b => b.onclick = () => { lv = +b.dataset.lv; menu(); });
     $("#go").onclick = () => [l1, l2, l3, l4][lv - 1]();
@@ -6244,11 +6363,11 @@ function startTubeTrainer() {
     draw();
   };
   const l1 = () => { let wins = 0, tries = 0; const go = () => { setProg(tries / 4); orderRound(TUBES, ok => { tries++; if (ok) wins++; if (wins >= 2 || tries >= 4) { advance(wins >= 2, 2); finish(wins >= 2, `${wins} perfect run${wins === 1 ? "" : "s"}`); } else go(); }); }; go(); };
-  const l2 = () => { let i = 0, score = 0; const go = () => { if (i >= 5) { advance(score >= 4, 3); return finish(score >= 4, `${score} of 5 correct`); } setProg(i / 5); const n = rint(3, 5); const set = shuffle(TUBES).slice(0, n); orderRound(set, ok => { if (ok) score++; i++; go(); }); }; go(); };
+  const l2 = () => { let i = 0, score = 0; const go = () => { if (i >= 5) { advance(score >= 5, 3); return finish(score >= 5, `${score} of 5 correct`); } setProg(i / 5); const n = rint(3, 5); const set = shuffle(TUBES).slice(0, n); orderRound(set, ok => { if (ok) score++; i++; go(); }); }; go(); };
   const l3 = () => {
     let i = 0, score = 0;
     const go = () => {
-      if (i >= 5) { advance(score >= 4, 4); return finish(score >= 4, `${score} of 5 correct`); }
+      if (i >= 5) { advance(score >= 5, 4); return finish(score >= 5, `${score} of 5 correct`); }
       setProg(i / 5);
       let tests; for (let k = 0; k < 50; k++) { tests = pick(TESTS, rint(2, 4)); const ranks = new Set(tests.map(t => T_BY[t[1][0]].rank)); if (ranks.size >= 2) break; }
       let picked = [];
@@ -6282,7 +6401,7 @@ function startTubeTrainer() {
   const l4 = () => {
     const qs = shuffle(TROUBLE).slice(0, 6); let i = 0, score = 0;
     const go = () => {
-      if (i >= qs.length) { advance(score >= 5, 5); if (score >= 5) statMax("tubeMaster", 1); return finish(score >= 5, `${score} of ${qs.length} correct`); }
+      if (i >= qs.length) { advance(score >= qs.length, 5); if (score >= qs.length) statMax("tubeMaster", 1); return finish(score >= qs.length, `${score} of ${qs.length} correct`); }
       setProg(i / qs.length); const [q, opts, why] = qs[i]; const order = shuffle([0, 1, 2, 3]);
       ST.stage.innerHTML = `<div class="qcard"><div class="kicker">What went wrong?</div><div class="qtext" style="font-size:1.1rem">${escG(q)}</div></div><div class="opts" id="opts">${order.map((k, j) => `<button class="opt" data-k="${k}"><span class="k">${j + 1}</span><span>${escG(opts[k])}</span></button>`).join("")}</div><div id="fb"></div>`;
       let done = false;
@@ -6450,17 +6569,18 @@ function ljChart(L1, L2) {
 function startWestgard() {
   openStudy("Westgard judge");
   const targets = shuffle(["Accept", "1-2s", "1-3s", "2-2s", "R-4s", "4-1s", "10x", "Accept", "1-3s", "2-2s"]);
-  let i = 0, score = 0;
+  let i = 0, score = 0; const sc = makeScorer("westgard");
   const kinds = { "1-3s": "Random", "R-4s": "Random", "2-2s": "Systematic", "4-1s": "Systematic", "10x": "Systematic" };
   const next = () => {
-    if (i >= targets.length) { statMax("westgardBest", score); stat("westgardCorrect", score); setProg(1); ST.stage.innerHTML = `<div class="results">${ring(score * 10)}<h2>${score} of ${targets.length}</h2><div class="row" style="justify-content:center"><button class="btn primary" id="again">Again</button><button class="btn" id="dn">Done</button></div></div>`; $("#again").onclick = startWestgard; $("#dn").onclick = () => closeStudy(); return; }
+    if (i >= targets.length) { statMax("westgardBest", score); stat("westgardCorrect", score); setProg(1); ST.stage.innerHTML = `<div class="results">${ring(score * 10)}<h2>${score} of ${targets.length}</h2>${ptsLine(sc.save())}<div class="row" style="justify-content:center"><button class="btn primary" id="again">Again</button><button class="btn" id="dn">Done</button></div></div>`; $("#again").onclick = startWestgard; $("#dn").onclick = () => closeStudy(); return; }
     setProg(i / targets.length);
     const run = westgardRun(targets[i]); if (!run) { i++; return next(); }
     const answer = run.res; const opts = ["Accept the run", "Reject: 1-3s", "Reject: 2-2s", "Reject: R-4s", "Reject: 4-1s", "Reject: 10x"];
     const right = answer === "Accept" ? "Accept the run" : "Reject: " + answer;
+    ST.right.innerHTML = sc.chip(); sc.start();
     ST.stage.innerHTML = `<div class="qcard"><div class="kicker">Run ${i + 1} of ${targets.length}</div><div class="qtext" style="font-size:1.1rem">Accept or reject today’s run?</div>${ljChart(run.L1, run.L2)}</div><div class="opts two" id="opts">${opts.map(o => `<button class="opt" data-o="${o}"><span>${o}</span></button>`).join("")}</div><div id="fb"></div>`;
     let done = false;
-    $$("#opts .opt").forEach(b => b.onclick = () => { if (done) return; done = true; const ok = b.dataset.o === right; if (ok) score++; else logMistake({ src: "Westgard judge", q: "Judge the QC run", yours: b.dataset.o, right });
+    $$("#opts .opt").forEach(b => b.onclick = () => { if (done) return; done = true; const ok = b.dataset.o === right; sc.hit(ok); ST.right.innerHTML = sc.chip(); if (ok) score++; else logMistake({ src: "Westgard judge", q: "Judge the QC run", yours: b.dataset.o, right });
       $("#opts").classList.add("locked"); $$("#opts .opt").forEach(x => { if (x.dataset.o === right) x.classList.add("right"); else if (x === b) x.classList.add("wrong"); });
       const why = answer === "Accept" ? (run.warn ? "Only a 1-2s warning: one control beyond 2 SD with no other rule broken. Inspect, but the run can be accepted." : "Every control is within limits and no rule is broken.") : `${answer} is violated, which points to ${kinds[answer].toLowerCase()} error. Hold patient results, find and fix the cause, then rerun controls.`;
       $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? "Correct" : "Answer: " + right}<span class="det">${escG(why)}</span></div></div><div class="row" style="margin-top:10px"><div class="spacer"></div><button class="btn primary" id="nx">Next run</button></div>`; $("#nx").onclick = () => { i++; next(); }; });
@@ -6499,14 +6619,14 @@ function startCritical() {
   openStudy("Critical call");
   ST.stage.innerHTML = `<div class="qcard"><p>Results land on your bench. For each, decide: <b>Report</b>, <b>Call critical</b>, or <b>Recollect</b>. Read the specimen notes; they matter.</p><p class="small muted" style="margin-top:6px">Critical limits here are typical teaching values. Your lab’s written critical value list always rules.</p></div><button class="btn primary" id="go">Start 12 results</button>`;
   $("#go").onclick = () => {
-    const qs = Array.from({ length: 12 }, critScenario); let i = 0, score = 0;
+    const qs = Array.from({ length: 12 }, critScenario); let i = 0, score = 0; const sc = makeScorer("critical");
     const next = () => {
-      if (i >= qs.length) { statMax("critBest", score); if (score === qs.length) stat("critPerfect"); setProg(1); ST.stage.innerHTML = `<div class="results">${ring(Math.round(score / qs.length * 100))}<h2>${score} of ${qs.length}</h2><div class="row" style="justify-content:center"><button class="btn primary" id="again">Again</button><button class="btn" id="dn">Done</button></div></div>`; $("#again").onclick = startCritical; $("#dn").onclick = () => closeStudy(); return; }
-      setProg(i / qs.length); const q = qs[i];
+      if (i >= qs.length) { statMax("critBest", score); if (score === qs.length) stat("critPerfect"); setProg(1); ST.stage.innerHTML = `<div class="results">${ring(Math.round(score / qs.length * 100))}<h2>${score} of ${qs.length}</h2>${ptsLine(sc.save())}<div class="row" style="justify-content:center"><button class="btn primary" id="again">Again</button><button class="btn" id="dn">Done</button></div></div>`; $("#again").onclick = startCritical; $("#dn").onclick = () => closeStudy(); return; }
+      setProg(i / qs.length); const q = qs[i]; ST.right.innerHTML = sc.chip(); sc.start();
       ST.stage.innerHTML = `<div class="qcard"><div class="kicker">Result ${i + 1} of ${qs.length}</div><div class="qtext">${escG(q.c.t)}</div><div class="bigval">${fmtN(q.v, q.c.dec)} <span>${esc(q.c.u)}</span></div><p class="small muted">Reference ${q.c.ref.join("–")} ${esc(q.c.u)}</p>${q.issue ? `<div class="callout key" style="margin-top:10px"><b>Specimen note</b><p>${escG(q.issueText)}</p></div>` : `<p class="small muted" style="margin-top:8px">Specimen: acceptable, labeled correctly.</p>`}</div>
         <div class="opts three" id="opts">${["Report", "Call critical", "Recollect"].map(a => `<button class="opt" data-a="${a}"><span>${a}</span></button>`).join("")}</div><div id="fb"></div>`;
       let done = false;
-      $$("#opts .opt").forEach(b => b.onclick = () => { if (done) return; done = true; const ok = b.dataset.a === q.action; if (ok) score++; else logMistake({ src: "Critical call", q: `${q.c.t} ${q.v} ${q.c.u}${q.issue ? ". " + q.issueText : ". Specimen acceptable."} Report, call critical or recollect?`, yours: b.dataset.a, right: q.action, why: q.why, opts: ["Report", "Call critical", "Recollect"] });
+      $$("#opts .opt").forEach(b => b.onclick = () => { if (done) return; done = true; const ok = b.dataset.a === q.action; sc.hit(ok); ST.right.innerHTML = sc.chip(); if (ok) score++; else logMistake({ src: "Critical call", q: `${q.c.t} ${q.v} ${q.c.u}${q.issue ? ". " + q.issueText : ". Specimen acceptable."} Report, call critical or recollect?`, yours: b.dataset.a, right: q.action, why: q.why, opts: ["Report", "Call critical", "Recollect"] });
         $("#opts").classList.add("locked"); $$("#opts .opt").forEach(x => { if (x.dataset.a === q.action) x.classList.add("right"); else if (x === b) x.classList.add("wrong"); });
         $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? "Correct" : "Answer: " + q.action}<span class="det">${escG(q.why)}</span></div></div><div class="row" style="margin-top:10px"><div class="spacer"></div><button class="btn primary" id="nx">Next result</button></div>`; $("#nx").onclick = () => { i++; next(); }; });
     };
@@ -6701,14 +6821,14 @@ function exportCsv(kind) {
 }
 /* ===================== Badges (with emoji, lots of them) ===================== */
 const sv = k => (S.meta.stats || {})[k] || 0;
-const lessonsPassedN = (filter) => LESSONS.filter(l => (!filter || filter(l)) && (((S.meta.prep || {}).lessons || {})[l.id] || {}).best >= 80).length;
+const lessonsPassedN = (filter) => LESSONS.filter(l => (!filter || filter(l)) && lessonState(l).passed).length;
 const perfectN = () => Object.values((S.meta.prep || {}).lessons || {}).filter(r => r.best === 100).length;
 const daysGoalMet = () => Object.values(S.meta.history || {}).filter(n => n >= (S.meta.settings.dailyGoal || 50)).length;
 const focusTotal = () => Object.values(S.meta.focus || {}).reduce((a, b) => a + b, 0);
 const daysStudied = () => Object.values(S.meta.history || {}).filter(n => n > 0).length;
 const weekendWarrior = () => Object.keys(S.meta.history || {}).some(k => { const d = new Date(k + "T12:00"); if (d.getDay() !== 6) return false; const sun = dayKey(d.getTime() + DAY); return (S.meta.history[k] || 0) > 0 && (S.meta.history[sun] || 0) > 0; }) ? 1 : 0;
 const courseReady = n => PROGRAM.courses.filter((c, ci) => courseStats(ci).ready >= n).length;
-const unitsWrapped = () => LESSONS.filter(l => l.wrap && (((S.meta.prep || {}).lessons || {})[l.id] || {}).best >= 80).length;
+const unitsWrapped = () => LESSONS.filter(l => l.wrap && lessonState(l).passed).length;
 const rotSkills = () => Object.keys(S.meta.rot || {}).length;
 const BCAT = { r: "Reviews", s: "Streaks and habits", l: "Lessons", b: "Bootcamp", m: "Memory", p: "Your program", g: "Games and drills" };
 const B = (id, cat, e, name, desc, target, cur) => ({ id, cat, e, name, desc, target, cur });
@@ -6767,7 +6887,7 @@ function startBadges() {
 /* ===================== Mistake journal, rebuilt ===================== */
 const GAME_OPEN = { smear: ["Smear practice", () => startSmear()], westgard: ["Westgard judge", () => startWestgard()], tubes: ["Tube trainer", () => startTubeTrainer()], sediment: ["Urine sediment", () => startSediment()], panel: ["Antibody panel", () => startPanel()], acidbase: ["Acid-base", () => startAcidBase()] };
 const jAll = () => S.meta.journal || [];
-const jKind = x => x.game && GAME_OPEN[x.game] ? "game" : (x.opts && x.opts.length >= 2 && x.opts.includes(x.right)) ? "choice" : "self";
+const jKind = x => (x.game || (VISUAL_SRC[x.src] && (x.game = VISUAL_SRC[x.src]))) && GAME_OPEN[x.game] ? "game" : (x.opts && x.opts.length >= 2 && x.opts.includes(x.right)) ? "choice" : "self";
 function jClear(id, silent) { S.meta.journal = jAll().filter(x => x.id !== id); stat("jcleared"); const d = dayKey(); const D = S.meta.daily = S.meta.daily || {}; D[d] = D[d] || {}; D[d].cleared = (D[d].cleared || 0) + 1; saveMeta(); if (!silent) toast("Cleared from your journal"); }
 startJournal = function () {
   openStudy("Mistake journal");
@@ -6846,25 +6966,26 @@ function leveledGame(id, title, LV, intros, runners) {
     $("#go").onclick = () => runners[lv - 1](result);
   };
   const result = (score, total, need) => {
-    gs.plays++; const pass = score >= need; if (pass) { unlockMsg(gs, lv + 1, LV.length); if (lv === LV.length) statMax(id + "Master", 1); } saveMeta(); stat(id + "Rounds");
+    gs.plays++; need = total; const pass = score >= need; if (pass) { unlockMsg(gs, lv + 1, LV.length); if (lv === LV.length) statMax(id + "Master", 1); } saveMeta(); stat(id + "Rounds");
     setProg(1); ST.right.innerHTML = "";
-    ST.stage.innerHTML = `<div class="results">${ring(Math.round(score / total * 100))}<h2>${score} of ${total}</h2><p class="muted">${pass ? (lv < LV.length ? "Next level unlocked." : "Top level cleared.") : `Score ${need} of ${total} to move on.`}</p><div class="row" style="justify-content:center"><button class="btn primary" id="again">Play again</button><button class="btn" id="lvls">Levels</button><button class="btn" id="dn">Done</button></div></div>`;
+    ST.stage.innerHTML = `<div class="results">${ring(Math.round(score / total * 100))}<h2>${score} of ${total}</h2>${LAST_PTS ? ptsLine(LAST_PTS) : ""}<p class="muted">${pass ? (lv < LV.length ? "Next level unlocked." : "Top level cleared.") : `Score ${need} of ${total} to move on.`}</p><div class="row" style="justify-content:center"><button class="btn primary" id="again">Play again</button><button class="btn" id="lvls">Levels</button><button class="btn" id="dn">Done</button></div></div>`;
     lv = pass ? Math.min(lv + 1, gs.level) : lv;
     $("#again").onclick = () => runners[lv - 1](result); $("#lvls").onclick = menu; $("#dn").onclick = () => closeStudy();
   };
   menu();
 }
+let LAST_PTS = null;
 function mcRounds(items, label, onEnd, need) {
-  let i = 0, score = 0;
+  let i = 0, score = 0; const sc = makeScorer({ "Urine sediment": "sediment", "Antibody panel": "panel", "Acid-base": "acidbase" }[label] || "game");
   const next = () => {
-    if (i >= items.length) return onEnd(score, items.length, need);
-    const it = items[i]; setProg(i / items.length); ST.right.innerHTML = `<span class="small muted">${i + 1} of ${items.length} · ${score} right</span>`;
+    if (i >= items.length) { LAST_PTS = sc.save(); return onEnd(score, items.length, need); }
+    const it = items[i]; setProg(i / items.length); ST.right.innerHTML = `${sc.chip()}<span class="small muted">${i + 1}/${items.length}</span>`;
     const opts = it.keep ? it.opts : shuffle(it.opts);
     ST.stage.innerHTML = `<div class="qcard">${it.kicker ? `<div class="kicker">${esc(it.kicker)}</div>` : ""}${it.html || ""}${it.q ? `<div class="qtext" style="font-size:1.15rem;margin-top:8px">${escG(it.q)}</div>` : ""}</div><div class="opts ${opts.length <= 4 && opts.every(o => o.length < 34) ? "two" : ""}" id="opts">${opts.map((o, k) => `<button class="opt" data-k="${k}"><span class="k">${k + 1}</span><span>${escG(o)}</span></button>`).join("")}</div><div id="fb"></div>`;
-    let done = false;
-    $$("#opts .opt").forEach(b => b.onclick = () => { if (done) return; done = true; const pickd = opts[+b.dataset.k]; const ok = pickd === it.a; if (ok) score++; else logMistake({ src: label, game: it.game, q: it.mq || it.q, yours: pickd, right: it.a, opts: it.game ? undefined : opts, why: it.why });
+    let done = false; sc.start();
+    $$("#opts .opt").forEach(b => b.onclick = () => { if (done) return; done = true; const pickd = opts[+b.dataset.k]; const ok = pickd === it.a; const gained = sc.hit(ok); ST.right.innerHTML = `${sc.chip()}<span class="small muted">${i + 1}/${items.length}</span>`; if (ok) score++; else logMistake({ src: label, game: it.game, q: it.mq || it.q, yours: pickd, right: it.a, opts: it.game ? undefined : opts, why: it.why });
       $("#opts").classList.add("locked"); $$("#opts .opt").forEach((x, k) => { if (opts[k] === it.a) x.classList.add("right"); else if (x === b) x.classList.add("wrong"); });
-      $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? "Correct" : "Answer: " + escG(it.a)}${it.why ? `<span class="det">${escG(it.why)}</span>` : ""}</div></div><div class="row" style="margin-top:10px"><div class="spacer"></div><button class="btn primary" id="nx">Next</button></div>`; $("#nx").onclick = () => { i++; next(); }; $("#nx").focus(); });
+      $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? `Correct · +${gained}` : "Answer: " + escG(it.a)}${it.why ? `<span class="det">${escG(it.why)}</span>` : ""}</div></div><div class="row" style="margin-top:10px"><div class="spacer"></div><button class="btn primary" id="nx">Next</button></div>`; $("#nx").onclick = () => { i++; next(); }; $("#nx").focus(); });
     ST.onKey = e => { if (!done && /^[1-9]$/.test(e.key)) $$("#opts .opt")[+e.key - 1]?.click(); else if (done && e.key === "Enter") $("#nx")?.click(); };
   };
   next();
@@ -6903,9 +7024,9 @@ const SED_CASES = [
 function startSediment() {
   const pickSet = (el, pool) => [el.name, ...pick(pool.filter(x => x.id !== el.id).map(x => x.name), 3)];
   leveledGame("sediment", "Urine sediment", ["Identify it", "Interpret it", "Clinical link"], [
-    "Name the cast, crystal or cell shown. Score 8 of 10 to unlock Level 2.",
-    "Now decide what each finding means: the urine pH it forms in, and whether it’s normal or abnormal. Score 8 of 10.",
-    "A patient story and their sediment. Choose what the finding points to. Score 6 of 8 to clear the game."
+    "Name the cast, crystal or cell shown. Get every one right to unlock Level 2.",
+    "Now decide what each finding means: the urine pH it forms in, and whether it’s normal or abnormal. Get every one right to move on.",
+    "A patient story and their sediment. Choose what the finding points to. Get every one right to clear the game."
   ], [
     done => mcRounds(shuffle(SED).slice(0, 10).map(el => ({ kicker: "What is this?", html: sedSvg(el), opts: pickSet(el, SED.filter(x => x.type === el.type).length >= 4 ? SED.filter(x => x.type === el.type) : SED), a: el.name, why: `${el.name}: ${el.sig}.`, game: "sediment", mq: "Identify the urine sediment element" })), "Urine sediment", done, 8),
     done => mcRounds(Array.from({ length: 10 }, () => { const el = rpick(SED); if (el.pH && Math.random() < .55) return { kicker: el.name, mq: el.name + ": which urine pH does it form in?", html: sedSvg(el), q: "This crystal typically forms in urine that is:", opts: ["Acid", "Alkaline", "Acid or neutral"], keep: true, a: el.pH, why: `${el.name}: ${el.pH.toLowerCase()} urine. ${el.sig}.` }; return { kicker: el.name, mq: el.name + ": normal or abnormal?", html: sedSvg(el), q: "Is this finding normal or abnormal?", opts: ["Usually normal", "Abnormal"], keep: true, a: el.ab ? "Abnormal" : "Usually normal", why: `${el.sig}.` }; }), "Urine sediment", done, 8),
@@ -6948,7 +7069,7 @@ function startPanel() {
   const singles = ["E", "c", "K", "Fya", "Jka", "S", "Fyb", "Jkb", "C", "M"];
   const run1 = done => { const items = Array.from({ length: 5 }, () => { let t, p; for (let k = 0; k < 20 && !p; k++) { t = rpick(singles); p = makePanel([t]); } return { t, p }; }).filter(x => x.p);
     mcRounds(items.map(({ t, p }) => ({ kicker: "Antibody identification", html: panelHtml(p), q: "Which antibody explains this panel?", opts: ["Anti-" + agl(t), ...pick(singles.filter(x => x !== t), 3).map(x => "Anti-" + agl(x))], a: "Anti-" + agl(t), why: `Every reactive cell carries ${agl(t)}, and every other antigen appears on at least one nonreactive cell, so it’s ruled out. Confirm with the rule of three and by showing the patient lacks ${agl(t)}.`, mq: "Identify the antibody on a panel", game: "panel" })), "Antibody panel", done, 4); };
-  const run2 = done => {
+  const run2 = done => { LAST_PTS = null;
     let i = 0, score = 0; const N = 5;
     const next = () => {
       if (i >= N) return done(score, N, 4);
@@ -6970,7 +7091,7 @@ function startPanel() {
     };
     next();
   };
-  const run3 = done => {
+  const run3 = done => { LAST_PTS = null;
     let i = 0, score = 0; const N = 4;
     const next = () => {
       if (i >= N) return done(score, N, 3);
@@ -6988,9 +7109,9 @@ function startPanel() {
     next();
   };
   leveledGame("panel", "Antibody panel", ["Identify it", "Do the rule-outs", "Two antibodies"], [
-    "Read the panel and name the antibody. Score 4 of 5 to unlock Level 2.",
-    "Cross out every antigen found on a nonreactive cell, then choose the right units. Score 4 of 5.",
-    "Harder: two antibodies at once. Score 3 of 4 to clear the game."
+    "Read the panel and name the antibody. Get every one right to unlock Level 2.",
+    "Cross out every antigen found on a nonreactive cell, then choose the right units. Get every one right to move on.",
+    "Harder: two antibodies at once. Get every one right to clear the game."
   ], [run1, run2, run3]);
 }
 
@@ -7011,10 +7132,10 @@ const COMP = { unc: "Uncompensated", par: "Partially compensated", full: "Fully 
 function startAcidBase() {
   const hint = "ROME: Respiratory Opposite (pH and pCO₂ move opposite ways), Metabolic Equal (pH and HCO₃ move the same way).";
   leveledGame("acidbase", "Acid-base", ["Acid or base?", "Primary disorder", "Compensation", "Anion gap"], [
-    "Look at the pH: acidosis, alkalosis or normal? Score 8 of 10 to unlock Level 2.",
-    "Which value explains the pH change? Name the primary disorder. Score 8 of 10.",
-    "Name the primary disorder and how well the body has compensated. Score 7 of 10.",
-    "Metabolic acidosis cases with electrolytes: calculate the anion gap and pick the likely cause. Score 6 of 8."
+    "Look at the pH: acidosis, alkalosis or normal? Get every one right to unlock Level 2.",
+    "Which value explains the pH change? Name the primary disorder. Get every one right to move on.",
+    "Name the primary disorder and how well the body has compensated. Get every one right to move on.",
+    "Metabolic acidosis cases with electrolytes: calculate the anion gap and pick the likely cause. Get every one right to move on."
   ], [
     done => mcRounds(Array.from({ length: 10 }, () => { if (Math.random() < .2) { const v = { pH: ABR(7.36, 7.44), pco2: Math.round(ABR(37, 43, 0)), hco3: Math.round(ABR(23, 26, 0)) }; return { kicker: "Arterial blood gas", game: "acidbase", html: abHtml(v), q: "The pH shows:", opts: ["Acidosis", "Alkalosis", "Normal"], keep: true, a: "Normal", why: "pH 7.35–7.45 with normal pCO₂ and HCO₃." }; } const p = rpick(PRIM); const v = abCase(p, "unc"); return { kicker: "Arterial blood gas", game: "acidbase", html: abHtml(v), q: "The pH shows:", opts: ["Acidosis", "Alkalosis", "Normal"], keep: true, a: v.pH < 7.35 ? "Acidosis" : "Alkalosis", why: `pH ${v.pH.toFixed(2)} is ${v.pH < 7.35 ? "below 7.35" : "above 7.45"}.` }; }), "Acid-base", done, 8),
     done => mcRounds(Array.from({ length: 10 }, () => { const p = rpick(PRIM); const v = abCase(p, rpick(["unc", "unc", "par"])); return { kicker: "Arterial blood gas", game: "acidbase", html: abHtml(v), q: "What’s the primary disorder?", opts: PRIM, keep: true, a: p, why: `${p}. ${hint}` }; }), "Acid-base", done, 8),
@@ -7056,7 +7177,7 @@ function startCourseMap() {
       const gamesHere = Object.entries(GAME_REQ).filter(([g, req]) => req.length && req.some(lid => (LESSONS.find(l => l.id === lid) || {}).unit === u.id));
       const packs = [...new Set(ls.flatMap(l => (l.unlock || []).map(x => x.pack)))]; const packsOn = packs.filter(pid => { const d = findPackDeck(pid); return d && d.cards.some(c => prep().cards[c.id]); }).length;
       const wrap = ls.find(l => l.wrap); const next = ls.find(l => !lessonState(l).passed);
-      return `<div class="mapcard" style="--cap:${CAPS[u.color]}"><div class="maphead"><span class="cap sm"></span><div style="flex:1;min-width:0"><b>${esc(u.name)}</b><div class="thinbar" style="margin-top:6px"><i style="width:${ls.length ? passed / ls.length * 100 : 0}%"></i></div></div><span class="small muted">${passed}/${ls.length}</span></div>
+      return `<div class="mapcard"><div class="maphead">${capIcon(u.color, u.shape, 22)}<div style="flex:1;min-width:0"><b>${esc(u.name)}</b><div class="thinbar" style="margin-top:6px"><i style="width:${ls.length ? passed / ls.length * 100 : 0}%"></i></div></div><span class="small muted">${passed}/${ls.length}</span></div>
         <div class="mapgrid"><div><span class="lbl">Lessons</span><p class="small">${ls.filter(l => l.boot && !l.wrap).length} Bootcamp, ${ls.filter(l => !l.boot).length} core${wrap ? ", 1 wrap-up" : ""}</p></div>
           <div><span class="lbl">Unlocks games</span><p class="small">${gamesHere.length ? gamesHere.map(([g]) => `${gameUnlocked(g) ? "✓" : "○"} ${GAME_NAMES[g]}`).join("<br>") : "—"}</p></div>
           <div><span class="lbl">Starter decks</span><p class="small">${packs.length ? `${packsOn} of ${packs.length} unlocked` : "—"}</p></div>
@@ -7224,6 +7345,379 @@ mergeRemote = function (r) {
   return ch || c2;
 };
 BADGES2.push({ id: "gloss5", cat: "l", e: "📖", name: "Own dictionary", desc: "Add 5 abbreviations to your glossary", target: 5, cur: () => sv("glossAdded") });
+/* ===================== Cap colors and tube icons ===================== */
+CAPS.clear = "#CBD2DA"; CAP_NAMES.clear = "Clear"; CAP_DESC.clear = "Clear top (discard tube)";
+DEFAULT_LABELS.forEach(l => { if (l.id === "lb-orient") { l.color = "clear"; l.why = "The no-additive discard tube is drawn first, like this course"; } if (l.id === "lb-ua") l.shape = "cup"; if (l.id === "lb-micro") l.shape = "bottle"; });
+const UNIT_LABEL = { zero: "lb-orient", mt410: "lb-orient", mt412: "lb-orient", mt401: "lb-immuno", mt405: "lb-micro", mt400: "lb-heme", mt400c: "lb-coag", mt403: "lb-chem", mt402: "lb-bb", mt404: "lb-ua", mt408: "lb-mgmt" };
+const SHAPE_OF = { "lb-ua": "cup", "lb-micro": "bottle" };
+function migrateLabels() {
+  if (S.meta.v13labels) return;
+  labels().forEach(l => { if (l.id === "lb-orient" && l.color === "green") l.color = "clear"; if (SHAPE_OF[l.id]) l.shape = SHAPE_OF[l.id]; });
+  S.meta.v13labels = 1; saveMeta(true);
+}
+function syncUnitColors() {
+  UNITS.forEach(u => { const l = labels().find(x => x.id === UNIT_LABEL[u.id]); if (l) { u.color = l.color; u.shape = l.shape || SHAPE_OF[l.id] || "tube"; } });
+}
+function capIcon(color, shape = "tube", size = 18) {
+  const c = CAPS[color] || color || CAPS.lavender, h = size, w = Math.round(size * .62);
+  const glass = `fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.2"`;
+  if (shape === "cup") return `<svg class="capico" width="${Math.round(h * .9)}" height="${h}" viewBox="0 0 18 20" aria-hidden="true"><rect x="2" y="1.5" width="14" height="4.5" rx="1" fill="${c}"/><path d="M3 6h12l-1.2 12a1.4 1.4 0 0 1-1.4 1.2H5.6a1.4 1.4 0 0 1-1.4-1.2z" ${glass}/><path d="M4.3 12h9.4l-.6 6H4.9z" fill="#F1D88A" opacity=".8"/></svg>`;
+  if (shape === "bottle") return `<svg class="capico" width="${Math.round(h * .75)}" height="${h}" viewBox="0 0 15 20" aria-hidden="true"><rect x="4" y="1" width="7" height="4" rx="1" fill="${c}"/><path d="M5 5h5v2.5l2.6 2.2a1.6 1.6 0 0 1 .5 1.2v6.6a1.5 1.5 0 0 1-1.5 1.5H3.4a1.5 1.5 0 0 1-1.5-1.5v-6.6a1.6 1.6 0 0 1 .5-1.2L5 7.5z" ${glass}/><path d="M2 13.5h11v4a1.5 1.5 0 0 1-1.5 1.5H3.5A1.5 1.5 0 0 1 2 17.5z" fill="#E7C6C9" opacity=".8"/></svg>`;
+  return `<svg class="capico" width="${w}" height="${h}" viewBox="0 0 10 20" aria-hidden="true"><rect x=".8" y=".8" width="8.4" height="4.6" rx="1.2" fill="${c}"/><path d="M1.8 5.4h6.4v11.1a3.2 3.2 0 0 1-6.4 0z" ${glass}/></svg>`;
+}
+const _labelChip = labelChip;
+labelChip = (l, small) => l ? `<span class="lchip ${small ? "sm" : ""}">${capIcon(l.color, l.shape || SHAPE_OF[l.id], small ? 16 : 20)}<span><b>${esc(l.name)}</b><small>${esc(CAP_DESC[l.color] || "")}</small></span></span>` : "";
+/* ===================== Study: Learn + Flashcards in one ===================== */
+function cardStatusMap(d) {
+  const by = {}; factsOf(d).forEach(f => (by[f.card.id] = by[f.card.id] || []).push(f));
+  const now = endOfToday(), out = {};
+  for (const [id, fs] of Object.entries(by)) {
+    const sts = fs.map(stOf);
+    if (sts.every(s => !s)) { out[id] = { k: "new", l: "New", t: "Not studied yet" }; continue; }
+    if (sts.some(s => s && isDue(s, now))) { out[id] = { k: "due", l: "Due", t: "Due for review today" }; continue; }
+    if (sts.every(s => s && (s.i || 0) >= 21)) { out[id] = { k: "mastered", l: "Mastered", t: "Every fact is on a 3-week-plus interval" }; continue; }
+    const next = Math.min(...sts.filter(Boolean).map(s => s.d || Infinity));
+    const days = Math.max(1, Math.round((next - Date.now()) / DAY));
+    out[id] = { k: "learning", l: `Next ${days}d`, t: "Learning; next review in " + plural(days, "day") };
+  }
+  return out;
+}
+function deckModesHtml(modes) {
+  const M = Object.fromEntries(modes.map(m => [m[0], m]));
+  const rows = [["Study", ["learn", "listen", "compare"]], ["Test", ["mc", "type", "sata", "unknown", "picture"]], ["Play", ["match", "seq"]]];
+  return `<div class="toolcard">${rows.map(([lab, ids]) => `<div class="toolline"><span class="toolcat">${lab}</span><div class="toolpills">${ids.map(id => M[id]).filter(Boolean).map(([id, ic, name, sub, ok, why]) => `<button class="pill" data-mode="${id}" ${ok ? "" : "disabled"} title="${esc(ok ? sub : why)}">${icon(ic)}${id === "learn" ? "Study" : name}${id === "learn" && ok ? `<small>${esc(sub)}</small>` : ""}</button>`).join("")}</div></div>`).join("")}</div>`;
+}
+const _startMode = startMode;
+startMode = function (m, d) { if (m === "learn" || m === "flash") return startStudy(d); return _startMode(m, d); };
+function startStudy(d) {
+  const pref = S.meta.settings.study = S.meta.settings.study || { src: "today", rev: false, order: "shuffle" };
+  const fs = factsOf(d).filter(f => !isSus(f));
+  const hasBasic = fs.some(f => f.kind === "basic" && f.a);
+  const counts = { today: fs.filter(f => isDue(stOf(f), endOfToday()) || (!stOf(f) && eligibleNew(f))).length, all: fs.filter(f => stOf(f) || eligibleNew(f)).length, star: fs.filter(f => f.card.star).length, still: fs.filter(f => { const s = stOf(f); return s && (isWeak(s) || (s.i || 0) < 3); }).length, fresh: fs.filter(f => !stOf(f) && eligibleNew(f)).length };
+  openStudy("Study: " + d.name); setProg(0);
+  const draw = () => {
+    ST.stage.innerHTML = `<div class="panel"><p class="lbl" style="margin-bottom:8px">What to study</p><div class="choice">${[["today", "Today’s cards", "Due reviews plus new cards, spaced for long-term memory. Grades set your schedule."], ["all", "All cards", "Every card in this deck. Grades are recorded but don’t push your schedule."], ["still", "Still learning", "Cards you’ve missed or that are early in learning."], ["star", "Starred", "Only cards you’ve starred."], ["fresh", "New only", "Cards you haven’t seen yet."]].map(([k, t, s]) => `<button class="choicebtn ${pref.src === k ? "on" : ""}" data-src="${k}" ${counts[k] ? "" : "disabled"}><b>${t} <span class="small muted">· ${counts[k]}</span></b><span class="small muted">${s}</span></button>`).join("")}</div></div>
+      <div class="row" style="gap:20px;flex-wrap:wrap">
+        ${hasBasic ? `<div><p class="lbl" style="margin-bottom:6px">Show first</p><div class="seg" id="rev"><button data-r="0" class="${pref.rev ? "" : "on"}">Term</button><button data-r="1" class="${pref.rev ? "on" : ""}">Definition</button></div></div>` : ""}
+        <div><p class="lbl" style="margin-bottom:6px">Order</p><div class="seg" id="ord"><button data-o="shuffle" class="${pref.order === "shuffle" ? "on" : ""}">Shuffled</button><button data-o="order" class="${pref.order === "order" ? "on" : ""}">In order</button></div></div>
+      </div>
+      <button class="btn primary" id="go" style="min-height:48px">${icon("brain")}Start studying</button>`;
+    $$("[data-src]").forEach(b => b.onclick = () => { pref.src = b.dataset.src; saveMeta(); draw(); });
+    $$("#rev button").forEach(b => b.onclick = () => { pref.rev = b.dataset.r === "1"; saveMeta(); draw(); });
+    $$("#ord button").forEach(b => b.onclick = () => { pref.order = b.dataset.o; saveMeta(); draw(); });
+    $("#go").onclick = () => {
+      const o = { reverse: pref.rev, title: d.name };
+      if (pref.src === "today" && counts.today) return startLearn(d, o);
+      let list = pref.src === "star" ? fs.filter(f => f.card.star) : pref.src === "still" ? fs.filter(f => { const s = stOf(f); return s && (isWeak(s) || (s.i || 0) < 3); }) : pref.src === "fresh" ? fs.filter(f => !stOf(f) && eligibleNew(f)) : fs.filter(f => stOf(f) || eligibleNew(f));
+      if (pref.order === "shuffle") list = shuffle(list);
+      startLearn(d, { ...o, queue: list, browse: pref.src !== "fresh" });
+    };
+  };
+  draw();
+}
+/* ===================== Points for Play games ===================== */
+function makeScorer(id) {
+  let pts = 0, combo = 0, t0 = Date.now();
+  return {
+    start() { t0 = Date.now(); },
+    hit(ok) { if (!ok) { combo = 0; return 0; } const secs = (Date.now() - t0) / 1000; const p = Math.round((100 + Math.max(0, 50 - secs * 5)) * (1 + Math.min(combo, 10) * .1)); combo++; pts += p; return p; },
+    chip() { return `<span class="ptschip">${pts.toLocaleString()} pts${combo > 1 ? ` · ×${(1 + Math.min(combo - 1, 10) * .1).toFixed(1)}` : ""}</span>`; },
+    total() { return pts; },
+    save() { const k = "pts_" + id; const best = (S.meta.stats || {})[k] || 0; statMax(k, pts); return { pts, best: Math.max(best, pts), record: pts > best && pts > 0 }; }
+  };
+}
+const ptsLine = r => `<p class="ptsline"><b>${r.pts.toLocaleString()} points</b>${r.record ? " · new personal best" : ` · best ${r.best.toLocaleString()}`}</p>`;
+
+/* ===================== Smear practice: every cell your syllabus lists ===================== */
+const SN = "#55287F", SRB = "#E4A0A3", SPAL = "#F3CFCF", SBG = "#F8EEF0";
+const dotsIn = (n, R, r, col) => Array.from({ length: n }, () => { const a = Math.random() * 6.283, d = Math.sqrt(Math.random()) * R; return `<circle cx="${(Math.cos(a) * d).toFixed(1)}" cy="${(Math.sin(a) * d).toFixed(1)}" r="${r}" fill="${col}"/>`; }).join("");
+const rbcI = (r = 12, pal = .38) => `<circle r="${r}" fill="${SRB}"/><circle r="${(r * pal).toFixed(1)}" fill="${SPAL}"/>`;
+const segNuc = (lobes = 3, col = SN) => { const pts = [[-7, -3], [2, -6], [7, 4], [-2, 7], [-8, 5], [6, -2]].slice(0, lobes); return pts.map(([x, y]) => `<ellipse cx="${x}" cy="${y}" rx="4.4" ry="4.8" fill="${col}"/>`).join("") + pts.slice(1).map(([x, y], k) => `<line x1="${pts[k][0]}" y1="${pts[k][1]}" x2="${x}" y2="${y}" stroke="${col}" stroke-width="1.6"/>`).join(""); };
+const neutBody = (extra = "", lobes = 3) => `<circle r="17" fill="#ECD7E6"/>${dotsIn(16, 13, .7, "#B47FA8")}${segNuc(lobes)}${extra}`;
+const C = {
+  /* normal */
+  neutrophil: { n: "Segmented neutrophil", cat: "normal", R: 17, d: () => neutBody(), h: "2 to 5 nuclear lobes joined by thin strands; pale pink-lilac cytoplasm." },
+  band: { n: "Band neutrophil", cat: "normal", R: 17, d: () => `<circle r="17" fill="#ECD7E6"/><path d="M-8 -7 C-14 4 -4 12 8 8" fill="none" stroke="${SN}" stroke-width="6.5" stroke-linecap="round"/>`, h: "Curved, unsegmented C- or S-shaped nucleus of even width." },
+  lymphocyte: { n: "Lymphocyte", cat: "normal", R: 12, d: () => `<circle r="11.5" fill="#9DC2EC"/><circle cx="-1" r="9.3" fill="#3F1F66"/>`, h: "Small; round dense nucleus with a thin rim of sky-blue cytoplasm." },
+  monocyte: { n: "Monocyte", cat: "normal", R: 21, d: () => `<circle r="21" fill="#BFC6DA"/><path d="M-11 -6 C-4 -14 12 -12 12 -2 C12 5 4 4 2 9 C-2 14 -14 9 -13 1 Z" fill="#6A4A95"/><circle cx="10" cy="10" r="2" fill="#E8ECF4"/><circle cx="-6" cy="13" r="1.6" fill="#E8ECF4"/>`, h: "Largest normal WBC; folded kidney-shaped nucleus, gray-blue cytoplasm, sometimes vacuoles." },
+  eosinophil: { n: "Eosinophil", cat: "normal", R: 17, d: () => `<circle r="17" fill="#F2C9B8"/>${dotsIn(34, 14, 1.7, "#E25B3B")}<circle cx="-6" cy="-2" r="5.5" fill="${SN}"/><circle cx="6" cy="2" r="5.5" fill="${SN}"/>`, h: "Large orange-red granules; usually a bilobed nucleus." },
+  basophil: { n: "Basophil", cat: "normal", R: 15, d: () => `<circle r="15" fill="#CBB8DD"/><circle r="7" fill="#4A2A70"/>${dotsIn(30, 12, 2.1, "#24113D")}`, h: "Dark purple-black granules that cover the nucleus." },
+  rbc: { n: "Normal red blood cell", cat: "normal", R: 13, d: () => rbcI(), h: "Round, about the size of a small lymphocyte’s nucleus, with central pallor about one third of the cell." },
+  platelet: { n: "Platelet", cat: "normal", R: 6, d: () => `<circle r="3" fill="#7E4DA8"/>${dotsIn(4, 2, .6, "#4A2470")}`, h: "Small purple granular fragment, about 2 to 3 µm." },
+  /* RBC morphology */
+  spherocyte: { n: "Spherocyte", cat: "rbc", R: 11, d: () => `<circle r="9.5" fill="#D57F86"/>`, h: "Small, dense, no central pallor. Hereditary spherocytosis, warm autoimmune hemolytic anemia." },
+  target: { n: "Target cell (codocyte)", cat: "rbc", R: 13, d: () => `<circle r="12" fill="${SRB}"/><circle r="7.5" fill="${SPAL}"/><circle r="3.6" fill="${SRB}"/>`, h: "Bull’s-eye: hemoglobin in the center. Liver disease, thalassemias, Hb C, after splenectomy." },
+  schistocyte: { n: "Schistocyte", cat: "rbc", R: 12, d: () => `<path d="M-12 7 Q-12 -9 0 -10 Q11 -10 12 7 L4 7 L0 1 L-4 7 Z" fill="${SRB}"/>`, h: "Fragmented RBC (helmet or triangle). DIC, TTP, HUS, mechanical heart valves." },
+  sickle: { n: "Sickle cell (drepanocyte)", cat: "rbc", R: 14, d: () => `<path d="M-15 5 Q0 -15 15 5 Q0 -5 -15 5 Z" fill="#D98C90"/>`, h: "Crescent with pointed ends. Sickle cell disease (Hb SS)." },
+  teardrop: { n: "Teardrop cell (dacrocyte)", cat: "rbc", R: 14, d: () => `<path d="M0 -16 Q4 -6 10 2 A10 10 0 1 1 -10 2 Q-4 -6 0 -16 Z" fill="${SRB}"/><circle cy="4" r="3.6" fill="${SPAL}"/>`, h: "Single tail. Myelofibrosis and other marrow infiltration." },
+  elliptocyte: { n: "Elliptocyte (ovalocyte)", cat: "rbc", R: 14, d: () => `<ellipse rx="14" ry="7" fill="${SRB}"/><ellipse rx="6" ry="2.4" fill="${SPAL}"/>`, h: "Oval or pencil-shaped. Hereditary elliptocytosis; some in iron deficiency." },
+  stomatocyte: { n: "Stomatocyte", cat: "rbc", R: 13, d: () => `<circle r="12" fill="${SRB}"/><rect x="-6.5" y="-1.6" width="13" height="3.2" rx="1.6" fill="${SPAL}"/>`, h: "Slit-like (mouth-shaped) central pallor. Hereditary stomatocytosis, alcoholism, liver disease." },
+  acanthocyte: { n: "Acanthocyte (spur cell)", cat: "rbc", R: 14, d: () => `<circle r="9.5" fill="#D98C90"/>${[[20, 5], [95, 3.5], [160, 6], [230, 4], [300, 5.5]].map(([a, l]) => { const t = a * Math.PI / 180, x1 = Math.cos(t) * 8.5, y1 = Math.sin(t) * 8.5, x2 = Math.cos(t) * (9.5 + l), y2 = Math.sin(t) * (9.5 + l); return `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="#D98C90" stroke-width="2.6" stroke-linecap="round"/>`; }).join("")}`, h: "Few irregular spikes of uneven length, no pallor. Abetalipoproteinemia, severe liver disease." },
+  echinocyte: { n: "Echinocyte (burr cell)", cat: "rbc", R: 14, d: () => `<circle r="11" fill="${SRB}"/>${Array.from({ length: 14 }, (_, k) => { const t = k / 14 * 6.283; return `<circle cx="${(Math.cos(t) * 11.5).toFixed(1)}" cy="${(Math.sin(t) * 11.5).toFixed(1)}" r="1.6" fill="${SRB}"/>`; }).join("")}<circle r="3.6" fill="${SPAL}"/>`, h: "Many short, evenly spaced projections. Uremia, or a drying artifact." },
+  bite: { n: "Bite cell (degmacyte)", cat: "rbc", R: 13, d: () => `<circle r="12" fill="${SRB}"/><circle r="4" fill="${SPAL}"/><circle cx="11" cy="-3" r="6" fill="${SBG}"/>`, h: "A bite removed where the spleen pitted out Heinz bodies. G6PD deficiency." },
+  macrocyte: { n: "Macrocyte", cat: "rbc", R: 16, d: () => `<circle r="15.5" fill="${SRB}"/><circle r="4" fill="${SPAL}"/>`, h: "Larger than normal (high MCV). B12 or folate deficiency, liver disease." },
+  hypochromic: { n: "Microcytic, hypochromic RBC", cat: "rbc", R: 10, d: () => `<circle r="8.5" fill="${SRB}"/><circle r="6" fill="${SPAL}"/>`, h: "Small with a wide pale center. Iron deficiency, thalassemia." },
+  polychrom: { n: "Polychromatophilic RBC", cat: "rbc", R: 15, d: () => `<circle r="14" fill="#BFA2C3"/>`, h: "Larger, blue-gray tint, no pallor: a young RBC (reticulocyte on supravital stain). Increased after bleeding or hemolysis." },
+  nrbc: { n: "Nucleated RBC", cat: "rbc", R: 13, d: () => `<circle r="12" fill="#D6A7B4"/><circle cx="2" cy="-1" r="5.4" fill="#2E1745"/>`, h: "Small dense round nucleus with pink cytoplasm. Count per 100 WBCs and correct the WBC count." },
+  rouleaux: { n: "Rouleaux", cat: "rbc", R: 26, d: () => [-18, -9, 0, 9, 18].map(x => `<circle cx="${x}" cy="${x * .15}" r="11" fill="${SRB}" stroke="#C88589" stroke-width="1"/>`).join(""), h: "RBCs stacked like coins. High protein, especially multiple myeloma." },
+  agglut: { n: "RBC agglutination", cat: "rbc", R: 24, d: () => [[-10, -8], [4, -12], [12, 2], [-2, 4], [-14, 8], [8, 14], [-4, -2]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="9" fill="${SRB}" stroke="#C88589" stroke-width=".8"/>`).join(""), h: "Irregular clumps, not stacks. Cold agglutinins." },
+  /* inclusions and parasites */
+  howell: { n: "Howell-Jolly body", cat: "incl", R: 13, d: () => `${rbcI()}<circle cx="5" cy="-4" r="2.4" fill="#3C1D5C"/>`, h: "Single round DNA remnant. After splenectomy, megaloblastic anemia." },
+  stipple: { n: "Basophilic stippling", cat: "incl", R: 13, d: () => `${rbcI(12, .3)}${dotsIn(22, 10, .75, "#4E3A8E")}`, h: "Many fine blue dots (ribosomes). Lead poisoning, thalassemia." },
+  pappen: { n: "Pappenheimer bodies", cat: "incl", R: 13, d: () => `${rbcI()}<circle cx="7" cy="5" r="1.1" fill="#4A3770"/><circle cx="8.6" cy="3" r="1" fill="#4A3770"/><circle cx="6" cy="7" r="1" fill="#4A3770"/><circle cx="9" cy="6.2" r=".9" fill="#4A3770"/>`, h: "Small clustered iron granules near the edge (Prussian blue positive). Sideroblastic anemia." },
+  heinz: { n: "Heinz bodies (supravital stain)", cat: "incl", R: 13, d: () => `<circle r="12" fill="#C9CFD9"/><circle cx="-9" cy="-5" r="2.2" fill="#4A5A85"/><circle cx="8" cy="7" r="2" fill="#4A5A85"/><circle cx="10" cy="-4" r="1.8" fill="#4A5A85"/>`, h: "Denatured hemoglobin at the membrane; seen with a supravital stain, not Wright’s. G6PD deficiency, unstable hemoglobins." },
+  cabot: { n: "Cabot ring", cat: "incl", R: 13, d: () => `${rbcI(12, .3)}<path d="M-6 -6 C2 -12 10 -2 2 2 C-6 6 -2 12 6 7" fill="none" stroke="#5A3E8E" stroke-width="1"/>`, h: "Thin loop or figure-8 (spindle remnant). Megaloblastic anemia, lead poisoning." },
+  ring: { n: "Plasmodium falciparum ring forms", cat: "incl", R: 13, d: () => `${rbcI(12, .25)}<circle cx="-3" cy="-3" r="3.2" fill="none" stroke="#5C3A99" stroke-width="1.1"/><circle cx="-.3" cy="-4.6" r="1.2" fill="#B2253F"/><circle cx="5" cy="4" r="2.8" fill="none" stroke="#5C3A99" stroke-width="1"/><circle cx="7.3" cy="2.8" r="1.1" fill="#B2253F"/>`, h: "Delicate rings, often several per cell. Falciparum malaria." },
+  gameto: { n: "P. falciparum gametocyte", cat: "incl", R: 15, d: () => `<circle r="12.5" fill="none" stroke="#E2B6B9" stroke-width="1"/><path d="M-14 3 Q0 -9 14 3 Q0 -2 -14 3 Z" fill="#7C5AA8"/>${dotsIn(5, 3, .7, "#B2253F")}`, h: "Banana-shaped gametocyte, diagnostic of P. falciparum." },
+  giantplt: { n: "Giant platelet", cat: "incl", R: 11, d: () => `<circle r="9.5" fill="#A684C9"/>${dotsIn(14, 7, .9, "#4A2470")}`, h: "Platelet about the size of an RBC. Bernard-Soulier, May-Hegglin, myeloproliferative disorders." },
+  satellite: { n: "Platelet satellitism", cat: "incl", R: 25, d: () => `${neutBody()}${Array.from({ length: 8 }, (_, k) => { const t = k / 8 * 6.283; return `<circle cx="${(Math.cos(t) * 21).toFixed(1)}" cy="${(Math.sin(t) * 21).toFixed(1)}" r="2.6" fill="#7E4DA8"/>`; }).join("")}`, h: "Platelets ringing neutrophils, an EDTA artifact that lowers the count. Recollect in sodium citrate." },
+  /* abnormal and immature white cells */
+  blast: { n: "Myeloblast", cat: "wbc2", R: 17, d: () => `<circle r="17" fill="#8FA9DE"/><circle cx="-1" r="13" fill="#7D5DB3"/><circle cx="-4" cy="-3" r="2.2" fill="#B9A6DD"/><circle cx="3" cy="4" r="1.8" fill="#B9A6DD"/>`, h: "Large; fine open chromatin with nucleoli and a thin rim of blue cytoplasm. Acute leukemia." },
+  auer: { n: "Auer rod in a myeloblast", cat: "wbc2", R: 18, d: () => `<circle r="18" fill="#8FA9DE"/><circle cx="-3" r="12" fill="#7D5DB3"/><circle cx="-5" cy="-3" r="2" fill="#B9A6DD"/><line x1="11" y1="-9" x2="14" y2="3" stroke="#C2264A" stroke-width="1.8" stroke-linecap="round"/>`, h: "Red needle-like rod of fused primary granules. Acute myeloid leukemia (and APL)." },
+  promyelo: { n: "Promyelocyte", cat: "wbc2", R: 19, d: () => `<circle r="19" fill="#B9C3E3"/><circle cx="-4" cy="-2" r="11" fill="#6E4CA6"/><circle cx="-6" cy="-5" r="1.8" fill="#A893D4"/>${dotsIn(30, 16, 1.2, "#5C1F6E")}`, h: "Larger than a blast; many dark primary granules; nucleoli may still show." },
+  myelo: { n: "Myelocyte", cat: "wbc2", R: 17, d: () => `<circle r="17" fill="#E6CFE0"/>${dotsIn(20, 14, .7, "#B07CA8")}<circle cx="4" cy="-2" r="4.5" fill="#F4E8F0"/><ellipse cx="-5" cy="0" rx="8.5" ry="10" fill="#5B2E8A"/>`, h: "Round eccentric nucleus, no nucleoli, pinkish cytoplasm with a pale zone beside the nucleus." },
+  metamyelo: { n: "Metamyelocyte", cat: "wbc2", R: 16, d: () => `<circle r="16" fill="#EAD4E3"/>${dotsIn(16, 13, .7, "#B07CA8")}<path d="M-9 -8 C-1 -12 9 -9 8 -2 C7 2 1 0 0 4 C-1 9 -10 10 -11 3 C-12 -2 -12 -6 -9 -8Z" fill="${SN}"/>`, h: "Kidney-bean nucleus with an indentation less than half its width." },
+  reactive: { n: "Reactive lymphocyte", cat: "wbc2", R: 22, d: () => `<path d="M-20 -4 C-18 -16 -6 -21 6 -19 C16 -17 22 -8 21 2 C24 10 16 20 6 19 C-6 22 -18 16 -20 6 Z" fill="#BCD3F0" stroke="#5B83C8" stroke-width="2.6"/><ellipse cx="-4" cy="-2" rx="9" ry="8" fill="#4A2A78"/>`, h: "Large with abundant blue cytoplasm that darkens at the edges and scallops around RBCs. Viral infections, especially mono." },
+  plasma: { n: "Plasma cell", cat: "wbc2", R: 17, d: () => `<ellipse rx="17" ry="12" fill="#5D7EC0"/><circle cx="1" cy="0" r="5" fill="#C9D6EE"/><circle cx="-8" cy="0" r="7.5" fill="#3B1D5E"/>`, h: "Oval, deep blue cytoplasm, eccentric round nucleus and a pale halo beside it. Multiple myeloma, reactive states." },
+  hyperseg: { n: "Hypersegmented neutrophil", cat: "wbc2", R: 18, d: () => neutBody("", 6), h: "Six or more lobes. Megaloblastic anemia (B12 or folate deficiency)." },
+  pelger: { n: "Pelger-Huët cell", cat: "wbc2", R: 17, d: () => `<circle r="17" fill="#ECD7E6"/>${dotsIn(16, 13, .7, "#B47FA8")}<circle cx="-6.5" r="5.2" fill="${SN}"/><circle cx="6.5" r="5.2" fill="${SN}"/><line x1="-2" y1="0" x2="2" y2="0" stroke="${SN}" stroke-width="1.4"/>`, h: "Bilobed “pince-nez” nucleus with coarse chromatin. Inherited anomaly, or acquired in MDS. Don’t count it as a band." },
+  smudge: { n: "Smudge cell", cat: "wbc2", R: 16, d: () => `<ellipse cx="-2" cy="1" rx="13" ry="10" fill="#9A7BC0" opacity=".7"/><ellipse cx="4" cy="-3" rx="9" ry="7" fill="#8A68B4" opacity=".6"/><ellipse cx="-6" cy="5" rx="6" ry="4" fill="#B49AD3" opacity=".6"/>`, h: "Ruptured fragile lymphocyte, no cytoplasm left. Typical of CLL." },
+  toxic: { n: "Toxic granulation", cat: "wbc2", R: 17, d: () => `<circle r="17" fill="#ECD7E6"/>${dotsIn(28, 14, 1.3, "#3B1458")}${segNuc()}`, h: "Coarse dark granules in neutrophils. Severe infection or inflammation." },
+  dohle: { n: "Döhle body", cat: "wbc2", R: 17, d: () => `${neutBody()}<ellipse cx="11" cy="-8" rx="3.6" ry="2.2" fill="#8FB2E4" transform="rotate(-30 11 -8)"/>`, h: "Pale blue patch at the edge of a neutrophil’s cytoplasm. Severe infection, burns, May-Hegglin." },
+  /* erythroid series */
+  pronorm: { n: "Pronormoblast (rubriblast)", cat: "ery", R: 17, d: () => `<circle r="17" fill="#3F63B5"/><circle r="12.5" fill="#6A3F98"/><circle cx="-3" cy="-3" r="2" fill="#9B83C9"/>`, h: "" },
+  basonorm: { n: "Basophilic normoblast", cat: "ery", R: 15, d: () => `<circle r="15" fill="#3D5FAF"/><circle r="9.5" fill="#4B2775"/>`, h: "" },
+  polynorm: { n: "Polychromatic normoblast", cat: "ery", R: 13, d: () => `<circle r="13" fill="#9C8DB5"/><circle r="6.5" fill="#3A1D58"/>`, h: "" },
+  orthonorm: { n: "Orthochromic normoblast", cat: "ery", R: 12, d: () => `<circle r="11.5" fill="#D3A2B3"/><circle cx="2" r="4.6" fill="#24102F"/>`, h: "" },
+  retic: { n: "Reticulocyte (polychromatophilic RBC)", cat: "ery", R: 14, d: () => `<circle r="13" fill="#C7A3C2"/>`, h: "" }
+};
+const CAT_POOL = k => Object.keys(C).filter(id => C[id].cat === k);
+const SERIES = {
+  "Myeloid (granulocyte) series": ["blast", "promyelo", "myelo", "metamyelo", "band", "neutrophil"],
+  "Erythroid (RBC) series": ["pronorm", "basonorm", "polynorm", "orthonorm", "retic", "rbc"]
+};
+function cellG(id, x, y, k, rot = true) { const c = C[id]; return `<g class="wbc" data-type="${id}" data-id="${k}" transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${rot ? Math.floor(Math.random() * 360) : 0})" tabindex="0" role="button" aria-label="A cell">${c.d()}<circle r="${c.R + 5}" fill="transparent"/></g>`; }
+function smearField(specials, W = 400, H = 280) {
+  const placed = []; let out = "";
+  const fits = (x, y, r) => placed.every(p => Math.hypot(p[0] - x, p[1] - y) > p[2] + r + 3) && x > r + 2 && y > r + 2 && x < W - r - 2 && y < H - r - 2;
+  specials.forEach((id, k) => { const R = C[id].R + 4; for (let t = 0; t < 900; t++) { const x = Math.random() * W, y = Math.random() * H; if (fits(x, y, R)) { placed.push([x, y, R]); out += cellG(id, x, y, k); break; } } });
+  let bg = ""; for (let t = 0; t < 1400 && placed.length < 85; t++) { const x = Math.random() * W, y = Math.random() * H; if (fits(x, y, 12)) { placed.push([x, y, 12]); bg += `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)})">${rbcI()}</g>`; } }
+  let plt = ""; for (let t = 0; t < 10; t++) { const x = Math.random() * W, y = Math.random() * H; if (fits(x, y, 4)) { placed.push([x, y, 4]); plt += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="2.4" fill="#7E4DA8"/>`; } }
+  return `<svg class="smear" viewBox="0 0 ${W} ${H}" role="img" aria-label="Drawn blood smear"><rect width="${W}" height="${H}" fill="${SBG}"/>${bg}${plt}${out}</svg>`;
+}
+const cellThumb = id => `<svg viewBox="-26 -26 52 52" class="cellthumb" aria-hidden="true"><rect x="-26" y="-26" width="52" height="52" fill="${SBG}"/>${C[id].d()}</svg>`;
+const SMEAR_LEVELS = [
+  ["Find normal cells", "normal", "find"], ["Name normal cells", "normal", "name"], ["Red cell shapes", "rbc", "name"],
+  ["Inclusions and parasites", "incl", "name"], ["Abnormal and immature white cells", "wbc2", "name"], ["Maturation series", "series", "order"], ["Mini differential", "diff", "diff"]
+];
+const DIFF2 = [
+  { name: "Bacterial infection with a left shift", mix: { neutrophil: 5, band: 3, toxic: 1, lymphocyte: 1 }, why: "Neutrophils dominate with many bands and toxic granulation: a response to bacterial infection." },
+  { name: "Viral infection (reactive lymphocytes)", mix: { lymphocyte: 4, reactive: 3, neutrophil: 3 }, why: "Lymphocytes dominate and several are reactive, typical of viral illness like mono." },
+  { name: "Allergy or parasitic infection", mix: { eosinophil: 4, neutrophil: 4, lymphocyte: 2 }, why: "Eosinophils are strikingly increased." },
+  { name: "Chronic lymphocytic leukemia", mix: { lymphocyte: 6, smudge: 3, neutrophil: 1 }, why: "Small mature lymphocytes with many smudge cells, typical of CLL in an older adult." },
+  { name: "Acute leukemia", mix: { blast: 5, auer: 1, lymphocyte: 2, neutrophil: 2 }, why: "Many blasts, and an Auer rod points to a myeloid leukemia." },
+  { name: "Normal differential", mix: { neutrophil: 6, lymphocyte: 3, monocyte: 1 }, why: "Roughly 60% neutrophils, 30% lymphocytes and a few monocytes is a normal adult pattern." }
+];
+startSmear = function (opts = {}) {
+  const gs = gstate("smear"); if (gs.level > SMEAR_LEVELS.length) gs.level = SMEAR_LEVELS.length;
+  let lv = Math.min(gs.level, SMEAR_LEVELS.length);
+  openStudy("Smear practice"); dayStat("games");
+  const menu = () => {
+    ST.right.innerHTML = ""; setProg(0); lv = Math.min(lv, gs.level);
+    const [name, cat, mode] = SMEAR_LEVELS[lv - 1];
+    const pool = cat === "series" ? Object.values(SERIES).flat() : cat === "diff" ? [] : CAT_POOL(cat);
+    ST.stage.innerHTML = `${levelTabs(SMEAR_LEVELS.map(l => l[0]), lv, gs.level)}
+      <div class="qcard"><p>${mode === "find" ? "Tap the cell you’re asked for." : mode === "name" ? "Name the circled element." : mode === "order" ? "Put each maturation series in order, youngest to most mature." : "Classify every white cell like a real differential, then interpret the pattern."} Get a perfect round to unlock the next level. Answers score points: faster answers and streaks earn more.</p>
+      ${pool.length ? `<div class="thumbs">${pool.map(id => `<div class="thumbitem">${cellThumb(id)}<small>${esc(C[id].n)}</small></div>`).join("")}</div>` : ""}
+      <p class="small muted" style="margin-top:8px">Simplified drawings for recognition practice, matched to your hematology objectives. Confirm on real slides.</p></div>
+      <button class="btn primary" id="go">Start: ${esc(name)}</button>`;
+    $$(".lvl").forEach(b => b.onclick = () => { lv = +b.dataset.lv; menu(); });
+    $("#go").onclick = () => mode === "order" ? series() : mode === "diff" ? diff() : rounds(cat, mode);
+  };
+  const finishRound = (score, total, sc) => {
+    const pass = score >= total; if (pass && gs.level === lv && lv < SMEAR_LEVELS.length) { gs.level = lv + 1; toast(`Level ${lv + 1} unlocked`); } if (pass && lv === SMEAR_LEVELS.length - 1) statMax("smearMaster", 1);
+    gs.plays++; saveMeta(); stat("smearRounds"); const r = sc.save();
+    setProg(1); ST.right.innerHTML = "";
+    ST.stage.innerHTML = `<div class="results">${ring(Math.round(score / total * 100))}<h2>${score} of ${total}</h2>${ptsLine(r)}<p class="muted">${pass ? (lv < SMEAR_LEVELS.length ? "Next level unlocked." : "Every level cleared.") : "Get every one right to move on."}</p><div class="row" style="justify-content:center"><button class="btn primary" id="again">Play again</button><button class="btn" id="lvls">Levels</button><button class="btn" id="dn">Done</button></div></div>`;
+    $("#again").onclick = () => $("#go") || menu() || $("#go").click(); $("#lvls").onclick = menu; $("#dn").onclick = () => closeStudy();
+    $("#again").onclick = () => { menu(); $("#go").click(); };
+  };
+  const rounds = (cat, mode, focus) => {
+    const pool = focus || CAT_POOL(cat); const N = focus ? Math.max(6, focus.length * 2) : 10; let r = 0, score = 0; const sc = makeScorer("smear");
+    const round = () => {
+      if (r >= N) return focus ? focusDone(score, N, sc) : finishRound(score, N, sc);
+      setProg(r / N); ST.right.innerHTML = `${sc.chip()}<span class="small muted">${r + 1}/${N}</span>`;
+      const target = focus ? focus[r % focus.length] : rpick(pool);
+      const sameCat = CAT_POOL(C[target].cat).filter(x => x !== target);
+      const others = shuffle(sameCat.length >= 3 ? sameCat : Object.keys(C).filter(x => x !== target && C[x].cat !== "ery")).slice(0, 3);
+      const specials = shuffle([target, ...(mode === "find" ? others : others.slice(0, 2))]);
+      ST.stage.innerHTML = `<div class="qcard"><div class="qtext" style="font-size:1.1rem">${mode === "find" ? `Tap the <b>${esc(C[target].n.toLowerCase())}</b>` : "Name the circled element"}</div></div><div class="smearwrap">${smearField(specials)}</div><div id="opts" class="opts two"></div><div id="fb"></div>`;
+      sc.start();
+      const gsAll = $$(".wbc");
+      const done = (ok, chosen) => {
+        const p = sc.hit(ok); if (ok) score++; else logMistake({ src: "Smear practice", game: "smear", q: "Identify: " + C[target].n, yours: chosen ? C[chosen].n : "", right: C[target].n });
+        gsAll.forEach(g => { if (g.dataset.type === target) g.classList.add("hit"); });
+        ST.right.innerHTML = `${sc.chip()}<span class="small muted">${r + 1}/${N}</span>`;
+        $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? `Correct · +${p}` : "That was: " + esc(chosen ? C[chosen].n : "a different cell")}<span class="det"><b>${esc(C[target].n)}:</b> ${escG(C[target].h)}</span></div></div><div class="row" style="margin-top:10px"><div class="spacer"></div><button class="btn primary" id="nx">Next</button></div>`;
+        $("#nx").onclick = () => { r++; round(); }; $("#nx").focus();
+      };
+      if (mode === "find") { let d = false; gsAll.forEach(g => g.onclick = () => { if (d) return; d = true; done(g.dataset.type === target, g.dataset.type); }); }
+      else {
+        gsAll.find(x => x.dataset.type === target).classList.add("ringed");
+        const opts = shuffle([target, ...others]);
+        $("#opts").innerHTML = opts.map((k, j) => `<button class="opt" data-k="${k}"><span class="k">${j + 1}</span><span>${esc(C[k].n)}</span></button>`).join("");
+        let d = false;
+        $$("#opts .opt").forEach(b => b.onclick = () => { if (d) return; d = true; $("#opts").classList.add("locked"); $$("#opts .opt").forEach(x => { if (x.dataset.k === target) x.classList.add("right"); else if (x === b) x.classList.add("wrong"); }); done(b.dataset.k === target, b.dataset.k); });
+        ST.onKey = e => { if (!d && /^[1-4]$/.test(e.key)) $$("#opts .opt")[+e.key - 1]?.click(); else if (d && e.key === "Enter") $("#nx")?.click(); };
+      }
+    };
+    round();
+  };
+  const focusDone = (score, N, sc) => {
+    const names = new Set(opts.focus.map(id => C[id].n));
+    if (score === N) (S.meta.journal || []).filter(x => x.game === "smear" && names.has(x.right)).forEach(x => jClear(x.id, true));
+    setProg(1); ST.stage.innerHTML = `<div class="results">${ring(Math.round(score / N * 100))}<h2>${score} of ${N}</h2><p class="muted">${score === N ? "Perfect. These cleared from your mistake journal." : "Keep at these; they stay in your journal until you get a perfect round."}</p><div class="row" style="justify-content:center"><button class="btn primary" id="again">Again</button><button class="btn" id="dn">Done</button></div></div>`;
+    $("#again").onclick = () => rounds(null, "name", opts.focus); $("#dn").onclick = () => closeStudy();
+  };
+  const series = () => {
+    const names = shuffle(Object.keys(SERIES)); let si = 0, score = 0; const sc = makeScorer("smear");
+    const next = () => {
+      if (si >= names.length) return finishRound(score, names.length, sc);
+      const nm = names[si], right = SERIES[nm]; let pool = shuffle(right), picked = [];
+      setProg(si / names.length); sc.start();
+      const draw = checked => {
+        ST.right.innerHTML = sc.chip();
+        ST.stage.innerHTML = `<div class="qcard"><div class="kicker">${esc(nm)}</div><div class="qtext" style="font-size:1.05rem">Tap the cells from youngest to most mature</div></div>
+          <div class="serrow">${picked.map((id, k) => `<button class="sercell ${checked ? (id === right[k] ? "right" : "wrong") : ""}" data-p="${k}">${cellThumb(id)}<small>${k + 1}. ${checked ? esc(C[id].n) : ""}</small></button>`).join("")}</div>
+          <div class="serrow pool">${pool.map((id, k) => `<button class="sercell" data-q="${k}">${cellThumb(id)}</button>`).join("")}</div><div id="fb"></div>`;
+        if (!checked) { $$("[data-q]").forEach(b => b.onclick = () => { picked.push(pool.splice(+b.dataset.q, 1)[0]); draw(); }); $$("[data-p]").forEach(b => b.onclick = () => { pool.push(picked.splice(+b.dataset.p, 1)[0]); draw(); }); }
+        if (!pool.length && !checked) { $("#fb").innerHTML = `<button class="btn primary" id="chk" style="width:100%">Check order</button>`; $("#chk").onclick = () => draw(true); }
+        if (checked) { const ok = picked.every((id, k) => id === right[k]); const p = sc.hit(ok); if (ok) score++; else logMistake({ src: "Smear practice", game: "smear", q: "Order the " + nm.toLowerCase(), yours: picked.map(id => C[id].n).join(" → "), right: right.map(id => C[id].n).join(" → ") });
+          $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? `Correct · +${p}` : "Not quite"}<span class="det">${right.map(id => esc(C[id].n)).join(" → ")}</span><span class="det small muted">As cells mature they get smaller, the nucleus condenses (and in RBCs is lost), and the cytoplasm loses its blue color.</span></div></div><div class="row" style="margin-top:10px"><div class="spacer"></div><button class="btn primary" id="nx">Next</button></div>`; $("#nx").onclick = () => { si++; next(); }; }
+      };
+      draw(false);
+    };
+    next();
+  };
+  const diff = () => {
+    const pat = rpick(DIFF2); const types = shuffle(Object.entries(pat.mix).flatMap(([k, n]) => Array(n).fill(k)));
+    const calls = {}; const sc = makeScorer("smear"); const opts = ["neutrophil", "band", "lymphocyte", "monocyte", "eosinophil", "basophil", "reactive", "smudge", "blast", "toxic"].filter((k, i, a) => a.indexOf(k) === i);
+    ST.stage.innerHTML = `<div class="qcard"><div class="qtext" style="font-size:1.1rem">Classify all ${types.length} white cells</div><p class="small muted">Tap a cell, then choose its type. Classified cells get a gray ring.</p></div><div class="smearwrap">${smearField(types, 460, 330)}</div><div id="picker" class="palette hidden">${opts.map(k => `<button class="pal" data-k="${k}">${esc(C[k].n)}</button>`).join("")}</div><div id="tally" class="small muted"></div><div id="fb"></div>`;
+    let cur = null;
+    const tally = () => { const n = Object.keys(calls).length; $("#tally").textContent = `${n} of ${types.length} classified`; if (n === types.length && !$("#score")) { $("#fb").innerHTML = `<button class="btn primary" id="score" style="width:100%">Score my differential</button>`; $("#score").onclick = score; } };
+    $$(".wbc").forEach(g => g.onclick = () => { $$(".wbc").forEach(x => x.classList.remove("ringed")); g.classList.add("ringed"); cur = g; $("#picker").classList.remove("hidden"); });
+    $$("#picker [data-k]").forEach(b => b.onclick = () => { if (!cur) return; calls[cur.dataset.id] = b.dataset.k; cur.classList.remove("ringed"); cur.classList.add("called"); $("#picker").classList.add("hidden"); cur = null; tally(); });
+    tally();
+    const score = () => {
+      const same = (call, t) => call === t || (t === "auer" && call === "blast") || (t === "toxic" && call === "neutrophil"); let right = 0; $$(".wbc").forEach(g => { const ok = same(calls[g.dataset.id], g.dataset.type); if (ok) right++; g.classList.add(ok ? "hit" : "miss"); });
+      const o = shuffle(DIFF2.map(p => p.name)).slice(0, 4); if (!o.includes(pat.name)) o[0] = pat.name;
+      $("#picker").remove();
+      $("#fb").innerHTML = `<div class="panel"><b>${right} of ${types.length}</b> cells classified correctly.</div><div class="qcard"><div class="qtext" style="font-size:1.05rem">What does this pattern suggest?</div></div><div class="opts" id="opts">${shuffle(o).map((x, j) => `<button class="opt" data-o="${esc(x)}"><span class="k">${j + 1}</span><span>${esc(x)}</span></button>`).join("")}</div><div id="fb2"></div>`;
+      let d = false;
+      $$("#opts .opt").forEach(b => b.onclick = () => { if (d) return; d = true; const ok = b.dataset.o === pat.name; sc.hit(ok && right === types.length); $("#opts").classList.add("locked"); $$("#opts .opt").forEach(x => { if (x.dataset.o === pat.name) x.classList.add("right"); else if (x === b) x.classList.add("wrong"); });
+        if (ok && right >= types.length - 1) stat("diffWins");
+        if (!ok) logMistake({ src: "Smear practice", game: "smear", q: "Interpret the differential", yours: b.dataset.o, right: pat.name, why: pat.why });
+        $("#fb2").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? "Correct" : "Answer: " + esc(pat.name)}<span class="det">${esc(pat.why)}</span></div></div><div class="row" style="margin-top:10px"><button class="btn" id="lvls">Levels</button><div class="spacer"></div><button class="btn primary" id="again">Another field</button></div>`;
+        if (ok && right === types.length && gs.level === lv) { statMax("smearMaster", 1); }
+        $("#again").onclick = diff; $("#lvls").onclick = menu; });
+    };
+  };
+  if (opts.focus && opts.focus.length) return rounds(null, "name", opts.focus);
+  menu();
+};
+function smearFocusFromJournal() {
+  const byName = Object.fromEntries(Object.entries(C).map(([id, c]) => [c.n, id]));
+  const legacy = { "Segmented neutrophil": "neutrophil", "Band neutrophil": "band", "Lymphocyte": "lymphocyte", "Monocyte": "monocyte", "Eosinophil": "eosinophil", "Basophil": "basophil" };
+  return [...new Set((S.meta.journal || []).filter(x => (x.game || VISUAL_SRC[x.src]) === "smear").map(x => byName[x.right] || legacy[x.right]).filter(Boolean))];
+}
+GAME_OPEN.smear = ["Smear practice", () => { const f = smearFocusFromJournal(); startSmear(f.length ? { focus: f } : {}); }];
+/* ===================== Dynamic Today's plan ===================== */
+function buildPlan() {
+  const decks = Object.values(S.decks); let due = 0, nw = 0; decks.forEach(d => { const c = deckCounts(d); due += c.due; nw += c.nw; });
+  const newToday = Math.min(nw, newLeftToday()); const today = dayKey(); const D = (S.meta.daily || {})[today] || {}; const reviewed = (S.meta.history || {})[today] || 0;
+  const items = [];
+  const add = (pri, x) => items.push({ pri, ...x });
+  upcomingExams().forEach(ex => { const d = daysUntil(ex); if (d <= 2) add(1, { ic: "exam", t: `Cram for ${ex.name}`, s: d <= 0 ? "Exam is today. Hit your weakest facts first." : `In ${plural(d, "day")}. Your weakest facts first.`, btn: "Cram", fn: () => startLearn(null, { exam: ex.id, cram: true }) }); else if (d <= 14) add(3, { ic: "exam", t: `Prep for ${ex.name}`, s: `In ${d} days. Its cards come first in today’s review.`, btn: "Prep", fn: () => startLearn(null, { exam: ex.id }) }); });
+  const pm = pastExams().find(e => daysUntil(e) >= -5 && !pms()[e.id]); if (pm) add(2, { ic: "exam", t: `Post-mortem: ${pm.name}`, s: "Log what hurt; LabDeck rebuilds it.", btn: "Log", fn: () => postMortemModal(pm, render) });
+  lecturesSoon().forEach(x => { if (x.dd === 1) add(3, { ic: "book", t: `Before tomorrow’s lecture`, s: `${x.c.code}: ${x.u.name}`, btn: "Prepare", fn: () => startLecture(x.ci, x.ui) }); if (x.dd === 0 || x.dd === -1) add(2, { ic: "book", t: `Tonight: review ${x.dd === 0 ? "today’s" : "yesterday’s"} lecture`, s: `${x.c.code}: ${x.u.name}`, btn: "Review", fn: () => startLecture(x.ci, x.ui) }); });
+  if (due + newToday) add(2, { ic: "brain", t: "Daily review", s: `${due} due${newToday ? `, ${newToday} new` : ""}`, btn: "Start", fn: () => startLearn(null) });
+  else if (reviewed) add(9, { ic: "brain", t: "Daily review", s: `Done: ${reviewed} reviews today`, done: true });
+  const nl = nextLesson();
+  if (nl && (prepOn() || LESSONS.some(l => lessonState(l).passed))) add(D.lessons ? 6 : 3, { ic: "book", t: D.lessons ? "Keep going: next lesson" : "Next lesson", s: `${nl.title} · about ${nl.mins} min`, btn: "Start", fn: () => startLesson(nl), done: false });
+  if (D.lessons) add(9, { ic: "book", t: `${plural(D.lessons, "lesson")} done today`, s: "Locked in for spaced review.", done: true });
+  const weak = decks.reduce((n, d) => n + factsOf(d).filter(f => isWeak(stOf(f))).length, 0);
+  if (weak) add(4, { ic: "target", t: `Drill ${plural(weak, "weak spot")}`, s: "Facts you keep missing.", btn: "Drill", fn: () => startLearn(null, { weak: true }) });
+  const cm = (S.meta.journal || []).filter(x => x.confident).length;
+  if (cm) add(4, { ic: "rotate", t: `Fix ${plural(cm, "confident miss", "confident misses")}`, s: "You were sure and wrong. Most dangerous gaps.", btn: "Open", fn: startJournal });
+  const fresh = Object.keys(GAME_NAMES).find(g => gameUnlocked(g) && (GAME_REQ[g] || []).length && !(gstate(g).plays) && !(S.meta.stats || {})["pts_" + g]);
+  if (fresh && prepOn()) add(5, { ic: "target", t: `Play: ${GAME_NAMES[fresh]}`, s: "Unlocked by your lessons. Apply what you learned.", btn: "Play", fn: () => document.getElementById({ tubes: "tubeBtn", smear: "smearBtn", bench: "benchBtn", gram: "gramBtn", westgard: "westBtn", critical: "critBtn", flow: "flowBtn", sediment: "sedBtn", panel: "panelBtn", acidbase: "abBtn" }[fresh])?.click() });
+  const soonL = lecturesSoon().find(x => x.dd >= 0 && x.dd <= 3 && x.u.obj.length && x.u.obj.some((_, oi) => objVal(objKey(x.ci, x.ui, oi)) == null));
+  if (soonL) add(6, { ic: "check", t: "Rate this week’s objectives", s: soonL.u.name, btn: "Rate", fn: () => startObjTriage(soonL.ci, soonL.ui) });
+  if (!((S.meta.focus || {})[today]) && TM.phase === "off") add(8, { ic: "timer", t: "One focused block", s: "25 minutes, phone away.", btn: "Timer", fn: timerModal });
+  return items.sort((a, b) => a.pri - b.pri).slice(0, 6);
+}
+function planHtml() {
+  const items = buildPlan(); window._planFns = items.map(x => x.fn);
+  if (!items.length) return "";
+  return `<section class="plan2"><div class="plan2-head"><h2>Today’s plan</h2><span class="small muted">Built from your exams, lectures, reviews and weak spots</span></div>${items.map((x, k) => `<div class="p2item ${x.done ? "done" : ""}"><span class="p2ic">${x.done ? "✓" : icon(x.ic)}</span><div class="p2txt"><b>${esc(x.t)}</b><span>${escG(x.s)}</span></div>${x.btn && !x.done ? `<button class="btn sm" data-plan="${k}">${x.btn}</button>` : ""}</div>`).join("")}</section>`;
+}
+/* ===================== Dashboard with more at a glance ===================== */
+function acc7() { let r = 0, w = 0; for (let k = 0; k < 7; k++) { const d = (S.meta.daily || {})[dayKey(Date.now() - k * DAY)] || {}; r += d.right || 0; w += d.wrong || 0; } return r + w ? Math.round(r / (r + w) * 100) : null; }
+function weekSum(obj, off = 0) { let n = 0; for (let k = 0; k < 7; k++) n += (obj || {})[dayKey(Date.now() - (k + off) * DAY)] || 0; return n; }
+dashHtml = function (decks) {
+  let due = 0, nw = 0; decks.forEach(d => { const c = deckCounts(d); due += c.due; nw += c.nw; });
+  const newToday = Math.min(nw, newLeftToday());
+  const today = S.meta.history[dayKey()] || 0, goal = S.meta.settings.dailyGoal || 50, st = streak();
+  const wk = weekSum(S.meta.history), wkPrev = weekSum(S.meta.history, 7);
+  const a7 = acc7(), mastered = masteredNow(), passed = LESSONS.filter(l => lessonState(l).passed).length;
+  const ex = upcomingExams()[0]; const p = prepOn() ? prep() : null; const dleft = p && p.start ? dayDiff(p.start) : null;
+  const jopen = (S.meta.journal || []).length, focusW = weekSum(S.meta.focus);
+  const boxes = [
+    [st, "day streak", st >= 3 ? "🔥" : ""],
+    [wk.toLocaleString(), "reviews this week", wkPrev ? `${wk >= wkPrev ? "▲" : "▼"} ${Math.abs(wk - wkPrev)} vs last` : ""],
+    [a7 == null ? "—" : a7 + "%", "accuracy, 7 days", ""],
+    [mastered.toLocaleString(), "facts mastered", ""],
+    [`${passed}/${LESSONS.length}`, "lessons complete", ""],
+    ex ? [daysUntil(ex) <= 0 ? "Today" : daysUntil(ex) + "d", "to " + ex.name, ""] : dleft != null && dleft > 0 ? [dleft + "d", "until day one", ""] : [focusW, "focus min this week", ""],
+    [jopen, "open mistakes", ""],
+    [Object.keys(S.meta.badges || {}).length, "badges earned", ""]
+  ];
+  return `<section class="dash">
+    <div class="dtop">
+      <div class="dmain">
+        <span class="ddate">${new Date().toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" })}</span>
+        <div class="ddue"><b>${due}</b><span>due${newToday ? ` · ${newToday} new` : ""}</span></div>
+        <div class="row" style="margin-top:10px"><button class="btn dbtn" id="startAll" ${due + newToday ? "" : "disabled"}>${icon("brain")}${due + newToday ? "Start review" : "All caught up"}</button>${nextLesson() && (prepOn() || passed) ? `<button class="btn dbtn ghost" id="dashLesson">${icon("book")}Next lesson</button>` : ""}</div>
+      </div>
+      <div class="dgoal">${goalRing(today / goal)}<div><b>${today}/${goal}</b><small>today’s goal</small></div></div>
+    </div>
+    <div class="dboxes">${boxes.map(([v, l, x]) => `<div><b>${v}</b><small>${esc(l)}${x ? ` <span class="dx">${x}</span>` : ""}</small></div>`).join("")}</div>
+    ${weekBars()}
+    ${yesterdayHtml()}
+  </section>`;
+};
+/* plan goes right under the dashboard; remove the separate weak-spot link */
+const _renderHome2 = renderHome;
+renderHome = function (decks) {
+  _renderHome2(decks);
+  $(".planonly")?.remove(); $("#weakBtn")?.remove();
+  const dash = $(".dash"); if (dash) dash.insertAdjacentHTML("afterend", planHtml());
+  $$("[data-plan]").forEach(b => b.onclick = () => (window._planFns[+b.dataset.plan] || (() => { }))());
+  const best = { smearBtn: "pts_smear", sedBtn: "pts_sediment", panelBtn: "pts_panel", abBtn: "pts_acidbase", westBtn: "pts_westgard", critBtn: "pts_critical", benchBtn: "benchBest", gramBtn: "gramBest" };
+  Object.entries(best).forEach(([id, k]) => { const v = (S.meta.stats || {})[k]; const b = $("#" + id); if (v && b && !b.classList.contains("locked")) b.insertAdjacentHTML("beforeend", `<small>${v.toLocaleString()}</small>`); });
+};
+/* Tools: neutral and described */
+toolsHtml = function () {
+  const names = { learn: ["Teach", "Lessons and references"], test: ["Test", "Graded practice with explanations"], play: ["Play", "Timed and scored, levels, high scores"], plan: ["Plan", "Schedule and track"] };
+  return `<div class="toolcard">${Object.entries(ORDERED_TOOLS()).map(([k, list]) => `<div class="toolline"><span class="toolcat"><b>${names[k][0]}</b><small>${names[k][1]}</small></span><div class="toolpills">${list.filter(([id]) => !(id === "hsBtn" && prepOn())).map(([id, ic, t, g]) => { const locked = g && !gameUnlocked(g); return `<button class="pill ${locked ? "locked" : ""}" id="${id}" ${locked ? `title="Unlocks with your Head start lessons"` : ""}>${icon(locked ? "flag" : ic)}${t}</button>`; }).join("")}</div></div>`).join("")}</div>`;
+};
+/* Badges: one list with category headers */
+startBadges = function () {
+  openStudy("Badges"); checkBadges();
+  const got = S.meta.badges || {}; setProg(Object.keys(got).length / BADGES2.length);
+  ST.right.innerHTML = `<span class="small muted">${Object.keys(got).length} of ${BADGES2.length}</span>`;
+  ST.stage.innerHTML = `<div class="badgelist">${Object.entries(BCAT).map(([k, name]) => { const list = BADGES2.filter(b => b.cat === k); return `<h4 class="bhead">${esc(name)} <span class="small muted">${list.filter(b => got[b.id]).length}/${list.length}</span></h4><div class="badges">${list.map(b => badgeCard(b, got[b.id])).join("")}</div>`; }).join("")}</div>`;
+};
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
@@ -7382,7 +7876,7 @@ function startMatch(d) {
   let first = null, left = pairs.length, penalty = 0; const t0 = Date.now();
   ST.right.innerHTML = `<span class="timer" id="tm">0.0</span>`;
   const tm = setInterval(() => { const el = $("#tm"); if (el) el.textContent = ((Date.now() - t0) / 1000 + penalty).toFixed(1); }, 100); ST.timers.push(tm);
-  ST.stage.innerHTML = `<p class="muted" style="text-align:center">Tap matching pairs. A wrong pair adds a second.</p><div class="match-grid">${tiles.map((x, j) => `<button class="tile" data-j="${j}">${escG(x.t)}</button>`).join("")}</div>`;
+  ST.stage.innerHTML = `<p class="muted" style="text-align:center">Tap matching pairs. A wrong pair adds a second.</p><div class="match-grid">${tiles.map((x, j) => `<button class="tile" data-j="${j}"><span>${escG(x.t)}</span></button>`).join("")}</div>`;
   $$(".tile").forEach(b => b.onclick = () => {
     const j = +b.dataset.j; if (b.classList.contains("done")) return;
     if (first === null) { first = j; b.classList.add("sel"); return; }
