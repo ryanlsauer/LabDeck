@@ -852,6 +852,18 @@ details.unit>.lesson-row:last-child{margin-bottom:8px}
 .mapgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
 .mapgrid p{margin:4px 0 0;line-height:1.5}
 .mapcard .btn{align-self:flex-start}
+/* ===== v12: cap color on top, like a tube cap ===== */
+.slide{flex-direction:column}
+.slide .label{width:auto!important;height:12px;flex:none;border-radius:0;box-shadow:inset 0 -3px 0 rgba(0,0,0,.14)}
+.slide .label::before{display:none}
+.slide .body{padding:12px 14px 14px}
+.face{flex-direction:column}
+.face .frost{width:auto!important;height:36px;flex:none;justify-content:flex-start;padding:0 18px;box-shadow:inset 0 -4px 0 rgba(0,0,0,.12)}
+.face .frost::before{display:none}
+.face .frost span{writing-mode:horizontal-tb!important;transform:none!important;max-height:none!important;max-width:100%;font-size:.78rem!important;color:rgba(0,0,0,.62)!important;text-overflow:ellipsis;overflow:hidden;white-space:nowrap}
+.flip.on .face:not(.back){pointer-events:none}
+.flip:not(.on) .face.back{pointer-events:none}
+.face .ac{position:relative;z-index:1}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -938,7 +950,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "11.0";
+const APP_VERSION = "12.0";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -1944,7 +1956,7 @@ function renderSettings() {
     <div class="panel">
       <div class="row" style="justify-content:space-between;align-items:flex-start;gap:16px"><div style="flex:1;min-width:0"><h3>Spell out abbreviations</h3><p class="small muted" style="margin-top:4px">Off: abbreviations stay short; hover or tap any dotted-underlined one for its meaning. On: they’re also written out in full the first time they appear.</p></div>
       <label class="switch"><input type="checkbox" id="begT" ${S.meta.settings.beginner === true ? "checked" : ""}><span></span><b class="sr">Spell out abbreviations</b></label></div>
-      <button class="btn sm" id="gloS" style="margin-top:10px">${icon("book")}Open the glossary</button>
+      <div class="row" style="margin-top:10px"><button class="btn sm" id="gloS">${icon("book")}Open the glossary</button><button class="btn sm" id="gloA">${icon("plus")}Add an abbreviation</button></div>
     </div>
     <div class="panel">
       <div class="row" style="justify-content:space-between;margin-bottom:10px"><h3>Labels</h3><button class="btn sm" id="addLbl">${icon("plus")}New label</button></div>
@@ -1994,6 +2006,7 @@ function renderSettings() {
   $("#hsEdit") && ($("#hsEdit").onclick = () => prepSetupModal(() => renderSettings()));
   $("#begT").onchange = e => { S.meta.settings.beginner = e.target.checked; saveMeta(true); toast(e.target.checked ? "Abbreviations will be written out" : "Abbreviations stay short; tap them for meanings"); };
   $("#gloS").onclick = () => startGlossary();
+  $("#gloA").onclick = () => glossEditModal(null);
   $("#addLbl").onclick = () => labelModal(null, () => renderSettings());
   $$("[data-el]").forEach(b => b.onclick = () => labelModal(labels().find(l => l.id === b.dataset.el), () => render()));
   $$("#theme button").forEach(b => b.onclick = () => { st.theme = b.dataset.t; saveMeta(true); render(); });
@@ -2112,7 +2125,7 @@ function flipCard(label, cap, front, back) {
 function sizeFlip() {
   const fc = $("#fc"); if (!fc) return;
   const inner = $(".flip-inner", fc);
-  const measure = () => { const h = Math.max(...$$(".content", fc).map(c => c.scrollHeight + 2)); inner.style.minHeight = Math.max(Math.min(window.innerHeight * 0.5, 400), h) + "px"; };
+  const measure = () => { const h = Math.max(...$$(".content", fc).map(c => c.scrollHeight + 40)); inner.style.minHeight = Math.max(Math.min(window.innerHeight * 0.5, 400), h) + "px"; };
   measure(); $$("img", fc).forEach(im => im.complete || im.addEventListener("load", measure, { once: true }));
 }
 
@@ -4909,7 +4922,8 @@ const GLOSS = {
   // molecular
   "DNA": ["deoxyribonucleic acid", "The genetic instruction molecule."], "RNA": ["ribonucleic acid", "Molecule that carries copies of genetic instructions."], "cDNA": ["complementary DNA", "DNA copied from RNA."], "PCR": ["polymerase chain reaction", "Copies a target DNA sequence millions of times."], "RT-PCR": ["reverse transcription PCR", "PCR that starts by copying RNA into DNA."], "NAAT": ["nucleic acid amplification test", "Any test that copies DNA or RNA to detect it, like PCR."], "FISH": ["fluorescence in situ hybridization", "Glowing probes find genes on chromosomes."], "Ct": ["cycle threshold", "PCR cycle where signal appears; lower means more target."]
 };
-const GLOSS_RE = new RegExp("(^|[^A-Za-z0-9])(" + Object.keys(GLOSS).sort((a, b) => b.length - a.length).map(k => k.replace(/[.*+?^${}()|[\]\\\/&]/g, "\\$&").replace(/&/g, "&amp;")).join("|") + ")(?![A-Za-z0-9])", "g");
+function buildGlossRe() { return new RegExp("(^|[^A-Za-z0-9])(" + Object.keys(GLOSS).sort((a, b) => b.length - a.length).map(k => k.replace(/[.*+?^${}()|[\]\\\/&]/g, "\\$&").replace(/&/g, "&amp;")).join("|") + ")(?![A-Za-z0-9])", "g"); }
+let GLOSS_RE = buildGlossRe();
 /* takes already-escaped HTML text and marks abbreviations */
 function gloss(html, seen) {
   if (!html) return html;
@@ -4939,7 +4953,7 @@ function showGloss(el) {
 }
 document.addEventListener("click", e => {
   const a = e.target.closest(".ac");
-  if (a && !a.closest("button, a, .opt, .pal, .seq-item, .lopt, .listrow, .flip, [role=button]:not(.ac)")) { e.preventDefault(); e.stopPropagation(); showGloss(a); return; }
+  if (a && !a.closest("button, a, .opt, .pal, .seq-item, .lopt, .listrow")) { e.preventDefault(); e.stopPropagation(); showGloss(a); return; }
   if (!e.target.closest(".acpop")) $$(".acpop").forEach(p => p.remove());
 }, true);
 document.addEventListener("keydown", e => { if (e.key === "Escape") $$(".acpop").forEach(p => p.remove()); if ((e.key === "Enter" || e.key === " ") && e.target.classList && e.target.classList.contains("ac")) { e.preventDefault(); e.stopPropagation(); showGloss(e.target); } }, true);
@@ -7153,6 +7167,63 @@ BADGES2.push(
   { id: "chal5", cat: "b", e: "🎯", name: "No hints needed", desc: "Ace 5 Bootcamp challenges", target: 5, cur: () => sv("challengesAced") },
   { id: "games10", cat: "g", e: "🎮", name: "Game day", desc: "Play 10 games in one day", target: 10, cur: () => Math.max(0, ...Object.values(S.meta.daily || {}).map(d => d.games || 0)) }
 );
+/* ===================== Your own abbreviations ===================== */
+const BUILTIN_GLOSS = { ...GLOSS };
+const glossUser = () => (S.meta.glossUser = S.meta.glossUser || {});
+function applyUserGloss() {
+  Object.keys(GLOSS).forEach(k => { if (!BUILTIN_GLOSS[k]) delete GLOSS[k]; else GLOSS[k] = BUILTIN_GLOSS[k]; });
+  Object.entries(glossUser()).forEach(([k, v]) => { if (v && !v.deleted && v.full) GLOSS[k] = [v.full, v.desc || ""]; });
+  GLOSS_RE = buildGlossRe();
+}
+function glossEditModal(key, after) {
+  const cur = key ? glossUser()[key] || { full: (GLOSS[key] || [])[0] || "", desc: (GLOSS[key] || [])[1] || "" } : { full: "", desc: "" };
+  modal(`${mhead(key ? "Edit abbreviation" : "Add an abbreviation")}
+    <div class="field"><label for="gk">Abbreviation</label><input class="input" id="gk" value="${esc(key || "")}" placeholder="e.g. MCHC, HbA1c, BMP" ${key ? "readonly" : ""} autocapitalize="off" spellcheck="false"><span class="hint">Matched exactly as typed, including capitals. Letters, numbers and - / & : + are fine.</span></div>
+    <div class="field"><label for="gf">What it stands for</label><input class="input" id="gf" value="${esc(cur.full)}" placeholder="e.g. basic metabolic panel"></div>
+    <div class="field"><label for="gd">Plain-English meaning (optional)</label><textarea class="input" id="gd" rows="3" placeholder="What it is and why it matters">${esc(cur.desc || "")}</textarea></div>
+    ${key && BUILTIN_GLOSS[key] ? `<p class="small muted">Your version replaces the built-in definition. Delete yours to restore it.</p>` : ""}
+    <div class="modal-foot">${key && glossUser()[key] && !glossUser()[key].deleted ? `<button class="btn danger" id="gdel" style="margin-right:auto">${icon("trash")}Delete</button>` : ""}<button class="btn" data-close>Cancel</button><button class="btn primary" id="gsave">Save</button></div>`, (s, close) => {
+    $("#gdel", s) && ($("#gdel", s).onclick = () => { glossUser()[key] = { deleted: true, t: Date.now() }; saveMeta(); applyUserGloss(); close(); toast(BUILTIN_GLOSS[key] ? "Built-in definition restored" : "Deleted"); after && after(); });
+    $("#gsave", s).onclick = () => {
+      const k = (key || $("#gk", s).value).trim(), full = $("#gf", s).value.trim(), desc = $("#gd", s).value.trim();
+      if (!/^[A-Za-z0-9][A-Za-z0-9\-\/&:+.]{0,24}$/.test(k)) { toast("Use letters and numbers (no spaces)"); return; }
+      if (!full) { toast("Add what it stands for"); return; }
+      glossUser()[k] = { full, desc, t: Date.now() }; saveMeta(); applyUserGloss(); stat("glossAdded"); close(); toast(`“${k}” added to your glossary`); after && after(k);
+    };
+  });
+}
+startGlossary = function (focus) {
+  openStudy("Glossary");
+  let q = focus || "", mine = false;
+  const draw = () => {
+    const n = norm(q); const U = glossUser();
+    const items = Object.entries(GLOSS).filter(([k, [f, d]]) => (!mine || (U[k] && !U[k].deleted)) && (!n || norm(k).includes(n) || norm(f).includes(n) || norm(d).includes(n))).sort((a, b) => a[0].localeCompare(b[0], undefined, { sensitivity: "base" }));
+    setProg(1);
+    $("#glist").innerHTML = items.length ? items.map(([k, [f, d]]) => { const yours = U[k] && !U[k].deleted; return `<div class="gitem ${k === focus ? "hl" : ""}"><div class="row" style="justify-content:space-between;gap:6px"><b>${esc(k)}</b>${yours ? `<span class="tag">Yours</span>` : ""}</div><span class="acfull">${esc(f)}</span>${d ? `<p class="small">${esc(d)}</p>` : ""}<button class="btn ghost sm" data-ge="${esc(k)}" style="align-self:flex-start">${icon("edit")}${yours ? "Edit" : "Customize"}</button></div>`; }).join("") : `<div class="empty"><p>No matches${q ? ` for “${esc(q)}”` : ""}.</p>${q && /^[A-Za-z0-9][A-Za-z0-9\-\/&:+.]{0,24}$/.test(q.trim()) ? `<button class="btn primary" id="addq">${icon("plus")}Add “${esc(q.trim())}”</button>` : ""}</div>`;
+    $$("[data-ge]").forEach(b => b.onclick = () => glossEditModal(b.dataset.ge, draw));
+    $("#addq") && ($("#addq").onclick = () => { glossEditModal(null, k => { q = k || q; draw(); }); setTimeout(() => { const i = $("#gk"); if (i) i.value = q.trim(); }, 30); });
+  };
+  ST.stage.innerHTML = `<p class="muted">Every abbreviation LabDeck uses, spelled out in plain words. Tap any dotted-underlined term anywhere for its meaning. Add your own from lectures and they’ll be underlined everywhere too.</p>
+    <div class="row"><label class="search" style="flex:1;min-width:200px">${icon("search")}<input id="gq" placeholder="Search abbreviations or words" value="${esc(q)}" aria-label="Search glossary"></label>
+    <button class="btn ${mine ? "primary" : ""}" id="gmine">Yours (${Object.values(glossUser()).filter(v => v && !v.deleted).length})</button><button class="btn primary" id="gadd">${icon("plus")}Add abbreviation</button></div>
+    <div id="glist" class="glist"></div>`;
+  $("#gq").oninput = e => { q = e.target.value; focus = null; draw(); };
+  $("#gadd").onclick = () => glossEditModal(null, k => { if (k) q = k; $("#gq").value = q; draw(); });
+  $("#gmine").onclick = () => { mine = !mine; $("#gmine").classList.toggle("primary", mine); draw(); };
+  draw();
+};
+/* apply on load and after sync */
+const _applyDocs = applyDocs;
+applyDocs = function (docs) { _applyDocs(docs); try { applyUserGloss(); } catch { } };
+const _mergeRemote = mergeRemote;
+mergeRemote = function (r) {
+  const ch = _mergeRemote(r);
+  const mine = glossUser(); let c2 = false;
+  for (const [k, v] of Object.entries((r && r.meta && r.meta.glossUser) || {})) if (!mine[k] || (v.t || 0) > (mine[k].t || 0)) { mine[k] = v; c2 = true; }
+  if (c2) { applyUserGloss(); IDB.put("meta", JSON.parse(JSON.stringify(S.meta))); }
+  return ch || c2;
+};
+BADGES2.push({ id: "gloss5", cat: "l", e: "📖", name: "Own dictionary", desc: "Add 5 abbreviations to your glossary", target: 5, cur: () => sv("glossAdded") });
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
