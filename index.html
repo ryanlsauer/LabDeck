@@ -1,0 +1,2230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#5B3FD1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="LabDeck">
+<title>LabDeck</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F2F4F8; --surface:#FFFFFF; --surface-2:#F7F8FB; --ink:#1C1830; --ink-2:#4A4560; --ink-3:#7C7892;
+  --line:#E3E5EE; --line-2:#D3D6E2;
+  --violet:#5B3FD1; --violet-ink:#FFFFFF; --violet-soft:#ECE8FC; --violet-deep:#3F2AA0;
+  --safranin:#D93D72; --safranin-soft:#FCE6EE;
+  --good:#16896A; --good-soft:#DDF3EC; --warn:#B7790F; --warn-soft:#FBF0DA; --bad:#C8333F; --bad-soft:#FBE3E5;
+  --shadow:0 1px 2px rgba(28,24,48,.06),0 8px 24px -12px rgba(28,24,48,.18);
+  --radius-lg:20px; --radius:14px; --radius-sm:10px;
+  --font-display:"Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --font-body:"Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, sans-serif;
+  color-scheme:light;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#13111C; --surface:#1D1A29; --surface-2:#252134; --ink:#EEEBF8; --ink-2:#C2BDD6; --ink-3:#8F89A8;
+    --line:#2E2A40; --line-2:#3A3550;
+    --violet:#8B74F2; --violet-ink:#120E22; --violet-soft:#2A2350; --violet-deep:#B3A4FF;
+    --safranin:#F2709B; --safranin-soft:#3A1E2B;
+    --good:#3CC79D; --good-soft:#163329; --warn:#E8B048; --warn-soft:#352A14; --bad:#F06A74; --bad-soft:#3A1C20;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px -14px rgba(0,0,0,.6);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#13111C; --surface:#1D1A29; --surface-2:#252134; --ink:#EEEBF8; --ink-2:#C2BDD6; --ink-3:#8F89A8;
+  --line:#2E2A40; --line-2:#3A3550;
+  --violet:#8B74F2; --violet-ink:#120E22; --violet-soft:#2A2350; --violet-deep:#B3A4FF;
+  --safranin:#F2709B; --safranin-soft:#3A1E2B;
+  --good:#3CC79D; --good-soft:#163329; --warn:#E8B048; --warn-soft:#352A14; --bad:#F06A74; --bad-soft:#3A1C20;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px -14px rgba(0,0,0,.6);
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2.5px solid var(--violet);outline-offset:2px;border-radius:8px}
+h1,h2,h3{font-family:var(--font-display);line-height:1.15;margin:0;letter-spacing:-.01em}
+h1{font-size:clamp(1.75rem,4vw,2.4rem);font-weight:700}
+h2{font-size:1.35rem;font-weight:650}
+h3{font-size:1.05rem;font-weight:650}
+p{margin:0}
+.muted{color:var(--ink-3)}
+.small{font-size:.875rem}
+.hidden{display:none!important}
+svg.i{width:20px;height:20px;flex:none;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* Shell */
+.shell{display:flex;min-height:100vh}
+.side{display:none}
+.main{flex:1;min-width:0;padding:20px 16px 110px}
+.wrap{max-width:980px;margin:0 auto}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:700;font-size:1.2rem}
+.brand-mark{width:30px;height:30px;border-radius:9px;background:var(--violet);position:relative;overflow:hidden}
+.brand-mark::after{content:"";position:absolute;inset:0 0 0 55%;background:var(--safranin)}
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;justify-content:space-around;background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px))}
+.tabbar a{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 4px;font-size:.72rem;color:var(--ink-3);text-decoration:none;border-radius:10px}
+.tabbar a.on{color:var(--violet)}
+@media (min-width:900px){
+  .tabbar{display:none}
+  .side{display:flex;flex-direction:column;gap:6px;width:250px;flex:none;position:sticky;top:0;height:100vh;padding:24px 16px;border-right:1px solid var(--line);background:var(--surface)}
+  .side .brand{padding:4px 10px 18px}
+  .side a{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;color:var(--ink-2);text-decoration:none;font-weight:600}
+  .side a:hover{background:var(--surface-2)}
+  .side a.on{background:var(--violet-soft);color:var(--violet-deep)}
+  .side .sidedecks{margin-top:14px;padding-top:14px;border-top:1px solid var(--line);overflow:auto;display:flex;flex-direction:column;gap:2px}
+  .side .sidedecks a{font-weight:500;font-size:.92rem;padding:8px 12px}
+  .side .sync{margin-top:auto;font-size:.8rem;color:var(--ink-3);padding:0 12px;display:flex;gap:8px;align-items:center}
+  .main{padding:36px 40px 60px}
+  .topbar .brand{display:none}
+}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--ink-3);flex:none}
+.dot.ok{background:var(--good)}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);padding:10px 16px;border-radius:12px;font-weight:600;min-height:44px;transition:background .15s,border-color .15s,transform .1s}
+.btn:hover{background:var(--surface-2)}
+.btn:active{transform:scale(.98)}
+.btn.primary{background:var(--violet);border-color:var(--violet);color:var(--violet-ink)}
+.btn.primary:hover{background:var(--violet-deep);border-color:var(--violet-deep)}
+:root[data-theme="dark"] .btn.primary:hover{color:#120E22}
+.btn.ghost{border-color:transparent;background:transparent}
+.btn.ghost:hover{background:var(--surface-2)}
+.btn.danger{color:var(--bad)}
+.btn.sm{min-height:36px;padding:6px 12px;font-size:.9rem;border-radius:10px}
+.btn.icon{padding:0;width:44px}
+.btn.icon.sm{width:36px}
+.btn[disabled]{opacity:.45;pointer-events:none}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.spacer{flex:1}
+
+/* Today panel */
+.today{display:grid;gap:16px;grid-template-columns:1fr;margin-bottom:34px}
+@media (min-width:700px){.today{grid-template-columns:1.6fr 1fr}}
+.due-panel{background:#5B3FD1;color:#fff;border-radius:var(--radius-lg);padding:24px;position:relative;overflow:hidden;min-height:200px;display:flex;flex-direction:column}
+.due-panel::before{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle at 40% 40%,rgba(255,255,255,.18),rgba(255,255,255,0) 60%)}
+.due-panel .cells{position:absolute;right:18px;bottom:16px;display:grid;grid-template-columns:repeat(6,10px);gap:6px;opacity:.5}
+.due-panel .cells i{width:10px;height:10px;border-radius:50%;background:#fff;opacity:.25}
+.due-panel .cells i.p{background:var(--safranin);opacity:1}
+.due-panel .big{font-family:var(--font-display);font-size:3.4rem;font-weight:700;line-height:1;margin:6px 0 4px;letter-spacing:-.03em}
+.due-panel p{color:rgba(255,255,255,.85)}
+.due-panel .btn{margin-top:auto;align-self:flex-start;background:#fff;color:#2A1A86;border-color:#fff}
+.due-panel .btn:hover{background:#F0ECFF}
+:root[data-theme="dark"] .due-panel, :root:not([data-theme="light"]) .due-panel{color:#fff}
+.side-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+.stat .n{font-family:var(--font-display);font-size:1.9rem;font-weight:700;line-height:1.1}
+.stat .l{font-size:.85rem;color:var(--ink-3)}
+.stat.wide{grid-column:1/-1;display:flex;align-items:center;gap:12px}
+
+/* Decks as slides */
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 0 14px}
+.decks{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.slide{position:relative;display:flex;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;text-decoration:none;color:inherit;min-height:132px;box-shadow:var(--shadow)}
+.slide:hover{border-color:var(--line-2)}
+.slide .label{width:46px;flex:none;background:var(--cap);position:relative;display:flex;align-items:center;justify-content:center}
+.slide .label::before{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.22) 0 2px,transparent 2px 7px)}
+.slide .label span{writing-mode:vertical-rl;transform:rotate(180deg);font-size:.7rem;font-weight:700;color:rgba(0,0,0,.55);position:relative;letter-spacing:.04em;max-height:110px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.slide .body{padding:14px 16px;display:flex;flex-direction:column;gap:6px;flex:1;min-width:0}
+.slide .body h3{overflow:hidden;text-overflow:ellipsis}
+.slide .meta{font-size:.85rem;color:var(--ink-3)}
+.slide .due{font-size:.8rem;font-weight:700;color:var(--safranin);background:var(--safranin-soft);padding:2px 8px;border-radius:999px;align-self:flex-start}
+.mastery{height:6px;border-radius:999px;background:var(--surface-2);overflow:hidden;display:flex;margin-top:auto}
+.mastery i{display:block;height:100%}
+.mastery .m{background:var(--good)} .mastery .g{background:var(--violet);opacity:.55}
+.slide.new{border-style:dashed;align-items:center;justify-content:center;gap:10px;color:var(--ink-2);font-weight:600;background:transparent;box-shadow:none;cursor:pointer}
+
+/* Deck page */
+.backlink{display:inline-flex;align-items:center;gap:6px;color:var(--ink-3);text-decoration:none;font-weight:600;font-size:.92rem;margin-bottom:10px}
+.deck-head{display:flex;gap:16px;align-items:flex-start;margin-bottom:22px}
+.cap{width:38px;height:46px;border-radius:9px 9px 6px 6px;background:var(--cap);flex:none;position:relative;box-shadow:inset 0 -10px 0 rgba(0,0,0,.12)}
+.cap::after{content:"";position:absolute;left:6px;right:6px;top:7px;height:3px;border-radius:2px;background:rgba(255,255,255,.35)}
+.modes{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));margin-bottom:30px}
+.mode{display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:14px;border-radius:var(--radius);border:1px solid var(--line);background:var(--surface);text-align:left;min-height:104px}
+.mode:hover{border-color:var(--violet)}
+.mode .ic{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:var(--violet-soft);color:var(--violet-deep)}
+.mode.alt .ic{background:var(--safranin-soft);color:var(--safranin)}
+.mode b{font-weight:700}
+.mode small{color:var(--ink-3);font-size:.8rem;line-height:1.3}
+.mode[disabled]{opacity:.45;cursor:not-allowed}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.search{flex:1;min-width:180px;display:flex;align-items:center;gap:8px;border:1px solid var(--line-2);background:var(--surface);border-radius:12px;padding:0 12px;min-height:44px}
+.search input{border:0;background:transparent;outline:0;flex:1;min-width:0}
+.cards{display:flex;flex-direction:column;gap:8px}
+.card-row{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:start}
+.card-row .q{font-weight:700}
+.card-row .a{color:var(--ink-2);white-space:pre-wrap}
+.basic-grid{display:grid;gap:4px 18px}
+@media (min-width:700px){.basic-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.4fr)}}
+.facts{display:grid;gap:4px 14px;grid-template-columns:minmax(90px,auto) 1fr;margin-top:8px;font-size:.92rem}
+.facts dt{color:var(--ink-3)}
+.facts dd{margin:0;white-space:pre-wrap}
+.card-row .acts{display:flex;gap:2px}
+.star.on{color:var(--warn)}
+.star.on svg{fill:var(--warn)}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:700;padding:2px 9px;border-radius:999px;background:var(--surface-2);color:var(--ink-2);border:1px solid var(--line)}
+.chip.v{background:var(--violet-soft);color:var(--violet-deep);border-color:transparent}
+.empty{border:1.5px dashed var(--line-2);border-radius:var(--radius-lg);padding:34px 22px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px}
+.empty p{max-width:46ch;color:var(--ink-2)}
+
+/* Modal */
+.scrim{position:fixed;inset:0;background:rgba(15,12,30,.45);z-index:50;display:flex;align-items:flex-end;justify-content:center;animation:fade .15s}
+@media (min-width:700px){.scrim{align-items:center;padding:24px}}
+.modal{background:var(--surface);width:100%;max-width:640px;max-height:92vh;overflow:auto;border-radius:22px 22px 0 0;padding:22px 20px calc(22px + env(safe-area-inset-bottom,0px));box-shadow:var(--shadow);animation:rise .2s ease-out}
+@media (min-width:700px){.modal{border-radius:22px;padding:26px}}
+.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:10px}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.field label,.lbl{font-weight:700;font-size:.9rem}
+.field .hint{font-size:.8rem;color:var(--ink-3)}
+.input,textarea.input,select.input{width:100%;border:1px solid var(--line-2);background:var(--surface-2);border-radius:12px;padding:11px 13px;outline:0;min-height:46px}
+.input:focus{border-color:var(--violet);background:var(--surface)}
+textarea.input{resize:vertical;min-height:84px;line-height:1.45}
+.seg{display:inline-flex;background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:3px;gap:3px;flex-wrap:wrap}
+.seg button{border:0;background:transparent;padding:8px 14px;border-radius:9px;font-weight:600;color:var(--ink-2)}
+.seg button.on{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.caps{display:flex;gap:10px;flex-wrap:wrap}
+.caps button{width:38px;height:44px;border:0;padding:0;border-radius:9px 9px 6px 6px;background:var(--c);position:relative;box-shadow:inset 0 -9px 0 rgba(0,0,0,.12)}
+.caps button.on{outline:3px solid var(--ink);outline-offset:3px}
+.fieldlist{display:flex;flex-direction:column;gap:8px}
+.fieldlist .fl{display:flex;gap:8px}
+.modal-foot{display:flex;gap:10px;justify-content:flex-end;margin-top:18px;flex-wrap:wrap}
+
+/* Study overlay */
+.study{position:fixed;inset:0;z-index:40;background:var(--bg);display:flex;flex-direction:column;overflow:auto;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.study-top{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--bg)}
+.study-top .t{font-weight:700;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.prog{height:6px;background:var(--line);border-radius:999px;overflow:hidden;margin:0 16px}
+.prog i{display:block;height:100%;background:var(--violet);border-radius:999px;transition:width .3s}
+.stage{flex:1;width:100%;max-width:760px;margin:0 auto;padding:20px 16px 28px;display:flex;flex-direction:column;gap:18px}
+
+/* The glass slide flashcard */
+.flip{perspective:1600px;cursor:pointer;user-select:none}
+.flip-inner{position:relative;min-height:min(56vh,420px);transform-style:preserve-3d;transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+.flip.on .flip-inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--surface);border:1px solid var(--line-2);border-radius:22px;box-shadow:var(--shadow);display:flex;overflow:hidden}
+.face.back{transform:rotateY(180deg)}
+.face .frost{width:52px;flex:none;background:var(--cap);position:relative;display:flex;align-items:center;justify-content:center}
+.face .frost::before{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.24) 0 2px,transparent 2px 7px)}
+.face .frost span{writing-mode:vertical-rl;transform:rotate(180deg);font-size:.72rem;font-weight:700;color:rgba(0,0,0,.55);position:relative;white-space:nowrap;max-height:85%;overflow:hidden;text-overflow:ellipsis}
+.face .content{flex:1;padding:26px 24px;display:flex;flex-direction:column;justify-content:center;gap:12px;overflow:auto;min-width:0}
+.face .kicker{font-size:.85rem;font-weight:700;color:var(--violet)}
+.face .main-text{font-family:var(--font-display);font-size:clamp(1.4rem,4.5vw,2.1rem);font-weight:600;line-height:1.2;white-space:pre-wrap;overflow-wrap:anywhere}
+.face .sub-text{font-size:clamp(1.05rem,3vw,1.25rem);white-space:pre-wrap;overflow-wrap:anywhere}
+.face .note{font-size:.92rem;color:var(--ink-2);background:var(--surface-2);border-radius:12px;padding:10px 12px;white-space:pre-wrap}
+.face .facts{font-size:.9rem}
+.face .facts .hl{color:var(--violet-deep);font-weight:700}
+.tap-hint{text-align:center;font-size:.85rem;color:var(--ink-3)}
+@media (prefers-reduced-motion:reduce){.flip-inner{transition:none}}
+
+.grades{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.grades button{border:1px solid var(--line-2);background:var(--surface);border-radius:14px;padding:10px 4px;display:flex;flex-direction:column;align-items:center;gap:2px;font-weight:700;min-height:62px}
+.grades button small{font-weight:500;color:var(--ink-3);font-size:.75rem}
+.grades .g1{color:var(--bad)} .grades .g2{color:var(--warn)} .grades .g3{color:var(--good)} .grades .g4{color:var(--violet)}
+.grades .g1:hover{background:var(--bad-soft)} .grades .g2:hover{background:var(--warn-soft)} .grades .g3:hover{background:var(--good-soft)} .grades .g4:hover{background:var(--violet-soft)}
+
+.qcard{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:var(--shadow)}
+.qcard .kicker{font-size:.85rem;font-weight:700;color:var(--violet);margin-bottom:6px}
+.qcard .qtext{font-family:var(--font-display);font-size:clamp(1.25rem,4vw,1.7rem);font-weight:600;line-height:1.25;white-space:pre-wrap;overflow-wrap:anywhere}
+.clues{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+.clue{display:flex;gap:10px;padding:8px 12px;background:var(--surface-2);border-radius:10px;font-size:.98rem}
+.clue b{color:var(--ink-3);font-weight:600;min-width:110px}
+.opts{display:grid;gap:10px}
+@media (min-width:640px){.opts.two{grid-template-columns:1fr 1fr}}
+.opt{display:flex;align-items:center;gap:12px;text-align:left;padding:14px 16px;border-radius:14px;border:1.5px solid var(--line-2);background:var(--surface);min-height:56px;font-weight:500;white-space:pre-wrap;overflow-wrap:anywhere}
+.opt:hover{border-color:var(--violet)}
+.opt .k{width:26px;height:26px;border-radius:8px;flex:none;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;background:var(--surface-2);color:var(--ink-3)}
+.opt.sel{border-color:var(--violet);background:var(--violet-soft)}
+.opt.sel .k{background:var(--violet);color:var(--violet-ink)}
+.opt.right{border-color:var(--good);background:var(--good-soft)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.opt.missed{border-color:var(--good);border-style:dashed}
+.opt .tag{font-size:.75rem;font-weight:700;margin-left:auto;flex:none}
+.opt .fl{color:var(--ink-3);font-weight:700;margin-right:4px}
+.opts.locked .opt{pointer-events:none}
+.feedback{border-radius:14px;padding:14px 16px;font-weight:600;display:flex;gap:10px;align-items:flex-start}
+.feedback.ok{background:var(--good-soft);color:var(--good)}
+.feedback.no{background:var(--bad-soft);color:var(--bad)}
+.feedback .det{color:var(--ink);font-weight:400;display:block;margin-top:2px;white-space:pre-wrap}
+
+.match-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media (min-width:640px){.match-grid{grid-template-columns:repeat(3,1fr)}}
+@media (min-width:860px){.match-grid{grid-template-columns:repeat(4,1fr)}}
+.tile{min-height:96px;padding:12px;border-radius:14px;border:1.5px solid var(--line-2);background:var(--surface);font-size:.95rem;font-weight:500;display:flex;align-items:center;justify-content:center;text-align:center;overflow-wrap:anywhere;transition:opacity .25s,transform .25s}
+.tile.sel{border-color:var(--violet);background:var(--violet-soft)}
+.tile.bad{border-color:var(--bad);background:var(--bad-soft);animation:shake .3s}
+.tile.done{opacity:0;transform:scale(.9);pointer-events:none}
+.timer{font-family:var(--font-display);font-weight:700;font-size:1.3rem;font-variant-numeric:tabular-nums}
+
+.seq-pool,.seq-picked{display:flex;flex-direction:column;gap:8px}
+.seq-item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;border:1.5px solid var(--line-2);background:var(--surface);text-align:left;font-weight:600;min-height:52px}
+.seq-item .n{width:28px;height:28px;border-radius:50%;background:var(--violet);color:var(--violet-ink);display:flex;align-items:center;justify-content:center;font-size:.85rem;flex:none}
+.seq-item .sw{width:16px;height:22px;border-radius:5px 5px 3px 3px;background:var(--c,var(--line-2));flex:none}
+.seq-item.right{border-color:var(--good);background:var(--good-soft)}
+.seq-item.wrong{border-color:var(--bad);background:var(--bad-soft)}
+
+.results{text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px;padding-top:10px}
+.ring{width:150px;height:150px}
+.ring .val{font-family:var(--font-display);font-weight:700;font-size:30px;fill:var(--ink)}
+.missed-list{width:100%;text-align:left;display:flex;flex-direction:column;gap:8px}
+.missed-list .card-row{grid-template-columns:1fr}
+
+.ai-box{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px 16px;white-space:pre-wrap;font-size:.95rem;line-height:1.55}
+.ai-box .ai-h{display:flex;gap:8px;align-items:center;font-weight:700;color:var(--violet);margin-bottom:6px}
+
+.typed{display:flex;gap:10px}
+.typed .input{font-size:1.1rem}
+
+.chart{width:100%;height:auto}
+.chart text{fill:var(--ink-3);font-size:11px}
+.chart rect.b{fill:var(--violet)}
+.chart rect.t{fill:var(--safranin)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);padding:20px;margin-bottom:16px}
+.deckbar{display:grid;grid-template-columns:minmax(0,1fr) 2fr auto;gap:12px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.deckbar:last-child{border-bottom:0}
+.deckbar .mastery{margin:0;height:10px}
+.legend{display:flex;gap:14px;font-size:.82rem;color:var(--ink-3);flex-wrap:wrap}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(86px + env(safe-area-inset-bottom,0px));z-index:60;background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-weight:600;font-size:.92rem;box-shadow:var(--shadow);animation:rise .2s}
+@media (min-width:900px){.toast{bottom:28px}}
+.loading{display:flex;align-items:center;justify-content:center;min-height:60vh;color:var(--ink-3);gap:10px}
+.spin{width:18px;height:18px;border-radius:50%;border:2.5px solid var(--line-2);border-top-color:var(--violet);animation:spin .8s linear infinite}
+kbd{font-family:inherit;font-size:.75rem;border:1px solid var(--line-2);border-bottom-width:2px;border-radius:5px;padding:0 5px;color:var(--ink-3)}
+.kbd-hint{display:none}
+@media (min-width:900px) and (hover:hover){.kbd-hint{display:block}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fade{from{opacity:0}}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}}
+.toast{animation:none}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:600px){.face .frost{width:34px}.face .frost span{font-size:.62rem}.face .content{padding:22px 18px}}
+.mobile-only{display:flex}
+@media (min-width:900px){.mobile-only{display:none}}
+.dot.bad{background:var(--bad)}
+.col{display:flex;flex-direction:column}
+.banner{display:flex;gap:12px;align-items:center;background:var(--warn-soft);color:var(--ink);border:1px solid color-mix(in srgb,var(--warn) 35%,transparent);border-radius:var(--radius);padding:12px 14px;margin-bottom:20px}
+.banner svg{color:var(--warn)}
+.stat.wide{text-align:left;cursor:pointer;color:inherit;font:inherit}
+.stat.wide:hover{border-color:var(--violet)}
+.stat.wide[disabled]{cursor:default;opacity:.7}
+.stat.wide[disabled]:hover{border-color:var(--line)}
+.ic2{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:var(--violet-soft);color:var(--violet-deep);flex:none}
+.ic2.alt{background:var(--safranin-soft);color:var(--safranin)}
+.goalbar{height:6px;border-radius:999px;background:var(--surface-2);overflow:hidden;margin-top:8px}
+.goalbar i{display:block;height:100%;background:var(--good);border-radius:999px}
+.exams{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));margin-bottom:34px}
+.exam{display:flex;gap:14px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;cursor:pointer;box-shadow:var(--shadow)}
+.exam:hover{border-color:var(--violet)}
+.exam-days{width:58px;flex:none;text-align:center;border-radius:12px;background:var(--safranin-soft);color:var(--safranin);padding:8px 4px;display:flex;flex-direction:column;line-height:1.1}
+.exam-days b{font-family:var(--font-display);font-size:1.6rem}
+.exam-days span{font-size:.75rem;font-weight:700}
+.checks{display:flex;flex-direction:column;gap:6px}
+.check{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--surface);cursor:pointer;font-weight:500}
+.check input{width:18px;height:18px;accent-color:var(--violet);flex:none}
+.thumb{width:64px;height:64px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
+.card-row.has-pic{grid-template-columns:auto 1fr auto}
+.imgprev{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap}
+.imgprev img{width:140px;max-height:140px;object-fit:cover;border-radius:12px;border:1px solid var(--line)}
+.cardimg{max-width:100%;max-height:min(38vh,320px);object-fit:contain;border-radius:12px;align-self:center;background:var(--surface-2)}
+.cardimg.small{max-height:120px}
+.qimg{display:block;max-width:100%;max-height:min(36vh,300px);object-fit:contain;border-radius:12px;margin:6px auto 10px;background:var(--surface-2)}
+.qimg.big{max-height:min(46vh,420px)}
+.blank{display:inline-block;min-width:3.2em;padding:0 .35em;border-bottom:2.5px solid var(--violet);color:var(--violet);font-weight:700;text-align:center}
+.blank.on{border-bottom-color:var(--good);color:var(--good);background:var(--good-soft);border-radius:4px 4px 0 0}
+.cloze{line-height:1.6}
+.linkbox{display:flex;gap:8px}
+.linkbox .input{flex:1;min-width:0}
+.steps{margin:0 0 12px;padding-left:20px;display:flex;flex-direction:column;gap:4px;color:var(--ink-2)}
+.pickchips{display:flex;flex-wrap:wrap;gap:8px}
+.chipbtn{border:1.5px solid var(--line-2);background:var(--surface);border-radius:999px;padding:7px 14px;font-weight:600;font-size:.9rem}
+.chipbtn.on{border-color:var(--violet);background:var(--violet-soft);color:var(--violet-deep)}
+.cmp-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
+.cmp{border-collapse:collapse;width:100%;min-width:480px;font-size:.93rem}
+.cmp th,.cmp td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.cmp thead th{font-family:var(--font-display);font-size:1rem;background:var(--surface-2)}
+.cmp tbody th{color:var(--ink-3);font-weight:600;width:22%}
+.cmp tr.diff td{background:var(--violet-soft)}
+.cmp tr.diff th{color:var(--violet-deep)}
+.cmp tr:last-child th,.cmp tr:last-child td{border-bottom:0}
+.cmpimg{display:block;width:100%;max-width:160px;height:90px;object-fit:cover;border-radius:8px;margin-bottom:6px}
+.navgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(44px,1fr));gap:6px}
+.navgrid button{height:44px;border-radius:10px;border:1px solid var(--line-2);background:var(--surface-2);font-weight:700}
+.navgrid button.done{background:var(--violet);color:var(--violet-ink);border-color:var(--violet)}
+.navgrid button.flag{box-shadow:inset 0 -4px 0 var(--warn)}
+.navgrid button.cur{outline:2.5px solid var(--ink);outline-offset:1px}
+.btn.flagged{color:var(--warn);border-color:var(--warn)}
+.clock{font-size:1.05rem}
+.clock.low{color:var(--bad)}
+.heat{width:100%;height:auto}
+.heat .h0{fill:var(--surface-2)} .heat .h1{fill:color-mix(in srgb,var(--violet) 28%,var(--surface-2))} .heat .h2{fill:color-mix(in srgb,var(--violet) 55%,var(--surface-2))} .heat .h3{fill:var(--violet)} .heat .h4{fill:var(--good)}
+.legend svg .h0{fill:var(--surface-2)} .legend svg .h1{fill:color-mix(in srgb,var(--violet) 28%,var(--surface-2))} .legend svg .h2{fill:color-mix(in srgb,var(--violet) 55%,var(--surface-2))} .legend svg .h3{fill:var(--violet)} .legend svg .h4{fill:var(--good)}
+.legend{align-items:center}
+@media (max-width:600px){.hide-sm{display:none}.thumb{width:48px;height:48px}}
+</style></head><body><div id="app"></div><script>
+"use strict";
+/* ---------- utilities ---------- */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const uid = () => Math.random().toString(36).slice(2, 8) + Date.now().toString(36).slice(-4);
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const pick = (a, n) => shuffle(a).slice(0, n);
+const DAY = 86400000;
+const dayKey = (t = Date.now()) => { const d = new Date(t); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); };
+const endOfToday = () => { const d = new Date(); d.setHours(23, 59, 59, 999); return d.getTime(); };
+const norm = s => String(s ?? "").toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9+\-\s]/g, " ").replace(/\s+/g, " ").trim();
+const splitItems = v => String(v ?? "").split(/\n|;/).map(x => x.trim()).filter(Boolean);
+function lev(a, b) { const m = a.length, n = b.length; if (!m) return n; if (!n) return m; let p = Array.from({ length: n + 1 }, (_, i) => i); for (let i = 1; i <= m; i++) { const c = [i]; for (let j = 1; j <= n; j++) c[j] = Math.min(p[j] + 1, c[j - 1] + 1, p[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)); p = c; } return p[n]; }
+function similar(given, answer) {
+  const g = norm(given), a = norm(answer);
+  if (!g) return false;
+  if (g === a) return true;
+  const alts = splitItems(answer).map(norm).concat(a.split(/ or |\//).map(norm));
+  for (const x of alts) { if (!x) continue; if (g === x) return true; const d = lev(g, x); if (d / Math.max(x.length, 1) <= 0.2) return true; }
+  if (a.length > 12 && a.includes(g) && g.length >= a.length * 0.6) return true;
+  return false;
+}
+function plural(n, w) { return n + " " + w + (n === 1 ? "" : "s"); }
+function fmtIv(days) { if (days < 1) return "<1d"; if (days < 30) return Math.round(days) + "d"; if (days < 365) return Math.round(days / 30) + "mo"; return (days / 365).toFixed(1) + "y"; }
+
+const CAPS = {
+  lavender: "#A48BDB", lightblue: "#7CC6E4", red: "#D9534F", gold: "#E3B53E", green: "#45A96F",
+  gray: "#9AA0A8", pink: "#EE93B6", royal: "#3C5FC2", yellow: "#F1D54E", orange: "#EE9548"
+};
+const CAP_NAMES = { lavender: "Lavender", lightblue: "Light blue", red: "Red", gold: "Gold", green: "Green", gray: "Gray", pink: "Pink", royal: "Royal blue", yellow: "Yellow", orange: "Orange" };
+const capOf = d => CAPS[d?.color] || CAPS.lavender;
+
+/* ---------- icons ---------- */
+const ICONS = {
+  home: '<path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',
+  layers: '<path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/>',
+  brain: '<path d="M9 4a3 3 0 0 0-3 3v.2A3 3 0 0 0 4 10a3 3 0 0 0 1 2.2A3 3 0 0 0 6 17a3 3 0 0 0 3 3V4z"/><path d="M15 4a3 3 0 0 1 3 3v.2A3 3 0 0 1 20 10a3 3 0 0 1-1 2.2A3 3 0 0 1 18 17a3 3 0 0 1-3 3V4z"/><path d="M9 4h6M9 20h6"/>',
+  list: '<circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/>',
+  quiz: '<rect x="3" y="4" width="18" height="16" rx="3"/><path d="M8 9h8M8 13h5"/><circle cx="17" cy="15.5" r="1.2"/>',
+  check: '<rect x="3" y="3" width="18" height="18" rx="4"/><path d="m8 12 3 3 5-6"/>',
+  grid: '<rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/>',
+  type: '<rect x="2" y="6" width="20" height="12" rx="3"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10"/>',
+  order: '<path d="M10 6h11M10 12h11M10 18h11"/><path d="M4 6h1v4M4 10h2M6 18H4c0-1 2-2 2-3s-1-1.5-2-1"/>',
+  search: '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
+  micro: '<path d="M6 18h8M3 22h18M14 22a7 7 0 1 0 0-14h-1"/><path d="M9 14h2M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2z"/><path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"/>',
+  x: '<path d="M18 6 6 18M6 6l12 12"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
+  edit: '<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13.5 6.5 4 4"/>',
+  trash: '<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>',
+  star: '<path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z"/>',
+  upload: '<path d="M12 15V3M7 8l5-5 5 5M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/>',
+  download: '<path d="M12 3v12M7 10l5 5 5-5M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/>',
+  sparkle: '<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/>',
+  chart: '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
+  gear: '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>',
+  left: '<path d="M15 18 9 12l6-6"/>',
+  right: '<path d="m9 18 6-6-6-6"/>',
+  shuffle: '<path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/>',
+  flame: '<path d="M12 22c4 0 7-2.7 7-7 0-3-2-5.5-3.5-7-.3 2-1.5 3-2.5 3 .5-3-1-6-4-8 0 3-1.5 5-3 6.5S4 12.5 4 15c0 4.3 3.5 7 8 7z"/>',
+  target: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
+  rotate: '<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/>',
+  copy: '<rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/>'
+};
+const icon = (n, cls = "i") => `<svg class="${cls}" viewBox="0 0 24 24" aria-hidden="true">${ICONS[n] || ""}</svg>`;
+
+/* ---------- starter decks (added on request, never automatically) ---------- */
+function starterDecks() {
+  const now = Date.now();
+  const P = (name, values, note = "") => ({ id: uid(), type: "profile", name, values, note, star: false });
+  const B = (front, back, note = "") => ({ id: uid(), type: "basic", front, back, note, star: false });
+  return [
+    {
+      id: uid(), name: "Blood collection tubes", color: "lavender", created: now, updated: now,
+      fields: ["Additive", "How it works", "Specimen", "Common tests", "Inversions", "Order of draw"],
+      orderField: "Order of draw",
+      cards: [
+        P("Blood culture bottles", { "Additive": "Broth with SPS (sodium polyanethol sulfonate)", "How it works": "SPS inhibits complement, phagocytosis and some antibiotics so organisms can grow", "Specimen": "Whole blood (sterile)", "Common tests": "Blood cultures", "Inversions": "8–10", "Order of draw": "1" }, "Always first: sterility matters most."),
+        P("Light blue top", { "Additive": "3.2% sodium citrate", "How it works": "Binds calcium (reversible)", "Specimen": "Plasma", "Common tests": "PT/INR; aPTT; Fibrinogen; D-dimer", "Inversions": "3–4", "Order of draw": "2" }, "Must be filled to the line: blood-to-additive ratio is 9:1."),
+        P("Red top (plastic)", { "Additive": "Clot activator (silica)", "How it works": "Promotes clotting", "Specimen": "Serum", "Common tests": "Serology; Blood bank (some labs); Chemistry", "Inversions": "5", "Order of draw": "3" }, "Glass red tops have no additive and need no inversions."),
+        P("Gold top / SST", { "Additive": "Clot activator + separator gel", "How it works": "Promotes clotting; gel separates serum from cells", "Specimen": "Serum", "Common tests": "Chemistry panels; Lipids; Hormones", "Inversions": "5", "Order of draw": "3" }, "Same order-of-draw group as red."),
+        P("Green top", { "Additive": "Lithium or sodium heparin", "How it works": "Activates antithrombin, inhibiting thrombin", "Specimen": "Plasma", "Common tests": "STAT chemistry; Ammonia; Electrolytes", "Inversions": "8–10", "Order of draw": "4" }, "Light green (PST) adds a separator gel."),
+        P("Lavender top", { "Additive": "K2EDTA", "How it works": "Chelates calcium", "Specimen": "Whole blood", "Common tests": "CBC; HbA1c; ESR; Blood smear", "Inversions": "8–10", "Order of draw": "5" }, "EDTA preserves cell morphology best."),
+        P("Pink top", { "Additive": "K2EDTA", "How it works": "Chelates calcium", "Specimen": "Whole blood", "Common tests": "Type and screen; Crossmatch", "Inversions": "8–10", "Order of draw": "5" }, "Blood bank tube with a special patient ID label."),
+        P("Gray top", { "Additive": "Sodium fluoride + potassium oxalate", "How it works": "Fluoride inhibits glycolysis; oxalate precipitates calcium", "Specimen": "Plasma", "Common tests": "Glucose; Lactate; Blood alcohol", "Inversions": "8–10", "Order of draw": "6" }, "Last in the order of draw.")
+      ]
+    },
+    {
+      id: uid(), name: "Gram-positive cocci", color: "royal", created: now, updated: now,
+      fields: ["Gram stain", "Catalase", "Coagulase", "Hemolysis", "Key ID tests", "Clinical significance"],
+      orderField: "",
+      cards: [
+        P("Staphylococcus aureus", { "Gram stain": "GPC in clusters", "Catalase": "Positive", "Coagulase": "Positive", "Hemolysis": "Beta", "Key ID tests": "Ferments mannitol (yellow on MSA); DNase positive", "Clinical significance": "Skin and soft tissue infections; Toxic shock syndrome; Food poisoning; Endocarditis" }, "Colonies often golden-yellow."),
+        P("Staphylococcus epidermidis", { "Gram stain": "GPC in clusters", "Catalase": "Positive", "Coagulase": "Negative", "Hemolysis": "Gamma (none)", "Key ID tests": "Novobiocin susceptible", "Clinical significance": "Catheter and prosthetic device infections; Common blood culture contaminant" }),
+        P("Staphylococcus saprophyticus", { "Gram stain": "GPC in clusters", "Catalase": "Positive", "Coagulase": "Negative", "Hemolysis": "Gamma (none)", "Key ID tests": "Novobiocin resistant", "Clinical significance": "UTIs in young, sexually active women" }),
+        P("Streptococcus pyogenes (Group A)", { "Gram stain": "GPC in chains", "Catalase": "Negative", "Hemolysis": "Beta", "Key ID tests": "Bacitracin susceptible; PYR positive", "Clinical significance": "Strep pharyngitis; Impetigo; Rheumatic fever; Necrotizing fasciitis" }),
+        P("Streptococcus agalactiae (Group B)", { "Gram stain": "GPC in chains", "Catalase": "Negative", "Hemolysis": "Beta (narrow zone)", "Key ID tests": "CAMP positive; Hippurate hydrolysis positive; Bacitracin resistant", "Clinical significance": "Neonatal sepsis and meningitis" }),
+        P("Streptococcus pneumoniae", { "Gram stain": "Lancet-shaped GP diplococci", "Catalase": "Negative", "Hemolysis": "Alpha", "Key ID tests": "Optochin susceptible; Bile soluble", "Clinical significance": "Community-acquired pneumonia; Meningitis; Otitis media" }),
+        P("Enterococcus faecalis", { "Gram stain": "GPC in pairs and short chains", "Catalase": "Negative", "Hemolysis": "Usually gamma", "Key ID tests": "Bile esculin positive; Grows in 6.5% NaCl; PYR positive", "Clinical significance": "UTIs; Endocarditis; Hospital-acquired infections" })
+      ]
+    },
+    {
+      id: uid(), name: "Westgard QC rules", color: "gold", created: now, updated: now, fields: [], orderField: "",
+      cards: [
+        B("1-2s", "Warning rule: one control exceeds ±2 SD.", "Triggers inspection with the other rules, not rejection on its own."),
+        B("1-3s", "Reject: one control exceeds ±3 SD. Detects random error."),
+        B("2-2s", "Reject: two consecutive controls exceed the same ±2 SD limit. Detects systematic error."),
+        B("R-4s", "Reject: one control exceeds +2 SD and another −2 SD in the same run (range > 4 SD). Detects random error."),
+        B("4-1s", "Reject: four consecutive controls exceed the same ±1 SD limit. Detects systematic error."),
+        B("10x", "Reject: ten consecutive controls fall on the same side of the mean. Detects systematic error (shift).")
+      ]
+    }
+  ];
+}
+
+Object.assign(ICONS, {
+  image: '<rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/>',
+  columns: '<rect x="3" y="4" width="18" height="16" rx="3"/><path d="M12 4v16"/>',
+  calendar: '<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+  share: '<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/>',
+  cloud: '<path d="M7 18a5 5 0 1 1 1-9.9A6 6 0 0 1 19 10a4 4 0 0 1-1 8z"/>',
+  flag: '<path d="M5 21V4M5 4h11l-2 4 2 4H5"/>',
+  undo: '<path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/>',
+  timer: '<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/>',
+  exam: '<path d="M9 3h6l1 2h3v16H5V5h3z"/><path d="m9 13 2 2 4-4"/>',
+  cloze: '<rect x="3" y="7" width="18" height="10" rx="3"/><path d="M8 12h8" stroke-dasharray="2 2"/>'
+});
+
+/* ---------- state ---------- */
+const APP_VERSION = "2.0";
+const S = {
+  decks: {},   // id -> deck
+  srs: {},     // deckId -> { factKey: state }
+  images: {},  // imageId -> data URL
+  meta: { history: {}, newDay: "", newCount: 0, settings: { newPerDay: 20, theme: "auto", dailyGoal: 50 }, best: {}, exams: [], deleted: {}, updated: 0, lastBackup: 0 },
+  ready: false
+};
+
+/* ---------- local storage: IndexedDB first, localStorage as a second copy ---------- */
+const IDB = {
+  db: null,
+  open() {
+    return new Promise(res => {
+      try {
+        const r = indexedDB.open("labdeck", 1);
+        r.onupgradeneeded = () => r.result.createObjectStore("kv");
+        r.onsuccess = () => { this.db = r.result; res(true); };
+        r.onerror = () => res(false); r.onblocked = () => res(false);
+      } catch { res(false); }
+    });
+  },
+  all() {
+    return new Promise(res => {
+      if (!this.db) return res({});
+      const out = {};
+      try {
+        const rq = this.db.transaction("kv").objectStore("kv").openCursor();
+        rq.onsuccess = () => { const c = rq.result; if (c) { out[c.key] = c.value; c.continue(); } else res(out); };
+        rq.onerror = () => res(out);
+      } catch { res(out); }
+    });
+  },
+  put(k, v) {
+    if (!this.db) return Promise.resolve();
+    return new Promise(res => {
+      try {
+        const tx = this.db.transaction("kv", "readwrite"), st = tx.objectStore("kv");
+        v === null ? st.delete(k) : st.put(v, k);
+        tx.oncomplete = () => res(); tx.onerror = () => res(); tx.onabort = () => res();
+      } catch { res(); }
+    });
+  }
+};
+const LS = {
+  get(k) { try { return localStorage.getItem("labdeck:" + k); } catch { return null; } },
+  set(k, v) { try { localStorage.setItem("labdeck:" + k, v); return true; } catch { return false; } },
+  del(k) { try { localStorage.removeItem("labdeck:" + k); } catch { } },
+  allDocs() {
+    const out = {};
+    try { for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k && k.startsWith("labdeck:doc:")) { try { out[k.slice(12)] = JSON.parse(localStorage.getItem(k)); } catch { } } } } catch { }
+    return out;
+  }
+};
+const Store = {
+  save(id, data) {
+    const copy = data === null ? null : JSON.parse(JSON.stringify(data));
+    IDB.put(id, copy);
+    if (!id.startsWith("img-")) { if (copy === null) LS.del("doc:" + id); else LS.set("doc:" + id, JSON.stringify(copy)); }
+    Sync.changed();
+  },
+  async loadAll() {
+    const fromIdb = await IDB.all();
+    const fromLs = LS.allDocs();
+    // whichever copy of a doc is newer wins; nothing is ever silently dropped
+    const out = { ...fromLs };
+    for (const [k, v] of Object.entries(fromIdb)) {
+      const l = fromLs[k];
+      if (!l || !v || typeof v !== "object" || (v.updated || 0) >= (l.updated || 0)) out[k] = v;
+    }
+    return out;
+  }
+};
+function applyDocs(docs) {
+  S.decks = {}; S.srs = {}; S.images = {};
+  for (const [k, v] of Object.entries(docs)) {
+    if (!v) continue;
+    if (k.startsWith("deck-")) S.decks[v.id] = normalizeDeck(v);
+    else if (k.startsWith("srs-")) S.srs[k.slice(4)] = v.facts || {};
+    else if (k.startsWith("img-")) S.images[k.slice(4)] = v;
+    else if (k === "meta") S.meta = mergeMetaDefaults(v);
+  }
+}
+function mergeMetaDefaults(v) {
+  const m = Object.assign({}, S.meta, v);
+  m.settings = Object.assign({ newPerDay: 20, theme: "auto", dailyGoal: 50 }, v.settings || {});
+  m.history = m.history || {}; m.best = m.best || {}; m.exams = m.exams || []; m.deleted = m.deleted || {};
+  return m;
+}
+function normalizeDeck(d) {
+  d.fields = Array.isArray(d.fields) ? d.fields : [];
+  d.cards = Array.isArray(d.cards) ? d.cards : [];
+  d.orderField = d.orderField || "";
+  d.color = CAPS[d.color] ? d.color : "lavender";
+  d.updated = d.updated || d.created || Date.now();
+  return d;
+}
+const saveDeck = d => { d.updated = Date.now(); Store.save("deck-" + d.id, d); };
+const saveSrs = id => Store.save("srs-" + id, { facts: S.srs[id] || {}, updated: Date.now() });
+const saveMeta = (settingsChanged) => { if (settingsChanged) S.meta.updated = Date.now(); Store.save("meta", S.meta); };
+const saveImage = (id, dataUrl) => { S.images[id] = dataUrl; Store.save("img-" + id, dataUrl); };
+function deleteDeck(id) { delete S.decks[id]; delete S.srs[id]; S.meta.deleted[id] = Date.now(); Store.save("deck-" + id, null); Store.save("srs-" + id, null); saveMeta(); }
+function referencedImages() { const set = new Set(); Object.values(S.decks).forEach(d => d.cards.forEach(c => c.img && set.add(c.img))); return set; }
+
+/* ---------- merging two copies of your data (this device + the sync copy) ---------- */
+function snapshot() {
+  return { app: "labdeck", v: 2, decks: S.decks, srs: S.srs, meta: S.meta };
+}
+function mergeRemote(r) {
+  if (!r || typeof r !== "object") return false;
+  let changed = false;
+  const rm = mergeMetaDefaults(r.meta || {});
+  // deletions
+  const del = { ...rm.deleted, ...S.meta.deleted };
+  for (const [id, t] of Object.entries(rm.deleted || {})) del[id] = Math.max(t, S.meta.deleted[id] || 0);
+  S.meta.deleted = del;
+  // decks: newest version of each deck wins
+  for (const d of Object.values(r.decks || {})) {
+    if (!d || !d.id) continue;
+    if (del[d.id] && del[d.id] >= (d.updated || 0)) continue;
+    const mine = S.decks[d.id];
+    if (!mine || (d.updated || 0) > (mine.updated || 0)) { S.decks[d.id] = normalizeDeck(JSON.parse(JSON.stringify(d))); IDB.put("deck-" + d.id, S.decks[d.id]); LS.set("doc:deck-" + d.id, JSON.stringify(S.decks[d.id])); changed = true; }
+  }
+  for (const id of Object.keys(S.decks)) if (del[id] && del[id] >= (S.decks[id].updated || 0)) { delete S.decks[id]; delete S.srs[id]; IDB.put("deck-" + id, null); LS.del("doc:deck-" + id); changed = true; }
+  // review history: the most recent review of each fact wins
+  for (const [deckId, facts] of Object.entries(r.srs || {})) {
+    if (!S.decks[deckId]) continue;
+    const mine = S.srs[deckId] = S.srs[deckId] || {}; let dc = false;
+    for (const [k, st] of Object.entries(facts || {})) { if (!mine[k] || (st.s || 0) > (mine[k].s || 0)) { mine[k] = st; dc = true; } }
+    if (dc) { const doc = { facts: mine, updated: Date.now() }; IDB.put("srs-" + deckId, doc); LS.set("doc:srs-" + deckId, JSON.stringify(doc)); changed = true; }
+  }
+  // meta: day-by-day counts take the larger number; settings and exams take the newer copy
+  const m = S.meta;
+  for (const [k, n] of Object.entries(rm.history)) if ((m.history[k] || 0) < n) { m.history[k] = n; changed = true; }
+  for (const [k, v] of Object.entries(rm.best)) { const cur = m.best[k]; const better = k.startsWith("m-") ? (cur == null || v < cur) : (cur == null || v > cur); if (better) { m.best[k] = v; changed = true; } }
+  if ((rm.updated || 0) > (m.updated || 0)) { m.settings = rm.settings; m.exams = rm.exams; m.updated = rm.updated; changed = true; }
+  if (rm.newDay === m.newDay) m.newCount = Math.max(m.newCount || 0, rm.newCount || 0); else if (rm.newDay > (m.newDay || "")) { m.newDay = rm.newDay; m.newCount = rm.newCount; }
+  m.lastBackup = Math.max(m.lastBackup || 0, rm.lastBackup || 0);
+  IDB.put("meta", JSON.parse(JSON.stringify(m))); LS.set("doc:meta", JSON.stringify(m));
+  return changed;
+}
+
+/* ---------- optional sync between devices through a private GitHub gist ---------- */
+const GIST_FILE = "labdeck-data.json";
+const Sync = {
+  token: LS.get("gh_token") || "", gist: LS.get("gh_gist") || "", busy: false, again: false, timer: null, status: "off", lastOk: +(LS.get("gh_last") || 0),
+  on() { return !!(this.token && this.gist); },
+  async api(path, opts = {}, token = this.token) {
+    const headers = { Accept: "application/vnd.github+json" };
+    if (token) headers.Authorization = "Bearer " + token;
+    if (opts.body) headers["Content-Type"] = "application/json";
+    const r = await fetch("https://api.github.com" + path, { cache: "no-store", ...opts, headers });
+    if (!r.ok) { const e = new Error("GitHub " + r.status); e.status = r.status; throw e; }
+    return r.json();
+  },
+  async readFile(f) { if (!f) return null; if (f.truncated) { const r = await fetch(f.raw_url, { cache: "no-store" }); return r.ok ? r.text() : null; } return f.content; },
+  async connect(token) {
+    token = token.trim();
+    await this.api("/user", {}, token);
+    this.token = token; LS.set("gh_token", token);
+    let found = null;
+    for (let page = 1; page <= 5 && !found; page++) {
+      const list = await this.api(`/gists?per_page=100&page=${page}`);
+      found = list.find(g => g.files && g.files[GIST_FILE]);
+      if (list.length < 100) break;
+    }
+    if (found) this.gist = found.id;
+    else {
+      const g = await this.api("/gists", { method: "POST", body: JSON.stringify({ description: "LabDeck study data (private)", public: false, files: { [GIST_FILE]: { content: JSON.stringify(snapshot()) } } }) });
+      this.gist = g.id;
+    }
+    LS.set("gh_gist", this.gist);
+    await this.now();
+    return !!found;
+  },
+  disconnect() { this.token = ""; this.gist = ""; LS.del("gh_token"); LS.del("gh_gist"); this.set("off"); },
+  set(s) { this.status = s; const el = $("#syncline"); if (el) el.innerHTML = syncHtml(); const el2 = $("#syncline2"); if (el2) el2.innerHTML = syncHtml(); },
+  changed() { if (!this.on()) return; clearTimeout(this.timer); this.timer = setTimeout(() => this.now(), 4000); if (this.status === "ok") this.set("pending"); },
+  async now() {
+    if (!this.on()) return;
+    if (this.busy) { this.again = true; return; }
+    if (!navigator.onLine) { this.set("offline"); return; }
+    this.busy = true; clearTimeout(this.timer); this.set("syncing");
+    try {
+      const g = await this.api("/gists/" + this.gist);
+      const txt = await this.readFile(g.files[GIST_FILE]);
+      let changed = false;
+      if (txt) { try { changed = mergeRemote(JSON.parse(txt)); } catch { } }
+      const remoteImgs = new Set(Object.keys(g.files).filter(n => n.startsWith("img-")).map(n => n.slice(4).replace(/\.txt$/, "")));
+      const refs = referencedImages();
+      for (const id of remoteImgs) if (!S.images[id] && refs.has(id)) { const c = await this.readFile(g.files["img-" + id + ".txt"]); if (c) { S.images[id] = c; IDB.put("img-" + id, c); changed = true; } }
+      const out = JSON.stringify(snapshot());
+      const imgs = [...refs].filter(id => !remoteImgs.has(id) && S.images[id]);
+      if (out !== txt) await this.api("/gists/" + this.gist, { method: "PATCH", body: JSON.stringify({ files: { [GIST_FILE]: { content: out } } }) });
+      for (let i = 0; i < imgs.length; i += 4) {
+        const files = {}; imgs.slice(i, i + 4).forEach(id => files["img-" + id + ".txt"] = { content: S.images[id] });
+        await this.api("/gists/" + this.gist, { method: "PATCH", body: JSON.stringify({ files }) });
+      }
+      this.lastOk = Date.now(); LS.set("gh_last", String(this.lastOk));
+      this.set("ok");
+      if (changed && !ST && !$(".scrim")) render();
+    } catch (e) {
+      if (e && (e.status === 401 || e.status === 403)) this.set("auth");
+      else if (e && e.status === 404) { this.gist = ""; LS.del("gh_gist"); this.set("auth"); }
+      else this.set("error");
+    } finally {
+      this.busy = false;
+      if (this.again) { this.again = false; setTimeout(() => this.now(), 500); }
+    }
+  }
+};
+window.addEventListener("online", () => Sync.now());
+document.addEventListener("visibilitychange", () => { if (!Sync.on()) return; if (document.hidden) { if (Sync.status === "pending") Sync.now(); } else Sync.now(); });
+/* ---------- facts: one per basic card, one per filled profile field, one per cloze blank ---------- */
+const CLOZE_RE = /\{\{(.+?)\}\}/g;
+function clozeParts(text) { const out = []; let m; CLOZE_RE.lastIndex = 0; while ((m = CLOZE_RE.exec(text))) { const [ans, hint] = m[1].split("::"); out.push({ ans: ans.trim(), hint: (hint || "").trim() }); } return out; }
+function clozeRender(text, hideIdx, mode) {
+  // mode "q": hide blank hideIdx; "a": highlight it; others always shown as plain text
+  let n = -1;
+  return esc(text).replace(/\{\{(.+?)\}\}/g, (_, inner) => { n++; const [ans, hint] = inner.split("::"); if (n === hideIdx) return mode === "q" ? `<span class="blank">${hint ? hint : "…"}</span>` : `<span class="blank on">${ans}</span>`; return ans; });
+}
+const clozePlain = (text, hideIdx) => { let n = -1; return text.replace(/\{\{(.+?)\}\}/g, (_, inner) => { n++; const [ans, hint] = inner.split("::"); return n === hideIdx ? "[" + (hint || "…") + "]" : ans; }); };
+function factsOf(deck) {
+  const out = [];
+  for (const c of deck.cards) {
+    if (c.type === "profile") {
+      for (const f of deck.fields) {
+        const v = (c.values || {})[f];
+        if (v && String(v).trim()) out.push({ key: c.id + "::" + f, deck, card: c, kind: "field", field: f, q: c.name, a: String(v).trim() });
+      }
+    } else if (c.type === "cloze") {
+      clozeParts(c.text || "").forEach((p, i) => out.push({ key: c.id + "::c" + i, deck, card: c, kind: "cloze", idx: i, q: clozePlain(c.text, i), a: p.ans }));
+    } else if (c.front || c.back || c.img) out.push({ key: c.id, deck, card: c, kind: "basic", q: c.front || "", a: c.back || "" });
+  }
+  return out;
+}
+const stOf = f => (S.srs[f.deck.id] || {})[f.key];
+function isDue(st, cutoff = endOfToday()) { return st && st.d <= cutoff; }
+
+/* ---------- spaced repetition (SM-2 family) ---------- */
+function nextState(st, g) {
+  const s = st ? { ...st } : { i: 0, e: 2.5, r: 0, l: 0, c: 0, w: 0 };
+  const now = Date.now();
+  s.s = now;
+  if (g === 1) { if (s.r > 0) s.l++; s.r = 0; s.i = 0; s.e = Math.max(1.3, s.e - 0.2); s.d = now + 60000; s.w++; return { s, requeue: true }; }
+  s.c++;
+  if (s.r === 0) s.i = g === 2 ? 1 : g === 3 ? 1 : 4;
+  else if (g === 2) { s.i = Math.max(1, s.i * 1.2); s.e = Math.max(1.3, s.e - 0.15); }
+  else if (g === 3) s.i = Math.max(s.i + 1, s.i * s.e);
+  else { s.i = Math.max(s.i + 2, s.i * s.e * 1.3); s.e += 0.15; }
+  if (s.r === 0 && g === 2) s.e = Math.max(1.3, s.e - 0.15);
+  s.r++;
+  const fuzz = s.i > 3 ? 1 + (Math.random() * 0.1 - 0.05) : 1;
+  s.i = Math.min(s.i * fuzz, 3650);
+  const due = new Date(now + Math.round(s.i) * DAY); due.setHours(4, 0, 0, 0);
+  s.d = due.getTime();
+  return { s, requeue: false };
+}
+function previewIv(st, g) {
+  if (g === 1) return "1m";
+  const s = st || { i: 0, e: 2.5, r: 0 };
+  let i;
+  if (s.r === 0) i = g === 4 ? 4 : 1;
+  else if (g === 2) i = Math.max(1, s.i * 1.2);
+  else if (g === 3) i = Math.max(s.i + 1, s.i * s.e);
+  else i = Math.max(s.i + 2, s.i * s.e * 1.3);
+  return fmtIv(i);
+}
+function recordReview(deckId, key, g, isNew) {
+  S.srs[deckId] = S.srs[deckId] || {};
+  const { s, requeue } = nextState(S.srs[deckId][key], g);
+  const ex = nextExamFor(deckId);
+  if (!requeue && ex) { const left = (examTime(ex) - Date.now()) / DAY; if (left >= 1 && s.i > left / 2) { s.i = Math.max(1, Math.floor(left / 2)); const due = new Date(Date.now() + s.i * DAY); due.setHours(4, 0, 0, 0); s.d = due.getTime(); } }
+  S.srs[deckId][key] = s;
+  bumpHistory(isNew);
+  saveSrs(deckId);
+  return requeue;
+}
+/* quiz-style modes nudge the schedule: misses come back today, hits count toward accuracy */
+function recordQuiz(f, correct) {
+  const id = f.deck.id; S.srs[id] = S.srs[id] || {};
+  const st = S.srs[id][f.key];
+  if (correct) { if (st) { st.c = (st.c || 0) + 1; st.s = Date.now(); } }
+  else {
+    if (st) { st.s = Date.now(); st.w = (st.w || 0) + 1; st.e = Math.max(1.3, (st.e || 2.5) - 0.15); st.d = Date.now(); if (st.r > 1) { st.r = 1; st.i = 1; } }
+    else S.srs[id][f.key] = { i: 0, e: 2.35, r: 0, l: 0, c: 0, w: 1, d: Date.now(), s: Date.now() };
+  }
+  bumpHistory(false);
+  saveSrs(id);
+}
+function bumpHistory(isNew) {
+  const k = dayKey();
+  S.meta.history[k] = (S.meta.history[k] || 0) + 1;
+  if (isNew) { if (S.meta.newDay !== k) { S.meta.newDay = k; S.meta.newCount = 0; } S.meta.newCount++; }
+  saveMeta();
+}
+function newLeftToday() { const k = dayKey(); const used = S.meta.newDay === k ? S.meta.newCount : 0; return Math.max(0, (S.meta.settings.newPerDay ?? 20) - used); }
+function streak() {
+  let n = 0; const h = S.meta.history; let t = Date.now();
+  if (!h[dayKey(t)]) t -= DAY;
+  while (h[dayKey(t)]) { n++; t -= DAY; }
+  return n;
+}
+function deckCounts(deck) {
+  const fs = factsOf(deck); let due = 0, nw = 0, mastered = 0, learning = 0;
+  const cutoff = endOfToday();
+  for (const f of fs) { const st = stOf(f); if (!st) nw++; else { if (st.d <= cutoff) due++; if (st.i >= 21) mastered++; else learning++; } }
+  return { total: fs.length, due, nw, mastered, learning };
+}
+function isWeak(st) { if (!st) return false; const tot = (st.c || 0) + (st.w || 0); return (st.l || 0) >= 2 || ((st.w || 0) >= 2 && st.w / tot >= 0.3); }
+
+/* ---------- exams ---------- */
+const examTime = ex => new Date(ex.date + "T08:00").getTime();
+function upcomingExams() { const now = Date.now() - DAY / 2; return (S.meta.exams || []).filter(e => examTime(e) >= now).sort((a, b) => examTime(a) - examTime(b)); }
+function nextExamFor(deckId) { return upcomingExams().find(e => (e.decks || []).includes(deckId)); }
+function daysUntil(ex) { const a = new Date(); a.setHours(0, 0, 0, 0); const b = new Date(ex.date + "T00:00"); return Math.round((b - a) / DAY); }
+/* ---------- shell & routing ---------- */
+function syncHtml() {
+  const s = Sync.status;
+  if (!Sync.on()) return `<span class="dot"></span>Saved on this device`;
+  const map = { ok: ["ok", "Synced"], pending: ["ok", "Changes waiting to sync"], syncing: ["ok", "Syncing…"], offline: ["", "Offline, will sync later"], error: ["", "Sync failed, will retry"], auth: ["bad", "Sync needs your token again"] };
+  const [cls, label] = map[s] || ["", "Sync on"];
+  return `<span class="dot ${cls}"></span>${label}`;
+}
+function toast(msg) { $$(".toast").forEach(t => t.remove()); const t = document.createElement("div"); t.className = "toast"; t.textContent = msg; document.body.appendChild(t); setTimeout(() => t.remove(), 2600); }
+function route() { const h = (location.hash || "").slice(1); if (h.startsWith("d-")) return { v: "deck", id: h.slice(2) }; if (h.startsWith("import-")) return { v: "import", id: h.slice(7) }; if (h === "stats" || h === "more") return { v: h }; return { v: "home" }; }
+function go(h) { if (location.hash.slice(1) === h) render(); else location.hash = h; }
+window.addEventListener("hashchange", () => { render(); window.scrollTo(0, 0); });
+function applyTheme() { const t = S.meta.settings.theme; if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; else delete document.documentElement.dataset.theme; }
+const imgSrc = id => S.images[id] || "";
+
+function render() {
+  applyTheme();
+  const r = route();
+  const decks = Object.values(S.decks).sort((a, b) => (b.updated || 0) - (a.updated || 0));
+  const nav = (h, ic, label, on) => `<a href="#${h}" class="${on ? "on" : ""}">${icon(ic)}<span>${label}</span></a>`;
+  $("#app").innerHTML = `
+  <div class="shell">
+    <aside class="side">
+      <div class="brand"><span class="brand-mark"></span>LabDeck</div>
+      ${nav("home", "home", "Home", r.v === "home")}
+      ${nav("stats", "chart", "Progress", r.v === "stats")}
+      ${nav("more", "gear", "Settings", r.v === "more")}
+      <div class="sidedecks">${decks.map(d => `<a href="#d-${d.id}" class="${r.id === d.id ? "on" : ""}"><span class="dot" style="background:${capOf(d)}"></span>${esc(d.name)}</a>`).join("")}</div>
+      <div class="sync" id="syncline">${syncHtml()}</div>
+    </aside>
+    <main class="main"><div class="wrap" id="view"></div></main>
+    <nav class="tabbar">
+      ${nav("home", "home", "Home", r.v === "home" || r.v === "deck")}
+      <a href="#" id="tabReview">${icon("brain")}<span>Review</span></a>
+      ${nav("stats", "chart", "Progress", r.v === "stats")}
+      ${nav("more", "gear", "Settings", r.v === "more")}
+    </nav>
+  </div>`;
+  $("#tabReview").onclick = e => { e.preventDefault(); startLearn(null); };
+  if (!S.ready) { $("#view").innerHTML = `<div class="loading"><span class="spin"></span>Loading your decks</div>`; return; }
+  if (r.v === "deck" && S.decks[r.id]) renderDeck(S.decks[r.id]);
+  else if (r.v === "stats") renderStats();
+  else if (r.v === "more") renderSettings();
+  else { renderHome(decks); if (r.v === "import") importShared(r.id); }
+}
+const topbar = () => `<div class="topbar"><div class="brand"><span class="brand-mark"></span>LabDeck</div><div class="sync small muted mobile-only" id="syncline2">${Sync.on() ? syncHtml() : ""}</div></div>`;
+
+/* ---------- home ---------- */
+function renderHome(decks) {
+  let due = 0, nw = 0;
+  decks.forEach(d => { const c = deckCounts(d); due += c.due; nw += c.nw; });
+  const newToday = Math.min(nw, newLeftToday());
+  const st = streak();
+  const today = S.meta.history[dayKey()] || 0;
+  const goal = S.meta.settings.dailyGoal || 50;
+  const weak = decks.reduce((n, d) => n + factsOf(d).filter(f => isWeak(stOf(f))).length, 0);
+  const hr = new Date().getHours();
+  const hello = hr < 12 ? "Good morning" : hr < 18 ? "Good afternoon" : "Good evening";
+  const cells = Array.from({ length: 18 }, (_, i) => `<i class="${i < Math.min(18, Math.ceil((due + newToday) / 4)) ? "p" : ""}"></i>`).join("");
+  const exams = upcomingExams();
+  const needBackup = decks.length && !Sync.on() && Date.now() - (S.meta.lastBackup || 0) > 7 * DAY;
+  $("#view").innerHTML = `
+    ${topbar()}
+    <h1 style="margin-bottom:6px">${hello}</h1>
+    <p class="muted" style="margin-bottom:24px">${decks.length ? (due + newToday ? "Here’s what your memory needs today." : "You’re all caught up. Quiz yourself or add new cards.") : "Build your first deck to start studying."}</p>
+    ${needBackup ? `<div class="banner">${icon("cloud")}<div style="flex:1"><b>Protect your progress</b><br><span class="small">Your decks live only in this browser. Turn on sync or download a backup.</span></div><a class="btn sm" href="#more">Set up</a></div>` : ""}
+    ${decks.length ? `
+    <section class="today">
+      <div class="due-panel">
+        <div class="cells" aria-hidden="true">${cells}</div>
+        <p>Due for review</p>
+        <div class="big">${due}</div>
+        <p>${newToday ? plural(newToday, "new fact") + " ready to learn" : "No new facts queued"}</p>
+        <button class="btn" id="startAll" ${due + newToday ? "" : "disabled"}>${icon("brain")}Start today’s review</button>
+      </div>
+      <div class="side-stats">
+        <div class="stat"><div class="n">${st}</div><div class="l">day streak</div></div>
+        <div class="stat"><div class="n">${today}<span class="muted" style="font-size:1rem">/${goal}</span></div><div class="l">daily goal</div><div class="goalbar"><i style="width:${Math.min(100, today / goal * 100)}%"></i></div></div>
+        <button class="stat wide" id="weakBtn" ${weak ? "" : "disabled"}>
+          <span class="ic2 alt">${icon("target")}</span>
+          <span><b>${weak ? plural(weak, "weak spot") : "No weak spots yet"}</b><br><span class="small muted">${weak ? "Facts you keep missing. Drill them." : "Facts you miss repeatedly collect here."}</span></span>
+        </button>
+        <button class="stat wide" id="boardBtn">
+          <span class="ic2">${icon("exam")}</span>
+          <span><b>Board practice</b><br><span class="small muted">Timed, mixed questions across decks.</span></span>
+        </button>
+      </div>
+    </section>
+    <div class="section-head"><h2>Exams</h2><button class="btn sm" id="addExam">${icon("calendar")}Add exam</button></div>
+    ${exams.length ? `<div class="exams">${exams.map(examTile).join("")}</div>` : `<p class="muted small" style="margin:-4px 0 30px">Add an exam date and LabDeck will make sure every fact in those decks comes up for review before test day.</p>`}
+    ` : ""}
+    <div class="section-head"><h2>Decks</h2>${decks.length ? `<button class="btn sm" id="newDeck2">${icon("plus")}New deck</button>` : ""}</div>
+    ${decks.length ? `<div class="decks">${decks.map(deckTile).join("")}<button class="slide new" id="newDeck">${icon("plus")}New deck</button></div>` :
+      `<div class="empty"><h3>No decks yet</h3><p>Create a deck of flashcards, or a deck of profile cards where one organism or tube holds many linked facts.</p>
+      <div class="row" style="justify-content:center"><button class="btn primary" id="newDeck">${icon("plus")}Create a deck</button><button class="btn" id="addStarters">${icon("micro")}Add MLS starter decks</button><a class="btn" href="#more">${icon("upload")}Restore a backup</a></div></div>`}
+  `;
+  $("#newDeck")?.addEventListener("click", () => editDeckModal());
+  $("#newDeck2")?.addEventListener("click", () => editDeckModal());
+  $("#startAll")?.addEventListener("click", () => startLearn(null));
+  $("#weakBtn")?.addEventListener("click", () => startLearn(null, { weak: true }));
+  $("#boardBtn")?.addEventListener("click", () => startBoard());
+  $("#addStarters")?.addEventListener("click", addStarters);
+  $("#addExam")?.addEventListener("click", () => examModal());
+  $$("[data-exam]").forEach(b => b.onclick = e => { if (e.target.closest("[data-exedit]")) return examModal(S.meta.exams.find(x => x.id === b.dataset.exam)); startLearn(null, { exam: b.dataset.exam }); });
+}
+function examTile(ex) {
+  const days = daysUntil(ex);
+  const decks = (ex.decks || []).map(id => S.decks[id]).filter(Boolean);
+  let total = 0, mastered = 0, seen = 0;
+  decks.forEach(d => { const c = deckCounts(d); total += c.total; mastered += c.mastered; seen += c.total - c.nw; });
+  const pctSeen = total ? Math.round(seen / total * 100) : 0;
+  return `<div class="exam" data-exam="${ex.id}" role="button" tabindex="0">
+    <div class="exam-days"><b>${days <= 0 ? "Today" : days}</b>${days > 0 ? `<span>${days === 1 ? "day" : "days"}</span>` : ""}</div>
+    <div style="flex:1;min-width:0"><h3>${esc(ex.name)}</h3><p class="small muted">${new Date(ex.date + "T12:00").toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" })}. ${decks.map(d => esc(d.name)).join(", ") || "No decks linked"}</p>
+      <div class="goalbar" style="margin-top:8px"><i style="width:${pctSeen}%"></i></div><p class="small muted" style="margin-top:4px">${pctSeen}% of facts studied, ${total ? Math.round(mastered / total * 100) : 0}% mastered</p></div>
+    <div class="col" style="gap:6px;align-items:flex-end"><span class="btn sm primary">Prep</span><button class="btn ghost icon sm" data-exedit aria-label="Edit exam">${icon("edit")}</button></div>
+  </div>`;
+}
+function examModal(ex) {
+  const isNew = !ex;
+  const e = ex ? JSON.parse(JSON.stringify(ex)) : { id: uid(), name: "", date: dayKey(Date.now() + 14 * DAY), decks: [] };
+  const decks = Object.values(S.decks);
+  modal(`${mhead(isNew ? "Add exam" : "Edit exam")}
+    <div class="field"><label for="en">Exam name</label><input class="input" id="en" value="${esc(e.name)}" placeholder="e.g. Hematology midterm"></div>
+    <div class="field"><label for="ed">Date</label><input class="input" type="date" id="ed" value="${esc(e.date)}"></div>
+    <div class="field"><span class="lbl">Decks on this exam</span><div class="checks">${decks.map(d => `<label class="check"><input type="checkbox" value="${d.id}" ${e.decks.includes(d.id) ? "checked" : ""}><span class="dot" style="background:${capOf(d)}"></span>${esc(d.name)}</label>`).join("") || `<p class="muted small">Create a deck first.</p>`}</div>
+    <span class="hint">Until the exam, reviews for these decks are spaced so each fact comes back at least once before test day.</span></div>
+    <div class="modal-foot">${!isNew ? `<button class="btn danger" id="delEx" style="margin-right:auto">${icon("trash")}Delete</button>` : ""}<button class="btn" data-close>Cancel</button><button class="btn primary" id="saveEx">${isNew ? "Add exam" : "Save changes"}</button></div>`,
+    (s, close) => {
+      $("#delEx", s) && ($("#delEx", s).onclick = () => { S.meta.exams = S.meta.exams.filter(x => x.id !== e.id); saveMeta(true); close(); render(); });
+      $("#saveEx", s).onclick = () => {
+        e.name = $("#en", s).value.trim(); e.date = $("#ed", s).value; e.decks = $$(".checks input:checked", s).map(x => x.value);
+        if (!e.name || !e.date) { toast("Add a name and a date"); return; }
+        S.meta.exams = (S.meta.exams || []).filter(x => x.id !== e.id).concat(e); saveMeta(true); close(); render(); toast(isNew ? "Exam added" : "Exam saved");
+      };
+    });
+}
+function addStarters() {
+  starterDecks().forEach(d => { S.decks[d.id] = d; saveDeck(d); });
+  toast("Starter decks added"); render();
+}
+function deckTile(d) {
+  const c = deckCounts(d);
+  const pm = c.total ? (c.mastered / c.total) * 100 : 0, pl = c.total ? (c.learning / c.total) * 100 : 0;
+  const nCards = d.cards.length;
+  return `<a class="slide" href="#d-${d.id}" style="--cap:${capOf(d)}">
+    <div class="label"><span>${esc(CAP_NAMES[d.color])}</span></div>
+    <div class="body">
+      <h3>${esc(d.name)}</h3>
+      <div class="meta">${plural(nCards, "card")}${c.total !== nCards ? ", " + plural(c.total, "fact") : ""}</div>
+      ${c.due ? `<span class="due">${c.due} due</span>` : ""}
+      <div class="mastery" title="${c.mastered} mastered, ${c.learning} learning, ${c.nw} new"><i class="m" style="width:${pm}%"></i><i class="g" style="width:${pl}%"></i></div>
+    </div></a>`;
+}
+
+/* ---------- deck page ---------- */
+let deckFilter = { q: "", star: false };
+function renderDeck(d) {
+  const c = deckCounts(d);
+  const profiles = d.cards.filter(x => x.type === "profile");
+  const enough = c.total >= 2;
+  const seqOk = d.orderField && profiles.filter(x => (x.values || {})[d.orderField]).length >= 3;
+  const pics = d.cards.filter(x => x.img && imgSrc(x.img) && cardLabel(x)).length;
+  const modes = [
+    ["learn", "brain", "Learn", c.due + Math.min(c.nw, newLeftToday()) ? `${c.due} due, ${Math.min(c.nw, newLeftToday())} new` : "Spaced repetition", c.total > 0, "Add cards first"],
+    ["flash", "layers", "Flashcards", "Flip through and sort", d.cards.length > 0, "Add cards first"],
+    ["mc", "quiz", "Multiple choice", "Auto-built quiz", enough, "Needs 2+ facts"],
+    ["sata", "check", "Select all", "Every correct answer", profiles.length >= 2, "Needs 2+ profile cards"],
+    ["unknown", "micro", "Unknown ID", "Identify from clues", profiles.length >= 2, "Needs 2+ profile cards", true],
+    ["picture", "image", "Picture ID", "Name what you see", pics >= 2, "Needs 2+ cards with images", true],
+    ["match", "grid", "Match", "Race the clock", enough, "Needs 2+ facts"],
+    ["type", "type", "Type it", "Recall with no hints", c.total > 0, "Add cards first"],
+    ["seq", "order", "Put in order", d.orderField ? "By " + d.orderField.toLowerCase() : "", seqOk, "Set an order field in deck settings", true],
+    ["compare", "columns", "Compare", "Side by side", profiles.length >= 2, "Needs 2+ profile cards", true]
+  ];
+  let list = d.cards;
+  const q = norm(deckFilter.q);
+  if (q) list = list.filter(x => norm(cardSearchText(x)).includes(q));
+  if (deckFilter.star) list = list.filter(x => x.star);
+  $("#view").innerHTML = `
+    <a class="backlink" href="#home">${icon("left")}All decks</a>
+    <div class="deck-head" style="--cap:${capOf(d)}">
+      <div class="cap"></div>
+      <div style="flex:1;min-width:0">
+        <h1>${esc(d.name)}</h1>
+        <p class="muted" style="margin-top:4px">${plural(d.cards.length, "card")}, ${plural(c.total, "fact")}. ${c.mastered} mastered.</p>
+      </div>
+      <button class="btn icon" id="shareDeck" aria-label="Share deck">${icon("share")}</button>
+      <button class="btn icon" id="editDeck" aria-label="Deck settings">${icon("gear")}</button>
+    </div>
+    <div class="modes">${modes.map(([id, ic, name, sub, ok, why, alt]) => `<button class="mode ${alt ? "alt" : ""}" data-mode="${id}" ${ok ? "" : "disabled"}><span class="ic">${icon(ic)}</span><b>${name}</b><small>${esc(ok ? sub : why)}</small></button>`).join("")}</div>
+    <div class="section-head"><h2>Cards</h2></div>
+    <div class="toolbar">
+      <label class="search">${icon("search")}<input id="q" placeholder="Search cards" value="${esc(deckFilter.q)}" aria-label="Search cards"></label>
+      <button class="btn ${deckFilter.star ? "primary" : ""}" id="starF" aria-pressed="${deckFilter.star}">${icon("star")}Starred</button>
+      <button class="btn" id="imp">${icon("upload")}Import</button>
+      <button class="btn primary" id="addCard">${icon("plus")}Add card</button>
+    </div>
+    <div class="cards" id="cardlist">${list.length ? list.map(x => cardRow(d, x)).join("") : `<div class="empty"><p>${d.cards.length ? "No cards match." : "This deck is empty. Add a card, or import a list you already have."}</p></div>`}</div>
+  `;
+  $$(".mode[data-mode]").forEach(b => b.onclick = () => startMode(b.dataset.mode, d));
+  $("#editDeck").onclick = () => editDeckModal(d);
+  $("#shareDeck").onclick = () => shareModal(d);
+  $("#addCard").onclick = () => editCardModal(d);
+  $("#imp").onclick = () => importModal(d);
+  $("#starF").onclick = () => { deckFilter.star = !deckFilter.star; renderDeck(d); };
+  const qi = $("#q");
+  qi.oninput = () => { deckFilter.q = qi.value; const pos = qi.selectionStart; renderDeck(d); const n = $("#q"); n.focus(); n.setSelectionRange(pos, pos); };
+  $("#cardlist").onclick = e => {
+    const b = e.target.closest("button[data-act]"); if (!b) return;
+    const card = d.cards.find(x => x.id === b.dataset.id); if (!card) return;
+    if (b.dataset.act === "edit") editCardModal(d, card);
+    if (b.dataset.act === "star") { card.star = !card.star; saveDeck(d); renderDeck(d); }
+    if (b.dataset.act === "del") confirmModal("Delete this card?", "Its review history goes with it.", "Delete card", () => { d.cards = d.cards.filter(x => x !== card); saveDeck(d); renderDeck(d); toast("Card deleted"); });
+  };
+}
+const cardLabel = c => c.type === "profile" ? c.name : c.type === "cloze" ? "" : (c.back || "");
+const cardSearchText = x => x.type === "profile" ? x.name + " " + Object.values(x.values || {}).join(" ") : x.type === "cloze" ? (x.text || "").replace(/[{}]/g, "") : (x.front || "") + " " + (x.back || "");
+function cardRow(d, x) {
+  const acts = `<div class="acts">
+    <button class="btn ghost icon sm star ${x.star ? "on" : ""}" data-act="star" data-id="${x.id}" aria-label="Star">${icon("star")}</button>
+    <button class="btn ghost icon sm" data-act="edit" data-id="${x.id}" aria-label="Edit">${icon("edit")}</button>
+    <button class="btn ghost icon sm" data-act="del" data-id="${x.id}" aria-label="Delete">${icon("trash")}</button></div>`;
+  const pic = x.img && imgSrc(x.img) ? `<img class="thumb" src="${imgSrc(x.img)}" alt="">` : "";
+  let body;
+  if (x.type === "profile") {
+    const rows = d.fields.filter(f => (x.values || {})[f]).map(f => `<dt>${esc(f)}</dt><dd>${esc(x.values[f])}</dd>`).join("");
+    body = `<div><div class="row" style="gap:8px"><span class="q">${esc(x.name)}</span><span class="chip v">Profile</span></div>
+      <dl class="facts">${rows || `<dt></dt><dd class="muted">No details yet</dd>`}</dl>${x.note ? `<p class="small muted" style="margin-top:8px">${esc(x.note)}</p>` : ""}</div>`;
+  } else if (x.type === "cloze") {
+    const n = clozeParts(x.text || "").length;
+    body = `<div><div class="row" style="gap:8px;margin-bottom:6px"><span class="chip">Fill in the blank</span><span class="small muted">${plural(n, "blank")}</span></div><div>${esc(x.text || "").replace(/\{\{(.+?)\}\}/g, (_, i) => `<span class="blank on">${i.split("::")[0]}</span>`)}</div>${x.note ? `<p class="small muted" style="margin-top:6px">${esc(x.note)}</p>` : ""}</div>`;
+  } else {
+    body = `<div class="basic-grid"><div class="q">${esc(x.front)}</div><div class="a">${esc(x.back)}</div>${x.note ? `<p class="small muted" style="grid-column:1/-1">${esc(x.note)}</p>` : ""}</div>`;
+  }
+  return `<div class="card-row ${pic ? "has-pic" : ""}">${pic}${body}${acts}</div>`;
+}
+
+/* ---------- modals ---------- */
+function modal(html, onMount) {
+  const s = document.createElement("div"); s.className = "scrim";
+  s.innerHTML = `<div class="modal" role="dialog" aria-modal="true">${html}</div>`;
+  document.body.appendChild(s);
+  const close = () => { s.remove(); document.removeEventListener("keydown", onKey); };
+  const onKey = e => { if (e.key === "Escape") close(); };
+  document.addEventListener("keydown", onKey);
+  s.addEventListener("mousedown", e => { if (e.target === s) close(); });
+  $$("[data-close]", s).forEach(b => b.onclick = close);
+  onMount && onMount(s, close);
+  if (window.matchMedia("(hover:hover)").matches) setTimeout(() => { const f = $("input:not([type=checkbox]):not([type=file]),textarea", s); f && f.focus(); }, 60);
+  return close;
+}
+const mhead = t => `<div class="modal-head"><h2>${t}</h2><button class="btn ghost icon" data-close aria-label="Close">${icon("x")}</button></div>`;
+function confirmModal(title, body, label, fn) {
+  modal(`${mhead(esc(title))}<p class="muted">${esc(body)}</p><div class="modal-foot"><button class="btn" data-close>Cancel</button><button class="btn primary" id="ok">${esc(label)}</button></div>`,
+    (s, close) => $("#ok", s).onclick = () => { close(); fn(); });
+}
+function fileToImage(file) {
+  return new Promise((res, rej) => {
+    const url = URL.createObjectURL(file); const im = new Image();
+    im.onload = () => {
+      const max = 1100; let w = im.naturalWidth, h = im.naturalHeight; const k = Math.min(1, max / Math.max(w, h));
+      w = Math.round(w * k); h = Math.round(h * k);
+      const cv = document.createElement("canvas"); cv.width = w; cv.height = h;
+      const ctx = cv.getContext("2d"); ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, w, h); ctx.drawImage(im, 0, 0, w, h);
+      URL.revokeObjectURL(url); res(cv.toDataURL("image/jpeg", 0.8));
+    };
+    im.onerror = () => { URL.revokeObjectURL(url); rej(new Error("bad image")); };
+    im.src = url;
+  });
+}
+
+function editDeckModal(deck) {
+  const isNew = !deck;
+  const d = deck ? JSON.parse(JSON.stringify(deck)) : { id: uid(), name: "", color: "lavender", fields: [], orderField: "", cards: [], created: Date.now() };
+  let kind = d.fields.length ? "profile" : "basic";
+  const templates = {
+    bacteria: ["Gram stain", "Catalase", "Oxidase", "Hemolysis", "Key ID tests", "Media", "Clinical significance"],
+    tubes: ["Additive", "How it works", "Specimen", "Common tests", "Inversions", "Order of draw"],
+    cells: ["Size", "Nucleus", "Cytoplasm", "Normal range", "Associated conditions"],
+    analyte: ["Reference range", "Specimen", "Method", "Increased in", "Decreased in"],
+    parasite: ["Type", "Diagnostic stage", "Specimen", "Key features", "Transmission", "Disease"]
+  };
+  const html = () => `${mhead(isNew ? "New deck" : "Deck settings")}
+    <div class="field"><label for="dn">Name</label><input class="input" id="dn" value="${esc(d.name)}" placeholder="e.g. Enterobacterales"></div>
+    <div class="field"><span class="lbl">Cap color</span><div class="caps" id="caps">${Object.keys(CAPS).map(k => `<button type="button" data-c="${k}" class="${d.color === k ? "on" : ""}" style="--c:${CAPS[k]}" aria-label="${CAP_NAMES[k]}" title="${CAP_NAMES[k]}"></button>`).join("")}</div></div>
+    <div class="field"><span class="lbl">Main card style</span>
+      <div class="seg" id="kind"><button type="button" data-k="basic" class="${kind === "basic" ? "on" : ""}">Term and definition</button><button type="button" data-k="profile" class="${kind === "profile" ? "on" : ""}">Profiles with many facts</button></div>
+      <span class="hint">${kind === "profile" ? "Each card is one thing (an organism, a tube, a cell) with the same set of fields. Every field becomes its own fact to review." : "Classic two-sided flashcards. Any deck can also hold fill-in-the-blank and picture cards."}</span>
+    </div>
+    ${kind === "profile" ? `
+    <div class="field"><span class="lbl">Fields</span>
+      <div class="row" style="gap:6px;margin-bottom:6px"><span class="small muted">Start from:</span>
+        <button type="button" class="btn sm" data-t="bacteria">Bacteria</button><button type="button" class="btn sm" data-t="tubes">Blood tubes</button><button type="button" class="btn sm" data-t="cells">Blood cells</button><button type="button" class="btn sm" data-t="analyte">Chem analytes</button><button type="button" class="btn sm" data-t="parasite">Parasites</button></div>
+      <div class="fieldlist" id="fl">${d.fields.map((f, i) => `<div class="fl"><input class="input" data-i="${i}" value="${esc(f)}" aria-label="Field ${i + 1}"><button type="button" class="btn icon" data-rm="${i}" aria-label="Remove field">${icon("x")}</button></div>`).join("")}</div>
+      <button type="button" class="btn sm" id="addF" style="align-self:flex-start;margin-top:4px">${icon("plus")}Add field</button>
+    </div>
+    <div class="field"><label for="of">Order field (optional)</label>
+      <select class="input" id="of"><option value="">None</option>${d.fields.filter(Boolean).map(f => `<option ${d.orderField === f ? "selected" : ""}>${esc(f)}</option>`).join("")}</select>
+      <span class="hint">A numeric field such as order of draw unlocks Put in order. Equal numbers count as interchangeable.</span></div>` : ""}
+    <div class="modal-foot">${!isNew ? `<button class="btn danger" id="delDeck" style="margin-right:auto">${icon("trash")}Delete deck</button><button class="btn" id="dupDeck">Duplicate</button>` : ""}<button class="btn" data-close>Cancel</button><button class="btn primary" id="saveD">${isNew ? "Create deck" : "Save changes"}</button></div>`;
+  modal(html(), (s, close) => {
+    const sync = () => { d.name = $("#dn", s).value; $$("#fl input", s).forEach(inp => d.fields[+inp.dataset.i] = inp.value); const of = $("#of", s); if (of) d.orderField = of.value; };
+    const rer = () => { $(".modal", s).innerHTML = html(); bind(); };
+    const bind = () => {
+      $$("[data-close]", s).forEach(b => b.onclick = close);
+      $$("#caps button", s).forEach(b => b.onclick = () => { sync(); d.color = b.dataset.c; rer(); });
+      $$("#kind button", s).forEach(b => b.onclick = () => { sync(); kind = b.dataset.k; if (kind === "profile" && !d.fields.length) d.fields = ["", "", ""]; rer(); });
+      $$("[data-t]", s).forEach(b => b.onclick = () => { sync(); d.fields = templates[b.dataset.t].slice(); if (b.dataset.t === "tubes") d.orderField = "Order of draw"; rer(); });
+      $$("[data-rm]", s).forEach(b => b.onclick = () => { sync(); d.fields.splice(+b.dataset.rm, 1); rer(); });
+      $("#addF", s) && ($("#addF", s).onclick = () => { sync(); d.fields.push(""); rer(); $$("#fl input", s).pop().focus(); });
+      $("#dupDeck", s) && ($("#dupDeck", s).onclick = () => { const copy = JSON.parse(JSON.stringify(deck)); copy.id = uid(); copy.name = deck.name + " (copy)"; copy.cards.forEach(c => c.id = uid()); copy.created = Date.now(); S.decks[copy.id] = copy; saveDeck(copy); close(); go("d-" + copy.id); toast("Deck duplicated"); });
+      $("#delDeck", s) && ($("#delDeck", s).onclick = () => { close(); confirmModal("Delete “" + deck.name + "”?", "All cards and review history in this deck will be removed. Share or back it up first if you might want it back.", "Delete deck", () => { deleteDeck(deck.id); go("home"); toast("Deck deleted"); }); });
+      $("#saveD", s).onclick = () => {
+        sync();
+        if (!d.name.trim()) { $("#dn", s).focus(); toast("Give the deck a name"); return; }
+        const oldFields = deck ? deck.fields.slice() : [];
+        d.name = d.name.trim();
+        if (kind === "basic" && !d.cards.some(c => c.type === "profile")) d.fields = [];
+        else {
+          const renamed = {}; oldFields.forEach((f, i) => { if (d.fields[i] !== undefined && d.fields[i].trim() && d.fields[i].trim() !== f) renamed[f] = d.fields[i].trim(); });
+          d.fields = d.fields.map(f => f.trim()).filter((f, i, a) => f && a.indexOf(f) === i);
+          if (Object.keys(renamed).length) {
+            d.cards.forEach(c => { if (c.type === "profile" && c.values) for (const [o, n] of Object.entries(renamed)) if (o in c.values) { c.values[n] = c.values[o]; delete c.values[o]; } });
+            // carry review history across the rename
+            const srs = S.srs[d.id] || {}; d.cards.forEach(c => { for (const [o, n] of Object.entries(renamed)) { const k = c.id + "::" + o; if (srs[k]) { srs[c.id + "::" + n] = srs[k]; delete srs[k]; } } });
+            if (deck) saveSrs(d.id);
+          }
+        }
+        if (d.orderField && !d.fields.includes(d.orderField)) d.orderField = "";
+        const target = deck || d;
+        if (deck) Object.assign(deck, { name: d.name, color: d.color, fields: d.fields, orderField: d.orderField, cards: d.cards });
+        S.decks[target.id] = target; saveDeck(target); close();
+        if (isNew) go("d-" + target.id); else render();
+      };
+    };
+    bind();
+  });
+}
+
+function editCardModal(d, card, after) {
+  const isNew = !card;
+  let type = card ? card.type : (d.fields.length ? "profile" : "basic");
+  const c = card ? JSON.parse(JSON.stringify(card)) : { id: uid(), type, front: "", back: "", name: "", values: {}, text: "", note: "", star: false, img: "", imgSide: "front" };
+  c.imgSide = c.imgSide || "front";
+  const html = () => `${mhead(isNew ? "Add card" : "Edit card")}
+    <div class="field"><div class="seg" id="ct"><button type="button" data-t="basic" class="${type === "basic" ? "on" : ""}">Term and definition</button><button type="button" data-t="profile" class="${type === "profile" ? "on" : ""}">Profile</button><button type="button" data-t="cloze" class="${type === "cloze" ? "on" : ""}">Fill in the blank</button></div></div>
+    ${type === "basic" ? `
+      <div class="field"><label for="cf">Term or question</label><textarea class="input" id="cf" rows="2" placeholder="${c.img ? "Optional with an image, e.g. Identify this cell" : ""}">${esc(c.front)}</textarea></div>
+      <div class="field"><label for="cb">Definition or answer</label><textarea class="input" id="cb" rows="3">${esc(c.back)}</textarea></div>`
+    : type === "cloze" ? `
+      <div class="field"><label for="cz">Sentence</label><textarea class="input" id="cz" rows="4" placeholder="{{EDTA}} prevents clotting by chelating {{calcium}}.">${esc(c.text)}</textarea>
+      <span class="hint">Wrap each answer in double curly braces: {{answer}}. Each blank becomes its own fact. Add a hint with {{answer::hint}}.</span>
+      <div class="row" style="margin-top:4px"><button type="button" class="btn sm" id="wrap">Make selected text a blank</button></div></div>`
+    : d.fields.length ? `
+      <div class="field"><label for="cn">Name</label><input class="input" id="cn" value="${esc(c.name)}" placeholder="e.g. Escherichia coli"></div>
+      ${d.fields.map((f, i) => `<div class="field"><label for="v${i}">${esc(f)}</label><textarea class="input" id="v${i}" data-f="${esc(f)}" rows="1" style="min-height:46px">${esc((c.values || {})[f] || "")}</textarea></div>`).join("")}
+      <p class="hint small muted" style="margin:-4px 0 14px">Separate multiple answers with a semicolon (e.g. CBC; HbA1c) so Select all can quiz each one. Leave a field blank if it doesn’t apply.</p>`
+    : `<div class="empty"><p>This deck has no fields yet. Add fields in deck settings to make profile cards.</p><button type="button" class="btn" id="toSettings">Open deck settings</button></div>`}
+    ${type !== "cloze" ? `<div class="field"><span class="lbl">Image (optional)</span>
+      ${c.img && imgSrc(c.img) ? `<div class="imgprev"><img src="${imgSrc(c.img)}" alt=""><div class="col" style="gap:8px">
+        ${type === "basic" ? `<div class="seg" id="side"><button type="button" data-s="front" class="${c.imgSide === "front" ? "on" : ""}">Show on question</button><button type="button" data-s="back" class="${c.imgSide === "back" ? "on" : ""}">Show on answer</button></div>` : `<span class="small muted">Shown in flashcards and used by Picture ID.</span>`}
+        <button type="button" class="btn sm danger" id="rmImg" style="align-self:flex-start">${icon("trash")}Remove image</button></div></div>` :
+      `<label class="btn" style="align-self:flex-start">${icon("image")}Add photo or image<input type="file" accept="image/*" id="imgIn" hidden></label><span class="hint">Gram stains, smears, colonies, tube photos. Images are shrunk to save space.</span>`}
+    </div>` : ""}
+    <div class="field"><label for="cnote">Note or mnemonic (optional)</label><textarea class="input" id="cnote" rows="2">${esc(c.note)}</textarea></div>
+    <div class="modal-foot">${isNew ? `<button class="btn" id="saveMore">Save and add another</button>` : ""}<button class="btn primary" id="saveC">${isNew ? "Save card" : "Save changes"}</button></div>`;
+  modal(html(), (s, close) => {
+    const sync = () => {
+      if ($("#cf", s)) { c.front = $("#cf", s).value; c.back = $("#cb", s).value; }
+      if ($("#cz", s)) c.text = $("#cz", s).value;
+      if ($("#cn", s)) { c.name = $("#cn", s).value; c.values = c.values || {}; $$("[data-f]", s).forEach(t => c.values[t.dataset.f] = t.value.trim()); }
+      c.note = $("#cnote", s).value;
+    };
+    const commit = () => {
+      sync(); c.type = type;
+      if (type === "basic" && !((c.front.trim() || c.img) && c.back.trim())) { toast(c.img ? "Add an answer" : "Add both a term and a definition"); return false; }
+      if (type === "profile" && !c.name.trim()) { toast("Give the profile a name"); return false; }
+      if (type === "cloze" && !clozeParts(c.text).length) { toast("Add at least one {{blank}}"); return false; }
+      const base = { id: c.id, type, note: c.note.trim(), star: !!c.star };
+      if (c.img && type !== "cloze") { base.img = c.img; if (type === "basic") base.imgSide = c.imgSide; }
+      const clean = type === "basic" ? { ...base, front: c.front.trim(), back: c.back.trim() }
+        : type === "cloze" ? { ...base, text: c.text.trim() }
+          : { ...base, name: c.name.trim(), values: Object.fromEntries(Object.entries(c.values || {}).filter(([k, v]) => v && d.fields.includes(k))) };
+      if (isNew) d.cards.push(clean); else { Object.keys(card).forEach(k => delete card[k]); Object.assign(card, clean); }
+      saveDeck(d); return true;
+    };
+    const rer = () => { $(".modal", s).innerHTML = html(); bind(); };
+    const bind = () => {
+      $$("[data-close]", s).forEach(b => b.onclick = close);
+      $$("#ct button", s).forEach(b => b.onclick = () => { sync(); type = b.dataset.t; rer(); });
+      $$("#side button", s).forEach(b => b.onclick = () => { sync(); c.imgSide = b.dataset.s; rer(); });
+      $("#rmImg", s) && ($("#rmImg", s).onclick = () => { sync(); c.img = ""; rer(); });
+      $("#imgIn", s) && ($("#imgIn", s).onchange = async e => { const f = e.target.files[0]; if (!f) return; sync(); try { const url = await fileToImage(f); const id = uid(); saveImage(id, url); c.img = id; rer(); } catch { toast("That image couldn’t be read. Try a JPEG or PNG."); } });
+      $("#wrap", s) && ($("#wrap", s).onclick = () => { const t = $("#cz", s); const a = t.selectionStart, b = t.selectionEnd; if (a === b) { toast("Select a word in the sentence first"); return; } t.value = t.value.slice(0, a) + "{{" + t.value.slice(a, b) + "}}" + t.value.slice(b); t.focus(); });
+      $("#toSettings", s) && ($("#toSettings", s).onclick = () => { close(); editDeckModal(d); });
+      $("#saveC", s).onclick = () => { if (commit()) { close(); after ? after() : renderDeck(d); toast(isNew ? "Card added" : "Card saved"); } };
+      $("#saveMore", s) && ($("#saveMore", s).onclick = () => { if (commit()) { close(); renderDeck(d); editCardModal(d); toast("Card added"); } });
+      $$("textarea[data-f]", s).forEach(t => { const fit = () => { t.style.height = "auto"; t.style.height = t.scrollHeight + 2 + "px"; }; t.oninput = fit; fit(); });
+    };
+    bind();
+  });
+}
+/* ---------- import ---------- */
+function parseCSV(text) {
+  const delim = (text.split("\n")[0].match(/\t/g) || []).length ? "\t" : ",";
+  const rows = []; let row = [], cell = "", q = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (q) { if (ch === '"') { if (text[i + 1] === '"') { cell += '"'; i++; } else q = false; } else cell += ch; }
+    else if (ch === '"') q = true;
+    else if (ch === delim) { row.push(cell); cell = ""; }
+    else if (ch === "\n" || ch === "\r") { if (ch === "\r" && text[i + 1] === "\n") i++; row.push(cell); rows.push(row); row = []; cell = ""; }
+    else cell += ch;
+  }
+  if (cell || row.length) { row.push(cell); rows.push(row); }
+  return rows.map(r => r.map(c => c.trim())).filter(r => r.some(Boolean));
+}
+function parseList(text, sep) {
+  const seps = { tab: "\t", dash: /\s[-–—]\s/, colon: ":", comma: "," };
+  return text.split("\n").map(l => l.trim()).filter(Boolean).map(l => {
+    const s = seps[sep]; let i, len;
+    if (s instanceof RegExp) { const m = l.match(s); if (!m) return null; i = m.index; len = m[0].length; }
+    else { i = l.indexOf(s); len = s.length; if (i < 0) return null; }
+    return { front: l.slice(0, i).trim(), back: l.slice(i + len).trim() };
+  }).filter(x => x && x.front && x.back);
+}
+/* ---------- import into a deck ---------- */
+function importModal(d) {
+  let tab = "list", sep = "dash";
+  const html = () => `${mhead("Import cards")}
+    <div class="field"><div class="seg" id="itab">
+      <button type="button" data-t="list" class="${tab === "list" ? "on" : ""}">Paste a list</button>
+      <button type="button" data-t="csv" class="${tab === "csv" ? "on" : ""}">Spreadsheet</button>
+    </div></div>
+    ${tab === "list" ? `
+      <div class="field"><label for="itx">One card per line</label><textarea class="input" id="itx" rows="8" placeholder="Neutrophil - Most abundant WBC; segmented nucleus&#10;Lymphocyte - Round nucleus, scant cytoplasm"></textarea></div>
+      <div class="field"><span class="lbl">Between term and definition</span><div class="seg" id="sep">${[["dash", "Dash"], ["tab", "Tab"], ["colon", "Colon"], ["comma", "Comma"]].map(([k, l]) => `<button type="button" data-s="${k}" class="${sep === k ? "on" : ""}">${l}</button>`).join("")}</div>
+      <span class="hint">Copied from Quizlet? Export with Tab between term and definition.</span></div>
+      <p class="small muted" id="cnt">Paste to preview.</p>`
+    : `
+      <div class="field"><label for="itx">Paste rows from Excel, Sheets or a CSV</label><textarea class="input" id="itx" rows="8" placeholder="Name&#9;Gram stain&#9;Oxidase&#9;Lactose&#10;E. coli&#9;GNR&#9;Negative&#9;Fermenter"></textarea>
+      <span class="hint">First row is the header. The first column becomes each profile’s name; every other column becomes a field. New fields are added to this deck.</span></div>
+      <p class="small muted" id="cnt">Paste to preview.</p>`}
+    <div class="modal-foot"><button class="btn" data-close>Cancel</button><button class="btn primary" id="doImp">Add to deck</button></div>`;
+  modal(html(), (s, close) => {
+    const preview = () => {
+      const t = $("#itx", s)?.value || "", el = $("#cnt", s); if (!el) return;
+      if (tab === "list") { const n = parseList(t, sep).length; el.textContent = t.trim() ? (n ? plural(n, "card") + " ready." : "No lines matched. Try a different separator.") : "Paste to preview."; }
+      else { const r = parseCSV(t); el.textContent = r.length > 1 ? `${plural(r.length - 1, "profile")} with ${plural(r[0].length - 1, "field")}: ${r[0].slice(1).join(", ")}` : "Paste to preview."; }
+    };
+    const rer = () => { $(".modal", s).innerHTML = html(); bind(); };
+    const bind = () => {
+      $$("[data-close]", s).forEach(b => b.onclick = close);
+      $$("#itab button", s).forEach(b => b.onclick = () => { tab = b.dataset.t; rer(); });
+      $$("#sep button", s).forEach(b => b.onclick = () => { sep = b.dataset.s; const v = $("#itx", s).value; rer(); $("#itx", s).value = v; preview(); });
+      $("#itx", s).oninput = preview;
+      $("#doImp", s).onclick = () => {
+        let added = [];
+        if (tab === "list") added = parseList($("#itx", s).value, sep).map(x => ({ id: uid(), type: "basic", front: x.front, back: x.back, note: "", star: false }));
+        else {
+          const r = parseCSV($("#itx", s).value); if (r.length < 2) { toast("Need a header row and at least one row"); return; }
+          r[0].slice(1).map(h => h.trim()).filter(Boolean).forEach(h => { if (!d.fields.includes(h)) d.fields.push(h); });
+          added = r.slice(1).filter(row => row[0]).map(row => ({ id: uid(), type: "profile", name: row[0], values: Object.fromEntries(r[0].slice(1).map((h, i) => [h.trim(), row[i + 1] || ""]).filter(([h, v]) => h && v)), note: "", star: false }));
+        }
+        if (!added.length) { toast("Nothing to add yet"); return; }
+        d.cards.push(...added); saveDeck(d); close(); renderDeck(d); toast(plural(added.length, "card") + " added");
+      };
+    };
+    bind();
+  });
+}
+
+/* ---------- sharing decks with study partners ---------- */
+function deckPackage(d) {
+  const images = {}; d.cards.forEach(c => { if (c.img && S.images[c.img]) images[c.img] = S.images[c.img]; });
+  return { app: "labdeck-deck", v: 2, deck: { name: d.name, color: d.color, fields: d.fields, orderField: d.orderField, cards: d.cards.map(c => ({ ...c, star: false })) }, images };
+}
+function addSharedPackage(p) {
+  if (!p || !p.deck || !Array.isArray(p.deck.cards)) throw new Error("bad");
+  const idMap = {};
+  for (const [id, url] of Object.entries(p.images || {})) { if (typeof url === "string" && url.startsWith("data:image/")) { const n = uid(); idMap[id] = n; saveImage(n, url); } }
+  const d = normalizeDeck({ id: uid(), name: String(p.deck.name || "Shared deck"), color: p.deck.color, fields: (p.deck.fields || []).map(String), orderField: p.deck.orderField || "", created: Date.now(),
+    cards: p.deck.cards.map(c => { const x = { ...c, id: uid(), star: false }; if (x.img) x.img = idMap[x.img] || ""; return x; }) });
+  S.decks[d.id] = d; saveDeck(d);
+  return d;
+}
+function download(name, text, type = "application/json") {
+  const blob = new Blob([text], { type });
+  const file = typeof File === "function" ? new File([blob], name, { type }) : null;
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name;
+  document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+  return file;
+}
+function shareModal(d) {
+  const canLink = Sync.on();
+  modal(`${mhead("Share “" + esc(d.name) + "”")}
+    <p class="muted" style="margin-bottom:16px">Your partner gets the cards and images, not your progress. They can import it into their own LabDeck.</p>
+    <div class="col" style="gap:10px">
+      <button class="btn primary" id="mkLink" ${canLink ? "" : "disabled"}>${icon("share")}Create a share link</button>
+      ${canLink ? "" : `<p class="small muted">Share links use your GitHub connection. Turn on sync in Settings to use them, or send a file instead.</p>`}
+      <div id="linkOut"></div>
+      <button class="btn" id="dlDeck">${icon("download")}Download deck file</button>
+    </div>`, (s) => {
+    $("#dlDeck", s).onclick = async () => {
+      const name = d.name.replace(/[^\w\- ]+/g, "").trim().replace(/\s+/g, "-").toLowerCase() + ".labdeck.json";
+      const text = JSON.stringify(deckPackage(d));
+      const file = new File([text], name, { type: "application/json" });
+      if (navigator.canShare && navigator.canShare({ files: [file] }) && /iPhone|iPad|Android/i.test(navigator.userAgent)) { try { await navigator.share({ files: [file], title: d.name }); return; } catch { } }
+      download(name, text); toast("Deck file downloaded");
+    };
+    $("#mkLink", s).onclick = async () => {
+      const b = $("#mkLink", s); b.disabled = true; b.innerHTML = `<span class="spin"></span>Creating link`;
+      try {
+        const g = await Sync.api("/gists", { method: "POST", body: JSON.stringify({ description: "LabDeck shared deck: " + d.name, public: false, files: { "labdeck-share.json": { content: JSON.stringify(deckPackage(d)) } } }) });
+        const link = location.href.split("#")[0] + "#import-" + g.id;
+        $("#linkOut", s).innerHTML = `<div class="linkbox"><input class="input" readonly value="${esc(link)}"><button class="btn" id="cpL">${icon("copy")}Copy</button></div>`;
+        $("#cpL", s).onclick = async () => { try { await navigator.clipboard.writeText(link); toast("Link copied"); } catch { $(".linkbox input", s).select(); } };
+        b.innerHTML = `${icon("share")}Link ready`;
+      } catch { b.disabled = false; b.innerHTML = `${icon("share")}Try again`; toast("Couldn’t create the link. Check your connection."); }
+    };
+  });
+}
+async function importShared(id) {
+  history.replaceState(null, "", location.pathname + location.search + "#home");
+  if (!/^[a-f0-9]{8,40}$/i.test(id)) { toast("That share link looks incomplete"); return; }
+  let pkg;
+  try {
+    const g = await Sync.api("/gists/" + id, {}, Sync.token || "");
+    const f = g.files["labdeck-share.json"]; const txt = await Sync.readFile(f); pkg = JSON.parse(txt);
+  } catch { toast("Couldn’t open that shared deck. Check the link and your connection."); return; }
+  const n = pkg?.deck?.cards?.length || 0;
+  modal(`${mhead("Add shared deck?")}<p><b>${esc(pkg?.deck?.name || "Shared deck")}</b></p><p class="muted">${plural(n, "card")}. It’ll be added as a new deck; nothing of yours changes.</p>
+    <div class="modal-foot"><button class="btn" data-close>Cancel</button><button class="btn primary" id="addSh">Add deck</button></div>`,
+    (s, close) => $("#addSh", s).onclick = () => { try { const d = addSharedPackage(pkg); close(); go("d-" + d.id); toast("Deck added"); } catch { toast("That deck couldn’t be read"); } });
+}
+
+/* ---------- progress ---------- */
+function renderStats() {
+  const decks = Object.values(S.decks);
+  const days = Array.from({ length: 14 }, (_, i) => dayKey(Date.now() - (13 - i) * DAY));
+  const vals = days.map(k => S.meta.history[k] || 0);
+  let c = 0, w = 0, mastered = 0, total = 0;
+  decks.forEach(d => factsOf(d).forEach(f => { total++; const st = stOf(f); if (st) { c += st.c || 0; w += st.w || 0; if (st.i >= 21) mastered++; } }));
+  const acc = c + w ? Math.round(c / (c + w) * 100) : 0;
+  const allReviews = Object.values(S.meta.history).reduce((a, b) => a + b, 0);
+  const fc = Array.from({ length: 7 }, () => 0);
+  const start = new Date(); start.setHours(0, 0, 0, 0);
+  decks.forEach(d => Object.values(S.srs[d.id] || {}).forEach(st => { if (!st.d) return; const k = Math.floor((st.d - start.getTime()) / DAY); if (k >= 0 && k < 7) fc[k]++; else if (k < 0) fc[0]++; }));
+  const bars = (arr, labels, cls) => { const mx = Math.max(5, ...arr); const bw = 600 / arr.length; return `<svg class="chart" viewBox="0 0 600 170" role="img">${arr.map((v, i) => { const h = Math.round(v / mx * 120); return `<rect class="${cls}" x="${i * bw + 6}" y="${135 - h}" width="${bw - 12}" height="${Math.max(h, 2)}" rx="5" opacity="${v ? 1 : .25}"><title>${labels[i]}: ${v}</title></rect>${v ? `<text x="${i * bw + bw / 2}" y="${130 - h}" text-anchor="middle">${v}</text>` : ""}<text x="${i * bw + bw / 2}" y="155" text-anchor="middle">${labels[i]}</text>`; }).join("")}</svg>`; };
+  const dl = days.map(k => new Date(k + "T12:00").toLocaleDateString(undefined, { weekday: "narrow" }));
+  const fl = fc.map((_, i) => i === 0 ? "Today" : new Date(Date.now() + i * DAY).toLocaleDateString(undefined, { weekday: "short" }));
+  // 20-week calendar
+  const weeks = 20; const end = new Date(); end.setHours(12, 0, 0, 0);
+  const startDay = new Date(end.getTime() - ((weeks - 1) * 7 + end.getDay()) * DAY);
+  const goal = S.meta.settings.dailyGoal || 50;
+  let heat = "";
+  for (let wk = 0; wk < weeks; wk++) for (let dd = 0; dd < 7; dd++) {
+    const t = startDay.getTime() + (wk * 7 + dd) * DAY; if (t > end.getTime()) continue;
+    const n = S.meta.history[dayKey(t)] || 0; const lvl = n === 0 ? 0 : n < goal * 0.34 ? 1 : n < goal * 0.67 ? 2 : n < goal ? 3 : 4;
+    heat += `<rect x="${wk * 15}" y="${dd * 15}" width="12" height="12" rx="3" class="h${lvl}"><title>${dayKey(t)}: ${n}</title></rect>`;
+  }
+  $("#view").innerHTML = `
+    ${topbar()}
+    <h1 style="margin-bottom:22px">Progress</h1>
+    <div class="side-stats" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr));margin-bottom:16px">
+      <div class="stat"><div class="n">${streak()}</div><div class="l">day streak</div></div>
+      <div class="stat"><div class="n">${allReviews}</div><div class="l">total reviews</div></div>
+      <div class="stat"><div class="n">${acc}%</div><div class="l">accuracy</div></div>
+      <div class="stat"><div class="n">${mastered}<span class="muted" style="font-size:1rem">/${total}</span></div><div class="l">facts mastered</div></div>
+    </div>
+    <div class="panel"><div class="row" style="justify-content:space-between;margin-bottom:10px"><h3>Study calendar</h3><div class="legend"><span>Less</span>${[0, 1, 2, 3, 4].map(l => `<svg width="12" height="12"><rect width="12" height="12" rx="3" class="h${l}"/></svg>`).join("")}<span>Goal met</span></div></div>
+      <div style="overflow-x:auto"><svg class="heat" viewBox="0 0 ${weeks * 15} 105" style="min-width:${weeks * 13}px">${heat}</svg></div></div>
+    <div class="panel"><h3 style="margin-bottom:10px">Reviews, last 14 days</h3>${bars(vals, dl, "b")}</div>
+    <div class="panel"><h3 style="margin-bottom:4px">Coming up</h3><p class="small muted" style="margin-bottom:10px">Facts scheduled to come back each day. Overdue facts count toward today.</p>${bars(fc, fl, "t")}</div>
+    <div class="panel"><div class="row" style="justify-content:space-between;margin-bottom:8px"><h3>By deck</h3><div class="legend"><span><i style="background:var(--good)"></i>Mastered (3+ weeks)</span><span><i style="background:var(--violet);opacity:.55"></i>Learning</span><span><i style="background:var(--surface-2);border:1px solid var(--line)"></i>New</span></div></div>
+      ${decks.length ? decks.map(d => { const k = deckCounts(d); return `<div class="deckbar"><a href="#d-${d.id}" style="color:inherit;font-weight:600;text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(d.name)}</a><div class="mastery"><i class="m" style="width:${k.total ? k.mastered / k.total * 100 : 0}%"></i><i class="g" style="width:${k.total ? k.learning / k.total * 100 : 0}%"></i></div><span class="small muted">${k.total ? Math.round(k.mastered / k.total * 100) : 0}%</span></div>`; }).join("") : `<p class="muted">No decks yet.</p>`}
+    </div>`;
+}
+
+/* ---------- settings ---------- */
+function renderSettings() {
+  const st = S.meta.settings;
+  const lastB = S.meta.lastBackup ? new Date(S.meta.lastBackup).toLocaleDateString(undefined, { month: "short", day: "numeric" }) : "never";
+  $("#view").innerHTML = `
+    ${topbar()}
+    <h1 style="margin-bottom:22px">Settings</h1>
+    <div class="panel">
+      <div class="row" style="justify-content:space-between;margin-bottom:6px"><h3>Sync between devices</h3><span class="small row" style="gap:6px">${syncHtml()}</span></div>
+      ${Sync.on() ? `
+        <p class="small muted" style="margin-bottom:12px">Your decks and progress are kept in a private GitHub gist. Open LabDeck on another device, paste the same token there, and everything merges. Last synced ${Sync.lastOk ? new Date(Sync.lastOk).toLocaleString(undefined, { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" }) : "not yet"}.</p>
+        <div class="row"><button class="btn" id="syncNow">${icon("rotate")}Sync now</button><button class="btn ghost danger" id="syncOff">Turn off sync on this device</button></div>`
+      : `
+        <p class="small muted" style="margin-bottom:12px">Free, private and optional. Keeps your phone and computer in step and protects your progress if a browser clears its storage. You need a GitHub account (the same one that hosts this site works).</p>
+        <ol class="small steps"><li>On GitHub, open Settings, then Developer settings, then Personal access tokens, then Tokens (classic).</li><li>Generate a new token with only the <b>gist</b> box checked. Set the expiration to “No expiration” or a long date.</li><li>Paste it below. Do the same on each device you use.</li></ol>
+        <div class="linkbox"><input class="input" id="tok" type="password" placeholder="ghp_…" autocomplete="off" aria-label="GitHub token"><button class="btn primary" id="syncOn">Connect</button></div>
+        <p class="small muted" style="margin-top:8px">The token stays in this browser. It can only read and write your gists.</p>`}
+    </div>
+    <div class="panel">
+      <h3 style="margin-bottom:4px">Backup file</h3>
+      <p class="small muted" style="margin-bottom:12px">A full copy of every deck, image and your review history. Last backup: ${lastB}.</p>
+      <div class="row"><button class="btn" id="exp">${icon("download")}Download backup</button><button class="btn" id="impB">${icon("upload")}Restore or import</button></div>
+    </div>
+    <div class="panel">
+      <h3 style="margin-bottom:12px">Appearance</h3>
+      <div class="seg" id="theme">${[["auto", "Match device"], ["light", "Light"], ["dark", "Dark"]].map(([k, l]) => `<button data-t="${k}" class="${st.theme === k ? "on" : ""}">${l}</button>`).join("")}</div>
+    </div>
+    <div class="panel">
+      <h3 style="margin-bottom:4px">Study limits</h3>
+      <p class="small muted" style="margin-bottom:12px">New facts per day controls how many never-seen facts Learn introduces. Reviews are never capped.</p>
+      <div class="row" style="gap:24px">
+        <div><span class="lbl">New facts per day</span><div class="row" style="margin-top:6px"><button class="btn icon" data-n="newPerDay" data-d="-5" aria-label="Fewer">−</button><span class="timer" id="v-newPerDay" style="min-width:48px;text-align:center">${st.newPerDay}</span><button class="btn icon" data-n="newPerDay" data-d="5" aria-label="More">+</button></div></div>
+        <div><span class="lbl">Daily review goal</span><div class="row" style="margin-top:6px"><button class="btn icon" data-n="dailyGoal" data-d="-10" aria-label="Lower">−</button><span class="timer" id="v-dailyGoal" style="min-width:48px;text-align:center">${st.dailyGoal}</span><button class="btn icon" data-n="dailyGoal" data-d="10" aria-label="Higher">+</button></div></div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3 style="margin-bottom:8px">Install on your phone</h3>
+      <p class="small">On iPhone, open this site in Safari, tap Share, then Add to Home Screen. On Android, open it in Chrome and tap Install app or Add to Home screen. Installed, it opens full screen, works offline, and iPhone won’t clear its storage.</p>
+    </div>
+    <div class="panel">
+      <h3 style="margin-bottom:8px">Keyboard shortcuts</h3>
+      <p class="small" style="line-height:2"><kbd>Space</kbd> flip &nbsp; <kbd>1</kbd>–<kbd>4</kbd> grade or pick &nbsp; <kbd>←</kbd> <kbd>→</kbd> move &nbsp; <kbd>Enter</kbd> check or continue &nbsp; <kbd>U</kbd> undo &nbsp; <kbd>Esc</kbd> exit</p>
+    </div>
+    <p class="small muted" style="text-align:center">LabDeck version ${APP_VERSION}${navigator.storage && navigator.storage.persist ? ` · <span id="persist"></span>` : ""}</p>`;
+  $$("#theme button").forEach(b => b.onclick = () => { st.theme = b.dataset.t; saveMeta(true); render(); });
+  $$("[data-n]").forEach(b => b.onclick = () => { const k = b.dataset.n; st[k] = Math.max(0, Math.min(500, (st[k] || 0) + +b.dataset.d)); $("#v-" + k).textContent = st[k]; saveMeta(true); });
+  $("#exp").onclick = exportBackup;
+  $("#impB").onclick = restoreModal;
+  $("#syncNow") && ($("#syncNow").onclick = async () => { await Sync.now(); renderSettings(); toast(Sync.status === "ok" ? "Synced" : "Sync didn’t finish. It’ll retry."); });
+  $("#syncOff") && ($("#syncOff").onclick = () => confirmModal("Turn off sync here?", "This device keeps its copy of your decks. Your synced copy on GitHub isn’t deleted.", "Turn off", () => { Sync.disconnect(); renderSettings(); }));
+  $("#syncOn") && ($("#syncOn").onclick = async () => {
+    const t = $("#tok").value.trim(); if (!t) { toast("Paste your token first"); return; }
+    const b = $("#syncOn"); b.disabled = true; b.innerHTML = `<span class="spin"></span>Connecting`;
+    try { const existed = await Sync.connect(t); render(); toast(existed ? "Connected. Your synced decks were merged in." : "Connected. Sync is on."); }
+    catch (e) { b.disabled = false; b.textContent = "Connect"; toast(e && e.status === 401 ? "GitHub didn’t accept that token" : "Couldn’t reach GitHub. Check your connection."); }
+  });
+  if ($("#persist")) navigator.storage.persisted().then(p => { $("#persist").textContent = p ? "storage protected" : "storage not yet protected"; });
+}
+function exportBackup() {
+  const data = JSON.stringify({ app: "labdeck", version: 2, exported: new Date().toISOString(), decks: Object.values(S.decks), srs: S.srs, meta: S.meta, images: Object.fromEntries([...referencedImages()].filter(id => S.images[id]).map(id => [id, S.images[id]])) });
+  download("labdeck-backup-" + dayKey() + ".json", data);
+  S.meta.lastBackup = Date.now(); saveMeta(); toast("Backup downloaded");
+}
+function restoreModal() {
+  modal(`${mhead("Restore or import")}
+    <p class="small muted" style="margin-bottom:12px">Accepts a LabDeck backup, a shared deck file, or a backup from the earlier Claude version.</p>
+    <div class="field"><label for="bf">File</label><input type="file" id="bf" accept=".json,application/json" class="input"></div>
+    <div class="field"><label for="bt">Or paste the file’s text</label><textarea class="input" id="bt" rows="5"></textarea></div>
+    <div class="field" id="howF"><div class="seg" id="how"><button data-h="merge" class="on">Add to my decks</button><button data-h="replace">Replace everything</button></div></div>
+    <div class="modal-foot"><button class="btn" data-close>Cancel</button><button class="btn primary" id="rs">Restore</button></div>`, (s, close) => {
+    let how = "merge";
+    $$("#how button", s).forEach(b => b.onclick = () => { how = b.dataset.h; $$("#how button", s).forEach(x => x.classList.toggle("on", x === b)); });
+    $("#bf", s).onchange = e => { const f = e.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = () => $("#bt", s).value = r.result; r.readAsText(f); };
+    $("#rs", s).onclick = () => {
+      let data; try { data = JSON.parse($("#bt", s).value); } catch { toast("That isn’t a valid LabDeck file"); return; }
+      if (data && data.app === "labdeck-deck") { try { const d = addSharedPackage(data); close(); go("d-" + d.id); toast("Deck added"); } catch { toast("That deck couldn’t be read"); } return; }
+      if (!data || !Array.isArray(data.decks)) { toast("No decks found in that file"); return; }
+      const run = () => {
+        if (how === "replace") Object.keys(S.decks).forEach(deleteDeck);
+        for (const [id, url] of Object.entries(data.images || {})) if (typeof url === "string" && url.startsWith("data:image/")) saveImage(id, url);
+        data.decks.forEach(d => {
+          if (!d || !d.id) return; let id = d.id;
+          if (S.decks[id] && how === "merge") { const old = id; id = uid(); d.id = id; if (data.srs?.[old]) data.srs[id] = data.srs[old]; }
+          delete S.meta.deleted[id];
+          S.decks[id] = normalizeDeck(d); saveDeck(d);
+          if (data.srs?.[id]) { S.srs[id] = data.srs[id]; saveSrs(id); }
+        });
+        if (data.meta) {
+          const m = mergeMetaDefaults(data.meta);
+          for (const [k, n] of Object.entries(m.history)) S.meta.history[k] = Math.max(S.meta.history[k] || 0, n);
+          if (how === "replace") { S.meta.settings = m.settings; S.meta.exams = m.exams; S.meta.best = m.best; }
+          else (m.exams || []).forEach(ex => { if (!S.meta.exams.some(x => x.id === ex.id)) S.meta.exams.push(ex); });
+          saveMeta(true);
+        }
+        close(); toast(plural(data.decks.length, "deck") + " restored"); go("home");
+      };
+      if (how === "replace") confirmModal("Replace everything?", "Every deck on this device will be swapped for the ones in this file.", "Replace", run); else run();
+    };
+  });
+}
+/* ---------- study overlay ---------- */
+let ST = null;
+function openStudy(title, onKey) {
+  closeStudy(true);
+  const el = document.createElement("div"); el.className = "study";
+  el.innerHTML = `<div class="study-top"><button class="btn ghost icon" id="sx" aria-label="Exit">${icon("x")}</button><div class="t">${esc(title)}</div><div id="sr" class="row" style="gap:6px"></div></div><div class="prog"><i style="width:0%"></i></div><div class="stage" id="stage"></div>`;
+  document.body.appendChild(el); document.body.style.overflow = "hidden";
+  const keyh = e => { if ($(".scrim")) return; if (e.target.matches("input,textarea") && e.key !== "Enter" && e.key !== "Escape") return; if (e.key === "Escape") { closeStudy(); return; } ST && ST.onKey && ST.onKey(e); };
+  document.addEventListener("keydown", keyh);
+  ST = { el, stage: $("#stage", el), right: $("#sr", el), onKey, keyh, timers: [] };
+  $("#sx", el).onclick = () => { if (ST.confirmExit && !ST.confirmExit()) return; closeStudy(); };
+  return ST;
+}
+function closeStudy(silent) {
+  if (!ST) return;
+  ST.timers.forEach(t => { clearInterval(t); clearTimeout(t); }); document.removeEventListener("keydown", ST.keyh);
+  ST.el.remove(); ST = null; document.body.style.overflow = "";
+  if (!silent) render();
+}
+const setProg = f => { if (ST) $(".prog i", ST.el).style.width = Math.max(0, Math.min(1, f)) * 100 + "%"; };
+function startMode(m, d) {
+  ({ learn: () => startLearn(d), flash: () => startFlash(d), mc: () => startMC(d), sata: () => startSATA(d), unknown: () => startUnknown(d), picture: () => startPicture(d), match: () => startMatch(d), type: () => startType(d), seq: () => startSeq(d), compare: () => startCompare(d) })[m]();
+}
+function ring(pct) {
+  const r = 62, C = 2 * Math.PI * r;
+  return `<svg class="ring" viewBox="0 0 150 150" role="img" aria-label="${pct}%"><circle cx="75" cy="75" r="${r}" fill="none" stroke="var(--line)" stroke-width="12"/><circle cx="75" cy="75" r="${r}" fill="none" stroke="${pct >= 80 ? "var(--good)" : pct >= 60 ? "var(--warn)" : "var(--safranin)"}" stroke-width="12" stroke-linecap="round" stroke-dasharray="${C * pct / 100} ${C}" transform="rotate(-90 75 75)"/><text class="val" x="75" y="85" text-anchor="middle">${pct}%</text></svg>`;
+}
+function factsTable(card, deck, hl) {
+  return `<dl class="facts">${deck.fields.filter(x => (card.values || {})[x]).map(x => `<dt class="${x === hl ? "hl" : ""}">${esc(x)}</dt><dd class="${x === hl ? "hl" : ""}">${esc(card.values[x])}</dd>`).join("")}</dl>`;
+}
+const pic = (id, cls = "cardimg") => id && imgSrc(id) ? `<img class="${cls}" src="${imgSrc(id)}" alt="">` : "";
+const noteHtml = c => c.note ? `<div class="note">${esc(c.note)}</div>` : "";
+function factFront(f) {
+  if (f.kind === "field") return `<div class="kicker">${esc(f.field)}</div><div class="main-text">${esc(f.q)}</div><p class="muted">What’s the ${esc(f.field.toLowerCase())}?</p>`;
+  if (f.kind === "cloze") return `<div class="kicker">Fill in the blank</div><div class="sub-text cloze">${clozeRender(f.card.text, f.idx, "q")}</div>`;
+  const c = f.card;
+  return `${c.imgSide !== "back" ? pic(c.img) : ""}${f.q ? `<div class="main-text">${esc(f.q)}</div>` : ""}`;
+}
+function factBack(f) {
+  const c = f.card;
+  if (f.kind === "field") return `<div class="kicker">${esc(f.field)} of ${esc(f.q)}</div><div class="main-text">${esc(f.a)}</div>${factsTable(c, f.deck, f.field)}${noteHtml(c)}`;
+  if (f.kind === "cloze") return `<div class="kicker">Fill in the blank</div><div class="sub-text cloze">${clozeRender(c.text, f.idx, "a")}</div>${noteHtml(c)}`;
+  return `${c.img ? pic(c.img, c.imgSide === "back" ? "cardimg" : "cardimg small") : ""}${f.q ? `<div class="kicker">${esc(f.q)}</div>` : ""}<div class="sub-text">${esc(f.a)}</div>${noteHtml(c)}`;
+}
+function flipCard(label, cap, front, back) {
+  return `<div class="flip" id="fc" style="--cap:${cap}" role="button" tabindex="0" aria-label="Flip card">
+    <div class="flip-inner">
+      <div class="face"><div class="frost"><span>${esc(label)}</span></div><div class="content">${front}</div></div>
+      <div class="face back"><div class="frost"><span>${esc(label)}</span></div><div class="content">${back}</div></div>
+    </div></div>`;
+}
+function sizeFlip() {
+  const fc = $("#fc"); if (!fc) return;
+  const inner = $(".flip-inner", fc);
+  const measure = () => { const h = Math.max(...$$(".content", fc).map(c => c.scrollHeight + 2)); inner.style.minHeight = Math.max(Math.min(window.innerHeight * 0.5, 400), h) + "px"; };
+  measure(); $$("img", fc).forEach(im => im.complete || im.addEventListener("load", measure, { once: true }));
+}
+
+/* ---------- Learn: spaced repetition ---------- */
+function startLearn(deck, opts = {}) {
+  const exam = opts.exam ? S.meta.exams.find(e => e.id === opts.exam) : null;
+  const decks = exam ? (exam.decks || []).map(id => S.decks[id]).filter(Boolean) : deck ? [deck] : Object.values(S.decks);
+  const all = decks.flatMap(factsOf);
+  let queue;
+  const cutoff = endOfToday();
+  if (opts.weak) queue = shuffle(all.filter(f => isWeak(stOf(f)))).slice(0, 40);
+  else if (opts.cram) queue = shuffle(all).slice(0, 20);
+  else if (exam) {
+    const due = all.filter(f => isDue(stOf(f), cutoff));
+    const weak = all.filter(f => !due.includes(f) && isWeak(stOf(f)));
+    const fresh = shuffle(all.filter(f => !stOf(f)));
+    const rest = all.filter(f => stOf(f) && !due.includes(f) && !weak.includes(f)).sort((a, b) => (stOf(a).i || 0) - (stOf(b).i || 0));
+    queue = [...due, ...shuffle(weak), ...fresh, ...rest].slice(0, 60);
+  } else {
+    const due = all.filter(f => isDue(stOf(f), cutoff)).sort((a, b) => stOf(a).d - stOf(b).d);
+    const fresh = all.filter(f => !stOf(f)).slice(0, newLeftToday());
+    queue = []; const step = fresh.length ? Math.max(1, Math.floor(due.length / fresh.length)) : 0; let di = 0;
+    fresh.forEach(f => { for (let k = 0; k < step && di < due.length; k++) queue.push(due[di++]); queue.push(f); });
+    while (di < due.length) queue.push(due[di++]);
+  }
+  const title = exam ? "Exam prep: " + exam.name : opts.weak ? "Weak spots" : deck ? deck.name : "Today’s review";
+  openStudy(title);
+  if (!queue.length) {
+    ST.stage.innerHTML = `<div class="results"><h2>Nothing due right now</h2><p class="muted" style="max-width:40ch">${all.length ? "Your next reviews are scheduled. Extra practice won’t push your schedule forward, but misses will come back sooner." : "Add some cards first."}</p>
+      ${all.length ? `<button class="btn primary" id="cram">${icon("shuffle")}Practice 20 random facts</button>` : ""}<button class="btn" id="dn">Done</button></div>`;
+    $("#cram") && ($("#cram").onclick = () => startLearn(deck, { cram: true }));
+    $("#dn").onclick = () => closeStudy();
+    return;
+  }
+  const total = queue.length; let doneN = 0, i = 0, flipped = false, again = 0, good = 0;
+  const seenNew = new Set(); const undo = [];
+  function topRight() {
+    ST.right.innerHTML = `<button class="btn ghost icon sm" id="uBtn" aria-label="Undo last grade" ${undo.length ? "" : "disabled"}>${icon("undo")}</button><button class="btn ghost icon sm" id="eBtn" aria-label="Edit this card">${icon("edit")}</button><span class="small muted">${total - doneN} left</span>`;
+    $("#uBtn").onclick = doUndo; $("#eBtn").onclick = editCurrent;
+  }
+  function show() {
+    if (i >= queue.length) return finish();
+    const f = queue[i]; flipped = false;
+    ST.stage.innerHTML = `${flipCard(f.deck.name, capOf(f.deck), (stOf(f) || f.kind !== "basic" ? "" : `<div class="kicker">New</div>`) + factFront(f), factBack(f))}
+      <div id="ctl"><button class="btn primary" id="show" style="width:100%;min-height:54px">Show answer</button><p class="tap-hint kbd-hint" style="margin-top:8px"><kbd>Space</kbd> to flip</p></div>`;
+    sizeFlip();
+    $("#fc").onclick = flip; $("#show").onclick = flip;
+    setProg(doneN / total); topRight();
+  }
+  function flip() {
+    if (flipped) return; flipped = true;
+    const f = queue[i], st = stOf(f);
+    $("#fc").classList.add("on");
+    $("#ctl").innerHTML = `<div class="grades">${[[1, "Again"], [2, "Hard"], [3, "Good"], [4, "Easy"]].map(([g, l]) => `<button class="g${g}" data-g="${g}">${l}<small>${opts.cram ? (g === 1 ? "repeat" : "") : previewIv(st, g)}</small></button>`).join("")}</div>
+      <p class="tap-hint kbd-hint" style="margin-top:8px"><kbd>1</kbd>–<kbd>4</kbd> to grade, <kbd>U</kbd> to undo</p>`;
+    $$(".grades button").forEach(b => b.onclick = () => grade(+b.dataset.g));
+  }
+  function grade(g) {
+    const f = queue[i];
+    const prev = (S.srs[f.deck.id] || {})[f.key];
+    undo.push({ queue: queue.slice(), i, doneN, again, good, deckId: f.deck.id, key: f.key, prev: prev ? { ...prev } : null, hist: S.meta.history[dayKey()] || 0, newDay: S.meta.newDay, newCount: S.meta.newCount, seen: seenNew.has(f.key) });
+    if (undo.length > 30) undo.shift();
+    const wasNew = !prev && !seenNew.has(f.key);
+    let requeue;
+    if (opts.cram) { requeue = g === 1; recordQuiz(f, g > 1); }
+    else { requeue = recordReview(f.deck.id, f.key, g, wasNew); if (wasNew) seenNew.add(f.key); }
+    if (g === 1) again++; else good++;
+    if (requeue) queue.splice(Math.min(queue.length, i + 4), 0, f); else doneN++;
+    i++; show();
+  }
+  function doUndo() {
+    const u = undo.pop(); if (!u) return;
+    queue = u.queue; i = u.i; doneN = u.doneN; again = u.again; good = u.good;
+    S.srs[u.deckId] = S.srs[u.deckId] || {};
+    if (u.prev) S.srs[u.deckId][u.key] = u.prev; else delete S.srs[u.deckId][u.key];
+    S.meta.history[dayKey()] = u.hist; S.meta.newDay = u.newDay; S.meta.newCount = u.newCount;
+    if (!u.seen) seenNew.delete(u.key);
+    saveSrs(u.deckId); saveMeta(); show(); toast("Undone");
+  }
+  function editCurrent() {
+    const f = queue[i]; if (!f) return;
+    editCardModal(f.deck, f.card, () => {
+      const fresh = factsOf(f.deck);
+      queue = queue.map(q => fresh.find(x => x.key === q.key) || null).filter(Boolean);
+      i = Math.min(i, queue.length); show();
+    });
+  }
+  function finish() {
+    setProg(1);
+    const pct = again + good ? Math.round(good / (again + good) * 100) : 100;
+    ST.right.innerHTML = "";
+    ST.stage.innerHTML = `<div class="results">${ring(pct)}<h2>Session complete</h2><p class="muted">${plural(total, "fact")} reviewed. You pressed Again ${plural(again, "time")}.${opts.cram ? "" : " Each fact is scheduled to return just before you’d forget it."}</p>
+      <div class="row" style="justify-content:center">${undo.length ? `<button class="btn" id="un">${icon("undo")}Undo last</button>` : ""}<button class="btn primary" id="dn">Done</button></div></div>`;
+    $("#dn").onclick = () => closeStudy(); $("#un") && ($("#un").onclick = doUndo);
+  }
+  ST.onKey = e => {
+    if (e.key === "u" || e.key === "U") { doUndo(); return; }
+    if (i >= queue.length) return;
+    if (e.key === " " || e.key === "Enter") { e.preventDefault(); if (!flipped) flip(); else if (e.key === "Enter") grade(3); }
+    else if (flipped && /^[1-4]$/.test(e.key)) grade(+e.key);
+  };
+  show();
+}
+
+/* ---------- Flashcards: browse & sort ---------- */
+function startFlash(d, preset) {
+  let cards = preset || d.cards.slice();
+  let startBack = false, i = 0, flipped = false, know = [], learning = [];
+  openStudy(d.name);
+  const opts = () => `<button class="btn sm ${startBack ? "primary" : ""}" id="dir" title="Start with the answer side">${icon("rotate")}<span class="hide-sm">Answer first</span></button><button class="btn sm icon" id="shuf" aria-label="Shuffle">${icon("shuffle")}</button>`;
+  const bindOpts = () => { ST.right.innerHTML = opts(); $("#dir").onclick = () => { startBack = !startBack; bindOpts(); show(); }; $("#shuf").onclick = () => { cards = shuffle(cards); i = 0; know = []; learning = []; toast("Shuffled"); show(); }; };
+  bindOpts();
+  const sideA = c => c.type === "profile" ? `${pic(c.img)}<div class="kicker">${d.fields.filter(f => (c.values || {})[f]).length} facts</div><div class="main-text">${esc(c.name)}</div>`
+    : c.type === "cloze" ? `<div class="sub-text cloze">${esc(c.text).replace(/\{\{(.+?)\}\}/g, (_, x) => `<span class="blank">${x.split("::")[1] || "…"}</span>`)}</div>`
+      : `${c.imgSide !== "back" ? pic(c.img) : ""}${c.front ? `<div class="main-text">${esc(c.front)}</div>` : ""}`;
+  const sideB = c => c.type === "profile" ? `<div class="kicker">${esc(c.name)}</div>${factsTable(c, d)}${noteHtml(c)}`
+    : c.type === "cloze" ? `<div class="sub-text cloze">${esc(c.text).replace(/\{\{(.+?)\}\}/g, (_, x) => `<span class="blank on">${x.split("::")[0]}</span>`)}</div>${noteHtml(c)}`
+      : `${c.imgSide === "back" ? pic(c.img) : ""}<div class="sub-text">${esc(c.back)}</div>${noteHtml(c)}`;
+  function show() {
+    if (i >= cards.length) return finish();
+    const c = cards[i]; flipped = false;
+    const [f, b] = startBack ? [sideB(c), sideA(c)] : [sideA(c), sideB(c)];
+    ST.stage.innerHTML = `${flipCard(`${i + 1} / ${cards.length}`, capOf(d), f, b)}
+      <p class="tap-hint">Tap the card to flip</p>
+      <div class="row" style="justify-content:space-between">
+        <button class="btn icon" id="prev" aria-label="Previous" ${i ? "" : "disabled"}>${icon("left")}</button>
+        <button class="btn icon star ${c.star ? "on" : ""}" id="st" aria-label="${c.star ? "Unstar" : "Star"}">${icon("star")}</button>
+        <div class="spacer"></div>
+        <button class="btn" id="lrn" style="color:var(--warn)">Still learning</button>
+        <button class="btn" id="kn" style="color:var(--good)">Know it</button>
+      </div>`;
+    sizeFlip();
+    $("#fc").onclick = () => { flipped = !flipped; $("#fc").classList.toggle("on", flipped); };
+    $("#prev").onclick = () => { i--; know = know.filter(x => x !== cards[i]); learning = learning.filter(x => x !== cards[i]); show(); };
+    $("#st").onclick = () => { c.star = !c.star; saveDeck(d); show(); };
+    $("#kn").onclick = () => { know.push(c); i++; show(); };
+    $("#lrn").onclick = () => { learning.push(c); i++; show(); };
+    setProg(i / cards.length);
+  }
+  function finish() {
+    setProg(1);
+    ST.stage.innerHTML = `<div class="results">${ring(Math.round(know.length / Math.max(1, cards.length) * 100))}<h2>Round done</h2><p class="muted">Know it: ${know.length}. Still learning: ${learning.length}.</p>
+      <div class="row" style="justify-content:center">${learning.length ? `<button class="btn primary" id="again">Study the ${learning.length} still learning</button>` : ""}<button class="btn" id="restart">Start over</button><button class="btn" id="dn">Done</button></div></div>`;
+    $("#again") && ($("#again").onclick = () => startFlash(d, learning.slice()));
+    $("#restart").onclick = () => startFlash(d);
+    $("#dn").onclick = () => closeStudy();
+  }
+  ST.onKey = e => {
+    if (e.key === " ") { e.preventDefault(); $("#fc")?.click(); }
+    else if (e.key === "ArrowRight" || e.key === "2") $("#kn")?.click();
+    else if (e.key === "1") $("#lrn")?.click();
+    else if (e.key === "ArrowLeft") $("#prev")?.click();
+  };
+  show();
+}
+
+/* ---------- question building (shared by quiz, board practice) ---------- */
+const fitsClues = (p, c, fields) => fields.every(f => norm((p.values || {})[f]) === norm((c.values || {})[f]));
+function distinctOthers(list, correct, n) {
+  const seen = new Set([norm(correct)]); const out = [];
+  for (const x of shuffle(list)) { const k = norm(x); if (!k || seen.has(k)) continue; seen.add(k); out.push(x); if (out.length >= n) break; }
+  return out;
+}
+function questionFor(f, allowIdentify = true) {
+  const d = f.deck, profiles = d.cards.filter(c => c.type === "profile"), basics = d.cards.filter(c => c.type === "basic");
+  if (f.kind === "basic") {
+    const c = f.card, imgQ = c.img && c.imgSide !== "back" && imgSrc(c.img);
+    const rev = !imgQ && c.front && Math.random() < 0.3;
+    if (!c.front && !imgQ) return null;
+    const pool = basics.filter(x => x !== c).map(x => rev ? x.front : x.back).filter(Boolean);
+    const wrong = distinctOthers(pool, rev ? f.q : f.a, 3); if (!wrong.length) return null;
+    return { f, kicker: rev ? "Which term matches?" : imgQ && !c.front ? "What is shown?" : "Choose the answer", text: rev ? f.a : f.q, img: imgQ ? c.img : "", answer: rev ? f.q : f.a, options: shuffle([rev ? f.q : f.a, ...wrong]) };
+  }
+  if (f.kind === "cloze") {
+    const pool = d.cards.filter(x => x.type === "cloze").flatMap(x => clozeParts(x.text || "").map(p => p.ans));
+    const wrong = distinctOthers(pool, f.a, 3); if (!wrong.length) return null;
+    return { f, kicker: "Fill in the blank", html: clozeRender(f.card.text, f.idx, "q"), text: f.q, answer: f.a, options: shuffle([f.a, ...wrong]) };
+  }
+  if (allowIdentify && Math.random() < 0.25 && profiles.length >= 3) {
+    const c = f.card; const fl = d.fields.filter(x => (c.values || {})[x] && x !== d.orderField);
+    const clues = pick(fl, Math.min(3, fl.length));
+    const wrong = distinctOthers(profiles.filter(p => p !== c && !fitsClues(p, c, clues)).map(p => p.name), c.name, 3);
+    if (clues.length >= 2 && wrong.length) return { f, identify: true, kicker: "Which one is this?", text: "", clues: clues.map(x => [x, c.values[x]]), answer: c.name, options: shuffle([c.name, ...wrong]) };
+  }
+  const pool = profiles.filter(p => p !== f.card).map(p => (p.values || {})[f.field]).filter(Boolean);
+  const wrong = distinctOthers(pool, f.a, 3); if (!wrong.length) return null;
+  return { f, kicker: f.field, text: f.q, answer: f.a, options: shuffle([f.a, ...wrong]) };
+}
+function buildMC(d, count) { const qs = []; for (const f of shuffle(factsOf(d))) { if (qs.length >= count) break; const q = questionFor(f); if (q) qs.push(q); } return qs; }
+function questionHtml(q) {
+  return `<div class="qcard"><div class="kicker">${esc(q.kicker)}</div>${q.img ? pic(q.img, "qimg") : ""}${q.html ? `<div class="qtext cloze">${q.html}</div>` : q.text ? `<div class="qtext">${esc(q.text)}</div>` : ""}${q.clues ? `<div class="clues">${q.clues.map(([k, v]) => `<div class="clue"><b>${esc(k)}</b><span>${esc(v)}</span></div>`).join("")}</div>` : ""}</div>`;
+}
+const qLabel = q => q.text || (q.clues ? q.clues.map(c => c[1]).join(", ") : q.img ? "Image question" : "");
+
+/* ---------- Multiple choice ---------- */
+function startMC(d) {
+  openStudy(d.name + ": multiple choice");
+  const n = factsOf(d).length;
+  ST.stage.innerHTML = `<div class="results"><h2>How many questions?</h2><p class="muted">Questions are built from your cards, with wrong answers pulled from similar cards. Misses come back in your review today.</p>
+    <div class="row" style="justify-content:center">${[10, 20].filter(x => x < n).map(x => `<button class="btn" data-n="${x}">${x}</button>`).join("")}<button class="btn primary" data-n="${n}">All ${n}</button></div></div>`;
+  $$("[data-n]").forEach(b => b.onclick = () => runMC(d, buildMC(d, +b.dataset.n)));
+  ST.onKey = e => { if (e.key === "Enter") $("[data-n].primary")?.click(); };
+}
+function runMC(d, qs) {
+  if (!qs.length) { ST.stage.innerHTML = `<div class="results"><h2>Not enough variety yet</h2><p class="muted">Add a few more cards with different answers so wrong options can be built.</p><button class="btn" id="dn">Done</button></div>`; $("#dn").onclick = () => closeStudy(); return; }
+  let i = 0, score = 0, answered = false; const missed = [];
+  function show() {
+    if (i >= qs.length) return finish();
+    const q = qs[i]; answered = false;
+    ST.stage.innerHTML = `${questionHtml(q)}
+      <div class="opts ${q.options.every(o => o.length < 40) ? "two" : ""}" id="opts">${q.options.map((o, k) => `<button class="opt" data-k="${k}"><span class="k">${k + 1}</span><span>${esc(o)}</span></button>`).join("")}</div><div id="fb"></div>`;
+    $$("#opts .opt").forEach(b => b.onclick = () => answer(+b.dataset.k));
+    setProg(i / qs.length); ST.right.innerHTML = `<span class="small muted">${i + 1} of ${qs.length}</span>`;
+  }
+  function answer(k) {
+    if (answered) return; answered = true;
+    const q = qs[i]; const ok = q.options[k] === q.answer;
+    if (ok) score++; else missed.push(q);
+    if (!q.identify) recordQuiz(q.f, ok);
+    $("#opts").classList.add("locked");
+    $$("#opts .opt").forEach((b, j) => { if (q.options[j] === q.answer) b.classList.add("right"); else if (j === k) b.classList.add("wrong"); });
+    const prof = q.f.kind === "field" || q.identify;
+    const ctx = prof ? `<div class="det" style="margin-top:8px"><b>${esc(q.f.card.name)}</b>${factsTable(q.f.card, d, q.identify ? null : q.f.field)}</div>` : (q.f.card.note ? `<span class="det">${esc(q.f.card.note)}</span>` : "");
+    $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? "Correct" : "Not quite. Answer: " + esc(q.answer)}${ctx}</div></div>
+      <div class="row" style="margin-top:12px"><div class="spacer"></div><button class="btn primary" id="next">${i + 1 < qs.length ? "Next" : "See results"}</button></div>`;
+    $("#next").onclick = () => { i++; show(); };
+  }
+  function finish() {
+    setProg(1); ST.right.innerHTML = "";
+    const pct = Math.round(score / qs.length * 100);
+    ST.stage.innerHTML = `<div class="results">${ring(pct)}<h2>${score} of ${qs.length} correct</h2>
+      <div class="row" style="justify-content:center">${missed.length ? `<button class="btn primary" id="retry">Retry ${missed.length} missed</button>` : ""}<button class="btn" id="newq">New quiz</button><button class="btn" id="dn">Done</button></div>
+      ${missed.length ? `<div class="missed-list"><h3 style="margin-top:12px">Review these</h3>${missed.map(q => `<div class="card-row"><div><b>${esc(qLabel(q))}</b>${q.f.kind === "field" && !q.identify ? ` <span class="chip">${esc(q.kicker)}</span>` : ""}<div class="a" style="margin-top:4px">${esc(q.answer)}</div></div></div>`).join("")}</div>` : ""}</div>`;
+    $("#retry") && ($("#retry").onclick = () => runMC(d, shuffle(missed).map(q => ({ ...q, options: shuffle(q.options) }))));
+    $("#newq").onclick = () => startMC(d); $("#dn").onclick = () => closeStudy();
+  }
+  ST.onKey = e => {
+    if (!answered && /^[1-9]$/.test(e.key)) { const b = $(`#opts .opt[data-k="${+e.key - 1}"]`); b && b.click(); }
+    else if (answered && (e.key === "Enter" || e.key === "ArrowRight")) $("#next")?.click();
+  };
+  show();
+}
+
+/* ---------- Compare profiles side by side ---------- */
+function startCompare(d) {
+  openStudy(d.name + ": compare");
+  const P = d.cards.filter(c => c.type === "profile");
+  let sel = P.slice(0, 2).map(c => c.id), diffOnly = false;
+  function draw() {
+    const cols = sel.map(id => P.find(c => c.id === id)).filter(Boolean);
+    const rows = d.fields.map(f => {
+      const vals = cols.map(c => (c.values || {})[f] || "");
+      const differs = new Set(vals.map(norm)).size > 1;
+      return { f, vals, differs };
+    }).filter(r => r.vals.some(Boolean) && (!diffOnly || r.differs));
+    ST.stage.style.maxWidth = "1000px";
+    ST.stage.innerHTML = `
+      <div><p class="lbl" style="margin-bottom:8px">Pick 2 to 4 to compare</p><div class="pickchips">${P.map(c => `<button class="chipbtn ${sel.includes(c.id) ? "on" : ""}" data-id="${c.id}">${esc(c.name)}</button>`).join("")}</div></div>
+      <label class="check" style="align-self:flex-start"><input type="checkbox" id="diff" ${diffOnly ? "checked" : ""}>Only show differences</label>
+      ${cols.length >= 2 ? `<div class="cmp-wrap"><table class="cmp"><thead><tr><th></th>${cols.map(c => `<th>${pic(c.img, "cmpimg")}${esc(c.name)}</th>`).join("")}</tr></thead>
+        <tbody>${rows.map(r => `<tr class="${r.differs ? "diff" : ""}"><th>${esc(r.f)}</th>${r.vals.map(v => `<td>${esc(v) || `<span class="muted">—</span>`}</td>`).join("")}</tr>`).join("") || `<tr><td colspan="${cols.length + 1}" class="muted">No differences in filled fields.</td></tr>`}</tbody></table></div>
+        <p class="small muted">Highlighted rows are where they differ. Those are usually the tests that tell them apart.</p>` : `<p class="muted">Pick at least two.</p>`}`;
+    $$(".chipbtn").forEach(b => b.onclick = () => { const id = b.dataset.id; if (sel.includes(id)) sel = sel.filter(x => x !== id); else { sel.push(id); if (sel.length > 4) sel.shift(); } draw(); });
+    $("#diff").onchange = e => { diffOnly = e.target.checked; draw(); };
+  }
+  setProg(1); draw();
+}
+/* ---------- Select all that apply ---------- */
+const itemsOf = (c, f) => splitItems((c.values || {})[f]);
+const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
+function buildSATA(d, count) {
+  const P = d.cards.filter(c => c.type === "profile");
+  const fields = d.fields.filter(f => f !== d.orderField);
+  const qs = []; let guard = 0;
+  while (qs.length < count && guard++ < count * 12) {
+    if (Math.random() < 0.55) {
+      // "Select everything true of X"
+      const c = P[Math.floor(Math.random() * P.length)];
+      const filled = fields.filter(f => itemsOf(c, f).length);
+      if (filled.length < 2) continue;
+      const trues = pick(filled, Math.min(filled.length, 1 + Math.floor(Math.random() * 3))).map(f => ({ field: f, text: pick(itemsOf(c, f), 1)[0], ok: true, card: c }));
+      const falses = [];
+      for (const f of shuffle(filled)) {
+        if (falses.length >= 6 - trues.length || falses.length >= 3) break;
+        const cand = shuffle(P.filter(o => o !== c).flatMap(o => itemsOf(o, f))).find(it => !hasItem(c, f, it) && !falses.some(x => x.field === f && norm(x.text) === norm(it)) && !trues.some(t => norm(t.text) === norm(it)));
+        if (cand) falses.push({ field: f, text: cand, ok: false, card: c });
+      }
+      if (!falses.length) continue;
+      qs.push({ kind: "about", card: c, prompt: `Select everything true of`, title: c.name, options: shuffle([...trues, ...falses]) });
+    } else {
+      // "Which ones have <field>: <item>?"
+      const f = fields[Math.floor(Math.random() * fields.length)]; if (!f) continue;
+      const all = shuffle(P.flatMap(c => itemsOf(c, f)));
+      const item = all[0]; if (!item) continue;
+      const yes = P.filter(c => hasItem(c, f, item)), no = P.filter(c => itemsOf(c, f).length && !hasItem(c, f, item));
+      if (!no.length) continue;
+      const opts = shuffle([...pick(yes, Math.min(yes.length, 4)), ...pick(no, Math.max(2, 6 - Math.min(yes.length, 4)))]).slice(0, 6);
+      if (!opts.some(c => hasItem(c, f, item))) continue;
+      qs.push({ kind: "which", field: f, item, prompt: `Which have ${f.toLowerCase()}:`, title: item, options: opts.map(c => ({ field: f, text: c.name, ok: hasItem(c, f, item), card: c })) });
+    }
+    const last = qs[qs.length - 1]; if (last && qs.slice(0, -1).some(q => q.title === last.title && q.prompt === last.prompt)) qs.pop();
+  }
+  return qs;
+}
+function startSATA(d) {
+  openStudy(d.name + ": select all");
+  const qs = buildSATA(d, 10);
+  if (!qs.length) { ST.stage.innerHTML = `<div class="results"><h2>Not enough to compare yet</h2><p class="muted">Select all needs at least two profile cards whose fields have different answers.</p><button class="btn" id="dn">Done</button></div>`; $("#dn").onclick = () => closeStudy(); return; }
+  let i = 0, full = 0, partSum = 0, checked = false, sel = new Set(); const missed = [];
+  function show() {
+    if (i >= qs.length) return finish();
+    const q = qs[i]; sel = new Set(); checked = false;
+    ST.stage.innerHTML = `<div class="qcard"><div class="kicker">${esc(q.prompt)}</div><div class="qtext">${esc(q.title)}</div><p class="small muted" style="margin-top:6px">Could be one, some or all.</p></div>
+      <div class="opts" id="opts">${q.options.map((o, k) => `<button class="opt" data-k="${k}" aria-pressed="false"><span class="k">${k + 1}</span><span>${q.kind === "about" ? `<span class="fl">${esc(o.field)}:</span>` : ""}${esc(o.text)}</span></button>`).join("")}</div>
+      <div id="fb"><button class="btn primary" id="chk" style="width:100%;min-height:52px">Check answers</button></div>`;
+    $$("#opts .opt").forEach(b => b.onclick = () => toggle(+b.dataset.k));
+    $("#chk").onclick = check;
+    setProg(i / qs.length); ST.right.innerHTML = `<span class="small muted">${i + 1} of ${qs.length}</span>`;
+  }
+  function toggle(k) { if (checked) return; const b = $(`#opts .opt[data-k="${k}"]`); sel.has(k) ? sel.delete(k) : sel.add(k); b.classList.toggle("sel", sel.has(k)); b.setAttribute("aria-pressed", sel.has(k)); }
+  function check() {
+    if (checked) return; checked = true;
+    const q = qs[i]; let right = 0;
+    q.options.forEach((o, k) => {
+      const picked = sel.has(k); const good = picked === o.ok; if (good) right++;
+      const b = $(`#opts .opt[data-k="${k}"]`); b.classList.remove("sel");
+      if (o.ok && picked) { b.classList.add("right"); b.insertAdjacentHTML("beforeend", `<span class="tag" style="color:var(--good)">Correct</span>`); }
+      else if (o.ok && !picked) { b.classList.add("missed"); b.insertAdjacentHTML("beforeend", `<span class="tag" style="color:var(--good)">Missed</span>`); }
+      else if (!o.ok && picked) { b.classList.add("wrong"); b.insertAdjacentHTML("beforeend", `<span class="tag" style="color:var(--bad)">False</span>`); }
+      // log each statement against the fact it tests
+      const fct = { deck: d, key: (q.kind === "about" ? q.card.id : o.card.id) + "::" + o.field };
+      if (q.kind === "about" && !o.ok) { if (!good) recordQuiz(fct, false); }
+      else recordQuiz(fct, good);
+    });
+    $("#opts").classList.add("locked");
+    const all = right === q.options.length; if (all) full++; else missed.push(q);
+    partSum += right / q.options.length;
+    const ctx = q.kind === "about" ? `<div class="det" style="margin-top:8px"><b>${esc(q.card.name)}</b>${factsTable(q.card, d)}</div>` : `<span class="det">${esc(q.options.filter(o => o.ok).map(o => o.text).join(", "))}</span>`;
+    $("#fb").innerHTML = `<div class="feedback ${all ? "ok" : "no"}"><div style="flex:1">${all ? "All correct" : `${right} of ${q.options.length} right`}${ctx}</div></div>
+      <div class="row" style="margin-top:12px"><div class="spacer"></div><button class="btn primary" id="next">${i + 1 < qs.length ? "Next" : "See results"}</button></div>`;
+    $("#next").onclick = () => { i++; show(); };
+  }
+  function finish() {
+    setProg(1); ST.right.innerHTML = "";
+    ST.stage.innerHTML = `<div class="results">${ring(Math.round(partSum / qs.length * 100))}<h2>${full} of ${qs.length} fully correct</h2><p class="muted">The ring shows every individual choice you got right.</p>
+      <div class="row" style="justify-content:center"><button class="btn primary" id="again">New set</button><button class="btn" id="dn">Done</button></div></div>`;
+    $("#again").onclick = () => startSATA(d); $("#dn").onclick = () => closeStudy();
+  }
+  ST.onKey = e => {
+    if (!checked && /^[1-9]$/.test(e.key)) toggle(+e.key - 1);
+    else if (e.key === "Enter") { e.preventDefault(); checked ? $("#next")?.click() : check(); }
+  };
+  show();
+}
+
+/* ---------- Unknown ID: identify from clues, like a bench unknown ---------- */
+function startUnknown(d) {
+  openStudy(d.name + ": unknown ID");
+  const P = d.cards.filter(c => c.type === "profile" && d.fields.filter(f => (c.values || {})[f] && f !== d.orderField).length >= 2);
+  if (P.length < 2) { ST.stage.innerHTML = `<div class="results"><h2>Need more profiles</h2><p class="muted">Add at least two profile cards with two or more details each.</p><button class="btn" id="dn">Done</button></div>`; $("#dn").onclick = () => closeStudy(); return; }
+  const rounds = shuffle(P).slice(0, 10);
+  let i = 0, pts = 0, max = 0, shown = 2, clues = [], answered = false, opts = [];
+  function show() {
+    if (i >= rounds.length) return finish();
+    const c = rounds[i]; answered = false; shown = 2;
+    clues = shuffle(d.fields.filter(f => (c.values || {})[f] && f !== d.orderField));
+    opts = shuffle([c.name, ...distinctOthers(P.filter(p => p !== c && !fitsClues(p, c, clues.slice(0, 2))).map(p => p.name), c.name, 3)]);
+    draw();
+    setProg(i / rounds.length); ST.right.innerHTML = `<span class="small muted">${pts} pts</span>`;
+  }
+  function draw() {
+    const c = rounds[i]; const worth = Math.max(1, 6 - shown);
+    ST.stage.innerHTML = `<div class="qcard"><div class="kicker">Unknown ${i + 1} of ${rounds.length}</div><div class="qtext">What organism or item fits these findings?</div>
+      <div class="clues">${clues.slice(0, shown).map(f => `<div class="clue"><b>${esc(f)}</b><span>${esc(c.values[f])}</span></div>`).join("")}</div>
+      ${!answered && shown < clues.length ? `<button class="btn sm" id="more" style="margin-top:12px">${icon("search")}Run another test (−1 pt)</button>` : ""}
+      ${!answered ? `<p class="small muted" style="margin-top:10px">Worth ${plural(worth, "point")} now.</p>` : ""}</div>
+      <div class="opts two" id="opts">${opts.map((o, k) => `<button class="opt" data-k="${k}"><span class="k">${k + 1}</span><span>${esc(o)}</span></button>`).join("")}</div><div id="fb"></div>`;
+    $("#more") && ($("#more").onclick = () => { shown++; draw(); });
+    $$("#opts .opt").forEach(b => b.onclick = () => answer(+b.dataset.k));
+  }
+  function answer(k) {
+    if (answered) return; answered = true;
+    const c = rounds[i]; const ok = opts[k] === c.name; const worth = Math.max(1, 6 - shown);
+    max += 5; if (ok) pts += worth;
+    $("#opts").classList.add("locked");
+    $$("#opts .opt").forEach((b, j) => { if (opts[j] === c.name) b.classList.add("right"); else if (j === k) b.classList.add("wrong"); });
+    $("#more")?.remove();
+    $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? `Identified with ${plural(shown, "clue")}: +${worth}` : "It was " + esc(c.name)}<div class="det" style="margin-top:8px">${factsTable(c, d)}</div></div></div>
+      <div class="row" style="margin-top:12px"><div class="spacer"></div><button class="btn primary" id="next">${i + 1 < rounds.length ? "Next unknown" : "See results"}</button></div>`;
+    $("#next").onclick = () => { i++; show(); };
+    ST.right.innerHTML = `<span class="small muted">${pts} pts</span>`;
+  }
+  function finish() {
+    setProg(1);
+    const best = S.meta.best["u-" + d.id] || 0; const isBest = pts > best; if (isBest) { S.meta.best["u-" + d.id] = pts; saveMeta(); }
+    ST.stage.innerHTML = `<div class="results">${ring(Math.round(pts / Math.max(1, max) * 100))}<h2>${pts} points</h2><p class="muted">${isBest ? "New personal best." : "Best: " + best + " points."} Fewer clues, more points.</p>
+      <div class="row" style="justify-content:center"><button class="btn primary" id="again">Play again</button><button class="btn" id="dn">Done</button></div></div>`;
+    $("#again").onclick = () => startUnknown(d); $("#dn").onclick = () => closeStudy();
+  }
+  ST.onKey = e => {
+    if (!answered && /^[1-4]$/.test(e.key)) answer(+e.key - 1);
+    else if (!answered && (e.key === "r" || e.key === "R")) $("#more")?.click();
+    else if (answered && e.key === "Enter") $("#next")?.click();
+  };
+  show();
+}
+
+/* ---------- Match ---------- */
+function startMatch(d) {
+  openStudy(d.name + ": match");
+  const n = window.innerWidth >= 860 ? 6 : 5;
+  const seenCards = new Set(), seenA = new Set(), seenQ = new Set(), pairs = [];
+  for (const f of shuffle(factsOf(d))) {
+    if (pairs.length >= n) break;
+    if (!f.q || f.kind === "cloze") continue;
+    const a = f.kind === "field" ? f.field + ": " + f.a : f.a;
+    if (seenCards.has(f.card.id) || seenA.has(norm(a)) || seenQ.has(norm(f.q))) continue;
+    if (f.kind === "field" && f.deck.cards.some(o => o !== f.card && norm((o.values || {})[f.field]) === norm(f.a))) continue; // shared values make ambiguous pairs
+    seenCards.add(f.card.id); seenA.add(norm(a)); seenQ.add(norm(f.q)); pairs.push({ f, l: f.q, r: a });
+  }
+  if (pairs.length < 2) { ST.stage.innerHTML = `<div class="results"><h2>Need more cards</h2><button class="btn" id="dn">Done</button></div>`; $("#dn").onclick = () => closeStudy(); return; }
+  const tiles = shuffle(pairs.flatMap((p, k) => [{ k, t: p.l }, { k, t: p.r }]));
+  let first = null, left = pairs.length, penalty = 0; const t0 = Date.now();
+  ST.right.innerHTML = `<span class="timer" id="tm">0.0</span>`;
+  const tm = setInterval(() => { const el = $("#tm"); if (el) el.textContent = ((Date.now() - t0) / 1000 + penalty).toFixed(1); }, 100); ST.timers.push(tm);
+  ST.stage.innerHTML = `<p class="muted" style="text-align:center">Tap matching pairs. A wrong pair adds a second.</p><div class="match-grid">${tiles.map((x, j) => `<button class="tile" data-j="${j}">${esc(x.t)}</button>`).join("")}</div>`;
+  $$(".tile").forEach(b => b.onclick = () => {
+    const j = +b.dataset.j; if (b.classList.contains("done")) return;
+    if (first === null) { first = j; b.classList.add("sel"); return; }
+    if (first === j) { b.classList.remove("sel"); first = null; return; }
+    const a = $(`.tile[data-j="${first}"]`);
+    if (tiles[first].k === tiles[j].k) { a.classList.remove("sel"); a.classList.add("done"); b.classList.add("done"); left--; setProg(1 - left / pairs.length); if (!left) done(); }
+    else { penalty += 1; a.classList.remove("sel"); [a, b].forEach(x => { x.classList.add("bad"); setTimeout(() => x.classList.remove("bad"), 350); }); recordQuiz(pairs[tiles[first].k].f, false); }
+    first = null;
+  });
+  function done() {
+    clearInterval(tm);
+    const time = +((Date.now() - t0) / 1000 + penalty).toFixed(1);
+    const best = S.meta.best["m-" + d.id]; const isBest = !best || time < best; if (isBest) { S.meta.best["m-" + d.id] = time; saveMeta(); }
+    setTimeout(() => {
+      ST.stage.innerHTML = `<div class="results"><div class="timer" style="font-size:3rem">${time}s</div><h2>${isBest ? "New best time" : "Matched"}</h2><p class="muted">${isBest ? "" : "Best: " + best + "s. "}${penalty ? plural(penalty, "wrong pair") + " added." : "No wrong pairs."}</p>
+        <div class="row" style="justify-content:center"><button class="btn primary" id="again">Play again</button><button class="btn" id="dn">Done</button></div></div>`;
+      $("#again").onclick = () => startMatch(d); $("#dn").onclick = () => closeStudy();
+    }, 300);
+  }
+  ST.onKey = e => { if (e.key === "Enter") $("#again")?.click(); };
+}
+
+/* ---------- Type it ---------- */
+function startType(d) {
+  openStudy(d.name + ": type it");
+  const qs = shuffle(factsOf(d)).slice(0, 20);
+  let i = 0, score = 0, state = "ask"; const missed = [];
+  function show() {
+    if (i >= qs.length) return finish();
+    const f = qs[i]; state = "ask";
+    const im = f.kind === "basic" && f.card.img && f.card.imgSide !== "back" ? pic(f.card.img, "qimg") : "";
+    ST.stage.innerHTML = `<div class="qcard"><div class="kicker">${f.kind === "field" ? esc(f.field) : f.kind === "cloze" ? "Fill in the blank" : f.q ? "Answer for" : "What is shown?"}</div>${im}${f.kind === "cloze" ? `<div class="qtext cloze">${clozeRender(f.card.text, f.idx, "q")}</div>` : f.q ? `<div class="qtext">${esc(f.q)}</div>` : ""}</div>
+      <div class="typed"><input class="input" id="ans" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Type your answer" aria-label="Your answer"><button class="btn primary" id="go">Check</button></div>
+      <div class="row"><button class="btn ghost sm" id="idk">I don’t know</button></div><div id="fb"></div>`;
+    const inp = $("#ans"); setTimeout(() => inp.focus(), 50);
+    $("#go").onclick = () => check(false); $("#idk").onclick = () => check(true);
+    setProg(i / qs.length); ST.right.innerHTML = `<span class="small muted">${i + 1} of ${qs.length}</span>`;
+  }
+  function check(skip) {
+    if (state !== "ask") return; state = "shown";
+    const f = qs[i]; const val = $("#ans").value; const ok = !skip && similar(val, f.a);
+    if (ok) score++; else missed.push(f);
+    recordQuiz(f, ok);
+    $("#ans").disabled = true; $("#go").remove(); $("#idk").remove();
+    $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? "Correct" : skip ? "Answer" : "Not quite"}<span class="det">${esc(f.a)}</span>${f.kind === "field" && splitItems(f.a).length > 1 ? `<span class="det small muted">Any one listed item counts. Try to recall them all.</span>` : ""}</div></div>
+      <div class="row" style="margin-top:12px">${!ok && !skip && val.trim() ? `<button class="btn sm" id="override">I was right</button>` : ""}<div class="spacer"></div><button class="btn primary" id="next">${i + 1 < qs.length ? "Next" : "See results"}</button></div>`;
+    $("#override") && ($("#override").onclick = () => { score++; missed.pop(); recordQuiz(f, true); const st = stOf(f); if (st) { st.w = Math.max(0, (st.w || 1) - 1); saveSrs(d.id); } i++; show(); });
+    $("#next").onclick = () => { i++; show(); };
+    setTimeout(() => $("#next")?.focus(), 30);
+  }
+  function finish() {
+    setProg(1); ST.right.innerHTML = "";
+    ST.stage.innerHTML = `<div class="results">${ring(Math.round(score / qs.length * 100))}<h2>${score} of ${qs.length} recalled</h2>
+      <div class="row" style="justify-content:center"><button class="btn primary" id="again">Go again</button><button class="btn" id="dn">Done</button></div>
+      ${missed.length ? `<div class="missed-list"><h3 style="margin-top:12px">Review these</h3>${missed.map(f => `<div class="card-row"><div><b>${esc(f.q || "Image card")}</b>${f.kind === "field" ? ` <span class="chip">${esc(f.field)}</span>` : ""}<div class="a" style="margin-top:4px">${esc(f.a)}</div></div></div>`).join("")}</div>` : ""}</div>`;
+    $("#again").onclick = () => startType(d); $("#dn").onclick = () => closeStudy();
+  }
+  ST.onKey = e => { if (e.key === "Enter") { e.preventDefault(); if (state === "ask") check(false); else $("#next")?.click(); } };
+  show();
+}
+
+/* ---------- Put in order (e.g. order of draw) ---------- */
+function swatchFor(name) {
+  const n = norm(name);
+  const map = [["light blue", "lightblue"], ["royal", "royal"], ["lavender", "lavender"], ["purple", "lavender"], ["gold", "gold"], ["sst", "gold"], ["green", "green"], ["gray", "gray"], ["grey", "gray"], ["pink", "pink"], ["red", "red"], ["yellow", "yellow"], ["culture", "yellow"], ["orange", "orange"]];
+  for (const [k, c] of map) if (n.includes(k)) return CAPS[c];
+  return "";
+}
+function startSeq(d) {
+  openStudy(d.name + ": put in order");
+  const F = d.orderField;
+  const items = d.cards.filter(c => c.type === "profile" && !isNaN(parseFloat((c.values || {})[F]))).map(c => ({ c, v: parseFloat(c.values[F]) }));
+  let pool = shuffle(items), picked = [], checked = false;
+  function draw() {
+    const sw = it => { const s = swatchFor(it.c.name); return s ? `<span class="sw" style="--c:${s}"></span>` : ""; };
+    ST.stage.innerHTML = `<div class="qcard"><div class="kicker">${esc(F)}</div><div class="qtext">Tap each item in order, first to last</div><p class="small muted" style="margin-top:6px">Tap a placed item to send it back.</p></div>
+      ${picked.length ? `<div class="seq-picked">${picked.map((it, k) => `<button class="seq-item ${checked ? (it.v === sorted[k].v ? "right" : "wrong") : ""}" data-p="${k}"><span class="n">${k + 1}</span>${sw(it)}<span style="flex:1">${esc(it.c.name)}</span>${checked && it.v !== sorted[k].v ? `<span class="small" style="color:var(--bad)">${esc(F)}: ${esc(it.c.values[F])}</span>` : ""}</button>`).join("")}</div>` : ""}
+      ${pool.length ? `<div class="seq-pool">${pool.map((it, k) => `<button class="seq-item" data-q="${k}" style="font-weight:500">${sw(it)}<span>${esc(it.c.name)}</span></button>`).join("")}</div>` : ""}
+      <div id="fb"></div>`;
+    if (!checked) {
+      $$("[data-q]").forEach(b => b.onclick = () => { picked.push(pool.splice(+b.dataset.q, 1)[0]); draw(); });
+      $$("[data-p]").forEach(b => b.onclick = () => { pool.push(picked.splice(+b.dataset.p, 1)[0]); draw(); });
+    }
+    if (!pool.length && !checked) $("#fb").innerHTML = `<button class="btn primary" id="chk" style="width:100%;min-height:52px">Check order</button>`;
+    $("#chk") && ($("#chk").onclick = check);
+    if (checked) {
+      const right = picked.filter((it, k) => it.v === sorted[k].v).length;
+      $("#fb").innerHTML = `<div class="feedback ${right === picked.length ? "ok" : "no"}"><div style="flex:1">${right === picked.length ? "Perfect order" : `${right} of ${picked.length} in the right spot`}<span class="det">Correct order: ${sorted.map(it => esc(it.c.name)).join(" → ")}</span><span class="det small muted">Items with the same ${esc(F.toLowerCase())} number are interchangeable.</span></div></div>
+        <div class="row" style="margin-top:12px;justify-content:flex-end"><button class="btn" id="dn">Done</button><button class="btn primary" id="again">Try again</button></div>`;
+      $("#again").onclick = () => startSeq(d); $("#dn").onclick = () => closeStudy();
+    }
+    setProg(picked.length / items.length);
+  }
+  const sorted = items.slice().sort((a, b) => a.v - b.v);
+  function check() {
+    checked = true;
+    picked.forEach((it, k) => recordQuiz({ deck: d, key: it.c.id + "::" + F }, it.v === sorted[k].v));
+    draw();
+  }
+  ST.onKey = e => { if (e.key === "Enter") { e.preventDefault(); checked ? $("#again")?.click() : $("#chk")?.click(); } };
+  draw();
+}
+
+/* ---------- Picture ID ---------- */
+function startPicture(d) {
+  openStudy(d.name + ": picture ID");
+  const cards = d.cards.filter(c => c.img && imgSrc(c.img) && cardLabel(c));
+  const labels = cards.map(cardLabel);
+  const rounds = shuffle(cards).slice(0, 15);
+  let i = 0, score = 0, answered = false, opts = []; const missed = [];
+  function show() {
+    if (i >= rounds.length) return finish();
+    const c = rounds[i]; answered = false;
+    opts = shuffle([cardLabel(c), ...distinctOthers(labels, cardLabel(c), 3)]);
+    ST.stage.innerHTML = `<div class="qcard"><div class="kicker">What is this?</div>${pic(c.img, "qimg big")}</div>
+      <div class="opts ${opts.every(o => o.length < 40) ? "two" : ""}" id="opts">${opts.map((o, k) => `<button class="opt" data-k="${k}"><span class="k">${k + 1}</span><span>${esc(o)}</span></button>`).join("")}</div><div id="fb"></div>`;
+    $$("#opts .opt").forEach(b => b.onclick = () => answer(+b.dataset.k));
+    setProg(i / rounds.length); ST.right.innerHTML = `<span class="small muted">${i + 1} of ${rounds.length}</span>`;
+  }
+  function answer(k) {
+    if (answered) return; answered = true;
+    const c = rounds[i], right = cardLabel(c), ok = opts[k] === right;
+    if (ok) score++; else missed.push(c);
+    const f = factsOf(d).find(x => x.card === c); if (f) recordQuiz(f, ok);
+    $("#opts").classList.add("locked");
+    $$("#opts .opt").forEach((b, j) => { if (opts[j] === right) b.classList.add("right"); else if (j === k) b.classList.add("wrong"); });
+    const ctx = c.type === "profile" ? factsTable(c, d) : `<span class="det">${esc(c.back)}</span>`;
+    $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? "Correct" : "It’s " + esc(right)}<div class="det" style="margin-top:6px">${ctx}</div>${c.note ? `<span class="det small">${esc(c.note)}</span>` : ""}</div></div>
+      <div class="row" style="margin-top:12px"><div class="spacer"></div><button class="btn primary" id="next">${i + 1 < rounds.length ? "Next" : "See results"}</button></div>`;
+    $("#next").onclick = () => { i++; show(); };
+  }
+  function finish() {
+    setProg(1); ST.right.innerHTML = "";
+    ST.stage.innerHTML = `<div class="results">${ring(Math.round(score / rounds.length * 100))}<h2>${score} of ${rounds.length} identified</h2>
+      <div class="row" style="justify-content:center">${missed.length ? `<button class="btn primary" id="rv">Review misses</button>` : ""}<button class="btn" id="again">Play again</button><button class="btn" id="dn">Done</button></div></div>`;
+    $("#rv") && ($("#rv").onclick = () => startFlash(d, missed));
+    $("#again").onclick = () => startPicture(d); $("#dn").onclick = () => closeStudy();
+  }
+  ST.onKey = e => {
+    if (!answered && /^[1-4]$/.test(e.key)) answer(+e.key - 1);
+    else if (answered && e.key === "Enter") $("#next")?.click();
+  };
+  show();
+}
+
+/* ---------- Board practice: timed mixed exam, results by content area ---------- */
+function startBoard() {
+  const decks = Object.values(S.decks).filter(d => factsOf(d).length >= 2);
+  openStudy("Board practice");
+  if (!decks.length) { ST.stage.innerHTML = `<div class="results"><h2>Add some decks first</h2><button class="btn" id="dn">Done</button></div>`; $("#dn").onclick = () => closeStudy(); return; }
+  let n = 50, mins = 75, chosen = new Set(decks.map(d => d.id)), weighted = true;
+  function setup() {
+    ST.stage.innerHTML = `<div class="qcard"><h2 style="margin-bottom:6px">Set up your practice exam</h2><p class="muted small">Mixed questions from the decks you pick, a countdown timer, and no feedback until you submit, like a certification exam. Modeled on the style of the ASCP BOC, not real exam content.</p></div>
+      <div><p class="lbl" style="margin-bottom:8px">Content areas</p><div class="checks">${decks.map(d => `<label class="check"><input type="checkbox" value="${d.id}" ${chosen.has(d.id) ? "checked" : ""}><span class="dot" style="background:${capOf(d)}"></span>${esc(d.name)}<span class="muted small" style="margin-left:auto">${factsOf(d).length}</span></label>`).join("")}</div></div>
+      <div class="row" style="gap:24px">
+        <div><p class="lbl" style="margin-bottom:6px">Questions</p><div class="seg" id="qn">${[25, 50, 100].map(x => `<button data-v="${x}" class="${n === x ? "on" : ""}">${x}</button>`).join("")}</div></div>
+        <div><p class="lbl" style="margin-bottom:6px">Time</p><div class="seg" id="qt">${[["0", "Untimed"], ["1.5", "1.5 min each"], ["1", "1 min each"]].map(([v, l]) => `<button data-v="${v}" class="${String(mins / n) === v || (v === "0" && !mins) ? "on" : ""}">${l}</button>`).join("")}</div></div>
+      </div>
+      <label class="check" style="align-self:flex-start"><input type="checkbox" id="wt" ${weighted ? "checked" : ""}>Lean toward facts I miss or haven’t learned</label>
+      <button class="btn primary" id="go" style="min-height:52px">${icon("exam")}Start exam</button>`;
+    $$(".checks input").forEach(c => c.onchange = () => c.checked ? chosen.add(c.value) : chosen.delete(c.value));
+    $$("#qn button").forEach(b => b.onclick = () => { const per = n ? mins / n : 0; n = +b.dataset.v; mins = per * n; setup(); });
+    $$("#qt button").forEach(b => b.onclick = () => { mins = +b.dataset.v * n; setup(); });
+    $("#wt").onchange = e => weighted = e.target.checked;
+    $("#go").onclick = () => { if (!chosen.size) { toast("Pick at least one deck"); return; } run(); };
+  }
+  function build() {
+    const facts = decks.filter(d => chosen.has(d.id)).flatMap(factsOf);
+    const weightOf = f => { if (!weighted) return 1; const st = stOf(f); if (!st) return 2; return 1 + Math.min(4, (st.w || 0) * 1.5) + (st.i < 7 ? 1 : 0); };
+    // weighted sampling without replacement
+    const pool = facts.map(f => ({ f, k: Math.pow(Math.random(), 1 / weightOf(f)) })).sort((a, b) => b.k - a.k).map(x => x.f);
+    const qs = [];
+    for (const f of pool) { if (qs.length >= n) break; const q = questionFor(f); if (q) qs.push(q); }
+    return qs;
+  }
+  function run() {
+    const qs = build(); if (!qs.length) { toast("Not enough variety in those decks yet"); return; }
+    const ans = new Array(qs.length).fill(-1), flags = new Set(); let i = 0, done = false;
+    const end = mins ? Date.now() + mins * 60000 : 0; const t0 = Date.now();
+    ST.confirmExit = () => done || confirm("Leave the exam? Your answers won’t be scored.");
+    if (end) { const t = setInterval(() => { const left = end - Date.now(); const el = $("#clock"); if (el) { el.textContent = fmtClock(left); el.classList.toggle("low", left < 5 * 60000); } if (left <= 0) { clearInterval(t); submit(true); } }, 1000); ST.timers.push(t); }
+    function fmtClock(ms) { ms = Math.max(0, ms); const m = Math.floor(ms / 60000), s = Math.floor(ms % 60000 / 1000); return m + ":" + String(s).padStart(2, "0"); }
+    function show() {
+      const q = qs[i];
+      ST.right.innerHTML = `${end ? `<span class="timer clock" id="clock">${fmtClock(end - Date.now())}</span>` : ""}<button class="btn sm" id="nav">${i + 1}/${qs.length}</button>`;
+      $("#nav").onclick = navigator_;
+      ST.stage.innerHTML = `${questionHtml({ ...q, kicker: q.f.deck.name + (q.kicker && q.f.kind === "field" && !q.identify ? " · " + q.kicker : "") })}
+        <div class="opts" id="opts">${q.options.map((o, k) => `<button class="opt ${ans[i] === k ? "sel" : ""}" data-k="${k}"><span class="k">${String.fromCharCode(65 + k)}</span><span>${esc(o)}</span></button>`).join("")}</div>
+        <div class="row"><button class="btn icon" id="pv" ${i ? "" : "disabled"} aria-label="Previous">${icon("left")}</button><button class="btn ${flags.has(i) ? "flagged" : ""}" id="fl">${icon("flag")}${flags.has(i) ? "Flagged" : "Flag"}</button><div class="spacer"></div>
+        ${i + 1 < qs.length ? `<button class="btn primary" id="nx">Next${icon("right")}</button>` : `<button class="btn primary" id="sub">Review and submit</button>`}</div>`;
+      $$("#opts .opt").forEach(b => b.onclick = () => { ans[i] = +b.dataset.k; $$("#opts .opt").forEach(x => x.classList.toggle("sel", x === b)); });
+      $("#pv").onclick = () => { i--; show(); };
+      $("#fl").onclick = () => { flags.has(i) ? flags.delete(i) : flags.add(i); show(); };
+      $("#nx") && ($("#nx").onclick = () => { i++; show(); });
+      $("#sub") && ($("#sub").onclick = navigator_);
+      setProg(ans.filter(a => a >= 0).length / qs.length);
+    }
+    function navigator_() {
+      const blank = ans.filter(a => a < 0).length;
+      modal(`${mhead("Questions")}<div class="navgrid">${qs.map((_, k) => `<button class="${ans[k] >= 0 ? "done" : ""} ${flags.has(k) ? "flag" : ""} ${k === i ? "cur" : ""}" data-k="${k}">${k + 1}</button>`).join("")}</div>
+        <div class="legend" style="margin-top:12px"><span><i style="background:var(--violet)"></i>Answered</span><span><i style="background:var(--warn)"></i>Flagged</span><span><i style="background:var(--surface-2);border:1px solid var(--line)"></i>Unanswered</span></div>
+        <div class="modal-foot"><span class="small muted" style="margin-right:auto;align-self:center">${blank ? plural(blank, "question") + " unanswered" : "All answered"}</span><button class="btn" data-close>Keep going</button><button class="btn primary" id="sb">Submit exam</button></div>`,
+        (s, close) => { $$(".navgrid button", s).forEach(b => b.onclick = () => { i = +b.dataset.k; close(); show(); }); $("#sb", s).onclick = () => { close(); submit(false); }; });
+    }
+    function submit(timeUp) {
+      if (done) return; done = true; ST.timers.forEach(clearInterval);
+      let right = 0; const byDeck = {};
+      qs.forEach((q, k) => { const ok = q.options[ans[k]] === q.answer; if (ok) right++; const id = q.f.deck.id; byDeck[id] = byDeck[id] || [0, 0]; byDeck[id][1]++; if (ok) byDeck[id][0]++; if (!q.identify) recordQuiz(q.f, ok); });
+      const pct = Math.round(right / qs.length * 100); const took = Math.round((Date.now() - t0) / 60000);
+      ST.right.innerHTML = ""; setProg(1);
+      ST.stage.innerHTML = `<div class="results">${ring(pct)}<h2>${right} of ${qs.length} correct</h2><p class="muted">${timeUp ? "Time ran out. " : ""}Finished in ${plural(took, "minute")}. Every miss is scheduled for review today.</p></div>
+        <div class="panel"><h3 style="margin-bottom:8px">By content area</h3>${Object.entries(byDeck).map(([id, [r, t]]) => `<div class="deckbar"><span style="font-weight:600">${esc(S.decks[id]?.name || "")}</span><div class="mastery"><i class="m" style="width:${r / t * 100}%;background:${r / t >= .7 ? "var(--good)" : r / t >= .5 ? "var(--warn)" : "var(--bad)"}"></i></div><span class="small muted">${r}/${t}</span></div>`).join("")}</div>
+        <div class="row" style="justify-content:center"><button class="btn primary" id="rev">Review answers</button><button class="btn" id="again">New exam</button><button class="btn" id="dn">Done</button></div>
+        <div id="review" class="missed-list"></div>`;
+      $("#again").onclick = () => startBoard(); $("#dn").onclick = () => closeStudy();
+      $("#rev").onclick = () => {
+        $("#rev").remove();
+        $("#review").innerHTML = qs.map((q, k) => { const ok = q.options[ans[k]] === q.answer; return `<div class="card-row" style="border-color:${ok ? "var(--good)" : "var(--bad)"}"><div><span class="small muted">${k + 1}. ${esc(q.f.deck.name)}</span><div><b>${esc(qLabel(q))}</b>${q.f.kind === "field" && !q.identify ? ` <span class="chip">${esc(q.kicker)}</span>` : ""}</div><div class="a" style="margin-top:4px">${ok ? "✓ " : (ans[k] >= 0 ? "Your answer: " + esc(q.options[ans[k]]) + ". " : "Unanswered. ") + "Correct: "}${esc(q.answer)}</div></div></div>`; }).join("");
+      };
+    }
+    ST.onKey = e => {
+      if (done) return;
+      const k = "abcd".indexOf(e.key.toLowerCase()); const num = /^[1-4]$/.test(e.key) ? +e.key - 1 : k;
+      if (num >= 0 && num < qs[i].options.length) $(`#opts .opt[data-k="${num}"]`)?.click();
+      else if (e.key === "ArrowRight" || e.key === "Enter") ($("#nx") || $("#sub"))?.click();
+      else if (e.key === "ArrowLeft") $("#pv")?.click();
+      else if (e.key === "f" || e.key === "F") $("#fl")?.click();
+    };
+    show();
+  }
+  setup();
+}
+
+/* ---------- boot ---------- */
+async function boot() {
+  render();
+  await IDB.open();
+  const docs = await Store.loadAll();
+  applyDocs(docs);
+  // copy anything that only existed in localStorage into IndexedDB
+  for (const [k, v] of Object.entries(docs)) IDB.put(k, v);
+  S.ready = true; render();
+  if (navigator.storage && navigator.storage.persist) { try { if (!(await navigator.storage.persisted())) await navigator.storage.persist(); } catch { } }
+  if (Sync.on()) Sync.now();
+  if ("serviceWorker" in navigator && location.protocol === "https:") navigator.serviceWorker.register("./sw.js").catch(() => { });
+}
+boot();
+</script></body></html>
