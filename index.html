@@ -397,6 +397,66 @@ kbd{font-family:inherit;font-size:.75rem;border:1px solid var(--line-2);border-b
 .qcard.listen .answer.on{opacity:1}
 .player{display:flex;gap:12px;justify-content:center;align-items:center}
 .btn.big{min-width:180px;min-height:56px;font-size:1.05rem}
+.banner.packs,.banner.hs{background:var(--violet-soft);border-color:color-mix(in srgb,var(--violet) 25%,transparent)}
+.banner.packs svg,.banner.hs svg{color:var(--violet)}
+.banner{flex-wrap:wrap}
+.prep{display:grid;gap:14px;grid-template-columns:1fr;margin-bottom:30px}
+@media (min-width:860px){.prep{grid-template-columns:1fr 1fr}}
+.prep-hero{background:#5B3FD1;color:#fff;border-radius:var(--radius-lg);padding:22px;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.prep-hero .btn{background:#fff;color:#2A1A86;border-color:#fff}
+.pring{width:84px;height:84px;flex:none}
+.pring text{fill:#fff;font-family:var(--font-display);font-weight:700;font-size:17px}
+.plan{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);padding:16px 18px}
+.plan-item{display:flex;gap:12px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.plan-item .tick{width:34px;height:34px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;background:var(--violet-soft);color:var(--violet-deep)}
+.plan-item.done .tick{background:var(--good-soft);color:var(--good)}
+.plan-item.done b{color:var(--ink-3)}
+.path{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));margin-bottom:34px}
+.unit{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px;display:flex;flex-direction:column;gap:4px}
+.unit-head{display:flex;gap:12px;align-items:center;margin-bottom:6px}
+.cap.sm{width:24px;height:30px;border-radius:7px 7px 4px 4px}
+.lesson-row{display:flex;align-items:center;gap:10px;text-align:left;border:0;background:transparent;padding:9px 8px;border-radius:10px;width:100%}
+.lesson-row:hover{background:var(--surface-2)}
+.lstat{width:26px;height:26px;border-radius:50%;flex:none;border:2px solid var(--line-2);display:flex;align-items:center;justify-content:center}
+.lstat svg{width:15px;height:15px}
+.lesson-row.read .lstat{border-color:var(--violet);color:var(--violet)}
+.lesson-row.practicing .lstat,.lesson-row.unlock .lstat{background:var(--violet);border-color:var(--violet);color:#fff}
+.lesson-row.mastered .lstat{background:var(--good);border-color:var(--good);color:#fff}
+.lesson-row.mastered .lstat svg{fill:#fff}
+.lbl-new{color:var(--safranin);font-weight:700}.lbl-read,.lbl-unlock{color:var(--violet);font-weight:700}.lbl-mastered{color:var(--good);font-weight:700}.lbl-practicing{color:var(--ink-3)}
+.lesson{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:12px}
+.lesson h2{font-size:clamp(1.35rem,4vw,1.75rem)}
+.lesson p{font-size:1.06rem;line-height:1.65;max-width:68ch}
+.guide{display:flex;gap:10px;align-items:center}
+.avatar{width:40px;height:40px;border-radius:50%;background:var(--violet);color:#fff;display:flex;align-items:center;justify-content:center;flex:none}
+.avatar.big{width:64px;height:64px}
+.avatar.big svg{width:30px;height:30px}
+.callout{border-radius:14px;padding:12px 14px}
+.callout b{display:block;font-size:.85rem;margin-bottom:2px}
+.callout p{font-size:1rem!important;margin:0}
+.callout.key{background:var(--violet-soft)} .callout.key b{color:var(--violet-deep)}
+.callout.hook{background:var(--safranin-soft)} .callout.hook b{color:var(--safranin)}
+.panel.unlock{border-color:var(--violet)}
+.switch{position:relative;display:inline-block;width:52px;height:30px;flex:none;cursor:pointer}
+.switch input{opacity:0;width:0;height:0;position:absolute}
+.switch span{position:absolute;inset:0;background:var(--line-2);border-radius:999px;transition:background .2s}
+.switch span::after{content:"";position:absolute;left:3px;top:3px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .2s}
+.switch input:checked+span{background:var(--violet)}
+.switch input:checked+span::after{transform:translateX(22px)}
+.switch input:focus-visible+span{outline:2.5px solid var(--violet);outline-offset:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.trail{display:flex;flex-wrap:wrap;gap:6px}
+.trail-step{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:6px 10px;font-size:.88rem}
+.leaf{background:var(--good-soft);border-radius:18px;padding:20px}
+.leaf h2{color:var(--good)}
+.formula{display:flex;flex-direction:column;gap:2px;padding:8px 0;border-top:1px solid var(--line)}
+.formula code{font-family:inherit;font-weight:700;font-size:1rem}
+.snapdrop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:180px;border:2px dashed var(--line-2);border-radius:16px;cursor:pointer;color:var(--ink-2);font-weight:600}
+.snapdrop svg{width:32px;height:32px}
+.snapprev{width:100%;max-height:300px;object-fit:contain;border-radius:14px;background:var(--surface-2)}
+.optline{display:flex;gap:10px;align-items:center;margin-bottom:6px}
+.optline input[type=radio]{width:20px;height:20px;accent-color:var(--good);flex:none}
+#fsel,#ftab{margin-right:8px}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -475,11 +535,14 @@ Object.assign(ICONS, {
   timer: '<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/>',
   exam: '<path d="M9 3h6l1 2h3v16H5V5h3z"/><path d="m9 13 2 2 4-4"/>',
   listen: '<path d="M3 14v-2a9 9 0 0 1 18 0v2"/><rect x="3" y="14" width="4" height="7" rx="2"/><rect x="17" y="14" width="4" height="7" rx="2"/>',
+  book: '<path d="M4 4h6a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H4z"/><path d="M20 4h-6a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h7z"/>',
+  camera: '<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',
+  flow: '<rect x="9" y="2" width="6" height="5" rx="1"/><rect x="2" y="16" width="6" height="5" rx="1"/><rect x="16" y="16" width="6" height="5" rx="1"/><path d="M12 7v4M5 16v-3h14v3"/>',
   cloze: '<rect x="3" y="7" width="18" height="10" rx="3"/><path d="M8 12h8" stroke-dasharray="2 2"/>'
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "3.0";
+const APP_VERSION = "4.0";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -615,9 +678,21 @@ function mergeRemote(r) {
   const m = S.meta;
   for (const [k, n] of Object.entries(rm.history)) if ((m.history[k] || 0) < n) { m.history[k] = n; changed = true; }
   for (const [k, v] of Object.entries(rm.best)) { const cur = m.best[k]; const better = k.startsWith("m-") ? (cur == null || v < cur) : (cur == null || v > cur); if (better) { m.best[k] = v; changed = true; } }
-  if ((rm.updated || 0) > (m.updated || 0)) { m.settings = rm.settings; m.exams = rm.exams; m.updated = rm.updated; changed = true; }
+  const remoteNewer = (rm.updated || 0) > (m.updated || 0);
+  if (remoteNewer) { m.settings = rm.settings; m.exams = rm.exams; changed = true; }
   if (rm.newDay === m.newDay) m.newCount = Math.max(m.newCount || 0, rm.newCount || 0); else if (rm.newDay > (m.newDay || "")) { m.newDay = rm.newDay; m.newCount = rm.newCount; }
   m.lastBackup = Math.max(m.lastBackup || 0, rm.lastBackup || 0);
+  if (rm.prep) {
+    const P = m.prep = m.prep || {}; P.lessons = P.lessons || {}; P.cards = P.cards || {}; P.units = P.units || {};
+    for (const [k, v] of Object.entries(rm.prep.lessons || {})) { const c = P.lessons[k] || {}; const nv = { read: Math.max(c.read || 0, v.read || 0) || undefined, best: Math.max(c.best || 0, v.best || 0), last: Math.max(c.last || 0, v.last || 0), unlocked: Math.max(c.unlocked || 0, v.unlocked || 0) || undefined }; if (JSON.stringify(nv) !== JSON.stringify(c)) { P.lessons[k] = nv; changed = true; } }
+    for (const k of Object.keys(rm.prep.cards || {})) if (!P.cards[k]) { P.cards[k] = 1; changed = true; }
+    for (const [k, v] of Object.entries(rm.prep.units || {})) if ((P.units[k] || 0) < v) { P.units[k] = v; changed = true; }
+    if (remoteNewer || P.on === undefined) { P.on = rm.prep.on; P.start = rm.prep.start; P.seen = rm.prep.seen || P.seen; }
+    if ((rm.prep.lastDay || "") > (P.lastDay || "")) P.lastDay = rm.prep.lastDay;
+    if ((rm.prep.practiceDay || "") > (P.practiceDay || "")) P.practiceDay = rm.prep.practiceDay;
+  }
+  { const mine = new Map((m.myCases || []).map(c => [c.id, c])); for (const c of rm.myCases || []) { const cur = mine.get(c.id); if ((!cur || (c.updated || 0) > (cur.updated || 0)) && !(m.deleted["case-" + c.id] >= (c.updated || 0))) { mine.set(c.id, c); changed = true; } } m.myCases = [...mine.values()].filter(c => !(m.deleted["case-" + c.id] >= (c.updated || 0))); }
+  if (remoteNewer) m.updated = rm.updated;
   for (const [k, v] of Object.entries(rm.cases || {})) { const cur = m.cases[k]; if (!cur || (v.c || 0) + (v.w || 0) > (cur.c || 0) + (cur.w || 0)) { m.cases[k] = v; changed = true; } }
   IDB.put("meta", JSON.parse(JSON.stringify(m))); LS.set("doc:meta", JSON.stringify(m));
   return changed;
@@ -787,8 +862,9 @@ function streak() {
 function deckCounts(deck) {
   const fs = factsOf(deck); let due = 0, nw = 0, mastered = 0, learning = 0;
   const cutoff = endOfToday();
-  for (const f of fs) { const st = stOf(f); if (!st) nw++; else if (!st.sus) { if (st.d <= cutoff) due++; if (st.i >= 21) mastered++; else learning++; } }
-  return { total: fs.length, due, nw, mastered, learning };
+  let locked = 0;
+  for (const f of fs) { const st = stOf(f); if (!st) { if (eligibleNew(f)) nw++; else locked++; } else if (!st.sus) { if (st.d <= cutoff) due++; if (st.i >= 21) mastered++; else learning++; } }
+  return { total: fs.length, due, nw, mastered, learning, locked };
 }
 function isWeak(st) { if (!st || st.sus) return false; const tot = (st.c || 0) + (st.w || 0); return (st.l || 0) >= 2 || ((st.w || 0) >= 2 && st.w / tot >= 0.3); }
 
@@ -863,7 +939,10 @@ function renderHome(decks) {
     <h1 style="margin-bottom:6px">${hello}</h1>
     <p class="muted" style="margin-bottom:24px">${decks.length ? (due + newToday ? "Here’s what your memory needs today." : "You’re all caught up. Quiz yourself or add new cards.") : "Build your first deck to start studying."}</p>
     ${needBackup ? `<div class="banner">${icon("cloud")}<div style="flex:1"><b>Protect your progress</b><br><span class="small">Your decks live only in this browser. Turn on sync or download a backup.</span></div><a class="btn sm" href="#more">Set up</a></div>` : ""}
-    ${decks.length ? `
+    ${missingPacks().length && !(S.meta.packsDismissed || []).length ? `<div class="banner packs">${icon("layers")}<div style="flex:1"><b>${plural(missingPacks().length, "starter pack")} you haven’t added</b><br><span class="small">${prepOn() ? "Head start adds them as you reach each lesson, or add them all now." : "Ready-made decks across every MLS subject."}</span></div><button class="btn sm primary" id="addAllP">Add all</button><button class="btn sm" id="browseP">Browse</button><button class="btn ghost icon sm" id="dismissP" aria-label="Dismiss">${icon("x")}</button></div>` : ""}
+    ${!prepOn() && !(S.meta.prep && S.meta.prep.seen) ? `<div class="banner hs">${icon("book")}<div style="flex:1"><b>Program starting soon?</b><br><span class="small">Head start mode teaches you the core of MLS step by step, before day one.</span></div><button class="btn sm primary" id="hsOn">Try it</button><button class="btn ghost icon sm" id="hsNo" aria-label="Dismiss">${icon("x")}</button></div>` : ""}
+    ${prepOn() ? prepHomeHtml() : ""}
+    ${decks.length && !prepOn() ? `
     <section class="today">
       <div class="due-panel">
         <div class="cells" aria-hidden="true">${cells}</div>
@@ -880,10 +959,11 @@ function renderHome(decks) {
           <span><b>${weak ? plural(weak, "weak spot") : "No weak spots yet"}</b><br><span class="small muted">${weak ? "Facts you keep missing. Drill them." : "Facts you miss repeatedly collect here."}</span></span>
         </button>
       </div>
-    </section>
+    </section>` : ""}
+    ${decks.length || prepOn() ? `
     <div class="section-head"><h2>Lab tools</h2></div>
     <div class="tools">
-      ${[["boardBtn", "exam", "Board practice", "Timed exam across decks", ""], ["casesBtn", "micro", "Case studies", `${CASES.length} patient cases`, "alt"], ["mathBtn", "type", "Lab math", "Dilutions, indices, formulas", ""], ["rangeBtn", "target", "Range drills", "High, low or normal?", "alt"], ["listenBtn", "listen", "Listen", "Hands-free audio review", ""], ["packsBtn", "layers", "Starter packs", `${PACKS.length} ready-made decks`, "alt"]].map(([id, ic, t, sub, alt]) => `<button class="mode ${alt}" id="${id}"><span class="ic">${icon(ic)}</span><b>${t}</b><small>${sub}</small></button>`).join("")}
+      ${[...(prepOn() ? [] : [["hsBtn", "book", "Head start", "Guided lessons before your program", "alt"]]), ["boardBtn", "exam", "Board practice", "Timed exam across decks", ""], ["casesBtn", "micro", "Case studies", `${CASES.length + myCases().length} patient cases`, "alt"], ["flowBtn", "flow", "ID flowcharts", "Walk organisms to an ID", ""], ["mathBtn", "type", "Lab math", "Dilutions, indices, formulas", "alt"], ["formBtn", "quiz", "Formula sheet", "Every formula in one place", ""], ["rangeBtn", "target", "Range drills", "High, low or normal?", "alt"], ["planBtn", "calendar", "Study plan", "Pace yourself to a date", ""], ["listenBtn", "listen", "Listen", "Hands-free audio review", "alt"], ["packsBtn", "layers", "Starter packs", `${PACKS.length} ready-made decks`, ""]].map(([id, ic, t, sub, alt]) => `<button class="mode ${alt}" id="${id}"><span class="ic">${icon(ic)}</span><b>${t}</b><small>${sub}</small></button>`).join("")}
     </div>
     <div class="section-head"><h2>Exams</h2><button class="btn sm" id="addExam">${icon("calendar")}Add exam</button></div>
     ${exams.length ? `<div class="exams">${exams.map(examTile).join("")}</div>` : `<p class="muted small" style="margin:-4px 0 30px">Add an exam date and LabDeck will make sure every fact in those decks comes up for review before test day.</p>`}
@@ -900,12 +980,22 @@ function renderHome(decks) {
   $("#boardBtn")?.addEventListener("click", () => startBoard());
   $("#addStarters")?.addEventListener("click", packsModal);
   $("#packsBtn")?.addEventListener("click", packsModal);
+  $("#flowBtn")?.addEventListener("click", () => startFlow("gpc"));
+  $("#formBtn")?.addEventListener("click", startFormulas);
+  $("#planBtn")?.addEventListener("click", startPlan);
+  $("#hsBtn")?.addEventListener("click", () => prepSetupModal());
+  $("#hsOn")?.addEventListener("click", () => prepSetupModal());
+  $("#hsNo")?.addEventListener("click", () => { prep().seen = true; saveMeta(); render(); });
+  $("#addAllP")?.addEventListener("click", () => { const n = addAllPacks(); toast(plural(n, "pack") + " added"); render(); });
+  $("#browseP")?.addEventListener("click", packsModal);
+  $("#dismissP")?.addEventListener("click", () => { S.meta.packsDismissed = missingPacks().map(p => p.id); saveMeta(); render(); });
+  if (prepOn()) bindPrepHome();
   $("#casesBtn")?.addEventListener("click", startCases);
   $("#mathBtn")?.addEventListener("click", startLabMath);
   $("#rangeBtn")?.addEventListener("click", startRanges);
   $("#listenBtn")?.addEventListener("click", () => startListen(null));
   $("#addExam")?.addEventListener("click", () => examModal());
-  $$("[data-exam]").forEach(b => b.onclick = e => { if (e.target.closest("[data-exedit]")) return examModal(S.meta.exams.find(x => x.id === b.dataset.exam)); startLearn(null, { exam: b.dataset.exam }); });
+  $$("[data-exam]").forEach(b => b.onclick = e => { if (e.target.closest("[data-cram]")) return startLearn(null, { exam: b.dataset.exam, cram: true }); if (e.target.closest("[data-exedit]")) return examModal(S.meta.exams.find(x => x.id === b.dataset.exam)); startLearn(null, { exam: b.dataset.exam }); });
 }
 function examTile(ex) {
   const days = daysUntil(ex);
@@ -917,7 +1007,7 @@ function examTile(ex) {
     <div class="exam-days"><b>${days <= 0 ? "Today" : days}</b>${days > 0 ? `<span>${days === 1 ? "day" : "days"}</span>` : ""}</div>
     <div style="flex:1;min-width:0"><h3>${esc(ex.name)}</h3><p class="small muted">${new Date(ex.date + "T12:00").toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" })}. ${decks.map(d => esc(d.name)).join(", ") || "No decks linked"}</p>
       <div class="goalbar" style="margin-top:8px"><i style="width:${pctSeen}%"></i></div><p class="small muted" style="margin-top:4px">${pctSeen}% of facts studied, ${total ? Math.round(mastered / total * 100) : 0}% mastered</p></div>
-    <div class="col" style="gap:6px;align-items:flex-end"><span class="btn sm primary">Prep</span><button class="btn ghost icon sm" data-exedit aria-label="Edit exam">${icon("edit")}</button></div>
+    <div class="col" style="gap:6px;align-items:flex-end"><span class="btn sm primary">Prep</span>${days <= 2 ? `<button class="btn sm" data-cram="${ex.id}">Cram</button>` : ""}<button class="btn ghost icon sm" data-exedit aria-label="Edit exam">${icon("edit")}</button></div>
   </div>`;
 }
 function examModal(ex) {
@@ -985,7 +1075,7 @@ function renderDeck(d) {
       <div class="cap"></div>
       <div style="flex:1;min-width:0">
         <h1>${esc(d.name)}</h1>
-        <p class="muted" style="margin-top:4px">${plural(d.cards.length, "card")}, ${plural(c.total, "fact")}. ${c.mastered} mastered.</p>
+        <p class="muted" style="margin-top:4px">${plural(d.cards.length, "card")}, ${plural(c.total, "fact")}. ${c.mastered} mastered.${c.locked ? ` ${c.locked} waiting on Head start lessons.` : ""}</p>
       </div>
       <button class="btn icon" id="shareDeck" aria-label="Share deck">${icon("share")}</button>
       <button class="btn icon" id="editDeck" aria-label="Deck settings">${icon("gear")}</button>
@@ -996,6 +1086,7 @@ function renderDeck(d) {
     <div class="toolbar">
       <label class="search">${icon("search")}<input id="q" placeholder="Search cards" value="${esc(deckFilter.q)}" aria-label="Search cards"></label>
       <button class="btn ${deckFilter.star ? "primary" : ""}" id="starF" aria-pressed="${deckFilter.star}">${icon("star")}Starred</button>
+      <button class="btn" id="snap">${icon("camera")}Snap</button>
       <button class="btn" id="imp">${icon("upload")}Import</button>
       <button class="btn primary" id="addCard">${icon("plus")}Add card</button>
     </div>
@@ -1007,6 +1098,7 @@ function renderDeck(d) {
   $("#leechBtn") && ($("#leechBtn").onclick = () => leechModal(d));
   $("#addCard").onclick = () => editCardModal(d);
   $("#imp").onclick = () => importModal(d);
+  $("#snap").onclick = () => snapModal(d);
   $("#starF").onclick = () => { deckFilter.star = !deckFilter.star; renderDeck(d); };
   const qi = $("#q");
   qi.oninput = () => { deckFilter.q = qi.value; const pos = qi.selectionStart; renderDeck(d); const n = $("#q"); n.focus(); n.setSelectionRange(pos, pos); };
@@ -1390,6 +1482,11 @@ function renderSettings() {
     ${topbar()}
     <h1 style="margin-bottom:22px">Settings</h1>
     <div class="panel">
+      <div class="row" style="justify-content:space-between;align-items:flex-start;gap:16px"><div style="flex:1;min-width:0"><h3>Head start (pre-program mode)</h3><p class="small muted" style="margin-top:4px">Guided lessons that teach the core of MLS one topic at a time. Starter-pack cards join your review only after you’ve had the lesson that teaches them.</p></div>
+      <label class="switch"><input type="checkbox" id="hsT" ${prepOn() ? "checked" : ""}><span></span><b class="sr">Head start mode</b></label></div>
+      ${prepOn() ? `<div class="row" style="margin-top:12px"><span class="small">Program starts ${prep().start ? new Date(prep().start + "T12:00").toLocaleDateString(undefined, { month: "long", day: "numeric", year: "numeric" }) : "(not set)"}</span><button class="btn sm" id="hsEdit">Change date</button></div>` : ""}
+    </div>
+    <div class="panel">
       <div class="row" style="justify-content:space-between;margin-bottom:6px"><h3>Sync between devices</h3><span class="small row" style="gap:6px">${syncHtml()}</span></div>
       ${Sync.on() ? `
         <p class="small muted" style="margin-bottom:12px">Your decks and progress are kept in a private GitHub gist. Open LabDeck on another device, paste the same token there, and everything merges. Last synced ${Sync.lastOk ? new Date(Sync.lastOk).toLocaleString(undefined, { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" }) : "not yet"}.</p>
@@ -1440,6 +1537,8 @@ function renderSettings() {
       <p class="small" style="line-height:2"><kbd>Space</kbd> flip &nbsp; <kbd>1</kbd>–<kbd>4</kbd> grade or pick &nbsp; <kbd>←</kbd> <kbd>→</kbd> move &nbsp; <kbd>Enter</kbd> check or continue &nbsp; <kbd>U</kbd> undo &nbsp; <kbd>Esc</kbd> exit</p>
     </div>
     <p class="small muted" style="text-align:center">LabDeck version ${APP_VERSION}${navigator.storage && navigator.storage.persist ? ` · <span id="persist"></span>` : ""}</p>`;
+  $("#hsT").onchange = e => { if (e.target.checked) { e.target.checked = false; prepSetupModal(() => renderSettings()); } else { prep().on = false; saveMeta(true); toast("Head start is off. All facts are available in Learn."); renderSettings(); } };
+  $("#hsEdit") && ($("#hsEdit").onclick = () => prepSetupModal(() => renderSettings()));
   $$("#theme button").forEach(b => b.onclick = () => { st.theme = b.dataset.t; saveMeta(true); render(); });
   $$("[data-n]").forEach(b => b.onclick = () => { const k = b.dataset.n; st[k] = Math.max(0, Math.min(500, (st[k] || 0) + +b.dataset.d)); $("#v-" + k).textContent = st[k]; saveMeta(true); });
   $$("#rate button").forEach(b => b.onclick = () => { st.rate = +b.dataset.v; saveMeta(true); renderSettings(); });
@@ -1456,7 +1555,7 @@ function renderSettings() {
     try { const existed = await Sync.connect(t); render(); toast(existed ? "Connected. Your synced decks were merged in." : "Connected. Sync is on."); }
     catch (e) { b.disabled = false; b.textContent = "Connect"; toast(e && e.status === 401 ? "GitHub didn’t accept that token" : "Couldn’t reach GitHub. Check your connection."); }
   });
-  if ($("#persist")) navigator.storage.persisted().then(p => { $("#persist").textContent = p ? "storage protected" : "storage not yet protected"; });
+  if ($("#persist")) navigator.storage.persisted().then(p => { const el = $("#persist"); if (el) el.textContent = p ? "storage protected" : "storage not yet protected"; });
 }
 function exportBackup() {
   const data = JSON.stringify({ app: "labdeck", version: 2, exported: new Date().toISOString(), decks: Object.values(S.decks), srs: S.srs, meta: S.meta, images: Object.fromEntries([...referencedImages()].filter(id => S.images[id]).map(id => [id, S.images[id]])) });
@@ -1565,7 +1664,9 @@ function startLearn(deck, opts = {}) {
   const all = decks.flatMap(factsOf).filter(f => !isSus(f));
   let queue;
   const cutoff = endOfToday();
+  const weakScore = f => { const st = stOf(f); return (st.w || 0) * 2 + (st.l || 0) * 3 + Math.max(0, 10 - (st.i || 0)); };
   if (opts.weak) queue = shuffle(all.filter(f => isWeak(stOf(f)))).slice(0, 40);
+  else if (opts.cram && exam) { const seen = all.filter(f => stOf(f)); queue = seen.length >= 5 ? seen.sort((a, b) => weakScore(b) - weakScore(a)).slice(0, 40) : shuffle(all).slice(0, 30); }
   else if (opts.cram) queue = shuffle(all).slice(0, 20);
   else if (exam) {
     const due = all.filter(f => isDue(stOf(f), cutoff));
@@ -1575,12 +1676,12 @@ function startLearn(deck, opts = {}) {
     queue = [...due, ...shuffle(weak), ...fresh, ...rest].slice(0, 60);
   } else {
     const due = all.filter(f => isDue(stOf(f), cutoff)).sort((a, b) => stOf(a).d - stOf(b).d);
-    const fresh = all.filter(f => !stOf(f)).slice(0, newLeftToday());
+    const fresh = all.filter(f => !stOf(f) && eligibleNew(f)).slice(0, newLeftToday());
     queue = []; const step = fresh.length ? Math.max(1, Math.floor(due.length / fresh.length)) : 0; let di = 0;
     fresh.forEach(f => { for (let k = 0; k < step && di < due.length; k++) queue.push(due[di++]); queue.push(f); });
     while (di < due.length) queue.push(due[di++]);
   }
-  const title = exam ? "Exam prep: " + exam.name : opts.weak ? "Weak spots" : deck ? deck.name : "Today’s review";
+  const title = exam && opts.cram ? "Night-before cram: " + exam.name : exam ? "Exam prep: " + exam.name : opts.weak ? "Weak spots" : deck ? deck.name : "Today’s review";
   openStudy(title);
   if (!queue.length) {
     ST.stage.innerHTML = `<div class="results"><h2>Nothing due right now</h2><p class="muted" style="max-width:40ch">${all.length ? "Your next reviews are scheduled. Extra practice won’t push your schedule forward, but misses will come back sooner." : "Add some cards first."}</p>
@@ -2098,11 +2199,13 @@ function packsModal() {
   const sel = new Set();
   modal(`${mhead("Starter packs")}
     <p class="muted small" style="margin-bottom:14px">Ready-made decks to get a head start. They follow common textbook values, but programs differ, so edit anything to match your course. Reference ranges especially vary by lab.</p>
-    <div class="row" style="margin-bottom:12px"><button class="btn sm" id="selAll">Select all new</button></div>
+    <div class="row" style="margin-bottom:12px">${missingPacks().length ? `<button class="btn sm primary" id="addAllM">Add all ${missingPacks().length} new packs</button>` : `<span class="small muted">You have every pack.</span>`}<button class="btn sm" id="selAll">Select all new</button>${packUpdates().length ? `<button class="btn sm" id="updP">Add ${packUpdates().reduce((n, u) => n + u.missing.length, 0)} new cards to packs you have</button>` : ""}</div>
     ${areas.map(a => `<h3 style="margin:14px 0 8px">${esc(a)}</h3><div class="checks">${PACKS.filter(p => p.area === a).map(p => `<label class="check ${have.has(p.id) ? "dim" : ""}"><input type="checkbox" value="${p.id}" ${have.has(p.id) ? "disabled checked" : ""}><span class="dot" style="background:${CAPS[p.color]}"></span><span style="flex:1">${esc(p.name)}</span><span class="small muted">${have.has(p.id) ? "Added" : plural(p.rows.length, "card")}</span></label>`).join("")}</div>`).join("")}
     <div class="modal-foot"><button class="btn" data-close>Cancel</button><button class="btn primary" id="addP" disabled>Add packs</button></div>`, (s, close) => {
     const upd = () => { const b = $("#addP", s); b.disabled = !sel.size; b.textContent = sel.size ? `Add ${plural(sel.size, "pack")}` : "Add packs"; };
     $$(".checks input:not([disabled])", s).forEach(c => c.onchange = () => { c.checked ? sel.add(c.value) : sel.delete(c.value); upd(); });
+    $("#addAllM", s) && ($("#addAllM", s).onclick = () => { const n = addAllPacks(); close(); toast(plural(n, "pack") + " added"); render(); });
+    $("#updP", s) && ($("#updP", s).onclick = () => { const n = applyPackUpdates(); close(); toast(plural(n, "card") + " added to your packs"); render(); });
     $("#selAll", s).onclick = () => { $$(".checks input:not([disabled])", s).forEach(c => { c.checked = true; sel.add(c.value); }); upd(); };
     $("#addP", s).onclick = () => {
       PACKS.filter(p => sel.has(p.id)).forEach(p => { const d = packToDeck(p); S.decks[d.id] = d; saveDeck(d); });
@@ -2338,14 +2441,20 @@ const CASES = [
 ];
 function startCases() {
   openStudy("Case studies");
-  const areas = ["All", ...new Set(CASES.map(c => c.area))];
   let area = "All";
   function setup() {
-    const list = CASES.filter(c => area === "All" || c.area === area);
+    const all = CASES.concat(myCases());
+    const areas = ["All", ...new Set(all.map(c => c.area)), ...(myCases().length ? ["Your cases"] : [])];
+    const list = all.filter(c => area === "All" || (area === "Your cases" ? c.mine : c.area === area));
     const done = S.meta.cases || {};
     ST.stage.innerHTML = `<div class="qcard"><h2 style="margin-bottom:6px">Case studies</h2><p class="muted small">Read the patient story and lab results, then pick the answer. Explanations follow each case. ${Object.keys(done).length} of ${CASES.length} solved so far.</p></div>
       <div class="pickchips">${areas.map(a => `<button class="chipbtn ${a === area ? "on" : ""}" data-a="${esc(a)}">${esc(a)}</button>`).join("")}</div>
-      <button class="btn primary" id="go" style="min-height:52px">Start ${plural(list.length, "case")}</button>`;
+      <button class="btn primary" id="go" style="min-height:52px" ${list.length ? "" : "disabled"}>Start ${plural(list.length, "case")}</button>
+      <div class="panel"><div class="row" style="justify-content:space-between"><h3>Your cases</h3><button class="btn sm" id="newCase">${icon("plus")}Write a case</button></div>
+        <p class="small muted" style="margin-top:4px">Turn lecture examples and clinical rotations into practice cases.</p>
+        ${myCases().map(c => `<div class="deckbar" style="grid-template-columns:1fr auto"><span><b>${esc(c.dx || c.q)}</b> <span class="small muted">${esc(c.area)}</span></span><button class="btn sm ghost" data-ec="${c.id}">${icon("edit")}Edit</button></div>`).join("")}</div>`;
+    $("#newCase").onclick = () => caseModal(null, setup);
+    $$("[data-ec]").forEach(b => b.onclick = () => caseModal(myCases().find(c => c.id === b.dataset.ec), setup));
     $$(".chipbtn").forEach(b => b.onclick = () => { area = b.dataset.a; setup(); });
     $("#go").onclick = () => run(shuffle(list));
   }
@@ -2354,7 +2463,7 @@ function startCases() {
     function show() {
       if (i >= list.length) return finish();
       const c = list[i]; answered = false; order = shuffle(c.opts.map((o, k) => k));
-      ST.stage.innerHTML = `<div class="qcard"><div class="kicker">${esc(c.area)} case</div><p style="font-size:1.08rem;line-height:1.55">${esc(c.story)}</p>
+      ST.stage.innerHTML = `<div class="qcard"><div class="kicker">${esc(c.area)} case${c.mine ? " (yours)" : ""}</div><p style="font-size:1.08rem;line-height:1.55">${esc(c.story)}</p>
         <div class="labtable"><table><thead><tr><th>Test</th><th>Result</th><th>Reference</th></tr></thead><tbody>${c.labs.map(([t, v, r, f]) => `<tr><td>${esc(t)}</td><td class="${f ? "flag" : ""}">${esc(v)}${f ? ` <b class="fl-${f}">${f}</b>` : ""}</td><td class="muted">${esc(r)}</td></tr>`).join("")}</tbody></table></div>
         <div class="qtext" style="font-size:1.2rem;margin-top:14px">${esc(c.q)}</div></div>
         <div class="opts two" id="opts">${order.map((k, j) => `<button class="opt" data-k="${k}"><span class="k">${j + 1}</span><span>${esc(c.opts[k])}</span></button>`).join("")}</div><div id="fb"></div>`;
@@ -2367,7 +2476,7 @@ function startCases() {
       S.meta.cases = S.meta.cases || {}; const rec = S.meta.cases[c.id] || { c: 0, w: 0 }; ok ? rec.c++ : rec.w++; S.meta.cases[c.id] = rec; bumpHistory(false);
       $("#opts").classList.add("locked");
       $$("#opts .opt").forEach(b => { const kk = +b.dataset.k; if (kk === c.a) b.classList.add("right"); else if (kk === k) b.classList.add("wrong"); });
-      $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? "Correct" : "Answer: " + esc(c.opts[c.a])}<span class="det"><b>Diagnosis: ${esc(c.dx)}.</b> ${esc(c.why)}</span></div></div>
+      $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? "Correct" : "Answer: " + esc(c.opts[c.a])}<span class="det">${c.dx ? `<b>Diagnosis: ${esc(c.dx)}.</b> ` : ""}${esc(c.why || "")}</span></div></div>
         <div class="row" style="margin-top:12px"><div class="spacer"></div><button class="btn primary" id="next">${i + 1 < list.length ? "Next case" : "See results"}</button></div>`;
       $("#next").onclick = () => { i++; show(); };
     }
@@ -2462,6 +2571,849 @@ function leechModal(d) {
     const rer = () => { $(".modal", s).innerHTML = draw(); bind(); renderDeck(d); };
     bind();
   });
+}
+/* ---------- Head start curriculum ----------
+   Each lesson: teaching steps (T) with quick checks (Q), an end-of-lesson check, key terms,
+   the starter-pack cards it unlocks into daily review, and a practice tool. */
+const T = (h, body, key, hook) => ({ t: "teach", h, body, key, hook });
+const Q = (q, opts, a, why) => ({ t: "check", q, opts, a, why });
+const UNITS = [
+  { id: "found", name: "Welcome to the lab", color: "red" },
+  { id: "math", name: "Lab math and quality", color: "gold" },
+  { id: "heme", name: "Hematology", color: "lavender" },
+  { id: "hemo", name: "Hemostasis", color: "lightblue" },
+  { id: "chem", name: "Clinical chemistry", color: "orange" },
+  { id: "ua", name: "Urinalysis", color: "yellow" },
+  { id: "micro", name: "Microbiology", color: "green" },
+  { id: "bb", name: "Blood bank and immunology", color: "pink" }
+];
+const LESSONS = [
+  { id: "l-lab", unit: "found", title: "How the clinical lab works", mins: 8,
+    steps: [
+      T("Welcome", "Medical laboratory scientists run the tests behind a huge share of medical decisions: diagnosing infections, monitoring diabetes, matching blood for transfusion, catching leukemia on a smear. You won’t usually see the patient, but your results steer their care.\n\nThis course walks you through the core of an MLS program before it starts. Each lesson teaches a topic, checks your understanding, then adds its flashcards to your daily review so it sticks."),
+      T("The three phases of testing", "Every lab result passes through three phases.\n\nPre-analytical: everything before the test runs. Ordering, patient identification, collection, labeling, transport and processing.\n\nAnalytical: running the test itself, including calibration and quality control.\n\nPost-analytical: reviewing, reporting and interpreting the result, including calling critical values.", "Most laboratory errors happen in the pre-analytical phase, before the specimen ever reaches an analyzer."),
+      Q("A tube arrives labeled with the wrong patient’s name. Which phase did the error happen in?", ["Pre-analytical", "Analytical", "Post-analytical"], 0, "Labeling happens before testing, so it’s a pre-analytical error, the most common kind."),
+      T("The departments", "Hematology counts and examines blood cells (CBC, smears) and often runs coagulation testing.\n\nClinical chemistry measures substances in blood and fluids: electrolytes, glucose, enzymes, hormones, drugs.\n\nMicrobiology grows and identifies organisms and tests which antibiotics work.\n\nBlood bank (immunohematology) types blood, screens for antibodies and crossmatches units for transfusion.\n\nImmunology (serology) detects antibodies and antigens, such as for hepatitis or HIV.\n\nUrinalysis and body fluids examine urine, CSF and other fluids. Molecular diagnostics detects DNA and RNA, often by PCR."),
+      T("How to use Head start", "Read a lesson, pass its check, then tap Add cards. Those facts join your daily review, where spaced repetition brings each one back right before you’d forget it. A lesson is mastered once you’ve passed its check and its facts are holding for a week or more.\n\nA little every day beats a lot once a week. Aim for your daily review plus one lesson.", "", "Learn it, check it, review it, master it.")
+    ],
+    quiz: [
+      ["In which phase do most laboratory errors occur?", ["Pre-analytical", "Analytical", "Post-analytical", "Equally in all three"], 0, "Collection, labeling and handling problems cause most errors."],
+      ["Running quality control on an analyzer belongs to which phase?", ["Analytical", "Pre-analytical", "Post-analytical", "None of them"], 0, "QC verifies the test system while testing happens."],
+      ["Calling a critical potassium result to a nurse is part of which phase?", ["Post-analytical", "Analytical", "Pre-analytical", "Quality assurance only"], 0, "Reporting results, including critical values, is post-analytical."],
+      ["Which department performs crossmatches?", ["Blood bank", "Hematology", "Chemistry", "Immunology"], 0, "Blood bank (immunohematology) handles compatibility testing."]
+    ],
+    terms: [["Pre-analytical", "Everything before testing: ordering, ID, collection, transport, processing"], ["Analytical", "Performing the test, with calibration and QC"], ["Post-analytical", "Reviewing, reporting and interpreting results"], ["Critical value", "A result so abnormal it may be life-threatening; reported to a provider immediately"]] },
+  { id: "l-safety", unit: "found", title: "Lab safety", mins: 9,
+    steps: [
+      T("Standard precautions", "Treat every specimen as if it could carry a bloodborne pathogen such as HBV, HCV or HIV. Wear gloves and a fluid-resistant lab coat, and add face protection when splashes are possible. Wash your hands after removing gloves. Never eat, drink or apply makeup in the lab, and never recap a used needle; activate its safety device and drop it in a sharps container.", "Standard precautions: assume all blood and body fluids are infectious."),
+      T("Biosafety levels", "BSL-1: agents not known to cause disease in healthy adults.\n\nBSL-2: moderate-risk agents such as Staphylococcus aureus and hepatitis B. Most clinical labs work here.\n\nBSL-3: serious or potentially lethal agents spread through the air, such as Mycobacterium tuberculosis. Work happens in a biological safety cabinet in a negative-pressure room.\n\nBSL-4: dangerous agents with no treatment, such as Ebola virus."),
+      Q("Which biosafety level is required for culturing Mycobacterium tuberculosis?", ["BSL-3", "BSL-2", "BSL-1", "BSL-4"], 0, "TB is transmitted through the air and can be serious, so cultures are handled at BSL-3."),
+      T("Chemical and fire safety", "Every chemical has a Safety Data Sheet (SDS) describing its hazards, handling and first aid. The NFPA diamond summarizes hazards: blue for health, red for flammability, yellow for reactivity and white for special hazards.\n\nIf you discover a fire, follow RACE: Rescue, Alarm, Contain, Extinguish or evacuate. To use an extinguisher, PASS: Pull the pin, Aim at the base, Squeeze, Sweep.", "", "Fire classes: A for ash (paper, wood), B for barrel (flammable liquids), C for current (electrical), D for dynamite (combustible metals)."),
+      T("Exposures", "If you get a needlestick or splash, wash the area with soap and water (flush eyes or mouth with water) and report it immediately. Prompt reporting matters because post-exposure treatment works best when started quickly.")
+    ],
+    quiz: [
+      ["What should you do first after a needlestick?", ["Wash the site with soap and water", "Finish your work, then report it", "Apply bleach to the wound", "Wait to see if symptoms develop"], 0, "Clean the site, then report right away so treatment can start promptly."],
+      ["In PASS, what does the second S stand for?", ["Sweep", "Spray", "Shut off", "Stand back"], 0, "Pull, Aim, Squeeze, Sweep."],
+      ["Which extinguisher class is for electrical fires?", ["Class C", "Class A", "Class B", "Class D"], 0, "C for current."],
+      ["On the NFPA diamond, red represents:", ["Flammability", "Health hazard", "Reactivity", "Special hazards"], 0, "Blue health, red flammability, yellow reactivity, white special."]
+    ],
+    terms: [["Standard precautions", "Treat all blood and body fluids as infectious"], ["SDS", "Safety Data Sheet for a chemical"], ["RACE", "Rescue, Alarm, Contain, Extinguish"], ["PASS", "Pull, Aim, Squeeze, Sweep"]],
+    unlock: [{ pack: "safety" }] },
+  { id: "l-collect", unit: "found", title: "Collecting a good specimen", mins: 11,
+    steps: [
+      T("A good result starts with a good draw", "Identify the patient with at least two identifiers, such as full name and date of birth, and match them to the requisition. Apply the tourniquet 3 to 4 inches above the site for no more than 1 minute. The median cubital vein is the first choice. Clean with 70% isopropyl alcohol and let it air dry. Insert the needle bevel up at a shallow angle, release the tourniquet once blood flows, and label tubes at the patient’s side.", "Two identifiers, tourniquet under one minute, label at the bedside."),
+      T("Order of draw", "Tubes are filled in a set order so additives don’t carry over from one tube into the next:\n\nBlood cultures, then light blue (citrate), then red or gold (serum), then green (heparin), then lavender or pink (EDTA), then gray (fluoride/oxalate).\n\nCarryover causes real errors. K2EDTA contains potassium and binds calcium, so EDTA contamination of a chemistry tube falsely raises potassium and lowers calcium.", "", "Boys Love Ripe Green Lemons Greatly: Blood culture, Light blue, Red/gold, Green, Lavender, Gray."),
+      Q("Which tube is drawn immediately after blood cultures?", ["Light blue (citrate)", "Red (serum)", "Lavender (EDTA)", "Gray (fluoride)"], 0, "Citrate comes right after cultures so coagulation results aren’t affected by other additives."),
+      T("Additives and inversions", "Invert tubes gently right after filling; never shake them, because shaking causes hemolysis. Light blue tubes must be filled to the line because coagulation testing depends on a 9:1 blood-to-citrate ratio. An underfilled tube has too much citrate and gives falsely long clotting times."),
+      T("Common collection errors", "Hemolysis (rough handling, small needles, shaking) falsely raises potassium, LD and AST.\n\nA tourniquet left on too long causes hemoconcentration.\n\nDrawing above an IV line dilutes the sample with IV fluid.\n\nDelayed processing lets cells keep using glucose, so glucose drops. That’s why the gray top contains sodium fluoride, which stops glycolysis.")
+    ],
+    quiz: [
+      ["What is the maximum recommended tourniquet time?", ["1 minute", "3 minutes", "5 minutes", "30 seconds is the absolute limit"], 0, "Longer than a minute causes hemoconcentration."],
+      ["Why is the gray top preferred for glucose?", ["Sodium fluoride stops glycolysis", "It contains extra glucose", "It clots faster", "Oxalate activates glucose"], 0, "Fluoride inhibits glycolysis so glucose stays stable."],
+      ["EDTA carried over into a chemistry tube would most likely cause:", ["Falsely high potassium and low calcium", "Falsely high calcium", "Falsely low potassium", "No change"], 0, "K2EDTA adds potassium and chelates calcium."],
+      ["An underfilled light blue tube gives:", ["Falsely prolonged clotting times", "Falsely short clotting times", "Accurate results", "A hemolyzed sample"], 0, "Excess citrate binds the calcium added during testing."]
+    ],
+    terms: [["Order of draw", "Cultures, light blue, red/gold, green, lavender/pink, gray"], ["Hemolysis", "Rupture of RBCs; falsely raises K, LD, AST"], ["Hemoconcentration", "Concentration of cells and large molecules from prolonged tourniquet use"]],
+    unlock: [{ pack: "tubes" }], tool: "seq" },
+  { id: "l-dil", unit: "math", title: "Dilutions and solutions", mins: 10,
+    steps: [
+      T("What a dilution means", "A 1:5 dilution means 1 part sample in 5 total parts: 1 part sample plus 4 parts diluent. The dilution factor is total volume divided by sample volume.\n\nWhen a sample is too concentrated to measure, the lab dilutes it, measures it, then multiplies by the dilution factor to get the original value.", "Dilution = sample ÷ total. Multiply a diluted result by the dilution factor."),
+      Q("You mix 0.5 mL of serum with 4.5 mL of saline. What is the dilution?", ["1:10", "1:9", "1:5", "1:4.5"], 0, "Total volume is 5.0 mL, and 0.5 ÷ 5.0 = 1/10."),
+      T("Serial dilutions", "In a serial dilution, each tube is diluted from the one before it. To find the final dilution, multiply the individual dilutions: 1:2, then 1:2, then 1:2 gives 1:8.\n\nAntibody titers use serial dilutions: the titer is the reciprocal of the highest dilution that still reacts."),
+      T("Making a weaker solution: C₁V₁ = C₂V₂", "To make 100 mL of a 2% solution from a 10% stock: 10% × V₁ = 2% × 100 mL, so V₁ = 20 mL. Measure 20 mL of stock and add 80 mL of diluent to reach 100 mL."),
+      T("Molarity and percent", "Molarity is moles of solute per liter of solution. Grams needed = molarity × molecular weight × liters. For 1 L of 0.1 M NaCl (MW 58.44): 0.1 × 58.44 × 1 = 5.84 g.\n\nPercent weight/volume is grams per 100 mL, so a 10% NaCl solution has 10 g in every 100 mL.")
+    ],
+    quiz: [
+      ["A 1:10 diluted sample reads 12 mg/dL. What is the original concentration?", ["120 mg/dL", "1.2 mg/dL", "12 mg/dL", "22 mg/dL"], 0, "Multiply by the dilution factor: 12 × 10."],
+      ["A 1:4 dilution followed by a 1:5 dilution gives:", ["1:20", "1:9", "1:45", "1:1.25"], 0, "Serial dilutions multiply: 4 × 5."],
+      ["How much 5% stock makes 100 mL of 1% solution?", ["20 mL", "5 mL", "50 mL", "500 mL"], 0, "5 × V₁ = 1 × 100, so V₁ = 20 mL."],
+      ["A 10% w/v NaCl solution contains:", ["10 g per 100 mL", "10 g per liter", "10 mol per liter", "10 mg per mL"], 0, "Percent w/v means grams per 100 mL."]
+    ],
+    terms: [["Dilution factor", "Total volume ÷ sample volume"], ["Titer", "Reciprocal of the highest dilution that still reacts"], ["Molarity", "Moles of solute per liter of solution"]],
+    tool: "math" },
+  { id: "l-qc", unit: "math", title: "Quality control", mins: 11,
+    steps: [
+      T("Why QC exists", "Controls are samples with known expected values. The lab runs them alongside patient samples. If controls fall within their acceptable limits, you can trust the patient results in that run. If they don’t, patient results are held until the problem is fixed."),
+      T("The statistics", "The mean is the average of control results. The standard deviation (SD) describes how spread out they are. The coefficient of variation, CV = (SD ÷ mean) × 100, expresses precision as a percentage.\n\nIn a normal (Gaussian) distribution, about 68% of values fall within ±1 SD, 95% within ±2 SD and 99.7% within ±3 SD.", "68, 95, 99.7: the percentages within 1, 2 and 3 SD."),
+      T("Levey-Jennings charts and errors", "A Levey-Jennings chart plots each control result over time against lines for the mean and ±1, 2 and 3 SD.\n\nRandom error is unpredictable scatter, such as a bubble in a pipette. Systematic error pushes results consistently in one direction, such as a bad calibration or a deteriorating reagent. A shift is a sudden change in the mean; a trend is a gradual drift in one direction. Both are systematic."),
+      Q("Control values slowly drift upward over a week. This is a:", ["Trend (systematic error)", "Shift (random error)", "Random error", "Normal variation"], 0, "A gradual one-direction change is a trend, a systematic error."),
+      T("Westgard rules", "1-2s is a warning. Rejection rules include 1-3s and R-4s, which mostly catch random error, and 2-2s, 4-1s and 10x, which catch systematic error.\n\nAccuracy is closeness to the true value; precision is reproducibility. A method can be precise without being accurate.", "", "R-4s and 1-3s catch Random error. The multi-run rules (2-2s, 4-1s, 10x) catch Systematic error.")
+    ],
+    quiz: [
+      ["The 2-2s rule mainly detects:", ["Systematic error", "Random error", "Clerical error", "No error; it’s a warning only"], 0, "Two consecutive controls beyond the same 2 SD limit means a consistent bias."],
+      ["The coefficient of variation is:", ["(SD ÷ mean) × 100", "Mean ÷ SD", "SD × mean", "Mean − SD"], 0, "CV expresses SD as a percentage of the mean."],
+      ["Precision means:", ["Repeated results agree closely", "Results match the true value", "Controls are always within 1 SD", "The analyzer is calibrated"], 0, "Precision is reproducibility; accuracy is closeness to truth."],
+      ["About what percentage of values fall within ±2 SD?", ["95%", "68%", "99.7%", "50%"], 0, "68, 95, 99.7."]
+    ],
+    terms: [["Control", "A sample with known values run to verify a test system"], ["Shift", "Sudden change in the mean"], ["Trend", "Gradual change in one direction"], ["Random error", "Unpredictable scatter"], ["Systematic error", "Consistent bias in one direction"]],
+    unlock: [{ pack: "westgard" }, { pack: "qcstats" }], tool: "math" },
+  { id: "l-ref", unit: "math", title: "Reference intervals and critical values", mins: 8,
+    steps: [
+      T("What “normal” really means", "A reference interval covers the central 95% of results from a healthy reference population, roughly the mean ±2 SD for normally distributed tests. That means about 5% of healthy people fall outside it. An abnormal flag isn’t automatically disease.\n\nIntervals vary by method, age, sex and population, so always use the ones your lab has established.", "A reference interval is the central 95% of healthy people."),
+      T("Critical values", "A critical value is so abnormal it may be life-threatening, such as a potassium of 6.8 mmol/L. It must be reported to a responsible provider right away. The person receiving it reads it back, and you document who you told and when."),
+      Q("About what percentage of healthy people have a result outside the reference interval for a given test?", ["5%", "0%", "1%", "25%"], 0, "The interval holds the central 95%, leaving about 5% of healthy people outside it."),
+      T("Sensitivity, specificity and delta checks", "Sensitivity is how well a test detects people who have the disease; specificity is how well it identifies people who don’t.\n\nA delta check compares a patient’s result with their previous one. A big unexplained change can reveal a mislabeled or contaminated specimen.", "", "SnNout: a highly Sensitive test that’s Negative rules disease out. SpPin: a highly Specific test that’s Positive rules it in.")
+    ],
+    quiz: [
+      ["A reference interval usually represents:", ["The central 95% of a healthy population", "Every possible healthy value", "The range in sick patients", "The mean ±1 SD"], 0, "About 95% of healthy people fall within it."],
+      ["After reporting a critical value by phone, you should:", ["Have it read back and document who and when", "Wait for the provider to call back", "Only enter it in the computer", "Repeat the test three times first"], 0, "Read-back and documentation are required."],
+      ["Which test is best for ruling a disease out?", ["One with high sensitivity", "One with high specificity", "One with a low CV", "Any test with a reference interval"], 0, "SnNout."],
+      ["A delta check flags:", ["A big change from the patient’s previous result", "A control outside 2 SD", "A test with low sensitivity", "A hemolyzed specimen"], 0, "Delta checks compare current and prior results."]
+    ],
+    terms: [["Reference interval", "Central 95% of healthy results"], ["Sensitivity", "Ability to detect those with disease"], ["Specificity", "Ability to identify those without disease"], ["Delta check", "Comparison with a patient’s prior result"]] },
+  { id: "l-blood", unit: "heme", title: "Blood and where it comes from", mins: 9,
+    steps: [
+      T("Plasma, serum and cells", "Whole blood is roughly 55% plasma and 45% cells. Plasma is the liquid part of anticoagulated blood and still contains clotting factors, including fibrinogen. Serum is what’s left after blood clots; the clotting factors were used up, so serum has no fibrinogen.", "Serum = plasma minus the clotting factors."),
+      T("Hematopoiesis", "All blood cells come from hematopoietic stem cells in the red bone marrow. They split into two lineages.\n\nMyeloid: RBCs, platelets (made by megakaryocytes), neutrophils, eosinophils, basophils and monocytes.\n\nLymphoid: B cells, T cells and NK cells.\n\nThe kidneys release erythropoietin (EPO) when oxygen is low, signaling the marrow to make more RBCs."),
+      Q("Which cell produces platelets?", ["Megakaryocyte", "Monocyte", "Lymphoblast", "Reticulocyte"], 0, "Platelets are fragments of megakaryocyte cytoplasm."),
+      T("Lifespans", "RBCs live about 120 days before the spleen removes them. Platelets last about 8 to 10 days. Neutrophils circulate for only hours before moving into tissues."),
+      T("The CBC", "A complete blood count reports WBC, RBC, hemoglobin, hematocrit, the RBC indices (MCV, MCH, MCHC), RDW and platelets, often with a WBC differential. A reticulocyte count shows how hard the marrow is working to replace RBCs.")
+    ],
+    quiz: [
+      ["Serum differs from plasma because it lacks:", ["Fibrinogen", "Albumin", "Glucose", "Water"], 0, "Fibrinogen is consumed when blood clots."],
+      ["The normal RBC lifespan is about:", ["120 days", "10 days", "30 days", "1 year"], 0, "About 120 days."],
+      ["Erythropoietin is produced mainly by the:", ["Kidneys", "Liver", "Spleen", "Bone marrow"], 0, "The kidneys sense low oxygen and release EPO."],
+      ["Lymphocytes come from which lineage?", ["Lymphoid", "Myeloid", "Erythroid", "Megakaryocytic"], 0, "B, T and NK cells are lymphoid."]
+    ],
+    terms: [["Plasma", "Liquid portion of anticoagulated blood, with clotting factors"], ["Serum", "Liquid left after clotting; no fibrinogen"], ["Hematopoiesis", "Blood cell production"], ["Erythropoietin", "Kidney hormone that stimulates RBC production"]],
+    unlock: [{ pack: "rr-heme" }], tool: "ranges" },
+  { id: "l-wbc", unit: "heme", title: "White blood cells", mins: 10,
+    steps: [
+      T("The five WBCs", "Five types of WBCs circulate normally. From most to least common: neutrophils, lymphocytes, monocytes, eosinophils, basophils.", "", "Never Let Monkeys Eat Bananas: the five WBCs in order of how common they are."),
+      T("What each one does", "Neutrophils engulf bacteria; bands are younger neutrophils, and more bands than usual is a left shift, a sign of acute infection.\n\nLymphocytes include B cells, which make antibodies, and T and NK cells. Reactive lymphocytes appear in viral infections like mononucleosis.\n\nMonocytes become macrophages in tissue.\n\nEosinophils rise with allergies and parasites.\n\nBasophils release histamine and are increased in CML."),
+      Q("An increase in eosinophils most suggests:", ["Parasitic infection or allergy", "Bacterial infection", "Viral infection", "Bleeding"], 0, "Eosinophils respond to parasites and allergic reactions."),
+      T("Relative versus absolute counts", "A differential gives percentages, which can mislead. Absolute count = WBC × percent. A neutrophil percentage of 80% means something very different with a WBC of 2.0 than with 20.0. Clinicians rely on absolute counts for decisions such as neutropenia.")
+    ],
+    quiz: [
+      ["Which WBC is normally most abundant in adults?", ["Neutrophil", "Lymphocyte", "Monocyte", "Eosinophil"], 0, "Neutrophils are usually 50 to 70% of WBCs."],
+      ["In tissue, monocytes become:", ["Macrophages", "Plasma cells", "Mast cells", "Megakaryocytes"], 0, "Monocytes mature into macrophages."],
+      ["A left shift means:", ["More bands and younger neutrophils", "More lymphocytes", "Fewer neutrophils", "Smaller RBCs"], 0, "The marrow releases immature neutrophils during acute infection."],
+      ["WBC 10.0 ×10³/µL with 60% neutrophils gives an absolute neutrophil count of:", ["6.0 ×10³/µL", "60 ×10³/µL", "0.6 ×10³/µL", "16 ×10³/µL"], 0, "10.0 × 0.60 = 6.0."]
+    ],
+    terms: [["Left shift", "Increased bands and immature neutrophils"], ["Reactive lymphocyte", "Large lymphocyte with abundant cytoplasm, seen in viral infections"], ["Absolute count", "WBC × percent"]],
+    unlock: [{ pack: "wbc" }], tool: "math" },
+  { id: "l-rbc", unit: "heme", title: "RBC indices and morphology", mins: 11,
+    steps: [
+      T("The indices", "MCV = (Hct × 10) ÷ RBC: average cell size, in fL.\n\nMCH = (Hgb × 10) ÷ RBC: average hemoglobin per cell, in pg.\n\nMCHC = (Hgb ÷ Hct) × 100: hemoglobin concentration in cells, in g/dL.\n\nRDW measures variation in cell size (anisocytosis)."),
+      T("Classifying by size", "MCV under 80 fL is microcytic, 80 to 100 is normocytic, over 100 is macrocytic. A low MCHC means hypochromic (pale) cells. An increased MCHC is uncommon and suggests spherocytes.", "MCV sorts anemias into microcytic, normocytic and macrocytic."),
+      Q("Hct is 45% and the RBC count is 5.0 ×10⁶/µL. What is the MCV?", ["90 fL", "45 fL", "9 fL", "225 fL"], 0, "(45 × 10) ÷ 5.0 = 90 fL."),
+      T("The rule of three", "For normocytic, normochromic samples, hemoglobin × 3 ≈ hematocrit (within about 3). When it doesn’t hold, check for an instrument problem, lipemia or an abnormal cell population before reporting."),
+      T("Shapes and inclusions to know first", "Schistocytes (fragments): DIC, TTP, HUS. Spherocytes: hereditary spherocytosis, autoimmune hemolysis. Target cells: thalassemia, liver disease. Sickle cells: Hb SS. Teardrops: myelofibrosis.\n\nInclusions: Howell-Jolly bodies (after splenectomy), basophilic stippling (lead poisoning), Heinz bodies (G6PD deficiency, supravital stain only).")
+    ],
+    quiz: [
+      ["A high MCHC suggests:", ["Spherocytes", "Iron deficiency", "Thalassemia", "B12 deficiency"], 0, "Spherocytes are the classic cause of increased MCHC."],
+      ["Schistocytes are most associated with:", ["DIC and TTP", "Iron deficiency", "Myelofibrosis", "Lead poisoning"], 0, "They’re RBCs sheared in damaged small vessels."],
+      ["RDW measures:", ["Variation in RBC size", "Average RBC size", "Hemoglobin per cell", "Reticulocytes"], 0, "RDW reflects anisocytosis."],
+      ["Hgb 12.0 g/dL predicts a hematocrit of about:", ["36%", "12%", "24%", "48%"], 0, "Rule of three: 12 × 3 = 36."]
+    ],
+    terms: [["MCV", "Average RBC volume"], ["MCHC", "Hemoglobin concentration in RBCs"], ["Anisocytosis", "Variation in RBC size"], ["Poikilocytosis", "Variation in RBC shape"]],
+    unlock: [{ pack: "rbc" }], tool: "math" },
+  { id: "l-anemia", unit: "heme", title: "Working up an anemia", mins: 12,
+    steps: [
+      T("Two questions first", "Anemia means a low hemoglobin. Start with two questions. What’s the MCV? And is the marrow responding? A high reticulocyte count means the marrow is working hard to replace lost or destroyed cells (bleeding or hemolysis). A low count points to a production problem."),
+      T("Microcytic anemias", "Iron deficiency: low ferritin, high TIBC, high RDW. Most common worldwide.\n\nAnemia of chronic disease: normal or high ferritin, low TIBC.\n\nThalassemia trait: normal ferritin, normal or high RBC count, Mentzer index (MCV ÷ RBC) under 13.\n\nSideroblastic anemia: high iron, ringed sideroblasts.", "Ferritin is the best single test for iron stores.", "TAILS for microcytic anemia: Thalassemia, Anemia of chronic disease, Iron deficiency, Lead poisoning, Sideroblastic."),
+      Q("Low ferritin with high TIBC points to:", ["Iron deficiency", "Anemia of chronic disease", "Thalassemia trait", "Folate deficiency"], 0, "Empty iron stores with a body hungry for iron."),
+      T("Macrocytic anemias", "B12 and folate deficiencies cause megaloblastic anemia with oval macrocytes and hypersegmented neutrophils. Methylmalonic acid rises only in B12 deficiency, and B12 deficiency can damage nerves. Liver disease and alcohol cause macrocytosis without megaloblastic changes."),
+      T("Hemolytic anemias", "Signs of hemolysis: high retic count, high indirect bilirubin, high LD, low haptoglobin (it binds free hemoglobin and gets used up).\n\nThe DAT separates immune from non-immune causes: positive in autoimmune hemolytic anemia, negative in hereditary spherocytosis, sickle cell disease and G6PD deficiency.")
+    ],
+    quiz: [
+      ["Which test separates B12 deficiency from folate deficiency?", ["Methylmalonic acid", "MCV", "Hypersegmented neutrophils", "Reticulocyte count"], 0, "MMA rises in B12 deficiency only."],
+      ["In hemolysis, haptoglobin is usually:", ["Decreased", "Increased", "Normal", "Not measurable"], 0, "It binds free hemoglobin and is cleared."],
+      ["A positive DAT with spherocytes suggests:", ["Warm autoimmune hemolytic anemia", "Hereditary spherocytosis", "Iron deficiency", "Thalassemia"], 0, "HS is DAT negative; immune hemolysis is DAT positive."],
+      ["A high reticulocyte count means:", ["The marrow is responding", "The marrow is failing", "Iron stores are full", "B12 is low"], 0, "More young RBCs are being released."]
+    ],
+    terms: [["Ferritin", "Storage iron; best single test of iron stores"], ["TIBC", "Total iron-binding capacity; rises in iron deficiency"], ["Haptoglobin", "Binds free hemoglobin; low in hemolysis"], ["Mentzer index", "MCV ÷ RBC; under 13 suggests thalassemia trait"]],
+    unlock: [{ pack: "anemias" }], tool: "cases" },
+  { id: "l-leuk", unit: "heme", title: "Leukemia basics", mins: 9,
+    steps: [
+      T("Acute or chronic, myeloid or lymphoid", "Leukemia is an uncontrolled growth of WBC precursors. Acute leukemias are dominated by blasts and progress quickly; under the WHO system, at least 20% blasts in blood or marrow generally defines acute myeloid leukemia. Chronic leukemias involve more mature cells and progress more slowly. Each can be myeloid or lymphoid, giving four main types."),
+      T("The big four", "AML: mostly adults; Auer rods in blasts confirm a myeloid origin.\n\nALL: the most common childhood cancer.\n\nCML: very high WBC with all stages of granulocyte maturation and basophilia; defined by the Philadelphia chromosome, t(9;22), which creates BCR::ABL1.\n\nCLL: older adults; many small, mature lymphocytes and smudge cells.", "Auer rods = myeloid. Philadelphia chromosome = CML."),
+      Q("Smudge cells on a smear of an older adult with lymphocytosis suggest:", ["CLL", "AML", "CML", "ALL"], 0, "Fragile CLL lymphocytes smear into smudge cells."),
+      T("Leukemoid reaction versus CML", "A leukemoid reaction is a very high WBC caused by severe infection or inflammation. It lacks basophilia and BCR::ABL1, and toxic changes in neutrophils are common.")
+    ],
+    quiz: [
+      ["Auer rods indicate a blast is:", ["Myeloid", "Lymphoid", "Erythroid", "Reactive"], 0, "Auer rods are fused granules seen in myeloid blasts."],
+      ["The most common childhood leukemia is:", ["ALL", "AML", "CML", "CLL"], 0, "ALL is the most common childhood cancer."],
+      ["The Philadelphia chromosome is characteristic of:", ["CML", "CLL", "AML with Auer rods", "A leukemoid reaction"], 0, "t(9;22) creates BCR::ABL1."],
+      ["Which favors a leukemoid reaction over CML?", ["No basophilia and no BCR::ABL1", "Marked basophilia", "Splenomegaly with BCR::ABL1", "Many smudge cells"], 0, "CML has basophilia and BCR::ABL1."]
+    ],
+    terms: [["Blast", "The earliest recognizable precursor cell"], ["Auer rod", "Rod-shaped granule fusion in myeloid blasts"], ["Philadelphia chromosome", "t(9;22), BCR::ABL1, defines CML"]], tool: "cases" },
+  { id: "l-hemostasis", unit: "hemo", title: "How bleeding stops", mins: 11,
+    steps: [
+      T("Primary hemostasis: the platelet plug", "When a vessel is injured, it constricts. Platelets stick to exposed collagen using von Willebrand factor, become activated, and clump together as fibrinogen bridges their GPIIb/IIIa receptors. The result is a soft platelet plug."),
+      T("Secondary hemostasis: the fibrin clot", "The coagulation cascade generates thrombin, which turns fibrinogen into fibrin. Factor XIII cross-links the fibrin, locking the clot in place.\n\nExtrinsic pathway: tissue factor and factor VII.\nIntrinsic pathway: factors XII, XI, IX and VIII.\nCommon pathway: factors X, V, II (prothrombin) and I (fibrinogen).\n\nMost steps need calcium. That’s why citrate and EDTA, which bind calcium, keep blood from clotting in the tube.", "Thrombin converts fibrinogen to fibrin.", "Vitamin K factors: think “1972”: factors 10, 9, 7 and 2."),
+      Q("Which factors are vitamin K dependent?", ["II, VII, IX and X", "I, V, VIII and XIII", "VIII, IX, XI and XII", "Only VII"], 0, "1972: X, IX, VII, II. Warfarin works by blocking vitamin K."),
+      T("Breaking the clot down", "Once healing begins, plasmin digests fibrin (fibrinolysis). D-dimer is a breakdown product of cross-linked fibrin, so a high D-dimer means clots have formed and are being broken down, as in DIC or a blood clot in the legs or lungs.")
+    ],
+    quiz: [
+      ["Platelets stick to collagen using:", ["von Willebrand factor", "Fibrin", "Plasmin", "Factor VII"], 0, "vWF links platelet GPIb to collagen."],
+      ["Which enzyme converts fibrinogen to fibrin?", ["Thrombin", "Plasmin", "Factor XIII", "Tissue factor"], 0, "Thrombin cleaves fibrinogen."],
+      ["D-dimer comes from the breakdown of:", ["Cross-linked fibrin by plasmin", "Fibrinogen by thrombin", "Platelets", "Factor VIII"], 0, "Only cross-linked fibrin yields D-dimer."],
+      ["Anticoagulants like citrate prevent clotting by:", ["Binding calcium", "Destroying platelets", "Blocking vitamin K", "Activating plasmin"], 0, "Calcium is needed throughout the cascade."]
+    ],
+    terms: [["Primary hemostasis", "Formation of the platelet plug"], ["Secondary hemostasis", "Formation of the fibrin clot"], ["Fibrinolysis", "Breakdown of fibrin by plasmin"], ["D-dimer", "Breakdown product of cross-linked fibrin"]],
+    unlock: [{ pack: "coag" }] },
+  { id: "l-coagtests", unit: "hemo", title: "Coagulation testing", mins: 11,
+    steps: [
+      T("The specimen", "Coagulation tests use a light blue 3.2% sodium citrate tube filled to the line for a 9:1 blood-to-anticoagulant ratio. Underfilling leaves extra citrate and falsely prolongs clotting times. Testing uses platelet-poor plasma."),
+      T("PT and aPTT", "PT (with INR) adds tissue factor and tests the extrinsic and common pathways. It’s used to monitor warfarin; INR standardizes PT results between labs.\n\naPTT tests the intrinsic and common pathways. It monitors unfractionated heparin and is prolonged in hemophilia A and B and with a lupus anticoagulant.", "PT/INR monitors warfarin. aPTT monitors heparin.", "WEPT: Warfarin works on the Extrinsic pathway, monitored with PT. HIP: Heparin, Intrinsic pathway, PTT."),
+      Q("A patient on warfarin is monitored with:", ["PT/INR", "aPTT", "Platelet count", "D-dimer"], 0, "Warfarin lowers factors II, VII, IX and X; PT is most sensitive to factor VII."),
+      T("Mixing studies", "When a clotting time is long, mix patient plasma 1:1 with normal plasma. If the time corrects, the patient was missing a factor. If it stays long, an inhibitor such as a lupus anticoagulant or a factor VIII antibody is blocking clotting."),
+      T("Reading the pattern", "Only PT long: factor VII deficiency, early warfarin or vitamin K deficiency, early liver disease.\nOnly aPTT long: factors VIII, IX, XI or XII, heparin, lupus anticoagulant.\nBoth long: common pathway factors, DIC, severe liver disease, significant vitamin K deficiency.")
+    ],
+    quiz: [
+      ["An underfilled light blue tube gives:", ["Falsely prolonged PT and aPTT", "Falsely short PT and aPTT", "Hemolysis", "Falsely high platelets"], 0, "Too much citrate for the plasma volume."],
+      ["A prolonged aPTT that corrects on mixing suggests:", ["A factor deficiency", "A lupus anticoagulant", "A factor VIII inhibitor", "Heparin contamination only"], 0, "Normal plasma supplies the missing factor."],
+      ["An isolated long PT with normal aPTT most suggests:", ["Factor VII deficiency", "Hemophilia A", "Hemophilia B", "Factor XII deficiency"], 0, "Factor VII is the only factor unique to the extrinsic pathway."],
+      ["Unfractionated heparin is monitored with:", ["aPTT", "PT/INR", "Bleeding time", "Fibrinogen"], 0, "aPTT, or anti-Xa in many labs."]
+    ],
+    terms: [["PT/INR", "Tests extrinsic and common pathways; monitors warfarin"], ["aPTT", "Tests intrinsic and common pathways; monitors heparin"], ["Mixing study", "1:1 mix with normal plasma; correction means factor deficiency"]],
+    unlock: [{ pack: "rr-coag" }], tool: "cases" },
+  { id: "l-lytes", unit: "chem", title: "Electrolytes and acid-base", mins: 12,
+    steps: [
+      T("The four main electrolytes", "Sodium is the main extracellular cation and controls fluid balance. Potassium is the main intracellular cation and is critical for heart rhythm; hemolysis falsely raises it. Chloride follows sodium. Bicarbonate is the main blood buffer.\n\nAnion gap = Na − (Cl + HCO₃). A high gap means unmeasured acids are present.", "Hemolysis falsely raises potassium."),
+      T("Acid-base basics", "Normal blood pH is 7.35 to 7.45. The lungs control pCO₂ (the respiratory side) and the kidneys control bicarbonate (the metabolic side).\n\nLow pH is acidosis; high pH is alkalosis. If pCO₂ explains the change, it’s respiratory. If bicarbonate explains it, it’s metabolic. The body compensates by shifting the other side.", "", "ROME: Respiratory Opposite (pH and pCO₂ move in opposite directions), Metabolic Equal (pH and HCO₃ move the same way)."),
+      Q("pH 7.25 with a low bicarbonate is:", ["Metabolic acidosis", "Respiratory acidosis", "Metabolic alkalosis", "Respiratory alkalosis"], 0, "Low pH and low HCO₃ move together, so it’s metabolic."),
+      T("High anion gap acidosis", "Causes include ketoacidosis (DKA), lactic acidosis, kidney failure and toxins like methanol, ethylene glycol and salicylates.", "", "MUDPILES: Methanol, Uremia, DKA, Propylene glycol, Isoniazid or iron, Lactic acidosis, Ethylene glycol, Salicylates.")
+    ],
+    quiz: [
+      ["The main intracellular cation is:", ["Potassium", "Sodium", "Calcium", "Chloride"], 0, "Most potassium sits inside cells."],
+      ["Na 140, Cl 100, HCO₃ 24. The anion gap is:", ["16", "40", "64", "4"], 0, "140 − (100 + 24) = 16."],
+      ["pH 7.50 with a low pCO₂ is:", ["Respiratory alkalosis", "Metabolic alkalosis", "Respiratory acidosis", "Metabolic acidosis"], 0, "pH and pCO₂ move opposite, so it’s respiratory."],
+      ["Which causes a high anion gap acidosis?", ["Diabetic ketoacidosis", "Vomiting", "Hyperventilation", "Diuretics"], 0, "Ketoacids are unmeasured anions."]
+    ],
+    terms: [["Anion gap", "Na − (Cl + HCO₃)"], ["Acidosis", "pH below 7.35"], ["Alkalosis", "pH above 7.45"], ["Compensation", "The opposite system adjusts to bring pH back toward normal"]],
+    unlock: [{ pack: "rr-chem" }], tool: "math" },
+  { id: "l-glu", unit: "chem", title: "Glucose, kidneys and liver", mins: 12,
+    steps: [
+      T("Glucose and diabetes", "Fasting glucose is normally 70 to 99 mg/dL. Diabetes is diagnosed with a fasting glucose of 126 mg/dL or higher or an HbA1c of 6.5% or higher, confirmed on repeat testing. HbA1c reflects average glucose over the previous 2 to 3 months, tied to the RBC lifespan.\n\nGlucose falls in unprocessed blood as cells use it, about 5 to 7% per hour, which is why the gray top contains fluoride.", "HbA1c shows the past 2 to 3 months."),
+      T("The kidneys", "BUN and creatinine both rise when the kidneys filter poorly. Creatinine comes from muscle at a steady rate, so it’s a better marker of filtration. Creatinine clearance and eGFR estimate the glomerular filtration rate."),
+      T("Bilirubin’s journey", "Old RBCs break down into unconjugated (indirect) bilirubin, which travels on albumin to the liver. The liver conjugates it into water-soluble conjugated (direct) bilirubin and sends it out in bile. Gut bacteria turn it into urobilinogen.\n\nPrehepatic (hemolysis): indirect bilirubin and urine urobilinogen rise; no bilirubin in urine.\nHepatic: both forms can rise.\nPosthepatic (obstruction): direct bilirubin rises, urine bilirubin is positive, urobilinogen falls, stools turn pale.", "Only conjugated bilirubin is water-soluble enough to appear in urine."),
+      Q("Bilirubin appears in urine in which situation?", ["Bile duct obstruction", "Hemolysis only", "Iron deficiency", "Never"], 0, "Conjugated bilirubin backs up into blood and spills into urine."),
+      T("Liver enzymes", "ALT is the most liver-specific enzyme. AST also comes from heart and skeletal muscle. ALP rises sharply with bile duct obstruction and also with bone growth or disease.")
+    ],
+    quiz: [
+      ["HbA1c reflects average glucose over about:", ["2 to 3 months", "1 day", "1 week", "1 year"], 0, "It tracks the RBC lifespan."],
+      ["Creatinine is produced by:", ["Muscle", "The liver", "The kidneys", "Red blood cells"], 0, "Creatinine comes from muscle creatine."],
+      ["A very high ALP with high direct bilirubin suggests:", ["Bile duct obstruction", "Hemolysis", "Gilbert syndrome", "Iron deficiency"], 0, "Obstruction drives ALP and conjugated bilirubin up."],
+      ["The most liver-specific enzyme is:", ["ALT", "AST", "LD", "CK"], 0, "AST also comes from heart and muscle."]
+    ],
+    terms: [["HbA1c", "Glycated hemoglobin; 2 to 3 month glucose average"], ["Unconjugated bilirubin", "Indirect; bound to albumin; not in urine"], ["Conjugated bilirubin", "Direct; water-soluble; can appear in urine"], ["eGFR", "Estimated glomerular filtration rate"]], tool: "cases" },
+  { id: "l-markers", unit: "chem", title: "Heart, thyroid and proteins", mins: 9,
+    steps: [
+      T("Cardiac markers", "Cardiac troponin (I or T) is the most specific marker of heart muscle injury. Labs test it serially; a rise between samples supports an acute heart attack. BNP and NT-proBNP rise in heart failure."),
+      T("Thyroid testing", "The pituitary releases TSH, which tells the thyroid to make T4 and T3. Thyroid hormone then turns TSH down (negative feedback). TSH is the best first screening test.\n\nPrimary hypothyroidism: high TSH, low free T4.\nPrimary hyperthyroidism (such as Graves disease): low TSH, high free T4.", "In primary thyroid disease, TSH moves opposite to free T4."),
+      Q("TSH low and free T4 high suggests:", ["Primary hyperthyroidism", "Primary hypothyroidism", "Pituitary failure", "Normal thyroid"], 0, "Excess thyroid hormone suppresses TSH."),
+      T("Proteins", "Albumin is the most abundant plasma protein and holds fluid in vessels. Serum protein electrophoresis separates proteins into bands; a sharp monoclonal spike (M-spike) in the gamma region suggests multiple myeloma, often with Bence Jones proteins (free light chains) in the urine.")
+    ],
+    quiz: [
+      ["The most specific marker of myocardial injury is:", ["Cardiac troponin", "CK", "Myoglobin", "LD"], 0, "Troponins are essentially heart-specific."],
+      ["The best first thyroid screening test is:", ["TSH", "Total T4", "T3", "Thyroglobulin"], 0, "TSH responds sensitively to thyroid status."],
+      ["An M-spike on protein electrophoresis suggests:", ["Multiple myeloma", "Liver disease", "Nephrotic syndrome", "Dehydration"], 0, "A monoclonal protein from one clone of plasma cells."],
+      ["The most abundant plasma protein is:", ["Albumin", "Fibrinogen", "IgG", "Transferrin"], 0, "Albumin makes up over half of total protein."]
+    ],
+    terms: [["Troponin", "Heart-specific injury marker"], ["TSH", "Pituitary hormone; best thyroid screen"], ["M-spike", "Monoclonal protein band, as in multiple myeloma"], ["Bence Jones protein", "Free light chains in urine"]], tool: "cases" },
+  { id: "l-ua1", unit: "ua", title: "Urinalysis: physical and chemical", mins: 11,
+    steps: [
+      T("The specimen", "A first morning specimen is the most concentrated. A clean-catch midstream specimen is used for culture. Test urine within 2 hours or refrigerate it.\n\nLeft at room temperature, urine changes: bacteria multiply, pH rises as urea breaks down to ammonia, glucose falls, cells and casts break down, and bilirubin and urobilinogen degrade in light.", "Unpreserved urine: pH up, glucose down, bacteria up, cells and casts lost."),
+      T("Physical exam", "Normal urine is straw to yellow from urochrome. Clarity ranges from clear to turbid. Specific gravity reflects concentration; random specimens usually range 1.005 to 1.030."),
+      T("The reagent strip", "Each pad uses a specific chemical reaction.\n\nGlucose: glucose oxidase. Protein: most sensitive to albumin. Blood: detects hemoglobin and myoglobin. Ketones: nitroprusside. Nitrite: needs bacteria that reduce nitrate and about 4 hours in the bladder. Leukocyte esterase: detects neutrophils, even ones that have broken apart.\n\nAscorbic acid (vitamin C) is a classic cause of false negatives on blood, glucose, bilirubin and nitrite pads."),
+      Q("Which causes a false-negative blood or glucose result?", ["Ascorbic acid", "Highly alkaline urine", "Bacterial contamination", "Bleach"], 0, "Vitamin C interferes with the peroxidase-based reactions.")
+    ],
+    quiz: [
+      ["Urine left at room temperature for hours usually shows:", ["Higher pH and lower glucose", "Lower pH and higher glucose", "More casts", "No change"], 0, "Bacteria convert urea to ammonia and consume glucose."],
+      ["The most concentrated specimen is:", ["First morning", "Random afternoon", "Timed 2-hour", "After drinking water"], 0, "Urine concentrates overnight."],
+      ["A positive nitrite requires:", ["Bacteria that reduce nitrate", "Any WBCs", "High specific gravity", "Glucose in urine"], 0, "Many gram-negative rods reduce nitrate to nitrite."],
+      ["The protein pad is most sensitive to:", ["Albumin", "Bence Jones protein", "Hemoglobin", "Globulins"], 0, "It may miss other proteins."]
+    ],
+    terms: [["Specific gravity", "Measure of urine concentration"], ["Urochrome", "Pigment that makes urine yellow"], ["Leukocyte esterase", "Enzyme from neutrophils"]],
+    unlock: [{ pack: "ua" }] },
+  { id: "l-ua2", unit: "ua", title: "Urine sediment", mins: 10,
+    steps: [
+      T("Looking under the microscope", "Spun urine is examined under low power for casts (reported per low-power field) and high power for cells and crystals (per high-power field)."),
+      T("Casts point to the kidney", "Casts form only inside renal tubules, from a protein matrix (uromodulin). So a cast tells you the problem started in the kidney.\n\nHyaline: can be normal, after exercise or dehydration. RBC casts: glomerulonephritis. WBC casts: pyelonephritis. Waxy casts: chronic kidney failure. Fatty casts: nephrotic syndrome.", "Casts are made in the tubules, so they mean kidney involvement."),
+      Q("WBC casts suggest infection of the:", ["Kidney (pyelonephritis)", "Bladder only", "Urethra", "Prostate"], 0, "Casts form in tubules, so the infection is in the kidney."),
+      T("Crystals by pH", "Acid urine: uric acid, amorphous urates, calcium oxalate (also neutral).\nAlkaline urine: triple phosphate (coffin lids), amorphous phosphates.\nAbnormal crystals: cystine (hexagons), tyrosine, leucine, cholesterol. These suggest disease and are confirmed before reporting.")
+    ],
+    quiz: [
+      ["Casts form in the:", ["Renal tubules", "Bladder", "Ureters", "Urethra"], 0, "Tubules provide the protein matrix and shape."],
+      ["RBC casts indicate:", ["Glomerulonephritis", "Bladder cancer", "Normal urine", "Dehydration"], 0, "RBCs entered at the glomerulus."],
+      ["Coffin-lid crystals form in urine that is:", ["Alkaline", "Acid", "Either equally", "Only refrigerated"], 0, "Triple phosphate crystals prefer alkaline urine."],
+      ["Colorless hexagonal plates are:", ["Cystine", "Uric acid", "Calcium oxalate", "Triple phosphate"], 0, "Cystine crystals are abnormal and suggest cystinuria."]
+    ],
+    terms: [["Cast", "Cylindrical structure formed in renal tubules"], ["lpf/hpf", "Low-power and high-power microscope fields"], ["Cystinuria", "Inherited disorder causing cystine crystals and stones"]],
+    unlock: [{ pack: "sediment" }] },
+  { id: "l-micro", unit: "micro", title: "Microbiology foundations", mins: 12,
+    steps: [
+      T("The Gram stain", "Crystal violet (primary stain), then Gram’s iodine (mordant), then alcohol or acetone (decolorizer, the critical step), then safranin (counterstain).\n\nGram-positive bacteria have a thick peptidoglycan wall that holds the purple dye. Gram-negative bacteria have a thin wall plus an outer membrane, lose the purple during decolorizing and pick up pink safranin.", "Gram-positive is purple; Gram-negative is pink.", "Come In And Stain: Crystal violet, Iodine, Alcohol, Safranin."),
+      Q("Which Gram stain step is most critical to get right?", ["Decolorizing", "Crystal violet", "Iodine", "Safranin"], 0, "Over- or under-decolorizing gives the wrong Gram reaction."),
+      T("Shapes", "Cocci are round; bacilli are rods. Cocci in clusters suggest staphylococci; cocci in chains suggest streptococci."),
+      T("Media", "Enriched media support growth: blood agar, and chocolate agar for fastidious organisms like Haemophilus and Neisseria.\n\nSelective media inhibit some organisms. Differential media show a difference between them. MacConkey agar is both: it favors gram-negative rods and turns lactose fermenters pink. Mannitol salt agar uses 7.5% salt to select for staphylococci and turns yellow when mannitol is fermented, as by S. aureus."),
+      T("Hemolysis on blood agar", "Beta: complete clearing around colonies. Alpha: partial, greenish discoloration. Gamma: no hemolysis.")
+    ],
+    quiz: [
+      ["Gram-negative bacteria appear:", ["Pink", "Purple", "Blue-black", "Green"], 0, "They take up safranin after losing crystal violet."],
+      ["On MacConkey agar, lactose fermenters are:", ["Pink", "Colorless", "Black", "Yellow"], 0, "Acid from lactose turns the indicator pink."],
+      ["Alpha hemolysis looks like:", ["Partial, greenish hemolysis", "Complete clearing", "No change", "A black halo"], 0, "Alpha is partial and green."],
+      ["Chocolate agar is used for:", ["Fastidious organisms like Haemophilus", "Selecting gram-negative rods", "Fermenting mannitol", "Anaerobes only"], 0, "Lysed RBCs release growth factors."]
+    ],
+    terms: [["Mordant", "Fixes the primary stain (Gram’s iodine)"], ["Selective medium", "Inhibits some organisms"], ["Differential medium", "Distinguishes organisms by a reaction"], ["Fastidious", "Has complex growth requirements"]], tool: "flow-gpc" },
+  { id: "l-gpc", unit: "micro", title: "Gram-positive cocci", mins: 12,
+    steps: [
+      T("Catalase splits staph from strep", "Add hydrogen peroxide to a colony. Bubbles mean catalase positive: staphylococci. No bubbles: streptococci and enterococci. Don’t take colonies from blood agar into the test, because RBCs contain catalase and give false positives.", "Catalase positive: staph. Catalase negative: strep."),
+      T("Staphylococci", "Coagulase separates Staphylococcus aureus (positive) from coagulase-negative staphylococci. Among those, novobiocin resistance identifies S. saprophyticus, a cause of UTIs in young women; S. epidermidis is susceptible and often contaminates blood cultures or infects devices.", "", "No StRES: Novobiocin, Saprophyticus Resistant, Epidermidis Susceptible."),
+      Q("A catalase-positive, coagulase-positive GPC in clusters is:", ["Staphylococcus aureus", "S. epidermidis", "S. saprophyticus", "Streptococcus pyogenes"], 0, "Coagulase is the key test for S. aureus."),
+      T("Streptococci and enterococci", "Sort by hemolysis.\n\nBeta: Group A (S. pyogenes) is bacitracin susceptible and PYR positive. Group B (S. agalactiae) is CAMP positive and hippurate positive.\n\nAlpha: S. pneumoniae is optochin susceptible and bile soluble; viridans streptococci are optochin resistant.\n\nUsually gamma: Enterococcus is bile esculin positive and grows in 6.5% salt.")
+    ],
+    quiz: [
+      ["Which test separates staphylococci from streptococci?", ["Catalase", "Coagulase", "Optochin", "CAMP"], 0, "Staph bubble; strep don’t."],
+      ["Novobiocin resistance identifies:", ["S. saprophyticus", "S. epidermidis", "S. aureus", "S. pyogenes"], 0, "No StRES."],
+      ["A CAMP-positive beta-hemolytic strep is:", ["S. agalactiae (Group B)", "S. pyogenes (Group A)", "S. pneumoniae", "Enterococcus"], 0, "GBS enhances staph hemolysis in an arrowhead shape."],
+      ["Optochin susceptibility identifies:", ["S. pneumoniae", "Viridans streptococci", "Enterococcus", "S. aureus"], 0, "Pneumococcus is optochin susceptible and bile soluble."]
+    ],
+    terms: [["Catalase", "Enzyme that breaks down H₂O₂"], ["Coagulase", "Enzyme that clots plasma; S. aureus"], ["CAMP test", "Arrowhead hemolysis with S. aureus; Group B strep"], ["Optochin", "Disk test identifying S. pneumoniae"]],
+    unlock: [{ pack: "gpc" }], tool: "flow-gpc" },
+  { id: "l-gnr", unit: "micro", title: "Gram-negative rods", mins: 12,
+    steps: [
+      T("Oxidase first", "Enterobacterales, the large family including E. coli, Klebsiella, Salmonella and Shigella, are oxidase negative. Pseudomonas aeruginosa is oxidase positive and doesn’t ferment sugars.", "Enterobacterales are oxidase negative."),
+      T("Lactose on MacConkey", "Lactose fermenters turn pink: E. coli, Klebsiella, Enterobacter.\nNon-fermenters stay colorless: Salmonella, Shigella, Proteus, Pseudomonas."),
+      Q("A pink colony on MacConkey agar is a:", ["Lactose fermenter", "Non-fermenter", "Gram-positive coccus", "Oxidase-positive rod"], 0, "Pink means lactose was fermented."),
+      T("Stool pathogens", "Hektoen enteric (HE) and XLD agars screen for stool pathogens. Salmonella usually makes H₂S, giving black-centered colonies. Shigella makes no H₂S, gives green colonies on HE and is nonmotile. E. coli O157:H7 doesn’t ferment sorbitol, so it’s colorless on sorbitol-MacConkey."),
+      T("Signature features", "Proteus swarms across blood agar and is urease positive. Klebsiella forms mucoid colonies from its capsule. Pseudomonas smells like grapes, makes blue-green pigment and grows at 42 °C.")
+    ],
+    quiz: [
+      ["Enterobacterales are:", ["Oxidase negative", "Oxidase positive", "Gram-positive", "Catalase negative"], 0, "That’s a defining trait."],
+      ["Black-centered colonies on HE agar suggest:", ["Salmonella", "Shigella", "E. coli", "Klebsiella"], 0, "Salmonella produces H₂S."],
+      ["Swarming on blood agar is typical of:", ["Proteus", "Klebsiella", "Shigella", "E. coli"], 0, "Proteus is highly motile."],
+      ["Colorless colonies on sorbitol-MacConkey suggest:", ["E. coli O157:H7", "Klebsiella", "Salmonella", "Pseudomonas"], 0, "O157:H7 doesn’t ferment sorbitol."]
+    ],
+    terms: [["Enterobacterales", "Oxidase-negative, glucose-fermenting gram-negative rods"], ["Lactose fermenter", "Pink on MacConkey"], ["H₂S", "Hydrogen sulfide; black precipitate on HE, XLD and TSI"]],
+    unlock: [{ pack: "gnr" }], tool: "flow-gnr" },
+  { id: "l-para", unit: "micro", title: "Intro to parasitology", mins: 10,
+    steps: [
+      T("Two big groups", "Protozoa are single-celled: amebas, flagellates such as Giardia, ciliates and sporozoans such as Plasmodium.\n\nHelminths are worms: nematodes (roundworms), cestodes (tapeworms) and trematodes (flukes)."),
+      T("Stool O&P", "An ova and parasite exam often uses up to three specimens collected on different days, because parasites are shed intermittently. Specimens are preserved (such as in formalin), concentrated and permanently stained (such as trichrome). Pinworm needs a different test: cellophane tape pressed to the perianal skin first thing in the morning."),
+      Q("Which test finds pinworm eggs?", ["Cellophane tape prep", "Routine stool O&P", "Blood smear", "Urine culture"], 0, "Females lay eggs on perianal skin at night."),
+      T("Malaria smears", "Thick smears concentrate blood and are best for detecting parasites. Thin smears keep RBCs intact and are best for identifying the species. P. falciparum shows multiple small rings per cell and banana-shaped gametocytes in normal-sized RBCs. P. vivax enlarges RBCs and shows Schüffner’s dots.", "Thick smear to detect, thin smear to identify.")
+    ],
+    quiz: [
+      ["Thick blood smears are best for:", ["Detecting malaria parasites", "Identifying the species", "Counting WBCs", "Checking platelets"], 0, "Thin smears identify the species."],
+      ["A tapeworm is a:", ["Cestode", "Nematode", "Trematode", "Protozoan"], 0, "Cestodes are flatworms with segments."],
+      ["Banana-shaped gametocytes indicate:", ["Plasmodium falciparum", "P. vivax", "Giardia", "Trichomonas"], 0, "Crescent gametocytes are classic for falciparum."],
+      ["Giardia is a:", ["Flagellate protozoan", "Nematode", "Cestode", "Ameba"], 0, "It moves with flagella."]
+    ],
+    terms: [["Protozoa", "Single-celled parasites"], ["Helminths", "Parasitic worms"], ["O&P", "Ova and parasite exam"]],
+    unlock: [{ pack: "parasites" }] },
+  { id: "l-immune", unit: "bb", title: "The immune system and antibodies", mins: 10,
+    steps: [
+      T("Innate and adaptive", "Innate immunity is fast and nonspecific: skin, neutrophils, macrophages and complement. Adaptive immunity is specific and has memory: B cells make antibodies, and T cells direct and kill."),
+      T("Antibody structure", "An antibody has two heavy chains and two light chains. The Fab region binds antigen; the Fc region triggers effects such as complement activation. There are five classes: IgG, IgM, IgA, IgE and IgD."),
+      Q("Which antibody crosses the placenta?", ["IgG", "IgM", "IgA", "IgE"], 0, "Only IgG crosses, which matters for hemolytic disease of the newborn."),
+      T("Primary and secondary responses", "On first exposure, IgM appears first, followed by IgG. On re-exposure, memory cells produce a faster, larger response, mostly IgG.\n\nIn the lab, antigen-antibody reactions show up as agglutination (clumping of cells or particles), precipitation, or a color change in an ELISA. IgM, a large pentamer, agglutinates RBCs easily; IgG often needs antihuman globulin to show agglutination.", "IgM first, IgG later and in memory.")
+    ],
+    quiz: [
+      ["The first antibody made in a primary response is:", ["IgM", "IgG", "IgA", "IgE"], 0, "IgM leads; IgG follows."],
+      ["The antigen-binding part of an antibody is the:", ["Fab region", "Fc region", "Hinge only", "J chain"], 0, "Fab = fragment antigen binding."],
+      ["An ELISA detects reactions using:", ["An enzyme-linked label", "Agglutination only", "Radioactivity only", "Microscopy"], 0, "The enzyme produces a measurable color change."],
+      ["Which is part of innate immunity?", ["Neutrophils", "Memory B cells", "Antibodies", "Helper T cells"], 0, "Neutrophils act fast without prior exposure."]
+    ],
+    terms: [["Antigen", "A substance an antibody recognizes"], ["Agglutination", "Clumping of cells or particles by antibody"], ["Fab and Fc", "Antigen-binding and effector regions of an antibody"]],
+    unlock: [{ pack: "immuno" }] },
+  { id: "l-abo", unit: "bb", title: "ABO and Rh", mins: 11,
+    steps: [
+      T("Landsteiner’s rule", "ABO antigens sit on RBCs. People naturally make antibodies against whichever A or B antigens they lack, starting a few months after birth. Group A has anti-B, group B has anti-A, group O has both, and group AB has neither.", "You make antibodies to the ABO antigens you don’t have."),
+      T("Forward and reverse typing", "Forward typing mixes the patient’s RBCs with anti-A and anti-B reagents. Reverse typing mixes the patient’s plasma with reagent A₁ and B cells. The two must agree; if they don’t, the discrepancy is investigated before blood is given."),
+      Q("Group B blood has which antibody in its plasma?", ["Anti-A", "Anti-B", "Both", "Neither"], 0, "Group B lacks the A antigen, so it has anti-A."),
+      T("Rh(D)", "Rh positive means the D antigen is present. Unlike ABO antibodies, anti-D forms only after exposure, through transfusion or pregnancy. Rh-negative mothers receive Rh immune globulin (RhIG) to prevent them from making anti-D.\n\nGroup O negative RBCs can go to anyone in an emergency. Group AB plasma can go to anyone, because it has no anti-A or anti-B.", "", "O is the universal RBC donor; AB is the universal plasma donor.")
+    ],
+    quiz: [
+      ["Group A individuals have:", ["Anti-B", "Anti-A", "Anti-A and anti-B", "No ABO antibodies"], 0, "They lack B."],
+      ["Reverse typing tests:", ["Patient plasma with reagent A₁ and B cells", "Patient RBCs with anti-A and anti-B", "Patient RBCs with anti-D", "Donor plasma with patient cells"], 0, "Reverse typing looks for the expected antibodies."],
+      ["The universal plasma donor is group:", ["AB", "O", "A", "B"], 0, "AB plasma lacks anti-A and anti-B."],
+      ["RhIG is given to:", ["Rh-negative mothers", "Rh-positive mothers", "All newborns", "Group O patients"], 0, "It prevents anti-D formation."]
+    ],
+    terms: [["Forward typing", "Patient RBCs with anti-A and anti-B"], ["Reverse typing", "Patient plasma with A₁ and B cells"], ["RhIG", "Rh immune globulin, prevents anti-D formation"]],
+    unlock: [{ pack: "abo" }] },
+  { id: "l-xm", unit: "bb", title: "Compatibility testing and transfusion", mins: 12,
+    steps: [
+      T("Before a transfusion", "The patient’s sample gets an ABO/Rh type and an antibody screen, an indirect antiglobulin test with screening cells. If the screen is positive, the antibody is identified. Compatible units are then selected and crossmatched against the patient’s plasma."),
+      T("DAT and IAT", "The direct antiglobulin test (DAT) detects antibody or complement already coating RBCs inside the body, as in HDFN, transfusion reactions and autoimmune hemolysis.\n\nThe indirect antiglobulin test (IAT) detects antibodies in plasma that bind RBCs in the test tube, as in antibody screens and crossmatches.", "DAT: in the body (in vivo). IAT: in the tube (in vitro)."),
+      Q("An antibody screen uses which test?", ["Indirect antiglobulin test", "Direct antiglobulin test", "Forward typing", "Rh typing only"], 0, "It looks for antibodies in plasma."),
+      T("Transfusion reactions", "Acute hemolytic reactions, usually from ABO-incompatible blood given after an identification error, are the most dangerous. Febrile non-hemolytic reactions are the most common. Others include allergic reactions, TRALI, TACO and delayed hemolytic reactions (often from Kidd antibodies).\n\nIf a reaction is suspected: stop the transfusion, keep the IV line open with saline, notify the provider and blood bank, and return the unit. The lab checks the paperwork and runs a DAT on a post-transfusion sample.", "First step in any suspected reaction: stop the transfusion."),
+      T("Storage", "RBCs: 1 to 6 °C. Platelets: 20 to 24 °C with gentle agitation. Frozen plasma: −18 °C or colder.")
+    ],
+    quiz: [
+      ["The most common cause of acute ABO-incompatible reactions is:", ["Patient or specimen identification errors", "Reagent failure", "Bacterial contamination", "Platelet storage"], 0, "Clerical errors are the leading cause."],
+      ["The first step in a suspected transfusion reaction is:", ["Stop the transfusion", "Slow the transfusion", "Give the next unit", "Draw a CBC"], 0, "Stop, keep the line open with saline, notify."],
+      ["The DAT detects:", ["Antibody coating RBCs in the body", "Antibodies in plasma", "ABO type", "Rh type"], 0, "In vivo sensitization."],
+      ["Platelets are stored at:", ["20 to 24 °C with agitation", "1 to 6 °C", "−18 °C", "37 °C"], 0, "Room temperature keeps platelets working."]
+    ],
+    terms: [["Antibody screen", "IAT to detect unexpected antibodies"], ["Crossmatch", "Final compatibility test between patient plasma and donor RBCs"], ["TRALI", "Transfusion-related acute lung injury"], ["TACO", "Transfusion-associated circulatory overload"]],
+    unlock: [{ pack: "bb" }] }
+];
+/* ---------- Head start (pre-program mode) ---------- */
+function prep() { const p = S.meta.prep = S.meta.prep || {}; p.lessons = p.lessons || {}; p.cards = p.cards || {}; p.units = p.units || {}; return p; }
+const prepOn = () => !!(S.meta.prep && S.meta.prep.on);
+const findPackDeck = id => Object.values(S.decks).find(d => d.pack === id);
+const eligibleNew = f => !prepOn() || !f.deck.pack || !!prep().cards[f.card.id];
+function lessonFacts(l) {
+  const out = [];
+  (l.unlock || []).forEach(u => { const d = findPackDeck(u.pack); if (d) factsOf(d).forEach(f => { if (prep().cards[f.card.id]) out.push(f); }); });
+  return out;
+}
+function lessonState(l) {
+  const r = prep().lessons[l.id] || {};
+  const facts = lessonFacts(l);
+  const solid = facts.length ? facts.filter(f => (stOf(f) || {}).i >= 7).length / facts.length : 0;
+  const passed = (r.best || 0) >= 80;
+  const needsCards = (l.unlock || []).length > 0;
+  const mastered = passed && (!needsCards || (r.unlocked && facts.length && solid >= 0.9));
+  const status = mastered ? "mastered" : passed ? (needsCards && !r.unlocked ? "unlock" : "practicing") : r.read ? "read" : "new";
+  return { r, facts, solid, passed, mastered, status };
+}
+function nextLesson() { return LESSONS.find(l => !lessonState(l).passed); }
+function packCount(id) { const p = PACKS.find(x => x.id === id); return p ? p.rows.length : 0; }
+function unlockLesson(l) {
+  let n = 0;
+  (l.unlock || []).forEach(u => {
+    let d = findPackDeck(u.pack);
+    if (!d) { const p = PACKS.find(x => x.id === u.pack); if (!p) return; d = packToDeck(p); S.decks[d.id] = d; saveDeck(d); }
+    d.cards.forEach(c => { if (!prep().cards[c.id]) { prep().cards[c.id] = 1; n++; } });
+  });
+  const r = prep().lessons[l.id] = prep().lessons[l.id] || {}; r.unlocked = Date.now();
+  saveMeta(true); return n;
+}
+function runTool(t) {
+  if (t === "math") startLabMath(); else if (t === "cases") startCases(); else if (t === "ranges") startRanges();
+  else if (t === "flow-gpc") startFlow("gpc"); else if (t === "flow-gnr") startFlow("gnr");
+  else if (t === "seq") { const d = findPackDeck("tubes"); d ? startSeq(d) : toast("Add the blood tubes cards first"); }
+}
+const TOOL_NAMES = { math: "Lab math practice", cases: "Case studies", ranges: "Reference range drills", "flow-gpc": "Gram-positive ID flowchart", "flow-gnr": "Gram-negative ID flowchart", seq: "Order of draw practice" };
+const dayDiff = iso => { const a = new Date(); a.setHours(0, 0, 0, 0); return Math.round((new Date(iso + "T00:00") - a) / DAY); };
+
+function prepHomeHtml() {
+  const p = prep(); const today = dayKey();
+  const states = LESSONS.map(l => ({ l, ...lessonState(l) }));
+  const mastered = states.filter(s => s.mastered).length, passed = states.filter(s => s.passed).length;
+  const pct = Math.round(((passed - mastered) * 0.6 + mastered) / LESSONS.length * 100);
+  const daysLeft = p.start ? dayDiff(p.start) : null;
+  const left = LESSONS.length - passed;
+  const perWeek = daysLeft && daysLeft > 0 ? Math.ceil(left / Math.max(1, daysLeft / 7)) : null;
+  let due = 0, nw = 0; Object.values(S.decks).forEach(d => { const c = deckCounts(d); due += c.due; nw += c.nw; });
+  const newToday = Math.min(nw, newLeftToday());
+  const nl = nextLesson();
+  const reviewDone = due === 0 && (S.meta.history[today] || 0) > 0;
+  const lessonDone = p.lastDay === today;
+  const startedUnits = UNITS.filter(u => LESSONS.some(l => l.unit === u.id && (p.lessons[l.id] || {}).read));
+  const toolPool = [...new Set(LESSONS.filter(l => l.tool && (p.lessons[l.id] || {}).read).map(l => l.tool))];
+  const tool = toolPool.length ? toolPool[(new Date().getDate()) % toolPool.length] : "math";
+  const practiceDone = p.practiceDay === today;
+  const ringSvg = (v) => { const r = 34, C = 2 * Math.PI * r; return `<svg viewBox="0 0 80 80" class="pring"><circle cx="40" cy="40" r="${r}" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="8"/><circle cx="40" cy="40" r="${r}" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-dasharray="${C * v / 100} ${C}" transform="rotate(-90 40 40)"/><text x="40" y="46" text-anchor="middle">${v}%</text></svg>`; };
+  const item = (done, ic, title, sub, btn, id) => `<div class="plan-item ${done ? "done" : ""}"><span class="tick">${done ? icon("check") : icon(ic)}</span><div style="flex:1;min-width:0"><b>${title}</b><br><span class="small muted">${sub}</span></div>${btn ? `<button class="btn sm ${done ? "" : "primary"}" id="${id}">${btn}</button>` : ""}</div>`;
+  return `
+    <section class="prep">
+      <div class="prep-hero">
+        ${ringSvg(pct)}
+        <div style="flex:1;min-width:0">
+          <p style="opacity:.85">Head start</p>
+          <h2 style="color:#fff;font-size:1.5rem">${daysLeft == null ? "Set your program start date" : daysLeft > 0 ? `${daysLeft} ${daysLeft === 1 ? "day" : "days"} until your program starts` : daysLeft === 0 ? "Your program starts today" : "Your program has started"}</h2>
+          <p style="opacity:.85;margin-top:4px">${passed} of ${LESSONS.length} lessons passed, ${mastered} mastered.${perWeek ? ` About ${plural(perWeek, "lesson")} a week finishes everything before day one.` : ""}</p>
+        </div>
+        ${daysLeft == null ? `<button class="btn sm" id="setStart">Set date</button>` : ""}
+      </div>
+      <div class="plan">
+        <h3 style="margin-bottom:10px">Today’s plan</h3>
+        ${item(reviewDone, "brain", "Daily review", due + newToday ? `${due} due${newToday ? `, ${newToday} new from your lessons` : ""}` : "Nothing due. Nice work.", due + newToday ? "Start" : "", "planReview")}
+        ${item(lessonDone, "book", nl ? (lessonDone ? "Lesson done for today" : "Next lesson: " + nl.title) : "Every lesson passed", nl ? `${UNITS.find(u => u.id === nl.unit).name}, about ${nl.mins} minutes${lessonDone ? ". Keep going if you have time." : ""}` : "Keep reviewing to master them all.", nl ? (lessonDone ? "Another" : "Start") : "", "planLesson")}
+        ${item(practiceDone, "target", "Practice: " + TOOL_NAMES[tool], startedUnits.length ? "Apply what you’ve learned." : "A quick warm-up.", "Go", "planTool")}
+      </div>
+    </section>
+    <div class="section-head"><h2>Your path</h2><span class="small muted">${LESSONS.length} lessons in ${UNITS.length} units</span></div>
+    <div class="path">${UNITS.map(u => {
+      const ls = states.filter(s => s.l.unit === u.id); const done = ls.filter(s => s.passed).length; const allRead = ls.every(s => s.r.read);
+      const ub = p.units[u.id];
+      return `<div class="unit" style="--cap:${CAPS[u.color]}"><div class="unit-head"><span class="cap sm"></span><div style="flex:1;min-width:0"><h3>${esc(u.name)}</h3><p class="small muted">${done} of ${ls.length} passed${ub != null ? `. Unit review best: ${ub}%` : ""}</p></div>${allRead ? `<button class="btn sm" data-unit="${u.id}">Unit review</button>` : ""}</div>
+        ${ls.map(s => `<button class="lesson-row ${s.status}" data-lesson="${s.l.id}"><span class="lstat">${s.mastered ? icon("star") : s.passed ? icon("check") : s.r.read ? icon("book") : ""}</span><span style="flex:1;min-width:0"><b>${esc(s.l.title)}</b><span class="small muted"> · ${s.l.mins} min</span></span><span class="small lbl-${s.status}">${{ mastered: "Mastered", practicing: s.facts.length ? `Practicing, ${Math.round(s.solid * 100)}% solid` : "Passed", unlock: "Add cards", read: "Take the check", new: nl && nl.id === s.l.id ? "Up next" : "" }[s.status]}</span></button>`).join("")}
+      </div>`;
+    }).join("")}</div>`;
+}
+function bindPrepHome() {
+  $("#setStart")?.addEventListener("click", prepSetupModal);
+  $("#planReview")?.addEventListener("click", () => startLearn(null));
+  $("#planLesson")?.addEventListener("click", () => { const l = nextLesson(); l && startLesson(l); });
+  $("#planTool")?.addEventListener("click", () => { const p = prep(); p.practiceDay = dayKey(); saveMeta(); const pool = [...new Set(LESSONS.filter(l => l.tool && (p.lessons[l.id] || {}).read).map(l => l.tool))]; runTool(pool.length ? pool[(new Date().getDate()) % pool.length] : "math"); });
+  $$("[data-lesson]").forEach(b => b.onclick = () => startLesson(LESSONS.find(l => l.id === b.dataset.lesson)));
+  $$("[data-unit]").forEach(b => b.onclick = () => startUnitReview(b.dataset.unit));
+}
+function prepSetupModal(after) {
+  const p = prep();
+  modal(`${mhead("Head start mode")}
+    <p style="margin-bottom:12px">Head start turns LabDeck into a guided course for the months before your program. Instead of throwing every fact at you, it teaches one topic at a time:</p>
+    <ol class="steps"><li><b>Learn</b> a short lesson from your guide, with quick checks along the way.</li><li><b>Check</b> your understanding with a 4-question quiz.</li><li><b>Review</b>: the lesson’s flashcards join your daily review, and spaced repetition makes them stick.</li><li><b>Master</b> it once those facts hold for a week or more.</li></ol>
+    <p class="small muted" style="margin-bottom:14px">While it’s on, starter-pack cards stay out of Learn until you’ve had the lesson that teaches them. Your own decks aren’t affected.</p>
+    <div class="field"><label for="ps">When does your program start?</label><input class="input" type="date" id="ps" value="${esc(p.start || dayKey(Date.now() + 90 * DAY))}"><span class="hint">Used to pace your lessons and countdown.</span></div>
+    <div class="modal-foot"><button class="btn" data-close>Not now</button><button class="btn primary" id="psOn">${p.on ? "Save" : "Turn on Head start"}</button></div>`, (s, close) => {
+    $("#psOn", s).onclick = () => { p.start = $("#ps", s).value; p.on = true; saveMeta(true); close(); toast("Head start is on"); if (typeof after === "function") after(); go("home"); render(); };
+  });
+}
+
+/* ---------- lesson player ---------- */
+function speakText(t) { if (!("speechSynthesis" in window)) { toast("Audio isn’t supported in this browser"); return; } speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(speakable(t)); u.rate = S.meta.settings.rate || 1; speechSynthesis.speak(u); }
+function quizRunner(items, title, onDone) {
+  const qs = shuffle(items).map(([q, opts, a, why]) => { const order = shuffle(opts.map((_, i) => i)); return { q, why, opts: order.map(i => opts[i]), a: order.indexOf(a) }; });
+  let i = 0, score = 0, answered = false; const missed = [];
+  function show() {
+    if (i >= qs.length) return onDone(Math.round(score / qs.length * 100), missed);
+    const q = qs[i]; answered = false;
+    ST.stage.innerHTML = `<div class="qcard"><div class="kicker">${esc(title)} · ${i + 1} of ${qs.length}</div><div class="qtext">${esc(q.q)}</div></div>
+      <div class="opts" id="opts">${q.opts.map((o, k) => `<button class="opt" data-k="${k}"><span class="k">${k + 1}</span><span>${esc(o)}</span></button>`).join("")}</div><div id="fb"></div>`;
+    $$("#opts .opt").forEach(b => b.onclick = () => answer(+b.dataset.k));
+  }
+  function answer(k) {
+    if (answered) return; answered = true; const q = qs[i]; const ok = k === q.a; if (ok) score++; else missed.push(q);
+    $("#opts").classList.add("locked"); $$("#opts .opt").forEach((b, j) => { if (j === q.a) b.classList.add("right"); else if (j === k) b.classList.add("wrong"); });
+    $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? "Correct" : "Not quite"}<span class="det">${esc(q.why)}</span></div></div><div class="row" style="margin-top:12px"><div class="spacer"></div><button class="btn primary" id="next">${i + 1 < qs.length ? "Next" : "See results"}</button></div>`;
+    $("#next").onclick = () => { i++; show(); };
+  }
+  ST.onKey = e => { if (!answered && /^[1-4]$/.test(e.key)) $(`#opts .opt[data-k="${+e.key - 1}"]`)?.click(); else if (answered && e.key === "Enter") $("#next")?.click(); };
+  show();
+}
+function startLesson(l, jumpToCheck) {
+  const unit = UNITS.find(u => u.id === l.unit);
+  openStudy(l.title);
+  const rec = () => (prep().lessons[l.id] = prep().lessons[l.id] || {});
+  const steps = l.steps; let i = 0;
+  const totalSteps = steps.length + 1;
+  function guide() { return `<div class="guide"><span class="avatar">${icon("micro")}</span><span><b>Your guide</b><br><span class="small muted">${esc(unit.name)}</span></span></div>`; }
+  function show() {
+    if (i >= steps.length) return toCheck();
+    const s = steps[i];
+    setProg(i / totalSteps); ST.right.innerHTML = `<span class="small muted">${i + 1} of ${steps.length}</span>`;
+    if (s.t === "teach") {
+      ST.stage.innerHTML = `<div class="lesson">${guide()}<h2>${esc(s.h)}</h2>${s.body.split("\n\n").map(p => `<p>${esc(p).replace(/\n/g, "<br>")}</p>`).join("")}
+        ${s.key ? `<div class="callout key"><b>Key point</b><p>${esc(s.key)}</p></div>` : ""}${s.hook ? `<div class="callout hook"><b>Memory hook</b><p>${esc(s.hook)}</p></div>` : ""}</div>
+        <div class="row"><button class="btn icon" id="bk" ${i ? "" : "disabled"} aria-label="Back">${icon("left")}</button><button class="btn sm ghost" id="say">${icon("listen")}Read aloud</button>${i === 0 && rec().read ? `<button class="btn sm ghost" id="skip">Skip to the check</button>` : ""}<div class="spacer"></div><button class="btn primary" id="nx">${i + 1 < steps.length ? "Next" : "Take the check"}</button></div>`;
+      $("#say").onclick = () => speakText(s.h + ". " + s.body + (s.key ? ". Key point: " + s.key : "") + (s.hook ? ". Memory hook: " + s.hook : ""));
+      $("#skip") && ($("#skip").onclick = toCheck);
+    } else {
+      const order = shuffle(s.opts.map((_, k) => k));
+      ST.stage.innerHTML = `<div class="lesson">${guide()}<div class="kicker">Quick check</div><h2 style="font-size:1.25rem">${esc(s.q)}</h2></div>
+        <div class="opts" id="opts">${order.map((k, j) => `<button class="opt" data-k="${k}"><span class="k">${j + 1}</span><span>${esc(s.opts[k])}</span></button>`).join("")}</div><div id="fb"></div>
+        <div class="row"><button class="btn icon" id="bk" aria-label="Back">${icon("left")}</button><div class="spacer"></div><button class="btn primary" id="nx" disabled>Next</button></div>`;
+      $$("#opts .opt").forEach(b => b.onclick = () => {
+        const k = +b.dataset.k, ok = k === s.a; $("#opts").classList.add("locked");
+        $$("#opts .opt").forEach(x => { const kk = +x.dataset.k; if (kk === s.a) x.classList.add("right"); else if (kk === k) x.classList.add("wrong"); });
+        $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? "Exactly" : "Not quite"}<span class="det">${esc(s.why)}</span></div></div>`;
+        $("#nx").disabled = false; $("#nx").focus();
+      });
+    }
+    $("#bk").onclick = () => { if (i > 0) { i--; show(); } };
+    $("#nx").onclick = () => { speechSynthesis && speechSynthesis.cancel && speechSynthesis.cancel(); i++; show(); };
+  }
+  function toCheck() {
+    if (window.speechSynthesis) speechSynthesis.cancel();
+    if (!rec().read) { rec().read = Date.now(); saveMeta(true); }
+    setProg(steps.length / totalSteps); ST.right.innerHTML = "";
+    ST.stage.innerHTML = `<div class="results"><span class="avatar big">${icon("micro")}</span><h2>Lesson check</h2><p class="muted" style="max-width:40ch">${plural(l.quiz.length, "question")} on what you just learned. Score 80% or better to pass. You can retake it anytime.</p><button class="btn primary" id="go">Start the check</button></div>`;
+    $("#go").onclick = () => quizRunner(l.quiz, "Lesson check", finish);
+    ST.onKey = e => { if (e.key === "Enter") $("#go")?.click(); };
+  }
+  function finish(score, missed) {
+    const r = rec(); const passedNow = score >= 80;
+    r.best = Math.max(r.best || 0, score); r.last = Date.now();
+    if (passedNow) prep().lastDay = dayKey();
+    bumpHistory(false); saveMeta(true); setProg(1);
+    const canUnlock = (l.unlock || []).length && !r.unlocked;
+    const nCards = (l.unlock || []).reduce((n, u) => n + packCount(u.pack), 0);
+    ST.stage.innerHTML = `<div class="results">${ring(score)}<h2>${passedNow ? "Lesson passed" : "Almost there"}</h2><p class="muted" style="max-width:44ch">${passedNow ? "Nice work. Now make it stick." : "Review the explanations, skim the lesson again, and retake the check when you’re ready."}</p></div>
+      ${canUnlock ? `<div class="panel unlock"><h3>${passedNow ? "Next: add this lesson’s cards" : "Want the cards anyway?"}</h3><p class="small muted" style="margin:4px 0 12px">${plural(nCards, "card")} will join your daily review, introduced a few at a time and brought back right before you’d forget them.</p><button class="btn primary" id="unl">${icon("plus")}Add ${plural(nCards, "card")} to my review</button></div>` : (l.unlock || []).length ? `<div class="panel unlock"><p class="small">${icon("check")} This lesson’s cards are in your daily review.</p></div>` : ""}
+      <div class="panel"><h3 style="margin-bottom:8px">Key terms</h3><dl class="facts">${l.terms.map(([t, d]) => `<dt>${esc(t)}</dt><dd>${esc(d)}</dd>`).join("")}</dl></div>
+      ${missed.length ? `<div class="panel"><h3 style="margin-bottom:8px">Review what you missed</h3>${missed.map(q => `<p style="margin-bottom:8px"><b>${esc(q.q)}</b><br><span class="small">${esc(q.opts[q.a])}. ${esc(q.why)}</span></p>`).join("")}</div>` : ""}
+      <div class="row" style="justify-content:center">${!passedNow ? `<button class="btn primary" id="retake">Retake the check</button><button class="btn" id="reread">Reread the lesson</button>` : ""}${l.tool ? `<button class="btn ${passedNow && !canUnlock ? "primary" : ""}" id="tool">${icon("target")}${esc(TOOL_NAMES[l.tool])}</button>` : ""}<button class="btn" id="dn">Back to my path</button></div>`;
+    $("#unl") && ($("#unl").onclick = () => { const n = unlockLesson(l); toast(plural(n, "card") + " added to your review"); finish(score, missed); });
+    $("#retake") && ($("#retake").onclick = () => quizRunner(l.quiz, "Lesson check", finish));
+    $("#reread") && ($("#reread").onclick = () => { i = 0; show(); });
+    $("#tool") && ($("#tool").onclick = () => runTool(l.tool));
+    $("#dn").onclick = () => closeStudy();
+    ST.onKey = null;
+  }
+  ST.onKey = e => { if (e.key === "ArrowRight" || e.key === "Enter") { const b = $("#nx"); if (b && !b.disabled) b.click(); } else if (e.key === "ArrowLeft") $("#bk")?.click(); else if (/^[1-4]$/.test(e.key)) $$("#opts .opt")[+e.key - 1]?.click(); };
+  if (jumpToCheck) toCheck(); else show();
+}
+function startUnitReview(unitId) {
+  const u = UNITS.find(x => x.id === unitId);
+  const items = LESSONS.filter(l => l.unit === unitId).flatMap(l => l.quiz.concat(l.steps.filter(s => s.t === "check").map(s => [s.q, s.opts, s.a, s.why])));
+  openStudy("Unit review: " + u.name);
+  ST.stage.innerHTML = `<div class="results"><h2>${esc(u.name)}: unit review</h2><p class="muted" style="max-width:42ch">A mixed, cumulative check across every lesson in this unit. Mixing topics is harder than single-lesson checks, and that’s what makes it stick.</p><button class="btn primary" id="go">Start ${Math.min(12, items.length)} questions</button></div>`;
+  $("#go").onclick = () => quizRunner(shuffle(items).slice(0, 12), "Unit review", (score, missed) => {
+    const p = prep(); p.units[unitId] = Math.max(p.units[unitId] || 0, score); bumpHistory(false); saveMeta(true); setProg(1);
+    ST.stage.innerHTML = `<div class="results">${ring(score)}<h2>${score >= 80 ? "Unit solid" : "Keep at it"}</h2><p class="muted">${score >= 80 ? "This unit is in good shape." : "Revisit the lessons with misses, then try again in a day or two."}</p>
+      <div class="row" style="justify-content:center"><button class="btn primary" id="again">Try again</button><button class="btn" id="dn">Back to my path</button></div></div>
+      ${missed.length ? `<div class="panel"><h3 style="margin-bottom:8px">Review what you missed</h3>${missed.map(q => `<p style="margin-bottom:8px"><b>${esc(q.q)}</b><br><span class="small">${esc(q.opts[q.a])}. ${esc(q.why)}</span></p>`).join("")}</div>` : ""}`;
+    $("#again").onclick = () => startUnitReview(unitId); $("#dn").onclick = () => closeStudy();
+  });
+}
+/* ---------- Organism ID flowcharts (simplified teaching trees) ---------- */
+const FLOWS = {
+  gpc: { name: "Gram-positive cocci", start: "cat", nodes: {
+    cat: { q: "Catalase", hint: "Add 3% hydrogen peroxide to a colony (not from blood agar). Bubbles mean positive.", opts: [["Positive (bubbles)", "coag"], ["Negative", "hem"]] },
+    coag: { q: "Coagulase", hint: "Does the organism clot rabbit plasma?", opts: [["Positive", "L:saur"], ["Negative", "novo"]] },
+    novo: { q: "Novobiocin disk", hint: "Coagulase-negative staph: check novobiocin.", opts: [["Susceptible", "L:sepi"], ["Resistant", "L:ssap"]] },
+    hem: { q: "Hemolysis on blood agar", hint: "Look closely around the colonies.", opts: [["Beta (complete clearing)", "bac"], ["Alpha (partial, green)", "opt"], ["Gamma (none)", "be"]] },
+    bac: { q: "Bacitracin (A disk)", hint: "Beta-hemolytic strep: check bacitracin.", opts: [["Susceptible", "L:spyo"], ["Resistant", "camp"]] },
+    camp: { q: "CAMP test", hint: "Arrowhead of enhanced hemolysis next to a S. aureus streak?", opts: [["Positive", "L:saga"], ["Negative", "L:obeta"]] },
+    opt: { q: "Optochin (P disk)", hint: "Alpha-hemolytic strep: check optochin.", opts: [["Susceptible", "L:spne"], ["Resistant", "L:vir"]] },
+    be: { q: "Bile esculin", hint: "Blackening of bile esculin agar means positive.", opts: [["Positive", "nacl"], ["Negative", "L:virg"]] },
+    nacl: { q: "Growth in 6.5% NaCl", hint: "Can it tolerate high salt?", opts: [["Grows", "L:ent"], ["No growth", "L:grpd"]] }
+  }, leaves: {
+    saur: ["Staphylococcus aureus", "Catalase and coagulase positive. Often beta-hemolytic with golden colonies; ferments mannitol.", true],
+    sepi: ["Staphylococcus epidermidis", "Coagulase-negative, novobiocin susceptible. Device infections; common contaminant.", true],
+    ssap: ["Staphylococcus saprophyticus", "Coagulase-negative, novobiocin resistant. UTIs in young women.", true],
+    spyo: ["Streptococcus pyogenes (Group A)", "Beta, bacitracin susceptible, PYR positive.", true],
+    saga: ["Streptococcus agalactiae (Group B)", "Beta, bacitracin resistant, CAMP and hippurate positive.", true],
+    obeta: ["Other beta-hemolytic streptococci", "Further testing such as Lancefield grouping needed.", false],
+    spne: ["Streptococcus pneumoniae", "Alpha, optochin susceptible, bile soluble.", true],
+    vir: ["Viridans group streptococci", "Alpha, optochin resistant, bile insoluble.", false],
+    virg: ["Viridans group streptococci (non-hemolytic)", "Bile esculin negative.", false],
+    ent: ["Enterococcus", "Bile esculin positive, grows in 6.5% salt, PYR positive.", true],
+    grpd: ["Group D streptococci (S. gallolyticus group)", "Bile esculin positive but no growth in 6.5% salt.", false]
+  } },
+  gnr: { name: "Gram-negative rods", start: "ox", nodes: {
+    ox: { q: "Oxidase", hint: "A purple color within seconds means positive.", opts: [["Positive", "ferm"], ["Negative (Enterobacterales)", "lac"]] },
+    ferm: { q: "Glucose fermentation (TSI or KIA)", hint: "Does it ferment glucose, turning the butt yellow?", opts: [["No (non-fermenter)", "pig"], ["Yes", "L:vib"]] },
+    pig: { q: "Blue-green pigment, grape-like odor, grows at 42 °C?", opts: [["Yes", "L:pae"], ["No", "L:onf"]] },
+    lac: { q: "Lactose on MacConkey", hint: "Pink colonies ferment lactose.", opts: [["Fermenter (pink)", "ind"], ["Non-fermenter (colorless)", "h2s"]] },
+    ind: { q: "Indole", hint: "A red ring after adding Kovac’s reagent means positive.", opts: [["Positive", "L:eco"], ["Negative", "mot"]] },
+    mot: { q: "Motility", opts: [["Nonmotile", "L:kpn"], ["Motile", "L:ecl"]] },
+    h2s: { q: "H₂S", hint: "Black precipitate on TSI, HE or XLD.", opts: [["Positive", "ure"], ["Negative", "mot2"]] },
+    ure: { q: "Urease", hint: "Pink on urea agar means positive.", opts: [["Positive", "L:pmi"], ["Negative", "L:sal"]] },
+    mot2: { q: "Motility", opts: [["Nonmotile", "L:shi"], ["Motile", "L:oth"]] }
+  }, leaves: {
+    vib: ["Vibrio or Aeromonas", "Oxidase-positive fermenters. Further testing needed.", false],
+    pae: ["Pseudomonas aeruginosa", "Oxidase positive non-fermenter with pyocyanin pigment and grape odor.", true],
+    onf: ["Other non-fermenters", "Further testing needed.", false],
+    eco: ["Escherichia coli", "Lactose fermenter, indole positive.", true],
+    kpn: ["Klebsiella pneumoniae", "Mucoid lactose fermenter, indole negative, nonmotile.", true],
+    ecl: ["Enterobacter cloacae", "Motile lactose fermenter, indole negative. (Citrobacter can look similar; check H₂S.)", true],
+    pmi: ["Proteus mirabilis", "Non-fermenter, H₂S positive, urease positive, swarms.", true],
+    sal: ["Salmonella", "Non-fermenter, H₂S positive, urease negative.", true],
+    shi: ["Shigella", "Non-fermenter, H₂S negative, nonmotile.", true],
+    oth: ["Other Enterobacterales (e.g. Serratia)", "Further testing needed. Red pigment and DNase suggest Serratia.", false]
+  } }
+};
+function flowPath(flow, leaf) {
+  const walk = (node, path) => { const n = flow.nodes[node]; for (const [label, to] of n.opts) { const step = [...path, { node, label, to }]; if (to === "L:" + leaf) return step; if (!to.startsWith("L:")) { const r = walk(to, step); if (r) return r; } } return null; };
+  return walk(flow.start, []);
+}
+function startFlow(id) {
+  const flow = FLOWS[id]; let mode = "explore";
+  openStudy("ID flowchart: " + flow.name);
+  function tabs() { return `<div class="seg" id="ftab"><button data-m="explore" class="${mode === "explore" ? "on" : ""}">Explore</button><button data-m="practice" class="${mode === "practice" ? "on" : ""}">Practice</button></div><div class="seg" id="fsel">${Object.entries(FLOWS).map(([k, f]) => `<button data-f="${k}" class="${k === id ? "on" : ""}">${f.name}</button>`).join("")}</div>`; }
+  function bindTabs() { $$("#ftab button").forEach(b => b.onclick = () => { mode = b.dataset.m; mode === "explore" ? explore() : practice(); }); $$("#fsel button").forEach(b => b.onclick = () => startFlow(b.dataset.f)); }
+  function trail(path) { return path.length ? `<div class="trail">${path.map(p => `<div class="trail-step"><span class="small muted">${esc(flow.nodes[p.node].q)}</span><b>${esc(p.label)}</b></div>`).join("")}</div>` : ""; }
+  function explore() {
+    let path = [];
+    const draw = () => {
+      const last = path[path.length - 1]; const at = last ? last.to : flow.start;
+      let body;
+      if (at.startsWith("L:")) { const [nm, desc] = flow.leaves[at.slice(2)]; body = `<div class="leaf"><div class="kicker">Identification</div><h2>${esc(nm)}</h2><p class="muted">${esc(desc)}</p></div>`; }
+      else { const n = flow.nodes[at]; body = `<div class="qcard"><div class="kicker">Next test</div><div class="qtext">${esc(n.q)}</div>${n.hint ? `<p class="small muted" style="margin-top:6px">${esc(n.hint)}</p>` : ""}</div><div class="opts">${n.opts.map(([lab], k) => `<button class="opt" data-k="${k}"><span class="k">${k + 1}</span><span>${esc(lab)}</span></button>`).join("")}</div>`; }
+      ST.stage.innerHTML = `${tabs()}<p class="small muted">A simplified teaching tree. Real identifications confirm with more tests.</p>${trail(path)}${body}<div class="row"><button class="btn" id="bk" ${path.length ? "" : "disabled"}>${icon("left")}Back a step</button><button class="btn" id="rs" ${path.length ? "" : "disabled"}>${icon("rotate")}Start over</button></div>`;
+      bindTabs();
+      $$(".opts .opt").forEach(b => b.onclick = () => { const n = flow.nodes[at]; const [label, to] = n.opts[+b.dataset.k]; path.push({ node: at, label, to }); draw(); });
+      $("#bk").onclick = () => { path.pop(); draw(); }; $("#rs").onclick = () => { path = []; draw(); };
+      ST.onKey = e => { if (/^[1-3]$/.test(e.key)) $$(".opts .opt")[+e.key - 1]?.click(); else if (e.key === "Backspace" || e.key === "ArrowLeft") $("#bk")?.click(); };
+    };
+    setProg(1); draw();
+  }
+  function practice() {
+    const targets = shuffle(Object.entries(flow.leaves).filter(([, v]) => v[2]).map(([k]) => k));
+    let ti = 0, right = 0, total = 0;
+    const next = () => {
+      if (ti >= targets.length) { ST.stage.innerHTML = `${tabs()}<div class="results">${ring(Math.round(right / Math.max(1, total) * 100))}<h2>${right} of ${total} steps correct</h2><div class="row" style="justify-content:center"><button class="btn primary" id="again">Go again</button><button class="btn" id="dn">Done</button></div></div>`; bindTabs(); $("#again").onclick = practice; $("#dn").onclick = () => closeStudy(); setProg(1); return; }
+      const leaf = targets[ti]; const path = flowPath(flow, leaf); let si = 0; const taken = [];
+      const step = () => {
+        setProg(ti / targets.length);
+        if (si >= path.length) {
+          ST.stage.innerHTML = `${tabs()}${trail(taken)}<div class="leaf"><div class="kicker">Identified</div><h2>${esc(flow.leaves[leaf][0])}</h2><p class="muted">${esc(flow.leaves[leaf][1])}</p></div><div class="row"><div class="spacer"></div><button class="btn primary" id="nx">${ti + 1 < targets.length ? "Next organism" : "See results"}</button></div>`;
+          bindTabs(); $("#nx").onclick = () => { ti++; next(); }; ST.onKey = e => { if (e.key === "Enter") $("#nx")?.click(); }; return;
+        }
+        const p = path[si]; const n = flow.nodes[p.node];
+        ST.stage.innerHTML = `${tabs()}<div class="qcard"><div class="kicker">Walk this organism through the chart</div><div class="qtext">${esc(flow.leaves[leaf][0])}</div></div>${trail(taken)}
+          <div class="qcard"><div class="kicker">Test result?</div><div class="qtext" style="font-size:1.2rem">${esc(n.q)}</div></div>
+          <div class="opts" id="opts">${n.opts.map(([lab], k) => `<button class="opt" data-k="${k}"><span class="k">${k + 1}</span><span>${esc(lab)}</span></button>`).join("")}</div><div id="fb"></div>`;
+        bindTabs();
+        $$("#opts .opt").forEach(b => b.onclick = () => {
+          const k = +b.dataset.k; const ok = n.opts[k][0] === p.label; total++; if (ok) right++;
+          $("#opts").classList.add("locked"); $$("#opts .opt").forEach((x, j) => { if (n.opts[j][0] === p.label) x.classList.add("right"); else if (j === k) x.classList.add("wrong"); });
+          $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? "Correct" : `${esc(flow.leaves[leaf][0])} is ${esc(p.label.toLowerCase())} for ${esc(n.q.toLowerCase())}.`}</div></div><div class="row" style="margin-top:10px"><div class="spacer"></div><button class="btn primary" id="nx">Next</button></div>`;
+          $("#nx").onclick = () => { taken.push(p); si++; step(); }; $("#nx").focus();
+        });
+        ST.onKey = e => { if (/^[1-3]$/.test(e.key)) $$("#opts .opt")[+e.key - 1]?.click(); else if (e.key === "Enter") $("#nx")?.click(); };
+      };
+      step();
+    };
+    next();
+  }
+  explore();
+}
+
+/* ---------- Formula sheet ---------- */
+const EXTRA_FORMULAS = [
+  ["Hematology calculations", "Rule of three: Hgb × 3 ≈ Hct (± 3)", "A quick check for normocytic, normochromic samples."],
+  ["Hematology calculations", "Mentzer index = MCV ÷ RBC", "Under 13 suggests thalassemia trait; over 13 suggests iron deficiency."],
+  ["Hematology calculations", "Corrected reticulocyte count = retic % × (patient Hct ÷ 45)", "Adjusts the retic percentage for anemia."],
+  ["Hematology calculations", "Absolute reticulocyte count = retic % × RBC count", ""],
+  ["Quality control math", "Sensitivity = TP ÷ (TP + FN)", ""], ["Quality control math", "Specificity = TN ÷ (TN + FP)", ""],
+  ["Quality control math", "Positive predictive value = TP ÷ (TP + FP)", ""], ["Quality control math", "Negative predictive value = TN ÷ (TN + FN)", ""],
+  ["Dilutions and solutions", "°C = (°F − 32) × 5/9", ""]
+];
+function startFormulas() {
+  openStudy("Formula sheet");
+  const groups = {};
+  Object.values(MATH).forEach(m => { const ex = m.make(); (groups[m.topic] = groups[m.topic] || new Map()).set(ex.steps[0], ex.note || ""); });
+  EXTRA_FORMULAS.forEach(([t, f, n]) => (groups[t] = groups[t] || new Map()).set(f, n));
+  setProg(1);
+  ST.stage.innerHTML = `<p class="muted">Every formula LabDeck’s practice uses, plus a few more. Practice them in Lab math until you don’t need this page.</p>
+    ${Object.entries(groups).map(([t, m]) => `<div class="panel"><h3 style="margin-bottom:10px">${esc(t)}</h3>${[...m].map(([f, n]) => `<div class="formula"><code>${esc(f)}</code>${n ? `<span class="small muted">${esc(n)}</span>` : ""}</div>`).join("")}</div>`).join("")}
+    <button class="btn primary" id="pr">${icon("type")}Practice lab math</button>`;
+  $("#pr").onclick = startLabMath;
+}
+
+/* ---------- Study plan ---------- */
+function startPlan() {
+  openStudy("Study plan");
+  const decks = Object.values(S.decks);
+  const ex = upcomingExams()[0];
+  let target = prepOn() && prep().start ? prep().start : ex ? ex.date : dayKey(Date.now() + 30 * DAY);
+  let chosen = new Set(ex && !prepOn() ? ex.decks : decks.map(d => d.id));
+  function draw() {
+    const days = Math.max(1, dayDiff(target) - 3);
+    const rows = decks.filter(d => chosen.has(d.id)).map(d => { const fs = factsOf(d).filter(f => !isSus(f)); const unseen = fs.filter(f => !stOf(f)).length; return { d, unseen, total: fs.length }; });
+    const unseen = rows.reduce((n, r) => n + r.unseen, 0);
+    const per = Math.max(1, Math.ceil(unseen / days));
+    const lessonsLeft = prepOn() ? LESSONS.filter(l => !lessonState(l).passed).length : 0;
+    const mins = Math.round(per * 5 * 8 / 60 + per * 20 / 60);
+    setProg(1);
+    ST.stage.innerHTML = `<div class="qcard"><h2 style="margin-bottom:6px">Build a study plan</h2><p class="muted small">Pick a finish date and the decks you want covered. LabDeck works out how many new facts a day gets you there with a few days to spare.</p>
+      <div class="field" style="margin-top:12px"><label for="td">Finish by</label><input class="input" type="date" id="td" value="${esc(target)}"></div></div>
+      <div class="checks">${decks.map(d => `<label class="check"><input type="checkbox" value="${d.id}" ${chosen.has(d.id) ? "checked" : ""}><span class="dot" style="background:${capOf(d)}"></span>${esc(d.name)}</label>`).join("")}</div>
+      <div class="panel planbox">
+        <div class="side-stats" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr))">
+          <div class="stat"><div class="n">${per}</div><div class="l">new facts a day</div></div>
+          <div class="stat"><div class="n">${unseen}</div><div class="l">facts not yet seen</div></div>
+          <div class="stat"><div class="n">~${mins}</div><div class="l">minutes a day once reviews build up</div></div>
+          ${prepOn() ? `<div class="stat"><div class="n">${lessonsLeft ? Math.ceil(lessonsLeft / Math.max(1, days / 7)) : 0}</div><div class="l">lessons a week</div></div>` : ""}
+        </div>
+        <p class="small muted" style="margin-top:12px">Reviews grow to roughly 4 to 6 times your new-fact count each day, then level off. Your current setting is ${S.meta.settings.newPerDay} new facts a day.${prepOn() ? " In Head start, new facts come from lessons you’ve unlocked, so keep up with lessons too." : ""}</p>
+        <button class="btn primary" id="apply" style="margin-top:10px" ${per === S.meta.settings.newPerDay ? "disabled" : ""}>Set ${per} new facts a day</button>
+      </div>
+      ${rows.length ? `<div class="panel"><h3 style="margin-bottom:8px">By deck at this pace</h3>${rows.map(r => `<div class="deckbar"><span style="font-weight:600">${esc(r.d.name)}</span><div class="mastery"><i class="m" style="width:${r.total ? (r.total - r.unseen) / r.total * 100 : 0}%"></i></div><span class="small muted">${r.unseen} left</span></div>`).join("")}</div>` : ""}`;
+    $("#td").onchange = e => { target = e.target.value || target; draw(); };
+    $$(".checks input").forEach(c => c.onchange = () => { c.checked ? chosen.add(c.value) : chosen.delete(c.value); draw(); });
+    $("#apply").onclick = () => { S.meta.settings.newPerDay = Math.min(200, per); saveMeta(true); toast(`Learn now introduces ${per} new facts a day`); draw(); };
+  }
+  draw();
+}
+
+/* ---------- Snap cards: rapid photo cards ---------- */
+function snapModal(d) {
+  let img = "", saved = 0;
+  const html = () => `${mhead("Snap cards")}
+    <p class="small muted" style="margin-bottom:12px">Take a photo of a smear, colony, stain or tube, type what it is, and save. Repeat as fast as you like. Each one becomes a picture card you can study in Picture ID.</p>
+    ${img ? `<img class="snapprev" src="${img}" alt="">` : `<label class="snapdrop">${icon("image")}<span>Take or choose a photo</span><input type="file" accept="image/*" capture="environment" id="sIn" hidden></label>`}
+    <div class="field" style="margin-top:12px"><label for="sA">What is it?</label><input class="input" id="sA" placeholder="e.g. Hypersegmented neutrophil"></div>
+    <div class="field"><label for="sN">Note (optional)</label><input class="input" id="sN" placeholder="e.g. Six or more lobes: B12 or folate deficiency"></div>
+    <div class="modal-foot"><span class="small muted" style="margin-right:auto;align-self:center">${saved ? plural(saved, "card") + " saved" : ""}</span><button class="btn" data-close>Done</button><button class="btn primary" id="sSave" ${img ? "" : "disabled"}>Save and snap another</button></div>`;
+  modal(html(), (s, close) => {
+    const bind = () => {
+      $$("[data-close]", s).forEach(b => b.onclick = () => { close(); renderDeck(d); });
+      $("#sIn", s) && ($("#sIn", s).onchange = async e => { const f = e.target.files[0]; if (!f) return; try { img = await fileToImage(f); const a = $("#sA", s).value, n = $("#sN", s).value; $(".modal", s).innerHTML = html(); bind(); $("#sA", s).value = a; $("#sN", s).value = n; $("#sA", s).focus(); } catch { toast("That image couldn’t be read"); } });
+      $("#sSave", s).onclick = () => {
+        const a = $("#sA", s).value.trim(); if (!a) { toast("Type what the picture shows"); $("#sA", s).focus(); return; }
+        const id = uid(); saveImage(id, img);
+        d.cards.push({ id: uid(), type: "basic", front: "", back: a, img: id, imgSide: "front", note: $("#sN", s).value.trim(), star: false }); saveDeck(d);
+        if (prepOn() && d.pack) prep().cards[d.cards[d.cards.length - 1].id] = 1;
+        saved++; img = ""; $(".modal", s).innerHTML = html(); bind(); toast("Saved");
+      };
+    };
+    bind();
+  });
+}
+
+/* ---------- Your own case studies ---------- */
+const myCases = () => (S.meta.myCases = S.meta.myCases || []);
+function caseModal(c, after) {
+  const isNew = !c;
+  const x = c ? JSON.parse(JSON.stringify(c)) : { id: uid(), area: "Hematology", dx: "", story: "", labs: [], q: "What is the most likely diagnosis?", opts: ["", "", "", ""], a: 0, why: "" };
+  const areas = [...new Set(CASES.map(k => k.area).concat(myCases().map(k => k.area)))];
+  modal(`${mhead(isNew ? "Write a case" : "Edit case")}
+    <div class="field"><label for="ca">Area</label><input class="input" id="ca" list="caList" value="${esc(x.area)}"><datalist id="caList">${areas.map(a => `<option value="${esc(a)}">`).join("")}</datalist></div>
+    <div class="field"><label for="cs">Patient story</label><textarea class="input" id="cs" rows="3" placeholder="A 34-year-old woman presents with…">${esc(x.story)}</textarea></div>
+    <div class="field"><label for="cl">Lab results</label><textarea class="input" id="cl" rows="5" placeholder="Hemoglobin | 8.9 g/dL | 12.0–15.5 | L&#10;MCV | 67 fL | 80–100 | L">${esc(x.labs.map(r => r.join(" | ")).join("\n"))}</textarea><span class="hint">One test per line: Test | Result | Reference | H or L (the last two are optional).</span></div>
+    <div class="field"><label for="cq">Question</label><input class="input" id="cq" value="${esc(x.q)}"></div>
+    <div class="field"><span class="lbl">Answer choices (mark the correct one)</span>${x.opts.map((o, i) => `<div class="optline"><input type="radio" name="cor" value="${i}" ${x.a === i ? "checked" : ""} aria-label="Correct answer ${i + 1}"><input class="input" data-o="${i}" value="${esc(o)}" placeholder="Choice ${i + 1}"></div>`).join("")}</div>
+    <div class="field"><label for="cd">Diagnosis (shown after answering)</label><input class="input" id="cd" value="${esc(x.dx)}"></div>
+    <div class="field"><label for="cw">Explanation</label><textarea class="input" id="cw" rows="3" placeholder="Why the answer is right and the others aren’t">${esc(x.why)}</textarea></div>
+    <div class="modal-foot">${!isNew ? `<button class="btn danger" id="cdel" style="margin-right:auto">${icon("trash")}Delete</button>` : ""}<button class="btn" data-close>Cancel</button><button class="btn primary" id="csave">${isNew ? "Save case" : "Save changes"}</button></div>`, (s, close) => {
+    $("#cdel", s) && ($("#cdel", s).onclick = () => { S.meta.myCases = myCases().filter(k => k.id !== x.id); S.meta.deleted["case-" + x.id] = Date.now(); saveMeta(true); close(); after && after(); });
+    $("#csave", s).onclick = () => {
+      x.area = $("#ca", s).value.trim() || "Other"; x.story = $("#cs", s).value.trim(); x.q = $("#cq", s).value.trim(); x.dx = $("#cd", s).value.trim(); x.why = $("#cw", s).value.trim();
+      x.labs = $("#cl", s).value.split("\n").map(l => l.split("|").map(t => t.trim())).filter(r => r[0]).map(r => [r[0], r[1] || "", r[2] || "", /^[hl]$/i.test(r[3] || "") ? r[3].toUpperCase() : ""]);
+      x.opts = $$("[data-o]", s).map(i => i.value.trim()); x.a = +($("input[name=cor]:checked", s) || { value: 0 }).value;
+      if (!x.story || !x.q) { toast("Add a story and a question"); return; }
+      const filled = x.opts.map((o, i) => [o, i]).filter(([o]) => o);
+      if (filled.length < 2 || !x.opts[x.a]) { toast("Add at least two choices and mark the correct one"); return; }
+      x.opts = filled.map(([o]) => o); x.a = filled.findIndex(([, i]) => i === x.a); x.dx = x.dx || x.opts[x.a]; x.updated = Date.now(); x.mine = true;
+      S.meta.myCases = myCases().filter(k => k.id !== x.id).concat(x); saveMeta(true); close(); toast(isNew ? "Case saved" : "Case updated"); after && after();
+    };
+  });
+}
+
+/* ---------- Starter pack housekeeping ---------- */
+function tagLegacyPacks() {
+  Object.values(S.decks).forEach(d => { if (!d.pack) { const p = PACKS.find(x => x.name === d.name); if (p && !Object.values(S.decks).some(o => o.pack === p.id)) { d.pack = p.id; saveDeck(d); } } });
+}
+const missingPacks = () => { const have = new Set(Object.values(S.decks).map(d => d.pack).filter(Boolean)); return PACKS.filter(p => !have.has(p.id)); };
+function packUpdates() {
+  const out = [];
+  Object.values(S.decks).forEach(d => {
+    const p = PACKS.find(x => x.id === d.pack); if (!p) return;
+    const names = new Set(d.cards.map(c => norm(c.type === "profile" ? c.name : c.front)));
+    const missing = p.rows.filter(r => !names.has(norm(r[0])));
+    if (missing.length) out.push({ d, p, missing });
+  });
+  return out;
+}
+function addAllPacks() { const m = missingPacks(); m.forEach(p => { const d = packToDeck(p); S.decks[d.id] = d; saveDeck(d); }); return m.length; }
+function applyPackUpdates() {
+  let n = 0;
+  packUpdates().forEach(({ d, p, missing }) => {
+    const tmp = packToDeck({ ...p, rows: missing });
+    (p.fields || []).forEach(f => { if (!d.fields.includes(f)) d.fields.push(f); });
+    d.cards.push(...tmp.cards); n += tmp.cards.length; saveDeck(d);
+  });
+  return n;
 }
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
@@ -2863,6 +3815,7 @@ async function boot() {
   applyDocs(docs);
   // copy anything that only existed in localStorage into IndexedDB
   for (const [k, v] of Object.entries(docs)) IDB.put(k, v);
+  tagLegacyPacks();
   S.ready = true; render();
   if (navigator.storage && navigator.storage.persist) { try { if (!(await navigator.storage.persisted())) await navigator.storage.persist(); } catch { } }
   if (Sync.on()) Sync.now();
