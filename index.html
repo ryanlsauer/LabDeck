@@ -1223,6 +1223,114 @@ h3{font-size:1.06rem}
 }
 @media (max-width:640px){.card-row{grid-template-columns:1fr!important}.card-row .acts{justify-content:flex-start;flex-wrap:wrap}}
 .bento{grid-auto-flow:row dense}
+/* ===== v16 audit ===== */
+/* --- games: one readable dark theme via tokens --- */
+.study.gamemode{--bg:#16142B;--surface:#221F3D;--surface-2:#2A2649;--ink:#F3F1FB;--ink-2:#DAD6EE;--ink-3:#ADA8CB;--line:#36315A;--line-2:#45406C;--btn-bg:#2A2649;--btn-border:#4A4475;--btn-hover:#332E58;--violet-soft:rgba(139,116,242,.22);--violet-deep:#CFC4FF;--good:#5FD6AE;--good-soft:rgba(60,199,157,.16);--bad:#FF8C9C;--bad-soft:rgba(255,120,140,.15);--warn:#F2C35B;color:var(--ink)}
+.study.gamemode .qcard,.study.gamemode .panel{background:var(--surface)!important;border-color:var(--line-2)!important}
+.study.gamemode .feedback .det,.study.gamemode .det{color:var(--ink-2)!important;opacity:1}
+.study.gamemode .feedback.ok{background:var(--good-soft);border-color:rgba(95,214,174,.5);color:var(--ink)}
+.study.gamemode .feedback.ok>div:first-child,.study.gamemode .feedback.ok{color:var(--ink)}
+.study.gamemode .feedback.no{background:var(--bad-soft);border-color:rgba(255,140,156,.5);color:var(--ink)}
+.study.gamemode .feedback b{color:#fff}
+.study.gamemode .muted,.study.gamemode .small.muted,.study.gamemode .kicker{color:var(--ink-3)!important}
+.study.gamemode .kicker{color:#C9BDFF!important}
+.study.gamemode .opt{background:var(--surface-2);border-color:var(--line-2);color:var(--ink)}
+.study.gamemode .ac{text-decoration-color:rgba(201,189,255,.7)}
+.study.gamemode .acx{color:var(--ink-2)!important}
+/* --- game title screen --- */
+.ghero{display:flex;gap:18px;align-items:center;padding:18px 20px;border-radius:10px;background:linear-gradient(135deg,rgba(139,116,242,.35),rgba(60,199,157,.18));border:1px solid rgba(255,255,255,.14)}
+.gemoji{font-size:3.4rem;line-height:1;filter:drop-shadow(0 6px 14px rgba(0,0,0,.35));flex:none}
+.gtitle{min-width:0;flex:1}
+.gtitle h1{margin:0;font-size:clamp(1.8rem,4vw,2.5rem);color:#fff;letter-spacing:-.01em}
+.gtitle p{margin:2px 0 10px;color:var(--ink-2)}
+.gstats{display:flex;gap:8px;flex-wrap:wrap}
+.gstats>div{background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:6px 12px;display:flex;flex-direction:column;min-width:96px}
+.gstats b{font-family:var(--font-display);font-size:1.3rem;color:#FFD66B;line-height:1.1}
+.gstats b small{font-size:.8rem;color:var(--ink-3)}
+.gstats span{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3);font-weight:700}
+@media (max-width:560px){.ghero{flex-direction:column;align-items:flex-start;padding:14px}.gemoji{font-size:2.6rem}}
+.levels{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))!important;gap:8px}
+.lvl{flex-direction:row!important;align-items:center!important;gap:10px!important;padding:10px 12px!important;text-align:left}
+.lvn{width:34px;height:34px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:900;flex:none;background:var(--surface-2);border:1.5px solid var(--line-2);color:var(--ink);font-size:.95rem}
+.lvl.cleared .lvn{background:linear-gradient(135deg,#FFD66B,#F2A93B);color:#2A1E00;border-color:transparent}
+.lvl.on .lvn{background:var(--violet);color:#fff;border-color:transparent}
+.lvt{display:flex;flex-direction:column;min-width:0;line-height:1.25}
+.lvt small{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3)}
+.lvt b{font-size:.95rem}
+.lvl span:not(.lvn):not(.lvt){display:none}
+.study.gamemode .lvl span.lvt small{color:var(--ink-3)}
+.bigplay,.study.gamemode #go{min-height:52px;font-size:1.05rem;width:100%;justify-content:center}
+/* --- tube rack --- */
+.rack2{flex-wrap:nowrap;overflow:visible!important;padding:12px;gap:8px;align-items:stretch;min-height:0}
+.slot{flex:1 1 0;min-width:0;height:auto;min-height:118px;padding:10px 4px 8px;flex-direction:column;justify-content:flex-end;align-items:center}
+.slot .tubeitem{width:100%}
+.tray{gap:8px;justify-content:flex-start;min-height:0;align-items:stretch}
+.tubeitem{width:84px;padding:6px 2px;justify-content:flex-end}
+.tubeart{height:62px;display:flex;align-items:flex-end;justify-content:center}
+.tubeitem small{min-height:2.3em;display:flex;align-items:flex-start;justify-content:center;font-size:.74rem!important;color:var(--ink)!important}
+.rankn{top:6px;left:6px}
+@media (max-width:640px){.rack2{flex-wrap:wrap}.slot{flex:0 0 calc(25% - 6px)}.tubeitem{width:calc(25% - 6px)}}
+/* --- bootcamp: one text system --- */
+.bootcard{padding:22px 24px}
+.tb{display:flex;flex-direction:column;gap:12px}
+.tp{margin:0;font-size:1.2rem;line-height:1.85;color:var(--ink)}
+.tul{margin:-4px 0 0;padding-left:1.3em;display:flex;flex-direction:column;gap:6px}
+.tul li{font-size:1.15rem;line-height:1.7;padding-left:4px}
+.tul li::marker{color:var(--violet)}
+.tdef{display:grid;grid-template-columns:minmax(120px,32%) 1fr;gap:14px;padding:10px 0;border-top:1px solid var(--line);font-size:1.12rem;line-height:1.65}
+.tdef:first-child{border-top:0;padding-top:0}
+.tterm{font-weight:800;color:var(--violet-deep)}
+@media (max-width:560px){.tdef{grid-template-columns:1fr;gap:2px}.tp{font-size:1.1rem}.tul li{font-size:1.05rem}}
+.blankin{font-size:1em!important;line-height:1.3!important;height:1.45em;vertical-align:baseline;border-bottom-width:2px!important;padding:0 4px!important;margin:0 2px!important;background:transparent!important}
+.blankin:focus{background:transparent!important;border-bottom:2.5px solid var(--violet)!important}
+.blankin.ok{background:transparent!important}
+.coach{font-size:.78rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin:2px 0 -4px}
+.coach.good{text-transform:none;letter-spacing:0;font-size:.95rem;color:var(--good)}
+/* --- deck header --- */
+.deckh1{align-items:center!important;gap:12px}
+.deckh1 .capico{flex:none}
+.lchip{gap:8px}
+.lchip .capico{flex:none}
+/* --- week strip --- */
+.bweek2{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:6px}
+.wk{border:1px solid var(--line);border-radius:6px;padding:7px 6px 6px;display:flex;flex-direction:column;align-items:center;gap:3px;background:var(--surface)}
+.wkd{font-size:.7rem;font-weight:800;color:var(--ink-3);text-transform:uppercase;letter-spacing:.03em}
+.wk b{font-size:1.05rem;min-height:1.3em;font-variant-numeric:tabular-nums}
+.wkbar{width:100%;height:4px;border-radius:999px;background:var(--line);overflow:hidden}
+.wkbar i{display:block;height:100%;background:var(--violet)}
+.wk.met .wkbar i{background:#2FA58A}
+.wk.met b{color:#1F7A62}
+.wk.today{border-color:var(--violet);box-shadow:inset 0 0 0 1px var(--violet)}
+.wk.fut{background:var(--btn-bg);opacity:.6}
+/* --- audit round 2 --- */
+@media (min-width:761px){.bt-y{grid-column:span 4}}
+.bweek2{align-items:start}
+.wk{justify-content:flex-start}
+.slot .slotn{margin:auto 0}
+.slot{justify-content:center}
+.slot.full{justify-content:flex-end}
+.study.gamemode .phmark b{color:#1E1B29!important}
+.coach{text-transform:none!important;letter-spacing:0!important;font-size:.95rem!important;font-weight:600!important;color:var(--ink-2)!important}
+.levels{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+@media (max-width:640px){.levels{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+.face .frost{height:10px!important;padding:0!important}
+.face .frost span{display:none}
+@media (max-width:640px){.deck-head{flex-wrap:wrap;row-gap:10px}.deck-head>div:first-child{flex:1 0 100%}}
+.mapcard .btn{align-self:auto}
+.mapactions{display:flex;gap:8px;flex-wrap:wrap}
+.gitem .acfull{margin-top:2px}
+.bweek2{grid-auto-rows:min-content;height:auto!important;align-content:start}
+@media (max-width:640px){.deck-head>div:first-child{flex:1 0 100%!important}}
+.bweek2{display:flex!important;gap:6px;align-items:flex-start}
+.bweek2>.wk{flex:1 1 0;min-width:0}
+.bweek2>.wk{margin:0!important}
+.lvl .lvt{text-transform:none!important;letter-spacing:0!important;font-size:inherit!important;color:var(--ink)!important;font-weight:400!important}
+.lvl .lvt small{text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3)!important}
+.lvl .lvt b{font-size:.95rem;font-weight:700;color:var(--ink)}
+.lvl[disabled] .lvt b{color:var(--ink-3)}
+.lvl .lvn{text-transform:none!important;letter-spacing:0!important;font-size:.95rem!important;color:var(--ink)!important}
+.lvl.on .lvn{color:#fff!important}.lvl.cleared .lvn{color:#2A1E00!important}
+.mapcard>.btn{align-self:flex-start!important}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -1309,7 +1417,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "15.0";
+const APP_VERSION = "16.0";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -2553,7 +2661,7 @@ function startLearn(deck, opts = {}) {
   function show() {
     if (i >= queue.length) return finish();
     const f = queue[i]; flipped = false;
-    ST.stage.innerHTML = `${studyHead(f.deck)}${flipCard(f.deck.name, capOf(f.deck), (stOf(f) || f.kind !== "basic" ? "" : `<div class="kicker">New</div>`) + (opts.reverse && f.kind === "basic" && f.a ? revFront(f) : factFront(f)), opts.reverse && f.kind === "basic" && f.a ? revBack(f) : factBack(f))}
+    ST.stage.innerHTML = `${studyHead(f.deck)}${flipCard("", capOf(f.deck), (stOf(f) || f.kind !== "basic" ? "" : `<div class="kicker">New</div>`) + (opts.reverse && f.kind === "basic" && f.a ? revFront(f) : factFront(f)), opts.reverse && f.kind === "basic" && f.a ? revBack(f) : factBack(f))}
       <div id="ctl"><button class="btn primary" id="show" style="width:100%;min-height:54px">Show answer</button><p class="tap-hint kbd-hint" style="margin-top:8px"><kbd>Space</kbd> to flip</p></div>`;
     sizeFlip();
     $("#fc").onclick = flip; $("#show").onclick = flip;
@@ -4448,7 +4556,7 @@ function prepHomeHtml() {
       const ls = states.filter(s => s.l.unit === u.id); const done = ls.filter(s => s.passed).length; const allRead = ls.every(s => s.r.read);
       const ub = p.units[u.id];
       const isCur = nl && ls.some(x => x.l.id === nl.id);
-      return `<details class="unit" style="--cap:${CAPS[u.color]}" ${isCur ? "open" : ""}><summary class="unit-head">${capIcon(u.color, u.shape, 22)}<div style="flex:1;min-width:0"><h3>${esc(u.name)}</h3><p class="small muted">${done} of ${ls.length} passed${ub != null ? ` · unit review best ${ub}%` : ""}${isCur ? " · you are here" : ""}</p>${done ? `<div class="ubar"><i style="width:${done / ls.length * 100}%"></i></div>` : ""}</div>${allRead ? `<button class="btn sm" data-unit="${u.id}">Unit review</button>` : ""}</summary>
+      return `<details class="unit" style="--cap:${CAPS[u.color]}" ${isCur ? "open" : ""}><summary class="unit-head">${capIcon(u.color, u.shape, 22)}<div style="flex:1;min-width:0"><h3>${esc(u.name)}</h3><p class="small muted">${done} of ${ls.length} passed${ub != null ? ` · unit review best ${ub}%` : ""}${isCur ? " · you are here" : ""}</p>${done && done < ls.length ? `<div class="ubar"><i style="width:${done / ls.length * 100}%"></i></div>` : ""}</div>${allRead ? `<button class="btn sm" data-unit="${u.id}">Unit review</button>` : ""}</summary>
         ${ls.map(s => `<button class="lesson-row ${s.status}" data-lesson="${s.l.id}"><span class="lstat ${s.status}">${s.mastered ? "★" : s.passed ? "✓" : s.r.read ? "·" : ""}</span><span style="flex:1;min-width:0"><b>${escG(s.l.title)}</b>${s.l.boot ? ` <span class="bootchip">Bootcamp</span>` : ""}<span class="small muted"> · ${s.l.mins} min</span></span><span class="lmeta">${{ mastered: "Mastered", practicing: s.facts.length ? `${Math.round(s.solid * 100)}% solid` : "Passed", unlock: "Add cards", read: "Check pending", new: nl && nl.id === s.l.id ? "Next" : "" }[s.status]}</span></button>`).join("")}
       </details>`;
     }).join("")}</div>`;
@@ -5545,7 +5653,7 @@ function startBootcamp(l) {
     const text = moreBlanks(beats[i][0]); const ans = bootParts(text).filter(p => p.b).flatMap(p => p.b.split(/\s+/));
     let tries = 0, copying = false;
     const bank = shuffle([...ans, ...distinctOthers(allBlanks.filter(w => !ans.includes(w)), ans[0], 2)]);
-    ST.stage.innerHTML = `${lessonHead(l)}${fizzSays(pickLine("recall"))}<div class="bootcard"><p class="boottext">${renderText(text, "recall")}</p></div>
+    ST.stage.innerHTML = `${lessonHead(l)}${fizzSays(pickLine("recall"))}<div class="bootcard">${formatTeach(text, "recall")}</div>
       <div id="bank" class="wordbank hidden">${bank.map(w => `<button class="chipbtn" data-w="${esc(w)}">${esc(w)}</button>`).join("")}</div>
       <div id="rfb"></div>
       <div class="row"><button class="btn sm ghost" id="wb">Show word bank</button><button class="btn sm ghost" id="show">Show me</button><div class="spacer"></div><button class="btn primary" id="chk">Check</button></div>`;
@@ -6604,7 +6712,7 @@ function startTubeTrainer() {
   openStudy("Tube trainer");
   const menu = () => {
     setProg(0); ST.right.innerHTML = "";
-    ST.stage.innerHTML = `${levelTabs(LV, lv, gs.level)}
+    ST.stage.innerHTML = `${gameHero("tubes", "Tube trainer", 4)}${levelTabs(LV, lv, gs.level)}
       <div class="qcard"><p>${["Put every tube in the CLSI order of draw. Get it fully right twice to unlock Level 2.", "Real draws rarely use every tube. Order a few random combinations. Get all 5 right to unlock Level 3.", "You’ll see the tests ordered. Choose the tubes needed and put them in order. Get all 5 right to unlock Level 4.", "Something went wrong during collection. Figure out what. Get all 6 right to master the trainer."][lv - 1]}</p><p class="small muted" style="margin-top:6px">Tube choices vary a little by lab; always follow your lab’s test directory.</p></div>
       <button class="btn primary" id="go">Start level ${lv}</button>`;
     $$(".lvl").forEach(b => b.onclick = () => { lv = +b.dataset.lv; menu(); });
@@ -6868,7 +6976,7 @@ function critScenario() {
 }
 function startCritical() {
   openStudy("Critical call");
-  ST.stage.innerHTML = `<div class="qcard"><p>Results land on your bench. For each, decide: <b>Report</b>, <b>Call critical</b>, or <b>Recollect</b>. Read the specimen notes; they matter.</p><p class="small muted" style="margin-top:6px">Critical limits here are typical teaching values. Your lab’s written critical value list always rules.</p></div><button class="btn primary" id="go">Start 12 results</button>`;
+  ST.stage.innerHTML = `${gameHero("critical", "Critical call", 0)}<div class="qcard"><p>Results land on your bench. For each, decide: <b>Report</b>, <b>Call critical</b>, or <b>Recollect</b>. Read the specimen notes; they matter.</p><p class="small muted" style="margin-top:6px">Critical limits here are typical teaching values. Your lab’s written critical value list always rules.</p></div><button class="btn primary" id="go">Start 12 results</button>`;
   $("#go").onclick = () => {
     const qs = Array.from({ length: 12 }, critScenario); let i = 0, score = 0; const sc = makeScorer("critical");
     const next = () => {
@@ -7154,11 +7262,11 @@ startJournal = function () {
     const retryable = list.filter(x => jKind(x) !== "game");
     setProg(1);
     ST.stage.innerHTML = `
-      <div class="jstats"><div><b>${J.length}</b><span>open mistakes</span></div><div><b>${J.filter(x => x.confident).length}</b><span>repeat misses</span></div><div><b>${J.filter(x => (x.count || 1) > 1).length}</b><span>missed more than once</span></div><div><b>${(S.meta.stats || {}).jcleared || 0}</b><span>cleared all time</span></div></div>
+      <div class="jstats"><div><b>${J.length}</b><span>open mistakes</span></div><div><b>${J.filter(x => x.confident).length}</b><span>repeat misses</span></div><div><b>${J.filter(x => x.t > wk).length}</b><span>logged this week</span></div><div><b>${(S.meta.stats || {}).jcleared || 0}</b><span>cleared all time</span></div></div>
       ${J.length ? `
       ${top.length ? `<div class="panel"><p class="lbl" style="margin-bottom:8px">Where your misses come from</p>${top.map(([s, n]) => `<div class="deckbar" style="grid-template-columns:minmax(0,1fr) 2fr auto"><span>${esc(s)}</span><div class="mastery"><i class="m" style="width:${n / top[0][1] * 100}%;background:var(--safranin)"></i></div><span class="small muted">${n}</span></div>`).join("")}</div>` : ""}
       ${games.length ? `<div class="panel"><p class="lbl" style="margin-bottom:8px">Visual mistakes are practiced in their game</p><div class="row">${games.map(([g, n]) => `<button class="btn sm" data-game="${g}">${esc(GAME_OPEN[g][0])} · ${n}</button>`).join("")}</div></div>` : ""}
-      <div class="jbar"><div class="seg" id="jf">${[["all", "All"], ["conf", "Repeat misses"], ["rep", "Repeated"], ["week", "This week"]].map(([k, l]) => `<button data-f="${k}" class="${filter === k ? "on" : ""}">${l}</button>`).join("")}</div>
+      <div class="jbar"><div class="seg" id="jf">${[["all", "All"], ["conf", "Repeat misses"], ["week", "This week"]].map(([k, l]) => `<button data-f="${k}" class="${filter === k ? "on" : ""}">${l}</button>`).join("")}</div>
         <label class="search" style="flex:1;min-width:180px">${icon("search")}<input id="jq" placeholder="Search mistakes" value="${esc(q)}"></label>
         <button class="btn primary" id="retry" ${retryable.length ? "" : "disabled"}>${icon("rotate")}Retry ${Math.min(10, retryable.length)}</button></div>
       <div class="pickchips">${srcs.map(s => `<button class="chipbtn sm ${s === src ? "on" : ""}" data-s="${esc(s)}">${esc(s)}</button>`).join("")}</div>
@@ -7212,7 +7320,7 @@ function leveledGame(id, title, LV, intros, runners) {
   openStudy(title); dayStat("games");
   const menu = () => {
     ST.right.innerHTML = ""; setProg(0); lv = Math.min(lv, gs.level);
-    ST.stage.innerHTML = `${levelTabs(LV, lv, gs.level)}<div class="qcard"><p>${intros[lv - 1]}</p></div><button class="btn primary" id="go">Start level ${lv}</button>`;
+    ST.stage.innerHTML = `${gameHero(id, title, LV.length)}${levelTabs(LV, lv, gs.level)}<div class="qcard"><p>${intros[lv - 1]}</p></div><button class="btn primary" id="go">Start level ${lv}</button>`;
     $$(".lvl").forEach(b => b.onclick = () => { lv = +b.dataset.lv; menu(); });
     $("#go").onclick = () => runners[lv - 1](result);
   };
@@ -7572,7 +7680,7 @@ startGlossary = function (focus) {
     const n = norm(q); const U = glossUser();
     const items = Object.entries(GLOSS).filter(([k, [f, d]]) => (!mine || (U[k] && !U[k].deleted)) && (!n || norm(k).includes(n) || norm(f).includes(n) || norm(d).includes(n))).sort((a, b) => a[0].localeCompare(b[0], undefined, { sensitivity: "base" }));
     setProg(1);
-    $("#glist").innerHTML = items.length ? items.map(([k, [f, d]]) => { const yours = U[k] && !U[k].deleted; return `<div class="gitem ${k === focus ? "hl" : ""}"><div class="row" style="justify-content:space-between;gap:6px"><b>${esc(k)}</b>${yours ? `<span class="tag">Yours</span>` : ""}</div><span class="acfull">${esc(f)}</span>${d ? `<p class="small">${esc(d)}</p>` : ""}<button class="btn ghost sm" data-ge="${esc(k)}" style="align-self:flex-start">${icon("edit")}${yours ? "Edit" : "Customize"}</button></div>`; }).join("") : `<div class="empty"><p>No matches${q ? ` for “${esc(q)}”` : ""}.</p>${q && /^[A-Za-z0-9][A-Za-z0-9\-\/&:+.]{0,24}$/.test(q.trim()) ? `<button class="btn primary" id="addq">${icon("plus")}Add “${esc(q.trim())}”</button>` : ""}</div>`;
+    $("#glist").innerHTML = items.length ? items.map(([k, [f, d]]) => { const yours = U[k] && !U[k].deleted; return `<div class="gitem ${k === focus ? "hl" : ""}"><div class="row" style="justify-content:space-between;gap:6px;align-items:center"><b>${esc(k)}</b><span class="row" style="gap:4px">${yours ? `<span class="tag">Yours</span>` : ""}<button class="btn ghost icon sm" data-ge="${esc(k)}" aria-label="${yours ? "Edit" : "Customize"} ${esc(k)}" title="${yours ? "Edit" : "Customize"}">${icon("edit")}</button></span></div><span class="acfull">${esc(f)}</span>${d ? `<p class="small">${esc(d)}</p>` : ""}</div>`; }).join("") : `<div class="empty"><p>No matches${q ? ` for “${esc(q)}”` : ""}.</p>${q && /^[A-Za-z0-9][A-Za-z0-9\-\/&:+.]{0,24}$/.test(q.trim()) ? `<button class="btn primary" id="addq">${icon("plus")}Add “${esc(q.trim())}”</button>` : ""}</div>`;
     $$("[data-ge]").forEach(b => b.onclick = () => glossEditModal(b.dataset.ge, draw));
     $("#addq") && ($("#addq").onclick = () => { glossEditModal(null, k => { q = k || q; draw(); }); setTimeout(() => { const i = $("#gk"); if (i) i.value = q.trim(); }, 30); });
   };
@@ -7778,7 +7886,7 @@ startSmear = function (opts = {}) {
     ST.right.innerHTML = ""; setProg(0); lv = Math.min(lv, gs.level);
     const [name, cat, mode] = SMEAR_LEVELS[lv - 1];
     const pool = cat === "series" ? Object.values(SERIES).flat() : cat === "diff" ? [] : CAT_POOL(cat);
-    ST.stage.innerHTML = `${levelTabs(SMEAR_LEVELS.map(l => l[0]), lv, gs.level)}
+    ST.stage.innerHTML = `${gameHero("smear", "Smear practice", SMEAR_LEVELS.length)}${levelTabs(SMEAR_LEVELS.map(l => l[0]), lv, gs.level)}
       <div class="qcard"><p>${mode === "find" ? "Tap the cell you’re asked for." : mode === "name" ? "Name the circled element." : mode === "order" ? "Put each maturation series in order, youngest to most mature." : "Classify every white cell like a real differential, then interpret the pattern."} Get a perfect round to unlock the next level. Answers score points: faster answers and streaks earn more.</p>
       ${pool.length ? `<div class="thumbs">${pool.map(id => `<div class="thumbitem">${cellThumb(id)}<small>${esc(C[id].n)}</small></div>`).join("")}</div>` : ""}
       <p class="small muted" style="margin-top:8px">Simplified drawings for recognition practice, matched to your hematology objectives. Confirm on real slides.</p></div>
@@ -8052,7 +8160,7 @@ function planView(it) {
 }
 const GAME_BTN = { tubes: "tubeBtn", smear: "smearBtn", bench: "benchBtn", gram: "gramBtn", westgard: "westBtn", critical: "critBtn", flow: "flowBtn", sediment: "sedBtn", panel: "panelBtn", acidbase: "abBtn" };
 planHtml = function () {
-  const views = todayPlan().map(planView).filter(Boolean);
+  const views = todayPlan().map(planView).filter(Boolean).sort((a, b) => (a.done ? 1 : 0) - (b.done ? 1 : 0));
   window._planFns = views.map(v => v.fn);
   if (!views.length) return "";
   const req = views.filter(v => !v.optional), done = req.filter(v => v.done).length, all = done === req.length && req.length > 0;
@@ -8179,7 +8287,7 @@ function paceInfo() {
   const wkStart = weekStart(); const thisWeek = LESSONS.filter(l => { const r = (prep().lessons || {})[l.id]; return r && r.done && (r.last || 0) >= wkStart; }).length;
   return { left, done, days, perDay, perWeek: Math.min(left, perDay * 7), expected, ahead: expected == null ? 0 : done - expected, thisWeek };
 }
-function paceLessonsToday() { return prepOn() ? paceInfo().perDay : 1; }
+function paceLessonsToday() { return 1; }
 const MILESTONES = [
   ["Set your program start date", () => !!(prep() && prep().start)],
   ["Turn on sync or download a backup", () => Sync.on() || Date.now() - (S.meta.lastBackup || 0) < 14 * DAY],
@@ -8428,14 +8536,14 @@ startFormulas = function () {
 };
 /* ===================== Home wiring ===================== */
 TOOLS.play = TOOLS.play.map(t => t[0] === "gramBtn" ? ["gramBtn", "micro", "Gram stain", "gram"] : t);
-TOOLS.plan = [["d1Btn", "flag", "Day One Ready"], ...TOOLS.plan.filter(t => t[0] !== "d1Btn"), ["caseBtn", "micro", "Case presentations"], ["slideBtn", "camera", "Add slide photo"]];
+TOOLS.plan = [...TOOLS.plan.filter(t => t[0] !== "d1Btn"), ["caseBtn", "micro", "Case presentations"], ["slideBtn", "camera", "Add slide photo"]];
 const _rh14 = renderHome;
 renderHome = function (decks) {
   _rh14(decks);
   const gb = $("#gramBtn"); if (gb) gb.onclick = gated("gram", "Gram stain", startGramStain);
   const on = (id, fn) => { const el = $("#" + id); if (el) el.onclick = fn; };
   on("d1Btn", startDayOne); on("caseBtn", startCasePres); on("slideBtn", () => addSlideModal());
-  if (prepOn() && $(".dash")) { const pi = paceInfo(); $(".dash .dmain .row")?.insertAdjacentHTML("beforeend", `<button class="btn dbtn ghost" id="dashD1">${icon("flag")}Day One Ready${pi.days ? ` · ${pi.days}d` : ""}</button>`); on("dashD1", startDayOne); }
+  if (false) { const pi = paceInfo(); $(".dash .dmain .row")?.insertAdjacentHTML("beforeend", `<button class="btn dbtn ghost" id="dashD1">${icon("flag")}Day One Ready${pi.days ? ` · ${pi.days}d` : ""}</button>`); on("dashD1", startDayOne); }
 };
 GAME_OPEN.gram = ["Gram stain", () => startGramStain()];
 { const rd = renderDeck; renderDeck = function (d) { rd(d); $(".modes[hidden]")?.remove(); }; }
@@ -8493,14 +8601,14 @@ VARIANTS.push(
 );
 /* ===================== Tube rack: drag (or tap) tubes into order ===================== */
 const RANK_TXT = "1 Blood cultures → 2 Light blue → 3 Red or Gold → 4 Green → 5 Lavender or Pink → 6 Gray";
-const bigTube = (t, h = 74) => t.id === "cult" ? capIcon(t.cap, "bottle", h) : capIcon(t.cap, "tube", h);
+let bigTube = (t, h = 74) => t.id === "cult" ? capIcon(t.cap, "bottle", h) : capIcon(t.cap, "tube", h);
 function dragOrder(items, onDone) {
   const slots = Array(items.length).fill(null); let tray = shuffle(items.slice()); let checked = false;
   const draw = () => {
     const sorted = items.slice().sort((a, b) => a.rank - b.rank);
     ST.stage.innerHTML = `<div class="qcard"><div class="qtext" style="font-size:1.1rem">Load the rack in order of draw</div><p class="small muted">Drag tubes into the rack, or tap a tube to place it in the next open slot. Tap a racked tube to take it back.</p></div>
-      <div class="rack2" id="rack">${slots.map((t, k) => `<div class="slot ${t ? "full" : ""} ${checked && t ? (k === 0 || slots[k - 1].rank <= t.rank ? "right" : "wrong") : ""}" data-slot="${k}">${t ? `<div class="tubeitem" data-from="slot" data-k="${k}">${bigTube(t)}<small>${esc(t.name)}</small></div>` : `<span class="slotn">${k + 1}</span>`}${checked && t ? `<span class="rankn" title="Draw position">${t.rank}</span>` : ""}</div>`).join("")}</div>
-      <div class="tray" id="tray">${tray.map((t, k) => `<div class="tubeitem" data-from="tray" data-k="${k}">${bigTube(t)}<small>${esc(t.name)}</small></div>`).join("") || `<span class="small muted">All tubes racked.</span>`}</div><div id="fb"></div>`;
+      <div class="rack2" id="rack">${slots.map((t, k) => `<div class="slot ${t ? "full" : ""} ${checked && t ? (k === 0 || slots[k - 1].rank <= t.rank ? "right" : "wrong") : ""}" data-slot="${k}">${t ? `<div class="tubeitem" data-from="slot" data-k="${k}">${bigTube(t)}<small>${esc(t.short || t.name)}</small></div>` : `<span class="slotn">${k + 1}</span>`}${checked && t ? `<span class="rankn" title="Draw position">${t.rank}</span>` : ""}</div>`).join("")}</div>
+      <div class="tray" id="tray">${tray.map((t, k) => `<div class="tubeitem" data-from="tray" data-k="${k}">${bigTube(t)}<small>${esc(t.short || t.name)}</small></div>`).join("") || `<span class="small muted">All tubes racked.</span>`}</div><div id="fb"></div>`;
     if (!checked) bind();
     if (!tray.length && !checked) { $("#fb").innerHTML = `<button class="btn primary" id="chk" style="width:100%">Check my rack</button>`; $("#chk").onclick = () => { checked = true; draw(); result(); }; }
   };
@@ -8557,10 +8665,11 @@ function formatTeach(raw, seen = new Set()) {
   return `<p class="tlead">${G(sents[0])}</p><ul class="tlist">${sents.slice(1).map(s => `<li>${G(s)}</li>`).join("")}</ul>`;
 }
 function teachPara(p, seen) {
-  if (/^(\s*[-•]\s|\s*\d+\.\s)/m.test(p) || p.includes("\n")) return `<div class="tpara">${p.split("\n").map(line => { const m = line.match(/^\s*(?:[-•]|\d+\.)\s+(.*)/); return m ? `<div class="tbul">${hiNums(gloss(esc(m[1]), seen, true))}</div>` : `<p>${hiNums(gloss(esc(line), seen, true))}</p>`; }).join("")}</div>`;
+  const G = x => gloss(esc(x), seen, true);
+  if (/^(\s*[-•]\s|\s*\d+\.\s)/m.test(p) || p.includes("\n")) { const lines = p.split("\n"); const items = lines.map(l => l.match(/^\s*(?:[-•]|\d+\.)\s+(.*)/)); return `<div class="tb">${lines.map((l, k) => items[k] ? "" : `<p class="tp">${G(l)}</p>`).join("")}${items.some(Boolean) ? `<ul class="tul">${items.filter(Boolean).map(m => `<li>${G(m[1])}</li>`).join("")}</ul>` : ""}</div>`; }
   const sents = splitSent(p);
-  if (sents.length >= 3) return `<div class="tpara"><p class="tlead">${hiNums(gloss(esc(sents[0]), seen, true))}</p><ul class="tlist">${sents.slice(1).map(s => `<li>${hiNums(gloss(esc(s), seen, true))}</li>`).join("")}</ul></div>`;
-  return `<p>${hiNums(gloss(esc(p), seen, true))}</p>`;
+  if (sents.length >= 4) return `<div class="tb"><p class="tp">${G(sents[0])}</p><ul class="tul">${sents.slice(1).map(s => `<li>${G(s)}</li>`).join("")}</ul></div>`;
+  return `<div class="tb"><p class="tp">${G(p)}</p></div>`;
 }
 
 /* ===================== Play games: three lives ===================== */
@@ -8648,7 +8757,76 @@ dashHtml = function (decks) {
     <button class="bt bt-link" id="dashJ"><span class="btl">Mistake journal</span><b class="bbig">${jopen}</b><span class="bsub">${rep ? `${rep} repeat miss${rep > 1 ? "es" : ""}` : "open mistakes"}</span></button>
   </section>`;
 };
-{ const rh = renderHome; renderHome = function (decks) { rh(decks); const j = $("#dashJ"); if (j) j.onclick = startJournal; if (prepOn() && $(".bento") && !$("#dashD1")) { const pi = paceInfo(); $(".bt-hero .row")?.insertAdjacentHTML("beforeend", `<button class="btn bghost" id="dashD1">${icon("flag")}Day One${pi.days ? ` · ${pi.days}d` : ""}</button>`); $("#dashD1").onclick = startDayOne; } }; }
+{ const rh = renderHome; renderHome = function (decks) { rh(decks); const j = $("#dashJ"); if (j) j.onclick = startJournal; if (false) { const pi = paceInfo(); $(".bt-hero .row")?.insertAdjacentHTML("beforeend", `<button class="btn bghost" id="dashD1">${icon("flag")}Day One${pi.days ? ` · ${pi.days}d` : ""}</button>`); $("#dashD1").onclick = startDayOne; } }; }
+/* ===================== Game title screens ===================== */
+const GAME_META = {
+  tubes: ["🧪", "Load the rack in order of draw, then pick tubes for real orders"], smear: ["🔬", "Find, name and count cells like a hematology tech"],
+  sediment: ["🫙", "Casts, crystals and cells under the microscope"], gram: ["🟣", "Read Gram stains, judge specimens, beat the clock"],
+  panel: ["🧷", "Work real antibody panels, rule-outs and all"], acidbase: ["⚗️", "Read blood gases from pH to compensation"],
+  westgard: ["📊", "Accept or reject the run before results go out"], critical: ["📞", "Report, call or recollect: you’re on the bench"], bench: ["🧫", "Identify the unknown with the fewest tests"]
+};
+function gameHero(id, title, nLv) {
+  const gs = gstate(id), st = S.meta.stats || {}; const [e, tag] = GAME_META[id] || ["🎮", ""];
+  const best = st["pts_" + id] || (id === "bench" ? st.benchBest : id === "gram" ? st.gramBest : 0) || 0;
+  const lvl = nLv ? Math.min(gs.level || 1, nLv) : 0, cleared = nLv ? Math.min(nLv, (gs.level || 1) - 1) : 0;
+  return `<div class="ghero"><div class="gemoji" aria-hidden="true">${e}</div><div class="gtitle"><h1>${esc(title)}</h1><p>${esc(tag)}</p>
+    <div class="gstats">${nLv ? `<div><b>${cleared}<small>/${nLv}</small></b><span>levels cleared</span></div>` : ""}<div><b>${best ? best.toLocaleString() : "—"}</b><span>high score</span></div><div><b>${gs.plays || 0}</b><span>games played</span></div></div></div></div>`;
+}
+levelTabs = function (levels, cur, unlocked) {
+  return `<div class="levels">${levels.map((l, i) => { const n = i + 1, open = n <= unlocked, done = n < unlocked; return `<button class="lvl ${n === cur ? "on" : ""} ${done ? "cleared" : ""}" data-lv="${n}" ${open ? "" : "disabled"}><span class="lvn">${done ? "★" : open ? n : "🔒"}</span><span class="lvt"><small>Level ${n}</small><b>${esc(l)}</b></span></button>`; }).join("")}</div>`;
+};
+function gameIntro(id, title, text, start) {
+  return function () {
+    openStudy(title); gameShell(); setProg(0);
+    ST.stage.innerHTML = `${gameHero(id, title, 0)}<div class="qcard"><p>${text}</p></div><button class="btn primary bigplay" id="go">${icon("target")}Play</button>`;
+    $("#go").onclick = () => { start(); gameShell(); };
+  };
+}
+{ const w = startWestgard; startWestgard = gameIntro("westgard", "Westgard judge", "Ten QC runs. Read the two-level Levey-Jennings chart, then accept the run or name the Westgard rule it breaks. Faster correct calls score more.", w); }
+{ const b = startBench; startBench = gameIntro("bench", "Bench unknown", "Five unknowns. Each test you run costs points, and a wrong guess costs more. Pick the test that splits the remaining organisms best.", b); }
+TUBES.forEach(t => { if (t.id === "cult") t.short = "Cultures"; if (t.id === "gold") t.short = "Gold SST"; });
+
+/* ===================== Tube icons: clearer, consistent heights ===================== */
+CAPS.clear = "#C7CED8";
+capIcon = function (color, shape = "tube", size = 18) {
+  const c = CAPS[color] || color || CAPS.lavender, h = size, sw = size >= 40 ? 1.3 : 1.1;
+  const stroke = "var(--ink-3)", cap = `stroke="rgba(0,0,0,.18)" stroke-width=".6"`;
+  if (shape === "cup") return `<svg class="capico" width="${Math.round(h * .9)}" height="${h}" viewBox="0 0 18 20" aria-hidden="true"><rect x="2" y="1.2" width="14" height="4.6" rx="1.1" fill="${c}" ${cap}/><path d="M3.2 6h11.6l-1.15 11.8a1.4 1.4 0 0 1-1.4 1.25H5.75a1.4 1.4 0 0 1-1.4-1.25z" fill="var(--surface)"/><path d="M4.3 11.6h9.4l-.6 5.9a.8.8 0 0 1-.8.7H5.7a.8.8 0 0 1-.8-.7z" fill="#EDCB6A" opacity=".75"/><path d="M3.2 6h11.6l-1.15 11.8a1.4 1.4 0 0 1-1.4 1.25H5.75a1.4 1.4 0 0 1-1.4-1.25z" fill="none" stroke="${stroke}" stroke-width="${sw}"/></svg>`;
+  if (shape === "bottle") return `<svg class="capico" width="${Math.round(h * .74)}" height="${h}" viewBox="0 0 14.8 20" aria-hidden="true"><rect x="4.4" y=".8" width="6" height="3.6" rx=".9" fill="${c}" ${cap}/><path d="M5.2 4.4h4.4v2.4l2.7 2.3c.4.3.6.8.6 1.3v6.9a1.4 1.4 0 0 1-1.4 1.4H3.3a1.4 1.4 0 0 1-1.4-1.4v-6.9c0-.5.2-1 .6-1.3l2.7-2.3z" fill="var(--surface)"/><path d="M2.5 13.4h9.8v4a.9.9 0 0 1-.9.9H3.4a.9.9 0 0 1-.9-.9z" fill="#E2B7BC" opacity=".8"/><path d="M5.2 4.4h4.4v2.4l2.7 2.3c.4.3.6.8.6 1.3v6.9a1.4 1.4 0 0 1-1.4 1.4H3.3a1.4 1.4 0 0 1-1.4-1.4v-6.9c0-.5.2-1 .6-1.3l2.7-2.3z" fill="none" stroke="${stroke}" stroke-width="${sw}"/></svg>`;
+  return `<svg class="capico" width="${Math.round(h * .5)}" height="${h}" viewBox="0 0 10 20" aria-hidden="true"><rect x=".7" y=".7" width="8.6" height="4.6" rx="1.2" fill="${c}" ${cap}/><path d="M1.9 5.3h6.2v11.2a3.1 3.1 0 0 1-6.2 0z" fill="var(--surface)"/><path d="M2.5 10.6h5v5.9a2.5 2.5 0 0 1-5 0z" fill="${c}" opacity=".55"/><path d="M1.9 5.3h6.2v11.2a3.1 3.1 0 0 1-6.2 0z" fill="none" stroke="${stroke}" stroke-width="${sw}"/><path d="M3.2 6.6v6" stroke="#fff" stroke-width=".7" opacity=".8" stroke-linecap="round"/></svg>`;
+};
+const bigTube2 = t => `<span class="tubeart">${t.id === "cult" ? capIcon(t.cap, "bottle", 58) : capIcon(t.cap, "tube", 58)}</span>`;
+
+bigTube = function (t) { return bigTube2(t); };
+
+/* ===================== Bootcamp text: one layout for reading and recall ===================== */
+formatTeach = function (raw, mode = "read") {
+  const seen = new Set();
+  const R = s => s.split(/(\{\{.+?\}\})/).map(part => { const m = part.match(/^\{\{(.+)\}\}$/); if (m) return mode === "recall" ? blankInputs(m[1]) : gloss(esc(m[1]), seen, true); return gloss(esc(part), seen, true); }).join("");
+  const sents = splitSent(raw);
+  const colon = sents.find(s => { const i = s.indexOf(": "); if (i < 0) return false; const items = s.slice(i + 2).replace(/[.]$/, "").split(/,\s(?:and\s|or\s)?|\sand\s(?=[^,]*$)/); return items.length >= 3; });
+  if (colon) {
+    const i = sents.indexOf(colon), head = colon.slice(0, colon.indexOf(": ")), items = colon.slice(colon.indexOf(": ") + 2).replace(/[.]$/, "").split(/,\s(?:and\s|or\s)?|\sand\s(?=[^,]*$)/).map(x => x.trim()).filter(Boolean);
+    return `<div class="tb">${sents.slice(0, i).length ? `<p class="tp">${R(sents.slice(0, i).join(" "))}</p>` : ""}<p class="tp">${R(head)}:</p><ul class="tul">${items.map(x => `<li>${R(x)}</li>`).join("")}</ul>${sents.slice(i + 1).length ? `<p class="tp">${R(sents.slice(i + 1).join(" "))}</p>` : ""}</div>`;
+  }
+  const defRe = /^((?:\{\{[^}]+\}\}|[A-Z])[^,.:;]{0,42}?)\s(is|are|means)\s(.+)$/;
+  const defs = sents.filter(s => defRe.test(s) && !/^(This|That|It|They|There|These|Those|A|An|The|Most|Many|Some|Labs?|Your|Each|Every|When|If|Below|Above|Normal)\b/.test(s.replace(/[{}]/g, "")));
+  if (defs.length >= 2) return `<div class="tb">${sents.map(s => { const m = s.match(defRe); return m && defs.includes(s) ? `<div class="tdef"><span class="tterm">${R(m[1])}</span><span class="tdesc">${R(m[2] + " " + m[3])}</span></div>` : `<p class="tp">${R(s)}</p>`; }).join("")}</div>`;
+  return `<div class="tb"><p class="tp">${R(sents.join(" "))}</p></div>`;
+};
+blankInputs = function (ans) { return ans.split(/\s+/).map(w => `<input class="blankin" data-ans="${esc(w)}" style="width:calc(${Math.max(2, w.length)}ch + 10px)" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Missing word">`).join(" "); };
+
+/* ===================== Dashboard week: Monday to Sunday ===================== */
+function weekStrip() {
+  const goal = GOAL(), ws = weekStart(); const today = dayKey();
+  const days = Array.from({ length: 7 }, (_, i) => dayKey(ws + i * DAY + 3600e3));
+  const tot = days.reduce((a, d) => a + ((S.meta.history || {})[d] || 0), 0);
+  return { tot, html: `<div class="bweek2">${days.map(d => { const n = (S.meta.history || {})[d] || 0, fut = d > today, met = n >= goal; return `<div class="wk ${fut ? "fut" : ""} ${met ? "met" : ""} ${d === today ? "today" : ""}"><span class="wkd">${new Date(d + "T12:00").toLocaleDateString(undefined, { weekday: "short" })}</span><b>${fut ? "" : n}</b><span class="wkbar"><i style="width:${fut ? 0 : Math.min(100, n / goal * 100)}%"></i></span></div>`; }).join("")}</div>` };
+}
+{ const rh = renderHome; renderHome = function (decks) { rh(decks); const w = $(".bt-week"); if (w) { const ws = weekStrip(); w.innerHTML = `<span class="btl">This week · ${ws.tot.toLocaleString()} reviews · goal ${GOAL()}/day</span>${ws.html}`; } }; }
+
+/* ===================== Course map: placement checks live here now ===================== */
+{ const cm = startCourseMap; startCourseMap = function () { cm(); $$(".mapcard").forEach((card, k) => { const u = UNITS[k]; if (!u) return; const left = LESSONS.filter(l => l.unit === u.id && !lessonState(l).passed && !l.wrap).length; if (left > 1) { const nb = card.querySelector("[data-les]"); if (nb) { const wrap = document.createElement("div"); wrap.className = "mapactions"; nb.replaceWith(wrap); wrap.appendChild(nb); wrap.insertAdjacentHTML("beforeend", `<button class="btn sm ghost" data-place="${u.id}">Placement check</button>`); } } }); $$("[data-place]").forEach(b => b.onclick = () => startPlacement(b.dataset.place)); }; }
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
