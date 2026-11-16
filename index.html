@@ -1445,6 +1445,49 @@ h3{font-size:1.06rem}
 .jimg{max-width:180px;max-height:140px;border-radius:6px;border:1px solid var(--line);object-fit:cover}
 @media (max-width:640px),(pointer:coarse){.grades button kbd{display:none!important}.grades button{min-height:58px!important}}
 .ttn{overflow-wrap:anywhere}
+/* ===== v19 ===== */
+/* antibody panel stays light and readable inside the dark game theme */
+.study.gamemode .panelwrap{--surface:#fff;--surface-2:#F1EEF8;--ink:#1E1B29;--ink-2:#48445A;--ink-3:#6E6A80;--line:#E6E4EC;--line-2:#D6D3E0;--violet-deep:#4527B5;--violet-soft:#EDE8FF;color:#1E1B29;background:#fff}
+.study.gamemode .agpanel th{background:#F1EEF8!important;color:#1E1B29!important}
+.study.gamemode .agpanel th button{color:#4527B5!important}
+.study.gamemode .agpanel td{color:#1E1B29}
+.study.gamemode .panelwrap+.small,.study.gamemode .panelwrap~p.small{color:var(--ink-3)}
+/* path: circle inline with the lesson title */
+.lesson-row{align-items:flex-start!important}
+.lesson-row .lstat{margin-top:2px;flex:none}
+.lesson-row .lmeta{margin-top:3px}
+/* exam tiles */
+.extiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.extile{display:flex;gap:12px;align-items:flex-start;padding:12px;border:1px solid var(--line-2);border-radius:8px;background:var(--surface);cursor:pointer;transition:border-color .15s}
+.extile:hover{border-color:var(--ink-3)}
+.extile.soon{border-color:#F0B9C3}
+.exinfo{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
+.exinfo b{font-size:1.02rem;overflow-wrap:anywhere}
+.exinfo>span{font-size:.84rem;color:var(--ink-3)}
+.exact{display:flex;gap:6px;margin-top:6px;align-items:center}
+/* critical call */
+.critcard{display:flex;flex-direction:column;gap:6px}
+.crit-t{font-size:1.15rem;font-weight:700}
+.crit-ref{font-size:.86rem;color:var(--ink-3)}
+.crit-ref b{color:var(--warn)}
+.crit-note{border-radius:6px;padding:8px 12px;background:rgba(242,195,91,.15);border:1px solid rgba(242,195,91,.4)}
+.crit-note.ok{background:rgba(95,214,174,.1);border-color:rgba(95,214,174,.3)}
+.crit-note b{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em}
+.crit-note p{margin:2px 0 0}
+.crittable{margin-top:10px;overflow-x:auto}
+.crittable table{border-collapse:collapse;width:100%;font-size:.9rem}
+.crittable th,.crittable td{padding:6px 10px;border-bottom:1px solid var(--line);text-align:left}
+.crittable th{font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-3)}
+.crittable td:nth-child(2),.crittable td:nth-child(3){font-weight:800;color:var(--warn)}
+.crittable p{margin:8px 0 0;color:var(--ink-3)}
+/* flowchart walk */
+.trail{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.tstep{font-size:.84rem;padding:3px 10px;border-radius:2em;background:var(--surface-2);border:1px solid var(--line-2)}
+.tstep.end{background:var(--good-soft);border-color:var(--good);font-weight:700}
+.study.gamemode .rrow{background:var(--surface);border-color:var(--line-2)}
+.study.gamemode .rrow .seg button.on{background:var(--violet);color:#fff}
+/* relock */
+.relock{margin-top:8px;align-self:flex-start;background:none;border:0;padding:0;color:var(--ink-3);font:inherit;font-size:.8rem;text-decoration:underline;cursor:pointer}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -1531,7 +1574,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "18.0";
+const APP_VERSION = "19.0";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -6301,7 +6344,7 @@ function runExam(qs, per, label) {
   const submit = () => {
     if (done) return; done = true; ST.timers.forEach(clearInterval);
     let right = 0; const by = {};
-    qs.forEach((q, k) => { const ok = q.options[ans[k]] === q.answer; if (ok) right++; by[q.area] = by[q.area] || [0, 0]; by[q.area][1]++; if (ok) by[q.area][0]++; if (q.f && !q.identify) recordQuiz(q.f, ok); if (!ok) logMistake({ src: label + " exam", q: q.text || qLabel(q), yours: ans[k] >= 0 ? q.options[ans[k]] : "", right: q.answer, opts: q.options, why: q.why || "" }); });
+    qs.forEach((q, k) => { const ok = q.options[ans[k]] === q.answer; if (ok) right++; by[q.area] = by[q.area] || [0, 0]; by[q.area][1]++; if (ok) by[q.area][0]++; if (q.f && !q.identify) recordQuiz(q.f, ok); if (!ok) logMistake({ img: !q.text && q.f && q.f.card && q.f.card.img ? q.f.card.img : undefined, src: label + " exam", q: q.text || qLabel(q), yours: ans[k] >= 0 ? q.options[ans[k]] : "", right: q.answer, opts: q.options, why: q.why || "" }); });
     const pct = Math.round(right / qs.length * 100); setProg(1); ST.right.innerHTML = ""; if (label === "Comprehensive") statMax("compBest", pct); if (label === "Board-style") statMax("bocBest", pct);
     ST.stage.innerHTML = `<div class="results">${ring(pct)}<h2>${right} of ${qs.length} correct</h2><p class="muted">${pct >= 80 ? "Comfortably above your program’s 70% line." : pct >= 70 ? "Passing, with little margin." : "Below the 70% line. The breakdown shows where to focus."} Finished in ${plural(Math.round((Date.now() - t0) / 60000), "minute")}.</p></div>
       <div class="panel"><h3 style="margin-bottom:8px">By course</h3>${Object.entries(by).map(([a, [r, t]]) => `<div class="deckbar"><span style="font-weight:600">${esc(a)}</span><div class="mastery"><i class="m" style="width:${r / t * 100}%;background:${r / t >= .8 ? "var(--good)" : r / t >= .7 ? "var(--warn)" : "var(--bad)"}"></i></div><span class="small muted">${r}/${t}</span></div>`).join("")}</div>
@@ -7678,7 +7721,7 @@ TOOLS.test = [["mixBtn", "shuffle", "Mixed practice"], ["lookBtn", "columns", "L
 delete TOOLS.games;
 TOOLS.play = [["tubeBtn", "order", "Tube trainer", "tubes"], ["smearBtn", "target", "Smear practice", "smear"], ["sedBtn", "micro", "Urine sediment", "sediment"], ["benchBtn", "micro", "Bench unknown", "bench"], ["gramBtn", "grid", "Gram sorter", "gram"], ["panelBtn", "grid", "Antibody panel", "panel"], ["abBtn", "chart", "Acid-base", "acidbase"], ["westBtn", "chart", "Westgard judge", "westgard"], ["critBtn", "flag", "Critical call", "critical"], ["flowBtn", "flow", "ID flowcharts", "flow"]];
 TOOLS.plan = [["mapBtn", "layers", "Course map"], ["timerBtn", "timer", "Study timer"], ["planBtn", "calendar", "Study plan"], ["rotBtn", "check", "Rotation prep"], ["packsBtn", "layers", "Starter packs"]];
-const ORDERED_TOOLS = () => ({ learn: TOOLS.learn, test: TOOLS.test, play: TOOLS.play, plan: TOOLS.plan });
+let ORDERED_TOOLS = () => ({ learn: TOOLS.learn, test: TOOLS.test, play: TOOLS.play, plan: TOOLS.plan });
 toolsHtml = function () {
   const names = { learn: "Teach", test: "Test", play: "Play", plan: "Plan" };
   return `<div class="toolcard">${Object.entries(ORDERED_TOOLS()).map(([k, list]) => `<div class="toolline"><span class="toolcat c-${k}">${names[k]}</span><div class="toolpills">${list.filter(([id]) => !(id === "hsBtn" && prepOn())).map(([id, ic, t, g]) => { const locked = g && !gameUnlocked(g); return `<button class="pill c-${k} ${locked ? "locked" : ""}" id="${id}" ${locked ? `title="Unlocks with your Head start lessons"` : ""}>${icon(locked ? "flag" : ic)}${t}</button>`; }).join("")}</div></div>`).join("")}</div>`;
@@ -7736,7 +7779,7 @@ renderHome = function (decks) {
     ${weak ? `<button class="linkbtn" id="weakBtn" style="margin:4px 0 0">${plural(weak, "weak spot")} to drill →</button>` : ""}
     ${lect.length || exams.length ? `<div class="twocol">
       ${lect.length ? `<div><div class="section-head"><h2>Lectures</h2></div><div class="list">${lect.map(x => `<button class="listrow" data-lect="${x.ci}|${x.ui}"><span class="when">${x.when}</span><span style="flex:1;min-width:0"><b>${esc(x.u.name)}</b><br><span class="small muted">${esc(x.c.code)}${x.u.ch ? " · " + esc(x.u.ch) : ""}</span></span></button>`).join("")}</div></div>` : ""}
-      ${exams.length ? `<div><div class="section-head"><h2>Exams</h2><button class="btn sm ghost" id="addExam">${icon("plus")}Add</button></div><div class="list">${exams.map(ex => { const d = daysUntil(ex); return `<div class="listrow" data-exam="${ex.id}" role="button" tabindex="0"><span class="excount ${d <= 3 ? "soon" : ""}">${d <= 0 ? "<b>Today</b>" : `<b>${d}</b><small>day${d === 1 ? "" : "s"}</small>`}</span><span style="flex:1;min-width:0"><b>${esc(ex.name)}</b><br><span class="small muted">${new Date(ex.date + "T12:00").toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" })}</span></span>${d <= 2 ? `<button class="btn sm" data-cram="${ex.id}">Cram</button>` : ""}<button class="btn ghost icon sm" data-exedit aria-label="Edit">${icon("edit")}</button></div>`; }).join("")}</div></div>` : ""}
+      ${exams.length ? `<div><div class="section-head"><h2>Exams</h2><button class="btn sm ghost" id="addExam">${icon("plus")}Add</button></div><div class="extiles">${exams.map(ex => { const d = daysUntil(ex); return `<div class="extile ${d <= 3 ? "soon" : ""}" data-exam="${ex.id}" role="button" tabindex="0"><div class="excount ${d <= 3 ? "soon" : ""}">${d <= 0 ? "<b>Today</b>" : `<b>${d}</b><small>day${d === 1 ? "" : "s"}</small>`}</div><div class="exinfo"><b>${esc(ex.name)}</b><span>${new Date(ex.date + "T12:00").toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" })}</span><div class="exact"><span class="btn sm">Prep</span>${d <= 2 ? `<button class="btn sm" data-cram="${ex.id}">Cram</button>` : ""}<button class="btn ghost icon sm" data-exedit aria-label="Edit exam">${icon("edit")}</button></div></div></div>`; }).join("")}</div></div>` : ""}
     </div>` : ""}
     <div class="section-head"><h2>Lab tools</h2>${!exams.length && decks.length ? `<button class="btn sm ghost" id="addExam">${icon("calendar")}Add an exam</button>` : ""}</div>
     ${toolsHtml()}
@@ -9308,6 +9351,135 @@ BADGES2.push(
 );
 /* track perfect target days */
 { const ph = planHtml; planHtml = function () { const h = ph(); if (/Today’s targets: done/.test(h)) { const d = dayKey(); const D = S.meta.daily = S.meta.daily || {}; D[d] = D[d] || {}; if (!D[d].targetsDone) { D[d].targetsDone = 1; saveMeta(); } } return h; }; }
+/* ===================== Critical call, rebuilt: learn the limits, then make the call ===================== */
+const CRIT_LIMITS = CRIT.map(c => `<tr><td>${esc(c.t)}</td><td>${c.crit[0] ? `&lt; ${c.crit[0]}` : "—"}</td><td>&gt; ${c.crit[1]}</td><td>${esc(c.u)}</td></tr>`).join("");
+const critTable = () => `<div class="crittable"><table><thead><tr><th>Test</th><th>Critical low</th><th>Critical high</th><th>Units</th></tr></thead><tbody>${CRIT_LIMITS}</tbody></table><p class="small">Typical teaching values. Your lab’s written critical value list always rules, and MLS exams expect you to know values like these.</p></div>`;
+function critCard(c, v, note, showLimits) {
+  return `<div class="critcard"><div class="crit-t">${escG(c.t)}</div><div class="bigval">${fmtN(v, c.dec)} <span>${esc(c.u)}</span></div><div class="crit-ref">Reference ${c.ref.join("–")} ${esc(c.u)}${showLimits ? ` · <b>Critical</b> ${c.crit[0] ? `&lt;${c.crit[0]} or ` : ""}&gt;${c.crit[1]}` : ""}</div>${note ? `<div class="crit-note"><b>Specimen note</b><p>${escG(note)}</p></div>` : `<div class="crit-note ok"><b>Specimen</b><p>Acceptable, labeled correctly.</p></div>`}</div>`;
+}
+function critScenario2() {
+  const c = rpick(CRIT); const r1 = v => +v.toFixed(c.dec);
+  const kinds = ["normal", "abnormal", "critical", "critical", "issue", "benign", "benigncrit"];
+  const kind = rpick(kinds);
+  const inRange = () => r1(c.ref[0] + Math.random() * (c.ref[1] - c.ref[0]));
+  const crit = () => { const hi = Math.random() < .5 || c.crit[0] === 0; return r1(hi ? c.crit[1] * (1.04 + Math.random() * .2) : c.crit[0] * (0.6 + Math.random() * .3)); };
+  const abn = () => { const hi = Math.random() < .5 || c.crit[0] === 0; return r1(hi ? c.ref[1] + (c.crit[1] - c.ref[1]) * (0.2 + Math.random() * .5) : c.ref[0] - (c.ref[0] - c.crit[0]) * (0.2 + Math.random() * .5)); };
+  const BENIGN = [["Slight hemolysis noted; this test isn’t affected at this level.", ["Sodium", "Glucose", "WBC", "Platelets", "INR", "Calcium"]], ["Delta check flag: the previous result was different, but the chart documents a transfusion and treatment since then.", null], ["Label double-checked against the requisition: everything matches.", null], ["Mild lipemia, cleared by high-speed centrifugation before testing.", ["Sodium", "Potassium", "Glucose", "Calcium"]]];
+  if (kind === "normal") return { c, v: inRange(), note: "", a: "Report", why: "Within the reference range, acceptable specimen: report it." };
+  if (kind === "abnormal") return { c, v: abn(), note: "", a: "Report", why: `Abnormal, but not past the critical limit (${c.crit[0] ? `<${c.crit[0]} or ` : ""}>${c.crit[1]}). It’s flagged and reported routinely.` };
+  if (kind === "critical") return { c, v: crit(), note: "", a: "Call critical", why: `Past the critical limit (${c.crit[0] ? `<${c.crit[0]} or ` : ""}>${c.crit[1]} ${c.u}). Call the provider now, get a read-back, and document who and when.` };
+  if (kind === "benign" || kind === "benigncrit") {
+    const ok = BENIGN.filter(([, tests]) => !tests || tests.includes(c.t)); const [note] = rpick(ok);
+    const v = kind === "benigncrit" ? crit() : (Math.random() < .5 ? inRange() : abn());
+    const a = kind === "benigncrit" ? "Call critical" : "Report";
+    return { c, v, note, a, why: `The note doesn’t make this specimen unacceptable. ${a === "Call critical" ? "The value is past the critical limit, so call it." : "The value isn’t critical, so report it."}` };
+  }
+  const iss = c.hemo ? rpick(["hemolyzed", "mislabeled", "delta", "qns"]) : c.tube ? rpick(["clotted", "mislabeled", "delta", "qns"]) : rpick(["mislabeled", "delta", "qns"]);
+  const v = iss === "hemolyzed" ? r1(c.crit[1] * (1.02 + Math.random() * .15)) : inRange();
+  const note = { hemolyzed: "Serum is visibly pink-red (hemolysis index high).", clotted: `Small clot found in the ${c.tube} tube.`, mislabeled: "The tube label’s date of birth doesn’t match the requisition.", delta: `Yesterday’s ${c.t.toLowerCase()} was very different, with no transfusion or treatment documented.`, qns: `Quantity not sufficient: the ${c.tube || "tube"} is badly underfilled.` }[iss];
+  const why = { hemolyzed: "Gross hemolysis releases potassium from red cells, so the high result is likely false. Recollect; don’t call it.", clotted: "A clot makes counts and clotting times unreliable. Reject and recollect.", mislabeled: "Never fix a label. Reject and recollect.", delta: "A big unexplained change suggests a wrong-patient sample. Investigate and recollect before reporting.", qns: "Too little specimen (or the wrong blood-to-additive ratio) gives unreliable results. Recollect." }[iss];
+  return { c, v, note, a: "Recollect", why };
+}
+startCritical = function () {
+  const ACTS = ["Report", "Call critical", "Recollect"];
+  leveledGame("critical", "Critical call", ["Know the limits", "Bench calls", "From memory"], [
+    `Learn the critical limits first. ${critTable()}`,
+    "Results land on your bench with specimen notes. Some notes matter, some don’t. Critical limits are shown on each result.",
+    "The real bench: only the reference range is shown. You need the critical limits in your head."
+  ], [
+    done => mcRounds(Array.from({ length: 10 }, () => { const c = rpick(CRIT); const r1 = v => +v.toFixed(c.dec); const isC = Math.random() < .5; const hi = Math.random() < .5 || c.crit[0] === 0; const v = isC ? r1(hi ? c.crit[1] * (1.04 + Math.random() * .2) : c.crit[0] * (0.6 + Math.random() * .3)) : r1(hi ? c.ref[1] + (c.crit[1] - c.ref[1]) * (0.3 + Math.random() * .5) : c.ref[0] - (c.ref[0] - c.crit[0]) * (0.3 + Math.random() * .5)); return { kicker: "Is it critical?", html: `<div class="critcard"><div class="crit-t">${escG(c.t)}</div><div class="bigval">${fmtN(v, c.dec)} <span>${esc(c.u)}</span></div></div>`, opts: ["Critical: call it", "Not critical"], keep: true, a: isC ? "Critical: call it" : "Not critical", why: `${c.t} critical limits: ${c.crit[0] ? `below ${c.crit[0]} or ` : ""}above ${c.crit[1]} ${c.u}.`, game: "critical", mq: `${c.t} ${fmtN(v, c.dec)} ${c.u}: critical?` }; }), "Critical call", done, 10),
+    done => mcRounds(Array.from({ length: 12 }, () => { const s = critScenario2(); return { kicker: "Result on your bench", html: critCard(s.c, s.v, s.note, true), q: "Your call:", opts: ACTS, keep: true, a: s.a, why: s.why, mq: `${s.c.t} ${fmtN(s.v, s.c.dec)} ${s.c.u}${s.note ? ". " + s.note : ""}`, game: "critical" }; }), "Critical call", done, 12),
+    done => mcRounds(Array.from({ length: 12 }, () => { const s = critScenario2(); return { kicker: "Result on your bench", html: critCard(s.c, s.v, s.note, false), q: "Your call:", opts: ACTS, keep: true, a: s.a, why: s.why + ` (Critical: ${s.c.crit[0] ? `<${s.c.crit[0]} or ` : ""}>${s.c.crit[1]} ${s.c.u}.)`, mq: `${s.c.t} ${fmtN(s.v, s.c.dec)} ${s.c.u}${s.note ? ". " + s.note : ""}`, game: "critical" }; }), "Critical call", done, 12)
+  ]);
+};
+GAME_OPEN.critical = ["Critical call", () => startCritical()];
+
+/* ===================== ID flowcharts, rebuilt as a real game ===================== */
+const FLOW_ORGS = () => Object.entries(FLOWS).flatMap(([fid, fl]) => Object.entries(fl.leaves).filter(([, v]) => v[2]).map(([lk, v]) => ({ fid, fl, lk, name: v[0], hint: v[1] })));
+const GRAM_OF = { gpc: null, gnr: "Gram-negative rods" };
+function startFlowGame() {
+  const orgs = FLOW_ORGS();
+  const gramCat = o => o.fid === "gnr" ? "Gram-negative rods" : (GRAM.find(g => norm(g[0]).startsWith(norm(o.name).split(" ").slice(0, 2).join(" ")))?.[1]) || (/staph/i.test(o.name) ? "Gram-positive cocci in clusters" : "Gram-positive cocci in chains or pairs");
+  leveledGame("flow", "ID flowcharts", ["Gram stain first", "Walk the chart", "Fill the table", "Name the unknown"], [
+    "Every ID starts with the Gram stain. Sort each organism into its Gram stain group. <button class='btn sm ghost' id='studyFlow'>Study the charts first</button>",
+    "Walk each organism down its flowchart: pick the result it gives at every test. One wrong step and you see the right path.",
+    "Given the organism, fill in its whole reaction table at once.",
+    "You get an unknown’s test results. Name the organism."
+  ], [
+    done => { const cats = [...new Set(GRAM.map(g => g[1]))]; mcRounds(shuffle(orgs).slice(0, 10).map(o => { const a = gramCat(o); return { kicker: "Gram stain", q: `How does ${o.name} look on Gram stain?`, opts: [a, ...pick(cats.filter(c => c !== a), 3)], a, why: o.hint, game: "flow" }; }), "ID flowcharts", done, 10); },
+    done => {
+      const list = shuffle(orgs).slice(0, 6); let oi = 0, score = 0; const sc = makeScorer("flow"); LAST_PTS = null;
+      const nextOrg = () => {
+        if (oi >= list.length) { LAST_PTS = sc.save(); return done(score, list.length, list.length); }
+        const o = list[oi], path = flowPath(o.fl, o.lk); let si = 0, clean = true; sc.start();
+        const step = msg => {
+          setProg(oi / list.length); ST.right.innerHTML = `${sc.chip()}<span class="small muted">${oi + 1}/${list.length}</span>`;
+          const done1 = si >= path.length;
+          const n = done1 ? null : o.fl.nodes[path[si].node];
+          ST.stage.innerHTML = `<div class="qcard"><div class="kicker">${esc(o.fl.name)} · walk the chart</div><div class="qtext">${esc(o.name)}</div>
+            <div class="trail">${path.slice(0, si).map(p => `<span class="tstep">${escG(o.fl.nodes[p.node].q)}: <b>${escG(p.label)}</b></span>`).join("")}${done1 ? `<span class="tstep end">→ ${esc(o.name)}</span>` : ""}</div></div>
+            ${done1 ? "" : `<p class="lbl" style="margin:0">${escG(n.q)}?</p><div class="opts two" id="opts">${n.opts.map(([lab], k) => `<button class="opt" data-k="${k}"><span class="k">${k + 1}</span><span>${escG(lab)}</span></button>`).join("")}</div>`}<div id="fb">${msg || ""}</div>`;
+          if (done1) { const p = sc.hit(clean); if (clean) score++; $("#fb").innerHTML = `<div class="feedback ${clean ? "ok" : "no"}"><div style="flex:1">${clean ? `Clean walk · +${p}` : "Path complete, with a correction"}<span class="det">${escG(o.hint)}</span></div></div><div class="row" style="margin-top:10px"><div class="spacer"></div><button class="btn primary" id="nx">Next organism</button></div>`; $("#nx").onclick = () => { oi++; nextOrg(); }; return; }
+          $$("#opts .opt").forEach(b => b.onclick = () => { const k = +b.dataset.k; const ok = n.opts[k][0] === path[si].label; if (!ok) { clean = false; logMistake({ src: "ID flowcharts", game: "flow", q: `${o.name}: ${n.q}`, yours: n.opts[k][0], right: path[si].label }); } si++; step(ok ? "" : `<div class="feedback no"><div style="flex:1">${esc(o.name)} is <b>${escG(path[si - 1].label)}</b> for ${escG(n.q)}.<span class="det">${escG(n.hint || "")}</span></div></div>`); });
+          ST.onKey = e => { if (/^[1-4]$/.test(e.key)) $$("#opts .opt")[+e.key - 1]?.click(); else if (e.key === "Enter") $("#nx")?.click(); };
+        };
+        step();
+      };
+      nextOrg();
+    },
+    done => {
+      const list = shuffle(orgs).slice(0, 6); let oi = 0, score = 0; const sc = makeScorer("flow"); LAST_PTS = null;
+      const nextOrg = () => {
+        if (oi >= list.length) { LAST_PTS = sc.save(); return done(score, list.length, list.length); }
+        const o = list[oi], path = flowPath(o.fl, o.lk), picks = {}; sc.start();
+        setProg(oi / list.length); ST.right.innerHTML = `${sc.chip()}<span class="small muted">${oi + 1}/${list.length}</span>`;
+        ST.stage.innerHTML = `<div class="qcard"><div class="kicker">${esc(o.fl.name)} · reaction table</div><div class="qtext">${esc(o.name)}</div></div>
+          <div class="rtable">${path.map((p, k) => { const n = o.fl.nodes[p.node]; return `<div class="rrow" data-r="${k}"><div class="rtest">${escG(n.q)}</div><div class="seg">${n.opts.map(([lab], j) => `<button data-j="${j}">${escG(lab)}</button>`).join("")}</div><div class="rfb"></div></div>`; }).join("")}</div>
+          <div class="row"><div class="spacer"></div><button class="btn primary" id="chk">Check table</button></div>`;
+        $$(".rrow").forEach(row => $$("button", row).forEach(b => b.onclick = () => { if (row.dataset.done) return; picks[row.dataset.r] = +b.dataset.j; $$("button", row).forEach(x => x.classList.toggle("on", x === b)); }));
+        $("#chk").onclick = () => {
+          if (Object.keys(picks).length < path.length) { toast("Pick a result for every test"); return; }
+          let all = true; path.forEach((p, k) => { const n = o.fl.nodes[p.node]; const row = $(`.rrow[data-r="${k}"]`); row.dataset.done = 1; const ok = n.opts[picks[k]][0] === p.label; if (!ok) all = false; row.classList.add(ok ? "right" : "wrong"); $(".rfb", row).innerHTML = ok ? "✓" : `Answer: ${escG(p.label)}`; });
+          const p = sc.hit(all); if (all) score++; else logMistake({ src: "ID flowcharts", game: "flow", q: `Reaction table for ${o.name}`, yours: "incomplete", right: path.map(x => x.label).join(", ") });
+          $("#chk").outerHTML = `<button class="btn primary" id="nx">${all ? `Correct · +${p} · ` : ""}Next organism</button>`; $("#nx").onclick = () => { oi++; nextOrg(); };
+        };
+      };
+      nextOrg();
+    },
+    done => mcRounds(shuffle(orgs).slice(0, 10).map(o => { const path = flowPath(o.fl, o.lk); const same = orgs.filter(x => x.fid === o.fid && x.name !== o.name).map(x => x.name); return { kicker: `${o.fl.name} unknown`, html: `<div class="clues">${path.map(p => `<div class="clue"><b>${escG(o.fl.nodes[p.node].q)}</b><span>${escG(p.label)}</span></div>`).join("")}</div>`, q: "Name the organism", opts: [o.name, ...pick(same, 3)], a: o.name, why: o.hint, game: "flow", mq: `Unknown: ${path.map(p => o.fl.nodes[p.node].q + " " + p.label).join("; ")}` }; }), "ID flowcharts", done, 10)
+  ]);
+  setTimeout(() => { const b = $("#studyFlow"); if (b) b.onclick = () => startFlow("gpc"); }, 0);
+}
+GAME_META.flow = ["🧭", "Gram stain first, then walk the charts to an ID"];
+GAME_NAMES.flow = "ID flowcharts"; GAME_OPEN.flow = ["ID flowcharts", () => startFlowGame()];
+TOOL_FN.flowBtn = () => gated("flow", "ID flowcharts", startFlowGame)();
+TOOL_FN.critBtn = () => gated("critical", "Critical call", startCritical)();
+{ const rh = renderHome; renderHome = function (decks) { rh(decks); const fb = $("#flowBtn"); if (fb) fb.onclick = TOOL_FN.flowBtn; const cb = $("#critBtn"); if (cb) cb.onclick = TOOL_FN.critBtn; }; }
+
+/* ===================== Lives no longer wipe your score ===================== */
+{
+  const mc = mcRounds;
+  mcRounds = function (items, label, onEnd, need) {
+    let right = 0; const its = items.slice();
+    const obs = new MutationObserver(() => { const ok = $("#fb .feedback.ok"); if (ok && !ok.dataset.c) { ok.dataset.c = 1; right++; } const nx = $("#nx"); if (nx && nx.textContent === "Out of lives" && !nx.dataset.fixed) { nx.dataset.fixed = 1; nx.onclick = () => { LAST_PTS = null; onEnd(right, its.length, its.length); }; } });
+    if (ST && ST.stage) obs.observe(ST.stage, { childList: true, subtree: true });
+    return mc(its, label, (s, t, n) => { obs.disconnect(); onEnd(s, t, n); }, need);
+  };
+}
+
+/* ===================== Play: unlocked games first ===================== */
+const playSorted = list => list.slice().sort((a, b) => (a[3] && !gameUnlocked(a[3]) ? 1 : 0) - (b[3] && !gameUnlocked(b[3]) ? 1 : 0));
+{ const ot = ORDERED_TOOLS; ORDERED_TOOLS = function () { const o = ot(); return { ...o, play: playSorted(o.play) }; }; }
+
+/* ===================== Relock a game you unlocked early ===================== */
+{ const gh = gameHero; gameHero = function (id, title, nLv) { const h = gh(id, title, nLv); const ov = (S.meta.gameOverride || {})[id] && (GAME_REQ[id] || []).length && prepOn(); return ov ? h.replace(/<\/div><\/div>$/, `<button class="relock" data-relock="${id}">Relock until its lesson</button></div></div>`) : h; }; }
+document.addEventListener("click", e => { const b = e.target.closest("[data-relock]"); if (!b) return; const id = b.dataset.relock; delete (S.meta.gameOverride || {})[id]; saveMeta(); toast("Game relocked until you pass its lesson"); closeStudy(true); render(); });
+
+/* ===================== Targets: an honest reviews bar ===================== */
+{ const pv = planView; planView = function (it) { const v = pv(it); if (v && it.id === "review") { const k = dayKey(); const rev = (S.meta.history || {})[k] || 0; let due = 0; Object.values(S.decks).forEach(d => due += deckCounts(d).due); v.prog = rev + due ? rev / (rev + due) : 1; } return v; }; }
+
+/* ===================== Journal: never show a picture question without its picture ===================== */
+journalVisible = function () { return (S.meta.journal || []).filter(x => !x.watch && !(x.q === "Image question" && !x.img)); };
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));

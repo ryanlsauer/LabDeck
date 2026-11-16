@@ -1,6 +1,6 @@
 // LabDeck service worker: always tries the network first so updates show up,
 // and falls back to the saved copy when you're offline. Your data is never stored here.
-const CACHE = "labdeck-shell-v18";
+const CACHE = "labdeck-shell-v19";
 self.addEventListener("install", e => { self.skipWaiting(); e.waitUntil(caches.open(CACHE).then(c => c.addAll(["./", "./index.html", "./manifest.webmanifest", "./icon-192.png"]).catch(() => {}))); });
 self.addEventListener("activate", e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())); });
 self.addEventListener("fetch", e => {
