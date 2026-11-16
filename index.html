@@ -1633,7 +1633,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "20.0";
+const APP_VERSION = "20.1";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -1794,7 +1794,9 @@ function mergeRemote(r) {
   m.stats = m.stats || {}; for (const [k, v] of Object.entries(rm.stats || {})) if ((m.stats[k] || 0) < v) m.stats[k] = v;
   m.games = m.games || {}; for (const [k, v] of Object.entries(rm.games || {})) { const c = m.games[k]; if (!c || (v.level || 0) > (c.level || 0)) m.games[k] = v; }
   { const ids = new Set((m.rotlog || []).map(x => x.id)); m.rotlog = [...(m.rotlog || []), ...(rm.rotlog || []).filter(x => !ids.has(x.id))]; }
-  m.gameOverride = Object.assign({}, rm.gameOverride || {}, m.gameOverride || {});
+  { const L = m.gameOverride || {}, R = rm.gameOverride || {}, ts = v => (v && typeof v === "object" ? v.t || 0 : 0), out = {};
+    for (const k of new Set([...Object.keys(L), ...Object.keys(R)])) { const a = L[k], b = R[k]; out[k] = a == null ? b : b == null ? a : ts(b) > ts(a) ? b : a; }
+    if (JSON.stringify(out) !== JSON.stringify(L)) changed = true; m.gameOverride = out; }
   m.daily = m.daily || {}; for (const [d, v] of Object.entries(rm.daily || {})) { const c = m.daily[d] = m.daily[d] || {}; for (const [k, n] of Object.entries(v)) if ((c[k] || 0) < n) c[k] = n; }
   m.lm = m.lm || {}; for (const [dk, v] of Object.entries(rm.lm || {})) { const c = m.lm[dk] = m.lm[dk] || {}; for (const [k, n] of Object.entries(v)) if ((c[k] || 0) < n) c[k] = n; }
   m.badges = m.badges || {}; for (const [k, v] of Object.entries(rm.badges || {})) if (!m.badges[k]) m.badges[k] = v;
@@ -6876,10 +6878,13 @@ const GAME_REQ = {
   tubes: ["b-collect", "l-collect"], smear: ["b-heme1", "l-wbc"], bench: ["b-gpc", "b-gnr", "l-gpc", "l-gnr"], gram: ["b-micro1", "l-micro"],
   westgard: ["b-qc", "l-qc"], critical: ["b-ref", "b-orient", "l-ref"], flow: ["b-gpc", "l-gpc"], lookalike: [], mixed: []
 };
+function ovOn(id) { const v = (S.meta.gameOverride || {})[id]; return v === 1 || v === true || !!(v && typeof v === "object" && v.on); }
+function setOverride(id, on) { S.meta.gameOverride = S.meta.gameOverride || {}; S.meta.gameOverride[id] = { on: !!on, t: Date.now() }; saveMeta(true); }
+function reqPassed(id) { return (GAME_REQ[id] || []).some(lid => { const l = LESSONS.find(x => x.id === lid); return l && lessonState(l).passed; }); }
 function gameUnlocked(id) {
   if (!prepOn()) return true;
   const req = GAME_REQ[id] || []; if (!req.length) return true;
-  if ((S.meta.gameOverride || {})[id]) return true;
+  if (ovOn(id)) return true;
   return req.some(lid => { const l = LESSONS.find(x => x.id === lid); return l && lessonState(l).passed; });
 }
 function gameLockedScreen(id, name, start) {
@@ -6889,7 +6894,7 @@ function gameLockedScreen(id, name, start) {
     <div class="linkrow" style="justify-content:center">${req.map(l => `<button class="chipbtn" data-les="${l.id}">${esc(l.title)}</button>`).join("")}</div>
     <button class="btn ghost sm" id="anyway" style="margin-top:12px">Unlock anyway</button></div>`;
   $$("[data-les]").forEach(b => b.onclick = () => startLesson(LESSONS.find(l => l.id === b.dataset.les)));
-  $("#anyway").onclick = () => { S.meta.gameOverride = S.meta.gameOverride || {}; S.meta.gameOverride[id] = 1; saveMeta(); start(); };
+  $("#anyway").onclick = () => { setOverride(id, true); start(); };
 }
 const gated = (id, name, fn) => () => gameUnlocked(id) ? fn() : gameLockedScreen(id, name, fn);
 function levelTabs(levels, cur, unlocked) {
@@ -9531,8 +9536,8 @@ const playSorted = list => list.slice().sort((a, b) => (a[3] && !gameUnlocked(a[
 { const ot = ORDERED_TOOLS; ORDERED_TOOLS = function () { const o = ot(); return { ...o, play: playSorted(o.play) }; }; }
 
 /* ===================== Relock a game you unlocked early ===================== */
-{ const gh = gameHero; gameHero = function (id, title, nLv) { const h = gh(id, title, nLv); const ov = (S.meta.gameOverride || {})[id] && (GAME_REQ[id] || []).length && prepOn(); return ov ? h.replace(/<\/div><\/div>$/, `<button class="relock" data-relock="${id}">Relock until its lesson</button></div></div>`) : h; }; }
-document.addEventListener("click", e => { const b = e.target.closest("[data-relock]"); if (!b) return; const id = b.dataset.relock; delete (S.meta.gameOverride || {})[id]; saveMeta(); toast("Game relocked until you pass its lesson"); closeStudy(true); render(); });
+{ const gh = gameHero; gameHero = function (id, title, nLv) { const h = gh(id, title, nLv); const ov = ovOn(id) && (GAME_REQ[id] || []).length && prepOn() && !reqPassed(id); return ov ? h.replace(/<\/div><\/div>$/, `<button class="relock" data-relock="${id}">Relock until its lesson</button></div></div>`) : h; }; }
+document.addEventListener("click", e => { const b = e.target.closest("[data-relock]"); if (!b) return; const id = b.dataset.relock; setOverride(id, false); toast(`${GAME_NAMES[id] || "Game"} relocked until you pass its lesson`); if (ST && ST.el) closeStudy(true); render(); });
 
 /* ===================== Targets: an honest reviews bar ===================== */
 { const pv = planView; planView = function (it) { const v = pv(it); if (v && it.id === "review") { const k = dayKey(); const rev = (S.meta.history || {})[k] || 0; let due = 0; Object.values(S.decks).forEach(d => due += deckCounts(d).due); v.prog = rev + due ? rev / (rev + due) : 1; } return v; }; }
@@ -9668,6 +9673,14 @@ startListen = function (deck) {
 BADGES2.push({ id: "listen10", cat: "s", e: "🎧", name: "Commuter", desc: "Finish 10 listening sessions", target: 10, cur: () => sv("listens") });
 
 { const cs = closeStudy; closeStudy = function (...a) { try { speechSynthesis.cancel(); } catch { } return cs.apply(this, a); }; }
+/* ===================== Settings: games you unlocked early ===================== */
+{ const rs = renderSettings; renderSettings = function (...a) { const out = rs.apply(this, a);
+    const early = Object.keys(GAME_NAMES).filter(id => ovOn(id) && (GAME_REQ[id] || []).length && !reqPassed(id));
+    const host = $("#view .panel:last-of-type");
+    if (early.length && host) { host.insertAdjacentHTML("afterend", `<div class="panel" id="earlyGames"><h3 style="margin-bottom:4px">Games you unlocked early</h3><p class="small muted" style="margin-bottom:10px">Relock a game until you pass the lesson that teaches it.</p><div class="list">${early.map(id => `<div class="listrow" style="cursor:default"><span style="flex:1">${esc(GAME_NAMES[id])}</span><button class="btn sm" data-relock="${id}">Relock</button></div>`).join("")}</div></div>`); }
+    return out; }; }
+/* migrate old “1” unlock flags so sync can compare them */
+{ const om = migrateJournal; migrateJournal = function () { om(); const G = S.meta.gameOverride || {}; let ch = false; for (const k of Object.keys(G)) if (G[k] === 1 || G[k] === true) { G[k] = { on: true, t: 1 }; ch = true; } if (ch) saveMeta(); }; }
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
