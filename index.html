@@ -1547,6 +1547,11 @@ h3{font-size:1.06rem}
 :root[data-theme="dark"] .tag.good{background:#173229;color:#7FE0BF}
 :root[data-theme="dark"] .tag.bad{background:#3A1F25;color:#FF8C9C}
 :root[data-theme="dark"] .crittable td:nth-child(2),:root[data-theme="dark"] .crittable td:nth-child(3){color:#F2C35B}
+/* exam tiles: whole tile opens prep; small edit pencil top-right */
+.extile{position:relative;padding-right:34px}
+.exedit{position:absolute;top:6px;right:6px;width:26px;height:26px;border-radius:6px;border:0;background:transparent;color:var(--ink-3);display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.exedit:hover{background:var(--btn-hover);color:var(--ink)}
+.exedit svg{width:13px;height:13px}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -1633,7 +1638,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "20.1";
+const APP_VERSION = "20.3";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -1909,7 +1914,7 @@ function nextState(st, g) {
   const s = st ? { ...st } : { i: 0, e: 2.5, r: 0, l: 0, c: 0, w: 0 };
   const now = Date.now();
   s.s = now;
-  if (g === 1) { if (s.r > 0) s.l++; s.r = 0; s.i = 0; s.e = Math.max(1.3, s.e - 0.2); s.d = now + 60000; s.w++; return { s, requeue: true }; }
+  if (g === 1) { if (s.r > 0) s.l++; s.r = 0; s.i = 0; s.e = Math.max(1.3, s.e - 0.2); { const t = new Date(now + DAY); t.setHours(4, 0, 0, 0); s.d = t.getTime(); } s.w++; return { s, requeue: true }; }
   s.c++;
   if (s.r === 0) s.i = g === 2 ? 1 : g === 3 ? 1 : 4;
   else if (g === 2) { s.i = Math.max(1, s.i * 1.2); s.e = Math.max(1.3, s.e - 0.15); }
@@ -2430,8 +2435,8 @@ function editCardModal(d, card, after) {
       $("#imgIn", s) && ($("#imgIn", s).onchange = async e => { const f = e.target.files[0]; if (!f) return; sync(); try { const url = await fileToImage(f); const id = uid(); saveImage(id, url); c.img = id; rer(); } catch { toast("That image couldn’t be read. Try a JPEG or PNG."); } });
       $("#wrap", s) && ($("#wrap", s).onclick = () => { const t = $("#cz", s); const a = t.selectionStart, b = t.selectionEnd; if (a === b) { toast("Select a word in the sentence first"); return; } t.value = t.value.slice(0, a) + "{{" + t.value.slice(a, b) + "}}" + t.value.slice(b); t.focus(); });
       $("#toSettings", s) && ($("#toSettings", s).onclick = () => { close(); editDeckModal(d); });
-      $("#saveC", s).onclick = () => { if (commit()) { close(); after ? after() : renderDeck(d); toast(isNew ? "Card added" : "Card saved"); } };
-      $("#saveMore", s) && ($("#saveMore", s).onclick = () => { if (commit()) { close(); renderDeck(d); editCardModal(d); toast("Card added"); } });
+      $("#saveC", s).onclick = () => { if (commit()) { close(); after ? after() : renderDeck(d); if (!(after && isNew)) toast(isNew ? "Card added" : "Card saved"); } };
+      $("#saveMore", s) && ($("#saveMore", s).onclick = () => { if (commit()) { close(); after ? after() : renderDeck(d); editCardModal(d, null, after); if (!after) toast("Card added"); } });
       $$("textarea[data-f]", s).forEach(t => { const fit = () => { t.style.height = "auto"; t.style.height = t.scrollHeight + 2 + "px"; }; t.oninput = fit; fit(); });
     };
     bind();
@@ -2876,11 +2881,13 @@ function startLearn(deck, opts = {}) {
     $("#dn").onclick = () => closeStudy();
     return;
   }
-  const total = queue.length; let doneN = 0, i = 0, flipped = false, again = 0, good = 0;
-  const seenNew = new Set(); const undo = [];
+  let total = queue.length; let doneN = 0, i = 0, flipped = false, again = 0, good = 0;
+  const seenNew = new Set(); const undo = []; let SESS = {};
   function topRight() {
-    ST.right.innerHTML = `<button class="btn ghost icon sm star ${(queue[i] && queue[i].card.star) ? "on" : ""}" id="sBtn" aria-label="Star this card">${icon("star")}</button><button class="btn ghost icon sm" id="uBtn" aria-label="Undo last grade" ${undo.length ? "" : "disabled"}>${icon("undo")}</button><button class="btn ghost icon sm" id="eBtn" aria-label="Edit this card">${icon("edit")}</button><span class="small muted">${total - doneN} left</span>`;
-    $("#uBtn").onclick = doUndo; $("#eBtn").onclick = editCurrent; $("#sBtn").onclick = () => { const f = queue[i]; if (!f) return; f.card.star = !f.card.star; saveDeck(f.deck); topRight(); toast(f.card.star ? "Starred" : "Unstarred"); };
+    ST.right.innerHTML = `<button class="btn ghost icon sm star ${(queue[i] && queue[i].card.star) ? "on" : ""}" id="sBtn" aria-label="Star this card">${icon("star")}</button><button class="btn ghost icon sm" id="uBtn" aria-label="Undo last grade" ${undo.length ? "" : "disabled"}>${icon("undo")}</button><button class="btn ghost icon sm" id="eBtn" aria-label="Edit this card" title="Edit this card">${icon("edit")}</button><button class="btn ghost icon sm" id="nBtn" aria-label="New card in this deck" title="New card in this deck">${icon("plus")}</button><span class="small muted">${total - doneN} left</span>`;
+    $("#uBtn").onclick = doUndo; $("#eBtn").onclick = editCurrent;
+    $("#nBtn").onclick = () => { const cur = queue[i] || queue[queue.length - 1]; if (!cur) return; const d = cur.deck; const before = new Set(d.cards.map(c => c.id));
+      editCardModal(d, null, () => { const fresh = factsOf(d).filter(f => !before.has(f.card.id)); d.cards.forEach(c => before.add(c.id)); if (fresh.length && !opts.browse) { queue.push(...fresh); total += fresh.length; } topRight(); toast(`Card added to ${d.name}${fresh.length && !opts.browse ? ". It’s at the end of this session." : ""}`); }); }; $("#sBtn").onclick = () => { const f = queue[i]; if (!f) return; f.card.star = !f.card.star; saveDeck(f.deck); topRight(); toast(f.card.star ? "Starred" : "Unstarred"); };
   }
   function show() {
     if (i >= queue.length) return finish();
@@ -2895,7 +2902,7 @@ function startLearn(deck, opts = {}) {
     if (flipped) return; flipped = true;
     const f = queue[i], st = stOf(f);
     $("#fc").classList.add("on");
-    $("#ctl").innerHTML = `<div class="grades">${[[1, "Again"], [2, "Hard"], [3, "Good"], [4, "Easy"]].map(([g, l]) => `<button class="g${g}" data-g="${g}"><b>${l}</b><kbd>${g}</kbd></button>`).join("")}</div>
+    $("#ctl").innerHTML = `<div class="grades">${[[1, "Again"], [2, "Hard"], [3, "Good"], [4, "Easy"]].map(([g, l]) => `<button class="g${g}" data-g="${g}" title="${{ 1: "Didn’t know it: back in 3 cards, then needs two good answers. Due again tomorrow.", 2: "Got it, but struggled: comes back once more this session. Small step forward.", 3: "Right, but not quick yet: done for today. Normal spacing.", 4: "Came instantly: done for today. Big step forward, and counts toward mastery." }[g]}"><b>${l}</b><kbd>${g}</kbd></button>`).join("")}</div>
       <div class="row" style="justify-content:center;margin-top:10px"><button class="btn sm ghost" id="whyB">${icon("brain")}Why?</button>${f.deck.pack && lessonsForPack(f.deck.pack).length ? `<button class="btn sm ghost" id="teach">${icon("book")}Teach me this</button>` : ""}</div>
       <p class="tap-hint" style="margin-top:8px">Easy three times in a row = mastered</p>`;
     $("#whyB").onclick = () => whyModal(f);
@@ -2905,18 +2912,26 @@ function startLearn(deck, opts = {}) {
   function grade(g) {
     const f = queue[i];
     const prev = (S.srs[f.deck.id] || {})[f.key];
-    undo.push({ queue: queue.slice(), i, doneN, again, good, deckId: f.deck.id, key: f.key, prev: prev ? { ...prev } : null, hist: S.meta.history[dayKey()] || 0, newDay: S.meta.newDay, newCount: S.meta.newCount, seen: seenNew.has(f.key) });
+    undo.push({ queue: queue.slice(), i, doneN, again, good, deckId: f.deck.id, key: f.key, prev: prev ? { ...prev } : null, hist: S.meta.history[dayKey()] || 0, newDay: S.meta.newDay, newCount: S.meta.newCount, seen: seenNew.has(f.key), sess: JSON.stringify(SESS) });
     if (undo.length > 30) undo.shift();
     const wasNew = !prev && !seenNew.has(f.key);
-    let requeue;
-    if (opts.cram || opts.browse) { requeue = g <= 2; recordQuiz(f, g > 2); }
-    else { requeue = recordReview(f.deck.id, f.key, g, wasNew); if (wasNew) seenNew.add(f.key); if (g === 1 && (stOf(f) || {}).l === 4) setTimeout(() => toast("That one’s a leech. Find it under Leeches in the deck to rewrite it."), 400); }
+    /* session rules: Again = back in 3 cards, then two good answers to clear; Hard = once more ~8 cards later; Good/Easy = done.
+       Only the first rating of a card in a session sets its schedule; repeats are practice. */
+    const sq = SESS[f.key] = SESS[f.key] || { first: true, owe: 0 };
+    if (opts.cram || opts.browse) recordQuiz(f, g > 2);
+    else if (sq.first) { recordReview(f.deck.id, f.key, g, wasNew); if (wasNew) seenNew.add(f.key); if (g === 1 && (stOf(f) || {}).l === 4) setTimeout(() => toast("That one’s a leech. Find it under Leeches in the deck to rewrite it."), 400); }
+    else recordQuiz(f, g > 2);
+    sq.first = false;
+    let back = 0;
+    if (g === 1) { sq.owe = 2; back = 3; }
+    else if (g === 2) { sq.owe = Math.max(sq.owe, 1); back = 8; }
+    else if (sq.owe > 0) { sq.owe--; if (sq.owe > 0) back = 10; }
     if (g === 1) again++; else good++;
-    if (requeue) queue.splice(Math.min(queue.length, i + 4), 0, f); else doneN++;
+    if (back) queue.splice(Math.min(queue.length, i + 1 + back), 0, f); else doneN++;
     i++; show();
   }
   function doUndo() {
-    const u = undo.pop(); if (!u) return;
+    const u = undo.pop(); if (!u) return; if (u.sess) SESS = JSON.parse(u.sess);
     queue = u.queue; i = u.i; doneN = u.doneN; again = u.again; good = u.good;
     S.srs[u.deckId] = S.srs[u.deckId] || {};
     if (u.prev) S.srs[u.deckId][u.key] = u.prev; else delete S.srs[u.deckId][u.key];
@@ -7843,7 +7858,7 @@ renderHome = function (decks) {
     ${weak ? `<button class="linkbtn" id="weakBtn" style="margin:4px 0 0">${plural(weak, "weak spot")} to drill →</button>` : ""}
     ${lect.length || exams.length ? `<div class="twocol">
       ${lect.length ? `<div><div class="section-head"><h2>Lectures</h2></div><div class="list">${lect.map(x => `<button class="listrow" data-lect="${x.ci}|${x.ui}"><span class="when">${x.when}</span><span style="flex:1;min-width:0"><b>${esc(x.u.name)}</b><br><span class="small muted">${esc(x.c.code)}${x.u.ch ? " · " + esc(x.u.ch) : ""}</span></span></button>`).join("")}</div></div>` : ""}
-      ${exams.length ? `<div><div class="section-head"><h2>Exams</h2><button class="btn sm ghost" id="addExam">${icon("plus")}Add</button></div><div class="extiles">${exams.map(ex => { const d = daysUntil(ex); return `<div class="extile ${d <= 3 ? "soon" : ""}" data-exam="${ex.id}" role="button" tabindex="0"><div class="excount ${d <= 3 ? "soon" : ""}">${d <= 0 ? "<b>Today</b>" : `<b>${d}</b><small>day${d === 1 ? "" : "s"}</small>`}</div><div class="exinfo"><b>${esc(ex.name)}</b><span>${new Date(ex.date + "T12:00").toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" })}</span><div class="exact"><span class="btn sm">Prep</span>${d <= 2 ? `<button class="btn sm" data-cram="${ex.id}">Cram</button>` : ""}<button class="btn ghost icon sm" data-exedit aria-label="Edit exam">${icon("edit")}</button></div></div></div>`; }).join("")}</div></div>` : ""}
+      ${exams.length ? `<div><div class="section-head"><h2>Exams</h2><button class="btn sm ghost" id="addExam">${icon("plus")}Add</button></div><div class="extiles">${exams.map(ex => { const d = daysUntil(ex); return `<div class="extile ${d <= 3 ? "soon" : ""}" data-exam="${ex.id}" role="button" tabindex="0"><div class="excount ${d <= 3 ? "soon" : ""}">${d <= 0 ? "<b>Today</b>" : `<b>${d}</b><small>day${d === 1 ? "" : "s"}</small>`}</div><div class="exinfo"><b>${esc(ex.name)}</b><span>${new Date(ex.date + "T12:00").toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" })}</span>${d <= 2 ? `<div class="exact"><button class="btn sm" data-cram="${ex.id}">Cram</button></div>` : ""}</div><button class="exedit" data-exedit aria-label="Edit ${esc(ex.name)}" title="Edit exam">${icon("edit")}</button></div>`; }).join("")}</div></div>` : ""}
     </div>` : ""}
     <div class="section-head"><h2>Lab tools</h2>${!exams.length && decks.length ? `<button class="btn sm ghost" id="addExam">${icon("calendar")}Add an exam</button>` : ""}</div>
     ${toolsHtml()}
@@ -9088,7 +9103,7 @@ function startLearnMode(d) {
     const total = () => q.length;
     const next = () => {
       if (i >= q.length) return roundEnd(batch, missed);
-      setProg(i / total()); ST.right.innerHTML = `<span class="small muted">${q.length - i} left in this round</span>`;
+      setProg(i / total()); ST.right.innerHTML = `<button class="btn ghost icon sm" id="lmNew" aria-label="New card in this deck" title="New card in this deck">${icon("plus")}</button><span class="small muted">${q.length - i} left in this round</span>`; $("#lmNew").onclick = () => { const before = new Set(d.cards.map(c => c.id)); editCardModal(d, null, () => { const fresh = lmFacts(d).filter(f => !before.has(f.card.id)); d.cards.forEach(c => before.add(c.id)); all.push(...fresh); toast(`Card added to ${d.name}. You’ll learn it in a coming round.`); }); };
       const it = q[i], f = it.f, stage = st[f.key] || 0;
       if (stage === 0 && !seen.has(f.key) && !it.rep) return preview(it);
       if (stage >= 1 && !it.rep && typable(f)) return typed(it);
