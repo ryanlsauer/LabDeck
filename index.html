@@ -1488,6 +1488,65 @@ h3{font-size:1.06rem}
 .study.gamemode .rrow .seg button.on{background:var(--violet);color:#fff}
 /* relock */
 .relock{margin-top:8px;align-self:flex-start;background:none;border:0;padding:0;color:var(--ink-3);font:inherit;font-size:.8rem;text-decoration:underline;cursor:pointer}
+/* ===== v20 ===== */
+/* Explain it results */
+.exres{display:flex;flex-direction:column;gap:10px}
+.exscore{font-family:var(--font-display);font-size:1.6rem;font-weight:800;color:var(--warn)}
+.exscore.good{color:var(--good)}
+.exerr{border:1px solid color-mix(in srgb,var(--bad) 40%,transparent);background:var(--bad-soft);border-radius:6px;padding:10px 12px}
+.exerr b{color:var(--bad);font-size:.8rem;text-transform:uppercase;letter-spacing:.05em}
+.exerr p{margin:4px 0 0}
+.expts{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.expt{display:grid;grid-template-columns:28px 1fr;gap:8px;padding:9px 12px;border-bottom:1px solid var(--line)}
+.expt:last-child{border-bottom:0}
+.expt>span{width:24px;height:24px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:.8rem;border:1.5px solid var(--line-2);color:var(--ink-3)}
+.expt.got>span{background:var(--good);border-color:var(--good);color:#fff}
+.expt.part>span{border-color:var(--warn);color:var(--warn)}
+.expt b{font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-3)}
+.expt.got b{color:var(--good)}.expt.part b{color:var(--warn)}.expt.miss b{color:var(--bad)}
+.expt p{margin:2px 0 0;line-height:1.5}
+.expt.got p{color:var(--ink-2)}
+.exmodel summary{cursor:pointer;font-weight:700;color:var(--violet-deep)}
+.exmodel p{margin:6px 0 0;line-height:1.6}
+/* Listen player */
+.lplayer{display:flex;flex-direction:column;gap:16px;align-items:stretch;background:var(--surface);border:1px solid var(--line-2);border-radius:10px;padding:22px 20px;text-align:center}
+.lphase{font-size:.78rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--violet-deep)}
+.lq{font-size:clamp(1.25rem,3.6vw,1.6rem);font-weight:700;line-height:1.4}
+.la{font-size:1.2rem;color:var(--good);font-weight:700;line-height:1.5}
+.lw{font-size:.98rem;color:var(--ink-2);line-height:1.5}
+.lthink{height:6px;border-radius:999px;background:var(--line);overflow:hidden}
+.lthink i{display:block;height:100%;width:100%;background:var(--violet);transform-origin:left;animation:lthink linear forwards}
+@keyframes lthink{from{transform:scaleX(1)}to{transform:scaleX(0)}}
+.lctl{display:flex;justify-content:center;gap:16px;align-items:center}
+.lbig{width:58px!important;height:58px!important;border-radius:50%!important;font-size:1.1rem}
+.lplay{width:72px!important;height:72px!important;font-size:1.2rem}
+/* dark mode polish */
+@media (prefers-color-scheme:dark){
+:root:not([data-theme="light"]) .lmtag.new{background:#173229;color:#7FE0BF}
+:root:not([data-theme="light"]) .excount.soon{background:#3A1F25;color:#FF8C9C}
+:root:not([data-theme="light"]) .excount{background:rgba(139,116,242,.2)}
+:root:not([data-theme="light"]) .wk.met{background:#173229;border-color:#24584A}
+:root:not([data-theme="light"]) .wk.met b{color:#7FE0BF}
+:root:not([data-theme="light"]) .toast{background:#2A2640;color:#F3F1FB;border:1px solid #45406C}
+:root:not([data-theme="light"]) .extile.soon{border-color:#5B2A35}
+:root:not([data-theme="light"]) .cstat.due{color:#CFC4FF}
+:root:not([data-theme="light"]) .cstat.mastered{color:#7FE0BF}
+:root:not([data-theme="light"]) .tag.good{background:#173229;color:#7FE0BF}
+:root:not([data-theme="light"]) .tag.bad{background:#3A1F25;color:#FF8C9C}
+:root:not([data-theme="light"]) .crittable td:nth-child(2),:root:not([data-theme="light"]) .crittable td:nth-child(3){color:#F2C35B}
+}
+:root[data-theme="dark"] .lmtag.new{background:#173229;color:#7FE0BF}
+:root[data-theme="dark"] .excount.soon{background:#3A1F25;color:#FF8C9C}
+:root[data-theme="dark"] .excount{background:rgba(139,116,242,.2)}
+:root[data-theme="dark"] .wk.met{background:#173229;border-color:#24584A}
+:root[data-theme="dark"] .wk.met b{color:#7FE0BF}
+:root[data-theme="dark"] .toast{background:#2A2640;color:#F3F1FB;border:1px solid #45406C}
+:root[data-theme="dark"] .extile.soon{border-color:#5B2A35}
+:root[data-theme="dark"] .cstat.due{color:#CFC4FF}
+:root[data-theme="dark"] .cstat.mastered{color:#7FE0BF}
+:root[data-theme="dark"] .tag.good{background:#173229;color:#7FE0BF}
+:root[data-theme="dark"] .tag.bad{background:#3A1F25;color:#FF8C9C}
+:root[data-theme="dark"] .crittable td:nth-child(2),:root[data-theme="dark"] .crittable td:nth-child(3){color:#F2C35B}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -1574,7 +1633,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "19.0";
+const APP_VERSION = "20.0";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -9480,6 +9539,135 @@ document.addEventListener("click", e => { const b = e.target.closest("[data-relo
 
 /* ===================== Journal: never show a picture question without its picture ===================== */
 journalVisible = function () { return (S.meta.journal || []).filter(x => !x.watch && !(x.q === "Image question" && !x.img)); };
+/* ===================== Explain it: graded idea by idea ===================== */
+const EX_STOP = new Set("the a an and or but of to in on at for with by from as is are was were be been being it its this that these those which who what when where why how than then so such very more most less also into onto about over under between because while each every some any all can could would should may might will just only not no".split(" "));
+const stem = w => w.toLowerCase().replace(/[’']s$/, "").replace(/(ing|edly|ed|es|s|ly)$/, "").slice(0, 7);
+const sigWords = t => [...new Set(norm(t).split(" ").filter(w => w.length >= 4 && !EX_STOP.has(w)).map(stem))];
+function exPoints(model) {
+  return model.split(/[.;]\s+|,\s(?:so|which|while|because)\s/).map(s => s.trim()).filter(s => sigWords(s).length >= 2);
+}
+const MISCONCEPTIONS = [
+  [/serum[^.]{0,60}\b(contains?|has|keeps?|still)\b[^.]{0,30}(clotting|fibrinogen|factor)/i, "Serum is what’s left after clotting, so its clotting factors (like fibrinogen) are used up. Plasma still has them."],
+  [/plasma[^.]{0,60}\b(no|lacks?|without|missing)\b[^.]{0,30}(clotting|fibrinogen|factor)/i, "Plasma still contains clotting factors; serum is the one missing them."],
+  [/gram[- ]?positive[^.]{0,40}\b(pink|red)\b|gram[- ]?negative[^.]{0,40}\b(purple|violet)\b/i, "Colors are swapped: Gram-positive stains purple, Gram-negative stains pink."],
+  [/\bigg\b[^.]{0,40}\b(first|earliest|early)\b/i, "IgM appears first in a new infection; IgG comes later and lasts."],
+  [/\bigm\b[^.]{0,40}\bcross(es)?\b[^.]{0,20}placenta/i, "IgG crosses the placenta, not IgM (IgM is too large)."],
+  [/acidosis[^.]{0,40}\b(high|raised|increased|above)\b[^.]{0,12}\bph\b|\bph\b[^.]{0,15}\b(high|above 7\.45)\b[^.]{0,30}acidosis/i, "Acidosis means a low pH (below 7.35)."],
+  [/hemoly[sz][^.]{0,60}\b(lowers?|decreases?|falsely low)\b[^.]{0,20}potassium/i, "Hemolysis falsely raises potassium; red cells leak it into the serum."],
+  [/underfill[^.]{0,80}\b(short|shorter|shortens)\b/i, "An underfilled light blue tube has extra citrate, which makes clotting times falsely long, not short."],
+  [/\bldl\b[^.]{0,30}\bgood\b|\bhdl\b[^.]{0,30}\bbad\b/i, "LDL is the “bad” cholesterol and HDL the “good” one."],
+  [/tsh[^.]{0,40}\b(low|decreased)\b[^.]{0,40}hypothyroid/i, "In primary hypothyroidism TSH is high: the pituitary pushes harder."],
+  [/sensitivity[^.]{0,60}\bfalse positives?\b/i, "Sensitivity is about catching true cases (few false negatives). False positives relate to specificity."],
+  [/titer[^.]{0,40}\b(lowest|smallest)\b[^.]{0,20}dilution/i, "The titer is the highest dilution that still reacts."]
+];
+startTeachFizz = function (pre) {
+  if (!pre || !pre.explain) pre = null;
+  openStudy("Explain it");
+  const avail = LESSONS.filter(l => l.explain);
+  const started = avail.filter(l => (prep().lessons[l.id] || {}).read);
+  let cur = pre || started[started.length - 1] || avail[0];
+  const draw = () => {
+    setProg(0);
+    ST.stage.innerHTML = `<p class="coach">Explain it as if teaching someone new. You’ll be graded on each key idea, not on matching words.</p>
+      <div class="field"><label for="tl">Topic</label><select class="input" id="tl">${avail.map(l => `<option value="${l.id}" ${l === cur ? "selected" : ""}>${esc(l.title)}</option>`).join("")}</select></div>
+      <div class="qcard"><div class="kicker">Your prompt</div><div class="qtext" style="font-size:1.15rem">${escG(cur.explain[0])}</div><p class="small muted" style="margin-top:6px">${plural(exPoints(cur.explain[1]).length, "key idea")} to cover. Explain the why, not just the what.</p></div>
+      <textarea class="input" id="tx" rows="7" placeholder="Your explanation…"></textarea>
+      <div class="row"><span class="small muted" id="wc">0 words</span><div class="spacer"></div><button class="btn primary" id="chk">Check my explanation</button></div><div id="out"></div>`;
+    $("#tl").onchange = e => { cur = LESSONS.find(l => l.id === e.target.value); draw(); };
+    $("#tx").oninput = e => { $("#wc").textContent = plural(e.target.value.trim().split(/\s+/).filter(Boolean).length, "word"); };
+    $("#chk").onclick = () => {
+      const raw = $("#tx").value.trim(); const words = raw.split(/\s+/).filter(Boolean).length;
+      if (words < 12) { toast("Write a few sentences first"); return; }
+      const mine = new Set(norm(raw).split(" ").map(stem)); const has = s => mine.has(s) || [...mine].some(m => m.length >= 5 && s.length >= 5 && (m.startsWith(s.slice(0, 5)) || s.startsWith(m.slice(0, 5))));
+      const pts = exPoints(cur.explain[1]).map(p => { const sig = sigWords(p); const hit = sig.filter(has).length; const frac = hit / sig.length; return { p, frac, st: frac >= .55 || hit >= 4 ? "got" : frac >= .3 ? "part" : "miss" }; });
+      const errs = MISCONCEPTIONS.filter(([re]) => re.test(raw)).map(x => x[1]);
+      const got = pts.filter(x => x.st === "got").length, part = pts.filter(x => x.st === "part").length;
+      const score = Math.round((got + part * .5) / pts.length * 100) - errs.length * 15;
+      const verdict = errs.length ? "Close, but something in there is wrong" : score >= 85 ? "Clear and complete" : score >= 55 ? "Good start: a few ideas are missing" : "Not there yet: rework the missing ideas";
+      setProg(1); bumpHistory(false); stat("explains");
+      $("#out").innerHTML = `<div class="panel exres"><div class="row" style="justify-content:space-between;align-items:center"><h3 style="margin:0">${verdict}</h3><span class="exscore ${score >= 85 && !errs.length ? "good" : ""}">${Math.max(0, score)}%</span></div>
+        ${errs.length ? `<div class="exerr"><b>Check this</b>${errs.map(e => `<p>${escG(e)}</p>`).join("")}</div>` : ""}
+        <div class="expts">${pts.map(x => `<div class="expt ${x.st}"><span>${x.st === "got" ? "✓" : x.st === "part" ? "~" : "○"}</span><div><b>${x.st === "got" ? "Covered" : x.st === "part" ? "Partly covered" : "Missing"}</b><p>${escG(x.p)}</p></div></div>`).join("")}</div>
+        <p class="small muted" style="margin-top:8px">The grader looks for each idea’s key terms. If you said it a different way and you’re confident, trust yourself and compare with the full model answer below.</p>
+        <details class="exmodel"><summary>Full model answer</summary><p>${escG(cur.explain[1])}</p></details>
+        <div class="row" style="margin-top:12px"><button class="btn" id="again">Revise my explanation</button><button class="btn ghost" id="les">${icon("book")}Review the lesson</button></div></div>`;
+      $("#again").onclick = () => { const t = raw; draw(); $("#tx").value = t; $("#tx").dispatchEvent(new Event("input")); $("#tx").focus(); };
+      $("#les").onclick = () => startLesson(cur);
+      $("#out").scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+  };
+  draw();
+};
+
+/* ===================== Listen: hands-free commute mode ===================== */
+const _spk = speakable;
+speakable = function (t) {
+  return _spk(t).replace(/°C/g, " degrees Celsius").replace(/degrees C\b/g, "degrees Celsius").replace(/≥/g, " at least ").replace(/≤/g, " at most ").replace(/±/g, " plus or minus ").replace(/(\d)\s*%/g, "$1 percent").replace(/×/g, " times ").replace(/→/g, ", then ").replace(/\s+/g, " ").trim();
+};
+function listenItems(src, deck) {
+  if (src === "journal") return journalVisible().slice(0, 30).filter(x => !x.img).map(x => ({ q: x.q, a: x.right, why: x.why || "" }));
+  if (src.startsWith("lesson:")) { const l = LESSONS.find(x => x.id === src.slice(7)); if (!l) return []; if (l.beats) return l.beats.map(b => ({ q: b[0].replace(/\{\{(.+?)\}\}/g, "$1"), a: b[1] ? `${b[1][0]} ${b[1][1][b[1][2]]}.` : "", lesson: true })); return (l.steps || []).filter(s => s.body).map(s => ({ q: `${s.h}. ${s.body.replace(/\n/g, " ")}`, a: s.key || "", lesson: true })); }
+  const decks = deck ? [deck] : Object.values(S.decks);
+  let fs = decks.flatMap(d => factsOf(d)).filter(f => !isSus(f) && (stOf(f) || eligibleNew(f)) && f.q);
+  if (src === "due") { const now = endOfToday(); fs = fs.filter(f => isDue(stOf(f), now) || !stOf(f)); }
+  if (src === "weak") fs = fs.filter(f => isWeak(stOf(f)));
+  return shuffle(fs).slice(0, 60).map(f => ({ q: f.kind === "field" ? `${f.q}. ${f.field}?` : f.kind === "cloze" ? f.q : f.q, a: f.a, why: f.card.why || "" }));
+}
+startListen = function (deck) {
+  const P = S.meta.settings.listen = S.meta.settings.listen || { rate: 1, think: 4, why: true, src: "due" };
+  openStudy(deck ? "Listen: " + deck.name : "Listen"); setProg(0);
+  const lessonsRead = LESSONS.filter(l => (prep().lessons[l.id] || {}).read || l.boot).slice(0, 80);
+  const setup = () => {
+    ST.right.innerHTML = "";
+    ST.stage.innerHTML = `<div class="qcard"><h2 style="margin-bottom:4px">Hands-free review</h2><p class="small muted">Put your phone in your pocket. It reads each question, pauses so you can answer out loud, then reads the answer. Great for the commute or the gym.</p></div>
+      <div class="field"><label for="lsrc">What to hear</label><select class="input" id="lsrc">
+        <option value="due" ${P.src === "due" ? "selected" : ""}>Today’s cards${deck ? "" : " (all decks)"}</option><option value="all" ${P.src === "all" ? "selected" : ""}>All cards${deck ? " in this deck" : ""}</option><option value="weak" ${P.src === "weak" ? "selected" : ""}>Weak spots</option>
+        ${deck ? "" : `<option value="journal" ${P.src === "journal" ? "selected" : ""}>Mistake journal</option><optgroup label="A lesson, read aloud">${lessonsRead.map(l => `<option value="lesson:${l.id}" ${P.src === "lesson:" + l.id ? "selected" : ""}>${esc(l.title)}</option>`).join("")}</optgroup>`}</select></div>
+      <div class="row" style="gap:20px;flex-wrap:wrap"><div><p class="lbl" style="margin-bottom:6px">Speed</p><div class="seg" id="lrate">${[0.85, 1, 1.15, 1.3].map(r => `<button data-v="${r}" class="${P.rate === r ? "on" : ""}">${r}×</button>`).join("")}</div></div>
+        <div><p class="lbl" style="margin-bottom:6px">Thinking time</p><div class="seg" id="lthink">${[2, 4, 6, 8].map(r => `<button data-v="${r}" class="${P.think === r ? "on" : ""}">${r}s</button>`).join("")}</div></div></div>
+      <label class="check"><input type="checkbox" id="lwhy" ${P.why ? "checked" : ""}>Also read the “why” when a card has one</label>
+      <button class="btn primary" id="go" style="min-height:52px">${icon("listen")}Start listening</button>`;
+    $$("#lrate button").forEach(b => b.onclick = () => { P.rate = +b.dataset.v; saveMeta(); setup(); });
+    $$("#lthink button").forEach(b => b.onclick = () => { P.think = +b.dataset.v; saveMeta(); setup(); });
+    $("#lsrc").onchange = e => { P.src = e.target.value; saveMeta(); };
+    $("#lwhy").onchange = e => { P.why = e.target.checked; saveMeta(); };
+    $("#go").onclick = play;
+  };
+  let lock = null;
+  const play = async () => {
+    if (!("speechSynthesis" in window)) { toast("Audio isn’t supported in this browser"); return; }
+    const items = listenItems(P.src, deck); if (!items.length) { toast("Nothing to read from that source yet"); return; }
+    try { lock = await navigator.wakeLock?.request("screen"); } catch { }
+    let i = 0, paused = false, token = 0;
+    const voice = (speechSynthesis.getVoices() || []).find(v => /en[-_]US/i.test(v.lang) && /Samantha|Google US|Natural|Aria|Jenny/i.test(v.name)) || (speechSynthesis.getVoices() || []).find(v => /^en/i.test(v.lang));
+    const say = (t, then) => { const u = new SpeechSynthesisUtterance(speakable(t)); u.rate = P.rate; if (voice) u.voice = voice; const my = token; u.onend = () => { if (my === token && !paused) then && then(); }; speechSynthesis.speak(u); };
+    const wait = (ms, then) => { const my = token; setTimeout(() => { if (my === token && !paused) then(); }, ms); };
+    const draw = phase => {
+      const it = items[i]; setProg(i / items.length); ST.right.innerHTML = `<span class="small muted">${i + 1} / ${items.length}</span>`;
+      ST.stage.innerHTML = `<div class="lplayer"><div class="lphase">${phase === "q" ? "Question" : phase === "t" ? "Your turn: answer out loud" : "Answer"}</div>
+        <div class="lq">${escG(it.q)}</div>${phase === "a" && it.a ? `<div class="la">${escG(it.a)}</div>${P.why && it.why ? `<div class="lw"><b>Why:</b> ${escG(it.why)}</div>` : ""}` : ""}
+        ${phase === "t" ? `<div class="lthink"><i style="animation-duration:${P.think}s"></i></div>` : ""}
+        <div class="lctl"><button class="btn icon lbig" id="prv" aria-label="Previous">${icon("left")}</button><button class="btn primary icon lbig lplay" id="pp" aria-label="${paused ? "Play" : "Pause"}">${paused ? "▶" : "❚❚"}</button><button class="btn icon lbig" id="nxt" aria-label="Next">${icon("right")}</button></div>
+        <div class="row" style="justify-content:center"><button class="btn ghost sm" id="rep">${icon("rotate")}Repeat</button><button class="btn ghost sm" id="stop">Stop</button></div></div>`;
+      $("#pp").onclick = () => { paused = !paused; token++; speechSynthesis.cancel(); if (!paused) run(); else draw(phase); };
+      $("#nxt").onclick = () => { token++; speechSynthesis.cancel(); i = Math.min(items.length, i + 1); paused = false; run(); };
+      $("#prv").onclick = () => { token++; speechSynthesis.cancel(); i = Math.max(0, i - 1); paused = false; run(); };
+      $("#rep").onclick = () => { token++; speechSynthesis.cancel(); paused = false; run(); };
+      $("#stop").onclick = () => { token++; speechSynthesis.cancel(); try { lock && lock.release(); } catch { } setup(); };
+    };
+    const run = () => {
+      if (i >= items.length) { speechSynthesis.cancel(); try { lock && lock.release(); } catch { } stat("listens"); setProg(1); ST.stage.innerHTML = `<div class="results"><h2>Session complete</h2><p class="muted">${plural(items.length, "item")} heard. Listening is great for repetition; follow up with Study to lock it in.</p><div class="row" style="justify-content:center"><button class="btn primary" id="again">Listen again</button><button class="btn" id="dn">Done</button></div></div>`; $("#again").onclick = play; $("#dn").onclick = () => closeStudy(); return; }
+      const it = items[i]; token++;
+      draw("q"); say(it.q, () => { if (!it.a) { i++; return wait(700, run); } draw("t"); wait(P.think * 1000, () => { draw("a"); say(it.a + (P.why && it.why ? `. Why: ${it.why}` : ""), () => { bumpHistory(false); i++; wait(900, run); }); }); });
+    };
+    if ("mediaSession" in navigator) { try { navigator.mediaSession.setActionHandler("nexttrack", () => $("#nxt")?.click()); navigator.mediaSession.setActionHandler("previoustrack", () => $("#prv")?.click()); navigator.mediaSession.setActionHandler("pause", () => $("#pp")?.click()); navigator.mediaSession.setActionHandler("play", () => $("#pp")?.click()); } catch { } }
+    run();
+  };
+  setup();
+};
+BADGES2.push({ id: "listen10", cat: "s", e: "🎧", name: "Commuter", desc: "Finish 10 listening sessions", target: 10, cur: () => sv("listens") });
+
+{ const cs = closeStudy; closeStudy = function (...a) { try { speechSynthesis.cancel(); } catch { } return cs.apply(this, a); }; }
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
