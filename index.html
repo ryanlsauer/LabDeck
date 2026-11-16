@@ -1331,6 +1331,63 @@ h3{font-size:1.06rem}
 .lvl .lvn{text-transform:none!important;letter-spacing:0!important;font-size:.95rem!important;color:var(--ink)!important}
 .lvl.on .lvn{color:#fff!important}.lvl.cleared .lvn{color:#2A1E00!important}
 .mapcard>.btn{align-self:flex-start!important}
+/* ===== v17 ===== */
+/* grade buttons: key on top, centered */
+.grades button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:10px 6px!important;min-height:86px}
+.grades button kbd{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:5px;border:1px solid var(--line-2);background:var(--btn-bg);font:700 .8rem var(--font-body,inherit);color:var(--ink-2);box-shadow:inset 0 -1px 0 var(--line-2)}
+.grades button b{font-size:1.05rem}
+.grades button small{font-size:.72rem;color:var(--ink-3);font-weight:600}
+.grades .g1 b{color:#B8344B}.grades .g2 b{color:#A86C10}.grades .g3 b{color:#1F7A62}.grades .g4 b{color:var(--violet-deep)}
+/* label picker icons */
+.lopt i{box-shadow:none!important;border-radius:5px!important}
+.lopt.new i{border:1.5px dashed var(--line-2)!important;width:18px;height:22px;display:inline-flex!important;align-items:center;justify-content:center}
+.lopt.new i svg{width:13px;height:13px}
+/* level tiles */
+.lvt b{white-space:normal;overflow-wrap:anywhere;font-size:.9rem!important;line-height:1.25}
+.lvl{min-width:0}
+.lvl[disabled]{opacity:.55}
+.lvl[disabled] .lvn{color:var(--ink-3)!important}
+/* exams alone use the width */
+.twocol.one{grid-template-columns:1fr!important}
+/* Learn mode */
+.pill.pill-learn{background:var(--violet-soft)!important;border-color:color-mix(in srgb,var(--violet) 35%,transparent)!important;color:var(--violet-deep)!important}
+.pill.pill-learn svg{color:var(--violet)!important}
+.lmintro{display:flex;flex-direction:column;gap:14px;background:var(--surface);border:1px solid var(--line-2);border-radius:8px;padding:20px}
+.lmintro h2{margin:0}
+.lmprog{display:flex;align-items:center;gap:12px}
+.lmprog span{font-size:.9rem;color:var(--ink-2);white-space:nowrap}
+.lmbar{flex:1;height:10px;border-radius:999px;background:var(--line);overflow:hidden}
+.lmbar i{display:block;height:100%;background:linear-gradient(90deg,var(--violet),#2FA58A);border-radius:999px;transition:width .4s}
+.lmsteps{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:6px;color:var(--ink-2)}
+.lmsteps li::marker{color:var(--violet);font-weight:800}
+.lmtag{display:inline-flex;align-self:flex-start;font-size:.78rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--violet-deep);background:var(--violet-soft);padding:3px 10px;border-radius:2em}
+.lmtag.new{color:#1F7A62;background:#DDF4EE}
+.lmcard{border:1px solid var(--line-2);border-top:8px solid var(--cap);border-radius:8px;background:var(--surface);display:grid;grid-template-columns:1fr 1fr}
+.lmside{padding:18px 20px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.lmside.back{border-left:1px solid var(--line);background:var(--btn-bg)}
+.lmside small{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3)}
+@media (max-width:640px){.lmcard{grid-template-columns:1fr}.lmside.back{border-left:0;border-top:1px solid var(--line)}}
+.opt.hintright{border-color:#2FA58A!important;box-shadow:0 0 0 2px rgba(47,165,138,.25)}
+.opt.gone{opacity:.25;text-decoration:line-through}
+.lmlist{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.lmrow{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:center;padding:8px 12px;border-bottom:1px solid var(--line)}
+.lmrow:last-child{border-bottom:0}
+.lmrow small{color:var(--ink-3);font-size:.8rem}
+.lmdot{width:24px;height:24px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;border:1.5px solid var(--line-2);color:var(--ink-3)}
+.lmdot.s1{border-color:var(--violet);color:var(--violet)}
+.lmdot.s2{background:#2FA58A;border-color:#2FA58A;color:#fff}
+.greetline{margin:-8px 0 14px;color:var(--ink-3);font-size:.98rem}
+.jtoday{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 16px;border-radius:8px;border:1px solid #C9BEF5;background:linear-gradient(135deg,#EFEAFF,#F6F3FF);flex-wrap:wrap}
+.jtoday>div{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
+.jtoday b{font-size:1.08rem}
+.jtoday span{color:var(--ink-2);font-size:.9rem}
+.jtoday.done{border-color:#9FD9C9;background:linear-gradient(135deg,#DDF4EE,#F0FAF6)}
+.jtoday.done b{color:#1F7A62}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .jtoday{background:#2A2442;border-color:#3A3460}:root:not([data-theme="light"]) .jtoday.done{background:#173229;border-color:#24584A}}
+.lmside .main-text{font-size:clamp(1.3rem,3vw,1.7rem);font-weight:700;line-height:1.3}
+.lmside .sub-text{font-size:1.15rem;line-height:1.5}
+.lmside .kicker{font-size:.8rem}
+.lmside .note{font-size:.92rem}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -1417,7 +1474,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "16.0";
+const APP_VERSION = "17.1";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -1580,6 +1637,7 @@ function mergeRemote(r) {
   { const ids = new Set((m.rotlog || []).map(x => x.id)); m.rotlog = [...(m.rotlog || []), ...(rm.rotlog || []).filter(x => !ids.has(x.id))]; }
   m.gameOverride = Object.assign({}, rm.gameOverride || {}, m.gameOverride || {});
   m.daily = m.daily || {}; for (const [d, v] of Object.entries(rm.daily || {})) { const c = m.daily[d] = m.daily[d] || {}; for (const [k, n] of Object.entries(v)) if ((c[k] || 0) < n) c[k] = n; }
+  m.lm = m.lm || {}; for (const [dk, v] of Object.entries(rm.lm || {})) { const c = m.lm[dk] = m.lm[dk] || {}; for (const [k, n] of Object.entries(v)) if ((c[k] || 0) < n) c[k] = n; }
   m.badges = m.badges || {}; for (const [k, v] of Object.entries(rm.badges || {})) if (!m.badges[k]) m.badges[k] = v;
   m.focus = m.focus || {}; for (const [k, v] of Object.entries(rm.focus || {})) if ((m.focus[k] || 0) < v) m.focus[k] = v;
   { const ids = new Set((m.journal || []).map(x => x.id)); m.journal = [...(m.journal || []), ...(rm.journal || []).filter(x => !ids.has(x.id))].sort((a, b) => b.t - a.t).slice(0, 300); }
@@ -1714,9 +1772,13 @@ function previewIv(st, g) {
   else i = Math.max(s.i + 2, s.i * s.e * 1.3);
   return fmtIv(i);
 }
+const isM = st => !!st && ((st.ez || 0) >= 3 || (st.ez == null && (st.i || 0) >= 21));
 function recordReview(deckId, key, g, isNew) {
   S.srs[deckId] = S.srs[deckId] || {};
-  const { s, requeue } = nextState(S.srs[deckId][key], g);
+  const prevEz = ((S.srs[deckId] || {})[key] || {}).ez || 0;
+  let { s, requeue } = nextState(S.srs[deckId][key], g);
+  s.ez = g <= 2 ? 0 : g === 4 ? prevEz + 1 : prevEz;
+  if (g === 2) requeue = true;
   { const d = dayKey(); const D = S.meta.daily = S.meta.daily || {}; D[d] = D[d] || {}; D[d][g > 1 ? "right" : "wrong"] = (D[d][g > 1 ? "right" : "wrong"] || 0) + 1; }
   const ex = nextExamFor(deckId);
   if (!requeue && ex) { const left = (examTime(ex) - Date.now()) / DAY; if (left >= 1 && s.i > left / 2) { s.i = Math.max(1, Math.floor(left / 2)); const due = new Date(Date.now() + s.i * DAY); due.setHours(4, 0, 0, 0); s.d = due.getTime(); } }
@@ -1756,7 +1818,7 @@ function deckCounts(deck) {
   const fs = factsOf(deck); let due = 0, nw = 0, mastered = 0, learning = 0;
   const cutoff = endOfToday();
   let locked = 0;
-  for (const f of fs) { const st = stOf(f); if (!st) { if (eligibleNew(f)) nw++; else locked++; } else if (!st.sus) { if (st.d <= cutoff) due++; if (st.i >= 21) mastered++; else learning++; } }
+  for (const f of fs) { const st = stOf(f); if (!st) { if (eligibleNew(f)) nw++; else locked++; } else if (!st.sus) { if (st.d <= cutoff) due++; if (isM(st)) mastered++; else learning++; } }
   return { total: fs.length, due, nw, mastered, learning, locked };
 }
 function isWeak(st) { if (!st || st.sus) return false; const tot = (st.c || 0) + (st.w || 0); return (st.l || 0) >= 2 || ((st.w || 0) >= 2 && st.w / tot >= 0.3); }
@@ -2176,20 +2238,21 @@ function editCardModal(d, card, after) {
       `<label class="btn" style="align-self:flex-start">${icon("image")}Add photo or image<input type="file" accept="image/*" id="imgIn" hidden></label><span class="hint">Gram stains, smears, colonies, tube photos. Images are shrunk to save space.</span>`}
     </div>` : ""}
     <div class="field"><label for="cnote">Note or mnemonic (optional)</label><textarea class="input" id="cnote" rows="2">${esc(c.note)}</textarea></div>
+    <div class="field"><label for="cwhy">Why it’s true (optional)</label><textarea class="input" id="cwhy" rows="2" placeholder="The mechanism or reason behind it">${esc(c.why || "")}</textarea></div>
     <div class="modal-foot">${isNew ? `<button class="btn" id="saveMore">Save and add another</button>` : ""}<button class="btn primary" id="saveC">${isNew ? "Save card" : "Save changes"}</button></div>`;
   modal(html(), (s, close) => {
     const sync = () => {
       if ($("#cf", s)) { c.front = $("#cf", s).value; c.back = $("#cb", s).value; }
       if ($("#cz", s)) c.text = $("#cz", s).value;
       if ($("#cn", s)) { c.name = $("#cn", s).value; c.values = c.values || {}; $$("[data-f]", s).forEach(t => c.values[t.dataset.f] = t.value.trim()); }
-      c.note = $("#cnote", s).value;
+      c.note = $("#cnote", s).value; c.why = ($("#cwhy", s)?.value || "").trim();
     };
     const commit = () => {
       sync(); c.type = type;
       if (type === "basic" && !((c.front.trim() || c.img) && c.back.trim())) { toast(c.img ? "Add an answer" : "Add both a term and a definition"); return false; }
       if (type === "profile" && !c.name.trim()) { toast("Give the profile a name"); return false; }
       if (type === "cloze" && !clozeParts(c.text).length) { toast("Add at least one {{blank}}"); return false; }
-      const base = { id: c.id, type, note: c.note.trim(), star: !!c.star };
+      const base = { id: c.id, type, note: c.note.trim(), star: !!c.star }; if ((c.why || "").trim()) base.why = c.why.trim();
       if (c.img && type !== "cloze") { base.img = c.img; if (type === "basic") base.imgSide = c.imgSide; }
       const clean = type === "basic" ? { ...base, front: c.front.trim(), back: c.back.trim() }
         : type === "cloze" ? { ...base, text: c.text.trim() }
@@ -2378,7 +2441,7 @@ function renderStats() {
     ${weeklyHtml(false)}
     ${badgesHtml()}
     <div class="panel"><div class="row" style="justify-content:space-between"><h3>Focus time</h3><button class="btn sm" id="tmB">${icon("timer")}Start a session</button></div><p class="small muted" style="margin-top:4px">${Object.values(S.meta.focus || {}).reduce((a, b) => a + b, 0)} minutes total, ${(S.meta.focus || {})[dayKey()] || 0} today.</p></div>
-    <div class="panel"><div class="row" style="justify-content:space-between"><h3>Mistake journal</h3><button class="btn sm" id="jrB">${icon("rotate")}Open</button></div><p class="small muted" style="margin-top:4px">${(S.meta.journal || []).length} missed questions saved for review.</p></div>
+    <div class="panel"><div class="row" style="justify-content:space-between"><h3>Mistake journal</h3><button class="btn sm" id="jrB">${icon("rotate")}Open</button></div><p class="small muted" style="margin-top:4px">${journalVisible().length} missed questions saved for review.</p></div>
     <div class="side-stats" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr));margin-bottom:16px">
       <div class="stat"><div class="n">${streak()}</div><div class="l">day streak</div></div>
       <div class="stat"><div class="n">${allReviews}</div><div class="l">total reviews</div></div>
@@ -2671,9 +2734,9 @@ function startLearn(deck, opts = {}) {
     if (flipped) return; flipped = true;
     const f = queue[i], st = stOf(f);
     $("#fc").classList.add("on");
-    $("#ctl").innerHTML = `<div class="grades">${[[1, "Again"], [2, "Hard"], [3, "Good"], [4, "Easy"]].map(([g, l]) => `<button class="g${g}" data-g="${g}">${l}</button>`).join("")}</div>
+    $("#ctl").innerHTML = `<div class="grades">${[[1, "Again", "comes back now"], [2, "Hard", "comes back now"], [3, "Good", "see it later"], [4, "Easy", (() => { const st = stOf(f); return `mastery ${Math.min(3, ((st && st.ez) || 0) + 1)}/3`; })()]].map(([g, l, sub]) => `<button class="g${g}" data-g="${g}"><kbd>${g}</kbd><b>${l}</b><small>${sub}</small></button>`).join("")}</div>
       <div class="row" style="justify-content:center;margin-top:10px"><button class="btn sm ghost" id="whyB">${icon("brain")}Why?</button>${f.deck.pack && lessonsForPack(f.deck.pack).length ? `<button class="btn sm ghost" id="teach">${icon("book")}Teach me this</button>` : ""}</div>
-      <p class="tap-hint" style="margin-top:6px">Again = still learning · Good = know it</p><p class="tap-hint kbd-hint" style="margin-top:2px"><kbd>1</kbd>–<kbd>4</kbd> to grade, <kbd>U</kbd> to undo</p>`;
+      <p class="tap-hint" style="margin-top:8px">Again and Hard come back this session. Easy 3 times in a row = mastered.</p>`;
     $("#whyB").onclick = () => whyModal(f);
     $("#teach") && ($("#teach").onclick = () => startLesson(lessonsForPack(f.deck.pack)[0]));
     $$(".grades button").forEach(b => b.onclick = () => grade(+b.dataset.g));
@@ -2685,7 +2748,7 @@ function startLearn(deck, opts = {}) {
     if (undo.length > 30) undo.shift();
     const wasNew = !prev && !seenNew.has(f.key);
     let requeue;
-    if (opts.cram || opts.browse) { requeue = g === 1; recordQuiz(f, g > 1); }
+    if (opts.cram || opts.browse) { requeue = g <= 2; recordQuiz(f, g > 2); }
     else { requeue = recordReview(f.deck.id, f.key, g, wasNew); if (wasNew) seenNew.add(f.key); if (g === 1 && (stOf(f) || {}).l === 4) setTimeout(() => toast("That one’s a leech. Find it under Leeches in the deck to rewrite it."), 400); }
     if (g === 1) again++; else good++;
     if (requeue) queue.splice(Math.min(queue.length, i + 4), 0, f); else doneN++;
@@ -4950,7 +5013,7 @@ function caseModal(c, after) {
   const x = c ? JSON.parse(JSON.stringify(c)) : { id: uid(), area: "Hematology", dx: "", story: "", labs: [], q: "What is the most likely diagnosis?", opts: ["", "", "", ""], a: 0, why: "" };
   const areas = [...new Set(CASES.map(k => k.area).concat(myCases().map(k => k.area)))];
   modal(`${mhead(isNew ? "Write a case" : "Edit case")}
-    <div class="field"><label for="ca">Area</label><input class="input" id="ca" list="caList" value="${esc(x.area)}"><datalist id="caList">${areas.map(a => `<option value="${esc(a)}">`).join("")}</datalist></div>
+    <div class="field"><label for="ca">Area</label><select class="input" id="ca" onchange="this.nextElementSibling.hidden = this.value !== '__other'">${[...new Set([...areas, "Hematology", "Chemistry", "Microbiology", "Blood bank", "Urinalysis", "Immunology", "Coagulation"])].map(a => `<option value="${esc(a)}" ${a === x.area ? "selected" : ""}>${esc(a)}</option>`).join("")}<option value="__other">Other (type your own)…</option></select><input class="input" id="caOther" placeholder="Area name" hidden style="margin-top:6px"></div>
     <div class="field"><label for="cs">Patient story</label><textarea class="input" id="cs" rows="3" placeholder="A 34-year-old woman presents with…">${esc(x.story)}</textarea></div>
     <div class="field"><label for="cl">Lab results</label><textarea class="input" id="cl" rows="5" placeholder="Hemoglobin | 8.9 g/dL | 12.0–15.5 | L&#10;MCV | 67 fL | 80–100 | L">${esc(x.labs.map(r => r.join(" | ")).join("\n"))}</textarea><span class="hint">One test per line: Test | Result | Reference | H or L (the last two are optional).</span></div>
     <div class="field"><label for="cq">Question</label><input class="input" id="cq" value="${esc(x.q)}"></div>
@@ -4960,7 +5023,7 @@ function caseModal(c, after) {
     <div class="modal-foot">${!isNew ? `<button class="btn danger" id="cdel" style="margin-right:auto">${icon("trash")}Delete</button>` : ""}<button class="btn" data-close>Cancel</button><button class="btn primary" id="csave">${isNew ? "Save case" : "Save changes"}</button></div>`, (s, close) => {
     $("#cdel", s) && ($("#cdel", s).onclick = () => { S.meta.myCases = myCases().filter(k => k.id !== x.id); S.meta.deleted["case-" + x.id] = Date.now(); saveMeta(true); close(); after && after(); });
     $("#csave", s).onclick = () => {
-      x.area = $("#ca", s).value.trim() || "Other"; x.story = $("#cs", s).value.trim(); x.q = $("#cq", s).value.trim(); x.dx = $("#cd", s).value.trim(); x.why = $("#cw", s).value.trim();
+      x.area = ($("#ca", s).value === "__other" ? $("#caOther", s).value.trim() : $("#ca", s).value) || "Other"; x.story = $("#cs", s).value.trim(); x.q = $("#cq", s).value.trim(); x.dx = $("#cd", s).value.trim(); x.why = $("#cw", s).value.trim();
       x.labs = $("#cl", s).value.split("\n").map(l => l.split("|").map(t => t.trim())).filter(r => r[0]).map(r => [r[0], r[1] || "", r[2] || "", /^[hl]$/i.test(r[3] || "") ? r[3].toUpperCase() : ""]);
       x.opts = $$("[data-o]", s).map(i => i.value.trim()); x.a = +($("input[name=cor]:checked", s) || { value: 0 }).value;
       if (!x.story || !x.q) { toast("Add a story and a question"); return; }
@@ -5225,7 +5288,7 @@ function quizCourse(ci) {
 
 /* ---------- Weekly report ---------- */
 const weekStart = (t = Date.now()) => { const d = new Date(t); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); return d.getTime(); };
-function masteredNow() { let n = 0; Object.values(S.decks).forEach(d => factsOf(d).forEach(f => { const st = stOf(f); if (st && st.i >= 21) n++; })); return n; }
+function masteredNow() { let n = 0; Object.values(S.decks).forEach(d => factsOf(d).forEach(f => { const st = stOf(f); if (isM(st)) n++; })); return n; }
 function snapshotWeek() { const w = S.meta.weekly = S.meta.weekly || {}; const k = dayKey(weekStart()); if (w[k] == null) { w[k] = masteredNow(); saveMeta(); } }
 function weeklyData() {
   const since = Date.now() - 7 * DAY;
@@ -5667,7 +5730,7 @@ function startBootcamp(l) {
     const check = () => {
       let all = true;
       let fixed = [];
-      ins.forEach(x => { if (x.disabled) return; const ok = okWord(x.value, x.dataset.ans); x.classList.toggle("ok", ok); x.classList.toggle("bad", !ok); if (ok) { if (!exact(x.value, x.dataset.ans)) { fixed.push(x.dataset.ans); x.value = x.dataset.ans; } x.disabled = true; } else all = false; });
+      ins.forEach(x => { if (x.disabled) return; const ok = okWord(x.value, x.dataset.ans); x.classList.toggle("ok", ok); x.classList.toggle("bad", !ok); if (ok) { if (!exact(x.value, x.dataset.ans)) fixed.push(x.dataset.ans); x.value = x.dataset.ans; x.disabled = true; } else all = false; });
       if (all) { $("#rfb").innerHTML = fizzSays((copying ? "Recorded." : pickLine("right")) + (fixed.length ? ` Check the spelling: ${fixed.map(esc).join(", ")}.` : ""), "good"); $("#chk").textContent = beats[i][1] ? "Next: think further" : "Next step"; $("#chk").onclick = () => beats[i][1] ? think() : (i++, read()); $("#show").remove(); $("#wb").remove(); return; }
       tries++;
       if (tries >= 2 && !copying) {
@@ -7245,7 +7308,7 @@ function startBadges() {
 }
 /* ===================== Mistake journal, rebuilt ===================== */
 const GAME_OPEN = { smear: ["Smear practice", () => startSmear()], westgard: ["Westgard judge", () => startWestgard()], tubes: ["Tube trainer", () => startTubeTrainer()], sediment: ["Urine sediment", () => startSediment()], panel: ["Antibody panel", () => startPanel()], acidbase: ["Acid-base", () => startAcidBase()] };
-const jAll = () => S.meta.journal || [];
+const jAll = () => journalVisible();
 const jKind = x => (x.game || (VISUAL_SRC[x.src] && (x.game = VISUAL_SRC[x.src]))) && GAME_OPEN[x.game] ? "game" : (x.opts && x.opts.length >= 2 && x.opts.includes(x.right)) ? "choice" : "self";
 function jClear(id, silent) { S.meta.journal = jAll().filter(x => x.id !== id); stat("jcleared"); const d = dayKey(); const D = S.meta.daily = S.meta.daily || {}; D[d] = D[d] || {}; D[d].cleared = (D[d].cleared || 0) + 1; saveMeta(); if (!silent) toast("Cleared from your journal"); }
 startJournal = function () {
@@ -7254,25 +7317,27 @@ startJournal = function () {
   const draw = () => {
     const J = jAll(); const wk = Date.now() - 7 * DAY;
     const srcs = ["All", ...new Set(J.map(x => x.src))];
-    let list = J.filter(x => (src === "All" || x.src === src) && (filter === "all" || (filter === "conf" && x.confident) || (filter === "rep" && (x.count || 1) > 1) || (filter === "week" && x.t > wk)) && (!q || norm(x.q + " " + x.right).includes(norm(q))));
+    let list = J.filter(x => (src === "All" || x.src === src) && (filter === "all" || (filter === "conf" && (x.count || 1) >= 3) || (filter === "rep" && (x.count || 1) > 1) || (filter === "week" && x.t > wk)) && (!q || norm(x.q + " " + x.right).includes(norm(q))));
     list.sort((a, b) => (b.confident ? 2 : 0) + ((b.count || 1) > 1 ? 1 : 0) - ((a.confident ? 2 : 0) + ((a.count || 1) > 1 ? 1 : 0)) || b.t - a.t);
     const bySrc = {}; J.forEach(x => bySrc[x.src] = (bySrc[x.src] || 0) + (x.count || 1));
     const top = Object.entries(bySrc).sort((a, b) => b[1] - a[1]).slice(0, 4);
     const games = Object.entries(J.reduce((m, x) => (x.game ? (m[x.game] = (m[x.game] || 0) + 1, m) : m), {}));
     const retryable = list.filter(x => jKind(x) !== "game");
     setProg(1);
+    const rev = dailyReviewSet(); const doneToday = (((S.meta.daily || {})[dayKey()] || {}).jreview || 0) > 0;
     ST.stage.innerHTML = `
-      <div class="jstats"><div><b>${J.length}</b><span>open mistakes</span></div><div><b>${J.filter(x => x.confident).length}</b><span>repeat misses</span></div><div><b>${J.filter(x => x.t > wk).length}</b><span>logged this week</span></div><div><b>${(S.meta.stats || {}).jcleared || 0}</b><span>cleared all time</span></div></div>
+      ${J.length ? `<div class="jtoday ${doneToday ? "done" : ""}"><div><b>${doneToday ? "You’re good for today ✓" : "Today’s mistake review"}</b><span>${doneToday ? "Run it again anytime to keep them sharp." : `End your day here: ${plural(rev.length, "mistake")} to lock in. Get each right twice and it’s cleared.`}</span></div><button class="btn ${doneToday ? "" : "primary"}" id="jrev">${icon("rotate")}${doneToday ? "Review again" : `Start review (${rev.length})`}</button></div>` : `<div class="jtoday done"><div><b>Nothing to fix ✓</b><span>Questions only land here when you miss them twice, so an empty journal means you’re solid.</span></div></div>`}
+      <div class="jstats"><div><b>${J.length}</b><span>open mistakes</span></div><div><b>${(S.meta.journal || []).filter(x => x.watch).length}</b><span>being watched (missed once)</span></div><div><b>${J.filter(x => x.t > wk).length}</b><span>logged this week</span></div><div><b>${(S.meta.stats || {}).jcleared || 0}</b><span>cleared all time</span></div></div>
       ${J.length ? `
       ${top.length ? `<div class="panel"><p class="lbl" style="margin-bottom:8px">Where your misses come from</p>${top.map(([s, n]) => `<div class="deckbar" style="grid-template-columns:minmax(0,1fr) 2fr auto"><span>${esc(s)}</span><div class="mastery"><i class="m" style="width:${n / top[0][1] * 100}%;background:var(--safranin)"></i></div><span class="small muted">${n}</span></div>`).join("")}</div>` : ""}
       ${games.length ? `<div class="panel"><p class="lbl" style="margin-bottom:8px">Visual mistakes are practiced in their game</p><div class="row">${games.map(([g, n]) => `<button class="btn sm" data-game="${g}">${esc(GAME_OPEN[g][0])} · ${n}</button>`).join("")}</div></div>` : ""}
-      <div class="jbar"><div class="seg" id="jf">${[["all", "All"], ["conf", "Repeat misses"], ["week", "This week"]].map(([k, l]) => `<button data-f="${k}" class="${filter === k ? "on" : ""}">${l}</button>`).join("")}</div>
+      <div class="jbar"><div class="seg" id="jf">${[["all", "All"], ["conf", "Stubborn (3+ misses)"], ["week", "This week"]].map(([k, l]) => `<button data-f="${k}" class="${filter === k ? "on" : ""}">${l}</button>`).join("")}</div>
         <label class="search" style="flex:1;min-width:180px">${icon("search")}<input id="jq" placeholder="Search mistakes" value="${esc(q)}"></label>
         <button class="btn primary" id="retry" ${retryable.length ? "" : "disabled"}>${icon("rotate")}Retry ${Math.min(10, retryable.length)}</button></div>
       <div class="pickchips">${srcs.map(s => `<button class="chipbtn sm ${s === src ? "on" : ""}" data-s="${esc(s)}">${esc(s)}</button>`).join("")}</div>
       <p class="small muted">Getting a mistake right twice in a retry clears it automatically.</p>
       <div class="jlist">${list.slice(0, 60).map(x => { const lesson = x.pack ? lessonsForPack(x.pack)[0] : null; return `<div class="jcard ${x.confident ? "conf" : ""}">
-        <div class="jmeta">${x.confident ? `<span class="tag bad">Repeat miss</span>` : ""}${(x.count || 1) > 1 ? `<span class="tag">Missed ${x.count}×</span>` : ""}<span>${esc(x.src)}</span><span>· ${new Date(x.t).toLocaleDateString(undefined, { month: "short", day: "numeric" })}</span>${x.fixes ? `<span class="tag good">${x.fixes}/2 fixed</span>` : ""}</div>
+        <div class="jmeta"><span class="tag ${(x.count || 1) >= 3 ? "bad" : ""}">Missed ${x.count || 1}×</span><span>${esc(x.src)}</span><span>· ${new Date(x.t).toLocaleDateString(undefined, { month: "short", day: "numeric" })}</span>${x.fixes ? `<span class="tag good">${x.fixes}/2 fixed</span>` : ""}</div>
         <div class="jq">${escG(x.q)}</div>
         <div class="jans"><div><span class="small muted">You answered</span><div class="bad-t">${escG(x.yours || "—")}</div></div><div><span class="small muted">Correct</span><div class="good-t">${escG(x.right)}</div></div></div>
         ${x.why ? `<p class="small" style="color:var(--ink-2)">${escG(x.why)}</p>` : ""}
@@ -7287,10 +7352,11 @@ startJournal = function () {
     $$("[data-del]").forEach(b => b.onclick = () => { jClear(b.dataset.del); draw(); });
     $$("[data-note]").forEach(b => b.onclick = () => { const x = jAll().find(y => y.id === b.dataset.note); modal(`${mhead("Note to self")}<p class="small muted" style="margin-bottom:8px">${escG(x.q)}</p><textarea class="input" id="jn" rows="4" placeholder="Why you missed it, or how to remember it…">${esc(x.note || "")}</textarea><div class="modal-foot"><button class="btn" data-close>Cancel</button><button class="btn primary" id="jns">Save</button></div>`, (s, close) => { $("#jns", s).onclick = () => { x.note = $("#jn", s).value.trim(); saveMeta(); close(); draw(); }; }); });
     $("#retry") && ($("#retry").onclick = () => retry(shuffle(retryable).slice(0, 10)));
+    $("#jrev") && ($("#jrev").onclick = () => { const set = dailyReviewSet(); const txt = set.filter(x => jKind(x) !== "game"); if (!txt.length) { const g = set.find(x => x.game); if (g) GAME_OPEN[g.game][1](); return; } retry(txt, true); });
   };
-  const retry = items => {
+  const retry = (items, daily) => {
     let i = 0, right = 0;
-    const done = () => { setProg(1); ST.right.innerHTML = ""; ST.stage.innerHTML = `<div class="results">${ring(Math.round(right / items.length * 100))}<h2>${right} of ${items.length} right</h2><p class="muted">Mistakes answered correctly twice are cleared.</p><button class="btn primary" id="back">Back to journal</button></div>`; $("#back").onclick = draw; };
+    const done = () => { if (daily) dayStat("jreview"); setProg(1); ST.right.innerHTML = ""; const perfect = right === items.length; ST.stage.innerHTML = `<div class="results">${ring(Math.round(right / items.length * 100))}<h2>${daily ? (perfect ? "You’re good for today" : "Session done") : `${right} of ${items.length} right`}</h2><p class="muted" style="max-width:44ch">${daily ? (perfect ? "Every mistake answered right. Close the laptop knowing you’ve got it." : `${right} of ${items.length} right. The rest stay for tomorrow, and that’s exactly how it should work.`) : "Mistakes answered correctly twice are cleared."}</p><button class="btn primary" id="back">Back to journal</button></div>`; $("#back").onclick = draw; };
     const mark = (x, ok) => { if (ok) { right++; x.fixes = (x.fixes || 0) + 1; if (x.fixes >= 2) jClear(x.id, true); else saveMeta(); } else { x.fixes = 0; x.count = (x.count || 1) + 1; x.t = Date.now(); saveMeta(); } };
     const next = () => {
       if (i >= items.length) return done();
@@ -7735,7 +7801,7 @@ function cardStatusMap(d) {
     const sts = fs.map(stOf);
     if (sts.every(s => !s)) { out[id] = { k: "new", l: "New", t: "Not studied yet" }; continue; }
     if (sts.some(s => s && isDue(s, now))) { out[id] = { k: "due", l: "Due", t: "Due for review today" }; continue; }
-    if (sts.every(s => s && (s.i || 0) >= 21)) { out[id] = { k: "mastered", l: "Mastered", t: "Every fact is on a 3-week-plus interval" }; continue; }
+    if (sts.every(s => isM(s))) { out[id] = { k: "mastered", l: "Mastered", t: "Every fact rated Easy 3 times in a row" }; continue; }
     const next = Math.min(...sts.filter(Boolean).map(s => s.d || Infinity));
     const days = Math.max(1, Math.round((next - Date.now()) / DAY));
     out[id] = { k: "learning", l: `Next ${days}d`, t: "Learning; next review in " + plural(days, "day") };
@@ -7745,7 +7811,7 @@ function cardStatusMap(d) {
 function deckModesHtml(modes) {
   const M = Object.fromEntries(modes.map(m => [m[0], m]));
   const rows = [["Study", ["learn", "listen", "compare"]], ["Test", ["mc", "type", "sata", "unknown", "picture"]], ["Play", ["match", "seq"]]];
-  return `<div class="toolcard">${rows.filter(([, ids]) => ids.some(id => M[id] && M[id][4])).map(([lab, ids]) => `<div class="toolline"><span class="toolcat">${lab}</span><div class="toolpills">${ids.map(id => M[id]).filter(m => m && m[4]).map(([id, ic, name, sub, ok, why]) => `<button class="pill" data-mode="${id}" ${ok ? "" : "disabled"} title="${esc(ok ? sub : why)}">${icon(ic)}${id === "learn" ? "Study" : name}${id === "learn" && ok ? `<small>${esc(sub)}</small>` : ""}</button>`).join("")}</div></div>`).join("")}</div>`;
+  return `<div class="toolcard">${rows.filter(([, ids]) => ids.some(id => M[id] && M[id][4])).map(([lab, ids]) => `<div class="toolline"><span class="toolcat">${lab}</span><div class="toolpills">${ids.map(id => M[id]).filter(m => m && m[4]).map(([id, ic, name, sub, ok, why]) => `<button class="pill" data-mode="${id}" ${ok ? "" : "disabled"} title="${esc(ok ? sub : why)}">${icon(ic)}${id === "learn" ? "Study" : name}</button>`).join("")}</div></div>`).join("")}</div>`;
 }
 const _startMode = startMode;
 startMode = function (m, d) { if (m === "learn" || m === "flash") return startStudy(d); return _startMode(m, d); };
@@ -7802,7 +7868,7 @@ const C = {
   monocyte: { n: "Monocyte", cat: "normal", R: 21, d: () => `<circle r="21" fill="#BFC6DA"/><path d="M-11 -6 C-4 -14 12 -12 12 -2 C12 5 4 4 2 9 C-2 14 -14 9 -13 1 Z" fill="#6A4A95"/><circle cx="10" cy="10" r="2" fill="#E8ECF4"/><circle cx="-6" cy="13" r="1.6" fill="#E8ECF4"/>`, h: "Largest normal WBC; folded kidney-shaped nucleus, gray-blue cytoplasm, sometimes vacuoles." },
   eosinophil: { n: "Eosinophil", cat: "normal", R: 17, d: () => `<circle r="17" fill="#F2C9B8"/>${dotsIn(34, 14, 1.7, "#E25B3B")}<circle cx="-6" cy="-2" r="5.5" fill="${SN}"/><circle cx="6" cy="2" r="5.5" fill="${SN}"/>`, h: "Large orange-red granules; usually a bilobed nucleus." },
   basophil: { n: "Basophil", cat: "normal", R: 15, d: () => `<circle r="15" fill="#CBB8DD"/><circle r="7" fill="#4A2A70"/>${dotsIn(30, 12, 2.1, "#24113D")}`, h: "Dark purple-black granules that cover the nucleus." },
-  rbc: { n: "Normal red blood cell", cat: "normal", R: 13, d: () => rbcI(), h: "Round, about the size of a small lymphocyte’s nucleus, with central pallor about one third of the cell." },
+  rbc: { n: "Normal red blood cell", cat: "bg", R: 13, d: () => rbcI(), h: "Round, about the size of a small lymphocyte’s nucleus, with central pallor about one third of the cell." },
   platelet: { n: "Platelet", cat: "normal", R: 6, d: () => `<circle r="3" fill="#7E4DA8"/>${dotsIn(4, 2, .6, "#4A2470")}`, h: "Small purple granular fragment, about 2 to 3 µm." },
   /* RBC morphology */
   spherocyte: { n: "Spherocyte", cat: "rbc", R: 11, d: () => `<circle r="9.5" fill="#D57F86"/>`, h: "Small, dense, no central pallor. Hereditary spherocytosis, warm autoimmune hemolytic anemia." },
@@ -8007,7 +8073,7 @@ function buildPlan() {
   if (D.lessons) add(9, { ic: "book", t: `${plural(D.lessons, "lesson")} done today`, s: "Locked in for spaced review.", done: true });
   const weak = decks.reduce((n, d) => n + factsOf(d).filter(f => isWeak(stOf(f))).length, 0);
   if (weak) add(4, { ic: "target", t: `Drill ${plural(weak, "weak spot")}`, s: "Facts you keep missing.", btn: "Drill", fn: () => startLearn(null, { weak: true }) });
-  const cm = (S.meta.journal || []).filter(x => x.confident).length;
+  const cm = journalVisible().filter(x => (x.count || 1) >= 3).length;
   if (cm) add(4, { ic: "rotate", t: `Fix ${plural(cm, "repeat miss", "repeat misses")}`, s: "Missed more than once: your weakest spots.", btn: "Open", fn: startJournal });
   const fresh = Object.keys(GAME_NAMES).find(g => gameUnlocked(g) && (GAME_REQ[g] || []).length && !(gstate(g).plays) && !(S.meta.stats || {})["pts_" + g]);
   if (fresh && prepOn()) add(5, { ic: "target", t: `Play: ${GAME_NAMES[fresh]}`, s: "Unlocked by your lessons. Apply what you learned.", btn: "Play", fn: () => document.getElementById({ tubes: "tubeBtn", smear: "smearBtn", bench: "benchBtn", gram: "gramBtn", westgard: "westBtn", critical: "critBtn", flow: "flowBtn", sediment: "sedBtn", panel: "panelBtn", acidbase: "abBtn" }[fresh])?.click() });
@@ -8031,7 +8097,7 @@ dashHtml = function (decks) {
   const wk = weekSum(S.meta.history), wkPrev = weekSum(S.meta.history, 7);
   const a7 = acc7(), mastered = masteredNow(), passed = LESSONS.filter(l => lessonState(l).passed).length;
   const ex = upcomingExams()[0]; const p = prepOn() ? prep() : null; const dleft = p && p.start ? dayDiff(p.start) : null;
-  const jopen = (S.meta.journal || []).length, focusW = weekSum(S.meta.focus);
+  const jopen = journalVisible().length, focusW = weekSum(S.meta.focus);
   const boxes = [
     [st, "day streak", st >= 3 ? "🔥" : ""],
     [wk.toLocaleString(), "reviews this week", wkPrev ? `${wk >= wkPrev ? "▲" : "▼"} ${Math.abs(wk - wkPrev)} vs last` : ""],
@@ -8124,10 +8190,9 @@ function planCandidates() {
   if (prepOn() && nextLesson()) out.push({ id: "lessons", pri: 3, n: paceLessonsToday() });
   else if (nextLesson() && LESSONS.some(l => lessonState(l).passed)) out.push({ id: "lessons", pri: 4, n: 1 });
   if (decks.some(d => factsOf(d).some(f => isWeak(stOf(f))))) out.push({ id: "weak", pri: 4 });
-  if ((S.meta.journal || []).some(x => x.confident)) out.push({ id: "conf", pri: 4 });
+  if (journalVisible().some(x => (x.count || 1) >= 3)) out.push({ id: "conf", pri: 4 });
   const fresh = Object.keys(GAME_NAMES).find(g => gameUnlocked(g) && (GAME_REQ[g] || []).length && !gstate(g).plays);
   if (fresh && prepOn()) out.push({ id: "game:" + fresh, pri: 5 });
-  out.push({ id: "focus", pri: 6 });
   return out.sort((a, b) => a.pri - b.pri);
 }
 function todayPlan() {
@@ -8361,14 +8426,18 @@ function addSlideModal(kind = "smear") {
   modal(`${mhead("Add a slide photo")}<p class="small muted" style="margin-bottom:12px">Take a photo through the microscope (phone against the eyepiece works). Name what’s in it and it becomes a Picture ID card.</p>
     <div class="field"><span class="lbl">Kind of slide</span><div class="seg" id="sk">${Object.entries(SLIDE_KINDS).map(([k, v]) => `<button data-k="${k}" class="${k === kind ? "on" : ""}">${v[0]}</button>`).join("")}</div></div>
     <div class="field"><label class="btn" style="width:100%;justify-content:center">${icon("camera")}<span id="fname">Choose or take a photo</span><input type="file" accept="image/*" capture="environment" id="sf" hidden></label></div>
-    <div class="field"><label for="sn">What is it?</label><input class="input" id="sn" list="snames" placeholder="e.g. Target cell, Hyaline cast, Gram-positive cocci in clusters"><datalist id="snames">${[...new Set(names)].map(n => `<option value="${esc(n)}">`).join("")}</datalist></div>
+    <div class="field"><label for="sn">What is it?</label><select class="input" id="sn"></select><input class="input" id="snOther" placeholder="Type what it is" hidden style="margin-top:6px"></div>
     <div class="field"><label for="snote">Note (optional)</label><input class="input" id="snote" placeholder="Where you saw it, stain, magnification…"></div>
     <div class="modal-foot"><button class="btn" data-close>Cancel</button><button class="btn primary" id="ssave">Add card</button></div>`, (s, close) => {
     let file = null;
-    $$("#sk button", s).forEach(b => b.onclick = () => { kind = b.dataset.k; $$("#sk button", s).forEach(x => x.classList.toggle("on", x === b)); });
+    const SL_NAMES = { smear: Object.values(C).map(c => c.n), sed: SED.map(x => x.name), gram: [...Object.values(BUG).map(b => b.n), ...GRAM.map(g => g[0])], other: [] };
+    const fill = () => { const sel = $("#sn", s); sel.innerHTML = `<option value="" disabled selected>Choose what’s in the photo…</option>${[...new Set(SL_NAMES[kind])].sort().map(n => `<option>${esc(n)}</option>`).join("")}<option value="__other">Other (type it)…</option>`; if (kind === "other") { sel.value = "__other"; } $("#snOther", s).hidden = sel.value !== "__other"; };
+    $("#sn", s).onchange = () => { $("#snOther", s).hidden = $("#sn", s).value !== "__other"; if (!$("#snOther", s).hidden) $("#snOther", s).focus(); };
+    fill();
+    $$("#sk button", s).forEach(b => b.onclick = () => { kind = b.dataset.k; $$("#sk button", s).forEach(x => x.classList.toggle("on", x === b)); fill(); });
     $("#sf", s).onchange = e => { file = e.target.files[0]; $("#fname", s).textContent = file ? file.name : "Choose or take a photo"; };
     $("#ssave", s).onclick = async () => {
-      const name = $("#sn", s).value.trim(); if (!file) { toast("Add a photo first"); return; } if (!name) { toast("Name what’s in it"); return; }
+      const name = ($("#sn", s).value === "__other" ? $("#snOther", s).value : $("#sn", s).value || "").trim(); if (!file) { toast("Add a photo first"); return; } if (!name) { toast("Name what’s in it"); return; }
       try {
         const url = await fileToImage(file); const id = uid(); saveImage(id, url);
         const [, lbl, dname] = SLIDE_KINDS[kind]; let d = Object.values(S.decks).find(x => x.slides === kind);
@@ -8737,7 +8806,7 @@ dashHtml = function (decks) {
   const today = S.meta.history[dayKey()] || 0, goal = GOAL(), st = streak();
   const wk = weekSum(S.meta.history), a7 = acc7(), mastered = masteredNow(), passed = LESSONS.filter(l => lessonState(l).passed).length;
   const ex = upcomingExams()[0]; const p = prepOn() ? prep() : null; const dleft = p && p.start ? dayDiff(p.start) : null;
-  const jopen = (S.meta.journal || []).length, rep = (S.meta.journal || []).filter(x => x.confident).length;
+  const jopen = journalVisible().length, rep = journalVisible().filter(x => (x.count || 1) >= 3).length;
   const y = dayKey(Date.now() - DAY), Y = (S.meta.daily || {})[y] || {}, yRev = (S.meta.history || {})[y] || 0;
   const yb = BADGES2.filter(b => { const t = (S.meta.badges || {})[b.id]; return t && dayKey(t) === y; });
   const yAcc = (Y.right || 0) + (Y.wrong || 0) ? Math.round((Y.right || 0) / ((Y.right || 0) + (Y.wrong || 0)) * 100) : null;
@@ -8751,10 +8820,10 @@ dashHtml = function (decks) {
     <div class="bt"><span class="btl">Streak</span><b class="bbig">${st}<small> day${st === 1 ? "" : "s"}</small></b><span class="bsub">${st >= 3 ? "🔥 keep it going" : "Study today to build it"}</span></div>
     <div class="bt"><span class="btl">${ex ? "Next exam" : dleft != null && dleft > 0 ? "Day one" : "Accuracy, 7 days"}</span><b class="bbig">${ex ? (daysUntil(ex) <= 0 ? "Today" : daysUntil(ex) + "<small> days</small>") : dleft != null && dleft > 0 ? dleft + "<small> days</small>" : a7 == null ? "–" : a7 + "%"}</b><span class="bsub">${ex ? esc(ex.name) : dleft != null && dleft > 0 ? "until your program starts" : "first-try answers"}</span></div>
     <div class="bt bt-week"><span class="btl">This week · ${wk.toLocaleString()} reviews</span><div class="bweek">${days.map((d, i) => { const n = (S.meta.history || {})[d] || 0, met = n >= goal; return `<div class="bwd ${met ? "met" : n ? "some" : ""} ${i === 6 ? "today" : ""}"><span>${new Date(d + "T12:00").toLocaleDateString(undefined, { weekday: "narrow" })}</span><b>${n || "·"}</b>${met ? "<i>✓</i>" : ""}</div>`; }).join("")}</div></div>
-    <div class="bt"><span class="btl">Mastered</span><b class="bbig">${mastered.toLocaleString()}</b><span class="bsub">facts on 3-week+ intervals</span></div>
+    <div class="bt"><span class="btl">Mastered</span><b class="bbig">${mastered.toLocaleString()}</b><span class="bsub">facts rated Easy 3× in a row</span></div>
     <div class="bt"><span class="btl">Lessons</span><b class="bbig">${passed}<small>/${LESSONS.length}</small></b><div class="bbar"><i style="width:${passed / LESSONS.length * 100}%"></i></div></div>
     <div class="bt bt-y"><span class="btl">Yesterday</span>${yRev || Y.lessons || Y.games || yb.length ? `<div class="ychips">${yRev ? `<span><b>${yRev}</b> reviewed</span>` : ""}${yAcc != null ? `<span><b>${yAcc}%</b> accuracy</span>` : ""}${Y.lessons ? `<span><b>${Y.lessons}</b> lessons</span>` : ""}${Y.games ? `<span><b>${Y.games}</b> games</span>` : ""}${(S.meta.focus || {})[y] ? `<span><b>${S.meta.focus[y]}</b> focus min</span>` : ""}${yb.length ? `<span>${yb.map(b => b.e).join("")} <b>${yb.length}</b> badge${yb.length > 1 ? "s" : ""}</span>` : ""}</div>` : `<span class="bsub">No study logged. Clean slate today.</span>`}</div>
-    <button class="bt bt-link" id="dashJ"><span class="btl">Mistake journal</span><b class="bbig">${jopen}</b><span class="bsub">${rep ? `${rep} repeat miss${rep > 1 ? "es" : ""}` : "open mistakes"}</span></button>
+    <button class="bt bt-link" id="dashJ"><span class="btl">Mistake journal</span><b class="bbig">${jopen}</b><span class="bsub">${rep ? `${rep} stubborn (3+ misses)` : "real mistakes to fix"}</span></button>
   </section>`;
 };
 { const rh = renderHome; renderHome = function (decks) { rh(decks); const j = $("#dashJ"); if (j) j.onclick = startJournal; if (false) { const pi = paceInfo(); $(".bt-hero .row")?.insertAdjacentHTML("beforeend", `<button class="btn bghost" id="dashD1">${icon("flag")}Day One${pi.days ? ` · ${pi.days}d` : ""}</button>`); $("#dashD1").onclick = startDayOne; } }; }
@@ -8827,6 +8896,302 @@ function weekStrip() {
 
 /* ===================== Course map: placement checks live here now ===================== */
 { const cm = startCourseMap; startCourseMap = function () { cm(); $$(".mapcard").forEach((card, k) => { const u = UNITS[k]; if (!u) return; const left = LESSONS.filter(l => l.unit === u.id && !lessonState(l).passed && !l.wrap).length; if (left > 1) { const nb = card.querySelector("[data-les]"); if (nb) { const wrap = document.createElement("div"); wrap.className = "mapactions"; nb.replaceWith(wrap); wrap.appendChild(nb); wrap.insertAdjacentHTML("beforeend", `<button class="btn sm ghost" data-place="${u.id}">Placement check</button>`); } } }); $$("[data-place]").forEach(b => b.onclick = () => startPlacement(b.dataset.place)); }; }
+/* ===================== Learn mode: a gentle first encounter ===================== */
+const lmStore = d => ((S.meta.lm = S.meta.lm || {})[d.id] = S.meta.lm[d.id] || {});
+const LM_ENC = ["Mistakes are how this sticks. Tap the right one to lock it in.", "No problem. Find the right answer to continue.", "Good miss: you’ll remember this one better now. Tap the correct answer."];
+function lmFacts(d) { return factsOf(d).filter(f => !isSus(f) && (stOf(f) || eligibleNew(f)) && (f.q || f.kind === "cloze")); }
+function startLearnMode(d) {
+  const st = lmStore(d); const all = lmFacts(d);
+  openStudy("Learn: " + d.name);
+  const learned = () => all.filter(f => (st[f.key] || 0) >= 2).length;
+  const intro = () => {
+    setProg(learned() / Math.max(1, all.length)); ST.right.innerHTML = "";
+    if (!all.length) { noDataScreen("No cards to learn yet", "Add cards, or pass the Head start lesson that unlocks this deck."); return; }
+    const done = learned() === all.length;
+    ST.stage.innerHTML = `${studyHead(d)}<div class="lmintro"><h2>${done ? "You’ve learned every card" : "Learn this deck"}</h2>
+      <p class="muted">${done ? "Now it’s in your spaced review. Come back with Study to keep it." : "A gentle first pass. Each new card is shown first, then you pick the answer, then you recall it yourself. Misses are welcome: a missed card comes back twice, shuffled in, until it sticks."}</p>
+      <div class="lmprog"><div class="lmbar"><i style="width:${learned() / all.length * 100}%"></i></div><span><b>${learned()}</b> of ${all.length} learned</span></div>
+      <ol class="lmsteps"><li><b>Meet it.</b> See the card before you’re asked.</li><li><b>Recognize it.</b> Choose the answer from four.</li><li><b>Recall it.</b> Type short answers yourself.</li><li><b>Keep it.</b> Learned cards join your spaced review.</li></ol>
+      <div class="row">${done ? `<button class="btn" id="redo">${icon("rotate")}Learn again from the start</button><button class="btn primary" id="study">Study with spaced review</button>` : `<button class="btn primary" id="go" style="min-width:200px">${learned() ? "Keep going" : "Start learning"}</button>${learned() ? `<button class="btn ghost" id="redo">Start over</button>` : ""}`}</div></div>`;
+    $("#go") && ($("#go").onclick = round); $("#study") && ($("#study").onclick = () => startStudy(d));
+    $("#redo") && ($("#redo").onclick = () => { all.forEach(f => delete st[f.key]); saveMeta(); intro(); });
+    ST.onKey = e => { if (e.key === "Enter") ($("#go") || $("#study"))?.click(); };
+  };
+  const round = () => {
+    const pool = all.filter(f => (st[f.key] || 0) < 2);
+    const batch = shuffle(pool).sort((a, b) => (st[b.key] || 0) - (st[a.key] || 0)).slice(0, 7);
+    const q = batch.map(f => ({ f, rep: false })); const seen = new Set(); const missed = new Set(); let i = 0;
+    const total = () => q.length;
+    const next = () => {
+      if (i >= q.length) return roundEnd(batch, missed);
+      setProg(i / total()); ST.right.innerHTML = `<span class="small muted">${Math.min(i + 1, q.length)} / ${q.length}</span>`;
+      const it = q[i], f = it.f, stage = st[f.key] || 0;
+      if (stage === 0 && !seen.has(f.key) && !it.rep) return preview(it);
+      if (stage >= 1 && !it.rep && typable(f)) return typed(it);
+      return mc(it);
+    };
+    const requeue = it => { missed.add(it.f.key); for (let k = 0; k < 2; k++) { const pos = Math.min(q.length, i + 2 + Math.floor(Math.random() * Math.max(1, q.length - i - 1))); q.splice(pos, 0, { f: it.f, rep: true }); } };
+    const advance = (it, clean) => { if (clean && !it.rep) { const s0 = st[it.f.key] || 0; st[it.f.key] = Math.min(2, s0 + 1); if (st[it.f.key] === 2 && !stOf(it.f)) recordReview(it.f.deck.id, it.f.key, 3, true); saveMeta(); } i++; next(); };
+    const preview = it => {
+      seen.add(it.f.key);
+      ST.stage.innerHTML = `${studyHead(d)}<div class="lmtag new">New card · read it, then you’ll be asked</div><div class="lmcard" style="--cap:${capOf(d)}"><div class="lmside"><small>Front</small>${factFront(it.f)}</div><div class="lmside back"><small>Back</small>${factBack(it.f)}</div></div><div class="row" style="justify-content:center;margin-top:12px"><button class="btn primary" id="ok" style="min-width:220px">Got it, ask me</button></div>`;
+      $("#ok").onclick = () => mc(it); ST.onKey = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); $("#ok").click(); } };
+    };
+    const mc = it => {
+      const qq = questionFor(it.f, false);
+      if (!qq || !qq.options || qq.options.length < 2) { return typed(it, true); }
+      const opts = qq.options; let wrong = false, hinted = false, done = false;
+      ST.stage.innerHTML = `${studyHead(d)}<div class="lmtag">${it.rep ? "Again, one more time" : "Choose the answer"}</div>${questionHtml(qq)}
+        <div class="opts" id="opts">${opts.map((o, k) => `<button class="opt" data-k="${k}"><span class="k">${k + 1}</span><span>${escG(o)}</span></button>`).join("")}</div>
+        <div id="fb"></div><div class="row"><button class="btn ghost sm" id="hint">${icon("target")}50/50 hint</button><div class="spacer"></div></div>`;
+      const pick = k => {
+        if (done) return; const ok = opts[k] === qq.answer; const b = $(`#opts .opt[data-k="${k}"]`);
+        if (ok) {
+          done = true; b.classList.add("right"); $("#opts").classList.add("locked");
+          if (!wrong && !hinted) { $("#fb").innerHTML = `<div class="feedback ok"><div style="flex:1">${rpick(["Correct.", "That’s it.", "Exactly right."])}</div></div>`; setTimeout(() => advance(it, true), 650); }
+          else { if (!wrong) requeue(it); $("#fb").innerHTML = `<div class="feedback ok"><div style="flex:1">There it is. ${wrong ? "You’ll see this card twice more." : "You’ll see it again to be sure."}</div></div><div class="row" style="margin-top:10px"><div class="spacer"></div><button class="btn primary" id="nx">Continue</button></div>`; $("#nx").onclick = () => advance(it, false); $("#nx").focus(); }
+        } else {
+          b.classList.add("wrong"); b.disabled = true; if (!wrong) { wrong = true; requeue(it); logMistake({ src: "Learn", q: qLabel(qq), yours: opts[k], right: qq.answer, opts }); }
+          $$("#opts .opt").forEach(x => { if (opts[+x.dataset.k] === qq.answer) x.classList.add("hintright"); });
+          $("#fb").innerHTML = `<div class="feedback no"><div style="flex:1">${rpick(LM_ENC)}</div></div>`;
+        }
+      };
+      $$("#opts .opt").forEach(b => b.onclick = () => pick(+b.dataset.k));
+      $("#hint").onclick = () => { if (hinted || done) return; hinted = true; const wrongs = shuffle([...$$("#opts .opt")].filter(x => opts[+x.dataset.k] !== qq.answer && !x.disabled)).slice(0, Math.max(0, opts.length - 2)); wrongs.forEach(x => { x.disabled = true; x.classList.add("gone"); }); $("#hint").disabled = true; };
+      ST.onKey = e => { if (/^[1-6]$/.test(e.key)) pick(+e.key - 1); else if (e.key.toLowerCase() === "h") $("#hint")?.click(); else if (e.key === "Enter") $("#nx")?.click(); };
+    };
+    const typed = (it, fallback) => {
+      const f = it.f; const ans = f.a || ""; let tries = 0, copying = false;
+      const prompt = f.kind === "field" ? `${f.q} · ${f.field}` : f.kind === "cloze" ? f.q : f.q;
+      ST.stage.innerHTML = `${studyHead(d)}<div class="lmtag">${fallback ? "Type the answer" : "Now recall it yourself"}</div><div class="qcard"><div class="qtext" style="font-size:1.25rem">${escG(prompt)}</div></div>
+        <div class="typed"><input class="input" id="ta" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Type your answer"><button class="btn primary" id="chk">Check</button></div>
+        <div class="row"><button class="btn ghost sm" id="hint">${icon("target")}Show first letters</button><button class="btn ghost sm" id="idk">I don’t know yet</button></div><div id="fb"></div>`;
+      if (matchMedia("(hover:hover)").matches) setTimeout(() => $("#ta")?.focus(), 30);
+      const ok = v => similar(v, ans) || norm(v) === norm(ans);
+      const check = () => {
+        const v = $("#ta").value.trim(); if (!v) return;
+        if (ok(v)) {
+          if (copying) { $("#fb").innerHTML = `<div class="feedback ok"><div style="flex:1">Locked in. You’ll see it twice more.</div></div>`; setTimeout(() => advance(it, false), 700); return; }
+          $("#fb").innerHTML = `<div class="feedback ok"><div style="flex:1">${tries ? "Got it." : "Perfect recall."}${!exactish(v) ? ` <span class="det">Spelling: ${esc(ans)}</span>` : ""}</div></div>`; setTimeout(() => advance(it, tries === 0), 750); return;
+        }
+        tries++;
+        if (tries === 1) { $("#fb").innerHTML = `<div class="feedback no"><div style="flex:1">Not quite. One more try. <span class="det">Hint: starts with “${esc(ans.slice(0, Math.max(2, Math.ceil(ans.length / 4))))}”</span></div></div>`; $("#ta").select(); return; }
+        reveal();
+      };
+      const exactish = v => norm(v) === norm(ans);
+      const reveal = () => { if (!copying) { copying = true; requeue(it); logMistake({ src: "Learn", q: prompt, yours: $("#ta").value, right: ans }); } $("#fb").innerHTML = `<div class="feedback no"><div style="flex:1">The answer is <b>${escG(ans)}</b>. Type it once to lock it in.</div></div>`; $("#ta").value = ""; $("#ta").focus(); };
+      $("#chk").onclick = check; $("#idk").onclick = reveal;
+      $("#hint").onclick = () => { $("#ta").placeholder = ans.split(/\s+/).map(w => w[0] + "…").join(" "); $("#hint").disabled = true; tries = Math.max(tries, 1); };
+      ST.onKey = e => { if (e.key === "Enter") { e.preventDefault(); check(); } };
+    };
+    next();
+  };
+  const roundEnd = (batch, missed) => {
+    setProg(learned() / all.length); ST.right.innerHTML = "";
+    const left = all.length - learned();
+    ST.stage.innerHTML = `${studyHead(d)}<div class="lmintro"><h2>${left ? "Round complete" : "Deck learned"}</h2>
+      <div class="lmprog"><div class="lmbar"><i style="width:${learned() / all.length * 100}%"></i></div><span><b>${learned()}</b> of ${all.length} learned</span></div>
+      <div class="lmlist">${batch.map(f => { const s = st[f.key] || 0; return `<div class="lmrow"><span class="lmdot s${s}">${s >= 2 ? "✓" : s}</span><span>${escG(f.q || "")}${f.kind === "field" ? ` · ${escG(f.field)}` : ""}</span><small>${s >= 2 ? "Learned" : s === 1 ? "Recognized, recall next" : "Still new"}${missed.has(f.key) ? " · missed once" : ""}</small></div>`; }).join("")}</div>
+      <div class="row">${left ? `<button class="btn primary" id="go">Next round</button>` : `<button class="btn primary" id="study">Study with spaced review</button>`}<button class="btn" id="dn">Done for now</button></div></div>`;
+    $("#go") && ($("#go").onclick = round); $("#study") && ($("#study").onclick = () => startStudy(d)); $("#dn").onclick = () => closeStudy();
+    ST.onKey = e => { if (e.key === "Enter") ($("#go") || $("#study"))?.click(); };
+  };
+  const typable = f => (f.a || "").length <= 32 && (f.a || "").split(/\s+/).length <= 4 && f.kind !== "cloze";
+  intro();
+}
+
+/* deck page: Learn comes before Study */
+deckModesHtml = function (modes) {
+  const M = Object.fromEntries(modes.map(m => [m[0], m]));
+  M.learnmode = ["learnmode", "book", "Learn", "", true, ""];
+  const rows = [["Study", ["learnmode", "learn", "listen", "compare"]], ["Test", ["mc", "type", "sata", "unknown", "picture"]], ["Play", ["match", "seq"]]];
+  return `<div class="toolcard">${rows.filter(([, ids]) => ids.some(id => M[id] && M[id][4])).map(([lab, ids]) => `<div class="toolline"><span class="toolcat">${lab}</span><div class="toolpills">${ids.map(id => M[id]).filter(m => m && m[4]).map(([id, ic, name]) => `<button class="pill ${id === "learnmode" ? "pill-learn" : ""}" data-mode="${id}">${icon(ic)}${id === "learn" ? "Study" : name}</button>`).join("")}</div></div>`).join("")}</div>`;
+};
+{ const sm = startMode; startMode = function (m, d) { if (m === "learnmode") return startLearnMode(d); return sm(m, d); }; }
+
+/* ===================== Match: every card, over as many rounds as it takes ===================== */
+startMatch = function (d) {
+  openStudy(d.name + ": match");
+  const n = window.innerWidth >= 860 ? 6 : 5;
+  const all = []; const seenCards = new Set();
+  for (const f of shuffle(factsOf(d))) { if (!f.q || f.kind === "cloze" || isSus(f) || seenCards.has(f.card.id + f.field)) continue; if (f.kind === "field" && f.deck.cards.some(o => o !== f.card && norm((o.values || {})[f.field]) === norm(f.a))) continue; seenCards.add(f.card.id + f.field); all.push({ f, l: f.q, r: f.kind === "field" ? f.field + ": " + f.a : f.a, id: f.key }); }
+  if (all.length < 2) { ST.stage.innerHTML = `<div class="results"><h2>Need more cards</h2><button class="btn" id="dn">Done</button></div>`; $("#dn").onclick = () => closeStudy(); return; }
+  let queue = all.slice(), retry = [], cleared = 0, roundNo = 0, totalTime = 0;
+  const startRound = () => {
+    roundNo++;
+    const pairs = [], usedQ = new Set(), usedA = new Set();
+    const take = list => { for (let k = 0; k < list.length && pairs.length < n; k++) { const p = list[k]; if (usedQ.has(norm(p.l)) || usedA.has(norm(p.r))) continue; usedQ.add(norm(p.l)); usedA.add(norm(p.r)); pairs.push(p); list.splice(k, 1); k--; } };
+    take(retry); take(queue);
+    if (pairs.length < 2 && queue.length + retry.length) { const extra = (queue.length ? queue : retry).splice(0, 1); pairs.push(...extra); }
+    const tiles = shuffle(pairs.flatMap((p, k) => [{ k, t: p.l }, { k, t: p.r }]));
+    const bad = new Set(); let first = null, left = pairs.length; const t0 = Date.now();
+    ST.right.innerHTML = `<span class="small muted">Round ${roundNo} · ${cleared}/${all.length} cleared</span>`;
+    ST.stage.innerHTML = `<p class="muted" style="text-align:center">Tap matching pairs. Pairs you miss come back in a later round until you match them cleanly.</p><div class="match-grid">${tiles.map((x, j) => `<button class="tile" data-j="${j}"><span>${escG(x.t)}</span></button>`).join("")}</div>`;
+    $$(".tile").forEach(b => b.onclick = () => {
+      const j = +b.dataset.j; if (b.classList.contains("done")) return;
+      if (first === null) { first = j; b.classList.add("sel"); return; }
+      if (first === j) { b.classList.remove("sel"); first = null; return; }
+      const a = $(`.tile[data-j="${first}"]`);
+      if (tiles[first].k === tiles[j].k) { a.classList.remove("sel"); a.classList.add("done"); b.classList.add("done"); left--; if (!bad.has(tiles[j].k)) recordQuiz(pairs[tiles[j].k].f, true); if (!left) end(); }
+      else { bad.add(tiles[first].k); bad.add(tiles[j].k); a.classList.remove("sel"); [a, b].forEach(x => { x.classList.add("bad"); setTimeout(() => x.classList.remove("bad"), 350); }); recordQuiz(pairs[tiles[first].k].f, false); }
+      first = null;
+    });
+    const end = () => {
+      totalTime += (Date.now() - t0) / 1000;
+      pairs.forEach((p, k) => { if (bad.has(k)) retry.push(p); else cleared++; });
+      setProg(cleared / all.length);
+      const more = queue.length + retry.length;
+      setTimeout(() => {
+        ST.stage.innerHTML = `<div class="results"><h2>${more ? `Round ${roundNo} done` : "Every card matched"}</h2><p class="muted">${cleared} of ${all.length} cards matched cleanly${bad.size ? ` · ${bad.size} coming back` : ""}${more ? "" : ` · ${Math.round(totalTime)}s total`}</p>
+          <div class="lmbar" style="max-width:360px;margin:0 auto"><i style="width:${cleared / all.length * 100}%"></i></div>
+          <div class="row" style="justify-content:center;margin-top:14px">${more ? `<button class="btn primary" id="nx">Next round</button>` : `<button class="btn primary" id="again">Play again</button>`}<button class="btn" id="dn">Done</button></div></div>`;
+        $("#nx") && ($("#nx").onclick = startRound); $("#again") && ($("#again").onclick = () => startMatch(d)); $("#dn").onclick = () => closeStudy();
+        ST.onKey = e => { if (e.key === "Enter") ($("#nx") || $("#again"))?.click(); };
+      }, 350);
+    };
+  };
+  startRound();
+};
+
+/* ===================== Import: term and definition by default ===================== */
+importModal = function (d) {
+  let tab = "list", sep = "tab", mode = "basic", header = null;
+  const looksHeader = r => r && r.some(c => /^(term|definition|front|back|name|question|answer|note|why)$/i.test((c || "").trim()));
+  const html = () => `${mhead("Import cards")}
+    <div class="field"><div class="seg" id="itab"><button type="button" data-t="list" class="${tab === "list" ? "on" : ""}">Paste a list</button><button type="button" data-t="csv" class="${tab === "csv" ? "on" : ""}">Spreadsheet</button></div></div>
+    ${tab === "list" ? `<div class="field"><label for="itx">One card per line: term, separator, definition</label><textarea class="input" id="itx" rows="8" placeholder="Neutrophil - Most abundant WBC; segmented nucleus&#10;Lymphocyte - Round nucleus, scant cytoplasm"></textarea></div>
+      <div class="field"><span class="lbl">Separator</span><div class="seg" id="sep">${[["tab", "Tab"], ["dash", "Dash"], ["colon", "Colon"], ["comma", "Comma"]].map(([k, l]) => `<button type="button" data-s="${k}" class="${sep === k ? "on" : ""}">${l}</button>`).join("")}</div><span class="hint">From Quizlet, export with Tab between term and definition.</span></div>`
+    : `<div class="field"><label for="itx">Paste rows from Excel, Sheets or a CSV</label><textarea class="input" id="itx" rows="8" placeholder="Term&#9;Definition&#10;Neutrophil&#9;Most abundant WBC"></textarea></div>
+      <div class="field"><span class="lbl">Make</span><div class="seg" id="imode"><button type="button" data-m="basic" class="${mode === "basic" ? "on" : ""}">Term and definition cards</button><button type="button" data-m="profile" class="${mode === "profile" ? "on" : ""}">Profiles (one row per item)</button></div>
+      <span class="hint">${mode === "basic" ? "Column 1 is the term, column 2 the definition. Optional column 3 becomes the note and column 4 the “why”." : "Column 1 is each item’s name; every other column becomes a field, like Gram stain or Oxidase. Needs a header row."}</span></div>
+      <label class="check"><input type="checkbox" id="hdr" ${header ? "checked" : ""}>First row is a header</label>`}
+    <p class="small muted" id="cnt">Paste to preview.</p>
+    <div class="modal-foot"><button class="btn" data-close>Cancel</button><button class="btn primary" id="doImp">Add to deck</button></div>`;
+  modal(html(), (s, close) => {
+    const rows = () => { const r = parseCSV($("#itx", s).value || ""); const hd = header == null ? looksHeader(r[0]) : header; return { r, hd, body: hd ? r.slice(1) : r }; };
+    const preview = () => {
+      const t = $("#itx", s)?.value || "", el = $("#cnt", s); if (!el) return; if (!t.trim()) { el.textContent = "Paste to preview."; return; }
+      if (tab === "list") { const n = parseList(t, sep).length; el.textContent = n ? plural(n, "card") + " ready." : "No lines matched. Try a different separator."; return; }
+      const { r, hd, body } = rows(); if (header == null && $("#hdr", s)) $("#hdr", s).checked = hd;
+      const cols = Math.max(0, ...r.map(x => x.length));
+      if (mode === "basic") { const n = body.filter(x => x[0] && x[1]).length; el.textContent = n ? `${plural(n, "card")} ready (${cols} column${cols === 1 ? "" : "s"})${cols < 2 ? ". Need at least 2 columns." : ""}` : "Need a term and a definition on each row."; }
+      else el.textContent = r.length > 1 ? `${plural(body.length, "profile")} with ${plural(Math.max(0, (r[0] || []).length - 1), "field")}` : "Need a header row and at least one row.";
+    };
+    const rer = () => { const v = $("#itx", s)?.value || ""; $(".modal", s).innerHTML = html(); bind(); $("#itx", s).value = v; preview(); };
+    const bind = () => {
+      $$("[data-close]", s).forEach(b => b.onclick = close);
+      $$("#itab button", s).forEach(b => b.onclick = () => { tab = b.dataset.t; rer(); });
+      $$("#sep button", s).forEach(b => b.onclick = () => { sep = b.dataset.s; rer(); });
+      $$("#imode button", s).forEach(b => b.onclick = () => { mode = b.dataset.m; rer(); });
+      $("#hdr", s) && ($("#hdr", s).onchange = e => { header = e.target.checked; preview(); });
+      $("#itx", s).oninput = preview;
+      $("#doImp", s).onclick = () => {
+        let added = [];
+        if (tab === "list") added = parseList($("#itx", s).value, sep).map(x => ({ id: uid(), type: "basic", front: x.front, back: x.back, note: "", star: false }));
+        else if (mode === "basic") { const { body } = rows(); added = body.filter(x => (x[0] || "").trim() && (x[1] || "").trim()).map(x => ({ id: uid(), type: "basic", front: x[0].trim(), back: x[1].trim(), note: (x[2] || "").trim(), why: (x[3] || "").trim(), star: false })); }
+        else { const r = parseCSV($("#itx", s).value); if (r.length < 2) { toast("Need a header row and at least one row"); return; } r[0].slice(1).map(h => h.trim()).filter(Boolean).forEach(h => { if (!d.fields.includes(h)) d.fields.push(h); }); added = r.slice(1).filter(row => row[0]).map(row => ({ id: uid(), type: "profile", name: row[0], values: Object.fromEntries(r[0].slice(1).map((h, i) => [h.trim(), row[i + 1] || ""]).filter(([h, v]) => h && v)), note: "", star: false })); }
+        if (!added.length) { toast("Nothing to add yet"); return; }
+        d.cards.push(...added); saveDeck(d); close(); renderDeck(d); toast(plural(added.length, "card") + " added");
+      };
+    };
+    bind();
+  });
+};
+
+/* ===================== Recall blanks: never blank filler words ===================== */
+["it", "its", "it’s", "they", "this", "that", "these", "those", "the", "and", "but", "was", "were", "been", "has", "have", "had", "can", "will", "would", "may", "might", "also", "very", "more", "some", "many", "much", "such", "than", "then", "when", "what", "which", "who", "how", "why", "your", "you", "our", "his", "her", "their", "them", "there", "here", "into", "onto", "from", "with", "only", "like", "just", "even", "both", "each", "other", "same", "make", "makes", "made", "called", "means", "usually", "often", "most"].forEach(w => STOPW.add(w));
+moreBlanks = function (text, max) {
+  const parts = text.split(/(\{\{.+?\}\})/);
+  const have = parts.filter(p => /^\{\{/.test(p)).length;
+  const words = text.replace(/\{\{.+?\}\}/g, "").split(/\s+/).length;
+  const target = Math.max(have, Math.min(max || 4, Math.max(2, Math.round(words / 10))));
+  if (have >= target) return text;
+  const cands = [];
+  parts.forEach((p, pi) => {
+    if (/^\{\{/.test(p)) return;
+    const re = /(\d+(?:\.\d+)?)|([A-Za-z][A-Za-z\-]{3,})/g; let m;
+    while ((m = re.exec(p))) {
+      const w = m[0], lw = w.toLowerCase(), nxt = p[m.index + w.length] || "", prv = p[m.index - 1] || "";
+      if (STOPW.has(lw) || /['’]/.test(nxt) || /['’]/.test(prv)) continue;
+      let sc = 0;
+      if (GLOSS[w]) sc = 4; else if (/^\d/.test(w)) sc = 2.6; else if (w.length >= 8) sc = 2.2; else if (w.length >= 6) sc = 1.4; else continue;
+      if (/^[A-Z]/.test(w) && m.index === 0 && !GLOSS[w]) sc -= 1;
+      cands.push({ pi, start: m.index, end: m.index + w.length, w, sc: sc + Math.random() * .5 });
+    }
+  });
+  const chosen = [];
+  cands.sort((a, b) => b.sc - a.sc).forEach(c => { if (chosen.length >= target - have) return; if (chosen.some(x => x.pi === c.pi && Math.abs(x.start - c.start) < 18)) return; chosen.push(c); });
+  chosen.sort((a, b) => a.pi - b.pi || b.start - a.start).forEach(c => { const p = parts[c.pi]; parts[c.pi] = p.slice(0, c.start) + "{{" + c.w + "}}" + p.slice(c.end); });
+  return parts.join("");
+};
+
+/* ===================== Level tiles: a clean lock ===================== */
+const LOCK_SVG = `<svg viewBox="0 0 20 20" width="15" height="15" aria-hidden="true"><rect x="4.5" y="9" width="11" height="8" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M7 9V6.6a3 3 0 0 1 6 0V9" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>`;
+levelTabs = function (levels, cur, unlocked) {
+  return `<div class="levels">${levels.map((l, i) => { const n = i + 1, open = n <= unlocked, done = n < unlocked; return `<button class="lvl ${n === cur ? "on" : ""} ${done ? "cleared" : ""}" data-lv="${n}" ${open ? "" : "disabled"} title="${open ? "" : "Clear the level before to unlock"}"><span class="lvn">${done ? "★" : open ? n : LOCK_SVG}</span><span class="lvt"><small>Level ${n}</small><b>${esc(l)}</b></span></button>`; }).join("")}</div>`;
+};
+
+/* ===================== Home: lone exams list uses the full width ===================== */
+{ const rh = renderHome; renderHome = function (decks) { rh(decks); const tc = $(".twocol"); if (tc && tc.children.length === 1) tc.classList.add("one"); }; }
+/* ===================== Mistake journal: only real mistakes ===================== */
+const SKIP_SRC = /^(Learn|Bootcamp)$/;
+const DIRECT_SRC = /exam|Board-style|Comprehensive/i;
+function journalVisible() { return (S.meta.journal || []).filter(x => !x.watch); }
+logMistake = function (e) {
+  if (!e || !e.q || !e.right || SKIP_SRC.test(e.src || "")) return;
+  const J = S.meta.journal = S.meta.journal || [];
+  if (!e.game && VISUAL_SRC[e.src]) e.game = VISUAL_SRC[e.src];
+  if (e.opts) e.opts = [...new Set(e.opts.filter(Boolean))];
+  const ex = J.findIndex(x => x.q === e.q && x.right === e.right && x.src === e.src);
+  if (ex >= 0) { const old = J.splice(ex, 1)[0]; const count = (old.count || 1) + 1; J.unshift({ ...old, ...e, id: old.id, count, fixes: 0, note: old.note, t: Date.now(), watch: false, promoted: old.watch ? Date.now() : old.promoted }); }
+  else { const direct = DIRECT_SRC.test(e.src || ""); J.unshift({ ...e, t: Date.now(), id: uid(), count: 1, fixes: 0, watch: !direct, promoted: direct ? Date.now() : 0 }); }
+  const cut = Date.now() - 21 * DAY; S.meta.journal = J.filter(x => !x.watch || x.t > cut).slice(0, 400);
+  const d = dayKey(); const D = S.meta.daily = S.meta.daily || {}; D[d] = D[d] || {}; D[d].misses = (D[d].misses || 0) + 1;
+  saveMeta();
+};
+function dailyReviewSet() {
+  const J = journalVisible(); const today = dayKey();
+  const score = x => (x.promoted && dayKey(x.promoted) === today ? 100 : 0) + (x.count || 1) * 10 + (Date.now() - x.t) / DAY;
+  return J.slice().sort((a, b) => score(b) - score(a)).slice(0, 12);
+}
+function migrateJournal() {
+  if (S.meta.v17journal) return;
+  (S.meta.journal || []).forEach(x => { if (x.watch == null) x.watch = (x.count || 1) < 2 && !DIRECT_SRC.test(x.src || ""); });
+  S.meta.v17journal = 1; saveMeta();
+}
+/* Today's targets end with the mistake review */
+{ const pc = planCandidates; planCandidates = function () { const out = pc().filter(c => c.id !== "conf"); if (journalVisible().length) out.push({ id: "jreview", pri: 99 }); return out; }; }
+{ const pv = planView; planView = function (it) { if (it.id === "jreview") { const n = journalVisible().length; const done = (((S.meta.daily || {})[dayKey()] || {}).jreview || 0) > 0 || !n; return { ic: "rotate", t: "Finish with your mistake review", s: done ? "You’re good for today" : `${plural(Math.min(12, n), "mistake")} to lock in before you’re done`, done, btn: "Review", fn: () => { startJournal(); setTimeout(() => $("#jrev")?.click(), 0); } }; } return pv(it); }; }
+{ const tp = todayPlan; todayPlan = function () { const items = tp(); const i = items.findIndex(x => x.id === "jreview"); if (i >= 0 && i !== items.length - 1) items.push(items.splice(i, 1)[0]); return items.filter(x => x.id !== "conf"); }; }
+
+/* ===================== Greetings with a little personality ===================== */
+function greeting() {
+  const now = new Date(), h = now.getHours(), dow = now.getDay(), seed = dayKey() + Math.floor(h / 3);
+  let hsh = 0; for (const ch of seed) hsh = (hsh * 31 + ch.charCodeAt(0)) >>> 0;
+  const pickS = arr => arr[hsh % arr.length];
+  const st = streak(), ex = upcomingExams()[0], exd = ex ? daysUntil(ex) : null;
+  const titles = h < 5 ? ["Burning the midnight oil", "Night shift mode", "Still up?"] : h < 12 ? ["Good morning", "Morning, future MLS", "Rise and centrifuge", "Good morning, scientist"] : h < 17 ? ["Good afternoon", "Afternoon, lab partner", "Hope your day is within normal limits"] : h < 22 ? ["Good evening", "Evening shift, reporting in", "Good evening, scientist"] : ["Late one tonight", "Night shift mode", "Burning the midnight oil"];
+  const lines = ["Stay positive. Unless you’re Gram-negative.", "Today’s results are pending your review.", "Keep calm and centrifuge on.", "Every review is a control run for your brain.", "Small daily doses, big long-term titer.", "Aim for precise and accurate.", "No hemolysis, no problem.", "Trust the process: pre-analytical, analytical and post.", "Your memory is the best analyzer in the lab. Calibrate it daily.", "Mix gently, never shake. Same goes for studying.", "Label at the bedside. Learn at the desk.", "You’re within normal limits today."];
+  let title = pickS(titles), line = pickS(lines);
+  const md = (now.getMonth() + 1) * 100 + now.getDate();
+  const labWeek = now.getMonth() === 3 && (() => { const last = new Date(now.getFullYear(), 4, 0); const lastSun = new Date(last); lastSun.setDate(last.getDate() - last.getDay()); const start = new Date(lastSun); start.setDate(lastSun.getDate() - 6); return now >= start && now <= new Date(lastSun.getTime() + DAY); })();
+  if (labWeek) { title = "Happy Lab Week 🧪"; line = "It’s Medical Laboratory Professionals Week. Your future profession is being celebrated."; }
+  else if (md === 101) { title = "Happy New Year"; line = "New year, new reference ranges. Same great you."; }
+  else if (md === 1031) { title = "Happy Halloween 🎃"; line = "Nothing scarier than a mislabeled specimen."; }
+  else if (exd != null && exd <= 3 && exd >= 0) line = `${ex.name} ${exd === 0 ? "is today" : `is in ${plural(exd, "day")}`}. You’ve prepped for this.`;
+  else if (st >= 30) line = `🔥 ${st}-day streak. That’s a whole month of showing up.`;
+  else if (st >= 7 && hsh % 2) line = `🔥 ${st}-day streak. Westgard would approve of this consistency.`;
+  else if (dow === 5 && hsh % 2) line = "Happy Friday. A short review now makes the weekend guilt-free.";
+  else if (dow === 1 && hsh % 2) line = "New week, clean slate. Let’s run some controls.";
+  else if ((dow === 0 || dow === 6) && hsh % 2) line = "Weekend study session? Future you says thanks.";
+  if (h >= 23 || h < 5) line = "Short session, then sleep. Memories consolidate while you rest.";
+  return [title, line];
+}
+{ const rh = renderHome; renderHome = function (decks) { rh(decks); const h1 = $("#view h1"); if (h1 && !h1.classList.contains("deckh1")) { const [t, l] = greeting(); h1.textContent = t; h1.insertAdjacentHTML("afterend", `<p class="greetline">${esc(l)}</p>`); } }; }
+
+/* ===================== Rotation prep: no logbook ===================== */
+startRotations = _startRotations;
+{ const k = BADGES2.findIndex(b => b.id === "log5"); if (k >= 0) BADGES2.splice(k, 1); }
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
@@ -9228,6 +9593,7 @@ async function boot() {
   // copy anything that only existed in localStorage into IndexedDB
   for (const [k, v] of Object.entries(docs)) IDB.put(k, v);
   tagLegacyPacks();
+  try { migrateJournal(); } catch { }
   if (!S.meta.v8gloss) { S.meta.settings.beginner = false; S.meta.v8gloss = 1; saveMeta(); }
   try { tagLabels(); } catch { }
   try { snapshotWeek(); } catch { }
