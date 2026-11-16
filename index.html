@@ -1552,6 +1552,17 @@ h3{font-size:1.06rem}
 .exedit{position:absolute;top:6px;right:6px;width:26px;height:26px;border-radius:6px;border:0;background:transparent;color:var(--ink-3);display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
 .exedit:hover{background:var(--btn-hover);color:var(--ink)}
 .exedit svg{width:13px;height:13px}
+/* flip: hide the off-side face at mid-turn (iOS Safari ignores backface-visibility in some layouts) */
+.face{transition:visibility 0s linear .22s}
+.flip.on .face:not(.back){visibility:hidden}
+.flip:not(.on) .face.back{visibility:hidden}
+/* glossary entries: pencil in the corner */
+.gitem{position:relative}
+.gitem .exedit{top:8px;right:8px}
+/* mistake review visuals */
+.jvis{display:flex;justify-content:center;margin:8px 0}
+.jvis .sedsvg{max-width:280px;border-radius:8px}
+.cellthumb.big{width:150px;height:150px;border-radius:10px}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -1638,7 +1649,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "20.3";
+const APP_VERSION = "20.4";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -2904,7 +2915,7 @@ function startLearn(deck, opts = {}) {
     $("#fc").classList.add("on");
     $("#ctl").innerHTML = `<div class="grades">${[[1, "Again"], [2, "Hard"], [3, "Good"], [4, "Easy"]].map(([g, l]) => `<button class="g${g}" data-g="${g}" title="${{ 1: "Didn’t know it: back in 3 cards, then needs two good answers. Due again tomorrow.", 2: "Got it, but struggled: comes back once more this session. Small step forward.", 3: "Right, but not quick yet: done for today. Normal spacing.", 4: "Came instantly: done for today. Big step forward, and counts toward mastery." }[g]}"><b>${l}</b><kbd>${g}</kbd></button>`).join("")}</div>
       <div class="row" style="justify-content:center;margin-top:10px"><button class="btn sm ghost" id="whyB">${icon("brain")}Why?</button>${f.deck.pack && lessonsForPack(f.deck.pack).length ? `<button class="btn sm ghost" id="teach">${icon("book")}Teach me this</button>` : ""}</div>
-      <p class="tap-hint" style="margin-top:8px">Easy three times in a row = mastered</p>`;
+      `;
     $("#whyB").onclick = () => whyModal(f);
     $("#teach") && ($("#teach").onclick = () => startLesson(lessonsForPack(f.deck.pack)[0]));
     $$(".grades button").forEach(b => b.onclick = () => grade(+b.dataset.g));
@@ -7488,7 +7499,7 @@ function startBadges() {
 /* ===================== Mistake journal, rebuilt ===================== */
 const GAME_OPEN = { smear: ["Smear practice", () => startSmear()], westgard: ["Westgard judge", () => startWestgard()], tubes: ["Tube trainer", () => startTubeTrainer()], sediment: ["Urine sediment", () => startSediment()], panel: ["Antibody panel", () => startPanel()], acidbase: ["Acid-base", () => startAcidBase()] };
 const jAll = () => journalVisible();
-const jKind = x => (x.game || (VISUAL_SRC[x.src] && (x.game = VISUAL_SRC[x.src]))) && GAME_OPEN[x.game] ? "game" : (x.opts && x.opts.length >= 2 && x.opts.includes(x.right)) ? "choice" : "self";
+const jKind = x => { if (!x.game && VISUAL_SRC[x.src]) x.game = VISUAL_SRC[x.src]; const o = jOpts(x); return o && o.length >= 2 ? "choice" : "self"; };
 function jClear(id, silent) { S.meta.journal = jAll().filter(x => x.id !== id); stat("jcleared"); const d = dayKey(); const D = S.meta.daily = S.meta.daily || {}; D[d] = D[d] || {}; D[d].cleared = (D[d].cleared || 0) + 1; saveMeta(); if (!silent) toast("Cleared from your journal"); }
 startJournal = function () {
   openStudy("Mistake journal");
@@ -7531,7 +7542,7 @@ startJournal = function () {
     $$("[data-del]").forEach(b => b.onclick = () => { jClear(b.dataset.del); draw(); });
     $$("[data-note]").forEach(b => b.onclick = () => { const x = jAll().find(y => y.id === b.dataset.note); modal(`${mhead("Note to self")}<p class="small muted" style="margin-bottom:8px">${escG(x.q)}</p><textarea class="input" id="jn" rows="4" placeholder="Why you missed it, or how to remember it…">${esc(x.note || "")}</textarea><div class="modal-foot"><button class="btn" data-close>Cancel</button><button class="btn primary" id="jns">Save</button></div>`, (s, close) => { $("#jns", s).onclick = () => { x.note = $("#jn", s).value.trim(); saveMeta(); close(); draw(); }; }); });
     $("#retry") && ($("#retry").onclick = () => retry(shuffle(retryable).slice(0, 10)));
-    $("#jrev") && ($("#jrev").onclick = () => { const set = dailyReviewSet(); const txt = set.filter(x => jKind(x) !== "game"); if (!txt.length) { const g = set.find(x => x.game); if (g) GAME_OPEN[g.game][1](); return; } retry(txt, true); });
+    $("#jrev") && ($("#jrev").onclick = () => { const set = dailyReviewSet(); retry(set, true); });
   };
   const retry = (items, daily) => {
     let i = 0, right = 0;
@@ -7541,8 +7552,8 @@ startJournal = function () {
       if (i >= items.length) return done();
       const x = items[i]; setProg(i / items.length); ST.right.innerHTML = `<span class="small muted">${i + 1} of ${items.length}</span>`;
       if (jKind(x) === "choice") {
-        const opts = shuffle(x.opts.slice(0, 6).includes(x.right) ? x.opts.slice(0, 6) : [x.right, ...x.opts.filter(o => o !== x.right).slice(0, 3)]);
-        ST.stage.innerHTML = `<div class="qcard"><div class="kicker">${esc(x.src)}</div>${x.img && imgSrc(x.img) ? `<img class="cardimg" src="${imgSrc(x.img)}" alt="" style="max-height:260px;margin:6px 0">` : ""}<div class="qtext" style="font-size:1.15rem">${x.img ? "What is shown?" : escG(x.q)}</div></div><div class="opts" id="opts">${opts.map((o, k) => `<button class="opt" data-k="${k}"><span class="k">${k + 1}</span><span>${escG(o)}</span></button>`).join("")}</div><div id="fb"></div>`;
+        const pool = jOpts(x); const opts = shuffle(pool.slice(0, 6).includes(x.right) ? pool.slice(0, 6) : [x.right, ...pool.filter(o => o !== x.right).slice(0, 3)]); const vis = jVisual(x);
+        ST.stage.innerHTML = `<div class="qcard"><div class="kicker">${esc(x.src)}</div>${x.img && imgSrc(x.img) ? `<img class="cardimg" src="${imgSrc(x.img)}" alt="" style="max-height:260px;margin:6px 0">` : ""}${vis ? `<div class="jvis">${vis}</div>` : ""}<div class="qtext" style="font-size:1.15rem">${x.img || vis ? "What is this?" : escG(x.q)}</div></div><div class="opts" id="opts">${opts.map((o, k) => `<button class="opt" data-k="${k}"><span class="k">${k + 1}</span><span>${escG(o)}</span></button>`).join("")}</div><div id="fb"></div>`;
         let answered = false;
         $$("#opts .opt").forEach(b => b.onclick = () => { if (answered) return; answered = true; const ok = opts[+b.dataset.k] === x.right; mark(x, ok);
           $("#opts").classList.add("locked"); $$("#opts .opt").forEach((y, k) => { if (opts[k] === x.right) y.classList.add("right"); else if (y === b) y.classList.add("wrong"); });
@@ -7587,7 +7598,7 @@ function mcRounds(items, label, onEnd, need) {
     const opts = it.keep ? it.opts : shuffle(it.opts);
     ST.stage.innerHTML = `<div class="qcard">${it.kicker ? `<div class="kicker">${esc(it.kicker)}</div>` : ""}${it.html || ""}${it.q ? `<div class="qtext" style="font-size:1.15rem;margin-top:8px">${escG(it.q)}</div>` : ""}</div><div class="opts ${opts.length <= 4 && opts.every(o => o.length < 34) ? "two" : ""}" id="opts">${opts.map((o, k) => `<button class="opt" data-k="${k}"><span class="k">${k + 1}</span><span>${escG(o)}</span></button>`).join("")}</div><div id="fb"></div>`;
     let done = false; sc.start();
-    $$("#opts .opt").forEach(b => b.onclick = () => { if (done) return; done = true; const pickd = opts[+b.dataset.k]; const ok = pickd === it.a; const gained = sc.hit(ok); ST.right.innerHTML = `${sc.chip()}<span class="small muted">${i + 1}/${items.length}</span>`; if (ok) score++; else logMistake({ src: label, game: it.game, q: it.mq || it.q, yours: pickd, right: it.a, opts: it.game ? undefined : opts, why: it.why });
+    $$("#opts .opt").forEach(b => b.onclick = () => { if (done) return; done = true; const pickd = opts[+b.dataset.k]; const ok = pickd === it.a; const gained = sc.hit(ok); ST.right.innerHTML = `${sc.chip()}<span class="small muted">${i + 1}/${items.length}</span>`; if (ok) score++; else logMistake({ src: label, game: it.game, q: it.mq || it.q, yours: pickd, right: it.a, opts, why: it.why });
       $("#opts").classList.add("locked"); $$("#opts .opt").forEach((x, k) => { if (opts[k] === it.a) x.classList.add("right"); else if (x === b) x.classList.add("wrong"); });
       $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? `Correct · +${gained}` : "Answer: " + escG(it.a)}${it.why ? `<span class="det">${escG(it.why)}</span>` : ""}</div></div><div class="row" style="margin-top:10px"><div class="spacer"></div><button class="btn primary" id="nx">Next</button></div>`; $("#nx").onclick = () => { i++; next(); }; $("#nx").focus(); });
     ST.onKey = e => { if (!done && /^[1-9]$/.test(e.key)) $$("#opts .opt")[+e.key - 1]?.click(); else if (done && e.key === "Enter") $("#nx")?.click(); };
@@ -7925,7 +7936,7 @@ startGlossary = function (focus) {
     const n = norm(q); const U = glossUser();
     const items = Object.entries(GLOSS).filter(([k, [f, d]]) => (!mine || (U[k] && !U[k].deleted)) && (!n || norm(k).includes(n) || norm(f).includes(n) || norm(d).includes(n))).sort((a, b) => a[0].localeCompare(b[0], undefined, { sensitivity: "base" }));
     setProg(1);
-    $("#glist").innerHTML = items.length ? items.map(([k, [f, d]]) => { const yours = U[k] && !U[k].deleted; return `<div class="gitem ${k === focus ? "hl" : ""}"><div class="row" style="justify-content:space-between;gap:6px;align-items:center"><b>${esc(k)}</b><span class="row" style="gap:4px">${yours ? `<span class="tag">Yours</span>` : ""}<button class="btn ghost icon sm" data-ge="${esc(k)}" aria-label="${yours ? "Edit" : "Customize"} ${esc(k)}" title="${yours ? "Edit" : "Customize"}">${icon("edit")}</button></span></div><span class="acfull">${esc(f)}</span>${d ? `<p class="small">${esc(d)}</p>` : ""}</div>`; }).join("") : `<div class="empty"><p>No matches${q ? ` for “${esc(q)}”` : ""}.</p>${q && /^[A-Za-z0-9][A-Za-z0-9\-\/&:+.]{0,24}$/.test(q.trim()) ? `<button class="btn primary" id="addq">${icon("plus")}Add “${esc(q.trim())}”</button>` : ""}</div>`;
+    $("#glist").innerHTML = items.length ? items.map(([k, [f, d]]) => { const yours = U[k] && !U[k].deleted; return `<div class="gitem ${k === focus ? "hl" : ""}"><div class="row" style="justify-content:space-between;gap:6px;align-items:center"><b>${esc(k)}</b><span class="row" style="gap:4px">${yours ? `<span class="tag">Yours</span>` : ""}<button class="exedit" data-ge="${esc(k)}" aria-label="${yours ? "Edit" : "Customize"} ${esc(k)}" title="${yours ? "Edit" : "Customize"}">${icon("edit")}</button></span></div><span class="acfull">${esc(f)}</span>${d ? `<p class="small">${esc(d)}</p>` : ""}</div>`; }).join("") : `<div class="empty"><p>No matches${q ? ` for “${esc(q)}”` : ""}.</p>${q && /^[A-Za-z0-9][A-Za-z0-9\-\/&:+.]{0,24}$/.test(q.trim()) ? `<button class="btn primary" id="addq">${icon("plus")}Add “${esc(q.trim())}”</button>` : ""}</div>`;
     $$("[data-ge]").forEach(b => b.onclick = () => glossEditModal(b.dataset.ge, draw));
     $("#addq") && ($("#addq").onclick = () => { glossEditModal(null, k => { q = k || q; draw(); }); setTimeout(() => { const i = $("#gk"); if (i) i.value = q.trim(); }, 30); });
   };
@@ -9696,6 +9707,26 @@ BADGES2.push({ id: "listen10", cat: "s", e: "🎧", name: "Commuter", desc: "Fin
     return out; }; }
 /* migrate old “1” unlock flags so sync can compare them */
 { const om = migrateJournal; migrateJournal = function () { om(); const G = S.meta.gameOverride || {}; let ch = false; for (const k of Object.keys(G)) if (G[k] === 1 || G[k] === true) { G[k] = { on: true, t: 1 }; ch = true; } if (ch) saveMeta(); }; }
+/* ===================== Mistake review: rebuild options and visuals for game misses ===================== */
+const J_POOLS = {
+  sediment: () => SED.map(e => e.name), smear: () => Object.values(C).filter(c => c.cat !== "bg").map(c => c.n),
+  critical: () => ["Report", "Call critical", "Recollect", "Critical: call it", "Not critical"], flow: () => FLOW_ORGS().map(o => o.name),
+  gram: () => [...new Set(GRAM.map(g => g[1]))], acidbase: () => ["Respiratory acidosis", "Respiratory alkalosis", "Metabolic acidosis", "Metabolic alkalosis", "Acidosis", "Alkalosis", "Normal", "Uncompensated", "Partially compensated", "Fully compensated"]
+};
+function jOpts(x) {
+  if (x.opts && x.opts.length >= 2 && x.opts.includes(x.right)) return x.opts;
+  const pf = J_POOLS[x.game]; if (!pf) return null;
+  const pool = [...new Set(pf())].filter(o => o !== x.right);
+  if (!pool.length || !x.right) return null;
+  const crit = ["Report", "Call critical", "Recollect"];
+  if (x.game === "critical") return crit.includes(x.right) ? crit : ["Critical: call it", "Not critical"];
+  return [x.right, ...pick(pool, 3)];
+}
+function jVisual(x) {
+  if (x.game === "sediment") { const el = SED.find(e => norm(e.name) === norm(x.right)); return el ? sedSvg(el) : ""; }
+  if (x.game === "smear") { const id = Object.keys(C).find(k => norm(C[k].n) === norm(x.right)); return id ? cellThumb(id).replace('class="cellthumb"', 'class="cellthumb big"') : ""; }
+  return "";
+}
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
