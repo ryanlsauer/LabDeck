@@ -1590,6 +1590,95 @@ h3{font-size:1.06rem}
 .hk-meta{font-size:.82rem;color:var(--ink-3);line-height:1.45}
 .hookcard .row{margin-top:auto;padding-top:4px}
 @media (max-width:560px){.palrow{grid-template-columns:1fr}.palrow .input{grid-column:1}}
+/* ===== memory hooks v2 ===== */
+.hkhead{display:flex;justify-content:space-between;gap:12px;align-items:flex-end;flex-wrap:wrap}
+.hkhead h2{margin:0 0 2px}
+.hkhead p{margin:0;max-width:52ch}
+.hkacts{gap:8px}
+.hkfilters{gap:8px;flex-wrap:wrap}
+.hookcard{position:relative;padding-right:40px}
+.hookcard .exedit{top:8px;right:8px}
+.hk-title{font-size:1.02rem;line-height:1.3}
+.hk-ph{font-size:1rem}
+.hk-str{display:flex;align-items:center;gap:8px}
+.hk-str .bbar{flex:1;margin:0}
+.hk-str small{font-size:.75rem;color:var(--ink-3);white-space:nowrap}
+.hookcard>.btn{align-self:flex-start;margin-top:4px}
+.hkfoot{display:flex;gap:16px;flex-wrap:wrap;margin-top:4px}
+.linkbtn{background:none;border:0;padding:0;font:inherit;font-size:.88rem;color:var(--violet-deep);text-decoration:underline;cursor:pointer}
+.hktips p{margin:0 0 8px;line-height:1.55}.hktips p:last-child{margin:0}
+.hk-letters{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+.hk-letters span{width:26px;height:26px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;background:var(--surface-2);color:var(--ink-3);border:1px solid var(--line-2)}
+.hk-letters span.ok{background:var(--good);border-color:var(--good);color:#fff}
+.hookbox .lbl{display:block;margin-bottom:6px}
+.hookbox .row .input{flex:1;min-width:0}
+.hk-phr{font-family:var(--font-display);font-size:1.25rem;font-weight:700;color:var(--violet-deep);line-height:1.35;margin:4px 0 8px}
+.hk-ol{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:5px}
+.hk-ol li{display:flex;gap:8px;align-items:center;line-height:1.35}
+.acl.sm{width:22px;height:22px;font-size:.72rem;border-radius:5px}
+.hk-walk{display:flex;flex-direction:column;gap:5px}
+.hk-walk>div{display:grid;grid-template-columns:minmax(100px,38%) 1fr;gap:8px;align-items:baseline}
+.hk-walk span{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--violet-deep)}
+.face .hk-phr{font-size:1.15rem}
+.aclist>div>i:empty{display:none}
+.aclist>div{grid-template-columns:30px auto 1fr}
+@media (max-width:560px){.hkacts{width:100%}.hkacts .btn{flex:1;justify-content:center}.hkfilters select{max-width:none!important;flex:1}.hookbox .row{flex-wrap:wrap!important}.hookbox #hsug{width:100%;justify-content:center}}
+/* ===== v27 ===== */
+/* lab result panels */
+.labpanel{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:6px;margin:6px 0}
+.lp{border:1px solid var(--line-2);border-radius:6px;padding:7px 10px;display:flex;flex-direction:column;gap:1px;background:var(--surface-2)}
+.lp span{font-size:.72rem;font-weight:700;color:var(--ink-3);text-transform:uppercase;letter-spacing:.03em}
+.lp b{font-size:1.15rem;font-variant-numeric:tabular-nums}
+.lp b i{font-style:normal;font-size:.72rem;font-weight:800;color:var(--bad);margin-left:2px}
+.lp small{font-size:.72rem;color:var(--ink-3)}
+.lp.flag{border-color:color-mix(in srgb,var(--bad) 45%,transparent)}
+.lpref{margin:4px 0 0}
+.case-story{margin:2px 0 8px;font-size:1.02rem;line-height:1.5}
+/* ABO grid */
+.abogrid{width:100%;border-collapse:collapse;text-align:center;font-variant-numeric:tabular-nums;margin:4px 0}
+.abogrid th{font-size:.72rem;text-transform:uppercase;letter-spacing:.03em;color:var(--ink-3);padding:5px 4px;border-bottom:1px solid var(--line-2)}
+.abogrid td{font-size:1.25rem;font-weight:800;padding:10px 4px;border:1px solid var(--line)}
+.abogrid td.pos{color:var(--bad);background:var(--bad-soft)}
+.abogrid td.neg{color:var(--ink-3)}
+/* UA box */
+.uabox{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.uabox>div{border:1px solid var(--line-2);border-radius:6px;padding:8px 10px;background:var(--surface-2);display:flex;flex-direction:column;gap:3px}
+.uabox b{font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-3)}
+@media (max-width:560px){.uabox{grid-template-columns:1fr}}
+/* Westgard prove-it */
+.lj.pickable .ljpt{cursor:pointer}
+.ljpt.sel circle:first-child{stroke:#FFD66B;stroke-width:3}
+.ljpt.need circle:first-child{stroke:#2FA58A;stroke-width:3}
+.ljpt.bad circle:first-child{stroke:#FF5C7A;stroke-width:3}
+.ljpt.sel.need circle:first-child{stroke:#2FA58A}
+.wgrules{display:flex;flex-wrap:wrap}
+.wgrules button.right{background:var(--good)!important;color:#fff!important}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.8rem;margin-top:4px}
+/* games hub */
+.hubhero{margin-bottom:6px}
+.hubsec{margin:16px 0 8px;font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3)}
+.hubgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.hubcard{display:flex;flex-direction:column;gap:4px;align-items:flex-start;text-align:left;padding:14px;border-radius:10px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:inherit;cursor:pointer;transition:transform .15s,border-color .15s}
+.hubcard:hover{transform:translateY(-2px);border-color:var(--violet)}
+.hubemo{font-size:1.9rem;line-height:1}
+.hubemo svg{width:22px;height:22px;color:var(--ink-3)}
+.hubcard b{font-size:1.05rem}
+.hubcard small{color:var(--ink-2);font-size:.82rem;line-height:1.35}
+.hubmeta{font-size:.75rem;color:#FFD66B;font-weight:700;margin-top:auto}
+.hubcard.locked{opacity:.55}.hubcard.locked .hubmeta{color:var(--ink-3)}
+/* lesson warm-up and recap */
+.warmtag{display:inline-flex;align-self:flex-start;font-size:.78rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:3px 10px;border-radius:2em;background:var(--violet-soft);color:var(--violet-deep)}
+.warmtag.pre{background:#FFF1D6;color:#8A5A00}
+.opt.picked{border-color:var(--violet)!important;box-shadow:0 0 0 2px var(--violet-soft)}
+.recap{text-align:left;border:1px solid var(--line-2);border-radius:8px;background:var(--surface);padding:14px 16px;margin:6px auto 14px;max-width:560px;width:100%}
+.recap h3{margin:0 0 8px;font-size:1rem}
+.recap ul{margin:0 0 10px;padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
+.recap li{line-height:1.5}
+.recap li b{color:var(--violet-deep)}
+.recap-guess{margin:0 0 10px;padding:8px 10px;border-radius:6px;background:var(--surface-2);font-size:.92rem}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .warmtag.pre{background:#3A2E14;color:#F2C35B}}
+.ttemo{font-size:1.25rem;line-height:1}
+.stemo{width:15px;text-align:center;font-size:.9rem;line-height:1;flex:none}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -1676,7 +1765,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "21.0";
+const APP_VERSION = "22.0";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -2778,7 +2867,7 @@ function exportBackup() {
 }
 function restoreModal() {
   modal(`${mhead("Restore or import")}
-    <p class="small muted" style="margin-bottom:12px">Accepts a LabDeck backup, a shared deck file, or a backup from the earlier Claude version.</p>
+    <p class="small muted" style="margin-bottom:12px">Accepts a LabDeck backup, a shared deck file, or a backup from an earlier version.</p>
     <div class="field"><label for="bf">File</label><input type="file" id="bf" accept=".json,application/json" class="input"></div>
     <div class="field"><label for="bt">Or paste the file’s text</label><textarea class="input" id="bt" rows="5"></textarea></div>
     <div class="field" id="howF"><div class="seg" id="how"><button data-h="merge" class="on">Add to my decks</button><button data-h="replace">Replace everything</button></div></div>
@@ -2946,7 +3035,7 @@ function startLearn(deck, opts = {}) {
       <div class="row" style="justify-content:center;margin-top:10px"><button class="btn sm ghost" id="whyB">${icon("brain")}Why?</button>${f.deck.pack && lessonsForPack(f.deck.pack).length ? `<button class="btn sm ghost" id="teach">${icon("book")}Teach me this</button>` : ""}${typeof hookable === "function" && hookable(f) ? `<button class="btn sm ghost" id="hookB">${icon("brain")}Make a memory hook</button>` : ""}</div>
       `;
     $("#whyB").onclick = () => whyModal(f);
-    $("#hookB") && ($("#hookB").onclick = () => hookModal({ title: f.kind === "field" ? `${f.q}: ${f.field}` : f.q, items: hookParts(f.a), ordered: /order|steps?|sequence/i.test(f.q + " " + (f.field || "")), method: "acrostic", palace: "home" }, { fact: f, noPractice: true }));
+    $("#hookB") && ($("#hookB").onclick = () => hookModal({ title: f.kind === "field" ? `${f.q}: ${f.field}` : f.q, items: hookParts(f.a), ordered: /order|steps?|sequence|first|then/i.test(f.q + " " + (f.field || "")), method: "sentence", palace: "home" }, { fact: f, noPractice: true }));
     $("#teach") && ($("#teach").onclick = () => startLesson(lessonsForPack(f.deck.pack)[0]));
     $$(".grades button").forEach(b => b.onclick = () => grade(+b.dataset.g));
   }
@@ -5983,9 +6072,10 @@ function startBootcamp(l) {
     setProg(1); ST.right.innerHTML = "";
     const r = prep().lessons[l.id] = prep().lessons[l.id] || {}; r.read = r.read || Date.now(); saveMeta(true);
     ST.stage.innerHTML = `<div class="results"><p class="coach good">All ${beats.length} steps complete.</p><h2>Ready for your checkpoint?</h2><p class="muted" style="max-width:42ch">${plural(l.quiz.length, "question")} mixing what you just practiced. Goal: 100%. Anything you miss comes back until you get it.</p>
-      <div class="row" style="justify-content:center"><button class="btn primary" id="go">Start the checkpoint</button><button class="btn" id="again">Run through again</button></div></div>`;
+      ${lessonRecap(l)}<div class="row" style="justify-content:center"><button class="btn primary" id="go">Start the checkpoint</button><button class="btn" id="again">Run through again</button></div></div>`;
+    bindRecap(l);
     $("#go").onclick = () => bootChallenge(l, () => startLesson(l, true));
-    $("#again").onclick = () => startBootcamp(l);
+    $("#again").onclick = () => startBootcamp(l, true);
     ST.onKey = e => { if (e.key === "Enter") $("#go").click(); };
   }
   read();
@@ -9785,7 +9875,7 @@ const suggestWord = (item, prev) => { const bank = WORDBANK[firstLetter(item)] |
 function hookable(f) { const parts = hookParts(f.a); const st = stOf(f) || {}; return (parts.length >= 3 && parts.every(p => p.length <= 45)) || (st.l || 0) >= 3 || (st.w || 0) >= 3; }
 function hookSummary(h) { return h.method === "palace" ? `Palace: ${PALACE_NAMES[h.palace] || "custom"} · ${h.items.map((x, k) => `${palaceLoci(h.palace)[k] || "Spot " + (k + 1)} → ${x}`).join("; ")}` : `“${h.phrase}”`; }
 
-function hookModal(pre, opts = {}) {
+let hookModal = function (pre, opts = {}) {
   const h = JSON.parse(JSON.stringify(pre || { title: "", items: [], ordered: true, method: "acrostic", palace: "home", words: [], images: [] }));
   h.id = h.id || uid(); h.words = h.words || []; h.images = h.images || []; h.method = h.method || "acrostic"; h.palace = h.palace || "home";
   let addReview = opts.addReview ?? !h.cardId, attach = !!opts.fact;
@@ -9830,7 +9920,7 @@ function hookModal(pre, opts = {}) {
   });
 }
 
-function practiceHook(h) {
+let practiceHook = function (h) {
   openStudy("Memory hook: " + h.title); setProg(0);
   const loci = palaceLoci(h.palace);
   const cue = k => h.method === "palace" ? `At the ${(loci[k] || "spot " + (k + 1)).replace(/^[A-Z](?=[a-z])/, c => c.toLowerCase())}…` : h.words && h.words[k] ? `“${h.words[k]}” →` : `Item ${k + 1} starts with ${esc(firstLetter(h.items[k]).toUpperCase())}…`;
@@ -9874,7 +9964,7 @@ function practiceHook(h) {
   show();
 }
 
-function startHooks(tab = "mine") {
+let startHooks = function (tab = "mine") {
   openStudy("Memory hooks"); setProg(0);
   const draw = () => {
     const H = myHooks();
@@ -9898,6 +9988,514 @@ TOOLS.learn.push(["hookBtn", "brain", "Memory hooks"]);
 TOOL_FN.hookBtn = () => startHooks();
 { const rh = renderHome; renderHome = function (decks) { rh(decks); const b = $("#hookBtn"); if (b) b.onclick = () => startHooks(); }; }
 BADGES2.push({ id: "hook5", cat: "l", e: "🏛️", name: "Palace architect", desc: "Save 5 memory hooks", target: 5, cur: () => myHooks().length }, { id: "hookp20", cat: "l", e: "🎭", name: "Mnemonist", desc: "Practice memory hooks 20 times", target: 20, cur: () => sv("hookPractice") });
+/* ===================== Memory hooks v2: your hooks, your decks, your review ===================== */
+const HB = {
+  adj: { a: ["Angry", "Awkward"], b: ["Big", "Brave"], c: ["Crazy", "Cranky"], d: ["Dizzy", "Daring"], e: ["Eager", "Enormous"], f: ["Funky", "Fuzzy"], g: ["Giant", "Grumpy"], h: ["Happy", "Hungry"], i: ["Icy", "Itchy"], j: ["Jolly", "Jumpy"], k: ["Kind", "Kooky"], l: ["Lazy", "Loud"], m: ["Mighty", "Moody"], n: ["Nervous", "Noisy"], o: ["Odd", "Orange"], p: ["Purple", "Proud"], q: ["Quiet", "Quirky"], r: ["Rowdy", "Rusty"], s: ["Sneaky", "Sleepy"], t: ["Tiny", "Tired"], u: ["Ugly", "Upset"], v: ["Vivid", "Violent"], w: ["Wild", "Wobbly"], x: ["Xtra", "Xtreme"], y: ["Yellow", "Young"], z: ["Zany", "Zesty"] },
+  noun: { a: ["Astronauts", "Alligators"], b: ["Bears", "Bananas"], c: ["Cats", "Cupcakes"], d: ["Dragons", "Ducks"], e: ["Elephants", "Eggs"], f: ["Frogs", "Fries"], g: ["Giraffes", "Goats"], h: ["Hippos", "Hamsters"], i: ["Iguanas", "Igloos"], j: ["Jaguars", "Jellybeans"], k: ["Kangaroos", "Koalas"], l: ["Lions", "Lemons"], m: ["Monkeys", "Muffins"], n: ["Ninjas", "Noodles"], o: ["Owls", "Octopi"], p: ["Penguins", "Pickles"], q: ["Queens", "Quails"], r: ["Robots", "Raccoons"], s: ["Sharks", "Socks"], t: ["Tigers", "Tacos"], u: ["Unicorns", "Umbrellas"], v: ["Vampires", "Violins"], w: ["Walruses", "Waffles"], x: ["Xylophones", "X-rays"], y: ["Yaks", "Yo-yos"], z: ["Zebras", "Zombies"] },
+  verb: { a: ["Ate", "Attacked"], b: ["Bit", "Bounced"], c: ["Chased", "Carried"], d: ["Dropped", "Danced"], e: ["Ate", "Escaped"], f: ["Flipped", "Fed"], g: ["Grabbed", "Gobbled"], h: ["Hugged", "Hid"], i: ["Inhaled", "Invaded"], j: ["Juggled", "Jumped"], k: ["Kicked", "Kissed"], l: ["Licked", "Launched"], m: ["Munched", "Mocked"], n: ["Nibbled", "Nudged"], o: ["Opened", "Outran"], p: ["Punched", "Pushed"], q: ["Quizzed", "Questioned"], r: ["Robbed", "Rode"], s: ["Smashed", "Sniffed"], t: ["Tickled", "Tossed"], u: ["Upset", "Unwrapped"], v: ["Visited", "Vacuumed"], w: ["Wore", "Washed"], x: ["X-rayed", "X-rayed"], y: ["Yelled at", "Yanked"], z: ["Zapped", "Zipped"] }
+};
+const letterOf = s => (String(s).replace(/^(?:[IVX]+\s+)?/, "").replace(/^[^A-Za-z0-9]+/, "")[0] || "x").toLowerCase();
+function suggestSentence(items) {
+  const n = items.length; const pat = k => k === n - 1 ? "noun" : ["adj", "noun", "verb"][k % 3];
+  return items.map((it, k) => { const L = letterOf(it); const bank = (HB[pat(k)][L] || HB.noun[L] || [it.split(" ")[0]]); return bank[Math.floor(Math.random() * bank.length)]; }).join(" ");
+}
+const phraseWords = p => String(p || "").replace(/[“”"(),.!?]/g, " ").split(/\s+/).filter(w => /[A-Za-z0-9]/.test(w));
+const itemCores = it => { const base = String(it).replace(/\s*\([^)]*\)/g, "").trim(); return [it, base, ...base.split(/\s*\/\s*/), ...(String(it).match(/\(([^)]*)\)/g) || []).map(x => x.slice(1, -1))].map(x => x.trim()).filter(Boolean); };
+const itemMatch = (v, it) => { const nv = norm(v); if (!nv) return false; return itemCores(it).some(c => similar(v, c) || norm(c) === nv || (nv.length >= 4 && norm(c).startsWith(nv))); };
+const alignsWithItems = h => { const w = phraseWords(h.phrase); return h.method === "sentence" && w.length === h.items.length && w.every((x, k) => x[0].toLowerCase() === letterOf(h.items[k])); };
+
+/* places for memory palaces */
+const BUILTIN_PLACES = { home: { name: "Your home", spots: PALACES.home }, lab: { name: "The hospital lab", spots: PALACES.lab }, drive: { name: "Your drive in", spots: PALACES.drive } };
+function places() { const out = {}; for (const [k, v] of Object.entries(BUILTIN_PLACES)) out[k] = { ...v }; for (const [k, v] of Object.entries(S.meta.palaces || {})) { if (Array.isArray(v)) out[k] = { name: (out[k] || {}).name || "My place", spots: v }; else if (v && v.spots) out[k] = { name: v.name || (out[k] || {}).name || "My place", spots: v.spots }; } return out; }
+const spotsOf = id => (places()[id] || places().home).spots;
+const placeName = id => (places()[id] || {}).name || "Your place";
+
+/* hooks store */
+const hooksAll = () => (S.meta.hooks || []).filter(h => !h.del).map(h => { if (h.method === "acrostic") h.method = "sentence"; return h; });
+const STARTER_DECK = { "lib-draw": "tubes", "lib-wbc": "wbc", "lib-gram": "gpc", "lib-factors": "coag", "lib-vitk": "coag", "lib-ptptt": "coag", "lib-intrinsic": "coag", "lib-race": "safety", "lib-pass": "safety", "lib-ceek": "gnr", "lib-gamed": "immuno", "lib-mudpiles": "abg" };
+function hooksDeck() { let d = Object.values(S.decks).find(x => x.hooksDeck); if (!d) { d = normalizeDeck({ id: uid(), name: "Memory hooks", color: "lavender", fields: [], cards: [], hooksDeck: true }); S.decks[d.id] = d; saveDeck(d); } return d; }
+function hookTargetDeck(h) { return (h.deckId && S.decks[h.deckId]) || hooksDeck(); }
+function hookCardText(h) {
+  const sp = spotsOf(h.palace);
+  return { front: h.title, back: h.items.map((x, k) => `${k + 1}. ${x}`).join("\n"), note: h.method === "palace" ? `Memory palace: ${placeName(h.palace)}` : `Hook: ${h.phrase || ""}` };
+}
+function syncHookCard(h) {
+  if (h.del) { for (const d of Object.values(S.decks)) { const i = d.cards.findIndex(c => c.hook === h.id || c.id === h.cardId); if (i >= 0) { d.cards.splice(i, 1); saveDeck(d); } } return; }
+  const target = hookTargetDeck(h); const txt = hookCardText(h);
+  let found = null, fromDeck = null;
+  for (const d of Object.values(S.decks)) { const c = d.cards.find(c => c.hook === h.id || (h.cardId && c.id === h.cardId)); if (c) { found = c; fromDeck = d; break; } }
+  if (found && fromDeck !== target) { fromDeck.cards.splice(fromDeck.cards.indexOf(found), 1); saveDeck(fromDeck); found = null; }
+  if (!found) { found = { id: uid(), type: "basic", star: false }; target.cards.push(found); }
+  Object.assign(found, txt, { type: "basic", hook: h.id }); h.cardId = found.id; h.deckId = target.hooksDeck ? null : target.id; saveDeck(target);
+}
+function saveHook(h) { h.t = Date.now(); const L = S.meta.hooks = S.meta.hooks || []; const i = L.findIndex(x => x.id === h.id); if (i >= 0) L[i] = h; else L.push(h); syncHookCard(h); saveMeta(true); }
+function starterAsHook(l) { const pd = STARTER_DECK[l.id] && typeof findPackDeck === "function" ? findPackDeck(STARTER_DECK[l.id]) : null; return { id: uid(), starter: l.id, title: l.title, items: l.items.slice(), ordered: l.ordered, method: "sentence", phrase: l.phrase, note: l.note, palace: "home", images: [], deckId: pd ? pd.id : null, t: Date.now() }; }
+function missingStarters() { const have = new Set(hooksAll().map(h => h.starter || h.libId).filter(Boolean)); return HOOK_LIB.filter(l => !have.has(l.id)); }
+function seedHooks() {
+  if (S.meta.hooksV2) return;
+  (S.meta.hooks || []).forEach(h => { if (h.libId && !h.starter) h.starter = h.libId; if (h.method === "acrostic") h.method = "sentence"; if (!h.phrase && h.words && h.words.length) h.phrase = h.words.join(" "); delete h.words; if (!h.del) syncHookCard(h); });
+  missingStarters().forEach(l => { const h = starterAsHook(l); (S.meta.hooks = S.meta.hooks || []).push(h); syncHookCard(h); });
+  S.meta.hooksV2 = 1; saveMeta(true);
+}
+function hookStrength(h) { const d = Object.values(S.decks).find(d => d.cards.some(c => c.id === h.cardId)); if (!d) return 0; const st = ((S.srs || {})[d.id] || {})[h.cardId]; if (!st) return h.best ? Math.min(.4, h.best / 250) : 0; if (isM(st)) return 1; return Math.min(.95, .25 + Math.log2(1 + (st.i || 0)) / 6); }
+const strengthLabel = v => v >= 1 ? "Mastered" : v >= .7 ? "Strong" : v >= .4 ? "Getting there" : v > 0 ? "New-ish" : "Not practiced";
+
+/* hook cards look like hook cards in study */
+{ const ff = factFront, fb = factBack;
+  factFront = function (f) { if (f.card && f.card.hook) { const h = hooksAll().find(x => x.id === f.card.hook); if (h) return `<div class="kicker">🧠 Memory hook</div><div class="main-text">${esc(h.title)}</div><div class="sub-text muted">Recall all ${h.items.length}${h.ordered ? ", in order" : ""}. Use your ${h.method === "palace" ? "palace walk" : "sentence"}.</div>`; } return ff(f); };
+  factBack = function (f) { if (f.card && f.card.hook) { const h = hooksAll().find(x => x.id === f.card.hook); if (h) { const sp = spotsOf(h.palace); return `<div class="kicker">${esc(h.title)}</div>${h.method === "palace" ? `<div class="hk-walk">${h.items.map((x, k) => `<div><span>${esc(sp[k] || "Spot " + (k + 1))}</span><b>${escG(x)}</b></div>`).join("")}</div>` : `<div class="hk-phr">“${esc(h.phrase)}”</div><ol class="hk-ol">${h.items.map((x, k) => `<li><span class="acl sm">${esc(letterOf(x).toUpperCase())}</span>${escG(x)}</li>`).join("")}</ol>`}${h.note ? `<div class="note">${escG(h.note)}</div>` : ""}`; } } return fb(f); }; }
+/* hook cards stay out of multiple choice, typing and matching */
+{ const qf = questionFor; questionFor = function (f, a) { if (f && f.card && f.card.hook) return null; return qf(f, a); }; }
+{ const st = startType; startType = function (d) { const orig = factsOf; factsOf = x => orig(x).filter(f => !f.card.hook); try { return st(d); } finally { factsOf = orig; } }; }
+{ const sm = startMatch; startMatch = function (d) { const orig = factsOf; factsOf = x => orig(x).filter(f => !f.card.hook); try { return sm(d); } finally { factsOf = orig; } }; }
+{ const lf = lmFacts; lmFacts = function (d) { return lf(d).filter(f => !f.card.hook); }; }
+/* the pencil on a hook card edits the hook */
+{ const ec = editCardModal; editCardModal = function (d, card, after) { if (card && card.hook) { const h = hooksAll().find(x => x.id === card.hook); if (h) return hookModal(h, { after }); } return ec(d, card, after); }; }
+
+/* ---------- the editor ---------- */
+hookModal = function (pre, opts = {}) {
+  const isEdit = !!(pre && pre.t);
+  const h = JSON.parse(JSON.stringify(pre || {})); h.id = h.id || uid(); h.items = h.items || []; h.method = h.method === "acrostic" ? "sentence" : (h.method || "sentence"); h.palace = h.palace || "home"; h.images = h.images || []; h.phrase = h.phrase || ""; h.ordered = h.ordered ?? true;
+  if (!isEdit && opts.fact) h.deckId = opts.fact.deck.hooksDeck ? null : opts.fact.deck.id;
+  let editingSpots = false, attach = !!opts.fact;
+  const deckOpts = () => Object.values(S.decks).filter(d => !d.hooksDeck).sort((a, b) => a.name.localeCompare(b.name));
+  const letters = () => h.items.length ? `<div class="hk-letters">${h.items.map((it, k) => { const w = phraseWords(h.phrase)[k]; const ok = w && w[0].toLowerCase() === letterOf(it); return `<span class="${ok ? "ok" : ""}" title="${esc(it)}">${esc(letterOf(it).toUpperCase())}</span>`; }).join("")}</div>` : "";
+  const html = () => { const sp = spotsOf(h.palace); return `${mhead(isEdit ? "Edit memory hook" : "New memory hook")}
+    <div class="field"><label for="ht">What are you memorizing?</label><input class="input" id="ht" value="${esc(h.title)}" placeholder="e.g. Order of draw" autocomplete="off"></div>
+    <div class="field"><label for="hi">The items, one per line</label><textarea class="input" id="hi" rows="${Math.min(10, Math.max(4, h.items.length + 1))}" placeholder="Sterile (blood cultures)&#10;Light blue&#10;Red">${esc(h.items.join("\n"))}</textarea>
+      <label class="check" style="margin-top:6px"><input type="checkbox" id="ho" ${h.ordered ? "checked" : ""}>Order matters</label></div>
+    <div class="field"><span class="lbl">How you’ll remember it</span><div class="seg" id="hm"><button type="button" data-m="sentence" class="${h.method === "sentence" ? "on" : ""}">A silly sentence</button><button type="button" data-m="palace" class="${h.method === "palace" ? "on" : ""}">A place you know</button></div></div>
+    ${h.method === "sentence" ? `<div class="hookbox"><label for="hph" class="lbl">Your sentence</label><div class="row" style="gap:6px;flex-wrap:nowrap"><input class="input" id="hph" value="${esc(h.phrase)}" placeholder="Never Let Monkeys Eat Bananas" autocomplete="off"><button type="button" class="btn" id="hsug" title="Suggest a sentence">🎲 Suggest</button></div>
+      ${letters()}<p class="small muted" style="margin:6px 0 0">Each word starts with the first letter of its item (green = lined up). Weird, funny or a little gross sticks best. It doesn’t have to line up perfectly; acronyms like MUDPILES work too.</p></div>`
+    : `<div class="hookbox"><div class="row" style="gap:8px;align-items:center;flex-wrap:wrap"><select class="input" id="hp" style="flex:1;min-width:160px">${Object.entries(places()).map(([k, v]) => `<option value="${k}" ${h.palace === k ? "selected" : ""}>${esc(v.name)}</option>`).join("")}<option value="__new">+ A new place…</option></select><button type="button" class="btn sm" id="hedit">${editingSpots ? "Done" : "Edit spots"}</button></div>
+      ${editingSpots ? `<div class="field" style="margin-top:8px"><label for="hpn" class="lbl">Place name</label><input class="input" id="hpn" value="${esc(placeName(h.palace))}"><label for="hsp" class="lbl" style="margin-top:8px">Spots, in the order you’d walk them</label><textarea class="input" id="hsp" rows="8">${esc(sp.join("\n"))}</textarea><p class="small muted">Use a place you can picture with your eyes closed.</p></div>` : `
+      <p class="small muted" style="margin:8px 0">Walk through it in order. At each spot, picture the item there, big and strange. Typing the picture is optional.</p>
+      <div class="palrows">${h.items.map((it, k) => `<div class="palrow"><span class="pall">${esc(sp[k] || "Spot " + (k + 1))}</span><b>${escG(it)}</b><input class="input" data-im="${k}" value="${esc(h.images[k] || "")}" placeholder="Optional: what you picture"></div>`).join("")}</div>${h.items.length > sp.length ? `<p class="small" style="color:var(--warn)">This place has ${sp.length} spots for ${h.items.length} items. Tap Edit spots to add more.</p>` : ""}`}</div>`}
+    <div class="field" style="margin-top:12px"><label for="hd" class="lbl">Review it with</label><select class="input" id="hd"><option value="">Its own “Memory hooks” deck</option>${deckOpts().map(d => `<option value="${d.id}" ${h.deckId === d.id ? "selected" : ""}>${esc(d.name)}</option>`).join("")}</select><span class="hint">The hook becomes a review card in this deck, so it comes up when you study that subject and in your daily reviews.</span></div>
+    <div class="field"><label for="hn" class="lbl">Note (optional)</label><input class="input" id="hn" value="${esc(h.note || "")}" placeholder="Anything that helps, like an exception"></div>
+    ${opts.fact ? `<label class="check"><input type="checkbox" id="ha" ${attach ? "checked" : ""}>Also show the hook on the card you came from</label>` : ""}
+    <div class="modal-foot">${isEdit ? `<button class="btn danger" id="hdel">Delete</button><div class="spacer"></div>` : ""}<button class="btn" data-close>Cancel</button><button class="btn primary" id="hsave">${isEdit ? "Save" : "Save and practice"}</button></div>`; };
+  modal(html(), (s, close) => {
+    const read = () => {
+      h.title = $("#ht", s).value.trim(); h.items = $("#hi", s).value.split("\n").map(x => x.trim()).filter(Boolean); h.ordered = $("#ho", s).checked;
+      if ($("#hph", s)) h.phrase = $("#hph", s).value.trim();
+      $$("[data-im]", s).forEach(i => h.images[+i.dataset.im] = i.value.trim());
+      h.deckId = $("#hd", s).value || null; h.note = $("#hn", s).value.trim(); if ($("#ha", s)) attach = $("#ha", s).checked;
+      if (editingSpots && $("#hsp", s)) { const spots = $("#hsp", s).value.split("\n").map(x => x.trim()).filter(Boolean); if (spots.length) { S.meta.palaces = S.meta.palaces || {}; S.meta.palaces[h.palace] = { name: $("#hpn", s).value.trim() || placeName(h.palace), spots }; saveMeta(true); } }
+    };
+    const rer = () => { const st = $(".modal", s).scrollTop; $(".modal", s).innerHTML = html(); bind(); $(".modal", s).scrollTop = st; };
+    const bind = () => {
+      $$("[data-close]", s).forEach(b => b.onclick = close);
+      $("#hi", s).oninput = () => { read(); const L = $(".hk-letters", s); if (L) L.outerHTML = letters(); };
+      $("#hi", s).onchange = () => { read(); rer(); };
+      $("#hph", s) && ($("#hph", s).oninput = () => { read(); const L = $(".hk-letters", s); if (L) L.outerHTML = letters(); });
+      $$("#hm button", s).forEach(b => b.onclick = () => { read(); h.method = b.dataset.m; rer(); });
+      $("#hsug", s) && ($("#hsug", s).onclick = () => { read(); if (!h.items.length) { toast("Add the items first"); return; } h.phrase = suggestSentence(h.items); rer(); });
+      $("#hp", s) && ($("#hp", s).onchange = e => { read(); if (e.target.value === "__new") { const id = "p" + uid().slice(0, 6); S.meta.palaces = S.meta.palaces || {}; S.meta.palaces[id] = { name: "My place", spots: ["Spot 1", "Spot 2", "Spot 3", "Spot 4", "Spot 5", "Spot 6", "Spot 7", "Spot 8"] }; h.palace = id; editingSpots = true; } else h.palace = e.target.value; rer(); });
+      $("#hedit", s) && ($("#hedit", s).onclick = () => { read(); editingSpots = !editingSpots; rer(); });
+      $("#hdel", s) && ($("#hdel", s).onclick = () => { if (!confirm(`Delete “${h.title}”? Its review card goes too.${h.starter ? " You can bring starter hooks back anytime." : ""}`)) return; h.del = true; saveHook(h); close(); toast("Hook deleted"); opts.after && opts.after(); });
+      $("#hsave", s).onclick = () => {
+        read(); if (!h.title) { toast("Give it a title"); return; } if (h.items.length < 2) { toast("Add at least 2 items"); return; }
+        if (h.method === "sentence" && !h.phrase) h.phrase = suggestSentence(h.items);
+        saveHook(h); stat("hooksMade");
+        if (attach && opts.fact) { const c = opts.fact.card; const line = `Memory hook: ${h.method === "palace" ? placeName(h.palace) + " walk" : "“" + h.phrase + "”"}`; c.note = (c.note || "").replace(/(^|\n)(Memory )?[Hh]ook: .*$/m, "").trim(); c.note = (c.note ? c.note + "\n" : "") + line; saveDeck(opts.fact.deck); }
+        close(); toast(isEdit ? "Hook saved" : "Hook saved. It’s in your reviews now."); opts.after && opts.after(); if (!isEdit && !opts.noPractice) practiceHook(h);
+      };
+    };
+    bind();
+  });
+};
+
+/* ---------- practicing one hook ---------- */
+practiceHook = function (h0, onDone) {
+  const h = hooksAll().find(x => x.id === h0.id) || h0;
+  openStudy("Memory hook: " + h.title); setProg(0);
+  const sp = spotsOf(h.palace); const words = phraseWords(h.phrase); const aligned = alignsWithItems(h);
+  const spot = k => (sp[k] || "spot " + (k + 1)).replace(/^[A-Z](?=[a-z])/, c => c.toLowerCase());
+  const cue = k => h.method === "palace" ? `You walk to the <b>${esc(spot(k))}</b>. What’s there?` : aligned ? `“…<b>${esc(words[k])}</b>…” stands for:` : `${h.ordered ? `Item ${k + 1}` : "Next item"} starts with <b>${esc(letterOf(h.items[k]).toUpperCase())}</b>`;
+  const show = () => {
+    ST.right.innerHTML = "";
+    ST.stage.innerHTML = `<div class="qcard"><div class="kicker">Look it over</div><h2 style="margin:4px 0 12px">${esc(h.title)}</h2>
+      ${h.method === "palace" ? `<p class="small muted">Close your eyes and walk ${esc(placeName(h.palace).toLowerCase())}. See each item at its spot.</p><div class="palrows">${h.items.map((it, k) => `<div class="palrow ro"><span class="pall">${esc(sp[k] || "Spot " + (k + 1))}</span><b>${escG(it)}</b>${h.images[k] ? `<span class="small muted">${esc(h.images[k])}</span>` : ""}</div>`).join("")}</div>`
+      : `<div class="acphrase big">“${esc(h.phrase)}”</div><div class="aclist">${h.items.map((it, k) => `<div><span class="acl">${esc(letterOf(it).toUpperCase())}</span>${aligned ? `<i>${esc(words[k])}</i>` : "<i></i>"}<b>${escG(it)}</b></div>`).join("")}</div>`}
+      ${h.note ? `<p class="small" style="margin-top:12px">${escG(h.note)}</p>` : ""}</div>
+      <button class="btn primary" id="go" style="width:100%;min-height:50px">Got it, test me</button>`;
+    $("#go").onclick = () => drill(0, 0); ST.onKey = e => { if (e.key === "Enter") $("#go").click(); };
+  };
+  const drill = (k, firstTry) => {
+    if (k >= h.items.length) return whole(firstTry);
+    setProg(k / (h.items.length + 1)); ST.right.innerHTML = `<span class="small muted">${k + 1} of ${h.items.length}</span>`;
+    let tries = 0;
+    ST.stage.innerHTML = `<div class="qcard"><div class="kicker">${esc(h.title)}</div><div class="qtext" style="font-size:1.2rem">${cue(k)}</div></div>
+      <div class="typed"><input class="input" id="ta" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done" placeholder="Type it"><button class="btn primary" id="chk">Check</button></div>
+      <div class="row"><button class="btn ghost sm" id="idk">Show me</button><div class="spacer"></div><button class="btn ghost sm" id="skipq">Skip to the full list</button></div><div id="fb"></div>`;
+    if (matchMedia("(hover:hover)").matches) setTimeout(() => $("#ta")?.focus(), 30);
+    const ok = v => itemMatch(v, h.items[k]);
+    const check = () => { const v = $("#ta").value.trim(); if (!v) return; if (ok(v)) { $("#fb").innerHTML = `<div class="feedback ok"><div style="flex:1">${tries ? "There it is" : "Yes"}: ${escG(h.items[k])}</div></div>`; setTimeout(() => drill(k + 1, firstTry + (tries ? 0 : 1)), 650); } else { tries++; if (tries >= 2) reveal(); else $("#fb").innerHTML = `<div class="feedback no"><div style="flex:1">Not quite. Picture the hook and try once more.</div></div>`; } };
+    const reveal = () => { tries = 2; $("#fb").innerHTML = `<div class="feedback no"><div style="flex:1">It’s <b>${escG(h.items[k])}</b>. Type it once to lock it in.</div></div>`; $("#ta").value = ""; $("#ta").focus(); };
+    $("#chk").onclick = check; $("#idk").onclick = reveal; $("#skipq").onclick = () => whole(firstTry);
+    ST.onKey = e => { if (e.key === "Enter") { e.preventDefault(); check(); } };
+  };
+  const whole = firstTry => {
+    setProg(h.items.length / (h.items.length + 1)); ST.right.innerHTML = "";
+    ST.stage.innerHTML = `<div class="qcard"><div class="kicker">Last step</div><div class="qtext" style="font-size:1.15rem">Now the whole list${h.ordered ? ", in order" : ""}, from memory. One per line.</div></div>
+      <textarea class="input" id="wl" rows="${Math.min(12, h.items.length + 1)}" placeholder="One item per line" autocapitalize="off" autocorrect="off" spellcheck="false"></textarea><button class="btn primary" id="chk" style="width:100%;min-height:48px">Check my list</button>`;
+    if (matchMedia("(hover:hover)").matches) setTimeout(() => $("#wl")?.focus(), 30);
+    $("#chk").onclick = () => {
+      const lines = $("#wl").value.split("\n").map(x => x.trim()).filter(Boolean);
+      const hit = h.items.map((it, k) => h.ordered ? !!(lines[k] && itemMatch(lines[k], it)) : lines.some(l => itemMatch(l, it)));
+      const n = hit.filter(Boolean).length, pct = Math.round(n / h.items.length * 100);
+      const x = (S.meta.hooks || []).find(y => y.id === h.id); if (x) { x.lastP = Date.now(); x.best = Math.max(x.best || 0, pct); x.t = Date.now(); }
+      stat("hookPractice"); bumpHistory(true); saveMeta(true); setProg(1);
+      ST.stage.innerHTML = `<div class="results">${ring(pct)}<h2>${pct === 100 ? "Locked in" : pct >= 60 ? "Almost there" : "Keep at it"}</h2><p class="muted">${n} of ${h.items.length} in the full list${h.ordered ? " (in order)" : ""}.</p>
+        <div class="aclist" style="text-align:left;max-width:440px;margin:12px auto">${h.items.map((it, k) => `<div class="${hit[k] ? "hit" : "miss"}"><span class="acl">${hit[k] ? "✓" : k + 1}</span><i></i><b>${escG(it)}</b></div>`).join("")}</div>
+        <div class="row" style="justify-content:center"><button class="btn primary" id="again">Again</button><button class="btn" id="dn">${onDone ? "Back to my hooks" : "Done"}</button></div></div>`;
+      $("#again").onclick = () => practiceHook(h, onDone); $("#dn").onclick = () => onDone ? onDone() : closeStudy();
+    };
+  };
+  show();
+};
+
+/* ---------- practice all: quick-fire recall ---------- */
+function practiceAllHooks(list, onDone) {
+  openStudy("Practice all hooks");
+  const q = list.slice().sort((a, b) => hookStrength(a) - hookStrength(b)).slice(0, 20); const back = new Set(); let i = 0, got = 0; const total = q.length; const gotFirst = new Set();
+  const next = () => {
+    if (i >= q.length) { setProg(1); ST.right.innerHTML = ""; ST.stage.innerHTML = `<div class="results"><h2>${gotFirst.size === total ? "Every hook held" : "Session done"}</h2><p class="muted">${gotFirst.size} of ${total} recalled in full on the first try.${back.size ? ` ${plural(back.size, "hook")} came back for a second look.` : ""}</p><div class="row" style="justify-content:center"><button class="btn primary" id="dn">Back to my hooks</button></div></div>`; $("#dn").onclick = onDone; stat("hookPractice"); return; }
+    const h = q[i]; setProg(i / q.length); ST.right.innerHTML = `<span class="small muted">${i + 1} of ${q.length}</span>`;
+    ST.stage.innerHTML = `<div class="qcard hkq"><div class="kicker">🧠 Recall all ${h.items.length}${h.ordered ? ", in order" : ""}</div><div class="qtext">${esc(h.title)}</div><p class="small muted" style="margin-top:6px">Say or think the whole list using your ${h.method === "palace" ? "palace walk" : "sentence"}, then check.</p></div><div id="rv"><button class="btn primary" id="show" style="width:100%;min-height:50px">Show me</button></div>`;
+    $("#show").onclick = () => {
+      const sp = spotsOf(h.palace);
+      $("#rv").innerHTML = `<div class="panel">${h.method === "palace" ? `<div class="hk-walk">${h.items.map((x, k) => `<div><span>${esc(sp[k] || "Spot " + (k + 1))}</span><b>${escG(x)}</b></div>`).join("")}</div>` : `<div class="hk-phr">“${esc(h.phrase)}”</div><ol class="hk-ol">${h.items.map(x => `<li><span class="acl sm">${esc(letterOf(x).toUpperCase())}</span>${escG(x)}</li>`).join("")}</ol>`}</div>
+        <div class="row" style="margin-top:10px"><button class="btn" id="miss">Missed some</button><div class="spacer"></div><button class="btn primary" id="got">Got them all</button></div>`;
+      $("#got").onclick = () => { got++; if (!back.has(h.id)) gotFirst.add(h.id); const x = (S.meta.hooks || []).find(y => y.id === h.id); if (x) { x.lastP = Date.now(); x.best = Math.max(x.best || 0, 100); } saveMeta(); i++; next(); };
+      $("#miss").onclick = () => { if (!back.has(h.id)) { back.add(h.id); q.push(h); } i++; next(); };
+      ST.onKey = e => { if (e.key === "Enter" || e.key === "2") $("#got")?.click(); else if (e.key === "1") $("#miss")?.click(); };
+    };
+    ST.onKey = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); $("#show")?.click(); } };
+  };
+  next();
+}
+
+/* ---------- the Memory hooks screen ---------- */
+startHooks = function () {
+  openStudy("Memory hooks"); setProg(0);
+  let query = "", subj = "all", showTips = false;
+  const draw = () => {
+    seedHooks();
+    const all = hooksAll(); const subjects = [...new Set(all.map(h => h.deckId && S.decks[h.deckId] ? h.deckId : "own"))];
+    const list = all.filter(h => (subj === "all" || (subj === "own" ? !(h.deckId && S.decks[h.deckId]) : h.deckId === subj)) && (!query || norm(h.title + " " + h.items.join(" ") + " " + (h.phrase || "")).includes(norm(query)))).sort((a, b) => hookStrength(a) - hookStrength(b) || a.title.localeCompare(b.title));
+    const miss = missingStarters();
+    ST.right.innerHTML = "";
+    ST.stage.innerHTML = `<div class="hkhead"><div><h2>Memory hooks</h2><p class="small muted">For lists, sequences and the facts that won’t stick. Each hook is also a review card, so it comes back on schedule.</p></div>
+      <div class="row hkacts"><button class="btn primary" id="pall" ${all.length ? "" : "disabled"}>${icon("brain")}Practice all${all.length ? ` (${Math.min(20, all.length)})` : ""}</button><button class="btn" id="hnew">${icon("plus")}New hook</button></div></div>
+      <div class="row hkfilters"><label class="search" style="flex:1;min-width:180px">${icon("search")}<input id="hq" placeholder="Search hooks" value="${esc(query)}" aria-label="Search hooks"></label>
+        <select class="input" id="hs" style="max-width:220px" aria-label="Subject"><option value="all">All subjects (${all.length})</option>${subjects.map(id => `<option value="${id}" ${subj === id ? "selected" : ""}>${id === "own" ? "Memory hooks deck" : esc(S.decks[id].name)} (${all.filter(h => (id === "own" ? !(h.deckId && S.decks[h.deckId]) : h.deckId === id)).length})</option>`).join("")}</select></div>
+      <div class="hooklist">${list.length ? list.map(h => { const v = hookStrength(h); const d = h.deckId && S.decks[h.deckId]; return `<div class="hookcard" data-h="${h.id}"><button class="exedit" data-ed="${h.id}" aria-label="Edit ${esc(h.title)}" title="Edit">${icon("edit")}</button>
+        <b class="hk-title">${esc(h.title)}</b><div class="hk-ph">${h.method === "palace" ? `🏠 ${esc(placeName(h.palace))} walk` : `“${esc(h.phrase || "")}”`}</div>
+        <div class="hk-meta">${plural(h.items.length, "item")}${h.ordered ? ", in order" : ""}${d ? ` · ${esc(d.name)}` : ""}</div>
+        <div class="hk-str"><span class="bbar"><i style="width:${Math.round(v * 100)}%;${v >= 1 ? "background:#2FA58A" : ""}"></i></span><small>${strengthLabel(v)}</small></div>
+        <button class="btn sm primary" data-pr="${h.id}">Practice</button></div>`; }).join("") : `<div class="empty"><p>${all.length ? "No hooks match." : "No hooks yet. Make one for a list you keep mixing up."}</p></div>`}</div>
+      <div class="hkfoot"><button class="linkbtn" id="tips">${showTips ? "Hide tips" : "How to make hooks that stick"}</button>${miss.length ? `<button class="linkbtn" id="rest">Restore starter hooks (${miss.length})</button>` : ""}</div>
+      ${showTips ? `<div class="panel hktips"><p><b>Make it ridiculous.</b> Your brain keeps the weird stuff. A shark eating socks beats a polite sentence.</p><p><b>Add motion and feeling.</b> Things that crash, smell or embarrass someone stick better than still pictures.</p><p><b>Use places you truly know.</b> Your own home works better than a place you’ve seen twice.</p><p><b>Don’t hook everything.</b> Lists and sequences, yes. Single facts usually don’t need it.</p><p><b>Say it out loud once.</b> Saying the sentence or walking the palace out loud makes it stick faster.</p></div>` : ""}`;
+    $("#hq").oninput = e => { query = e.target.value; const pos = e.target.selectionStart; draw(); const n = $("#hq"); n.focus(); n.setSelectionRange(pos, pos); };
+    $("#hs").onchange = e => { subj = e.target.value; draw(); };
+    $("#hnew").onclick = () => hookModal(null, { after: draw, noPractice: false });
+    $("#pall").onclick = () => practiceAllHooks(list.length ? list : all, () => startHooks());
+    $$("[data-pr]").forEach(b => b.onclick = () => practiceHook(hooksAll().find(h => h.id === b.dataset.pr), () => startHooks()));
+    $$("[data-ed]").forEach(b => b.onclick = e => { e.stopPropagation(); hookModal(hooksAll().find(h => h.id === b.dataset.ed), { after: draw }); });
+    $("#tips").onclick = () => { showTips = !showTips; draw(); };
+    $("#rest") && ($("#rest").onclick = () => { const m = missingStarters(); m.forEach(l => { const h = starterAsHook(l); (S.meta.hooks = S.meta.hooks || []).push(h); syncHookCard(h); }); saveMeta(true); toast(`${plural(m.length, "starter hook")} restored`); draw(); });
+  };
+  draw();
+};
+TOOL_FN.hookBtn = () => startHooks();
+{ const k = BADGES2.findIndex(b => b.id === "hook5"); if (k >= 0) BADGES2[k].cur = () => hooksAll().filter(h => !h.starter).length; if (k >= 0) BADGES2[k].desc = "Make 5 memory hooks of your own"; }
+/* ===================== Enter = next, everywhere ===================== */
+document.addEventListener("keydown", e => {
+  if (e.key !== "Enter" || e.shiftKey || e.altKey || e.metaKey || e.ctrlKey || e.isComposing) return;
+  if (document.querySelector(".scrim")) return;
+  const t = e.target; if (t && t.tagName === "TEXTAREA") return;
+  const root = [...document.querySelectorAll(".study")].find(s => s.offsetParent !== null || getComputedStyle(s).display !== "none"); if (!root) return;
+  const btn = ["#nx", "#next", "#cgo", "#cont"].map(s => root.querySelector(s)).find(b => b && !b.disabled && b.getClientRects().length);
+  if (!btn) return;
+  if (t && t.tagName === "INPUT" && !t.disabled && !t.readOnly && !root.querySelector(".feedback")) return;
+  e.preventDefault(); e.stopImmediatePropagation(); btn.click();
+}, true);
+
+/* ===================== Westgard judge: four levels ===================== */
+const mcAll = (items, label, done) => { const its = items.filter(Boolean); return mcRounds(its, label, done, its.length); };
+const WG_RULES = ["1-3s", "2-2s", "R-4s", "4-1s", "10x"];
+const WG_KIND = { "1-3s": "Random error", "R-4s": "Random error", "2-2s": "Systematic error", "4-1s": "Systematic error", "10x": "Systematic error" };
+const WG_WHY = { "1-3s": "One control beyond 3 SD: a 1-3s violation, usually random error.", "2-2s": "Two consecutive results beyond 2 SD on the same side: 2-2s, a systematic shift.", "R-4s": "Within one run, one control above +2 SD and the other below −2 SD (a 4 SD range): R-4s, random error.", "4-1s": "Four consecutive results beyond 1 SD on the same side: 4-1s, a systematic trend.", "10x": "Ten consecutive results on the same side of the mean: 10x, a systematic shift." };
+function wgRun(target) {
+  for (let tries = 0; tries < 600; tries++) {
+    const g = () => +(Math.random() * 2.0 - 1.0).toFixed(2); const L = [Array.from({ length: 12 }, g), Array.from({ length: 12 }, g)]; const n = 11; const s = Math.random() < .5 ? 1 : -1; const a = Math.random() < .5 ? 0 : 1; let viol = [];
+    if (target === "1-3s") { L[a][n] = s * (3.2 + Math.random() * .6); viol = [[a, n]]; }
+    if (target === "R-4s") { L[0][n] = s * (2.2 + Math.random() * .6); L[1][n] = -s * (2.2 + Math.random() * .6); viol = [[0, n], [1, n]]; }
+    if (target === "2-2s") { L[a][n] = s * (2.1 + Math.random() * .7); L[a][n - 1] = s * (2.1 + Math.random() * .7); L[a][n - 2] = s * Math.random() * 1.6 * -1; viol = [[a, n - 1], [a, n]]; }
+    if (target === "4-1s") { for (let k = n - 3; k <= n; k++) L[a][k] = s * (1.2 + Math.random() * .7); L[a][n - 4] = -s * Math.random() * .8; viol = [n - 3, n - 2, n - 1, n].map(k => [a, k]); }
+    if (target === "10x") { for (let k = n - 9; k <= n; k++) L[a][k] = s * (0.15 + Math.random() * .8); L[a][n - 10] = -s * (0.2 + Math.random() * .6); viol = Array.from({ length: 10 }, (_, j) => [a, n - 9 + j]); }
+    if (target === "1-2s") { L[a][n] = s * (2.1 + Math.random() * .7); }
+    const res = westgardEval(L[0], L[1]);
+    if ((target === "1-2s" && res === "Accept") || (target === "Accept" && res === "Accept") || res === target) return { L1: L[0], L2: L[1], res, warn: target === "1-2s", viol: viol.map(([l, k]) => `${l}:${k}`) };
+  }
+  return null;
+}
+function ljChart2(L1, L2, pick) {
+  const W = 460, H = 220, x = i => 30 + i * 36, y = v => 110 - Math.max(-3.9, Math.min(3.9, v)) * 26;
+  const lines = [-3, -2, -1, 0, 1, 2, 3].map(v => `<line x1="24" x2="${W - 10}" y1="${y(v)}" y2="${y(v)}" class="lj${Math.abs(v)}"/><text x="2" y="${y(v) + 4}" class="ljt">${v === 0 ? "x̄" : (v > 0 ? "+" : "") + v}</text>`).join("");
+  const path = (s, c, l) => `<polyline points="${s.map((v, i) => `${x(i)},${y(v)}`).join(" ")}" fill="none" stroke="${c}" stroke-width="1.6"/>${s.map((v, i) => `<g class="ljpt" data-pt="${l}:${i}"><circle cx="${x(i)}" cy="${y(v)}" r="${pick ? 6 : i === s.length - 1 ? 5 : 4}" fill="${c}"/>${pick ? `<circle class="hit" cx="${x(i)}" cy="${y(v)}" r="17" fill="transparent"/>` : ""}</g>`).join("")}`;
+  return `<svg class="lj ${pick ? "pickable" : ""}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Levey-Jennings chart">${lines}${path(L1, "#5B3FD1", 0)}${path(L2, "#B8344B", 1)}</svg><div class="legend"><span><i style="background:#5B3FD1"></i>Level 1 control</span><span><i style="background:#B8344B"></i>Level 2 control</span><span class="small muted">Newest run on the right</span></div>`;
+}
+startWestgard = function () {
+  const tg = () => shuffle(["Accept", "1-2s", "1-3s", "2-2s", "R-4s", "4-1s", "10x", "Accept", "1-3s", "2-2s"]);
+  const opt = r => r === "Accept" ? "Accept the run" : "Reject: " + r;
+  leveledGame("westgard", "Westgard judge", ["Accept or reject", "Random or systematic", "Prove it", "What do you do next?"], [
+    "Read the two-level Levey-Jennings chart. Accept the run, or name the Westgard rule it breaks.",
+    "Every rule points at a kind of error. Random error is a one-off (a bubble, a clot); systematic error shifts every result (calibration, reagent, temperature).",
+    "Name the rule, then tap the exact points that break it. This is how you’d defend a rejection to your supervisor.",
+    "You’ve rejected a run. Pick the right next step, for the instrument and for the patients."
+  ], [
+    done => mcRounds(tg().map(t => { const r = wgRun(t); if (!r) return null; return { kicker: "Today’s run", html: ljChart2(r.L1, r.L2), q: "Accept or reject?", opts: ["Accept the run", ...WG_RULES.map(opt)], keep: true, a: opt(r.res), why: r.res === "Accept" ? (r.warn ? "Only a 1-2s warning: one control beyond 2 SD and no other rule broken. Look closely, then accept." : "Every control is within limits and no rule is broken.") : WG_WHY[r.res], game: "westgard", mq: `Westgard chart (${r.res})` }; }).filter(Boolean), "Westgard judge", done),
+    done => mcAll(tg().map(t => { const r = wgRun(t); if (!r) return null; const a = r.res === "Accept" ? "No error: accept" : WG_KIND[r.res]; return { kicker: "What kind of error?", html: ljChart2(r.L1, r.L2), q: "This chart shows:", opts: ["Random error", "Systematic error", "No error: accept"], keep: true, a, why: r.res === "Accept" ? "No rule is broken." : `${WG_WHY[r.res]} That’s ${WG_KIND[r.res].toLowerCase()}.`, game: "westgard", mq: `Westgard ${r.res}: random or systematic?` }; }).filter(Boolean), "Westgard judge", done),
+    done => {
+      const runs = shuffle(["1-3s", "2-2s", "R-4s", "4-1s", "10x", "2-2s", "4-1s", "1-3s"]).map(wgRun).filter(Boolean); let i = 0, score = 0; const sc = makeScorer("westgard"); LAST_PTS = null;
+      const next = () => {
+        if (i >= runs.length) { LAST_PTS = sc.save(); return done(score, runs.length, runs.length); }
+        const r = runs[i]; const sel = new Set(); let rule = null; sc.start();
+        setProg(i / runs.length); ST.right.innerHTML = `${sc.chip()}<span class="small muted">${i + 1}/${runs.length}</span>`;
+        ST.stage.innerHTML = `<div class="qcard"><div class="kicker">Prove the rejection</div><div class="qtext" style="font-size:1.05rem">1. Which rule is broken? 2. Tap the points that break it.</div>${ljChart2(r.L1, r.L2, true)}</div>
+          <div class="seg wgrules" id="wr">${WG_RULES.map(x => `<button data-r="${x}">${x}</button>`).join("")}</div>
+          <div class="row"><span class="small muted" id="cnt">0 points selected</span><div class="spacer"></div><button class="btn primary" id="chk">Check</button></div><div id="fb"></div>`;
+        $$("#wr button").forEach(b => b.onclick = () => { rule = b.dataset.r; $$("#wr button").forEach(x => x.classList.toggle("on", x === b)); });
+        const svg = $(".lj.pickable");
+        svg.onclick = e => { const P = svg.createSVGPoint(); P.x = e.clientX; P.y = e.clientY; const m = svg.getScreenCTM(); if (!m) return; const q = P.matrixTransform(m.inverse()); let best = null, bd = 1e9; $$(".ljpt", svg).forEach(g => { const c = g.querySelector("circle"); const d = Math.hypot(+c.getAttribute("cx") - q.x, +c.getAttribute("cy") - q.y); if (d < bd) { bd = d; best = g; } }); if (!best || bd > 22) return; const k = best.dataset.pt; if (sel.has(k)) sel.delete(k); else sel.add(k); best.classList.toggle("sel", sel.has(k)); $("#cnt").textContent = plural(sel.size, "point") + " selected"; };
+        $("#chk").onclick = () => {
+          if (!rule) { toast("Pick the rule first"); return; } if (!sel.size) { toast("Tap the points that break it"); return; }
+          const okRule = rule === r.res; const okPts = r.viol.every(v => sel.has(v)) && [...sel].every(v => r.viol.includes(v)); const ok = okRule && okPts;
+          const p = sc.hit(ok); if (ok) score++; else logMistake({ src: "Westgard judge", game: "westgard", q: `Prove a ${r.res} rejection`, yours: `${rule}, ${sel.size} points`, right: `${r.res}, ${r.viol.length} points` });
+          $$(".ljpt").forEach(g => { const k = g.dataset.pt; g.classList.toggle("need", r.viol.includes(k)); g.classList.toggle("bad", sel.has(k) && !r.viol.includes(k)); });
+          $("#chk").disabled = true; $$("#wr button").forEach(b => { b.disabled = true; if (b.dataset.r === r.res) b.classList.add("right"); });
+          $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? `Proven · +${p}` : !okRule ? `The rule is ${r.res}.` : "Right rule, but not quite the right points."}<span class="det">${escG(WG_WHY[r.res])} The outlined points are the ones that break it.</span></div></div><div class="row" style="margin-top:10px"><div class="spacer"></div><button class="btn primary" id="nx">Next run</button></div>`;
+          $("#nx").onclick = () => { i++; next(); };
+        };
+      };
+      next();
+    },
+    done => mcAll(shuffle(["1-3s", "2-2s", "R-4s", "4-1s", "10x", "1-2s", "2-2s", "1-3s", "4-1s", "R-4s"]).map((t, k) => { const r = wgRun(t); if (!r) return null; const patients = k % 3 === 2;
+      if (patients && r.res !== "Accept") return { kicker: `Rejected: ${r.res}`, html: ljChart2(r.L1, r.L2), q: "Patient samples were run with this control. What happens to them?", opts: ["Hold them. Fix the problem, get controls in, then rerun the patients", "Report them; controls don’t affect patient results", "Report them with a comment", "Rerun only the abnormal ones"], a: "Hold them. Fix the problem, get controls in, then rerun the patients", why: "If the run is out, so are the patient results in it. Nothing is reported until controls pass, and patients since the last good run are rechecked.", game: "westgard" };
+      const a = r.res === "Accept" ? "Accept and report; watch the next runs closely" : WG_KIND[r.res] === "Random error" ? "Look for a one-off problem (bubble, clot, pipetting, mixing), fix it, rerun controls" : "Look for a shift (calibration, reagent lot, temperature, light source), fix it, recalibrate, rerun controls";
+      return { kicker: r.res === "Accept" ? "1-2s warning" : `Rejected: ${r.res}`, html: ljChart2(r.L1, r.L2), q: "Best next step?", opts: ["Look for a one-off problem (bubble, clot, pipetting, mixing), fix it, rerun controls", "Look for a shift (calibration, reagent lot, temperature, light source), fix it, recalibrate, rerun controls", "Accept and report; watch the next runs closely", "Rerun the control until it falls in range"], keep: true, a, why: r.res === "Accept" ? "A lone 1-2s is a warning, not a rejection." : `${WG_WHY[r.res]} Never just rerun the control until it passes; find the cause.`, game: "westgard" }; }).filter(Boolean), "Westgard judge", done)
+  ]);
+};
+
+/* ===================== New game: Coag detective ===================== */
+const COAG_REF = "PT 11–13.5 s · PTT 25–35 s · Platelets 150–450 ×10³/µL · Fibrinogen 200–400 mg/dL · D-dimer < 0.5 µg/mL";
+const cv = (lo, hi, d = 0) => +(lo + Math.random() * (hi - lo)).toFixed(d);
+const coagPanel = (o, show = ["PT", "PTT", "Plt", "Fib", "DD"]) => { const L = { PT: ["PT", o.PT, "s", [11, 13.5]], PTT: ["PTT", o.PTT, "s", [25, 35]], Plt: ["Platelets", o.Plt, "×10³/µL", [150, 450]], Fib: ["Fibrinogen", o.Fib, "mg/dL", [200, 400]], DD: ["D-dimer", o.DD, "µg/mL", [0, 0.49]] }; return `<div class="labpanel">${show.filter(k => o[k] != null).map(k => { const [n, v, u, r] = L[k]; const f = v > r[1] ? "H" : v < r[0] ? "L" : ""; return `<div class="lp ${f ? "flag" : ""}"><span>${n}</span><b>${v}${f ? ` <i>${f}</i>` : ""}</b><small>${u}</small></div>`; }).join("")}</div><p class="small muted lpref">${COAG_REF}</p>`; };
+const COAG_CASES = [
+  ["Warfarin effect", "72-year-old on long-term anticoagulation for atrial fibrillation, bruising easily.", () => ({ PT: cv(24, 40, 1), PTT: cv(33, 40), Plt: cv(190, 320), Fib: cv(250, 380), DD: cv(.1, .4, 1) }), "Warfarin blocks vitamin K–dependent factors (II, VII, IX, X). Factor VII has the shortest half-life, so PT/INR rises first and most."],
+  ["Vitamin K deficiency", "4-day-old breastfed newborn who didn’t receive vitamin K at birth, oozing from the umbilical stump.", () => ({ PT: cv(22, 35, 1), PTT: cv(38, 50), Plt: cv(200, 350), Fib: cv(220, 330), DD: cv(.1, .4, 1) }), "Same pattern as warfarin: the vitamin K–dependent factors are low, so PT is long, often with a milder PTT rise."],
+  ["Unfractionated heparin effect", "Inpatient on a heparin drip for a blood clot; blood drawn from the same arm as the IV.", () => ({ PT: cv(12, 14.5, 1), PTT: cv(75, 120), Plt: cv(180, 300), Fib: cv(250, 380), DD: cv(.3, .9, 1) }), "Heparin boosts antithrombin, which mostly hits the intrinsic and common pathways: PTT is very long while PT stays near normal."],
+  ["Hemophilia A", "8-year-old boy with a swollen, painful knee after a minor fall; his maternal uncle had a bleeding disorder.", () => ({ PT: cv(11.5, 13, 1), PTT: cv(55, 85), Plt: cv(200, 380), Fib: cv(220, 350), DD: cv(.1, .3, 1) }), "Isolated long PTT in a boy with joint bleeding and an X-linked family history: factor VIII deficiency. A mixing study corrects."],
+  ["von Willebrand disease", "19-year-old woman with frequent nosebleeds, heavy periods and bleeding after a dental extraction.", () => ({ PT: cv(11.5, 13, 1), PTT: cv(34, 44), Plt: cv(190, 330), Fib: cv(230, 360), DD: cv(.1, .3, 1) }), "Mucous-membrane bleeding with normal platelet count, normal PT and a normal-to-mildly long PTT (vWF carries factor VIII): von Willebrand disease, the most common inherited bleeding disorder."],
+  ["Disseminated intravascular coagulation (DIC)", "ICU patient with septic shock now oozing from IV sites; schistocytes on the smear.", () => ({ PT: cv(18, 26, 1), PTT: cv(48, 70), Plt: cv(25, 70), Fib: cv(60, 140), DD: cv(4, 15, 1) }), "Everything is being used up: long PT and PTT, low platelets and fibrinogen, very high D-dimer."],
+  ["Liver disease", "58-year-old with cirrhosis and ascites.", () => ({ PT: cv(16, 22, 1), PTT: cv(38, 48), Plt: cv(80, 130), Fib: cv(150, 220), DD: cv(.5, 1.5, 1) }), "The liver makes most clotting factors: PT rises first, with a milder PTT rise and low platelets from a big spleen. D-dimer is far lower than in DIC."],
+  ["Immune thrombocytopenia (ITP)", "6-year-old with sudden petechiae two weeks after a viral illness; otherwise well.", () => ({ PT: cv(11.5, 13, 1), PTT: cv(27, 34), Plt: cv(5, 25), Fib: cv(220, 350), DD: cv(.1, .3, 1) }), "PT and PTT only test clotting factors. A very low platelet count with normal clotting times after a virus: ITP."],
+  ["Lupus anticoagulant", "32-year-old woman with two miscarriages and a recent leg clot; PTT doesn’t correct on mixing.", () => ({ PT: cv(12, 14, 1), PTT: cv(45, 65), Plt: cv(150, 260), Fib: cv(250, 380), DD: cv(.2, .6, 1) }), "A long PTT that doesn’t correct on mixing, in someone who clots rather than bleeds: lupus anticoagulant (an antiphospholipid antibody)."],
+  ["Factor XII deficiency", "Healthy 40-year-old before knee surgery; never bled with past surgeries or dental work.", () => ({ PT: cv(11.5, 13, 1), PTT: cv(80, 140), Plt: cv(200, 350), Fib: cv(230, 360), DD: cv(.1, .3, 1) }), "A very long PTT with no bleeding history at all: factor XII deficiency. It looks dramatic in the tube but doesn’t cause bleeding."]
+];
+function startCoag() {
+  leveledGame("coag", "Coag detective", ["Which pathway?", "Mixing studies", "Solve the case"], [
+    "PT checks the extrinsic and common pathways (factor VII). PTT checks the intrinsic and common pathways (XII, XI, IX, VIII). Neither one sees platelets.",
+    "A 1:1 mix with normal plasma supplies every factor at about 50%, enough to fix a deficiency. If the time stays long, something is blocking clotting: an inhibitor.",
+    "Put the whole panel and the story together."
+  ], [
+    done => mcAll(Array.from({ length: 10 }, () => { const k = rpick(["ext", "int", "both", "none"]); const o = k === "ext" ? { PT: cv(17, 30, 1), PTT: cv(27, 34) } : k === "int" ? { PT: cv(11.5, 13, 1), PTT: cv(45, 90) } : k === "both" ? { PT: cv(17, 30, 1), PTT: cv(45, 80) } : { PT: cv(11.5, 13, 1), PTT: cv(27, 34), Plt: cv(10, 60) }; const A = { ext: "Extrinsic pathway (factor VII)", int: "Intrinsic pathway (VIII, IX, XI, XII)", both: "Common pathway or several factors (X, V, II, fibrinogen)", none: "Platelets or vessels: PT and PTT can’t see them" }; return { kicker: "Which part of clotting is the problem?", html: coagPanel(o), opts: Object.values(A), keep: true, a: A[k], why: { ext: "Only PT is long: factor VII, the one factor only PT checks.", int: "Only PTT is long: an intrinsic factor (VIII, IX, XI or XII), or heparin.", both: "Both are long: the shared common pathway, or several factors at once (warfarin, liver disease, DIC).", none: "Normal PT and PTT with bleeding signs point to platelets or vessels." }[k], game: "coag", mq: `PT ${o.PT}, PTT ${o.PTT}` }; }), "Coag detective", done),
+    done => mcAll(Array.from({ length: 10 }, () => { const k = rpick(["def", "def", "inh", "inh", "time"]); const pt = cv(55, 85); const mix = k === "def" ? cv(31, 35) : k === "inh" ? cv(48, pt - 3) : cv(31, 35); const inc = k === "time" ? cv(48, 65) : k === "def" ? cv(31, 36) : cv(50, pt); const A = { def: "Corrects: a factor deficiency", inh: "Doesn’t correct: an inhibitor (like lupus anticoagulant)", time: "Time-dependent inhibitor (classically a factor VIII inhibitor)" }; return { kicker: "Mixing study", html: `<div class="labpanel"><div class="lp flag"><span>Patient PTT</span><b>${pt}</b><small>s</small></div><div class="lp"><span>Normal pool</span><b>30</b><small>s</small></div><div class="lp ${mix > 35 ? "flag" : ""}"><span>1:1 mix, right away</span><b>${mix}</b><small>s</small></div><div class="lp ${inc > 36 ? "flag" : ""}"><span>1:1 mix, after 1–2 h at 37 °C</span><b>${inc}</b><small>s</small></div></div><p class="small muted lpref">PTT reference 25–35 s</p>`, opts: Object.values(A), keep: true, a: A[k], why: { def: "Adding normal plasma replaced the missing factor, so the PTT came back into range, and stayed there after incubation. Next step: factor assays.", inh: "Normal plasma couldn’t fix it, so something in the patient’s plasma is blocking clotting. Lupus anticoagulant is the most common cause.", time: "It corrected at first but prolonged again after incubation: a slow-acting antibody, classically against factor VIII." }[k], game: "coag" }; }), "Coag detective", done),
+    done => mcAll(shuffle(COAG_CASES).slice(0, 10).map(([a, story, gen, why]) => ({ kicker: "Case", html: `<p class="case-story">${escG(story)}</p>${coagPanel(gen())}`, q: "Most likely explanation?", opts: [a, ...pick(COAG_CASES.map(c => c[0]).filter(x => x !== a), 3)], a, why, game: "coag", mq: story })), "Coag detective", done)
+  ]);
+}
+
+/* ===================== New game: Anemia workup ===================== */
+const ANEMIA_CASES = [
+  ["Iron deficiency anemia", "28-year-old woman with heavy periods, tired and craving ice.", { Hgb: [8, 10, 1], MCV: [65, 75], RDW: [17, 21, 1], RBC: [3.8, 4.4, 1], Retic: [.3, .8, 1] }, "Ferritin 6 ng/mL; pencil cells on the smear.", "Small cells, high RDW and an empty iron tank (low ferritin): iron deficiency, most often from blood loss."],
+  ["Beta-thalassemia trait", "24-year-old of Mediterranean descent; mild anemia found on a routine CBC.", { Hgb: [10.8, 12, 1], MCV: [60, 68], RDW: [13, 14.5, 1], RBC: [5.6, 6.3, 1], Retic: [1, 2, 1] }, "Ferritin normal; target cells; Hb A2 increased.", "Very small cells but a HIGH red cell count and normal RDW (Mentzer index under 13). Iron is normal; Hb A2 is up."],
+  ["Anemia of chronic disease", "60-year-old with rheumatoid arthritis.", { Hgb: [9.5, 11, 1], MCV: [80, 88], RDW: [13, 15, 1], RBC: [3.6, 4.1, 1], Retic: [.5, 1, 1] }, "Ferritin 320 ng/mL (normal to high); TIBC low.", "Inflammation locks iron in storage (hepcidin), so ferritin is normal or high while the marrow can’t use it."],
+  ["Vitamin B12 deficiency", "70-year-old with numbness in both feet and trouble with balance.", { Hgb: [7.5, 9.5, 1], MCV: [110, 125], RDW: [16, 20, 1], RBC: [2.2, 2.9, 1], Retic: [.3, .8, 1] }, "Hypersegmented neutrophils; methylmalonic acid (MMA) high, homocysteine high.", "Macrocytic with hypersegmented neutrophils, nerve symptoms and a high MMA: B12 deficiency (MMA stays normal in folate deficiency)."],
+  ["Folate deficiency", "45-year-old with heavy alcohol use and a poor diet; no nerve symptoms.", { Hgb: [8.5, 10, 1], MCV: [105, 118], RDW: [15, 19, 1], RBC: [2.5, 3.2, 1], Retic: [.3, .9, 1] }, "Hypersegmented neutrophils; homocysteine high, MMA normal.", "Macrocytic with hypersegs, but MMA is normal: folate, not B12."],
+  ["Hereditary spherocytosis", "16-year-old with recurring jaundice and a big spleen; his father had his spleen removed.", { Hgb: [9.5, 11, 1], MCV: [84, 92], RDW: [15, 18, 1], RBC: [3.4, 3.9, 1], Retic: [7, 12, 1] }, "Spherocytes; MCHC 37 g/dL; DAT negative; indirect bilirubin and LD high, haptoglobin low.", "Signs of hemolysis plus spherocytes with a negative DAT and family history: a membrane defect, not antibodies."],
+  ["Warm autoimmune hemolytic anemia", "35-year-old with lupus, sudden fatigue and dark urine.", { Hgb: [7.5, 9.5, 1], MCV: [90, 100], RDW: [16, 19, 1], RBC: [2.6, 3.2, 1], Retic: [8, 15, 1] }, "Spherocytes; DAT positive with anti-IgG; LD high, haptoglobin low.", "Hemolysis with spherocytes and a positive DAT (IgG): antibodies are coating the red cells."],
+  ["Aplastic anemia", "22-year-old with fatigue, infections and easy bruising.", { Hgb: [6.5, 8.5, 1], MCV: [95, 104], RDW: [13, 15, 1], RBC: [2.1, 2.7, 1], Retic: [.1, .4, 1] }, "WBC 1.8 ×10³/µL, platelets 22 ×10³/µL; empty marrow on biopsy.", "All three lines are low and the retic count is near zero: the marrow isn’t making cells."],
+  ["Acute blood loss", "Car-accident patient, 4 days after surgery to repair a bleeding spleen.", { Hgb: [8.5, 10, 1], MCV: [88, 96], RDW: [13, 15, 1], RBC: [2.9, 3.4, 1], Retic: [4, 7, 1] }, "Iron studies normal; no hemolysis markers.", "Normocytic anemia with a rising retic count a few days after bleeding: the marrow is responding."]
+];
+function anemiaPanel(r) { const v = Object.fromEntries(Object.entries(r).map(([k, [a, b, d]]) => [k, cv(a, b, d || 0)])); const ref = { Hgb: [12, 17.5, "g/dL"], MCV: [80, 100, "fL"], RDW: [11.5, 14.5, "%"], RBC: [4.2, 5.9, "×10⁶/µL"], Retic: [.5, 2.5, "%"] }; return `<div class="labpanel">${Object.keys(ref).map(k => { const x = v[k]; const f = x > ref[k][1] ? "H" : x < ref[k][0] ? "L" : ""; return `<div class="lp ${f ? "flag" : ""}"><span>${k === "Retic" ? "Retic" : k}</span><b>${x}${f ? ` <i>${f}</i>` : ""}</b><small>${ref[k][2]}</small></div>`; }).join("")}</div>`; }
+function startAnemia() {
+  const IRON = { "Iron deficiency anemia": () => ({ Fe: cv(15, 45), TIBC: cv(450, 560), Sat: cv(3, 9), Fer: cv(2, 12) }), "Anemia of chronic disease (inflammation)": () => ({ Fe: cv(30, 55), TIBC: cv(170, 240), Sat: cv(12, 20), Fer: cv(150, 600) }), "Thalassemia trait (iron is normal)": () => ({ Fe: cv(80, 140), TIBC: cv(280, 380), Sat: cv(25, 40), Fer: cv(50, 200) }), "Iron overload (like hemochromatosis)": () => ({ Fe: cv(200, 290), TIBC: cv(200, 270), Sat: cv(65, 95), Fer: cv(900, 2500) }) };
+  const ironHtml = o => { const R = { Fe: ["Serum iron", "µg/dL", 60, 170], TIBC: ["TIBC", "µg/dL", 250, 450], Sat: ["Transferrin saturation", "%", 20, 50], Fer: ["Ferritin", "ng/mL", 20, 250] }; return `<div class="labpanel">${Object.entries(R).map(([k, [n, u, lo, hi]]) => { const x = o[k]; const f = x > hi ? "H" : x < lo ? "L" : ""; return `<div class="lp ${f ? "flag" : ""}"><span>${n}</span><b>${x}${f ? ` <i>${f}</i>` : ""}</b><small>${u}</small></div>`; }).join("")}</div>`; };
+  const IRON_WHY = { "Iron deficiency anemia": "Low ferritin is the giveaway: the iron stores are empty. The body makes more transferrin, so TIBC goes up.", "Anemia of chronic disease (inflammation)": "Iron is low in the blood but ferritin (storage) is normal or high: inflammation is locking iron away. TIBC drops.", "Thalassemia trait (iron is normal)": "Every iron test is normal. A small-cell anemia with normal iron points to a globin problem.", "Iron overload (like hemochromatosis)": "Too much iron everywhere: high serum iron, very high saturation and ferritin." };
+  leveledGame("anemia", "Anemia workup", ["Size it", "Read the iron studies", "Solve the case"], [
+    "The MCV sorts every anemia into small, normal or large cells. Start there.",
+    "Iron studies tell iron deficiency apart from its look-alikes. Ferritin is the iron in storage; TIBC is how hungry the body is for iron.",
+    "Indices, retic count, smear and the story together."
+  ], [
+    done => mcAll(Array.from({ length: 10 }, () => { const k = rpick(["mi", "no", "ma"]); const m = k === "mi" ? cv(58, 78) : k === "no" ? cv(82, 98) : cv(102, 125); const ask = Math.random() < .5; const A = { mi: "Microcytic", no: "Normocytic", ma: "Macrocytic" }; if (ask) return { kicker: "Size it", html: `<div class="labpanel"><div class="lp flag"><span>Hgb</span><b>${cv(8, 11, 1)} <i>L</i></b><small>g/dL</small></div><div class="lp"><span>MCV</span><b>${m}</b><small>fL</small></div></div><p class="small muted lpref">MCV reference 80–100 fL</p>`, opts: ["Microcytic", "Normocytic", "Macrocytic"], keep: true, a: A[k], why: "Below 80 fL is microcytic, 80–100 normocytic, above 100 macrocytic.", game: "anemia" }; const C = { mi: "Iron deficiency or thalassemia", no: "Acute blood loss, chronic disease or hemolysis", ma: "Vitamin B12 or folate deficiency" }; return { kicker: "Think of causes", html: `<div class="labpanel"><div class="lp"><span>MCV</span><b>${m}</b><small>fL</small></div></div>`, q: "Which causes fit this MCV best?", opts: Object.values(C), keep: true, a: C[k], why: { mi: "Small cells mean not enough hemoglobin: no iron (iron deficiency) or broken globin chains (thalassemia).", no: "Normal-size cells: the cells are fine but too few (bleeding, inflammation, hemolysis, marrow failure).", ma: "Big cells: DNA synthesis is slowed (B12 or folate), so cells grow without dividing." }[k], game: "anemia" }; }), "Anemia workup", done),
+    done => mcAll(Array.from({ length: 10 }, () => { const a = rpick(Object.keys(IRON)); return { kicker: "Iron studies", html: ironHtml(IRON[a]()), q: "These iron studies fit:", opts: Object.keys(IRON), keep: true, a, why: IRON_WHY[a], game: "anemia" }; }), "Anemia workup", done),
+    done => mcAll(shuffle(ANEMIA_CASES).slice(0, 9).map(([a, story, r, extra, why]) => ({ kicker: "Case", html: `<p class="case-story">${escG(story)}</p>${anemiaPanel(r)}<p class="small"><b>Also:</b> ${escG(extra)}</p>`, q: "Most likely diagnosis?", opts: [a, ...pick(ANEMIA_CASES.map(c => c[0]).filter(x => x !== a), 3)], a, why, game: "anemia", mq: story })), "Anemia workup", done)
+  ]);
+}
+
+/* ===================== New game: ABO & Rh typing ===================== */
+const ABO_TYPES = ["O+", "A+", "B+", "AB+", "O−", "A−", "B−", "AB−"];
+function aboGrid(t, over = {}) { const abo = t.replace(/[+−]/, ""), rh = t.endsWith("+"); const r = { aA: /A/.test(abo) ? "4+" : "0", aB: /B/.test(abo) ? "4+" : "0", aD: rh ? "3+" : "0", A1: /A/.test(abo) ? "0" : "4+", Bc: /B/.test(abo) ? "0" : "4+", ...over }; const cell = v => `<td class="${v === "0" ? "neg" : "pos"}">${v}</td>`; return `<table class="abogrid"><thead><tr><th colspan="3">Forward (patient’s red cells)</th><th colspan="2">Reverse (patient’s plasma)</th></tr><tr><th>Anti-A</th><th>Anti-B</th><th>Anti-D</th><th>A₁ cells</th><th>B cells</th></tr></thead><tbody><tr>${cell(r.aA)}${cell(r.aB)}${cell(r.aD)}${cell(r.A1)}${cell(r.Bc)}</tr></tbody></table>`; }
+const rbcOk = (pt, dn) => { const P = pt.replace(/[+−]/, ""), D = dn.replace(/[+−]/, ""); const aboOk = D === "O" || D === P || P === "AB"; const rhOk = pt.endsWith("+") || dn.endsWith("−"); return aboOk && rhOk; };
+const plasmaOk = (pt, dn) => { const P = pt.replace(/[+−]/, ""), D = dn.replace(/[+−]/, ""); return D === "AB" || D === P || P === "O"; };
+const ABO_DISC = [
+  ["Missing or weak antibodies (a newborn or an elderly patient)", "2-day-old baby.", () => aboGrid("A+", { Bc: "0" }), "Forward types as A, but the expected anti-B is missing. Newborns haven’t made ABO antibodies yet (and the elderly can lose them). Report the forward type; don’t rely on reverse."],
+  ["Rouleaux from high protein (like multiple myeloma)", "67-year-old with multiple myeloma; the antibody screen cells also react weakly.", () => aboGrid("A+", { A1: "2+" }), "High protein makes red cells stack like coins and look agglutinated. Saline replacement disperses rouleaux and reveals the true reverse type."],
+  ["Cold autoantibody", "Patient with mycoplasma pneumonia; the autocontrol is positive at room temperature.", () => aboGrid("B+", { aA: "1+", Bc: "1+" }), "A cold autoantibody coats cells at room temperature and causes extra weak reactions everywhere. Warm the testing to 37 °C (or wash the cells with warm saline)."],
+  ["A2 subgroup with anti-A1", "Healthy donor; the patient’s cells don’t react with anti-A1 lectin.", () => aboGrid("A+", { A1: "1+" }), "About 20% of group A people are A2, and some make anti-A1, which reacts with A1 reagent cells. Confirm with anti-A1 lectin; it’s not a true discrepancy in the patient’s type."],
+  ["Weak D: test at the antiglobulin phase", "Prenatal patient; anti-D is negative at immediate spin.", () => aboGrid("O−", {}), "Some people have fewer or altered D antigens that only show up at the antiglobulin (IAT) phase. Weak D testing is needed before calling someone D-negative where policy requires it."],
+  ["Acquired B antigen", "Group A patient with colon cancer and a gram-negative infection.", () => aboGrid("A+", { aB: "1+" }), "Bacterial enzymes can change the A antigen so it weakly reacts with anti-B. The patient’s own anti-B is still present in the reverse."]
+];
+function startABO() {
+  leveledGame("abo", "ABO & Rh typing", ["Type it", "Who can receive what", "Solve the discrepancy"], [
+    "Forward typing finds the antigens on the patient’s red cells. Reverse typing finds the antibodies in the plasma. They should agree.",
+    "Red cells: the donor cells can’t carry an antigen the patient has antibodies to. Plasma: the reverse. O-negative red cells and AB plasma are the universal donors.",
+    "When forward and reverse disagree, find out why before you release blood."
+  ], [
+    done => mcAll(Array.from({ length: 10 }, () => { const t = rpick(ABO_TYPES); return { kicker: "ABO and Rh typing", html: aboGrid(t), q: "Blood type?", opts: [t, ...pick(ABO_TYPES.filter(x => x !== t), 3)], a: t, why: `Forward shows the antigens: ${t.replace(/[+−]/, "")}${t.endsWith("+") ? " and D (Rh positive)" : ", no D (Rh negative)"}. Reverse shows the opposite antibodies, so it agrees.`, game: "abo" }; }), "ABO & Rh typing", done),
+    done => mcAll(Array.from({ length: 10 }, () => { const pt = rpick(ABO_TYPES); const prod = Math.random() < .6 ? "red cells" : "plasma"; const ok = prod === "red cells" ? rbcOk : plasmaOk; const good = shuffle(ABO_TYPES.filter(d => ok(pt, d))); const bad = shuffle(ABO_TYPES.filter(d => !ok(pt, d))); if (!good.length || bad.length < 3) return null; const a = good[0]; return { kicker: `Patient is ${pt}`, q: `Which ${prod} unit is compatible?`, opts: [a, ...bad.slice(0, 3)], a, why: prod === "red cells" ? `${pt} plasma has antibodies against ${pt.startsWith("AB") ? "no A or B antigens" : pt.startsWith("A") ? "B" : pt.startsWith("B") ? "A" : "both A and B"}; the red cells must lack those antigens${pt.endsWith("−") ? ", and an Rh-negative patient gets Rh-negative red cells" : ""}.` : `For plasma it flips: the donor plasma can’t carry antibodies against the patient’s antigens. AB plasma has neither anti-A nor anti-B, so it’s the universal plasma.`, game: "abo" }; }).filter(Boolean), "ABO & Rh typing", done),
+    done => mcAll(shuffle(ABO_DISC).map(([a, story, grid, why]) => ({ kicker: "Discrepancy", html: `<p class="case-story">${escG(story)}</p>${grid()}`, q: "Most likely cause?", opts: [a, ...pick(ABO_DISC.map(d => d[0]).filter(x => x !== a), 3)], a, why, game: "abo", mq: story })), "ABO & Rh typing", done)
+  ]);
+}
+
+/* ===================== New game: UA detective ===================== */
+const UA_PADS = [
+  ["A positive nitrite most often means:", "Gram-negative bacteria that turn nitrate into nitrite (like E. coli)", ["Gram-positive cocci", "Too many white cells", "Dehydration"], "Most urinary gram-negative rods reduce nitrate to nitrite. Enterococcus and yeast don’t."],
+  ["Leukocyte esterase detects:", "An enzyme from neutrophils, even ones that have broken open", ["Red cells", "Bacteria", "Protein"], "LE can be positive even when lysed white cells don’t show on the microscopic."],
+  ["The protein pad is most sensitive to:", "Albumin", ["Globulins", "Bence Jones protein", "Mucus"], "It can miss Bence Jones and other globulins, which is why the old acid (SSA) test was used to catch them."],
+  ["A specific gravity of 1.035 suggests:", "Very concentrated urine (dehydration), or something dense like X-ray contrast", ["Kidneys can’t concentrate", "Diabetes insipidus", "A dilute random sample"], "Dehydrated kidneys concentrate urine. Above about 1.040, think of contrast dye or other dense substances."],
+  ["Glucose spills into urine when blood glucose passes about:", "160–180 mg/dL (the renal threshold)", ["70–99 mg/dL", "250–300 mg/dL", "Any glucose at all"], "Below the renal threshold, the kidney reabsorbs it all."],
+  ["The ketone pad mainly detects:", "Acetoacetic acid (not beta-hydroxybutyrate)", ["Beta-hydroxybutyrate", "Glucose", "Acetone only"], "Nitroprusside reacts with acetoacetate (and acetone if glycine is added), but not beta-hydroxybutyrate, the main ketone in DKA."],
+  ["Urobilinogen up, bilirubin negative, suggests:", "Hemolysis (a pre-hepatic cause)", ["Bile duct obstruction", "Viral hepatitis", "A normal specimen"], "Extra hemoglobin breakdown makes more urobilinogen; unconjugated bilirubin can’t pass into urine."],
+  ["Bilirubin positive, urobilinogen low, suggests:", "Bile duct obstruction (post-hepatic)", ["Hemolysis", "Dehydration", "Kidney damage"], "Conjugated bilirubin backs up into blood and urine, but little reaches the gut to become urobilinogen."],
+  ["A false-negative nitrite happens when:", "Urine sat in the bladder less than about 4 hours", ["The specimen is a first-morning sample", "The patient has E. coli", "The pH is acidic"], "Bacteria need about 4 hours in the bladder to convert nitrate. First-morning urine is best."],
+  ["pH 9.0 in a specimen left out overnight means:", "An old specimen: bacteria made ammonia. Recollect.", ["Metabolic alkalosis", "A kidney stone", "Normal urine"], "Urine pH above about 8.5 in a stale specimen is an artifact. Fresh urine is rarely that alkaline."]
+];
+const UA_CASES = [
+  ["Cystitis (bladder infection)", "Burning on urination; no fever or flank pain.", "Nitrite +, LE 2+, blood trace", "WBCs 25–50/hpf, many bacteria, no casts", "White cells and bacteria with no casts: the infection is in the bladder, not the kidney."],
+  ["Pyelonephritis (kidney infection)", "Fever, chills and flank pain.", "Nitrite +, LE 3+, protein 1+", "WBCs 50–100/hpf, WBC casts, bacteria", "WBC casts form in the kidney’s tubules, so the infection has reached the kidney."],
+  ["Acute glomerulonephritis", "Child with smoky, cola-colored urine two weeks after strep throat.", "Blood 3+, protein 2+", "RBCs 25–50/hpf with dysmorphic forms, RBC casts", "RBC casts and misshapen red cells mean bleeding from the glomerulus."],
+  ["Nephrotic syndrome", "Swelling around the eyes and legs; foamy urine.", "Protein 4+, blood negative", "Oval fat bodies, fatty casts, waxy casts", "Massive protein loss with fat bodies and fatty casts: the glomerular filter is leaking."],
+  ["Rhabdomyolysis (myoglobin)", "Marathon runner with muscle pain and dark urine.", "Blood 3+, protein trace", "RBCs 0–2/hpf", "A strongly positive blood pad with almost no red cells: the pad sees heme from myoglobin (muscle) or free hemoglobin. Serum CK will be very high."],
+  ["Uncontrolled diabetes (ketosis)", "Thirsty, urinating often, fruity breath.", "Glucose 4+, ketones large, SG 1.030", "No cells or casts of note", "Glucose above the renal threshold plus ketones: the body is burning fat for fuel."],
+  ["Contaminated specimen; recollect", "Routine screening specimen, not a clean catch.", "Nitrite negative, LE trace", "Many squamous epithelial cells, mixed bacteria", "Lots of squamous cells means skin and vaginal contamination. Recollect as a midstream clean catch."],
+  ["Obstructive (post-hepatic) jaundice", "Yellow eyes, pale stools and dark urine.", "Bilirubin 3+, urobilinogen 0.2 EU/dL", "Bilirubin crystals possible", "Conjugated bilirubin spills into urine while urobilinogen drops: bile can’t reach the gut."]
+];
+const UA_AGREE = [
+  ["Blood 3+ on the strip, but 0–2 RBCs/hpf in a dilute urine (SG 1.003).", "Don’t agree: think lysed RBCs, free hemoglobin or myoglobin", "Very dilute or alkaline urine lyses red cells, and hemoglobin or myoglobin turns the pad positive without intact cells."],
+  ["Leukocyte esterase 2+ and 20–50 WBCs/hpf.", "They agree", "Positive LE with plenty of white cells on the microscopic. Consistent."],
+  ["Leukocyte esterase negative, but 25–50 WBCs/hpf.", "Don’t agree: high glucose, protein or SG (or some antibiotics) can falsely lower LE; recheck", "Microscopy wins here. Then look for a cause of a false-negative pad."],
+  ["Blood 2+ and 10–20 RBCs/hpf.", "They agree", "Positive blood pad with red cells seen. Consistent."],
+  ["Protein negative, but many granular and waxy casts.", "Don’t agree: recheck the protein pad and the specimen", "Casts form in a protein (Tamm-Horsfall) matrix; lots of pathologic casts with no protein at all is unusual and deserves a recheck."],
+  ["Nitrite positive and many bacteria.", "They agree", "Nitrite-forming bacteria are present. Consistent."]
+];
+function startUA() {
+  const AG = ["They agree", "Don’t agree: think lysed RBCs, free hemoglobin or myoglobin", "Don’t agree: high glucose, protein or SG (or some antibiotics) can falsely lower LE; recheck", "Don’t agree: recheck the protein pad and the specimen"];
+  leveledGame("uacorr", "UA detective", ["Read the dipstick", "Do they agree?", "Whole picture"], [
+    "What each dipstick pad really detects, and how it fools you.",
+    "The dipstick and the microscope should tell the same story. When they don’t, you have to explain why before you report.",
+    "Dipstick plus microscopic plus the patient: name what’s going on."
+  ], [
+    done => mcAll(shuffle(UA_PADS).map(([q, a, wrong, why]) => ({ kicker: "Dipstick", q, opts: [a, ...wrong], a, why, game: "uacorr" })), "UA detective", done),
+    done => mcAll(shuffle(UA_AGREE).map(([q, a, why]) => ({ kicker: "Dipstick vs microscope", q, opts: AG, keep: true, a, why, game: "uacorr" })), "UA detective", done),
+    done => mcAll(shuffle(UA_CASES).map(([a, story, dip, micro, why]) => ({ kicker: "Urinalysis", html: `<p class="case-story">${escG(story)}</p><div class="uabox"><div><b>Dipstick</b><span>${escG(dip)}</span></div><div><b>Microscopic</b><span>${escG(micro)}</span></div></div>`, q: "Best interpretation?", opts: [a, ...pick(UA_CASES.map(c => c[0]).filter(x => x !== a), 3)], a, why, game: "uacorr", mq: story })), "UA detective", done)
+  ]);
+}
+
+/* ===================== Register games + the games hub ===================== */
+const reqLike = re => LESSONS.filter(l => re.test(l.title)).map(l => l.id).slice(0, 4);
+Object.assign(GAME_REQ, { coag: reqLike(/hemosta|coag|clott/i), anemia: reqLike(/anemi|red cell|erythro/i), abo: reqLike(/blood bank|abo|immunohem|blood group/i), uacorr: reqLike(/urin/i) });
+Object.assign(GAME_NAMES, { coag: "Coag detective", anemia: "Anemia workup", abo: "ABO & Rh typing", uacorr: "UA detective" });
+Object.assign(GAME_META, { coag: ["🩸", "PT, PTT and mixing studies, from pattern to diagnosis"], anemia: ["🔴", "Indices, iron studies and smears: name the anemia"], abo: ["🅰️", "Forward, reverse, compatibility and discrepancies"], uacorr: ["🧪", "Dipstick meets microscope: make them agree"] });
+GAME_META.westgard = ["📊", "Accept, reject, prove it, and fix it"];
+const GAMES = [
+  ["tubes", "Tube trainer", "Lab basics", () => startTubeTrainer()], ["critical", "Critical call", "Lab basics", () => startCritical()], ["westgard", "Westgard judge", "Lab basics", () => startWestgard()],
+  ["smear", "Smear practice", "Hematology & coag", () => startSmear()], ["anemia", "Anemia workup", "Hematology & coag", () => startAnemia()], ["coag", "Coag detective", "Hematology & coag", () => startCoag()],
+  ["gram", "Gram stain", "Microbiology", () => startGramStain()], ["flow", "ID flowcharts", "Microbiology", () => startFlowGame()], ["bench", "Bench unknown", "Microbiology", () => startBench()],
+  ["abo", "ABO & Rh typing", "Blood bank", () => startABO()], ["panel", "Antibody panel", "Blood bank", () => startPanel()],
+  ["acidbase", "Acid-base", "Chemistry & urinalysis", () => startAcidBase()], ["sediment", "Urine sediment", "Chemistry & urinalysis", () => startSediment()], ["uacorr", "UA detective", "Chemistry & urinalysis", () => startUA()]
+];
+GAMES.forEach(([id, n, , fn]) => { GAME_OPEN[id] = [n, fn]; TOOL_FN["g_" + id] = () => gated(id, n, fn)(); });
+{ const gh = gameHero; gameHero = function (id, title, nLv) { try { gstate(id).last = Date.now(); saveMeta(); } catch { } return gh(id, title, nLv); }; }
+const recentGames = () => { const played = GAMES.filter(g => gstate(g[0]).last).sort((a, b) => gstate(b[0]).last - gstate(a[0]).last); const rest = GAMES.filter(g => !gstate(g[0]).last && gameUnlocked(g[0])); return [...played, ...rest].slice(0, 4); };
+ORDERED_TOOLS = function () { return { learn: TOOLS.learn, test: TOOLS.test, play: [...recentGames().map(([id, n]) => ["g_" + id, "target", n, id]), ["allGames", "target", `All games (${GAMES.length})`]], plan: TOOLS.plan }; };
+TILE_SHORT.allGames = "All games";
+function startGamesHub() {
+  openStudy("All games"); gameShell(); setProg(0);
+  const subjects = [...new Set(GAMES.map(g => g[2]))];
+  ST.stage.innerHTML = `<div class="ghero hubhero"><div class="gemoji">🎮</div><div class="gtitle"><h1>All games</h1><p>${GAMES.length} games, each with levels that go from recognizing to reasoning. Locked games open when you pass their lesson.</p></div></div>
+    ${subjects.map(s => `<h3 class="hubsec">${esc(s)}</h3><div class="hubgrid">${GAMES.filter(g => g[2] === s).map(([id, n]) => { const lk = !gameUnlocked(id); const gs = gstate(id); const best = (S.meta.stats || {})["pts_" + id] || 0; const [e, tag] = GAME_META[id] || ["🎮", ""]; return `<button class="hubcard ${lk ? "locked" : ""}" data-g="${id}"><span class="hubemo">${lk ? LOCK_SVG : e}</span><b>${esc(n)}</b><small>${esc(tag)}</small><span class="hubmeta">${lk ? "Unlocks with its lesson" : `${gs.plays ? `Level ${gs.level || 1}` : "New"}${best ? ` · best ${best.toLocaleString()}` : ""}`}</span></button>`; }).join("")}</div>`).join("")}`;
+  $$(".hubcard").forEach(b => b.onclick = () => TOOL_FN["g_" + b.dataset.g]());
+}
+TOOL_FN.allGames = () => startGamesHub();
+{ const r = render; render = function (...a) { const out = r.apply(this, a);
+    $$("#view .ttile[id^='g_'], #view #allGames").forEach(b => { b.onclick = () => (TOOL_FN[b.id] || (() => { }))(); const id = b.id.slice(2); const t = $(".tti", b); if (t && !b.classList.contains("locked")) t.innerHTML = `<span class="ttemo">${b.id === "allGames" ? "🎮" : (GAME_META[id] || ["🎮"])[0]}</span>`; });
+    $$(".sidetools .stool[data-tool^='g_'], .sidetools .stool[data-tool='allGames']").forEach(a => { if (a.classList.contains("locked")) return; const id = a.dataset.tool.slice(2); const sv = a.querySelector("svg"); if (sv) sv.outerHTML = `<span class="stemo">${a.dataset.tool === "allGames" ? "🎮" : (GAME_META[id] || ["🎮"])[0]}</span>`; });
+    return out; }; }
+
+/* ===================== Lessons: warm-up, guess first, recap ===================== */
+const PRETEST = {};
+{ const sb = startBootcamp; startBootcamp = function (l, skipWarm) {
+    const r = (prep().lessons || {})[l.id] || {};
+    if (skipWarm || r.read || !l.beats) return sb(l);
+    const asks = l.beats.map(b => b[1]).filter(Boolean);
+    const done = LESSONS.filter(x => x.beats && x.id !== l.id && ((prep().lessons || {})[x.id] || {}).done);
+    const warm = shuffle(done.flatMap(x => x.beats.map(b => b[1] && { ask: b[1], from: x.title }).filter(Boolean))).slice(0, 2);
+    const pre = asks.length ? varyItem(asks[asks.length - 1]) : null;
+    const steps = [...warm.map(w => ({ kind: "warm", ask: varyItem(w.ask), from: w.from })), ...(pre ? [{ kind: "pre", ask: pre }] : [])];
+    if (!steps.length) return sb(l);
+    openStudy("Bootcamp: " + l.title); let i = 0;
+    const show = () => {
+      if (i >= steps.length) return sb(l);
+      const s = steps[i]; const [q, opts, a, why] = s.ask; const order = shuffle(opts.map((_, k) => k));
+      setProg(0); ST.right.innerHTML = `<span class="small muted">Before you start · ${i + 1}/${steps.length}</span>`;
+      ST.stage.innerHTML = `${lessonHead(l)}<div class="warmtag ${s.kind}">${s.kind === "warm" ? `Warm-up from “${esc(s.from)}”` : "Take a guess first: no penalty"}</div>
+        <p class="small muted" style="margin:0">${s.kind === "warm" ? "Pulling an older idea back up keeps it from fading." : "Guessing before you learn makes the real answer stick better, even if you guess wrong."}</p>
+        <div class="qcard"><div class="qtext">${escG(q)}</div></div><div class="opts" id="opts">${order.map((k, j) => `<button class="opt" data-k="${k}"><span class="k">${j + 1}</span><span>${escG(opts[k])}</span></button>`).join("")}</div><div id="fb"></div>
+        <div class="row"><div class="spacer"></div><button class="btn ghost sm" id="skipw">Skip to the lesson</button></div>`;
+      $("#skipw").onclick = () => sb(l);
+      $$("#opts .opt").forEach(b => b.onclick = () => {
+        const k = +b.dataset.k; const ok = k === a; $("#opts").classList.add("locked");
+        if (s.kind === "pre") { PRETEST[l.id] = { q, guess: opts[k], right: opts[a], ok }; b.classList.add("picked"); $("#fb").innerHTML = `<div class="feedback"><div style="flex:1">Locked in. You’ll find out in the lesson.</div></div><div class="row" style="margin-top:10px"><div class="spacer"></div><button class="btn primary" id="nx">Start the lesson</button></div>`; }
+        else { $$("#opts .opt").forEach(x => { if (+x.dataset.k === a) x.classList.add("right"); else if (x === b) x.classList.add("wrong"); }); $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? "Still got it." : "Worth a second look."}<span class="det">${escG(why || "")}</span></div></div><div class="row" style="margin-top:10px"><div class="spacer"></div><button class="btn primary" id="nx">Continue</button></div>`; }
+        $("#nx").onclick = () => { i++; show(); };
+      });
+      ST.onKey = e => { if (/^[1-6]$/.test(e.key)) $$("#opts .opt")[+e.key - 1]?.click(); };
+    };
+    show();
+  }; }
+function lessonRecap(l) {
+  if (!l.beats) return "";
+  const lines = l.beats.map(b => b[0]).filter(t => /\{\{/.test(t)).map(t => splitSent(t).find(s => /\{\{/.test(s)) || t).slice(0, 8);
+  const p = PRETEST[l.id];
+  const saved = ((S.meta.recapSaved || {})[l.id]);
+  return `<div class="recap"><h3>Key ideas from this lesson</h3><ul>${lines.map(t => `<li>${gloss(esc(t.replace(/\{\{(.+?)\}\}/g, "⟦$1⟧")), new Set(), false).replace(/⟦(.+?)⟧/g, "<b>$1</b>")}</li>`).join("")}</ul>
+    ${p ? `<p class="recap-guess">Your guess before the lesson: <b>${escG(p.guess)}</b>${p.ok ? " ✓ Nice instinct." : `. The answer: <b>${escG(p.right)}</b>.`}</p>` : ""}
+    <button class="btn sm ${saved ? "" : "primary"}" id="recapSave" ${saved ? "disabled" : ""}>${saved ? "Saved as cards ✓" : `${icon("plus")}Save these ${lines.length} as fill-in-the-blank cards`}</button></div>`;
+}
+function bindRecap(l) {
+  const b = $("#recapSave"); if (!b) return;
+  b.onclick = () => {
+    const lines = l.beats.map(x => x[0]).filter(t => /\{\{/.test(t)).map(t => splitSent(t).find(s => /\{\{/.test(s)) || t).slice(0, 8);
+    let d = Object.values(S.decks).find(x => x.recapDeck); if (!d) { d = normalizeDeck({ id: uid(), name: "Lesson recaps", color: "lavender", fields: [], cards: [], recapDeck: true }); S.decks[d.id] = d; }
+    lines.forEach(t => d.cards.push({ id: uid(), type: "cloze", text: t, note: `From “${l.title}”`, star: false }));
+    saveDeck(d); S.meta.recapSaved = S.meta.recapSaved || {}; S.meta.recapSaved[l.id] = Date.now(); saveMeta(true);
+    b.disabled = true; b.classList.remove("primary"); b.textContent = "Saved as cards ✓"; toast(`${plural(lines.length, "card")} added to Lesson recaps`);
+  };
+}
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
@@ -10300,6 +10898,7 @@ async function boot() {
   for (const [k, v] of Object.entries(docs)) IDB.put(k, v);
   tagLegacyPacks();
   try { migrateJournal(); } catch { }
+  try { seedHooks(); } catch (e) { console.warn(e); }
   if (!S.meta.v8gloss) { S.meta.settings.beginner = false; S.meta.v8gloss = 1; saveMeta(); }
   try { tagLabels(); } catch { }
   try { snapshotWeek(); } catch { }
