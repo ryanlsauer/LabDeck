@@ -1775,6 +1775,22 @@ h1{font-weight:900}h2,h3{font-weight:800}
 :root[data-theme="dark"] .grades .g1 b{color:#FF8C9C}:root[data-theme="dark"] .grades .g2 b{color:#F2C35B}:root[data-theme="dark"] .grades .g3 b{color:#5FD6AE}:root[data-theme="dark"] .grades .g4 b{color:#C4B8FF}
 .levels{grid-template-columns:repeat(auto-fill,minmax(176px,1fr))!important}
 .lvt b{font-size:.88rem!important}
+/* ===== v24 ===== */
+/* dropdowns: custom chevron with breathing room */
+select.input,select{-webkit-appearance:none;appearance:none;padding-right:40px!important;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%2359636E' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")!important;background-repeat:no-repeat!important;background-position:right 14px center!important;background-size:12px 8px!important}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) select.input,:root:not([data-theme="light"]) select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%239AA4B0' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")!important}}
+:root[data-theme="dark"] select.input,:root[data-theme="dark"] select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%239AA4B0' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")!important}
+/* cap swatches for the new colors */
+.caps button[data-c="white"]{box-shadow:inset 0 0 0 1px #8C959F}
+.caps button[data-c="tiger"]{background:repeating-linear-gradient(55deg,#B8342B 0 4px,#2B1A16 4px 6px)!important}
+.lchip i[style*="#A8342C"]{background:repeating-linear-gradient(55deg,#B8342B 0 4px,#2B1A16 4px 6px)!important}
+/* deck title without the duplicate tube */
+.deckh1{gap:0!important}
+/* hook introduced in a lesson */
+.hookintro{border-left:4px solid var(--violet)!important}
+.hi-top{display:flex;flex-direction:column;gap:2px;margin-bottom:6px}
+.hi-tag{font-family:var(--font-mono);font-size:.72rem;font-weight:600;text-transform:uppercase;color:var(--violet-deep)}
+.hi-mean{margin:4px 0 0;line-height:1.55}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -1804,9 +1820,10 @@ function fmtIv(days) { if (days < 1) return "<1d"; if (days < 30) return Math.ro
 
 const CAPS = {
   lavender: "#A48BDB", lightblue: "#7CC6E4", red: "#D9534F", gold: "#E3B53E", green: "#45A96F",
-  gray: "#9AA0A8", pink: "#EE93B6", royal: "#3C5FC2", yellow: "#F1D54E", orange: "#EE9548", amber: "#C98A2E"
+  gray: "#9AA0A8", pink: "#EE93B6", royal: "#3C5FC2", yellow: "#F1D54E", orange: "#EE9548", amber: "#C98A2E",
+  black: "#2B2D31", pearl: "#E8E3EE", tiger: "#A8342C", white: "#FFFFFF"
 };
-const CAP_NAMES = { lavender: "Lavender", lightblue: "Light blue", red: "Red", gold: "Gold", green: "Green", gray: "Gray", pink: "Pink", royal: "Royal blue", yellow: "Yellow", orange: "Orange", amber: "Amber" };
+const CAP_NAMES = { lavender: "Lavender", lightblue: "Light blue", red: "Red", gold: "Gold", green: "Green", gray: "Gray", pink: "Pink", royal: "Royal blue", yellow: "Yellow", orange: "Orange", amber: "Amber", black: "Black", pearl: "Pearl", tiger: "Tiger", white: "White" };
 let capOf = d => CAPS[d?.color] || CAPS.lavender;
 
 /* ---------- icons ---------- */
@@ -1861,7 +1878,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "23.0";
+const APP_VERSION = "24.0";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -2031,7 +2048,9 @@ function mergeRemote(r) {
   m.lm = m.lm || {}; for (const [dk, v] of Object.entries(rm.lm || {})) { const c = m.lm[dk] = m.lm[dk] || {}; for (const [k, n] of Object.entries(v)) if ((c[k] || 0) < n) c[k] = n; }
   m.badges = m.badges || {}; for (const [k, v] of Object.entries(rm.badges || {})) if (!m.badges[k]) m.badges[k] = v;
   m.focus = m.focus || {}; for (const [k, v] of Object.entries(rm.focus || {})) if ((m.focus[k] || 0) < v) m.focus[k] = v;
-  { const ids = new Set((m.journal || []).map(x => x.id)); m.journal = [...(m.journal || []), ...(rm.journal || []).filter(x => !ids.has(x.id))].sort((a, b) => b.t - a.t).slice(0, 300); }
+  { m.jdel = m.jdel || {}; for (const [k, t] of Object.entries(rm.jdel || {})) if (!m.jdel[k] || m.jdel[k] < t) m.jdel[k] = t;
+    const ids = new Set((m.journal || []).map(x => x.id)); m.journal = [...(m.journal || []), ...(rm.journal || []).filter(x => !ids.has(x.id))].filter(x => !m.jdel[x.id]).sort((a, b) => b.t - a.t).slice(0, 300);
+    const cut = Date.now() - 120 * DAY; for (const [k, t] of Object.entries(m.jdel)) if (t < cut) delete m.jdel[k]; }
   for (const [k, v] of Object.entries(rm.cases || {})) { const cur = m.cases[k]; if (!cur || (v.c || 0) + (v.w || 0) > (cur.c || 0) + (cur.w || 0)) { m.cases[k] = v; changed = true; } }
   IDB.put("meta", JSON.parse(JSON.stringify(m))); LS.set("doc:meta", JSON.stringify(m));
   return changed;
@@ -2437,7 +2456,7 @@ function renderDeck(d) {
     <div class="deck-head" style="--cap:${capOf(d)}">
       <div style="flex:1;min-width:0">
         <div class="row" style="gap:8px;margin-bottom:6px">${labelChip(labelOf(d), true)}${starterBadge(d)}</div>
-        <h1 class="deckh1">${(() => { const lb = labelOf(d); return capIcon(lb ? lb.color : d.color, lb && lb.shape, 30); })()}<span>${esc(d.name)}</span></h1>
+        <h1 class="deckh1"><span>${esc(d.name)}</span></h1>
         <p class="muted" style="margin-top:4px">${plural(d.cards.length, "card")}, ${plural(c.total, "fact")}. ${c.mastered} mastered.${c.locked ? ` ${c.locked} waiting on Head start lessons.` : ""}</p>
       </div>
       ${d.pack && lessonsForPack(d.pack).length ? `<button class="btn sm" id="deckLesson">${icon("book")}Lesson</button>` : ""}
@@ -5735,7 +5754,7 @@ Object.assign(MATH, {
   pltest: { topic: "Hematology calculations", make() { const a = r1(rint(40, 250) / 10, 1); const v = a * 20000; return { q: `You average ${a} platelets per oil-immersion field across 10 fields. Estimate the platelet count (factor 20,000).`, ans: v, unit: "/µL", dec: 0, tolPct: 1, steps: ["Estimate = average per field × 20,000", `= ${a} × 20,000`, `= ${fmtN(v, 0)} /µL`] }; } }
 });
 /* ---------- Labels: named categories with a tube-cap color, like calendar labels ---------- */
-const CAP_DESC = { lavender: "Lavender top", lightblue: "Light blue top", red: "Red top", gold: "Gold top", green: "Green top", gray: "Gray top", pink: "Pink top", royal: "Royal blue top", yellow: "Yellow top", orange: "Orange top", amber: "Amber urine cup" };
+const CAP_DESC = { lavender: "Lavender top", lightblue: "Light blue top", red: "Red top", gold: "Gold top", green: "Green top", gray: "Gray top", pink: "Pink top", royal: "Royal blue top", yellow: "Yellow top", orange: "Orange top", amber: "Amber urine cup", black: "Black top", pearl: "Pearl top", tiger: "Tiger top", white: "White top" };
 const DEFAULT_LABELS = [
   { id: "lb-orient", name: "Orientation & lab skills", course: "MT 410 · MT 412", color: "green", why: "General lab work" },
   { id: "lb-immuno", name: "Immunology", course: "MT 401", color: "red", why: "Serology runs on serum from red tops" },
@@ -7716,7 +7735,7 @@ function startBadges() {
 const GAME_OPEN = { smear: ["Smear practice", () => startSmear()], westgard: ["Westgard judge", () => startWestgard()], tubes: ["Tube trainer", () => startTubeTrainer()], sediment: ["Urine sediment", () => startSediment()], panel: ["Antibody panel", () => startPanel()], acidbase: ["Acid-base", () => startAcidBase()] };
 const jAll = () => journalVisible();
 const jKind = x => { if (!x.game && VISUAL_SRC[x.src]) x.game = VISUAL_SRC[x.src]; const o = jOpts(x); return o && o.length >= 2 ? "choice" : "self"; };
-function jClear(id, silent) { S.meta.journal = jAll().filter(x => x.id !== id); stat("jcleared"); const d = dayKey(); const D = S.meta.daily = S.meta.daily || {}; D[d] = D[d] || {}; D[d].cleared = (D[d].cleared || 0) + 1; saveMeta(); if (!silent) toast("Cleared from your journal"); }
+function jClear(id, silent) { (S.meta.jdel = S.meta.jdel || {})[id] = Date.now(); S.meta.journal = (S.meta.journal || []).filter(x => x.id !== id); stat("jcleared"); const d = dayKey(); const D = S.meta.daily = S.meta.daily || {}; D[d] = D[d] || {}; D[d].cleared = (D[d].cleared || 0) + 1; saveMeta(); if (!silent) toast("Cleared from your journal"); }
 startJournal = function () {
   openStudy("Mistake journal");
   let filter = "all", src = "All", q = "";
@@ -10113,10 +10132,11 @@ function hooksDeck() { let d = Object.values(S.decks).find(x => x.hooksDeck); if
 function hookTargetDeck(h) { return (h.deckId && S.decks[h.deckId]) || hooksDeck(); }
 function hookCardText(h) {
   const sp = spotsOf(h.palace);
+  if (h.method === "rule") return { front: h.title, back: [h.phrase, h.meaning, ...h.items].filter(Boolean).join("\n"), note: `Hook: ${h.phrase || ""}` };
   return { front: h.title, back: h.items.map((x, k) => `${k + 1}. ${x}`).join("\n"), note: h.method === "palace" ? `Memory palace: ${placeName(h.palace)}` : `Hook: ${h.phrase || ""}` };
 }
 function syncHookCard(h) {
-  if (h.del) { for (const d of Object.values(S.decks)) { const i = d.cards.findIndex(c => c.hook === h.id || c.id === h.cardId); if (i >= 0) { d.cards.splice(i, 1); saveDeck(d); } } return; }
+  if (h.del) { for (const d of Object.values(S.decks)) { const n = d.cards.length; d.cards = d.cards.filter(c => !(c.hook === h.id || (h.cardId && c.id === h.cardId))); if (d.cards.length !== n) saveDeck(d); } return; }
   const target = hookTargetDeck(h); const txt = hookCardText(h);
   let found = null, fromDeck = null;
   for (const d of Object.values(S.decks)) { const c = d.cards.find(c => c.hook === h.id || (h.cardId && c.id === h.cardId)); if (c) { found = c; fromDeck = d; break; } }
@@ -10125,7 +10145,7 @@ function syncHookCard(h) {
   Object.assign(found, txt, { type: "basic", hook: h.id }); h.cardId = found.id; h.deckId = target.hooksDeck ? null : target.id; saveDeck(target);
 }
 function saveHook(h) { h.t = Date.now(); const L = S.meta.hooks = S.meta.hooks || []; const i = L.findIndex(x => x.id === h.id); if (i >= 0) L[i] = h; else L.push(h); syncHookCard(h); saveMeta(true); }
-function starterAsHook(l) { const pd = STARTER_DECK[l.id] && typeof findPackDeck === "function" ? findPackDeck(STARTER_DECK[l.id]) : null; return { id: uid(), starter: l.id, title: l.title, items: l.items.slice(), ordered: l.ordered, method: "sentence", phrase: l.phrase, note: l.note, palace: "home", images: [], deckId: pd ? pd.id : null, t: Date.now() }; }
+function starterAsHook(l) { const pd = STARTER_DECK[l.id] && typeof findPackDeck === "function" ? findPackDeck(STARTER_DECK[l.id]) : null; return { id: uid(), starter: l.id, title: l.title, items: l.items.slice(), ordered: l.ordered, method: l.method || "sentence", phrase: l.phrase, meaning: l.meaning || "", note: l.note, palace: "home", images: [], deckId: pd ? pd.id : null, t: Date.now() }; }
 function missingStarters() { const have = new Set(hooksAll().map(h => h.starter || h.libId).filter(Boolean)); return HOOK_LIB.filter(l => !have.has(l.id)); }
 function seedHooks() {
   if (S.meta.hooksV2) return;
@@ -10138,8 +10158,8 @@ const strengthLabel = v => v >= 1 ? "Mastered" : v >= .7 ? "Strong" : v >= .4 ? 
 
 /* hook cards look like hook cards in study */
 { const ff = factFront, fb = factBack;
-  factFront = function (f) { if (f.card && f.card.hook) { const h = hooksAll().find(x => x.id === f.card.hook); if (h) return `<div class="kicker">🧠 Memory hook</div><div class="main-text">${esc(h.title)}</div><div class="sub-text muted">Recall all ${h.items.length}${h.ordered ? ", in order" : ""}. Use your ${h.method === "palace" ? "palace walk" : "sentence"}.</div>`; } return ff(f); };
-  factBack = function (f) { if (f.card && f.card.hook) { const h = hooksAll().find(x => x.id === f.card.hook); if (h) { const sp = spotsOf(h.palace); return `<div class="kicker">${esc(h.title)}</div>${h.method === "palace" ? `<div class="hk-walk">${h.items.map((x, k) => `<div><span>${esc(sp[k] || "Spot " + (k + 1))}</span><b>${escG(x)}</b></div>`).join("")}</div>` : `<div class="hk-phr">“${esc(h.phrase)}”</div><ol class="hk-ol">${h.items.map((x, k) => `<li><span class="acl sm">${esc(letterOf(x).toUpperCase())}</span>${escG(x)}</li>`).join("")}</ol>`}${h.note ? `<div class="note">${escG(h.note)}</div>` : ""}`; } } return fb(f); }; }
+  factFront = function (f) { if (f.card && f.card.hook) { const h = hooksAll().find(x => x.id === f.card.hook); if (h) return `<div class="kicker">🧠 Memory hook</div><div class="main-text">${esc(h.title)}</div><div class="sub-text muted">${h.method === "rule" ? "Recall the hook and what it means." : `Recall all ${h.items.length}${h.ordered ? ", in order" : ""}. Use your ${h.method === "palace" ? "palace walk" : "sentence"}.`}</div>`; } return ff(f); };
+  factBack = function (f) { if (f.card && f.card.hook) { const h = hooksAll().find(x => x.id === f.card.hook); if (h) { const sp = spotsOf(h.palace); if (h.method === "rule") return `<div class="kicker">${esc(h.title)}</div><div class="hk-phr">${esc(h.phrase)}</div><div class="sub-text">${escG(h.meaning || "")}</div>${h.items.length ? `<ul class="tul">${h.items.map(x => `<li>${escG(x)}</li>`).join("")}</ul>` : ""}`; return `<div class="kicker">${esc(h.title)}</div>${h.method === "palace" ? `<div class="hk-walk">${h.items.map((x, k) => `<div><span>${esc(sp[k] || "Spot " + (k + 1))}</span><b>${escG(x)}</b></div>`).join("")}</div>` : `<div class="hk-phr">“${esc(h.phrase)}”</div><ol class="hk-ol">${h.items.map((x, k) => `<li><span class="acl sm">${esc(letterOf(x).toUpperCase())}</span>${escG(x)}</li>`).join("")}</ol>`}${h.note ? `<div class="note">${escG(h.note)}</div>` : ""}`; } } return fb(f); }; }
 /* hook cards stay out of multiple choice, typing and matching */
 { const qf = questionFor; questionFor = function (f, a) { if (f && f.card && f.card.hook) return null; return qf(f, a); }; }
 { const st = startType; startType = function (d) { const orig = factsOf; factsOf = x => orig(x).filter(f => !f.card.hook); try { return st(d); } finally { factsOf = orig; } }; }
@@ -10158,10 +10178,10 @@ hookModal = function (pre, opts = {}) {
   const letters = () => h.items.length ? `<div class="hk-letters">${h.items.map((it, k) => { const w = phraseWords(h.phrase)[k]; const ok = w && w[0].toLowerCase() === letterOf(it); return `<span class="${ok ? "ok" : ""}" title="${esc(it)}">${esc(letterOf(it).toUpperCase())}</span>`; }).join("")}</div>` : "";
   const html = () => { const sp = spotsOf(h.palace); return `${mhead(isEdit ? "Edit memory hook" : "New memory hook")}
     <div class="field"><label for="ht">What are you memorizing?</label><input class="input" id="ht" value="${esc(h.title)}" placeholder="e.g. Order of draw" autocomplete="off"></div>
-    <div class="field"><label for="hi">The items, one per line</label><textarea class="input" id="hi" rows="${Math.min(10, Math.max(4, h.items.length + 1))}" placeholder="Sterile (blood cultures)&#10;Light blue&#10;Red">${esc(h.items.join("\n"))}</textarea>
-      <label class="check" style="margin-top:6px"><input type="checkbox" id="ho" ${h.ordered ? "checked" : ""}>Order matters</label></div>
-    <div class="field"><span class="lbl">How you’ll remember it</span><div class="seg" id="hm"><button type="button" data-m="sentence" class="${h.method === "sentence" ? "on" : ""}">A silly sentence</button><button type="button" data-m="palace" class="${h.method === "palace" ? "on" : ""}">A place you know</button></div></div>
-    ${h.method === "sentence" ? `<div class="hookbox"><label for="hph" class="lbl">Your sentence</label><div class="row" style="gap:6px;flex-wrap:nowrap"><input class="input" id="hph" value="${esc(h.phrase)}" placeholder="Never Let Monkeys Eat Bananas" autocomplete="off"><button type="button" class="btn" id="hsug" title="Suggest a sentence">🎲 Suggest</button></div>
+    <div class="field"><label for="hi">${h.method === "rule" ? "Extra details to recall (optional), one per line" : "The items, one per line"}</label><textarea class="input" id="hi" rows="${Math.min(10, Math.max(4, h.items.length + 1))}" placeholder="${h.method === "rule" ? "Optional: an example or exception" : "Sterile (blood cultures)&#10;Light blue&#10;Red"}">${esc(h.items.join("\n"))}</textarea>
+      <label class="check" style="margin-top:6px;${h.method === "rule" ? "display:none" : ""}"><input type="checkbox" id="ho" ${h.ordered ? "checked" : ""}>Order matters</label></div>
+    <div class="field"><span class="lbl">How you’ll remember it</span><div class="seg" id="hm"><button type="button" data-m="sentence" class="${h.method === "sentence" ? "on" : ""}">A silly sentence</button><button type="button" data-m="palace" class="${h.method === "palace" ? "on" : ""}">A place you know</button><button type="button" data-m="rule" class="${h.method === "rule" ? "on" : ""}">A saying or rule</button></div></div>
+    ${h.method === "rule" ? `<div class="hookbox"><label for="hph" class="lbl">Your hook</label><input class="input" id="hph" value="${esc(h.phrase)}" placeholder="SnNout and SpPin" autocomplete="off"><label for="hmn" class="lbl" style="margin-top:10px">What it means</label><textarea class="input" id="hmn" rows="4" placeholder="High Sensitivity: a Negative result rules it out. High Specificity: a Positive result rules it in.">${esc(h.meaning || "")}</textarea><p class="small muted" style="margin:6px 0 0">Any saying, rhyme, rule of thumb or tiny story that makes it click. It doesn’t have to be a first-letter sentence.</p></div>` : h.method === "sentence" ? `<div class="hookbox"><label for="hph" class="lbl">Your sentence</label><div class="row" style="gap:6px;flex-wrap:nowrap"><input class="input" id="hph" value="${esc(h.phrase)}" placeholder="Never Let Monkeys Eat Bananas" autocomplete="off"><button type="button" class="btn" id="hsug" title="Suggest a sentence">🎲 Suggest</button></div>
       ${letters()}<p class="small muted" style="margin:6px 0 0">Each word starts with the first letter of its item (green = lined up). Weird, funny or a little gross sticks best. It doesn’t have to line up perfectly; acronyms like MUDPILES work too.</p></div>`
     : `<div class="hookbox"><div class="row" style="gap:8px;align-items:center;flex-wrap:wrap"><select class="input" id="hp" style="flex:1;min-width:160px">${Object.entries(places()).map(([k, v]) => `<option value="${k}" ${h.palace === k ? "selected" : ""}>${esc(v.name)}</option>`).join("")}<option value="__new">+ A new place…</option></select><button type="button" class="btn sm" id="hedit">${editingSpots ? "Done" : "Edit spots"}</button></div>
       ${editingSpots ? `<div class="field" style="margin-top:8px"><label for="hpn" class="lbl">Place name</label><input class="input" id="hpn" value="${esc(placeName(h.palace))}"><label for="hsp" class="lbl" style="margin-top:8px">Spots, in the order you’d walk them</label><textarea class="input" id="hsp" rows="8">${esc(sp.join("\n"))}</textarea><p class="small muted">Use a place you can picture with your eyes closed.</p></div>` : `
@@ -10174,7 +10194,7 @@ hookModal = function (pre, opts = {}) {
   modal(html(), (s, close) => {
     const read = () => {
       h.title = $("#ht", s).value.trim(); h.items = $("#hi", s).value.split("\n").map(x => x.trim()).filter(Boolean); h.ordered = $("#ho", s).checked;
-      if ($("#hph", s)) h.phrase = $("#hph", s).value.trim();
+      if ($("#hph", s)) h.phrase = $("#hph", s).value.trim(); if ($("#hmn", s)) h.meaning = $("#hmn", s).value.trim();
       $$("[data-im]", s).forEach(i => h.images[+i.dataset.im] = i.value.trim());
       h.deckId = $("#hd", s).value || null; h.note = $("#hn", s).value.trim(); if ($("#ha", s)) attach = $("#ha", s).checked;
       if (editingSpots && $("#hsp", s)) { const spots = $("#hsp", s).value.split("\n").map(x => x.trim()).filter(Boolean); if (spots.length) { S.meta.palaces = S.meta.palaces || {}; S.meta.palaces[h.palace] = { name: $("#hpn", s).value.trim() || placeName(h.palace), spots }; saveMeta(true); } }
@@ -10191,7 +10211,7 @@ hookModal = function (pre, opts = {}) {
       $("#hedit", s) && ($("#hedit", s).onclick = () => { read(); editingSpots = !editingSpots; rer(); });
       $("#hdel", s) && ($("#hdel", s).onclick = () => { if (!confirm(`Delete “${h.title}”? Its review card goes too.${h.starter ? " You can bring starter hooks back anytime." : ""}`)) return; h.del = true; saveHook(h); close(); toast("Hook deleted"); opts.after && opts.after(); });
       $("#hsave", s).onclick = () => {
-        read(); if (!h.title) { toast("Give it a title"); return; } if (h.items.length < 2) { toast("Add at least 2 items"); return; }
+        read(); if (!h.title) { toast("Give it a title"); return; } if (h.method === "rule") { if (!h.phrase || !h.meaning) { toast("Add the hook and what it means"); return; } } else if (h.items.length < 2) { toast("Add at least 2 items"); return; }
         if (h.method === "sentence" && !h.phrase) h.phrase = suggestSentence(h.items);
         saveHook(h); stat("hooksMade");
         if (attach && opts.fact) { const c = opts.fact.card; const line = `Memory hook: ${h.method === "palace" ? placeName(h.palace) + " walk" : "“" + h.phrase + "”"}`; c.note = (c.note || "").replace(/(^|\n)(Memory )?[Hh]ook: .*$/m, "").trim(); c.note = (c.note ? c.note + "\n" : "") + line; saveDeck(opts.fact.deck); }
@@ -10259,10 +10279,10 @@ function practiceAllHooks(list, onDone) {
   const next = () => {
     if (i >= q.length) { setProg(1); ST.right.innerHTML = ""; ST.stage.innerHTML = `<div class="results"><h2>${gotFirst.size === total ? "Every hook held" : "Session done"}</h2><p class="muted">${gotFirst.size} of ${total} recalled in full on the first try.${back.size ? ` ${plural(back.size, "hook")} came back for a second look.` : ""}</p><div class="row" style="justify-content:center"><button class="btn primary" id="dn">Back to my hooks</button></div></div>`; $("#dn").onclick = onDone; stat("hookPractice"); return; }
     const h = q[i]; setProg(i / q.length); ST.right.innerHTML = `<span class="small muted">${i + 1} of ${q.length}</span>`;
-    ST.stage.innerHTML = `<div class="qcard hkq"><div class="kicker">🧠 Recall all ${h.items.length}${h.ordered ? ", in order" : ""}</div><div class="qtext">${esc(h.title)}</div><p class="small muted" style="margin-top:6px">Say or think the whole list using your ${h.method === "palace" ? "palace walk" : "sentence"}, then check.</p></div><div id="rv"><button class="btn primary" id="show" style="width:100%;min-height:50px">Show me</button></div>`;
+    ST.stage.innerHTML = `<div class="qcard hkq"><div class="kicker">🧠 ${h.method === "rule" ? "Recall the hook and what it means" : `Recall all ${h.items.length}${h.ordered ? ", in order" : ""}`}</div><div class="qtext">${esc(h.title)}</div><p class="small muted" style="margin-top:6px">${h.method === "rule" ? "Say the hook and explain what it means, then check." : `Say or think the whole list using your ${h.method === "palace" ? "palace walk" : "sentence"}, then check.`}</p></div><div id="rv"><button class="btn primary" id="show" style="width:100%;min-height:50px">Show me</button></div>`;
     $("#show").onclick = () => {
       const sp = spotsOf(h.palace);
-      $("#rv").innerHTML = `<div class="panel">${h.method === "palace" ? `<div class="hk-walk">${h.items.map((x, k) => `<div><span>${esc(sp[k] || "Spot " + (k + 1))}</span><b>${escG(x)}</b></div>`).join("")}</div>` : `<div class="hk-phr">“${esc(h.phrase)}”</div><ol class="hk-ol">${h.items.map(x => `<li><span class="acl sm">${esc(letterOf(x).toUpperCase())}</span>${escG(x)}</li>`).join("")}</ol>`}</div>
+      $("#rv").innerHTML = `<div class="panel">${h.method === "rule" ? `<div class="hk-phr">${esc(h.phrase)}</div><p style="margin:0;line-height:1.55">${escG(h.meaning || "")}</p>` : h.method === "palace" ? `<div class="hk-walk">${h.items.map((x, k) => `<div><span>${esc(sp[k] || "Spot " + (k + 1))}</span><b>${escG(x)}</b></div>`).join("")}</div>` : `<div class="hk-phr">“${esc(h.phrase)}”</div><ol class="hk-ol">${h.items.map(x => `<li><span class="acl sm">${esc(letterOf(x).toUpperCase())}</span>${escG(x)}</li>`).join("")}</ol>`}</div>
         <div class="row" style="margin-top:10px"><button class="btn" id="miss">Missed some</button><div class="spacer"></div><button class="btn primary" id="got">Got them all</button></div>`;
       $("#got").onclick = () => { got++; if (!back.has(h.id)) gotFirst.add(h.id); const x = (S.meta.hooks || []).find(y => y.id === h.id); if (x) { x.lastP = Date.now(); x.best = Math.max(x.best || 0, 100); } saveMeta(); i++; next(); };
       $("#miss").onclick = () => { if (!back.has(h.id)) { back.add(h.id); q.push(h); } i++; next(); };
@@ -10289,7 +10309,7 @@ startHooks = function () {
         <select class="input" id="hs" style="max-width:220px" aria-label="Subject"><option value="all">All subjects (${all.length})</option>${subjects.map(id => `<option value="${id}" ${subj === id ? "selected" : ""}>${id === "own" ? "Memory hooks deck" : esc(S.decks[id].name)} (${all.filter(h => (id === "own" ? !(h.deckId && S.decks[h.deckId]) : h.deckId === id)).length})</option>`).join("")}</select></div>
       <div class="hooklist">${list.length ? list.map(h => { const v = hookStrength(h); const d = h.deckId && S.decks[h.deckId]; return `<div class="hookcard" data-h="${h.id}"><button class="exedit" data-ed="${h.id}" aria-label="Edit ${esc(h.title)}" title="Edit">${icon("edit")}</button>
         <b class="hk-title">${esc(h.title)}</b><div class="hk-ph">${h.method === "palace" ? `🏠 ${esc(placeName(h.palace))} walk` : `“${esc(h.phrase || "")}”`}</div>
-        <div class="hk-meta">${plural(h.items.length, "item")}${h.ordered ? ", in order" : ""}${d ? ` · ${esc(d.name)}` : ""}</div>
+        <div class="hk-meta">${h.method === "rule" ? "Saying or rule" : `${plural(h.items.length, "item")}${h.ordered ? ", in order" : ""}`}${d ? ` · ${esc(d.name)}` : ""}</div>
         <div class="hk-str"><span class="bbar"><i style="width:${Math.round(v * 100)}%;${v >= 1 ? "background:#2FA58A" : ""}"></i></span><small>${strengthLabel(v)}</small></div>
         <button class="btn sm primary" data-pr="${h.id}">Practice</button></div>`; }).join("") : `<div class="empty"><p>${all.length ? "No hooks match." : "No hooks yet. Make one for a list you keep mixing up."}</p></div>`}</div>
       <div class="hkfoot"><button class="linkbtn" id="tips">${showTips ? "Hide tips" : "How to make hooks that stick"}</button>${miss.length ? `<button class="linkbtn" id="rest">Restore starter hooks (${miss.length})</button>` : ""}</div>
@@ -10640,6 +10660,91 @@ const HERO_CODE = `<svg class="herocode" width="86" height="24" viewBox="0 0 86 
 /* each game frames its HUD in its own tube-cap color */
 const GAME_CAP = { tubes: "#7DB7E8", critical: "#D8433A", westgard: "#7E868F", smear: "#8B6FD6", anemia: "#8B6FD6", coag: "#7DB7E8", gram: "#E8B422", flow: "#E8B422", bench: "#E8B422", abo: "#E07AA6", panel: "#E07AA6", acidbase: "#3E9C5B", sediment: "#E8B422", uacorr: "#E8B422" };
 { const gh = gameHero; gameHero = function (id, title, nLv) { try { if (ST && ST.el) ST.el.style.setProperty("--gcap", GAME_CAP[id] || "#8B6FD6"); } catch { } return gh(id, title, nLv); }; }
+/* ================= v24 ================= */
+/* label chip: no cap-color name, show the course instead */
+labelChip = (l, small) => l ? `<span class="lchip ${small ? "sm" : ""}">${capIcon(l.color, l.shape || SHAPE_OF[l.id], small ? 16 : 20)}<span><b>${esc(l.name)}</b>${l.course ? `<small>${esc(l.course)}</small>` : ""}</span></span>` : "";
+/* new caps: white needs an edge, tiger gets its mottled stripes */
+{ const ci = capIcon; capIcon = function (color, shape, size) {
+    let out = ci(color, shape, size);
+    if (color === "white" || CAPS[color] === "#FFFFFF") out = out.replace(/(<rect [^>]*fill="#FFFFFF")/, '$1 stroke="#8C959F" stroke-width="1"');
+    if (color === "tiger") { const id = "tg" + Math.random().toString(36).slice(2, 7); out = out.replace(/(<svg [^>]*>)/, `$1<defs><pattern id="${id}" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><rect width="4" height="4" fill="#B8342B"/><rect width="1.6" height="4" fill="#2B1A16"/></pattern></defs>`).replace(/(<rect [^>]*fill=)"#A8342C"/, `$1"url(#${id})"`); }
+    return out; }; }
+/* Plan comes before Play, on home and in the sidebar */
+{ const ot = ORDERED_TOOLS; ORDERED_TOOLS = function () { const o = ot(); return { learn: o.learn, test: o.test, plan: o.plan, play: o.play }; }; }
+
+/* ================= memory hooks: unlocked as you meet them in lessons ================= */
+HOOK_LIB.push({ id: "lib-snout", title: "Sensitivity vs. specificity", items: [], ordered: false, method: "rule", phrase: "SnNout and SpPin", meaning: "High Sensitivity: a Negative result rules the disease out. High Specificity: a Positive result rules it in.", note: "" });
+const STARTER_LESSONS = { "lib-draw": ["b-collect", "l-collect"], "lib-wbc": ["l-wbc", "b-wbcdis"], "lib-gram": ["b-micro1", "l-gpc"], "lib-factors": ["b-coag", "l-hemostasis"], "lib-vitk": ["l-hemostasis", "l-coagtests"], "lib-ptptt": ["l-coagtests"], "lib-intrinsic": ["b-coag", "l-hemostasis"], "lib-race": ["b-safety", "l-safety"], "lib-pass": ["b-safety", "l-safety"], "lib-mudpiles": ["b-lytes", "l-lytes"], "lib-ceek": ["b-gnr", "l-gnr"], "lib-gamed": ["b-immune1", "l-immune"], "lib-snout": ["b-qc", "l-qc"] };
+const lessonMet = id => { const r = (prep().lessons || {})[id] || {}; const l = LESSONS.find(x => x.id === id); return !!(r.read || r.done || r.best != null || (l && lessonState(l).passed)); };
+const hookUnlocked = libId => !prepOn() || !(STARTER_LESSONS[libId] || []).length || STARTER_LESSONS[libId].some(lessonMet);
+const hooksForLesson = l => HOOK_LIB.filter(h => (STARTER_LESSONS[h.id] || []).includes(l.id));
+missingStarters = function () { const live = new Set(hooksAll().map(h => h.starter || h.libId).filter(Boolean)); const lockedAway = new Set((S.meta.hooks || []).filter(h => h.del && h.locked).map(h => h.starter)); return HOOK_LIB.filter(l => !live.has(l.id) && !lockedAway.has(l.id) && hookUnlocked(l.id)); };
+function unlockStarter(lib) {
+  const L = S.meta.hooks = S.meta.hooks || [];
+  if (L.some(h => !h.del && (h.starter || h.libId) === lib.id)) return null;
+  const locked = L.find(h => h.del && h.locked && h.starter === lib.id);
+  if (L.some(h => h.del && !h.locked && h.starter === lib.id)) return null;
+  let h; if (locked) { h = locked; h.del = false; h.locked = false; } else { h = starterAsHook(lib); L.push(h); }
+  saveHook(h); return h;
+}
+function unlockForLesson(l) { if (!prepOn()) return []; return hooksForLesson(l).map(unlockStarter).filter(Boolean); }
+function hookSweep() { const out = []; HOOK_LIB.forEach(lib => { if (hookUnlocked(lib.id)) { const h = unlockStarter(lib); if (h) out.push(h); } }); return out; }
+{ const sd = seedHooks; seedHooks = function () {
+    sd();
+    if (!S.meta.hooksV3) {
+      (S.meta.hooks || []).forEach(h => { if (h.starter && !h.del && !hookUnlocked(h.starter) && !h.best && !h.lastP) { h.del = true; h.locked = true; saveHook(h); } });
+      S.meta.hooksV3 = 1; saveMeta(true);
+    }
+    hookSweep();
+  }; }
+/* bootcamp: the recap introduces the lesson's hook */
+{ const lr = lessonRecap; lessonRecap = function (l) {
+    const base = lr(l); const fresh = unlockForLesson(l); const all = prepOn() ? hooksForLesson(l).map(lib => hooksAll().find(h => h.starter === lib.id)).filter(Boolean) : [];
+    if (!all.length) return base;
+    return base + all.map(h => `<div class="recap hookintro"><div class="hi-top"><span class="hi-tag">🧠 ${fresh.includes(h) ? "New memory hook" : "Memory hook"}</span><b>${esc(h.title)}</b></div><div class="hk-phr">${h.method === "rule" ? esc(h.phrase) : `“${esc(h.phrase)}”`}</div>${h.method === "rule" ? `<p class="hi-mean">${escG(h.meaning || "")}</p>` : `<ol class="hk-ol">${h.items.map(x => `<li><span class="acl sm">${esc(letterOf(x).toUpperCase())}</span>${escG(x)}</li>`).join("")}</ol>`}<p class="small muted" style="margin:8px 0 0">${fresh.includes(h) ? "Added to your Memory hooks and your reviews." : "It’s in your Memory hooks."}</p></div>`).join("");
+  }; }
+/* regular lessons: the hook shows up as its own step, before the questions */
+{ const sl = startLesson; startLesson = function (l, jump) {
+    if (!prepOn() || jump || !l.steps) return sl(l, jump);
+    const libs = hooksForLesson(l); if (!libs.length) return sl(l, jump);
+    unlockForLesson(l);
+    const add = libs.map(lib => { const h = hooksAll().find(x => x.starter === lib.id) || lib; return { t: "teach", h: `Memory hook: ${h.title}`, body: h.method === "rule" ? (h.meaning || "") : h.items.map(x => `- ${x}`).join("\n"), hook: h.method === "rule" ? h.phrase : `“${h.phrase}” (first letters)`, key: "" }; });
+    const i = l.steps.findIndex(s => s.t !== "teach"); const steps = l.steps.slice(); steps.splice(i < 0 ? steps.length : i, 0, ...add);
+    return sl({ ...l, steps }, jump);
+  }; }
+{ const rh = renderHome; renderHome = function (decks) { const fresh = hookSweep(); rh(decks); if (fresh.length) toast(`New memory hook: ${fresh[0].title}${fresh.length > 1 ? ` (+${fresh.length - 1} more)` : ""}`); }; }
+/* practicing a saying or rule */
+{ const ph = practiceHook; practiceHook = function (h0, onDone) {
+    const h = hooksAll().find(x => x.id === h0.id) || h0; if (h.method !== "rule") return ph(h0, onDone);
+    openStudy("Memory hook: " + h.title); setProg(0);
+    const ask = () => {
+      ST.right.innerHTML = "";
+      ST.stage.innerHTML = `<div class="qcard"><div class="kicker">🧠 Recall the hook</div><div class="qtext">${esc(h.title)}</div></div><div class="typed"><input class="input" id="ta" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Type the hook"><button class="btn primary" id="chk">Check</button></div><div class="row"><button class="btn ghost sm" id="idk">Show me</button></div><div id="fb"></div>`;
+      if (matchMedia("(hover:hover)").matches) setTimeout(() => $("#ta")?.focus(), 30);
+      const reveal = ok => {
+        setProg(.6);
+        $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? "That’s the hook." : "Here’s the hook."}<span class="det"><b>${esc(h.phrase)}</b></span></div></div>
+          <div class="panel" style="margin-top:10px"><p class="lbl" style="margin:0 0 4px">Now: did you know what it means?</p><p style="margin:0;line-height:1.55">${escG(h.meaning || "")}</p></div>
+          <div class="row" style="margin-top:10px"><button class="btn" id="miss">Not yet</button><div class="spacer"></div><button class="btn primary" id="got">Yes, I knew it</button></div>`;
+        const fin = good => { const x = (S.meta.hooks || []).find(y => y.id === h.id); if (x) { x.lastP = Date.now(); x.best = Math.max(x.best || 0, good && ok ? 100 : 50); x.t = Date.now(); } stat("hookPractice"); bumpHistory(true); saveMeta(true); setProg(1);
+          ST.stage.innerHTML = `<div class="results"><h2>${good && ok ? "Locked in" : "Keep at it"}</h2><p class="muted">${esc(h.phrase)}: ${escG(h.meaning || "")}</p><div class="row" style="justify-content:center"><button class="btn primary" id="again">Again</button><button class="btn" id="dn">${onDone ? "Back to my hooks" : "Done"}</button></div></div>`;
+          $("#again").onclick = () => practiceHook(h, onDone); $("#dn").onclick = () => onDone ? onDone() : closeStudy(); };
+        $("#got").onclick = () => fin(true); $("#miss").onclick = () => fin(false);
+      };
+      const check = () => { const v = $("#ta").value.trim(); if (!v) return; reveal(similar(v, h.phrase) || norm(v) === norm(h.phrase)); };
+      $("#chk").onclick = check; $("#idk").onclick = () => reveal(false);
+      ST.onKey = e => { if (e.key === "Enter" && $("#ta") && !$("#got")) { e.preventDefault(); check(); } };
+    };
+    ask();
+  }; }
+/* hook cards: never leave orphans or duplicates behind (e.g. after a sync) */
+function cleanHookCards() {
+  const live = new Map(hooksAll().map(h => [h.id, h])); const seen = new Set();
+  for (const d of Object.values(S.decks)) { const n = d.cards.length; d.cards = d.cards.filter(c => { if (!c.hook) return true; if (!live.has(c.hook) || seen.has(c.hook)) return false; seen.add(c.hook); return true; }); if (d.cards.length !== n) saveDeck(d); }
+  hooksAll().forEach(h => { if (!seen.has(h.id)) syncHookCard(h); });
+}
+{ const sd = seedHooks; seedHooks = function () { sd(); cleanHookCards(); }; }
+{ const mr = mergeRemote; mergeRemote = function (...a) { const out = mr.apply(this, a); try { cleanHookCards(); } catch { } return out; }; }
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
