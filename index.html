@@ -1679,6 +1679,13 @@ h3{font-size:1.06rem}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .warmtag.pre{background:#3A2E14;color:#F2C35B}}
 .ttemo{font-size:1.25rem;line-height:1}
 .stemo{width:15px;text-align:center;font-size:.9rem;line-height:1;flex:none}
+/* “All games” link tile */
+.ttile.allg{grid-column:1/-1;flex-direction:row;justify-content:center;gap:8px;padding:10px 12px;background:transparent;border:1.5px dashed color-mix(in srgb,#1F8A6E 45%,transparent);color:#1C7A5A;font-weight:700;font-size:.9rem}
+.ttile.allg:hover{background:#DDF4EE;border-style:solid;transform:none}
+.allg-arr{font-size:1.05rem;transition:transform .15s}
+.ttile.allg:hover .allg-arr,.stool.allg:hover .allg-arr{transform:translateX(3px)}
+.stool.allg{justify-content:space-between;color:#1C7A5A;font-weight:700;margin-top:2px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .ttile.allg{color:#7FE0BF;border-color:#2D6B57}:root:not([data-theme="light"]) .ttile.allg:hover{background:#173229}:root:not([data-theme="light"]) .stool.allg{color:#7FE0BF}}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -1765,7 +1772,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "22.0";
+const APP_VERSION = "22.2";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -2858,7 +2865,7 @@ function renderSettings() {
     try { const existed = await Sync.connect(t); render(); toast(existed ? "Connected. Your synced decks were merged in." : "Connected. Sync is on."); }
     catch (e) { b.disabled = false; b.textContent = "Connect"; toast(e && e.status === 401 ? "GitHub didn’t accept that token" : "Couldn’t reach GitHub. Check your connection."); }
   });
-  if ($("#persist")) navigator.storage.persisted().then(p => { const el = $("#persist"); if (el) el.textContent = p ? "storage protected" : "storage not yet protected"; });
+  if ($("#persist")) navigator.storage.persisted().then(p => { const el = $("#persist"); if (!el) return; el.innerHTML = `<button class="linkbtn" id="persistInfo">${p ? "Storage protected ✓" : "Storage not protected yet"}</button>`; $("#persistInfo").onclick = () => storageInfoModal(p); });
 }
 function exportBackup() {
   const data = JSON.stringify({ app: "labdeck", version: 2, exported: new Date().toISOString(), decks: Object.values(S.decks), srs: S.srs, meta: S.meta, images: Object.fromEntries([...referencedImages()].filter(id => S.images[id]).map(id => [id, S.images[id]])) });
@@ -4944,10 +4951,10 @@ function prepSetupModal(after) {
     <p style="margin-bottom:12px">Head start turns LabDeck into a guided course for the months before your program. Instead of throwing every fact at you, it teaches one topic at a time:</p>
     <ol class="steps"><li><b>Learn</b> a short lesson from your guide, with quick checks along the way.</li><li><b>Check</b> your understanding with a 4-question quiz.</li><li><b>Review</b>: the lesson’s flashcards join your daily review, and spaced repetition makes them stick.</li><li><b>Master</b> it once those facts hold for a week or more.</li></ol>
     <p class="small muted" style="margin-bottom:14px">While it’s on, starter-pack cards stay out of Learn until you’ve had the lesson that teaches them. Your own decks aren’t affected.</p>
-    <div class="field"><span class="lbl">Lesson order</span><div class="seg" id="pord"><button type="button" data-o="program" class="${p.order !== "course" ? "on" : ""}">Like my program</button><button type="button" data-o="course" class="${p.order === "course" ? "on" : ""}">One course at a time</button></div><span class="hint">“Like my program” starts with Orientation, then rotates through Immunology, Micro, Hematology and Chemistry the way your schedule does, adding Blood Bank, Coag and UA later.</span></div>
+    <div class="field"><span class="lbl">Lesson order</span><div class="seg" id="pord"><button type="button" data-o="course" class="${p.order !== "program" ? "on" : ""}">One course at a time</button><button type="button" data-o="program" class="${p.order === "program" ? "on" : ""}">Mix courses like the real schedule</button></div><span class="hint">“One course at a time” follows Your path from top to bottom. “Mix courses” starts with Orientation, then rotates through Immunology, Micro, Hematology and Chemistry the way the program schedule does, adding Blood Bank, Coag and UA later.</span></div>
     <div class="field"><label for="ps">When does your program start?</label><input class="input" type="date" id="ps" value="${esc(p.start || dayKey(Date.now() + 90 * DAY))}"><span class="hint">Used to pace your lessons and countdown.</span></div>
     <div class="modal-foot"><button class="btn" data-close>Not now</button><button class="btn primary" id="psOn">${p.on ? "Save" : "Turn on Head start"}</button></div>`, (s, close) => {
-    let ord = p.order || "program";
+    let ord = p.order === "program" ? "program" : "course";
     $$("#pord button", s).forEach(b => b.onclick = () => { ord = b.dataset.o; $$("#pord button", s).forEach(x => x.classList.toggle("on", x === b)); });
     $("#psOn", s).onclick = () => { p.start = $("#ps", s).value; p.on = true; p.order = ord; saveMeta(true); close(); toast("Head start is on"); if (typeof after === "function") after(); go("home"); render(); };
   });
@@ -5398,7 +5405,7 @@ function programOrder() {
   }
   return [...out, ...by("mt408")];
 }
-const lessonSeq = () => (prep().order === "course" ? COURSE_ORDER : programOrder()).map(id => LESSONS.find(l => l.id === id)).filter(Boolean);
+let lessonSeq = () => (prep().order === "course" ? COURSE_ORDER : programOrder()).map(id => LESSONS.find(l => l.id === id)).filter(Boolean);
 nextLesson = function () { return lessonSeq().find(l => !lessonState(l).passed); };
 const lessonsForPack = id => LESSONS.filter(l => (l.unlock || []).some(u => u.pack === id));
 
@@ -6756,7 +6763,7 @@ function removePacksModal() {
     const done = msg => { S.meta.packsDismissed = PACKS.map(p => p.id); saveMeta(true); close(); toast(msg); render(); };
     $("#rmUnreached", s).onclick = () => confirmModal("Remove " + plural(unreached.length, "deck") + "?", "Their review history goes too. They’ll come back as you pass each lesson.", "Remove", () => { unreached.forEach(removePackDeck); done(plural(unreached.length, "starter deck") + " removed"); });
     $("#hideUntaught", s).onclick = () => {
-      const p = prep(); if (!p.on) { p.on = true; p.order = p.order || "program"; }
+      const p = prep(); if (!p.on) { p.on = true; p.order = p.order || "course"; }
       let n = 0; packDecks().forEach(d => { const srs = S.srs[d.id] || {}; let ch = false; factsOf(d).forEach(f => { if (!p.cards[f.card.id] && srs[f.key]) { delete srs[f.key]; n++; ch = true; } }); if (ch) saveSrs(d.id); });
       done(n ? `${plural(n, "card")} hidden until their lessons` : "Untaught cards are hidden");
     };
@@ -10496,6 +10503,40 @@ function bindRecap(l) {
     b.disabled = true; b.classList.remove("primary"); b.textContent = "Saved as cards ✓"; toast(`${plural(lines.length, "card")} added to Lesson recaps`);
   };
 }
+
+/* ===================== Storage protection, explained ===================== */
+function storageInfoModal(isProtected) {
+  const synced = !!(localStorage.getItem("gh_token") && localStorage.getItem("gh_gist"));
+  modal(`${mhead("Storage protection")}
+    <p>${isProtected ? "Your browser has promised not to clear LabDeck’s data on its own. Only you can delete it." : "Your browser stores LabDeck’s data in “best effort” mode, so it’s allowed to clear it on its own, for example if the device runs low on space or (in Safari) if you haven’t opened LabDeck in a while."}</p>
+    ${isProtected ? "" : `<p>LabDeck asks for protection every time it opens, but the browser decides. Chrome usually grants it once LabDeck is installed or used often. Safari protects sites added to the Home Screen.</p>`}
+    <div class="callout ${synced ? "key" : "hook"}" style="margin:10px 0"><b>${synced ? "You’re covered either way" : "Turn on sync for peace of mind"}</b><p>${synced ? "Sync is on, so a full copy of your data is in your private gist. If the browser ever cleared it, connecting sync again brings everything back." : "Sync keeps a full copy in your private GitHub gist. You can also use Download backup below."}</p></div>
+    <div class="modal-foot">${isProtected ? "" : `<button class="btn" id="askP">Ask the browser again</button>`}<div class="spacer"></div><button class="btn primary" data-close>Got it</button></div>`, (s, close) => {
+    $$("[data-close]", s).forEach(b => b.onclick = close);
+    $("#askP", s) && ($("#askP", s).onclick = async () => { let ok = false; try { ok = await navigator.storage.persist(); } catch { } toast(ok ? "Storage is now protected" : "The browser said not yet. Installing LabDeck to your home screen or dock usually helps."); close(); renderSettings && render(); });
+  });
+}
+
+/* ===================== “All games” reads as a link, not a game ===================== */
+{ const r = render; render = function (...a) { const out = r.apply(this, a);
+    const t = $("#view #allGames"); if (t) { t.classList.add("allg"); t.innerHTML = `<span>See all ${GAMES.length} games</span><span class="allg-arr" aria-hidden="true">→</span>`; }
+    const sb = $(".sidetools .stool[data-tool='allGames']"); if (sb) { sb.classList.add("allg"); sb.innerHTML = `<span>All ${GAMES.length} games</span><span class="allg-arr" aria-hidden="true">→</span>`; }
+    return out; }; }
+
+/* ===================== Lesson order: follow Your path ===================== */
+function pathOrder() { return UNITS.flatMap(u => LESSONS.filter(l => l.unit === u.id)); }
+function mixedOrder() {
+  const by = id => LESSONS.filter(l => l.unit === id);
+  const first = UNITS.filter(u => !/^mt/.test(u.id) || ["mt410", "mt412"].includes(u.id)).flatMap(u => by(u.id));
+  const streams = [["mt401", 0], ["mt405", 0], ["mt400", 0], ["mt403", 0], ["mt402", 10], ["mt400c", 16], ["mt404", 18]].map(([id, s]) => ({ q: by(id).slice(), s }));
+  const out = first.slice(); let n = 0, guard = 0;
+  while (streams.some(x => x.q.length) && guard++ < 2000) { let moved = false; for (const st of streams) if (st.q.length && n >= st.s) { out.push(st.q.shift()); n++; moved = true; } if (!moved) n++; }
+  const seen = new Set(out.map(l => l.id)); return [...out, ...pathOrder().filter(l => !seen.has(l.id))];
+}
+lessonSeq = () => prep().order === "program" ? mixedOrder() : pathOrder();
+nextLesson = function () { return lessonSeq().find(l => !lessonState(l).passed); };
+/* one-time: everyone starts on course-by-course, matching Your path */
+{ const om = migrateJournal; migrateJournal = function () { om(); if (!S.meta.v29order) { prep().order = "course"; S.meta.v29order = 1; saveMeta(true); } }; }
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
