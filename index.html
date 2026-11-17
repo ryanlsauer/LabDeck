@@ -1563,6 +1563,33 @@ h3{font-size:1.06rem}
 .jvis{display:flex;justify-content:center;margin:8px 0}
 .jvis .sedsvg{max-width:280px;border-radius:8px}
 .cellthumb.big{width:150px;height:150px;border-radius:10px}
+/* ===== memory hooks ===== */
+.hookbox{border:1px solid var(--line-2);border-radius:8px;padding:12px;background:var(--btn-bg)}
+.acrow{display:flex;flex-direction:column;gap:6px}
+.acw{display:grid;grid-template-columns:30px minmax(0,1fr) 36px;grid-template-rows:auto auto;column-gap:8px;align-items:center}
+.acw small{grid-column:2/4;color:var(--ink-3);font-size:.78rem;margin-top:1px}
+.acl{width:28px;height:28px;border-radius:6px;background:var(--violet);color:#fff;font-weight:800;display:inline-flex;align-items:center;justify-content:center;flex:none}
+.acw .input{padding:6px 10px;font-weight:700}
+.acphrase{margin:12px 0 8px;font-family:var(--font-display);font-size:1.2rem;font-weight:700;color:var(--violet-deep);line-height:1.35}
+.acphrase.big{font-size:1.45rem;text-align:center;margin:6px 0 14px}
+.aclist{display:flex;flex-direction:column;gap:6px}
+.aclist>div{display:grid;grid-template-columns:30px auto 1fr;gap:8px;align-items:center}
+.aclist i{font-style:normal;font-weight:700;color:var(--violet-deep)}
+.aclist>div.miss .acl{background:var(--line-2);color:var(--ink-3)}
+.aclist>div.hit .acl{background:var(--good)}
+.palrows{display:flex;flex-direction:column;gap:6px}
+.palrow{display:grid;grid-template-columns:minmax(110px,32%) 1fr;gap:4px 10px;align-items:center;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+.palrow .input{grid-column:1/3;padding:5px 9px;font-size:.88rem}
+.palrow.ro{grid-template-columns:minmax(110px,32%) 1fr}
+.palrow.ro .small{grid-column:2}
+.pall{font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--violet-deep)}
+.hooklist{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.hookcard{border:1px solid var(--line-2);border-radius:8px;background:var(--surface);padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.hk-top{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.hk-ph{font-weight:700;color:var(--violet-deep);line-height:1.35}
+.hk-meta{font-size:.82rem;color:var(--ink-3);line-height:1.45}
+.hookcard .row{margin-top:auto;padding-top:4px}
+@media (max-width:560px){.palrow{grid-template-columns:1fr}.palrow .input{grid-column:1}}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -1649,7 +1676,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "20.4";
+const APP_VERSION = "21.0";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -1814,6 +1841,8 @@ function mergeRemote(r) {
     for (const k of new Set([...Object.keys(L), ...Object.keys(R)])) { const a = L[k], b = R[k]; out[k] = a == null ? b : b == null ? a : ts(b) > ts(a) ? b : a; }
     if (JSON.stringify(out) !== JSON.stringify(L)) changed = true; m.gameOverride = out; }
   m.daily = m.daily || {}; for (const [d, v] of Object.entries(rm.daily || {})) { const c = m.daily[d] = m.daily[d] || {}; for (const [k, n] of Object.entries(v)) if ((c[k] || 0) < n) c[k] = n; }
+  { const L = m.hooks || [], R = rm.hooks || [], by = {}; [...L, ...R].forEach(h => { const o = by[h.id]; if (!o || (h.t || 0) > (o.t || 0)) by[h.id] = h; }); const out = Object.values(by); if (out.length !== L.length || out.some(h => !L.includes(h))) changed = true; m.hooks = out; }
+  m.palaces = Object.assign({}, rm.palaces || {}, m.palaces || {});
   m.lm = m.lm || {}; for (const [dk, v] of Object.entries(rm.lm || {})) { const c = m.lm[dk] = m.lm[dk] || {}; for (const [k, n] of Object.entries(v)) if ((c[k] || 0) < n) c[k] = n; }
   m.badges = m.badges || {}; for (const [k, v] of Object.entries(rm.badges || {})) if (!m.badges[k]) m.badges[k] = v;
   m.focus = m.focus || {}; for (const [k, v] of Object.entries(rm.focus || {})) if ((m.focus[k] || 0) < v) m.focus[k] = v;
@@ -2914,9 +2943,10 @@ function startLearn(deck, opts = {}) {
     const f = queue[i], st = stOf(f);
     $("#fc").classList.add("on");
     $("#ctl").innerHTML = `<div class="grades">${[[1, "Again"], [2, "Hard"], [3, "Good"], [4, "Easy"]].map(([g, l]) => `<button class="g${g}" data-g="${g}" title="${{ 1: "Didn’t know it: back in 3 cards, then needs two good answers. Due again tomorrow.", 2: "Got it, but struggled: comes back once more this session. Small step forward.", 3: "Right, but not quick yet: done for today. Normal spacing.", 4: "Came instantly: done for today. Big step forward, and counts toward mastery." }[g]}"><b>${l}</b><kbd>${g}</kbd></button>`).join("")}</div>
-      <div class="row" style="justify-content:center;margin-top:10px"><button class="btn sm ghost" id="whyB">${icon("brain")}Why?</button>${f.deck.pack && lessonsForPack(f.deck.pack).length ? `<button class="btn sm ghost" id="teach">${icon("book")}Teach me this</button>` : ""}</div>
+      <div class="row" style="justify-content:center;margin-top:10px"><button class="btn sm ghost" id="whyB">${icon("brain")}Why?</button>${f.deck.pack && lessonsForPack(f.deck.pack).length ? `<button class="btn sm ghost" id="teach">${icon("book")}Teach me this</button>` : ""}${typeof hookable === "function" && hookable(f) ? `<button class="btn sm ghost" id="hookB">${icon("brain")}Make a memory hook</button>` : ""}</div>
       `;
     $("#whyB").onclick = () => whyModal(f);
+    $("#hookB") && ($("#hookB").onclick = () => hookModal({ title: f.kind === "field" ? `${f.q}: ${f.field}` : f.q, items: hookParts(f.a), ordered: /order|steps?|sequence/i.test(f.q + " " + (f.field || "")), method: "acrostic", palace: "home" }, { fact: f, noPractice: true }));
     $("#teach") && ($("#teach").onclick = () => startLesson(lessonsForPack(f.deck.pack)[0]));
     $$(".grades button").forEach(b => b.onclick = () => grade(+b.dataset.g));
   }
@@ -9727,6 +9757,147 @@ function jVisual(x) {
   if (x.game === "smear") { const id = Object.keys(C).find(k => norm(C[k].n) === norm(x.right)); return id ? cellThumb(id).replace('class="cellthumb"', 'class="cellthumb big"') : ""; }
   return "";
 }
+/* ===================== Memory hooks: acrostics and memory palaces ===================== */
+const HOOK_LIB = [
+  { id: "lib-draw", title: "Order of draw", items: ["Sterile (blood cultures)", "Light blue (citrate)", "Red (serum)", "SST / gold", "PST / light green", "Green (heparin)", "Lavender (EDTA)", "Gray (fluoride/oxalate)"], ordered: true, phrase: "Stop Light Red Stay Put, Green Light Go", note: "Each word’s first letter is the next tube." },
+  { id: "lib-wbc", title: "White cells, most to least common", items: ["Neutrophils", "Lymphocytes", "Monocytes", "Eosinophils", "Basophils"], ordered: true, phrase: "Never Let Monkeys Eat Bananas", note: "Normal adult differential, highest to lowest." },
+  { id: "lib-gram", title: "Gram stain steps", items: ["Crystal violet", "Iodine", "Alcohol (decolorizer)", "Safranin"], ordered: true, phrase: "Come In And Stain", note: "Primary stain, mordant, decolorizer, counterstain." },
+  { id: "lib-factors", title: "Coagulation factors I to XIII (no VI)", items: ["I Fibrinogen", "II Prothrombin", "III Tissue factor", "IV Calcium", "V Labile factor", "VII Stable factor", "VIII Antihemophilic factor", "IX Christmas factor", "X Stuart-Prower factor", "XI Plasma thromboplastin antecedent", "XII Hageman factor", "XIII Fibrin-stabilizing factor"], ordered: true, phrase: "Foolish People Try Climbing Long Slopes After Christmas, Some People Have Fallen", note: "Factor VI doesn’t exist (it turned out to be activated V)." },
+  { id: "lib-vitk", title: "Vitamin K–dependent factors", items: ["II", "VII", "IX", "X", "Protein C", "Protein S"], ordered: false, phrase: "1972 (plus C and S)", note: "Read 1-9-7-2 as factors X? No: 10, 9, 7, 2. Warfarin lowers all of them." },
+  { id: "lib-ptptt", title: "Which test checks which pathway", items: ["PT → extrinsic (factor VII)", "PTT → intrinsic (XII, XI, IX, VIII)"], ordered: false, phrase: "PET and PITT", note: "PT = Extrinsic, Tissue factor. PTT = Intrinsic." },
+  { id: "lib-intrinsic", title: "Intrinsic pathway factors", items: ["XII", "XI", "IX", "VIII"], ordered: true, phrase: "Intrinsic costs $12, on sale for $11.98", note: "12, 11, 9, 8." },
+  { id: "lib-race", title: "Fire response", items: ["Rescue", "Alarm", "Contain", "Extinguish"], ordered: true, phrase: "RACE", note: "What to do, in order." },
+  { id: "lib-pass", title: "Using a fire extinguisher", items: ["Pull the pin", "Aim at the base", "Squeeze the handle", "Sweep side to side"], ordered: true, phrase: "PASS", note: "" },
+  { id: "lib-mudpiles", title: "Causes of high anion gap metabolic acidosis", items: ["Methanol", "Uremia", "Diabetic ketoacidosis", "Propylene glycol / Paraldehyde", "Iron / Isoniazid", "Lactic acidosis", "Ethylene glycol", "Salicylates"], ordered: false, phrase: "MUDPILES", note: "" },
+  { id: "lib-ceek", title: "Lactose fermenters on MacConkey (pink)", items: ["Citrobacter (often)", "E. coli", "Enterobacter", "Klebsiella"], ordered: false, phrase: "CEEK", note: "Pink colonies on MAC. Most others stay colorless." },
+  { id: "lib-gamed", title: "The five antibody classes", items: ["IgG", "IgA", "IgM", "IgE", "IgD"], ordered: false, phrase: "GAMED", note: "IgG is the most plentiful; IgM comes first in a new infection." }
+];
+HOOK_LIB.find(h => h.id === "lib-vitk").note = "Read “1972” as factors X, IX, VII and II (10, 9, 7, 2). Warfarin lowers all of them.";
+const WORDBANK = { a: ["Angry", "Astronauts", "Always", "Avocados", "Alligators"], b: ["Big", "Bananas", "Bravely", "Blue", "Bears"], c: ["Crazy", "Cats", "Carry", "Cold", "Cupcakes"], d: ["Dancing", "Dragons", "Dare", "Ducks", "Daily"], e: ["Eager", "Elephants", "Eat", "Every", "Eggs"], f: ["Funny", "Frogs", "Fly", "Fast", "Fries"], g: ["Giant", "Giraffes", "Grab", "Green", "Grapes"], h: ["Happy", "Hippos", "Hug", "Hot", "Hats"], i: ["Icy", "Iguanas", "Imagine", "Ink", "Igloos"], j: ["Jolly", "Jaguars", "Juggle", "Jelly", "Jets"], k: ["Kind", "Kangaroos", "Kick", "Kites", "Kings"], l: ["Lazy", "Lions", "Lick", "Lemons", "Loud"], m: ["Mad", "Monkeys", "Make", "Muffins", "Mighty"], n: ["Nervous", "Ninjas", "Never", "Noodles", "Nice"], o: ["Old", "Owls", "Order", "Onions", "Orange"], p: ["Purple", "Penguins", "Paint", "Pizza", "Proud"], q: ["Quiet", "Queens", "Quickly", "Quilts", "Quirky"], r: ["Red", "Robots", "Run", "Rockets", "Royal"], s: ["Silly", "Sharks", "Sing", "Socks", "Sleepy"], t: ["Tiny", "Tigers", "Throw", "Tacos", "Tall"], u: ["Ugly", "Unicorns", "Use", "Umbrellas", "Upset"], v: ["Wild", "Vultures", "Visit", "Violins", "Very"], w: ["Wild", "Walruses", "Wear", "Waffles", "Wise"], x: ["Xtra", "Xylophones", "X-ray", "Xenon", "Xmas"], y: ["Yellow", "Yaks", "Yell", "Yo-yos", "Young"], z: ["Zany", "Zebras", "Zoom", "Zippers", "Zesty"] };
+WORDBANK.v = ["Vivid", "Vultures", "Visit", "Violins", "Very"];
+const PALACES = { home: ["Front door", "Entryway", "Coat closet", "Couch", "TV", "Coffee table", "Kitchen sink", "Fridge", "Stove", "Dining table", "Bathroom mirror", "Shower", "Bed", "Dresser", "Bedroom closet", "Window"], lab: ["Parking lot", "Front entrance", "Elevator", "Hallway", "Locker room", "Specimen receiving", "Centrifuge", "Hematology analyzer", "Coag analyzer", "Chemistry analyzer", "Blood bank fridge", "Micro incubator", "Biosafety cabinet", "Break room", "Supervisor’s office", "Back exit"], drive: ["Garage", "Driveway", "Mailbox", "Stop sign", "Gas station", "Coffee shop", "Bridge", "Traffic light", "Billboard", "Parking garage", "Building door", "Stairs", "Hallway", "Desk", "Window", "Clock"] };
+const PALACE_NAMES = { home: "Your home", lab: "The hospital lab", drive: "Your drive in" };
+const palaceLoci = id => ((S.meta.palaces || {})[id] && S.meta.palaces[id].length ? S.meta.palaces[id] : PALACES[id]) || PALACES.home;
+const myHooks = () => (S.meta.hooks || []).filter(h => !h.del);
+const hookParts = t => String(t || "").split(/\s*(?:;|\n|,|→)\s*/).map(x => x.replace(/^\d+[.)]\s*/, "").trim()).filter(Boolean);
+const firstLetter = s => (s.replace(/^[^A-Za-z0-9]+/, "")[0] || "x").toLowerCase();
+const suggestWord = (item, prev) => { const bank = WORDBANK[firstLetter(item)] || [item.split(" ")[0]]; const opts = bank.filter(w => w !== prev); return opts[Math.floor(Math.random() * opts.length)] || bank[0]; };
+function hookable(f) { const parts = hookParts(f.a); const st = stOf(f) || {}; return (parts.length >= 3 && parts.every(p => p.length <= 45)) || (st.l || 0) >= 3 || (st.w || 0) >= 3; }
+function hookSummary(h) { return h.method === "palace" ? `Palace: ${PALACE_NAMES[h.palace] || "custom"} · ${h.items.map((x, k) => `${palaceLoci(h.palace)[k] || "Spot " + (k + 1)} → ${x}`).join("; ")}` : `“${h.phrase}”`; }
+
+function hookModal(pre, opts = {}) {
+  const h = JSON.parse(JSON.stringify(pre || { title: "", items: [], ordered: true, method: "acrostic", palace: "home", words: [], images: [] }));
+  h.id = h.id || uid(); h.words = h.words || []; h.images = h.images || []; h.method = h.method || "acrostic"; h.palace = h.palace || "home";
+  let addReview = opts.addReview ?? !h.cardId, attach = !!opts.fact;
+  const fit = () => { while (h.words.length < h.items.length) h.words.push(suggestWord(h.items[h.words.length])); h.words.length = h.items.length; };
+  const html = () => { fit(); const loci = palaceLoci(h.palace); return `${mhead(pre && pre.t ? "Edit memory hook" : "New memory hook")}
+    <div class="field"><label for="ht">What are you memorizing?</label><input class="input" id="ht" value="${esc(h.title)}" placeholder="e.g. Order of draw"></div>
+    <div class="field"><label for="hi">Items, one per line</label><textarea class="input" id="hi" rows="${Math.min(10, Math.max(4, h.items.length + 1))}" placeholder="First item&#10;Second item&#10;Third item">${esc(h.items.join("\n"))}</textarea>
+      <label class="check" style="margin-top:6px"><input type="checkbox" id="ho" ${h.ordered ? "checked" : ""}>The order matters</label></div>
+    <div class="field"><span class="lbl">Hook style</span><div class="seg" id="hm"><button type="button" data-m="acrostic" class="${h.method === "acrostic" ? "on" : ""}">Sentence (first letters)</button><button type="button" data-m="palace" class="${h.method === "palace" ? "on" : ""}">Memory palace</button></div></div>
+    ${!h.items.length ? `<p class="small muted">Add items to build the hook.</p>` : h.method === "acrostic" ? `<div class="hookbox"><p class="small muted" style="margin:0 0 8px">Each word starts with the same letter as its item. Tap 🎲 to swap a word, or type your own. Funny and vivid sticks best.</p>
+      <div class="acrow">${h.items.map((it, k) => `<div class="acw"><span class="acl">${esc(firstLetter(it).toUpperCase())}</span><input class="input" data-w="${k}" value="${esc(h.words[k])}" aria-label="Word for ${esc(it)}"><button type="button" class="btn ghost icon sm" data-re="${k}" title="Swap word">🎲</button><small>${esc(it)}</small></div>`).join("")}</div>
+      <div class="acphrase">“${esc(h.words.join(" "))}”</div><button type="button" class="btn sm" id="shuf">🎲 Shuffle all</button></div>`
+    : `<div class="hookbox"><div class="row" style="justify-content:space-between;align-items:center;margin-bottom:8px"><select class="input" id="hp" style="max-width:220px">${Object.keys(PALACES).map(k => `<option value="${k}" ${h.palace === k ? "selected" : ""}>${PALACE_NAMES[k]}</option>`).join("")}</select><button type="button" class="btn ghost sm" id="hedit">Rename spots</button></div>
+      <p class="small muted" style="margin:0 0 8px">Walk through the place in order. At each spot, picture the item there, big, strange and moving. Typing the picture is optional.</p>
+      <div class="palrows">${h.items.map((it, k) => `<div class="palrow"><span class="pall">${esc(loci[k] || "Spot " + (k + 1))}</span><b>${esc(it)}</b><input class="input" data-im="${k}" value="${esc(h.images[k] || "")}" placeholder="Optional: what you picture"></div>`).join("")}</div>${h.items.length > loci.length ? `<p class="small" style="color:var(--warn)">This palace has ${loci.length} spots; rename or add spots for longer lists.</p>` : ""}</div>`}
+    <div class="field" style="margin-top:12px">${!h.cardId ? `<label class="check"><input type="checkbox" id="hr" ${addReview ? "checked" : ""}>Add a review card so it comes back on schedule</label>` : ""}${opts.fact ? `<label class="check"><input type="checkbox" id="ha" checked>Show this hook on the card you came from</label>` : ""}</div>
+    <div class="modal-foot">${pre && pre.t ? `<button class="btn danger" id="hdel">Delete</button><div class="spacer"></div>` : ""}<button class="btn" data-close>Cancel</button><button class="btn primary" id="hsave">Save and practice</button></div>`; };
+  modal(html(), (s, close) => {
+    const read = () => { h.title = $("#ht", s).value.trim(); h.items = $("#hi", s).value.split("\n").map(x => x.trim()).filter(Boolean); h.ordered = $("#ho", s).checked; $$("[data-w]", s).forEach(i => h.words[+i.dataset.w] = i.value.trim()); $$("[data-im]", s).forEach(i => h.images[+i.dataset.im] = i.value.trim()); if ($("#hr", s)) addReview = $("#hr", s).checked; if ($("#ha", s)) attach = $("#ha", s).checked; };
+    const rer = () => { $(".modal", s).innerHTML = html(); bind(); };
+    const bind = () => {
+      $$("[data-close]", s).forEach(b => b.onclick = close);
+      $("#hi", s).onchange = () => { read(); rer(); };
+      $$("#hm button", s).forEach(b => b.onclick = () => { read(); h.method = b.dataset.m; rer(); });
+      $$("[data-re]", s).forEach(b => b.onclick = () => { read(); const k = +b.dataset.re; h.words[k] = suggestWord(h.items[k], h.words[k]); rer(); });
+      $$("[data-w]", s).forEach(i => i.oninput = () => { read(); $(".acphrase", s).textContent = `“${h.words.join(" ")}”`; });
+      $("#shuf", s) && ($("#shuf", s).onclick = () => { read(); h.words = h.items.map(it => suggestWord(it)); rer(); });
+      $("#hp", s) && ($("#hp", s).onchange = e => { read(); h.palace = e.target.value; rer(); });
+      $("#hedit", s) && ($("#hedit", s).onclick = () => { read(); const cur = palaceLoci(h.palace).join("\n"); const v = prompt(`Spots in “${PALACE_NAMES[h.palace]}”, in walking order, one per line. Use a place you know by heart.`, cur); if (v != null) { S.meta.palaces = S.meta.palaces || {}; S.meta.palaces[h.palace] = v.split("\n").map(x => x.trim()).filter(Boolean); saveMeta(true); } rer(); });
+      $("#hdel", s) && ($("#hdel", s).onclick = () => { if (!confirm("Delete this hook?")) return; const x = (S.meta.hooks || []).find(y => y.id === h.id); if (x) { x.del = true; x.t = Date.now(); } saveMeta(true); close(); opts.after && opts.after(); });
+      $("#hsave", s).onclick = () => {
+        read(); if (!h.title || h.items.length < 2) { toast("Add a title and at least 2 items"); return; }
+        if (h.method === "acrostic") h.phrase = h.words.join(" "); h.t = Date.now();
+        const L = S.meta.hooks = S.meta.hooks || []; const ix = L.findIndex(x => x.id === h.id); if (ix >= 0) L[ix] = h; else L.push(h);
+        if (addReview && !h.cardId) { let d = Object.values(S.decks).find(x => x.hooksDeck); if (!d) { d = normalizeDeck({ id: uid(), name: "Memory hooks", color: "lavender", fields: [], cards: [], hooksDeck: true }); S.decks[d.id] = d; } const c = { id: uid(), type: "basic", front: `${h.title} (${plural(h.items.length, "item")}${h.ordered ? ", in order" : ""})`, back: h.items.map((x, k) => `${k + 1}. ${x}`).join("\n"), note: `Hook: ${hookSummary(h)}`, star: false }; d.cards.push(c); saveDeck(d); h.cardId = c.id; h.deckId = d.id; }
+        else if (h.cardId && S.decks[h.deckId]) { const c = S.decks[h.deckId].cards.find(x => x.id === h.cardId); if (c) { c.front = `${h.title} (${plural(h.items.length, "item")}${h.ordered ? ", in order" : ""})`; c.back = h.items.map((x, k) => `${k + 1}. ${x}`).join("\n"); c.note = `Hook: ${hookSummary(h)}`; saveDeck(S.decks[h.deckId]); } }
+        if (attach && opts.fact) { const c = opts.fact.card; const line = `Hook: ${hookSummary(h)}`; c.note = (c.note || "").replace(/(^|\n)Hook: .*$/m, "").trim(); c.note = (c.note ? c.note + "\n" : "") + line; saveDeck(opts.fact.deck); }
+        stat("hooksMade"); saveMeta(true); close(); if (opts.noPractice) { toast("Memory hook saved"); opts.after && opts.after(); } else practiceHook(h);
+      };
+    };
+    bind();
+  });
+}
+
+function practiceHook(h) {
+  openStudy("Memory hook: " + h.title); setProg(0);
+  const loci = palaceLoci(h.palace);
+  const cue = k => h.method === "palace" ? `At the ${(loci[k] || "spot " + (k + 1)).replace(/^[A-Z](?=[a-z])/, c => c.toLowerCase())}…` : h.words && h.words[k] ? `“${h.words[k]}” →` : `Item ${k + 1} starts with ${esc(firstLetter(h.items[k]).toUpperCase())}…`;
+  const show = () => {
+    ST.stage.innerHTML = `<div class="qcard"><div class="kicker">Study the hook</div><h2 style="margin:4px 0 10px">${esc(h.title)}</h2>
+      ${h.method === "palace" ? `<p class="small muted">Walk through ${esc(PALACE_NAMES[h.palace] || "your palace")} and see each item at its spot.</p><div class="palrows">${h.items.map((it, k) => `<div class="palrow ro"><span class="pall">${esc(loci[k] || "Spot " + (k + 1))}</span><b>${esc(it)}</b>${h.images && h.images[k] ? `<span class="small muted">${esc(h.images[k])}</span>` : ""}</div>`).join("")}</div>`
+      : `<div class="acphrase big">“${esc(h.phrase || (h.words || []).join(" "))}”</div><div class="aclist">${h.items.map((it, k) => `<div><span class="acl">${esc(firstLetter(it).toUpperCase())}</span>${h.words && h.words[k] ? `<i>${esc(h.words[k])}</i>` : ""}<b>${esc(it)}</b></div>`).join("")}</div>`}
+      ${h.note ? `<p class="small" style="margin-top:10px">${escG(h.note)}</p>` : ""}</div>
+      <button class="btn primary" id="go" style="width:100%;min-height:48px">I’ve got it, quiz me</button>`;
+    $("#go").onclick = () => drill(0, 0); ST.onKey = e => { if (e.key === "Enter") $("#go").click(); };
+  };
+  const drill = (k, right) => {
+    if (k >= h.items.length) return whole(right);
+    setProg(k / (h.items.length + 1)); ST.right.innerHTML = `<span class="small muted">${k + 1} / ${h.items.length}</span>`;
+    let tries = 0;
+    ST.stage.innerHTML = `<div class="qcard"><div class="kicker">${esc(h.title)}${h.ordered ? ` · item ${k + 1}` : ""}</div><div class="qtext">${cue(k)}</div></div>
+      <div class="typed"><input class="input" id="ta" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Type the item"><button class="btn primary" id="chk">Check</button></div><div class="row"><button class="btn ghost sm" id="idk">Show me</button></div><div id="fb"></div>`;
+    setTimeout(() => $("#ta")?.focus(), 30);
+    const ok = v => similar(v, h.items[k]) || norm(h.items[k]).startsWith(norm(v)) && norm(v).length >= 4;
+    const check = () => { const v = $("#ta").value.trim(); if (!v) return; if (ok(v)) { $("#fb").innerHTML = `<div class="feedback ok"><div style="flex:1">${esc(h.items[k])}</div></div>`; setTimeout(() => drill(k + 1, right + (tries ? 0 : 1)), 600); } else { tries++; if (tries >= 2) reveal(); else $("#fb").innerHTML = `<div class="feedback no"><div style="flex:1">Not quite. Picture the hook again.</div></div>`; } };
+    const reveal = () => { tries = 2; $("#fb").innerHTML = `<div class="feedback no"><div style="flex:1">It’s <b>${esc(h.items[k])}</b>. Type it to lock it in.</div></div>`; $("#ta").value = ""; $("#ta").focus(); };
+    $("#chk").onclick = check; $("#idk").onclick = reveal; ST.onKey = e => { if (e.key === "Enter") { e.preventDefault(); check(); } };
+  };
+  const whole = right => {
+    setProg(h.items.length / (h.items.length + 1)); ST.right.innerHTML = "";
+    ST.stage.innerHTML = `<div class="qcard"><div class="kicker">Final check</div><div class="qtext">Write the whole list${h.ordered ? " in order" : ""}, one per line, from memory.</div></div>
+      <textarea class="input" id="wl" rows="${Math.min(12, h.items.length + 1)}" placeholder="One item per line"></textarea><button class="btn primary" id="chk">Check my list</button><div id="fb"></div>`;
+    setTimeout(() => $("#wl")?.focus(), 30);
+    $("#chk").onclick = () => {
+      const lines = $("#wl").value.split("\n").map(x => x.trim()).filter(Boolean);
+      const hits = h.items.map((it, k) => h.ordered ? (lines[k] && similar(lines[k], it)) : lines.some(l => similar(l, it)));
+      const n = hits.filter(Boolean).length; const pct = Math.round(n / h.items.length * 100);
+      const x = (S.meta.hooks || []).find(y => y.id === h.id); if (x) { x.lastP = Date.now(); x.best = Math.max(x.best || 0, pct); x.t = Date.now(); }
+      stat("hookPractice"); bumpHistory(true); saveMeta(true); setProg(1);
+      ST.stage.innerHTML = `<div class="results">${ring(pct)}<h2>${pct === 100 ? "Locked in" : `${n} of ${h.items.length}`}</h2><p class="muted">Cue drill: ${right} of ${h.items.length} on the first try.</p>
+        <div class="aclist" style="text-align:left;max-width:420px;margin:12px auto">${h.items.map((it, k) => `<div class="${hits[k] ? "hit" : "miss"}"><span class="acl">${hits[k] ? "✓" : "○"}</span><b>${esc(it)}</b></div>`).join("")}</div>
+        <div class="row" style="justify-content:center"><button class="btn primary" id="again">Practice again</button><button class="btn" id="dn">Done</button></div></div>`;
+      $("#again").onclick = () => practiceHook(h); $("#dn").onclick = () => { closeStudy(); };
+    };
+  };
+  show();
+}
+
+function startHooks(tab = "mine") {
+  openStudy("Memory hooks"); setProg(0);
+  const draw = () => {
+    const H = myHooks();
+    ST.stage.innerHTML = `<div class="qcard"><h2 style="margin-bottom:4px">Memory hooks</h2><p class="small muted">Save these for lists, orders and the facts that won’t stick. Everything else, spaced review handles fine. While you study, LabDeck offers “Make a memory hook” on cards that need one.</p></div>
+      <div class="row"><div class="seg" id="htab"><button data-t="mine" class="${tab === "mine" ? "on" : ""}">My hooks (${H.length})</button><button data-t="lib" class="${tab === "lib" ? "on" : ""}">Library (${HOOK_LIB.length})</button></div><div class="spacer"></div><button class="btn primary" id="hnew">${icon("plus")}New hook</button></div>
+      <div class="hooklist">${tab === "mine" ? (H.length ? H.slice().reverse().map(h => `<div class="hookcard"><div class="hk-top"><b>${esc(h.title)}</b><span class="tag">${h.method === "palace" ? "Palace" : "Sentence"}</span></div><div class="hk-ph">${h.method === "palace" ? `${esc(PALACE_NAMES[h.palace] || "Palace")} · ${plural(h.items.length, "spot")}` : `“${esc(h.phrase || "")}”`}</div><div class="hk-meta">${plural(h.items.length, "item")}${h.best != null ? ` · best ${h.best}%` : " · not practiced yet"}</div><div class="row"><button class="btn sm primary" data-pr="${h.id}">Practice</button><button class="btn sm ghost" data-ed="${h.id}">${icon("edit")}Edit</button></div></div>`).join("") : `<div class="empty"><p>No hooks yet. Start from the library, or make one for a list you keep missing.</p></div>`)
+      : HOOK_LIB.map(h => { const have = H.some(x => x.libId === h.id); return `<div class="hookcard"><div class="hk-top"><b>${esc(h.title)}</b></div><div class="hk-ph">“${esc(h.phrase)}”</div><div class="hk-meta">${esc(h.items.join(" · "))}</div>${h.note ? `<div class="hk-meta">${esc(h.note)}</div>` : ""}<div class="row"><button class="btn sm primary" data-lpr="${h.id}">Practice</button><button class="btn sm ghost" data-lsv="${h.id}" ${have ? "disabled" : ""}>${have ? "Saved ✓" : "Save to my hooks"}</button></div></div>`; }).join("")}</div>`;
+    $$("#htab button").forEach(b => b.onclick = () => { tab = b.dataset.t; draw(); });
+    $("#hnew").onclick = () => hookModal(null, { after: draw });
+    $$("[data-pr]").forEach(b => b.onclick = () => practiceHook(myHooks().find(h => h.id === b.dataset.pr)));
+    $$("[data-ed]").forEach(b => b.onclick = () => hookModal(myHooks().find(h => h.id === b.dataset.ed), { noPractice: true, after: draw }));
+    const libAsHook = l => ({ id: uid(), libId: l.id, title: l.title, items: l.items.slice(), ordered: l.ordered, method: "acrostic", phrase: l.phrase, words: [], note: l.note, palace: "home", t: Date.now() });
+    $$("[data-lpr]").forEach(b => b.onclick = () => practiceHook(libAsHook(HOOK_LIB.find(l => l.id === b.dataset.lpr))));
+    $$("[data-lsv]").forEach(b => b.onclick = () => { const l = HOOK_LIB.find(x => x.id === b.dataset.lsv); const h = libAsHook(l); (S.meta.hooks = S.meta.hooks || []).push(h); stat("hooksMade"); saveMeta(true); toast("Saved to your hooks"); draw(); });
+  };
+  draw();
+}
+
+/* tools, sync, badges */
+TOOLS.learn.push(["hookBtn", "brain", "Memory hooks"]);
+TOOL_FN.hookBtn = () => startHooks();
+{ const rh = renderHome; renderHome = function (decks) { rh(decks); const b = $("#hookBtn"); if (b) b.onclick = () => startHooks(); }; }
+BADGES2.push({ id: "hook5", cat: "l", e: "🏛️", name: "Palace architect", desc: "Save 5 memory hooks", target: 5, cur: () => myHooks().length }, { id: "hookp20", cat: "l", e: "🎭", name: "Mnemonist", desc: "Practice memory hooks 20 times", target: 20, cur: () => sv("hookPractice") });
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
