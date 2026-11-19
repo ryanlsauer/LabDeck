@@ -2282,6 +2282,42 @@ svg.heat{display:block}
 .lc-f{flex:1;display:flex;flex-direction:column;gap:6px}.lc-f .input{font-size:.92rem;padding:8px 10px}.lc-f textarea{resize:vertical;min-height:38px}
 .lc-t{flex:1;font-size:.93rem;line-height:1.45}
 .tools2 .tl-play .ttile[id^="g_"] .tti,.tools2 .tl-play .ttile[id^="g_"] .tti *{font-size:27px!important;line-height:1!important}
+/* ===================== v30 ===================== */
+/* task list: the exam task's action is a quiet link */
+.btn.tglink{background:transparent!important;color:var(--violet-ink)!important;padding:0 4px!important;min-height:0!important;font-weight:600}
+.btn.tglink:hover{text-decoration:underline;background:transparent!important}
+/* lab tools: larger symbol tiles */
+.tools2 .ttile .tti{width:56px!important;height:56px!important;border-radius:14px!important}
+.tools2 .ttile .tti svg{width:26px!important;height:26px!important}
+.tools2 .tl-play .ttile[id^="g_"] .tti,.tools2 .tl-play .ttile[id^="g_"] .tti *{font-size:31px!important}
+.tools2 .ttile{gap:8px!important;padding:10px 2px 8px!important}
+/* week chart: wider bars, less empty space */
+.bc-plot2{gap:10px!important}
+.bc-col2 i{max-width:64px!important;border-radius:9px 9px 4px 4px!important}
+@media (max-width:600px){.bc-plot2{gap:6px!important}}
+/* calendar that fills the card */
+.cal2{display:flex;flex-direction:column;gap:6px;width:100%}
+.cal-g{display:grid;grid-template-columns:repeat(var(--w),minmax(0,1fr));grid-template-rows:repeat(7,auto);gap:4px;width:100%}
+.cal-c{display:block;aspect-ratio:1;border-radius:4px;background:var(--line)}
+.cal-c.l1{background:color-mix(in srgb,var(--violet) 28%,var(--surface))}.cal-c.l2{background:color-mix(in srgb,var(--violet) 58%,var(--surface))}.cal-c.l3{background:var(--violet)}
+.cal-c.lf{background:transparent;box-shadow:inset 0 0 0 1px var(--line)}
+.cal-c.td{box-shadow:0 0 0 2px var(--surface),0 0 0 3.5px var(--violet-ink)}
+.cal-m{display:grid;grid-template-columns:repeat(var(--w),minmax(0,1fr));gap:4px;font-size:.7rem;color:var(--ink-3);white-space:nowrap}
+.cal-m span{overflow:visible}
+.cal-k{display:flex;align-items:center;gap:5px;justify-content:flex-end;font-size:.72rem;color:var(--ink-3);margin-top:4px}.cal-k .cal-c{width:12px;height:12px;aspect-ratio:auto}
+/* image cards: never cropped or stretched, boxes stay on the picture */
+.occ{position:relative!important;display:inline-block!important;width:auto!important;height:auto!important;max-width:100%!important;line-height:0!important;overflow:hidden;border-radius:12px;vertical-align:top}
+.occ img{display:block!important;width:auto!important;height:auto!important;max-width:100%!important;max-height:min(46vh,420px)!important;object-fit:contain!important;aspect-ratio:auto!important;margin:0!important;border-radius:0!important;position:static!important;transform:none!important}
+.face .occ,.qcard .occ,.occq .occ{margin:6px auto!important;display:block!important;width:fit-content!important}
+.occ.mini img{max-height:84px!important}
+.occq{display:flex;flex-direction:column;align-items:center;gap:6px;width:100%}
+.occq-t{font-size:1rem;font-weight:600;line-height:1.35;text-align:center}
+.occq.sm .occ{margin:0 auto!important}
+.occ-rev{position:absolute;box-sizing:border-box;border:2.5px solid #34C759;border-radius:6px;background:transparent;z-index:2}
+.occ-rev span{position:absolute;left:-2.5px;bottom:100%;margin-bottom:3px;background:#34C759;color:#fff;font:700 .78rem/1.25 var(--font-body);padding:3px 8px;border-radius:7px;white-space:nowrap;max-width:240px;overflow:hidden;text-overflow:ellipsis;box-shadow:0 2px 6px rgba(0,0,0,.18)}
+.occ-rev span.below{bottom:auto;top:100%;margin:3px 0 0}
+.occ{overflow:visible!important}
+.occ img{border-radius:12px!important}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -2369,7 +2405,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "29.0";
+const APP_VERSION = "30.0";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -8597,7 +8633,7 @@ renderHome = function (decks) {
     ${weak ? `<button class="linkbtn" id="weakBtn" style="margin:4px 0 0">${plural(weak, "weak spot")} to drill →</button>` : ""}
     ${lect.length || exams.length ? `<div class="twocol">
       ${lect.length ? `<div><div class="section-head"><h2>Lectures</h2></div><div class="list">${lect.map(x => `<button class="listrow" data-lect="${x.ci}|${x.ui}"><span class="when">${x.when}</span><span style="flex:1;min-width:0"><b>${esc(x.u.name)}</b><br><span class="small muted">${esc(x.c.code)}${x.u.ch ? " · " + esc(x.u.ch) : ""}</span></span></button>`).join("")}</div></div>` : ""}
-      ${exams.length ? `<div><div class="section-head"><h2>Exams</h2><button class="btn sm ghost" id="addExam">${icon("plus")}Add</button></div><div class="extiles">${exams.map(ex => { const d = daysUntil(ex); return `<div class="extile ${d <= 3 ? "soon" : ""}" data-exam="${ex.id}" role="button" tabindex="0"><div class="excount ${d <= 3 ? "soon" : ""}">${d <= 0 ? "<b>Today</b>" : `<b>${d}</b><small>day${d === 1 ? "" : "s"}</small>`}</div><div class="exinfo"><b>${esc(ex.name)}</b><span>${new Date(ex.date + "T12:00").toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" })}</span>${d <= 2 ? `<div class="exact"><button class="btn sm" data-cram="${ex.id}">Cram</button></div>` : ""}</div><button class="exedit" data-exedit aria-label="Edit ${esc(ex.name)}" title="Edit exam">${icon("edit")}</button></div>`; }).join("")}</div></div>` : ""}
+      ${exams.length ? `<div><div class="section-head"><h2>Exams</h2><button class="btn sm ghost" id="addExam">${icon("plus")}Add</button></div><div class="extiles">${exams.map(ex => { const d = daysUntil(ex); return `<div class="extile ${d <= 3 ? "soon" : ""}" data-exam="${ex.id}" role="button" tabindex="0"><div class="excount ${d <= 3 ? "soon" : ""}">${d <= 0 ? "<b>Today</b>" : `<b>${d}</b><small>day${d === 1 ? "" : "s"}</small>`}</div><div class="exinfo"><b>${esc(ex.name)}</b><span>${new Date(ex.date + "T12:00").toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" })}</span>${d <= 2 ? `<div class="exact"></div>` : ""}</div><button class="exedit" data-exedit aria-label="Edit ${esc(ex.name)}" title="Edit exam">${icon("edit")}</button></div>`; }).join("")}</div></div>` : ""}
     </div>` : ""}
     <div class="section-head"><h2>Lab tools</h2>${!exams.length && decks.length ? `<button class="btn sm ghost" id="addExam">${icon("calendar")}Add an exam</button>` : ""}</div>
     ${toolsHtml()}
@@ -9136,7 +9172,7 @@ function planView(it) {
     case "game": return { ic: "target", t: `Play ${GAME_NAMES[ref]}`, s: "Unlocked by your lessons", done: (gstate(ref).plays || 0) > 0 || (D.games || 0) >= 1, btn: "Play", fn: () => document.getElementById(GAME_BTN[ref])?.click() };
     case "focus": return { ic: "timer", t: "One focused block", s: "25 minutes, phone away", done: ((S.meta.focus || {})[k] || 0) > 0, btn: "Timer", fn: timerModal, optional: true };
     case "exam": return ex ? { ic: "exam", t: `Prep for ${ex.name}`, s: `In ${daysUntil(ex)} days`, done: (D.examPrep || 0) >= 1, btn: "Prep", fn: () => startLearn(null, { exam: ex.id }) } : null;
-    case "cram": return ex ? { ic: "exam", t: `Cram for ${ex.name}`, s: daysUntil(ex) <= 0 ? "Today" : `In ${plural(daysUntil(ex), "day")}`, done: (D.examPrep || 0) >= 1, btn: "Cram", fn: () => startLearn(null, { exam: ex.id, cram: true }) } : null;
+    case "cram": return ex ? { ic: "exam", t: `Cram for ${ex.name}`, s: daysUntil(ex) <= 0 ? "Today" : `In ${plural(daysUntil(ex), "day")}`, done: (D.examPrep || 0) >= 1, btn: "Study →", link: true, fn: () => startLearn(null, { exam: ex.id, cram: true }) } : null;
     case "pm": return ex ? { ic: "exam", t: `Post-mortem: ${ex.name}`, s: "Log what hurt", done: !!pms()[ex.id], btn: "Log", fn: () => postMortemModal(ex, render) } : null;
     case "lprep": case "lrev": { const [ci, ui] = ref.split("|").map(Number); const u = PROGRAM.courses[ci].units[ui]; return { ic: "book", t: kind === "lprep" ? "Before tomorrow’s lecture" : "Review this lecture tonight", s: `${PROGRAM.courses[ci].code}: ${u.name}`, done: (D.lecture || 0) >= 1, btn: "Open", fn: () => startLecture(ci, ui) }; }
   }
@@ -9150,7 +9186,7 @@ planHtml = function () {
   const req = views.filter(v => !v.optional), done = req.filter(v => v.done).length, all = done === req.length && req.length > 0;
   return `<section class="targets ${all ? "complete" : ""}">
     <div class="tg-head"><div><h2>${all ? "Today’s targets: done ✓" : "Today’s targets"}</h2><span>${all ? "Everything from here is bonus." : "A realistic standard for today. Low stakes, big payoff."}</span></div><div class="tg-count"><b>${done}/${req.length}</b><div class="tg-bar"><i style="width:${req.length ? done / req.length * 100 : 0}%"></i></div></div></div>
-    ${views.map((v, k) => `<div class="tg-item ${v.done ? "done" : ""}"><span class="tg-ic">${v.done ? `<svg viewBox="0 0 20 20" width="16" height="16"><path d="M4.5 10.5l3.5 3.5 7.5-8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>` : icon(v.ic)}</span><div class="tg-txt"><b>${esc(v.t)}${v.optional ? ` <span class="tg-opt">bonus</span>` : ""}</b><span>${escG(v.s)}</span>${v.prog != null && !v.done ? `<div class="tg-mini"><i style="width:${Math.round(v.prog * 100)}%"></i></div>` : ""}</div>${v.done ? `<span class="tg-ok">Done</span>` : `<button class="btn sm" data-plan="${k}">${v.btn}</button>`}</div>`).join("")}
+    ${views.map((v, k) => `<div class="tg-item ${v.done ? "done" : ""}"><span class="tg-ic">${v.done ? `<svg viewBox="0 0 20 20" width="16" height="16"><path d="M4.5 10.5l3.5 3.5 7.5-8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>` : icon(v.ic)}</span><div class="tg-txt"><b>${esc(v.t)}${v.optional ? ` <span class="tg-opt">bonus</span>` : ""}</b><span>${escG(v.s)}</span>${v.prog != null && !v.done ? `<div class="tg-mini"><i style="width:${Math.round(v.prog * 100)}%"></i></div>` : ""}</div>${v.done ? `<span class="tg-ok">Done</span>` : `<button class="btn sm ${v.link ? "tglink" : ""}" data-plan="${k}">${v.btn}</button>`}</div>`).join("")}
   </section>`;
 };
 /* progress hooks */
@@ -11972,10 +12008,10 @@ function occImg(c, target, reveal) {
 { const ff = factFront; factFront = function (f) { if (f && f.kind === "occl") return `<div class="kicker">Image card</div>${occImg(f.card, f.rect, false)}<div class="sub-text muted">What’s under the highlighted box?</div>`; return ff(f); }; }
 { const fb = factBack; factBack = function (f) { if (f && f.kind === "occl") return `<div class="kicker">${esc(f.rect.label)}</div>${occImg(f.card, f.rect, true)}${f.card.note ? `<div class="note">${escG(f.card.note)}</div>` : ""}`; return fb(f); }; }
 /* keep image cards in flashcard modes only: no multiple choice, typing, matching or Learn */
-{ const qf = questionFor; questionFor = function (f, a) { if (f && f.kind === "occl") return null; return qf(f, a); }; }
-{ const st = startType; startType = function (d) { const orig = factsOf; factsOf = x => orig(x).filter(f => f.kind !== "occl"); try { return st(d); } finally { factsOf = orig; } }; }
-{ const sm = startMatch; startMatch = function (d) { const orig = factsOf; factsOf = x => orig(x).filter(f => f.kind !== "occl"); try { return sm(d); } finally { factsOf = orig; } }; }
-{ const lf = lmFacts; lmFacts = function (d) { return lf(d).filter(f => f.kind !== "occl" && !(f.rev && f.card.type === "occlusion")); }; }
+
+
+
+
 
 function occlusionModal(d, card, after) {
   const c = card ? JSON.parse(JSON.stringify(card)) : { id: uid(), type: "occlusion", img: "", rects: [], occMode: "all", note: "", star: false };
@@ -12114,9 +12150,56 @@ function startLectureCapture(deckId) {
     };
   };
 }
-TOOL_FN.captureBtn = () => startCapturePick();
-{ const i = TOOLS.learn.findIndex(t => t[0] === "slideBtn"); const cap = ["captureBtn", "camera", "Capture"]; if (i >= 0) TOOLS.learn[i] = cap; else TOOLS.learn.push(cap); TILE_SHORT.captureBtn = "Capture"; TOOL_SYM.captureBtn = "#7B4FE0"; }
+/* (lecture capture removed in v30) */
 { const rh = renderHome; renderHome = function (decks) { rh(decks); const g = $("#view .greetline"); if (g && / is in 1 day\b/.test(g.textContent)) g.textContent = g.textContent.replace(/ is in 1 day\b/, " is tomorrow"); }; }
+/* ===================== v30 ===================== */
+/* ---------- image cards work in every mode ---------- */
+const OCC_MAP = {};
+const OCC_MARK = k => "\u2063occ:" + k + "\u2063";
+{ const fo = factsOf; factsOf = function (d) { const fs = fo(d); fs.forEach(f => { if (f.kind === "occl") { OCC_MAP[f.key] = f; f.field = f.field || "box " + f.rect.id; if (!/^\u2063occ:/.test(f.q)) f.q = OCC_MARK(f.key) + "What’s under the highlighted box?"; } }); return fs; }; }
+{ const qf = questionFor; questionFor = function (f, a) {
+    if (!f || f.kind !== "occl") return qf(f, a);
+    const same = (f.card.rects || []).filter(r => r.id !== f.rect.id).map(r => r.label);
+    const deckLabels = f.deck.cards.filter(c => c.type === "occlusion" && c.id !== f.card.id).flatMap(c => (c.rects || []).map(r => r.label));
+    const wrong = distinctOthers([...same, ...shuffle(deckLabels)], f.a, 3); if (!wrong.length) return null;
+    return { f, kicker: "Image card", text: f.q, img: "", answer: f.a, options: shuffle([f.a, ...wrong]) };
+  }; }
+/* swap the marker for the picture wherever a question is shown */
+function occFill(root) {
+  const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: n => n.nodeValue.includes("\u2063occ:") ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT });
+  const nodes = []; while (w.nextNode()) nodes.push(w.currentNode);
+  nodes.forEach(n => {
+    const m = /\u2063occ:([^\u2063]+)\u2063([\s\S]*)/.exec(n.nodeValue); if (!m) return; const f = OCC_MAP[m[1]]; const host = n.parentElement; if (!host) return;
+    if (!f) { n.nodeValue = m[2] || "What’s under the highlighted box?"; return; }
+    const small = !!host.closest(".match, .mgrid, .mtile, [class*='match'], .opt, .lmrow");
+    const box = document.createElement("span"); box.className = "occq" + (small ? " sm" : "");
+    box.innerHTML = occImg(f.card, f.rect, false).replace('class="occ"', `class="occ${small ? " mini" : ""}"`) + (small ? "" : `<span class="occq-t">${esc(m[2] || "What’s under the highlighted box?")}</span>`);
+    n.replaceWith(box);
+  });
+}
+new MutationObserver(muts => { for (const mu of muts) for (const nd of mu.addedNodes) { if (nd.nodeType === 1) { if (nd.textContent && nd.textContent.includes("\u2063occ:")) occFill(nd); } else if (nd.nodeType === 3 && nd.nodeValue.includes("\u2063occ:") && nd.parentElement) occFill(nd.parentElement); } }).observe(document.documentElement, { childList: true, subtree: true });
+/* revealed box: a clean green outline with the label as a tag above it */
+occImg = function (c, target, reveal) {
+  const src = imgSrc(c.img);
+  if (!src) return `<div class="occ-missing">This card’s picture hasn’t synced to this device yet.</div>`;
+  const mode = c.occMode || "all";
+  return `<div class="occ"><img src="${src}" alt="" draggable="false">${(c.rects || []).map(r => { const isT = target && r.id === target.id; if (!isT && mode === "one") return ""; if (isT && reveal) return `<div class="occ-rev" style="left:${r.x}%;top:${r.y}%;width:${r.w}%;height:${r.h}%"><span class="${r.y < 12 ? "below" : ""}">${esc(r.label)}</span></div>`; return `<div class="occ-box ${isT ? "t" : "o"}" style="left:${r.x}%;top:${r.y}%;width:${r.w}%;height:${r.h}%">${isT ? "<span>?</span>" : ""}</div>`; }).join("")}</div>`;
+};
+
+/* ---------- Progress: a study calendar that fills its card ---------- */
+function calendarHtml(weeks = 18) {
+  const h = S.meta.history || {}, goal = GOAL(); const start = new Date(); start.setHours(12, 0, 0, 0); start.setDate(start.getDate() - ((start.getDay() + 6) % 7) - (weeks - 1) * 7);
+  const td = dayKey(); let cells = "", months = ""; let lastM = -1;
+  for (let w = 0; w < weeks; w++) {
+    const wd = new Date(start.getTime() + w * 7 * DAY); const m = wd.getMonth();
+    months += `<span>${m !== lastM ? wd.toLocaleDateString(undefined, { month: "short" }) : ""}</span>`; lastM = m;
+    for (let d = 0; d < 7; d++) { const t = new Date(start.getTime() + (w * 7 + d) * DAY); const k = dayKey(t.getTime()); const n = h[k] || 0; const fut = k > td;
+      const lv = fut ? "f" : !n ? 0 : n < goal / 3 ? 1 : n < goal ? 2 : 3;
+      cells += `<i class="cal-c l${lv} ${k === td ? "td" : ""}" style="grid-column:${w + 1};grid-row:${d + 1}" title="${t.toLocaleDateString(undefined, { month: "short", day: "numeric" })}: ${n} review${n === 1 ? "" : "s"}"></i>`; }
+  }
+  return `<div class="cal2"><div class="cal-m" style="--w:${weeks}">${months}</div><div class="cal-g" style="--w:${weeks}">${cells}</div><div class="cal-k"><span>Less</span><i class="cal-c l0"></i><i class="cal-c l1"></i><i class="cal-c l2"></i><i class="cal-c l3"></i><span>Goal met</span></div></div>`;
+}
+{ const rs = renderStats; renderStats = function (...a) { const out = rs.apply(this, a); $$("#view svg.heat").forEach(svg => { const narrow = innerWidth < 600; const panel = svg.closest(".panel") || svg.parentElement; svg.outerHTML = calendarHtml(narrow ? 14 : 26); [...panel.querySelectorAll("*")].filter(el => !el.closest(".cal2") && /^\s*Less\b/.test(el.textContent) && el.children.length < 12 && el.textContent.length < 40).forEach(el => el.remove()); }); return out; }; }
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));

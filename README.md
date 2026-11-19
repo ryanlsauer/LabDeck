@@ -2,7 +2,7 @@
 
 A free study app for Medical Laboratory Science students, built around the Sentara RMH School of Medical Laboratory Science program. It runs in any modern browser on a phone or a computer, works offline, and keeps your progress on your own device. There are no accounts, ads or fees.
 
-Version 29.0.
+Version 30.0.
 
 ---
 
@@ -36,7 +36,7 @@ LabDeck combines four things you’d otherwise juggle separately:
 ## Decks and cards
 
 - **Card types:** term and definition, fill in the blank, image cards, and profile (a name plus fields, such as an organism’s Gram stain, catalase and coagulase). Any card can be a profile; deck-wide profile fields are an optional default.
-- **Image cards** (image occlusion): add a picture, drag boxes over the parts to hide, and label each one. Every box becomes its own card. Study with all boxes hidden, or one at a time.
+- **Image cards** (image occlusion): add a picture, drag boxes over the parts to hide, and label each one. Every box becomes its own card. Study with all boxes hidden, or one at a time. Image cards work in every mode: flashcards, Learn, multiple choice, type it and match.
 - **Why and notes** fields explain the reasoning behind a card and show on the card list.
 - **Labels** group decks by subject, each with a tube-cap color.
 - **Hide a deck** you don’t need right now (like a finished prerequisite). It leaves home and daily review but stays available to study or bring back.
@@ -80,12 +80,11 @@ Lessons that teach the program in order, one course at a time, from “science f
 | Glossary (terms and formulas) | Practice (weak spots, mixed, look-alikes, range drills, lab math) | Course map | Your recent games |
 | Explain it | Exams (board practice, comprehensive exam) | Study timer | All games |
 | Memory hooks | Case studies (and case talks) | Study plan | |
-| Capture (lecture notes, slide photos) | Mistake journal | Starter decks | |
+| Slide photo | Mistake journal | Starter decks | |
 
 - **Glossary:** every abbreviation spelled out, plus your own words, phrases and formulas. Dotted-underlined terms anywhere in the app show their meaning when tapped. On a computer, the book button adds a term while you study.
 - **Memory hooks:** first-letter sentences, acronyms like PASS, memory palaces, or any saying or rule (like SnNout and SpPin). Each hook becomes a card in one of your decks.
 - **Mistake journal:** real mistakes from cards, lessons and games, with a daily review. Game mistakes come back with a picture of the question, rebuilt if needed.
-- **Lecture capture:** paste lecture notes and LabDeck suggests cards (from “Term: meaning” lines, definitions and reference ranges), fill-in-the-blank cards from **bold** words, glossary terms from abbreviations, and memory hooks from bulleted lists. You review and edit every suggestion before anything is added.
 - **Study timer:** focus sessions with breaks, which you can pause or cancel.
 
 ---
