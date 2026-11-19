@@ -14,7 +14,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#F2F4F8; --surface:#FFFFFF; --surface-2:#F7F8FB; --ink:#1C1830; --ink-2:#4A4560; --ink-3:#7C7892;
@@ -1791,6 +1791,159 @@ select.input,select{-webkit-appearance:none;appearance:none;padding-right:40px!i
 .hi-top{display:flex;flex-direction:column;gap:2px;margin-bottom:6px}
 .hi-tag{font-family:var(--font-mono);font-size:.72rem;font-weight:600;text-transform:uppercase;color:var(--violet-deep)}
 .hi-mean{margin:4px 0 0;line-height:1.55}
+/* ===================== v25 · Apple LabDeck 3 ===================== */
+:root{--font-body:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter",system-ui,"Segoe UI",sans-serif;--font-display:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter",system-ui,"Segoe UI",sans-serif;--font-mono:var(--font-body);
+  --bg:#F2F2F7;--surface:#FFFFFF;--surface-2:#F2F2F7;--ink:#1C1C1E;--ink-2:#3A3A3C;--ink-3:#6E6E73;--line:#E5E5EA;--line-2:#D1D1D6;
+  --btn-bg:#E9E9EE;--btn-border:transparent;--btn-hover:#DEDEE3;--violet:#7B4FE0;--violet-deep:#5B35C8;--violet-soft:#EFEBFC;--violet-ink:#5B35C8;
+  --radius:12px;--radius-sm:10px;--radius-lg:16px;--shadow:0 1px 2px rgba(0,0,0,.04);--a3-red:#C8292F;--a3-green:#248A3D;--a3-yellow:#8F6A00}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#000000;--surface:#1C1C1E;--surface-2:#2C2C2E;--ink:#FFFFFF;--ink-2:#E5E5EA;--ink-3:#98989F;--line:#2C2C2E;--line-2:#38383A;--btn-bg:#2C2C2E;--btn-hover:#3A3A3C;--violet:#9D7BFF;--violet-deep:#C4B5FF;--violet-soft:rgba(157,123,255,.18);--violet-ink:#C4B5FF;--shadow:none;--a3-red:#FF6B6F;--a3-green:#30D158;--a3-yellow:#FFD60A}}
+:root[data-theme="dark"]{--bg:#000000;--surface:#1C1C1E;--surface-2:#2C2C2E;--ink:#FFFFFF;--ink-2:#E5E5EA;--ink-3:#98989F;--line:#2C2C2E;--line-2:#38383A;--btn-bg:#2C2C2E;--btn-hover:#3A3A3C;--violet:#9D7BFF;--violet-deep:#C4B5FF;--violet-soft:rgba(157,123,255,.18);--violet-ink:#C4B5FF;--shadow:none;--a3-red:#FF6B6F;--a3-green:#30D158;--a3-yellow:#FFD60A}
+body{font-family:var(--font-body)!important;letter-spacing:-.005em}
+h1,h2,h3,.section-head h2,.brand,.deckh1,.bbig,.gtitle h1,.tg-head b,.tsec-h b,.recap h3,.results h2{font-family:var(--font-display)!important;letter-spacing:-.02em!important}
+h1{font-weight:800!important}h2,.section-head h2{font-weight:700!important;font-size:1.35rem}
+.kicker,.btl,.sth,.hubsec,.coach-k,.lp span,.excount small,.wkd,.lmtag,.warmtag,.pall,.hk-walk span,.abogrid th,.crittable th,.uabox b,.gstats span,.tsec-h small,.a3cap{font-family:var(--font-body)!important;letter-spacing:.02em!important}
+.herocode{display:none}
+/* cells: borderless white on grouped gray */
+.bt,.panel,.qcard,.tsec,.tg-card,.targets,.extile,.hookcard,.hubcard,.lmintro,.recap,.exres,.bootcard,.lplayer,.listrow,.card-row,.deckcard,.mapcard,.jtoday,.jcard,.fsec,.gitem,.toolcard,.lvl,.course,.unit,.ucard{border:0!important;border-radius:14px!important;background:var(--surface)!important;box-shadow:var(--shadow)!important}
+/* buttons: tinted rounded rects; primary is solid purple; small ones are capsules */
+.btn{border-radius:10px!important;background:var(--btn-bg)!important;border:0!important;box-shadow:none!important;color:var(--violet-ink);font-weight:600}
+.btn:hover:not([disabled]){background:var(--btn-hover)!important}
+.btn.primary{background:var(--violet)!important;color:#fff!important}
+.btn.primary:hover:not([disabled]){filter:brightness(1.06)}
+.btn.ghost{background:transparent!important;color:var(--ink-2)}
+.btn.ghost:hover:not([disabled]){background:var(--btn-bg)!important}
+.btn.sm{border-radius:999px!important}
+.btn.danger{color:var(--a3-red)!important}
+.btn.bwhite{background:#fff!important;color:#5B35C8!important;border-radius:999px!important}
+.btn.bghost{background:rgba(255,255,255,.2)!important;color:#fff!important;border-radius:999px!important}
+.chipbtn,.pill,.chip{border-radius:999px!important}
+.input,select.input,textarea.input{border-radius:10px!important;border:0!important;background:var(--surface)!important;box-shadow:inset 0 0 0 1px var(--line-2)}
+.opt{border-radius:12px!important;border:0!important;background:var(--surface)!important;box-shadow:var(--shadow)!important}
+.opt .k{border:0!important;background:var(--surface-2)!important;border-radius:7px!important}
+.opt.right{background:color-mix(in srgb,#34C759 14%,var(--surface))!important;box-shadow:inset 0 0 0 1.5px #34C759!important}
+.opt.wrong{background:color-mix(in srgb,#E5484D 12%,var(--surface))!important;box-shadow:inset 0 0 0 1.5px #E5484D!important}
+.seg{border-radius:9px!important;background:var(--btn-bg)!important;border:0!important;padding:2px!important}
+.seg button{border-radius:7px!important;border:0!important}
+.seg button.on{background:var(--surface)!important;box-shadow:0 1px 3px rgba(0,0,0,.12)!important;color:var(--ink)!important}
+.feedback{border-radius:14px!important;border:0!important;box-shadow:var(--shadow)}
+.feedback.ok{box-shadow:inset 0 3px 0 #34C759,var(--shadow)!important}.feedback.no{box-shadow:inset 0 3px 0 #E5484D,var(--shadow)!important}
+.modal{border-radius:18px!important;border:0!important}
+/* desktop sidebar (from LabDeck 2) */
+.side{background:color-mix(in srgb,var(--bg) 70%,#E3E3E8)!important;border-right:.5px solid var(--line-2)!important}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .side{background:#121214!important}}
+:root[data-theme="dark"] .side{background:#121214!important}
+.nav a,.nav button{border-radius:8px!important}
+.nav a.on,.nav button.on{background:var(--surface)!important;box-shadow:0 1px 2px rgba(0,0,0,.08)!important;color:var(--ink)!important;font-weight:600}
+.sidetools .sth{font-size:.72rem!important;font-weight:700!important;text-transform:none!important}
+/* mobile tab bar: frosted */
+.tabbar,.mobnav,nav.tabs{background:color-mix(in srgb,var(--bg) 82%,transparent)!important;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:.5px solid var(--line-2)!important}
+/* ---------- home dashboard ---------- */
+.a3dash{display:grid;gap:12px;margin:6px 0 4px}
+.a3card{background:var(--surface);border-radius:16px;padding:16px;box-shadow:var(--shadow)}
+.a3rings{display:flex;align-items:center;gap:18px}
+.a3ringlab{display:flex;flex-direction:column;gap:6px}.a3ringlab div{display:flex;flex-direction:column}
+.a3ringlab span{font-size:.82rem;font-weight:600}.a3ringlab b{font-size:1.25rem;font-weight:700}.a3ringlab small{font-size:.85rem;opacity:.8}
+.a3up{border-radius:16px;background:linear-gradient(160deg,#8F6BF0,#6A3FD8);color:#fff;padding:16px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 8px 20px rgba(106,63,216,.28)}
+.a3up-t{display:flex;flex-direction:column;gap:2px}.a3up-t span{font-size:.78rem;font-weight:600;opacity:.85}.a3up-t b{font-size:1.75rem;font-weight:800;letter-spacing:-.01em}.a3up-t small{font-size:.88rem;opacity:.9}
+.a3up-b{display:flex;flex-direction:column;gap:8px;align-items:stretch}
+.a3week{background:var(--surface);border-radius:14px;padding:10px;box-shadow:var(--shadow)}
+.a3cap{display:block;font-size:.72rem;font-weight:600;color:var(--ink-3);padding:2px 6px 8px}
+.a3days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.a3day{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0;border-radius:10px;position:relative}
+.a3day span{font-size:.7rem;font-weight:600;color:var(--ink-3)}.a3day b{font-size:.95rem;font-weight:700;min-height:1.2em}
+.a3day i{position:absolute;bottom:3px;left:20%;height:3px;border-radius:2px;background:#C9B9F5;max-width:60%}
+.a3day.met b{color:var(--violet-ink)}.a3day.met i{background:var(--violet)}
+.a3day.today{background:var(--violet-soft);box-shadow:inset 0 0 0 1.5px var(--violet)}
+.a3day.fut b{color:var(--line-2)}
+.a3stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.a3stat{background:var(--surface);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:2px;text-align:left;border:0;font:inherit;color:var(--ink);box-shadow:var(--shadow);cursor:default}
+button.a3stat{cursor:pointer}
+.a3stat span{font-size:.7rem;font-weight:600;color:var(--ink-3)}.a3stat b{font-size:1.4rem;font-weight:800}.a3stat b small{font-size:.85rem;color:var(--ink-3);font-weight:600}.a3stat>small{font-size:.75rem;color:var(--ink-3)}
+.a3bar{display:block;height:4px;border-radius:2px;background:var(--line);overflow:hidden;margin-top:5px}.a3bar>i{display:block;height:100%;background:var(--violet);border-radius:2px}
+@media (min-width:900px){.a3dash{grid-template-columns:1.25fr 1fr;align-items:stretch}.a3week{grid-column:1/-1}.a3stats{grid-column:1/-1;grid-template-columns:repeat(4,minmax(0,1fr))}.a3up{flex-direction:column;align-items:flex-start;justify-content:space-between}.a3up-b{flex-direction:row}}
+.a3start{display:inline-flex;align-items:baseline;gap:4px;margin:6px 0 2px;padding:6px 12px;border-radius:999px;background:var(--surface);box-shadow:var(--shadow);font-size:.88rem;color:var(--ink-2)}.a3start b{color:var(--violet-ink);font-size:1rem}
+/* exam countdown colors: calm when far, urgent when close */
+.extile .excount{border-radius:12px!important;transition:background .2s}
+.extile.t-far .excount b{color:var(--ink-3)!important}
+.extile.t-14 .excount b{color:#2F7FC0!important}
+.extile.t-7 .excount b{color:var(--violet-ink)!important}
+.extile.t-week .excount b{color:var(--a3-yellow)!important}.extile.t-week .excount{background:color-mix(in srgb,#F5B800 14%,transparent)!important}
+.extile.t-3 .excount b{color:#D9670B!important}.extile.t-3 .excount{background:color-mix(in srgb,#F28C28 16%,transparent)!important}
+.extile.t-2 .excount b{color:var(--a3-red)!important}.extile.t-2 .excount{background:color-mix(in srgb,#E5484D 14%,transparent)!important}
+.extile.t-1 .excount{background:color-mix(in srgb,#E5484D 22%,transparent)!important}.extile.t-1 .excount b{color:var(--a3-red)!important}
+.extile.t-today .excount{background:#E5484D!important}.extile.t-today .excount b,.extile.t-today .excount small{color:#fff!important}
+/* ---------- decks on home ---------- */
+.a3decks{display:flex;flex-direction:column;gap:18px}
+.a3dhead{display:flex;align-items:center;gap:8px;padding:0 4px 6px;flex-wrap:wrap}.a3dhead b{font-size:1rem;font-weight:700}.a3dcount{margin-left:auto;font-size:.8rem;color:var(--ink-3)}
+.a3dlist{background:var(--surface);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+.a3deck{display:flex;align-items:center;gap:12px;padding:11px 14px;text-decoration:none;color:var(--ink)}
+.a3deck+.a3deck{border-top:.5px solid var(--line-2)}
+.a3deck:hover{background:color-mix(in srgb,var(--surface-2) 60%,var(--surface))}
+.a3deck-ic{width:30px;display:flex;justify-content:center;flex:none}
+.a3deck-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}.a3deck-main b{font-size:1rem;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.a3deck-main small{font-size:.8rem;color:var(--ink-3)}.a3deck-main em{font-style:normal;color:var(--violet-ink);font-weight:600}
+.a3deck-main .a3bar{max-width:220px}
+.a3study{flex:none}
+.a3hidden{margin-top:2px}.a3hidden summary{cursor:pointer;color:var(--ink-3);font-size:.9rem;padding:6px 4px}.a3hidden .a3dlist{margin-top:8px;opacity:.85}
+.hiddenbar{margin:6px 0 12px;padding:10px 14px;border-radius:12px;background:var(--surface);box-shadow:var(--shadow);color:var(--ink-3);font-size:.88rem}
+.codegone,.chip:empty,.lchip small:empty{display:none!important}
+/* ---------- deck card rows ---------- */
+.card-row.cr2{display:grid!important;grid-template-columns:1fr auto;grid-template-areas:"body pic" "acts acts";gap:6px 14px;padding:14px 16px!important;align-items:start}
+.cr2 .cr-body{grid-area:body;min-width:0;display:flex;flex-direction:column;gap:5px}
+.cr2 .cr-pic{grid-area:pic;width:64px;height:64px;object-fit:cover;border-radius:10px}
+.cr2 .acts{grid-area:acts;display:flex;justify-content:flex-end;gap:2px;margin-top:-4px}
+.cr-top{display:flex;align-items:center;gap:8px}
+.cr-kind{font-size:.7rem;font-weight:600;color:var(--ink-3);text-transform:uppercase;letter-spacing:.03em}
+.cr-front{font-weight:600;font-size:1rem;line-height:1.35}.cr-back{color:var(--ink-2);font-size:.93rem;line-height:1.45}
+.cr-cloze{font-weight:500}.cr-blank{background:var(--violet-soft);color:var(--violet-ink);border-radius:5px;padding:0 4px;font-weight:600}
+.cr-facts{display:grid;grid-template-columns:auto 1fr;gap:3px 12px;margin:2px 0 0;font-size:.88rem}.cr-facts dt{color:var(--ink-3)}.cr-facts dd{margin:0;color:var(--ink-2)}
+.cr-more{font-size:.78rem;color:var(--ink-3)}
+.cr-note{font-size:.84rem;color:var(--ink-3);line-height:1.4;border-left:2px solid var(--line-2);padding-left:8px}.cr-note b{color:var(--ink-2);font-weight:600;margin-right:4px}
+/* ---------- study card ---------- */
+.face{border:0!important;border-radius:20px!important;box-shadow:0 1px 3px rgba(0,0,0,.06),0 12px 32px rgba(0,0,0,.08)!important}
+.face .frost{display:none!important}
+.face.back .content>.kicker{font-family:var(--font-display)!important;font-weight:800;background:none!important;padding-bottom:4px!important;letter-spacing:-.02em!important}
+.face .note,.face .why,.face .notebox{border:0!important;border-radius:12px!important;background:var(--surface-2)!important}
+.grades button{border:0!important;border-radius:999px!important;box-shadow:none!important}
+.grades .g1{background:color-mix(in srgb,#E5484D 13%,var(--surface))!important}.grades .g2{background:color-mix(in srgb,#F5B800 18%,var(--surface))!important}.grades .g3{background:color-mix(in srgb,#34C759 14%,var(--surface))!important}.grades .g4{background:var(--violet)!important}
+.grades .g1 b{color:var(--a3-red)!important}.grades .g2 b{color:var(--a3-yellow)!important}.grades .g3 b{color:var(--a3-green)!important}.grades .g4 b,.grades .g4 small,.grades .g4 span{color:#fff!important}
+#gAdd{color:var(--violet-ink)}.study.gamemode2 #gAdd{display:none}
+/* ---------- games: bench mat + cap-color header ---------- */
+.study.gamemode2{background-color:var(--bg)!important;background-image:radial-gradient(circle,var(--line-2) 1.1px,transparent 1.4px)!important;background-size:18px 18px!important}
+.study.gamemode2 .study-top{margin:10px 12px 0!important;border:0!important;border-radius:18px!important;background:linear-gradient(150deg,color-mix(in srgb,var(--gcap) 70%,#0B3A66),var(--gcap))!important;color:#fff!important;box-shadow:0 10px 26px color-mix(in srgb,var(--gcap) 35%,transparent)!important}
+.study.gamemode2 .study-top .t{color:#fff!important;font-weight:800}
+.study.gamemode2 .study-top .btn{background:rgba(255,255,255,.22)!important;color:#fff!important;border-radius:999px!important}
+.study.gamemode2 .study-top .ptschip{background:#fff!important;color:color-mix(in srgb,var(--gcap) 55%,#0B3A66)!important;border:0!important;font-weight:700}
+.study.gamemode2 .study-top .lives{color:#fff!important}
+.study.gamemode2 .study-top .small,.study.gamemode2 .study-top .muted,.study.gamemode2 .study-top span{color:#fff}
+.study.gamemode2 .prog i{background:var(--violet)!important}
+.ghero{background:linear-gradient(150deg,color-mix(in srgb,var(--gcap,#7B4FE0) 70%,#1E2A44),var(--gcap,#7B4FE0))!important;box-shadow:0 10px 26px color-mix(in srgb,var(--gcap,#7B4FE0) 30%,transparent)!important;border-radius:20px!important}
+.lvl.on{box-shadow:inset 0 0 0 2px var(--violet)!important}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .study.gamemode2{background-image:radial-gradient(ellipse 120% 35% at 50% 0%,color-mix(in srgb,var(--gcap) 16%,transparent),transparent 70%),radial-gradient(circle,#26262A 1.1px,transparent 1.4px)!important;background-size:100% 100%,18px 18px!important}}
+:root[data-theme="dark"] .study.gamemode2{background-image:radial-gradient(ellipse 120% 35% at 50% 0%,color-mix(in srgb,var(--gcap) 16%,transparent),transparent 70%),radial-gradient(circle,#26262A 1.1px,transparent 1.4px)!important;background-size:100% 100%,18px 18px!important}
+.jsnap{border-radius:12px;overflow:hidden}.jsnap svg{max-width:100%;height:auto}
+/* ---------- unlock celebration ---------- */
+.unl{position:relative;text-align:center;padding:8px 4px 0}
+.unl-k{font-size:.72rem;font-weight:700;color:var(--violet-ink);letter-spacing:.06em}
+.unl h2{margin:4px 0 14px;font-size:1.5rem}
+.unl-list{display:flex;flex-direction:column;gap:8px;text-align:left}
+.unl-row{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;background:var(--surface-2);animation:unlIn .45s cubic-bezier(.2,.8,.2,1) both}
+.unl-ic{width:40px;height:40px;border-radius:10px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex:none}
+.unl-txt{flex:1;display:flex;flex-direction:column}.unl-txt b{font-size:1rem}.unl-txt small{color:var(--ink-3);font-size:.82rem}
+.unl-burst{position:absolute;left:50%;top:18px;width:0;height:0;pointer-events:none}
+.unl-burst i{position:absolute;width:7px;height:7px;border-radius:2px;background:#7B4FE0;animation:unlB .9s ease-out both}
+.unl-burst i:nth-child(3n){background:#F5B800}.unl-burst i:nth-child(3n+1){background:#E5484D}
+.unl-burst i:nth-child(1){--x:-90px;--y:-30px}.unl-burst i:nth-child(2){--x:80px;--y:-40px}.unl-burst i:nth-child(3){--x:-60px;--y:30px}.unl-burst i:nth-child(4){--x:70px;--y:24px}.unl-burst i:nth-child(5){--x:-110px;--y:0}.unl-burst i:nth-child(6){--x:110px;--y:-8px}.unl-burst i:nth-child(7){--x:-30px;--y:-50px}.unl-burst i:nth-child(8){--x:36px;--y:-56px}.unl-burst i:nth-child(9){--x:-130px;--y:-36px}.unl-burst i:nth-child(10){--x:126px;--y:30px}.unl-burst i:nth-child(11){--x:-10px;--y:40px}.unl-burst i:nth-child(12){--x:20px;--y:44px}
+@keyframes unlIn{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes unlB{0%{opacity:1;transform:translate(0,0) scale(.6)}100%{opacity:0;transform:translate(var(--x),var(--y)) rotate(160deg) scale(1)}}
+@media (prefers-reduced-motion:reduce){.unl-row,.unl-burst i{animation:none!important}.unl-burst{display:none}}
+/* audit: deeper game header so white text holds contrast on light cap colors */
+.study.gamemode2 .study-top{background:linear-gradient(150deg,color-mix(in srgb,var(--gcap) 52%,#0B2440),color-mix(in srgb,var(--gcap) 72%,#0B2440))!important}
+.ghero{background:linear-gradient(150deg,color-mix(in srgb,var(--gcap,#7B4FE0) 52%,#141B33),color-mix(in srgb,var(--gcap,#7B4FE0) 75%,#141B33))!important}
+@media (max-width:600px){#gAdd{display:none}}
+.jvis{display:block!important;margin:8px 0 4px}
+.jvis svg.lj,.jsnap svg.lj{width:100%!important;max-width:560px;height:auto;display:block}
+.jvis .legend,.jsnap .legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.8rem;margin-top:6px;color:var(--ink-3)}
+.jvis .legend i,.jsnap .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -1803,7 +1956,7 @@ const pick = (a, n) => shuffle(a).slice(0, n);
 const DAY = 86400000;
 const dayKey = (t = Date.now()) => { const d = new Date(t); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); };
 const endOfToday = () => { const d = new Date(); d.setHours(23, 59, 59, 999); return d.getTime(); };
-const norm = s => String(s ?? "").toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9+\-\s]/g, " ").replace(/\s+/g, " ").trim();
+const norm = s => String(s ?? "").replace(/[\u2010-\u2015\u2212\uFE58\uFE63\uFF0D]/g, "-").replace(/[×✕]/g, "x").replace(/[µμ]/g, "u").replace(/[‘’]/g, "'").toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9+\-\s]/g, " ").replace(/\s+/g, " ").trim();
 const splitItems = v => String(v ?? "").split(/\n|;/).map(x => x.trim()).filter(Boolean);
 function lev(a, b) { const m = a.length, n = b.length; if (!m) return n; if (!n) return m; let p = Array.from({ length: n + 1 }, (_, i) => i); for (let i = 1; i <= m; i++) { const c = [i]; for (let j = 1; j <= n; j++) c[j] = Math.min(p[j] + 1, c[j - 1] + 1, p[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)); p = c; } return p[n]; }
 function similar(given, answer) {
@@ -1878,7 +2031,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "24.0";
+const APP_VERSION = "25.0";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -2136,11 +2289,12 @@ function clozeRender(text, hideIdx, mode) {
   return esc(text).replace(/\{\{(.+?)\}\}/g, (_, inner) => { n++; const [ans, hint] = inner.split("::"); if (n === hideIdx) return mode === "q" ? `<span class="blank">${hint ? hint : "…"}</span>` : `<span class="blank on">${ans}</span>`; return ans; });
 }
 const clozePlain = (text, hideIdx) => { let n = -1; return text.replace(/\{\{(.+?)\}\}/g, (_, inner) => { n++; const [ans, hint] = inner.split("::"); return n === hideIdx ? "[" + (hint || "…") + "]" : ans; }); };
+function cardFields(deck, c) { const own = Object.keys((c && c.values) || {}).filter(k => !deck.fields.includes(k)); return [...deck.fields, ...own]; }
 function factsOf(deck) {
   const out = [];
   for (const c of deck.cards) {
     if (c.type === "profile") {
-      for (const f of deck.fields) {
+      for (const f of cardFields(deck, c)) {
         const v = (c.values || {})[f];
         if (v && String(v).trim()) out.push({ key: c.id + "::" + f, deck, card: c, kind: "field", field: f, q: c.name, a: String(v).trim() });
       }
@@ -2162,8 +2316,8 @@ function nextState(st, g) {
   s.c++;
   if (s.r === 0) s.i = g === 2 ? 1 : g === 3 ? 1 : 4;
   else if (g === 2) { s.i = Math.max(1, s.i * 1.2); s.e = Math.max(1.3, s.e - 0.15); }
-  else if (g === 3) s.i = Math.max(s.i + 1, s.i * s.e);
-  else { s.i = Math.max(s.i + 2, s.i * s.e * 1.3); s.e += 0.15; }
+  else if (g === 3) { const late = st && st.d ? Math.max(0, (now - st.d) / DAY) : 0; s.i = Math.max(s.i + 1, (s.i + late / 2) * s.e); }
+  else { const late = st && st.d ? Math.max(0, (now - st.d) / DAY) : 0; s.i = Math.max(s.i + 2, (s.i + late) * s.e * 1.3); s.e += 0.15; }
   if (s.r === 0 && g === 2) s.e = Math.max(1.3, s.e - 0.15);
   s.r++;
   const fuzz = s.i > 3 ? 1 + (Math.random() * 0.1 - 0.05) : 1;
@@ -2257,7 +2411,7 @@ function render() {
   applyTheme();
   if (S.ready) { try { migrateLabels(); syncUnitColors(); } catch { } }
   const r = route();
-  const decks = Object.values(S.decks).sort((a, b) => (b.updated || 0) - (a.updated || 0));
+  const decks = Object.values(S.decks).filter(d => !d.hidden).sort((a, b) => (b.updated || 0) - (a.updated || 0));
   const nav = (h, ic, label, on) => `<a href="#${h}" class="${on ? "on" : ""}">${icon(ic)}<span>${label}</span></a>`;
   $("#app").innerHTML = `
   <div class="shell">
@@ -2474,11 +2628,11 @@ function renderDeck(d) {
       <button class="btn" id="imp">${icon("upload")}Import</button>
       <button class="btn primary" id="addCard">${icon("plus")}Add card</button>
     </div>
-    <div class="pickchips" style="margin:-4px 0 10px">${[["new", "New"], ["due", "Due"], ["learning", "Learning"], ["mastered", "Mastered"]].map(([k, l]) => `<button class="chipbtn sm ${deckFilter.status === k ? "on" : ""}" data-sf="${k}">${l} ${Object.values(stMap).filter(v => v.k === k).length}</button>`).join("")}</div>
+    <div class="pickchips" style="margin:-4px 0 10px"><button class="chipbtn sm ${!deckFilter.status ? "on" : ""}" data-sf="">All ${d.cards.length}</button>${[["new", "New"], ["due", "Due"], ["learning", "Learning"], ["mastered", "Mastered"]].map(([k, l]) => `<button class="chipbtn sm ${deckFilter.status === k ? "on" : ""}" data-sf="${k}">${l} ${Object.values(stMap).filter(v => v.k === k).length}</button>`).join("")}</div>
     <div class="cards" id="cardlist">${list.length ? list.map(x => cardRow(d, x, stMap[x.id])).join("") : `<div class="empty"><p>${d.cards.length ? "No cards match." : "This deck is empty. Add a card, or import a list you already have."}</p></div>`}</div>
   `;
   $$("[data-mode]").forEach(b => b.onclick = () => startMode(b.dataset.mode, d));
-  $$("[data-sf]").forEach(b => b.onclick = () => { deckFilter.status = deckFilter.status === b.dataset.sf ? "" : b.dataset.sf; renderDeck(d); });
+  $$("[data-sf]").forEach(b => b.onclick = () => { deckFilter.status = b.dataset.sf; renderDeck(d); });
   $("#editDeck").onclick = () => editDeckModal(d);
   $("#shareDeck").onclick = () => shareModal(d);
   $("#deckLesson") && ($("#deckLesson").onclick = () => startLesson(lessonsForPack(d.pack)[0]));
@@ -2622,9 +2776,9 @@ function editDeckModal(deck) {
   });
 }
 
-function editCardModal(d, card, after) {
+function editCardModal(d, card, after, prefType) {
   const isNew = !card;
-  let type = card ? card.type : (d.fields.length ? "profile" : "basic");
+  let type = card ? card.type : (prefType || (d.fields.length ? "profile" : "basic"));
   const c = card ? JSON.parse(JSON.stringify(card)) : { id: uid(), type, front: "", back: "", name: "", values: {}, text: "", note: "", star: false, img: "", imgSide: "front" };
   c.imgSide = c.imgSide || "front";
   const html = () => `${mhead(isNew ? "Add card" : "Edit card")}
@@ -2636,9 +2790,10 @@ function editCardModal(d, card, after) {
       <div class="field"><label for="cz">Sentence</label><textarea class="input" id="cz" rows="4" placeholder="{{EDTA}} prevents clotting by chelating {{calcium}}.">${esc(c.text)}</textarea>
       <span class="hint">Wrap each answer in double curly braces: {{answer}}. Each blank becomes its own fact. Add a hint with {{answer::hint}}.</span>
       <div class="row" style="margin-top:4px"><button type="button" class="btn sm" id="wrap">Make selected text a blank</button></div></div>`
-    : d.fields.length ? `
+    : true ? `
       <div class="field"><label for="cn">Name</label><input class="input" id="cn" value="${esc(c.name)}" placeholder="e.g. Escherichia coli"></div>
-      ${d.fields.map((f, i) => `<div class="field"><label for="v${i}">${esc(f)}</label><textarea class="input" id="v${i}" data-f="${esc(f)}" rows="1" style="min-height:46px">${esc((c.values || {})[f] || "")}</textarea></div>`).join("")}
+      ${cardFields(d, c).map((f, i) => `<div class="field"><label for="v${i}">${esc(f)}${d.fields.includes(f) ? "" : ` <span class="small muted">(this card only)</span>`}</label><textarea class="input" id="v${i}" data-f="${esc(f)}" rows="1" style="min-height:46px">${esc((c.values || {})[f] || "")}</textarea></div>`).join("")}
+      <div class="field addfield"><div class="row" style="gap:8px;flex-wrap:nowrap"><input class="input" id="nfName" placeholder="Add a field, e.g. Catalase" autocomplete="off"><button type="button" class="btn" id="nfAdd">Add field</button></div><span class="hint">${d.fields.length ? "Deck fields show on every profile. Fields you add here belong to this card only." : "Add whatever fields this card needs. To give every new profile the same fields, set them in deck settings (optional)."}</span></div>
       <p class="hint small muted" style="margin:-4px 0 14px">Separate multiple answers with a semicolon (e.g. CBC; HbA1c) so Select all can quiz each one. Leave a field blank if it doesn’t apply.</p>`
     : `<div class="empty"><p>This deck has no fields yet. Add fields in deck settings to make profile cards.</p><button type="button" class="btn" id="toSettings">Open deck settings</button></div>`}
     ${type !== "cloze" ? `<div class="field"><span class="lbl">Image (optional)</span>
@@ -2666,7 +2821,7 @@ function editCardModal(d, card, after) {
       if (c.img && type !== "cloze") { base.img = c.img; if (type === "basic") base.imgSide = c.imgSide; }
       const clean = type === "basic" ? { ...base, front: c.front.trim(), back: c.back.trim() }
         : type === "cloze" ? { ...base, text: c.text.trim() }
-          : { ...base, name: c.name.trim(), values: Object.fromEntries(Object.entries(c.values || {}).filter(([k, v]) => v && d.fields.includes(k))) };
+          : { ...base, name: c.name.trim(), values: Object.fromEntries(Object.entries(c.values || {}).filter(([k, v]) => k && v && String(v).trim())) };
       if (isNew) d.cards.push(clean); else { Object.keys(card).forEach(k => delete card[k]); Object.assign(card, clean); }
       saveDeck(d); return true;
     };
@@ -2680,7 +2835,7 @@ function editCardModal(d, card, after) {
       $("#wrap", s) && ($("#wrap", s).onclick = () => { const t = $("#cz", s); const a = t.selectionStart, b = t.selectionEnd; if (a === b) { toast("Select a word in the sentence first"); return; } t.value = t.value.slice(0, a) + "{{" + t.value.slice(a, b) + "}}" + t.value.slice(b); t.focus(); });
       $("#toSettings", s) && ($("#toSettings", s).onclick = () => { close(); editDeckModal(d); });
       $("#saveC", s).onclick = () => { if (commit()) { close(); after ? after() : renderDeck(d); if (!(after && isNew)) toast(isNew ? "Card added" : "Card saved"); } };
-      $("#saveMore", s) && ($("#saveMore", s).onclick = () => { if (commit()) { close(); after ? after() : renderDeck(d); editCardModal(d, null, after); if (!after) toast("Card added"); } });
+      $("#saveMore", s) && ($("#saveMore", s).onclick = () => { if (commit()) { close(); after ? after() : renderDeck(d); editCardModal(d, null, after, type); if (!after) toast("Card added"); } });
       $$("textarea[data-f]", s).forEach(t => { const fit = () => { t.style.height = "auto"; t.style.height = t.scrollHeight + 2 + "px"; }; t.oninput = fit; fit(); });
     };
     bind();
@@ -2902,7 +3057,7 @@ function renderSettings() {
     <div class="panel">
       <div class="row" style="justify-content:space-between;align-items:flex-start;gap:16px"><div style="flex:1;min-width:0"><h3>Spell out abbreviations</h3><p class="small muted" style="margin-top:4px">Off: abbreviations stay short; hover or tap any dotted-underlined one for its meaning. On: they’re also written out in full the first time they appear.</p></div>
       <label class="switch"><input type="checkbox" id="begT" ${S.meta.settings.beginner === true ? "checked" : ""}><span></span><b class="sr">Spell out abbreviations</b></label></div>
-      <div class="row" style="margin-top:10px"><button class="btn sm" id="gloS">${icon("book")}Open the glossary</button><button class="btn sm" id="gloA">${icon("plus")}Add an abbreviation</button></div>
+      <div class="row" style="margin-top:10px"><button class="btn sm" id="gloS">${icon("book")}Open the glossary</button><button class="btn sm" id="gloA">${icon("plus")}Add a term</button></div>
     </div>
     <div class="panel">
       <div class="row" style="justify-content:space-between;margin-bottom:10px"><h3>Labels</h3><button class="btn sm" id="addLbl">${icon("plus")}New label</button></div>
@@ -3080,7 +3235,7 @@ function sizeFlip() {
 /* ---------- Learn: spaced repetition ---------- */
 function startLearn(deck, opts = {}) {
   const exam = opts.exam ? S.meta.exams.find(e => e.id === opts.exam) : null;
-  const decks = opts.decks ? opts.decks.map(id => S.decks[id]).filter(Boolean) : exam ? (exam.decks || []).map(id => S.decks[id]).filter(Boolean) : deck ? [deck] : Object.values(S.decks);
+  const decks = opts.decks ? opts.decks.map(id => S.decks[id]).filter(Boolean) : exam ? (exam.decks || []).map(id => S.decks[id]).filter(Boolean) : deck ? [deck] : Object.values(S.decks).filter(x => !x.hidden);
   const all = decks.flatMap(factsOf).filter(f => !isSus(f));
   let queue;
   const cutoff = endOfToday();
@@ -5035,7 +5190,7 @@ function prepHomeHtml() {
       </div>
     </section>
 <!--PATH-->
-    <div class="section-head"><h2>Your path</h2><span class="small muted">${LESSONS.length} lessons in ${UNITS.length} units</span></div>
+    <div class="section-head"><h2>Modules</h2><span class="small muted">${LESSONS.length} lessons in ${UNITS.length} units</span></div>
     <div class="path">${UNITS.map(u => {
       const ls = states.filter(s => s.l.unit === u.id); const done = ls.filter(s => s.passed).length; const allRead = ls.every(s => s.r.read);
       const ub = p.units[u.id];
@@ -5101,6 +5256,7 @@ function quizRunner(items, title, onDone) {
   show();
 }
 function startLesson(l, jumpToCheck) {
+  const __snap = typeof unlockSnapshot === "function" ? unlockSnapshot() : null;
   if (l.beats && !jumpToCheck) return startBootcamp(l);
   const unit = UNITS.find(u => u.id === l.unit);
   openStudy(l.title);
@@ -5149,6 +5305,7 @@ function startLesson(l, jumpToCheck) {
     r.best = Math.max(r.best || 0, score); r.last = Date.now();
     prep().lastDay = dayKey(); if (firstTime) dayStat("lessons");
     bumpHistory(false); saveMeta(true); setProg(1);
+    setTimeout(() => { try { celebrateUnlocks(l, __snap); } catch (e) { console.warn(e); } }, 900);
     const canUnlock = (l.unlock || []).length && !r.unlocked;
     const nCards = (l.unlock || []).reduce((n, u) => n + packCount(u.pack), 0);
     ST.stage.innerHTML = `<div class="results">${ring(score)}<h2>${score === 100 ? "Perfect: 100% on the first try" : "Lesson complete"}</h2><p class="muted" style="max-width:44ch">First-try score ${score}%. ${score < 100 ? "The ones you missed are in your mistake journal. Retake anytime and aim for 100%." : "Now make it stick."}</p></div>
@@ -5895,14 +6052,16 @@ const GLOSS = {
   // molecular
   "DNA": ["deoxyribonucleic acid", "The genetic instruction molecule."], "RNA": ["ribonucleic acid", "Molecule that carries copies of genetic instructions."], "cDNA": ["complementary DNA", "DNA copied from RNA."], "PCR": ["polymerase chain reaction", "Copies a target DNA sequence millions of times."], "RT-PCR": ["reverse transcription PCR", "PCR that starts by copying RNA into DNA."], "NAAT": ["nucleic acid amplification test", "Any test that copies DNA or RNA to detect it, like PCR."], "FISH": ["fluorescence in situ hybridization", "Glowing probes find genes on chromosomes."], "Ct": ["cycle threshold", "PCR cycle where signal appears; lower means more target."]
 };
-function buildGlossRe() { return new RegExp("(^|[^A-Za-z0-9])(" + Object.keys(GLOSS).sort((a, b) => b.length - a.length).map(k => k.replace(/[.*+?^${}()|[\]\\\/&]/g, "\\$&").replace(/&/g, "&amp;")).join("|") + ")(?![A-Za-z0-9])", "g"); }
+const isWordTerm = k => /[a-z]/.test(k) && /\s|^[A-Za-z][a-z]/.test(k) && !/^[A-Z0-9]+$/.test(k);
+let GLOSS_LC = {};
+function buildGlossRe() { GLOSS_LC = {}; Object.keys(GLOSS).forEach(k => { if (isWordTerm(k)) GLOSS_LC[k.toLowerCase()] = k; }); return new RegExp("(^|[^A-Za-z0-9])(" + Object.keys(GLOSS).sort((a, b) => b.length - a.length).map(k => { let e = k.replace(/[.*+?^${}()|[\]\\\/&]/g, "\\$&").replace(/&/g, "&amp;"); if (isWordTerm(k)) e = e.replace(/[A-Za-z]/g, ch => `[${ch.toLowerCase()}${ch.toUpperCase()}]`).replace(/ /g, "\\s+"); return e; }).join("|") + ")(?![A-Za-z0-9])", "g"); }
 let GLOSS_RE = buildGlossRe();
 /* takes already-escaped HTML text and marks abbreviations */
 function gloss(html, seen, force) {
   if (!html) return html;
   const expand = force || S.meta.settings.beginner === true; seen = seen || new Set();
   return String(html).replace(GLOSS_RE, (whole, pre, k, off, str) => {
-    const m = k; const key = k.replace(/&amp;/g, "&"); const g = GLOSS[key]; if (!g) return whole;
+    const m = k; const key0 = k.replace(/&amp;/g, "&"); const key = GLOSS[key0] ? key0 : (GLOSS_LC[key0.toLowerCase().replace(/\s+/g, " ")] || key0); const g = GLOSS[key]; if (!g) return whole;
     const end = off + whole.length; const after = str.slice(end, end + 3);
     if (/;$/.test(pre) && /&[a-z#0-9]*$/.test(str.slice(Math.max(0, off - 8), off + 1))) return whole;
     let x = "";
@@ -7788,7 +7947,7 @@ startJournal = function () {
       const x = items[i]; setProg(i / items.length); ST.right.innerHTML = `<span class="small muted">${i + 1} of ${items.length}</span>`;
       if (jKind(x) === "choice") {
         const pool = jOpts(x); const opts = shuffle(pool.slice(0, 6).includes(x.right) ? pool.slice(0, 6) : [x.right, ...pool.filter(o => o !== x.right).slice(0, 3)]); const vis = jVisual(x);
-        ST.stage.innerHTML = `<div class="qcard"><div class="kicker">${esc(x.src)}</div>${x.img && imgSrc(x.img) ? `<img class="cardimg" src="${imgSrc(x.img)}" alt="" style="max-height:260px;margin:6px 0">` : ""}${vis ? `<div class="jvis">${vis}</div>` : ""}<div class="qtext" style="font-size:1.15rem">${x.img || vis ? "What is this?" : escG(x.q)}</div></div><div class="opts" id="opts">${opts.map((o, k) => `<button class="opt" data-k="${k}"><span class="k">${k + 1}</span><span>${escG(o)}</span></button>`).join("")}</div><div id="fb"></div>`;
+        ST.stage.innerHTML = `<div class="qcard"><div class="kicker">${esc(x.src)}</div>${x.img && imgSrc(x.img) ? `<img class="cardimg" src="${imgSrc(x.img)}" alt="" style="max-height:260px;margin:6px 0">` : ""}${vis ? `<div class="jvis">${vis}</div>` : ""}<div class="qtext" style="font-size:1.15rem">${(x.img || ["smear", "sediment"].includes(x.game)) && vis !== undefined && !x.html ? "What is this?" : escG(x.q)}</div></div><div class="opts" id="opts">${opts.map((o, k) => `<button class="opt" data-k="${k}"><span class="k">${k + 1}</span><span>${escG(o)}</span></button>`).join("")}</div><div id="fb"></div>`;
         let answered = false;
         $$("#opts .opt").forEach(b => b.onclick = () => { if (answered) return; answered = true; const ok = opts[+b.dataset.k] === x.right; mark(x, ok);
           $("#opts").classList.add("locked"); $$("#opts .opt").forEach((y, k) => { if (opts[k] === x.right) y.classList.add("right"); else if (y === b) y.classList.add("wrong"); });
@@ -7833,7 +7992,7 @@ function mcRounds(items, label, onEnd, need) {
     const opts = it.keep ? it.opts : shuffle(it.opts);
     ST.stage.innerHTML = `<div class="qcard">${it.kicker ? `<div class="kicker">${esc(it.kicker)}</div>` : ""}${it.html || ""}${it.q ? `<div class="qtext" style="font-size:1.15rem;margin-top:8px">${escG(it.q)}</div>` : ""}</div><div class="opts ${opts.length <= 4 && opts.every(o => o.length < 34) ? "two" : ""}" id="opts">${opts.map((o, k) => `<button class="opt" data-k="${k}"><span class="k">${k + 1}</span><span>${escG(o)}</span></button>`).join("")}</div><div id="fb"></div>`;
     let done = false; sc.start();
-    $$("#opts .opt").forEach(b => b.onclick = () => { if (done) return; done = true; const pickd = opts[+b.dataset.k]; const ok = pickd === it.a; const gained = sc.hit(ok); ST.right.innerHTML = `${sc.chip()}<span class="small muted">${i + 1}/${items.length}</span>`; if (ok) score++; else logMistake({ src: label, game: it.game, q: it.mq || it.q, yours: pickd, right: it.a, opts, why: it.why });
+    $$("#opts .opt").forEach(b => b.onclick = () => { if (done) return; done = true; const pickd = opts[+b.dataset.k]; const ok = pickd === it.a; const gained = sc.hit(ok); ST.right.innerHTML = `${sc.chip()}<span class="small muted">${i + 1}/${items.length}</span>`; if (ok) score++; else logMistake({ src: label, game: it.game, q: it.mq || it.q, yours: pickd, right: it.a, opts, why: it.why, html: it.html && it.html.length < 9000 ? it.html : undefined, vis: it.vis });
       $("#opts").classList.add("locked"); $$("#opts .opt").forEach((x, k) => { if (opts[k] === it.a) x.classList.add("right"); else if (x === b) x.classList.add("wrong"); });
       $("#fb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? `Correct · +${gained}` : "Answer: " + escG(it.a)}${it.why ? `<span class="det">${escG(it.why)}</span>` : ""}</div></div><div class="row" style="margin-top:10px"><div class="spacer"></div><button class="btn primary" id="nx">Next</button></div>`; $("#nx").onclick = () => { i++; next(); }; $("#nx").focus(); });
     ST.onKey = e => { if (!done && /^[1-9]$/.test(e.key)) $$("#opts .opt")[+e.key - 1]?.click(); else if (done && e.key === "Enter") $("#nx")?.click(); };
@@ -8149,17 +8308,17 @@ function applyUserGloss() {
 }
 function glossEditModal(key, after) {
   const cur = key ? glossUser()[key] || { full: (GLOSS[key] || [])[0] || "", desc: (GLOSS[key] || [])[1] || "" } : { full: "", desc: "" };
-  modal(`${mhead(key ? "Edit abbreviation" : "Add an abbreviation")}
-    <div class="field"><label for="gk">Abbreviation</label><input class="input" id="gk" value="${esc(key || "")}" placeholder="e.g. MCHC, HbA1c, BMP" ${key ? "readonly" : ""} autocapitalize="off" spellcheck="false"><span class="hint">Matched exactly as typed, including capitals. Letters, numbers and - / & : + are fine.</span></div>
-    <div class="field"><label for="gf">What it stands for</label><input class="input" id="gf" value="${esc(cur.full)}" placeholder="e.g. basic metabolic panel"></div>
+  modal(`${mhead(key ? "Edit glossary entry" : "Add to your glossary")}
+    <div class="field"><label for="gk">Word, phrase or abbreviation</label><input class="input" id="gk" value="${esc(key || "")}" placeholder="e.g. MCHC, left shift, hemolysis" ${key ? "readonly" : ""} autocapitalize="off" spellcheck="false"><span class="hint">Matched exactly as typed, including capitals. Letters, numbers and - / & : + are fine.</span></div>
+    <div class="field"><label for="gf">${key && /^[A-Z0-9]+$/.test(key) ? "What it stands for" : "Short meaning or what it stands for"}</label><input class="input" id="gf" value="${esc(cur.full)}" placeholder="e.g. more immature neutrophils in the blood"></div>
     <div class="field"><label for="gd">Plain-English meaning (optional)</label><textarea class="input" id="gd" rows="3" placeholder="What it is and why it matters">${esc(cur.desc || "")}</textarea></div>
     ${key && BUILTIN_GLOSS[key] ? `<p class="small muted">Your version replaces the built-in definition. Delete yours to restore it.</p>` : ""}
     <div class="modal-foot">${key && glossUser()[key] && !glossUser()[key].deleted ? `<button class="btn danger" id="gdel" style="margin-right:auto">${icon("trash")}Delete</button>` : ""}<button class="btn" data-close>Cancel</button><button class="btn primary" id="gsave">Save</button></div>`, (s, close) => {
     $("#gdel", s) && ($("#gdel", s).onclick = () => { glossUser()[key] = { deleted: true, t: Date.now() }; saveMeta(); applyUserGloss(); close(); toast(BUILTIN_GLOSS[key] ? "Built-in definition restored" : "Deleted"); after && after(); });
     $("#gsave", s).onclick = () => {
       const k = (key || $("#gk", s).value).trim(), full = $("#gf", s).value.trim(), desc = $("#gd", s).value.trim();
-      if (!/^[A-Za-z0-9][A-Za-z0-9\-\/&:+.]{0,24}$/.test(k)) { toast("Use letters and numbers (no spaces)"); return; }
-      if (!full) { toast("Add what it stands for"); return; }
+      if (!/^[A-Za-z0-9][A-Za-z0-9 \-\/&:+.’']{0,47}$/.test(k)) { toast("Keep it under 48 characters"); return; }
+      if (!full) { toast("Add a short meaning"); return; }
       glossUser()[k] = { full, desc, t: Date.now() }; saveMeta(); applyUserGloss(); stat("glossAdded"); close(); toast(`“${k}” added to your glossary`); after && after(k);
     };
   });
@@ -8175,9 +8334,9 @@ startGlossary = function (focus) {
     $$("[data-ge]").forEach(b => b.onclick = () => glossEditModal(b.dataset.ge, draw));
     $("#addq") && ($("#addq").onclick = () => { glossEditModal(null, k => { q = k || q; draw(); }); setTimeout(() => { const i = $("#gk"); if (i) i.value = q.trim(); }, 30); });
   };
-  ST.stage.innerHTML = `<p class="muted">Every abbreviation LabDeck uses, spelled out in plain words. Tap any dotted-underlined term anywhere for its meaning. Add your own from lectures and they’ll be underlined everywhere too.</p>
+  ST.stage.innerHTML = `<p class="muted">Every abbreviation LabDeck uses, spelled out in plain words, plus your own words and phrases. Tap any dotted-underlined term anywhere for its meaning. Add terms from lectures (or while studying, with the book button) and they’ll be underlined everywhere too.</p>
     <div class="row"><label class="search" style="flex:1;min-width:200px">${icon("search")}<input id="gq" placeholder="Search abbreviations or words" value="${esc(q)}" aria-label="Search glossary"></label>
-    <button class="btn ${mine ? "primary" : ""}" id="gmine">Yours (${Object.values(glossUser()).filter(v => v && !v.deleted).length})</button><button class="btn primary" id="gadd">${icon("plus")}Add abbreviation</button></div>
+    <button class="btn ${mine ? "primary" : ""}" id="gmine">Yours (${Object.values(glossUser()).filter(v => v && !v.deleted).length})</button><button class="btn primary" id="gadd">${icon("plus")}Add a term</button></div>
     <div id="glist" class="glist"></div>`;
   $("#gq").oninput = e => { q = e.target.value; focus = null; draw(); };
   $("#gadd").onclick = () => glossEditModal(null, k => { if (k) q = k; $("#gq").value = q; draw(); });
@@ -8242,12 +8401,13 @@ const _startMode = startMode;
 startMode = function (m, d) { if (m === "learn" || m === "flash") return startStudy(d); return _startMode(m, d); };
 function startStudy(d) {
   const pref = S.meta.settings.study = S.meta.settings.study || { src: "today", rev: false, order: "shuffle" };
+  pref.src = "all";
   const fs = factsOf(d).filter(f => !isSus(f));
   const hasBasic = fs.some(f => f.kind === "basic" && f.a);
   const counts = { today: fs.filter(f => isDue(stOf(f), endOfToday()) || (!stOf(f) && eligibleNew(f))).length, all: fs.filter(f => stOf(f) || eligibleNew(f)).length, star: fs.filter(f => f.card.star).length, still: fs.filter(f => { const s = stOf(f); return s && (isWeak(s) || (s.i || 0) < 3); }).length, fresh: fs.filter(f => !stOf(f) && eligibleNew(f)).length };
   openStudy("Study: " + d.name); setProg(0);
   const draw = () => {
-    ST.stage.innerHTML = `<div class="panel"><p class="lbl" style="margin-bottom:8px">What to study</p><div class="choice">${[["today", "Today’s cards", "Due reviews plus new cards, spaced for long-term memory. Grades set your schedule."], ["all", "All cards", "Every card in this deck. Grades are recorded but don’t push your schedule."], ["still", "Still learning", "Cards you’ve missed or that are early in learning."], ["star", "Starred", "Only cards you’ve starred."], ["fresh", "New only", "Cards you haven’t seen yet."]].map(([k, t, s]) => `<button class="choicebtn ${pref.src === k ? "on" : ""}" data-src="${k}" ${counts[k] ? "" : "disabled"}><b>${t} <span class="small muted">· ${counts[k]}</span></b><span class="small muted">${s}</span></button>`).join("")}</div></div>
+    ST.stage.innerHTML = `<div class="panel"><p class="lbl" style="margin-bottom:8px">What to study</p><div class="choice">${[["all", "All cards", "Every card in this deck. Grades are recorded but don’t push your schedule."], ["today", "Today’s cards", "Due reviews plus new cards, spaced for long-term memory. Grades set your schedule."], ["still", "Still learning", "Cards you’ve missed or that are early in learning."], ["star", "Starred", "Only cards you’ve starred."], ["fresh", "New only", "Cards you haven’t seen yet."]].filter(([k]) => counts[k]).map(([k, t, s]) => `<button class="choicebtn ${pref.src === k ? "on" : ""}" data-src="${k}" ${counts[k] ? "" : "disabled"}><b>${t} <span class="small muted">· ${counts[k]}</span></b><span class="small muted">${s}</span></button>`).join("")}</div></div>
       <div class="row" style="gap:20px;flex-wrap:wrap">
         ${hasBasic ? `<div><p class="lbl" style="margin-bottom:6px">Show first</p><div class="seg" id="rev"><button data-r="0" class="${pref.rev ? "" : "on"}">Term</button><button data-r="1" class="${pref.rev ? "on" : ""}">Definition</button></div></div>` : ""}
         <div><p class="lbl" style="margin-bottom:6px">Order</p><div class="seg" id="ord"><button data-o="shuffle" class="${pref.order === "shuffle" ? "on" : ""}">Shuffled</button><button data-o="order" class="${pref.order === "order" ? "on" : ""}">In order</button></div></div>
@@ -8605,7 +8765,7 @@ function moreBlanks(text, max) {
 /* ===================== Today's targets: a daily standard with an end ===================== */
 const DS = () => ((S.meta.daily || {})[dayKey()] || {});
 function planCandidates() {
-  const decks = Object.values(S.decks); let due = 0, nw = 0; decks.forEach(d => { const c = deckCounts(d); due += c.due; nw += c.nw; });
+  const decks = Object.values(S.decks).filter(x => !x.hidden); let due = 0, nw = 0; decks.forEach(d => { const c = deckCounts(d); due += c.due; nw += c.nw; });
   const newToday = Math.min(nw, newLeftToday()); const out = [];
   upcomingExams().forEach(ex => { const d = daysUntil(ex); if (d <= 2) out.push({ id: "cram:" + ex.id, pri: 1 }); else if (d <= 14) out.push({ id: "exam:" + ex.id, pri: 2 }); });
   const pm = pastExams().find(e => daysUntil(e) >= -5 && !pms()[e.id]); if (pm) out.push({ id: "pm:" + pm.id, pri: 2 });
@@ -8632,7 +8792,7 @@ function planView(it) {
   const [kind, ref] = it.id.split(/:(.+)/);
   const ex = ref && (S.meta.exams || []).find(e => e.id === ref);
   const lect = ref && ref.includes("|") ? lecturesSoon().concat([]).find(x => `${x.ci}|${x.ui}` === ref) : null;
-  let decks = Object.values(S.decks), due = 0; decks.forEach(d => due += deckCounts(d).due);
+  let decks = Object.values(S.decks).filter(x => !x.hidden), due = 0; decks.forEach(d => due += deckCounts(d).due);
   switch (kind) {
     case "review": return { ic: "brain", t: "Clear today’s reviews", s: due ? `${due} still due` : `${reviewed} reviewed`, done: due === 0 && reviewed > 0, prog: Math.min(1, reviewed / Math.max(1, it.n0 || 1)), btn: "Review", fn: () => startLearn(null) };
     case "goal": return { ic: "target", t: `Hit your daily goal of ${GOAL()}`, s: `${Math.min(reviewed, GOAL())} of ${GOAL()} answers`, done: reviewed >= GOAL(), prog: Math.min(1, reviewed / GOAL()), btn: due ? "Review" : "Practice", fn: () => due ? startLearn(null) : startMixed() };
@@ -10117,7 +10277,15 @@ function suggestSentence(items) {
 const phraseWords = p => String(p || "").replace(/[“”"(),.!?]/g, " ").split(/\s+/).filter(w => /[A-Za-z0-9]/.test(w));
 const itemCores = it => { const base = String(it).replace(/\s*\([^)]*\)/g, "").trim(); return [it, base, ...base.split(/\s*\/\s*/), ...(String(it).match(/\(([^)]*)\)/g) || []).map(x => x.slice(1, -1))].map(x => x.trim()).filter(Boolean); };
 const itemMatch = (v, it) => { const nv = norm(v); if (!nv) return false; return itemCores(it).some(c => similar(v, c) || norm(c) === nv || (nv.length >= 4 && norm(c).startsWith(nv))); };
-const alignsWithItems = h => { const w = phraseWords(h.phrase); return h.method === "sentence" && w.length === h.items.length && w.every((x, k) => x[0].toLowerCase() === letterOf(h.items[k])); };
+function hookCues(h) {
+  if (!h || h.method !== "sentence" || !h.items.length) return null;
+  const w = phraseWords(h.phrase);
+  if (w.length === h.items.length) return w;
+  const one = String(h.phrase || "").replace(/[^A-Za-z0-9]/g, "");
+  if (w.length === 1 && one.length === h.items.length && /^[A-Z0-9]+$/.test(one)) return one.split("");
+  return null;
+}
+const alignsWithItems = h => { const c = hookCues(h); return !!c && c.every((x, k) => x[0].toLowerCase() === letterOf(h.items[k])); };
 
 /* places for memory palaces */
 const BUILTIN_PLACES = { home: { name: "Your home", spots: PALACES.home }, lab: { name: "The hospital lab", spots: PALACES.lab }, drive: { name: "Your drive in", spots: PALACES.drive } };
@@ -10129,7 +10297,7 @@ const placeName = id => (places()[id] || {}).name || "Your place";
 const hooksAll = () => (S.meta.hooks || []).filter(h => !h.del).map(h => { if (h.method === "acrostic") h.method = "sentence"; return h; });
 const STARTER_DECK = { "lib-draw": "tubes", "lib-wbc": "wbc", "lib-gram": "gpc", "lib-factors": "coag", "lib-vitk": "coag", "lib-ptptt": "coag", "lib-intrinsic": "coag", "lib-race": "safety", "lib-pass": "safety", "lib-ceek": "gnr", "lib-gamed": "immuno", "lib-mudpiles": "abg" };
 function hooksDeck() { let d = Object.values(S.decks).find(x => x.hooksDeck); if (!d) { d = normalizeDeck({ id: uid(), name: "Memory hooks", color: "lavender", fields: [], cards: [], hooksDeck: true }); S.decks[d.id] = d; saveDeck(d); } return d; }
-function hookTargetDeck(h) { return (h.deckId && S.decks[h.deckId]) || hooksDeck(); }
+function hookTargetDeck(h) { return (h.deckId && S.decks[h.deckId] && !S.decks[h.deckId].hooksDeck) ? S.decks[h.deckId] : null; }
 function hookCardText(h) {
   const sp = spotsOf(h.palace);
   if (h.method === "rule") return { front: h.title, back: [h.phrase, h.meaning, ...h.items].filter(Boolean).join("\n"), note: `Hook: ${h.phrase || ""}` };
@@ -10137,12 +10305,14 @@ function hookCardText(h) {
 }
 function syncHookCard(h) {
   if (h.del) { for (const d of Object.values(S.decks)) { const n = d.cards.length; d.cards = d.cards.filter(c => !(c.hook === h.id || (h.cardId && c.id === h.cardId))); if (d.cards.length !== n) saveDeck(d); } return; }
-  const target = hookTargetDeck(h); const txt = hookCardText(h);
+  const target = hookTargetDeck(h);
+  if (!target) { for (const d of Object.values(S.decks)) { const n = d.cards.length; d.cards = d.cards.filter(c => !(c.hook === h.id || (h.cardId && c.id === h.cardId))); if (d.cards.length !== n) saveDeck(d); } h.cardId = null; return; }
+  const txt = hookCardText(h);
   let found = null, fromDeck = null;
   for (const d of Object.values(S.decks)) { const c = d.cards.find(c => c.hook === h.id || (h.cardId && c.id === h.cardId)); if (c) { found = c; fromDeck = d; break; } }
   if (found && fromDeck !== target) { fromDeck.cards.splice(fromDeck.cards.indexOf(found), 1); saveDeck(fromDeck); found = null; }
   if (!found) { found = { id: uid(), type: "basic", star: false }; target.cards.push(found); }
-  Object.assign(found, txt, { type: "basic", hook: h.id }); h.cardId = found.id; h.deckId = target.hooksDeck ? null : target.id; saveDeck(target);
+  Object.assign(found, txt, { type: "basic", hook: h.id }); h.cardId = found.id; h.deckId = target.id; if (target.pack) { prep().cards[found.id] = prep().cards[found.id] || Date.now(); } saveDeck(target);
 }
 function saveHook(h) { h.t = Date.now(); const L = S.meta.hooks = S.meta.hooks || []; const i = L.findIndex(x => x.id === h.id); if (i >= 0) L[i] = h; else L.push(h); syncHookCard(h); saveMeta(true); }
 function starterAsHook(l) { const pd = STARTER_DECK[l.id] && typeof findPackDeck === "function" ? findPackDeck(STARTER_DECK[l.id]) : null; return { id: uid(), starter: l.id, title: l.title, items: l.items.slice(), ordered: l.ordered, method: l.method || "sentence", phrase: l.phrase, meaning: l.meaning || "", note: l.note, palace: "home", images: [], deckId: pd ? pd.id : null, t: Date.now() }; }
@@ -10166,7 +10336,7 @@ const strengthLabel = v => v >= 1 ? "Mastered" : v >= .7 ? "Strong" : v >= .4 ? 
 { const sm = startMatch; startMatch = function (d) { const orig = factsOf; factsOf = x => orig(x).filter(f => !f.card.hook); try { return sm(d); } finally { factsOf = orig; } }; }
 { const lf = lmFacts; lmFacts = function (d) { return lf(d).filter(f => !f.card.hook); }; }
 /* the pencil on a hook card edits the hook */
-{ const ec = editCardModal; editCardModal = function (d, card, after) { if (card && card.hook) { const h = hooksAll().find(x => x.id === card.hook); if (h) return hookModal(h, { after }); } return ec(d, card, after); }; }
+{ const ec = editCardModal; editCardModal = function (d, card, after, prefType) { if (card && card.hook) { const h = hooksAll().find(x => x.id === card.hook); if (h) return hookModal(h, { after }); } return ec(d, card, after, prefType); }; }
 
 /* ---------- the editor ---------- */
 hookModal = function (pre, opts = {}) {
@@ -10175,7 +10345,7 @@ hookModal = function (pre, opts = {}) {
   if (!isEdit && opts.fact) h.deckId = opts.fact.deck.hooksDeck ? null : opts.fact.deck.id;
   let editingSpots = false, attach = !!opts.fact;
   const deckOpts = () => Object.values(S.decks).filter(d => !d.hooksDeck).sort((a, b) => a.name.localeCompare(b.name));
-  const letters = () => h.items.length ? `<div class="hk-letters">${h.items.map((it, k) => { const w = phraseWords(h.phrase)[k]; const ok = w && w[0].toLowerCase() === letterOf(it); return `<span class="${ok ? "ok" : ""}" title="${esc(it)}">${esc(letterOf(it).toUpperCase())}</span>`; }).join("")}</div>` : "";
+  const letters = () => h.items.length ? `<div class="hk-letters">${h.items.map((it, k) => { const cues = hookCues(h) || phraseWords(h.phrase); const w = cues[k]; const ok = w && w[0].toLowerCase() === letterOf(it); return `<span class="${ok ? "ok" : ""}" title="${esc(it)}">${esc(letterOf(it).toUpperCase())}</span>`; }).join("")}</div>` : "";
   const html = () => { const sp = spotsOf(h.palace); return `${mhead(isEdit ? "Edit memory hook" : "New memory hook")}
     <div class="field"><label for="ht">What are you memorizing?</label><input class="input" id="ht" value="${esc(h.title)}" placeholder="e.g. Order of draw" autocomplete="off"></div>
     <div class="field"><label for="hi">${h.method === "rule" ? "Extra details to recall (optional), one per line" : "The items, one per line"}</label><textarea class="input" id="hi" rows="${Math.min(10, Math.max(4, h.items.length + 1))}" placeholder="${h.method === "rule" ? "Optional: an example or exception" : "Sterile (blood cultures)&#10;Light blue&#10;Red"}">${esc(h.items.join("\n"))}</textarea>
@@ -10187,7 +10357,7 @@ hookModal = function (pre, opts = {}) {
       ${editingSpots ? `<div class="field" style="margin-top:8px"><label for="hpn" class="lbl">Place name</label><input class="input" id="hpn" value="${esc(placeName(h.palace))}"><label for="hsp" class="lbl" style="margin-top:8px">Spots, in the order you’d walk them</label><textarea class="input" id="hsp" rows="8">${esc(sp.join("\n"))}</textarea><p class="small muted">Use a place you can picture with your eyes closed.</p></div>` : `
       <p class="small muted" style="margin:8px 0">Walk through it in order. At each spot, picture the item there, big and strange. Typing the picture is optional.</p>
       <div class="palrows">${h.items.map((it, k) => `<div class="palrow"><span class="pall">${esc(sp[k] || "Spot " + (k + 1))}</span><b>${escG(it)}</b><input class="input" data-im="${k}" value="${esc(h.images[k] || "")}" placeholder="Optional: what you picture"></div>`).join("")}</div>${h.items.length > sp.length ? `<p class="small" style="color:var(--warn)">This place has ${sp.length} spots for ${h.items.length} items. Tap Edit spots to add more.</p>` : ""}`}</div>`}
-    <div class="field" style="margin-top:12px"><label for="hd" class="lbl">Review it with</label><select class="input" id="hd"><option value="">Its own “Memory hooks” deck</option>${deckOpts().map(d => `<option value="${d.id}" ${h.deckId === d.id ? "selected" : ""}>${esc(d.name)}</option>`).join("")}</select><span class="hint">The hook becomes a review card in this deck, so it comes up when you study that subject and in your daily reviews.</span></div>
+    <div class="field" style="margin-top:12px"><label for="hd" class="lbl">Review it with</label><select class="input" id="hd"><option value="" disabled ${h.deckId ? "" : "selected"}>Choose a deck…</option>${deckOpts().map(d => `<option value="${d.id}" ${h.deckId === d.id ? "selected" : ""}>${esc(d.name)}</option>`).join("")}</select><span class="hint">The hook becomes a card in this deck, so it comes up when you study that subject and in your daily reviews.</span></div>
     <div class="field"><label for="hn" class="lbl">Note (optional)</label><input class="input" id="hn" value="${esc(h.note || "")}" placeholder="Anything that helps, like an exception"></div>
     ${opts.fact ? `<label class="check"><input type="checkbox" id="ha" ${attach ? "checked" : ""}>Also show the hook on the card you came from</label>` : ""}
     <div class="modal-foot">${isEdit ? `<button class="btn danger" id="hdel">Delete</button><div class="spacer"></div>` : ""}<button class="btn" data-close>Cancel</button><button class="btn primary" id="hsave">${isEdit ? "Save" : "Save and practice"}</button></div>`; };
@@ -10212,6 +10382,7 @@ hookModal = function (pre, opts = {}) {
       $("#hdel", s) && ($("#hdel", s).onclick = () => { if (!confirm(`Delete “${h.title}”? Its review card goes too.${h.starter ? " You can bring starter hooks back anytime." : ""}`)) return; h.del = true; saveHook(h); close(); toast("Hook deleted"); opts.after && opts.after(); });
       $("#hsave", s).onclick = () => {
         read(); if (!h.title) { toast("Give it a title"); return; } if (h.method === "rule") { if (!h.phrase || !h.meaning) { toast("Add the hook and what it means"); return; } } else if (h.items.length < 2) { toast("Add at least 2 items"); return; }
+        if (!h.deckId && deckOpts().length) { toast("Choose the deck to review it with"); return; }
         if (h.method === "sentence" && !h.phrase) h.phrase = suggestSentence(h.items);
         saveHook(h); stat("hooksMade");
         if (attach && opts.fact) { const c = opts.fact.card; const line = `Memory hook: ${h.method === "palace" ? placeName(h.palace) + " walk" : "“" + h.phrase + "”"}`; c.note = (c.note || "").replace(/(^|\n)(Memory )?[Hh]ook: .*$/m, "").trim(); c.note = (c.note ? c.note + "\n" : "") + line; saveDeck(opts.fact.deck); }
@@ -10226,9 +10397,9 @@ hookModal = function (pre, opts = {}) {
 practiceHook = function (h0, onDone) {
   const h = hooksAll().find(x => x.id === h0.id) || h0;
   openStudy("Memory hook: " + h.title); setProg(0);
-  const sp = spotsOf(h.palace); const words = phraseWords(h.phrase); const aligned = alignsWithItems(h);
+  const sp = spotsOf(h.palace); const words = hookCues(h) || phraseWords(h.phrase); const aligned = alignsWithItems(h);
   const spot = k => (sp[k] || "spot " + (k + 1)).replace(/^[A-Z](?=[a-z])/, c => c.toLowerCase());
-  const cue = k => h.method === "palace" ? `You walk to the <b>${esc(spot(k))}</b>. What’s there?` : aligned ? `“…<b>${esc(words[k])}</b>…” stands for:` : `${h.ordered ? `Item ${k + 1}` : "Next item"} starts with <b>${esc(letterOf(h.items[k]).toUpperCase())}</b>`;
+  const cue = k => h.method === "palace" ? `You walk to the <b>${esc(spot(k))}</b>. What’s there?` : aligned ? (words[k].length === 1 ? `In “${esc(h.phrase)}”, <b>${esc(words[k])}</b> stands for:` : `“…<b>${esc(words[k])}</b>…” stands for:`) : `${h.ordered ? `Item ${k + 1}` : "Next item"} starts with <b>${esc(letterOf(h.items[k]).toUpperCase())}</b>`;
   const show = () => {
     ST.right.innerHTML = "";
     ST.stage.innerHTML = `<div class="qcard"><div class="kicker">Look it over</div><h2 style="margin:4px 0 12px">${esc(h.title)}</h2>
@@ -10306,7 +10477,7 @@ startHooks = function () {
     ST.stage.innerHTML = `<div class="hkhead"><div><h2>Memory hooks</h2><p class="small muted">For lists, sequences and the facts that won’t stick. Each hook is also a review card, so it comes back on schedule.</p></div>
       <div class="row hkacts"><button class="btn primary" id="pall" ${all.length ? "" : "disabled"}>${icon("brain")}Practice all${all.length ? ` (${Math.min(20, all.length)})` : ""}</button><button class="btn" id="hnew">${icon("plus")}New hook</button></div></div>
       <div class="row hkfilters"><label class="search" style="flex:1;min-width:180px">${icon("search")}<input id="hq" placeholder="Search hooks" value="${esc(query)}" aria-label="Search hooks"></label>
-        <select class="input" id="hs" style="max-width:220px" aria-label="Subject"><option value="all">All subjects (${all.length})</option>${subjects.map(id => `<option value="${id}" ${subj === id ? "selected" : ""}>${id === "own" ? "Memory hooks deck" : esc(S.decks[id].name)} (${all.filter(h => (id === "own" ? !(h.deckId && S.decks[h.deckId]) : h.deckId === id)).length})</option>`).join("")}</select></div>
+        <select class="input" id="hs" style="max-width:220px" aria-label="Subject"><option value="all">All subjects (${all.length})</option>${subjects.map(id => `<option value="${id}" ${subj === id ? "selected" : ""}>${id === "own" ? "Not linked to a deck yet" : esc(S.decks[id].name)} (${all.filter(h => (id === "own" ? !(h.deckId && S.decks[h.deckId]) : h.deckId === id)).length})</option>`).join("")}</select></div>
       <div class="hooklist">${list.length ? list.map(h => { const v = hookStrength(h); const d = h.deckId && S.decks[h.deckId]; return `<div class="hookcard" data-h="${h.id}"><button class="exedit" data-ed="${h.id}" aria-label="Edit ${esc(h.title)}" title="Edit">${icon("edit")}</button>
         <b class="hk-title">${esc(h.title)}</b><div class="hk-ph">${h.method === "palace" ? `🏠 ${esc(placeName(h.palace))} walk` : `“${esc(h.phrase || "")}”`}</div>
         <div class="hk-meta">${h.method === "rule" ? "Saying or rule" : `${plural(h.items.length, "item")}${h.ordered ? ", in order" : ""}`}${d ? ` · ${esc(d.name)}` : ""}</div>
@@ -10373,8 +10544,8 @@ startWestgard = function () {
     "Name the rule, then tap the exact points that break it. This is how you’d defend a rejection to your supervisor.",
     "You’ve rejected a run. Pick the right next step, for the instrument and for the patients."
   ], [
-    done => mcRounds(tg().map(t => { const r = wgRun(t); if (!r) return null; return { kicker: "Today’s run", html: ljChart2(r.L1, r.L2), q: "Accept or reject?", opts: ["Accept the run", ...WG_RULES.map(opt)], keep: true, a: opt(r.res), why: r.res === "Accept" ? (r.warn ? "Only a 1-2s warning: one control beyond 2 SD and no other rule broken. Look closely, then accept." : "Every control is within limits and no rule is broken.") : WG_WHY[r.res], game: "westgard", mq: `Westgard chart (${r.res})` }; }).filter(Boolean), "Westgard judge", done),
-    done => mcAll(tg().map(t => { const r = wgRun(t); if (!r) return null; const a = r.res === "Accept" ? "No error: accept" : WG_KIND[r.res]; return { kicker: "What kind of error?", html: ljChart2(r.L1, r.L2), q: "This chart shows:", opts: ["Random error", "Systematic error", "No error: accept"], keep: true, a, why: r.res === "Accept" ? "No rule is broken." : `${WG_WHY[r.res]} That’s ${WG_KIND[r.res].toLowerCase()}.`, game: "westgard", mq: `Westgard ${r.res}: random or systematic?` }; }).filter(Boolean), "Westgard judge", done),
+    done => mcRounds(tg().map(t => { const r = wgRun(t); if (!r) return null; return { kicker: "Today’s run", html: ljChart2(r.L1, r.L2), q: "Accept or reject?", opts: ["Accept the run", ...WG_RULES.map(opt)], keep: true, a: opt(r.res), why: r.res === "Accept" ? (r.warn ? "Only a 1-2s warning: one control beyond 2 SD and no other rule broken. Look closely, then accept." : "Every control is within limits and no rule is broken.") : WG_WHY[r.res], game: "westgard", mq: "Accept or reject this QC run?" }; }).filter(Boolean), "Westgard judge", done),
+    done => mcAll(tg().map(t => { const r = wgRun(t); if (!r) return null; const a = r.res === "Accept" ? "No error: accept" : WG_KIND[r.res]; return { kicker: "What kind of error?", html: ljChart2(r.L1, r.L2), q: "This chart shows:", opts: ["Random error", "Systematic error", "No error: accept"], keep: true, a, why: r.res === "Accept" ? "No rule is broken." : `${WG_WHY[r.res]} That’s ${WG_KIND[r.res].toLowerCase()}.`, game: "westgard", mq: "What kind of error does this QC run show?" }; }).filter(Boolean), "Westgard judge", done),
     done => {
       const runs = shuffle(["1-3s", "2-2s", "R-4s", "4-1s", "10x", "2-2s", "4-1s", "1-3s"]).map(wgRun).filter(Boolean); let i = 0, score = 0; const sc = makeScorer("westgard"); LAST_PTS = null;
       const next = () => {
@@ -10745,6 +10916,247 @@ function cleanHookCards() {
 }
 { const sd = seedHooks; seedHooks = function () { sd(); cleanHookCards(); }; }
 { const mr = mergeRemote; mergeRemote = function (...a) { const out = mr.apply(this, a); try { cleanHookCards(); } catch { } return out; }; }
+/* ================= v25: Apple LabDeck 3 ================= */
+const RING = { purple: "#7B4FE0", yellow: "#F5B800", red: "#E5484D" };
+
+/* ---------- Listen mode is gone ---------- */
+TOOLS.learn = TOOLS.learn.filter(t => t[0] !== "listenBtn");
+{ const dm = deckModesHtml; deckModesHtml = function (modes) { return dm(modes.filter(m => m[0] !== "listen")).replace(/<button class="pill[^"]*" data-mode="listen">[\s\S]*?<\/button>/g, ""); }; }
+
+/* ---------- No course numbers anywhere on screen ---------- */
+const CODE_RE = /\s*\(?\bMT\s?\d{3}[A-Za-z]?(?:\/\d{3})?\b\)?(?:\s*[·•,/]\s*(?=\(?MT\s?\d))?/g;
+function scrubCodes(root) {
+  if (!root) return;
+  const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: n => n.parentElement && !n.parentElement.closest("textarea,input,script,style") && /\bMT\s?\d{3}/.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT });
+  const nodes = []; while (w.nextNode()) nodes.push(w.currentNode);
+  nodes.forEach(n => { let v = n.nodeValue.replace(CODE_RE, " ").replace(/^\s*[·•:,/]\s*/, "").replace(/\s*[·•,/]\s*$/, "").replace(/\s*·\s*·\s*/g, " · ").replace(/\(\s*\)/g, "").replace(/\s{2,}/g, " "); if (/^\s*$/.test(v) && n.parentElement && n.parentElement.children.length === 0) n.parentElement.classList.add("codegone"); n.nodeValue = v.trimStart() === v ? v : v.trimStart(); });
+}
+{ let pend = false; new MutationObserver(() => { if (pend) return; pend = true; requestAnimationFrame(() => { pend = false; scrubCodes(document.body); }); }).observe(document.documentElement, { childList: true, subtree: true, characterData: true }); }
+
+/* ---------- Labels: no subtitle ---------- */
+labelChip = (l, small) => l ? `<span class="lchip ${small ? "sm" : ""}">${capIcon(l.color, l.shape || SHAPE_OF[l.id], small ? 16 : 20)}<span><b>${esc(l.name)}</b></span></span>` : "";
+
+/* ---------- Card rows: one clean layout for every card type ---------- */
+cardRow = function (d, x, st) {
+  const kind = x.hook ? "Memory hook" : x.type === "profile" ? "Profile" : x.type === "cloze" ? "Fill in the blank" : "Term";
+  const pic = x.img && imgSrc(x.img) ? `<img class="cr-pic" src="${imgSrc(x.img)}" alt="">` : "";
+  let main;
+  if (x.type === "profile") {
+    const fs = cardFields(d, x).filter(f => (x.values || {})[f]);
+    main = `<div class="cr-front">${escG(x.name || "Untitled")}</div><dl class="cr-facts">${fs.slice(0, 4).map(f => `<dt>${escG(f)}</dt><dd>${escG(x.values[f])}</dd>`).join("")}</dl>${fs.length > 4 ? `<span class="cr-more">+${fs.length - 4} more</span>` : ""}`;
+  } else if (x.type === "cloze") {
+    main = `<div class="cr-front cr-cloze">${escG(x.text || "").replace(/\{\{(.+?)\}\}/g, (_, i) => `<span class="cr-blank">${i.split("::")[0]}</span>`)}</div>`;
+  } else {
+    main = `<div class="cr-front">${escG(x.front || (x.img ? "Picture card" : ""))}</div>${x.back ? `<div class="cr-back">${escG(x.back).replace(/\n/g, "<br>")}</div>` : ""}`;
+  }
+  const extra = `${x.note ? `<div class="cr-note"><b>Note</b> ${escG(x.note)}</div>` : ""}${x.why ? `<div class="cr-note"><b>Why</b> ${escG(x.why)}</div>` : ""}`;
+  return `<div class="card-row cr2"><div class="cr-body"><div class="cr-top"><span class="cr-kind">${kind}</span>${st ? `<span class="cstat ${st.k}" title="${esc(st.t)}">${esc(st.l)}</span>` : ""}</div>${main}${extra}</div>${pic}
+    <div class="acts"><button class="btn ghost icon sm star ${x.star ? "on" : ""}" data-act="star" data-id="${x.id}" aria-label="Star">${icon("star")}</button><button class="btn ghost icon sm" data-act="edit" data-id="${x.id}" aria-label="Edit">${icon("edit")}</button><button class="btn ghost icon sm" data-act="del" data-id="${x.id}" aria-label="Delete">${icon("trash")}</button></div></div>`;
+};
+/* card editor: add a field to just this profile card */
+document.addEventListener("click", e => {
+  const b = e.target.closest("#nfAdd"); if (!b) return;
+  const inp = document.getElementById("nfName"); const name = (inp.value || "").trim(); if (!name) { inp.focus(); return; }
+  if ([...document.querySelectorAll("[data-f]")].some(t => t.dataset.f.toLowerCase() === name.toLowerCase())) { toast("That field is already here"); return; }
+  const i = document.querySelectorAll("[data-f]").length;
+  b.closest(".addfield").insertAdjacentHTML("beforebegin", `<div class="field"><label for="v${i}">${esc(name)} <span class="small muted">(this card only)</span></label><textarea class="input" id="v${i}" data-f="${esc(name)}" rows="1" style="min-height:46px"></textarea></div>`);
+  inp.value = ""; document.getElementById("v" + i).focus();
+});
+document.addEventListener("keydown", e => { if (e.key === "Enter" && e.target && e.target.id === "nfName") { e.preventDefault(); document.getElementById("nfAdd")?.click(); } });
+
+/* ---------- Hide a deck ---------- */
+{ const rd = renderDeck; renderDeck = function (d, ...a) {
+    const out = rd(d, ...a);
+    const share = $("#shareDeck"); if (share && !$("#hideDeck")) { share.insertAdjacentHTML("beforebegin", `<button class="btn icon" id="hideDeck" aria-label="${d.hidden ? "Show deck again" : "Hide deck"}" title="${d.hidden ? "Hidden: tap to bring it back" : "Hide from home and daily review"}">${d.hidden ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 3l18 18M10.6 6.1A10.7 10.7 0 0 1 12 6c5 0 9 6 9 6a17 17 0 0 1-3 3.6M6.6 6.6C4.2 8.2 3 12 3 12s4 6 9 6c1.6 0 3-.4 4.3-1"></path></svg>' : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2 12s4-6 10-6 10 6 10 6-4 6-10 6S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg>'}</button>`);
+      $("#hideDeck").onclick = () => { d.hidden = !d.hidden; d.updated = Date.now(); saveDeck(d); toast(d.hidden ? "Hidden. It won’t show on home or in daily review. Find it under Hidden decks." : "Back on home and in daily review"); renderDeck(d); }; }
+    if (d.hidden && !$(".hiddenbar")) $("#view .deckh1")?.insertAdjacentHTML("afterend", `<div class="hiddenbar">Hidden from home and daily review. You can still study it here.</div>`);
+    return out; }; }
+
+/* ---------- Home: the Apple LabDeck 3 dashboard ---------- */
+function a3rings(rev, goal, les, mis) {
+  const ring = (r, c, f) => { const C = 2 * Math.PI * r; return `<circle cx="54" cy="54" r="${r}" fill="none" stroke="color-mix(in srgb, ${c} 20%, transparent)" stroke-width="11"></circle><circle cx="54" cy="54" r="${r}" fill="none" stroke="${c}" stroke-width="11" stroke-linecap="round" stroke-dasharray="${Math.max(0.1, Math.min(1, f) * C).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 54 54)"></circle>`; };
+  return `<svg width="104" height="104" viewBox="0 0 108 108" role="img" aria-label="Today: reviews ${rev} of ${goal}, lesson ${les[0]} of ${les[1]}, mistake review ${mis[0]} of ${mis[1]}">${ring(46, RING.purple, rev / goal)}${ring(32, RING.yellow, les[0] / les[1])}${ring(18, RING.red, mis[1] ? mis[0] / mis[1] : 1)}</svg>`;
+}
+dashHtml = function (decks) {
+  let due = 0, nw = 0; decks.forEach(d => { const c = deckCounts(d); due += c.due; nw += c.nw; });
+  const newToday = Math.min(nw, newLeftToday()); const today = (S.meta.history || {})[dayKey()] || 0, goal = GOAL();
+  const D = (S.meta.daily || {})[dayKey()] || {}; const jv = journalVisible().length;
+  const les = [Math.min(1, D.lessons || 0), 1], mis = [D.jreview ? 1 : 0, jv ? 1 : 0];
+  const mins = Math.max(1, Math.round((due + newToday) * 0.35));
+  const ws = weekStart(), td = dayKey(); const days = Array.from({ length: 7 }, (_, i) => dayKey(ws + i * DAY + 3600e3));
+  const passed = LESSONS.filter(l => lessonState(l).passed).length, mastered = masteredNow();
+  const y = dayKey(Date.now() - DAY), Y = (S.meta.daily || {})[y] || {}, yRev = (S.meta.history || {})[y] || 0;
+  const yAcc = (Y.right || 0) + (Y.wrong || 0) ? Math.round((Y.right || 0) / ((Y.right || 0) + (Y.wrong || 0)) * 100) : null;
+  const stub = journalVisible().filter(x => (x.count || 1) >= 3).length;
+  return `<section class="a3dash">
+    <div class="a3card a3rings">${a3rings(today, goal, les, mis)}<div class="a3ringlab"><div><span>Reviews</span><b style="color:${RING.purple}">${today}<small>/${goal}</small></b></div><div><span>Lesson</span><b style="color:#B38600">${les[0]}<small>/1</small></b></div><div><span>Mistake review</span><b style="color:#C8292F">${mis[0]}<small>/${mis[1] || 0}</small></b></div></div></div>
+    <div class="a3up"><div class="a3up-t"><span>UP NEXT</span><b>${due + newToday ? `${due + newToday} card${due + newToday === 1 ? "" : "s"}` : "All caught up"}</b><small>${due + newToday ? `${newToday ? `${newToday} new · ` : ""}about ${mins} min` : "Nothing due right now"}</small></div><div class="a3up-b"><button class="btn bwhite" id="startAll" ${due + newToday ? "" : "disabled"}>Review</button>${nextLesson() ? `<button class="btn bghost" id="dashLesson">Next lesson</button>` : ""}</div></div>
+    <div class="a3week"><span class="a3cap">THIS WEEK · ${days.reduce((n, d) => n + ((S.meta.history || {})[d] || 0), 0).toLocaleString()} REVIEWS · GOAL ${goal} A DAY</span><div class="a3days">${days.map(d => { const n = (S.meta.history || {})[d] || 0, fut = d > td; return `<div class="a3day ${d === td ? "today" : ""} ${fut ? "fut" : ""} ${n >= goal ? "met" : ""}"><span>${new Date(d + "T12:00").toLocaleDateString(undefined, { weekday: "narrow" })}</span><b>${fut ? "" : n || "·"}</b><i style="width:${fut ? 0 : Math.min(100, n / goal * 100)}%"></i></div>`; }).join("")}</div></div>
+    <div class="a3stats">
+      <div class="a3stat"><span>LESSONS</span><b>${passed}<small>/${LESSONS.length}</small></b><i class="a3bar"><i style="width:${passed / LESSONS.length * 100}%"></i></i></div>
+      <div class="a3stat"><span>MASTERED</span><b>${mastered.toLocaleString()}</b><small>Easy 3× in a row</small></div>
+      <button class="a3stat" id="dashJ"><span>MISTAKE JOURNAL</span><b>${jv}</b><small>${stub ? `${stub} stubborn` : "real mistakes to fix"}</small></button>
+      <div class="a3stat"><span>YESTERDAY</span><b>${yRev}</b><small>${yRev ? `reviews${yAcc != null ? ` · ${yAcc}% right` : ""}` : "no study logged"}</small></div>
+    </div></section>`;
+};
+/* exam countdown colors, program countdown, decks */
+const examTier = d => d <= 0 ? "t-today" : d === 1 ? "t-1" : d === 2 ? "t-2" : d <= 3 ? "t-3" : d <= 5 ? "t-week" : d <= 7 ? "t-7" : d <= 14 ? "t-14" : "t-far";
+function homeDecksHtml() {
+  const all = Object.values(S.decks).filter(d => !d.hooksDeck && !d.recapDeck);
+  const vis = all.filter(d => !d.hidden), hid = all.filter(d => d.hidden);
+  const row = d => { const c = deckCounts(d); const lb = labelOf(d); const pct = c.total ? Math.round(c.mastered / c.total * 100) : 0;
+    return `<a class="a3deck" href="#d-${d.id}"><span class="a3deck-ic">${capIcon(lb ? lb.color : d.color, lb && lb.shape, 30)}</span><span class="a3deck-main"><b>${esc(d.name)}</b><small>${plural(d.cards.length, "card")}${c.due ? ` · <em>${c.due} due</em>` : ""}${c.nw && !c.due ? ` · ${c.nw} new` : ""}</small><i class="a3bar"><i style="width:${pct}%"></i></i></span><button class="btn sm a3study" data-study="${d.id}" ${c.total ? "" : "disabled"}>Study</button></a>`; };
+  const groups = groupDecksByLabel(vis);
+  return `<div class="a3decks">${groups.map(g => `<section class="a3dgroup"><div class="a3dhead">${g.l ? `${capIcon(g.l.color, g.l.shape || SHAPE_OF[g.l.id], 22)}<b>${esc(g.l.name)}</b>` : `<b>Needs a label</b><span class="small muted">Give these a home so they sit with their subject.</span>`}<span class="a3dcount">${plural(g.decks.length, "deck")}</span></div><div class="a3dlist">${g.decks.map(d => g.l ? row(d) : row(d).replace('<button class="btn sm a3study"', `<button class="btn sm" data-label="${d.id}">Pick a label</button><button class="btn sm a3study"`)).join("")}</div></section>`).join("") || `<div class="empty"><p>No decks yet.</p></div>`}
+    ${hid.length ? `<details class="a3hidden"><summary>Hidden decks (${hid.length})</summary><div class="a3dlist">${hid.map(d => row(d).replace('<button class="btn sm a3study"', `<button class="btn sm" data-unhide="${d.id}">Show again</button><button class="btn sm a3study"`)).join("")}</div></details>` : ""}</div>`;
+}
+{ const rh = renderHome; renderHome = function (decks) {
+    rh(decks);
+    const v = $("#view"); if (!v) return;
+    const p = prep(); const h1 = v.querySelector("h1");
+    if (h1 && prepOn() && p.start) { const dl = dayDiff(p.start); if (dl > 0 && !v.querySelector(".a3start")) (v.querySelector(".greetline") || h1).insertAdjacentHTML("afterend", `<div class="a3start"><b>${dl}</b> day${dl === 1 ? "" : "s"} until your program starts</div>`); }
+    $$(".extile", v).forEach(t => { const b = t.querySelector(".excount b"); const n = b && /^\d+$/.test(b.textContent) ? +b.textContent : 0; t.classList.add(examTier(n)); });
+    const h2 = [...$$(".section-head h2", v)].find(x => x.textContent.trim() === "Decks");
+    if (h2) { const head = h2.closest(".section-head"); let n = head.nextElementSibling; while (n && !n.classList.contains("section-head") && (n.classList.contains("lgroup") || n.classList.contains("empty") || n.tagName === "SECTION")) { const nx = n.nextElementSibling; n.remove(); n = nx; } head.insertAdjacentHTML("afterend", homeDecksHtml());
+      $$("[data-study]", v).forEach(b => b.onclick = e => { e.preventDefault(); e.stopPropagation(); startLearn(S.decks[b.dataset.study]); });
+      $$("[data-unhide]", v).forEach(b => b.onclick = e => { e.preventDefault(); e.stopPropagation(); const d = S.decks[b.dataset.unhide]; d.hidden = false; saveDeck(d); render(); });
+      $$("[data-label]", v).forEach(b => b.onclick = e => { e.preventDefault(); e.stopPropagation(); location.hash = "#d-" + b.dataset.label; setTimeout(() => $("#editDeck")?.click(), 250); }); }
+  }; }
+
+/* ---------- Memory hooks: no standalone deck; starter hooks link to their pack deck ---------- */
+function hooksHome() {
+  (S.meta.hooks || []).forEach(h => { if (h.del) return; if (h.starter && (!h.deckId || !S.decks[h.deckId] || S.decks[h.deckId].hooksDeck)) { const pd = STARTER_DECK[h.starter] ? findPackDeck(STARTER_DECK[h.starter]) : null; h.deckId = pd ? pd.id : null; } else if (h.deckId && S.decks[h.deckId] && S.decks[h.deckId].hooksDeck) h.deckId = null; syncHookCard(h); });
+  Object.values(S.decks).filter(d => d.hooksDeck).forEach(d => deleteDeck(d.id));
+}
+/* ---------- Lesson recaps go into the lesson's own deck ---------- */
+function lessonDeckFor(l) {
+  const packs = [...(l.unlock || []), ...LESSONS.filter(x => x.unit === l.unit && x !== l).flatMap(x => x.unlock || [])].map(u => u.pack).filter(Boolean);
+  for (const id of packs) { const d = findPackDeck(id); if (d) return d; }
+  for (const id of packs) { const p = missingPacks().find(x => x.id === id); if (p) { const d = packToDeck(p); S.decks[d.id] = d; saveDeck(d); return d; } }
+  return null;
+}
+bindRecap = function (l) {
+  const b = $("#recapSave"); if (!b) return;
+  b.onclick = () => {
+    const d = lessonDeckFor(l); if (!d) { toast("No deck for this module yet"); return; }
+    const lines = l.beats.map(x => x[0]).filter(t => /\{\{/.test(t)).map(t => splitSent(t).find(s => /\{\{/.test(s)) || t).slice(0, 8);
+    lines.forEach(t => { const id = uid(); d.cards.push({ id, type: "cloze", text: t, note: `From the lesson “${l.title}”`, star: false, recap: l.id }); if (d.pack) prep().cards[id] = Date.now(); });
+    saveDeck(d); S.meta.recapSaved = S.meta.recapSaved || {}; S.meta.recapSaved[l.id] = Date.now(); saveMeta(true);
+    b.disabled = true; b.classList.remove("primary"); b.textContent = `Saved to ${d.name} ✓`; toast(`${plural(lines.length, "card")} added to ${d.name}`);
+  };
+};
+function recapsHome() {
+  Object.values(S.decks).filter(d => d.recapDeck).forEach(rd => {
+    rd.cards.forEach(c => { const m = /From “(.+)”/.exec(c.note || ""); const l = m && LESSONS.find(x => x.title === m[1]); const d = l && lessonDeckFor(l); if (d) { d.cards.push({ ...c, note: `From the lesson “${l.title}”`, recap: l.id }); if (d.pack) prep().cards[c.id] = Date.now(); saveDeck(d); } });
+    deleteDeck(rd.id);
+  });
+}
+{ const mj = migrateJournal; migrateJournal = function () { mj(); if (!S.meta.v25) { try { hooksHome(); recapsHome(); normalizeWestgardJournal(); } catch (e) { console.warn(e); } S.meta.v25 = 1; saveMeta(true); } }; }
+{ const ch = cleanHookCards; cleanHookCards = function () { ch(); (S.meta.hooks || []).forEach(h => { if (!h.del && h.starter && !h.deckId) { const pd = STARTER_DECK[h.starter] ? findPackDeck(STARTER_DECK[h.starter]) : null; if (pd) { h.deckId = pd.id; syncHookCard(h); } } }); }; }
+
+/* ---------- Learn mode covers every card ---------- */
+lmFacts = function (d) { return factsOf(d).filter(f => !isSus(f) && !f.card.hook && (f.q || f.kind === "cloze" || f.card.img)); };
+
+/* ---------- Add to your glossary while studying ---------- */
+{ const os = openStudy; openStudy = function (...a) {
+    const out = os.apply(this, a);
+    const top = ST && ST.el && ST.el.querySelector(".study-top");
+    if (top && !top.querySelector("#gAdd")) { top.querySelector("#sr")?.insertAdjacentHTML("beforebegin", `<button class="btn ghost icon" id="gAdd" aria-label="Add to my glossary" title="Add to my glossary (select text first to fill it in)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"></path><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5M12 7v6M9 10h6"></path></svg></button>`);
+      let sel = ""; top.querySelector("#gAdd").onmousedown = () => { sel = String(window.getSelection() || "").trim().slice(0, 48); };
+      top.querySelector("#gAdd").onclick = () => { const s = sel || String(window.getSelection() || "").trim().slice(0, 48); glossEditModal(null, k => { if (k) toast(`“${k}” added to your glossary`); }); setTimeout(() => { const i = $("#gk"); if (i && s) { i.value = s; i.dispatchEvent(new Event("input")); const n = $(".modal textarea, .modal input:not(#gk)"); n && n.focus(); } }, 40); }; }
+    return out; }; }
+
+/* ---------- Westgard: violations can sit anywhere in the run ---------- */
+const WG_N = 14;
+function wgEvalAll(L1, L2) { const hits = []; for (let i = 1; i < L1.length; i++) { const r = westgardEval(L1.slice(0, i + 1), L2.slice(0, i + 1)); if (r !== "Accept") hits.push([i, r]); } return hits; }
+wgRun = function (target) {
+  const minK = { "1-3s": 1, "R-4s": 1, "2-2s": 2, "4-1s": 4, "10x": 10 };
+  for (let tries = 0; tries < 900; tries++) {
+    const g = () => +(Math.random() * 1.9 - 0.95).toFixed(2); const L = [Array.from({ length: WG_N }, g), Array.from({ length: WG_N }, g)];
+    const s = Math.random() < .5 ? 1 : -1, a = Math.random() < .5 ? 0 : 1; let viol = [];
+    const k = target in minK ? minK[target] + Math.floor(Math.random() * (WG_N - minK[target])) : WG_N - 1;
+    if (target === "1-3s") { L[a][k] = s * (3.2 + Math.random() * .6); viol = [[a, k]]; }
+    if (target === "R-4s") { L[0][k] = s * (2.2 + Math.random() * .6); L[1][k] = -s * (2.2 + Math.random() * .6); viol = [[0, k], [1, k]]; }
+    if (target === "2-2s") { L[a][k] = s * (2.1 + Math.random() * .7); L[a][k - 1] = s * (2.1 + Math.random() * .7); if (k - 2 >= 0) L[a][k - 2] = -s * Math.random() * .8; viol = [[a, k - 1], [a, k]]; }
+    if (target === "4-1s") { for (let j = k - 3; j <= k; j++) L[a][j] = s * (1.2 + Math.random() * .7); if (k - 4 >= 0) L[a][k - 4] = -s * Math.random() * .8; viol = [k - 3, k - 2, k - 1, k].map(j => [a, j]); }
+    if (target === "10x") { for (let j = k - 9; j <= k; j++) L[a][j] = s * (0.15 + Math.random() * .75); if (k - 10 >= 0) L[a][k - 10] = -s * (0.2 + Math.random() * .6); viol = Array.from({ length: 10 }, (_, j) => [a, k - 9 + j]); }
+    if (target === "1-2s") { const kk = 1 + Math.floor(Math.random() * (WG_N - 1)); L[a][kk] = s * (2.1 + Math.random() * .6); }
+    // the points right after a violation keep the run honest (no accidental second rule)
+    if (target in minK) for (let j = k + 1; j < WG_N; j++) { L[0][j] = +(Math.random() * 1.6 - 0.8).toFixed(2); L[1][j] = +(Math.random() * 1.6 - 0.8).toFixed(2); }
+    const hits = wgEvalAll(L[0], L[1]);
+    const ok = (target === "Accept" || target === "1-2s") ? hits.length === 0 : hits.length >= 1 && hits.every(([i, r]) => r === target && i === k);
+    if (ok) return { L1: L[0], L2: L[1], res: target === "1-2s" ? "Accept" : target, warn: target === "1-2s", viol: viol.map(([l, j]) => `${l}:${j}`) };
+  }
+  return null;
+};
+ljChart2 = function (L1, L2, pick) {
+  const W = 460, H = 220, n = L1.length, x = i => 30 + i * (W - 50) / (n - 1), y = v => 110 - Math.max(-3.9, Math.min(3.9, v)) * 26;
+  const LC = { 0: ["#8A8A8E", ""], 1: ["#34C759", "4 4"], 2: ["#F5B800", "6 4"], 3: ["#E5484D", "6 4"] };
+  const lines = [-3, -2, -1, 0, 1, 2, 3].map(v => { const [c, dash] = LC[Math.abs(v)]; return `<line x1="24" x2="${W - 10}" y1="${y(v)}" y2="${y(v)}" stroke="${c}" stroke-width="${v === 0 ? 1.5 : 1.2}" ${dash ? `stroke-dasharray="${dash}"` : ""} opacity="${v === 0 ? .9 : .85}"/><text x="2" y="${y(v) + 4}" font-size="10" fill="${c}" font-weight="700">${v === 0 ? "x̄" : (v > 0 ? "+" : "") + v}</text>`; }).join("");
+  const path = (s, c, l) => `<polyline points="${s.map((v, i) => `${x(i)},${y(v)}`).join(" ")}" fill="none" stroke="${c}" stroke-width="1.6"/>${s.map((v, i) => `<g class="ljpt" data-pt="${l}:${i}"><circle cx="${x(i)}" cy="${y(v)}" r="${pick ? 6 : 4}" fill="${c}"/>${pick ? `<circle class="hit" cx="${x(i)}" cy="${y(v)}" r="14" fill="transparent"/>` : ""}</g>`).join("")}`;
+  return `<svg class="lj ${pick ? "pickable" : ""}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Levey-Jennings chart">${lines}${path(L1, "#5B3FD1", 0)}${path(L2, "#B8344B", 1)}</svg><div class="legend"><span><i style="background:#5B3FD1"></i>Level 1 control</span><span><i style="background:#B8344B"></i>Level 2 control</span><span class="small muted">Check the whole run, not just the newest point</span></div>`;
+};
+
+/* ---------- Mistake journal: rebuild a picture for every game question ---------- */
+const WGR = ["1-3s", "2-2s", "R-4s", "4-1s", "10x"];
+function normalizeWestgardJournal() {
+  (S.meta.journal || []).forEach(x => {
+    if (x.game !== "westgard" && x.src !== "Westgard judge") return; x.game = "westgard";
+    const m = /^Prove a (\S+) rejection/.exec(x.q || ""); if (m) { x.q = "Which rule does this run break?"; x.right = "Reject: " + m[1]; x.opts = null; }
+    if (WGR.includes(x.right)) x.right = "Reject: " + x.right; if (x.right === "Accept") x.right = "Accept the run";
+    if (/random or systematic/i.test(x.q || "")) x.q = "What kind of error does this QC run show?";
+    if (/^Westgard chart|^Judge the QC run/i.test(x.q || "")) x.q = "Accept or reject this QC run?";
+  });
+}
+const _vcache = new Map();
+function wgRuleFor(right) {
+  const m = /^Reject: (\S+)/.exec(right || ""); if (m) return m[1];
+  if (/^Accept|^No error/i.test(right || "")) return rpick(["Accept", "1-2s"]);
+  if (/Random error|one-off/i.test(right || "")) return rpick(["1-3s", "R-4s"]);
+  if (/Systematic|shift/i.test(right || "")) return rpick(["2-2s", "4-1s", "10x"]);
+  return rpick(WGR);
+}
+{ const jv = jVisual; jVisual = function (x) {
+    if (x.html) return `<div class="jsnap">${x.html}</div>`;
+    if (_vcache.has(x.id)) return _vcache.get(x.id);
+    let out = "";
+    try {
+      if (x.game === "westgard") { const r = wgRun(wgRuleFor(x.right)); out = r ? ljChart2(r.L1, r.L2) : ""; }
+      else if (x.game === "acidbase") { const P = ["Respiratory acidosis", "Respiratory alkalosis", "Metabolic acidosis", "Metabolic alkalosis"]; let prim = P.find(p => (x.right || "").startsWith(p)) || null, comp = /Partially/i.test(x.right) ? "par" : /Fully/i.test(x.right) ? "full" : "unc"; if (!prim) prim = /Acidosis/.test(x.right) ? rpick(["Respiratory acidosis", "Metabolic acidosis"]) : /Alkalosis/.test(x.right) ? rpick(["Respiratory alkalosis", "Metabolic alkalosis"]) : rpick(P); out = /^Normal$/.test(x.right) ? abHtml({ pH: 7.4, pco2: 40, hco3: 24 }) : abHtml(abCase(prim, comp)); }
+      else if (x.game === "abo" && /^(AB|A|B|O)[+−]$/.test(x.right || "")) out = aboGrid(x.right);
+      else if (x.game === "coag") { const c = COAG_CASES.find(c => c[0] === x.right); if (c) out = `<p class="case-story">${escG(c[1])}</p>${coagPanel(c[2]())}`; else { const pat = { "Extrinsic pathway (factor VII)": { PT: 24, PTT: 31 }, "Intrinsic pathway (VIII, IX, XI, XII)": { PT: 12.4, PTT: 68 }, "Common pathway or several factors (X, V, II, fibrinogen)": { PT: 22, PTT: 61 }, "Platelets or vessels: PT and PTT can’t see them": { PT: 12.1, PTT: 30, Plt: 34 } }[x.right]; if (pat) out = coagPanel(pat); } }
+      else if (x.game === "anemia") { const c = ANEMIA_CASES.find(c => c[0] === x.right); if (c) out = `<p class="case-story">${escG(c[1])}</p>${anemiaPanel(c[2])}<p class="small"><b>Also:</b> ${escG(c[3])}</p>`; }
+    } catch (e) { out = ""; }
+    if (!out) out = jv(x);
+    _vcache.set(x.id, out); return out;
+  }; }
+{ const jo = jOpts; jOpts = function (x) {
+    if (x.opts && x.opts.length >= 2 && x.opts.includes(x.right)) return x.opts;
+    if (x.game === "westgard") { if (/^Reject:|^Accept the run$/.test(x.right)) return ["Accept the run", ...WGR.map(r => "Reject: " + r)]; if (["Random error", "Systematic error", "No error: accept"].includes(x.right)) return ["Random error", "Systematic error", "No error: accept"]; }
+    if (x.game === "abo" && /^(AB|A|B|O)[+−]$/.test(x.right || "")) return [x.right, ...pick(["O+", "A+", "B+", "AB+", "O−", "A−", "B−", "AB−"].filter(t => t !== x.right), 3)];
+    if (x.game === "acidbase" && ["Acidosis", "Alkalosis", "Normal"].includes(x.right)) return ["Acidosis", "Alkalosis", "Normal"];
+    return jo(x);
+  }; }
+
+/* ---------- Something new unlocked: show it ---------- */
+function unlockSnapshot() {
+  return { games: new Set(GAMES.map(g => g[0]).filter(id => gameUnlocked(id))), hooks: new Set(hooksAll().map(h => h.id)), badges: new Set(Object.keys(S.meta.badges || {})), units: new Set(UNITS.filter(u => LESSONS.filter(l => l.unit === u.id).every(l => lessonState(l).passed)).map(u => u.id)) };
+}
+function celebrateUnlocks(l, before) {
+  if (!before) return; const now = unlockSnapshot(); const items = [];
+  GAMES.forEach(([id, n]) => { if (now.games.has(id) && !before.games.has(id)) items.push({ e: (GAME_META[id] || ["🎮"])[0], t: n, s: "New game unlocked", go: () => TOOL_FN["g_" + id](), btn: "Play" }); });
+  (l.unlock || []).forEach(u => { const p = (typeof PACKS !== "undefined" ? PACKS : []).find(x => x.id === u.pack); const d = findPackDeck(u.pack); if (d && !before.decks?.has?.(u.pack)) items.push({ e: "", tube: d, t: d.name, s: `${plural(packCount(u.pack), "card")} ready to study`, go: () => { closeStudy(true); location.hash = "#d-" + d.id; }, btn: "Open deck" }); });
+  hooksAll().filter(h => !before.hooks.has(h.id)).forEach(h => items.push({ e: "🧠", t: h.title, s: "New memory hook", go: () => practiceHook(h), btn: "Practice" }));
+  Object.keys(S.meta.badges || {}).filter(b => !before.badges.has(b)).slice(0, 3).forEach(b => { const B = BADGES2.find(x => x.id === b); if (B) items.push({ e: B.e, t: B.name, s: "Badge earned" }); });
+  UNITS.filter(u => now.units.has(u.id) && !before.units.has(u.id)).forEach(u => { const nl = nextLesson(); items.push({ e: "🏁", t: `${u.name} complete`, s: nl ? `Next module: ${UNITS.find(x => x.id === nl.unit)?.name || ""}` : "Every module done" }); });
+  if (!items.length) return;
+  modal(`<div class="unl"><div class="unl-burst" aria-hidden="true">${"<i></i>".repeat(12)}</div><span class="unl-k">${items.length > 1 ? "NEW THINGS UNLOCKED" : "NEW UNLOCK"}</span><h2>${items.length > 1 ? `You unlocked ${items.length} things` : esc(items[0].t)}</h2>
+    <div class="unl-list">${items.map((it, i) => `<div class="unl-row" style="animation-delay:${.08 * i + .15}s"><span class="unl-ic">${it.tube ? capIcon((labelOf(it.tube) || {}).color || it.tube.color, null, 30) : it.e}</span><span class="unl-txt"><b>${esc(it.t)}</b><small>${esc(it.s)}</small></span>${it.go ? `<button class="btn sm primary" data-unl="${i}">${it.btn}</button>` : ""}</div>`).join("")}</div>
+    <div class="modal-foot"><div class="spacer"></div><button class="btn primary" data-close>Nice</button></div></div>`, (s, close) => {
+      $$("[data-close]", s).forEach(b => b.onclick = close);
+      $$("[data-unl]", s).forEach(b => b.onclick = () => { close(); items[+b.dataset.unl].go(); });
+    });
+}
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
