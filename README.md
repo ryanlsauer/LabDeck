@@ -2,7 +2,7 @@
 
 A free study app for Medical Laboratory Science students, built around the Sentara RMH School of Medical Laboratory Science program. It runs in any modern browser on a phone or a computer, works offline, and keeps your progress on your own device. There are no accounts, ads or fees.
 
-Version 31.0.
+Version 33.0.
 
 ---
 
@@ -92,6 +92,19 @@ Lessons that teach the program in order, one course at a time, from “science f
 ## Games
 
 Sixteen games with levels and scores, unlocked by the lessons that teach them: Tube trainer (with order-of-draw sprint levels), Critical call (with timed levels), Westgard judge, Smear practice, Anemia workup, Coag detective, Gram stain, ID flowcharts, Bench unknown, ABO and Rh typing, Antibody panel, Acid-base, Urine sediment, UA detective, Body fluid detective and Crossmatch puzzle.
+
+---
+
+## Fun extras
+
+- **Lab career levels:** earn XP from reviews, lessons, games, badges, mastered cards and more, and rise from Lab trainee to Lab director. XP is calculated from what you’ve done, so it never gets lost in sync.
+- **Specimen of the day:** one slide, organism, value or mini-case each day. Reveal it to add it to your collection.
+- **Mystery unknown of the week:** an organism with a new clue each day. One guess a week; guess early for more XP.
+- **Weekly challenges:** three goals each week, each with a medal.
+- **Combos:** answer 5, 10, 15 in a row for a little celebration.
+- **Did you know?** A lab fun fact at the end of sessions and on unlock screens.
+- **Specimen cabinet:** on Progress, a tube for every deck that fills as you master it.
+- **LabDeck Wrapped:** a recap of your reviews, streaks, subjects and favorite game, saved as an image to share.
 
 ---
 

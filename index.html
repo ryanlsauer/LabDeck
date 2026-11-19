@@ -2338,6 +2338,61 @@ svg.heat{display:block}
 .cal-c.l3{background:#34C759!important}
 /* play tile emojis 10% smaller */
 .tools2 .tl-play .ttile[id^="g_"] .tti,.tools2 .tl-play .ttile[id^="g_"] .tti *{font-size:28px!important}
+/* exam tomorrow: ring gold */
+.a3exam.xd-tomorrow{background:linear-gradient(160deg,#FFC93C,#F5B800)!important;box-shadow:0 1px 2px rgba(0,0,0,.05),0 10px 26px rgba(214,150,0,.28)!important}
+.a3exam.xd-tomorrow .xd-k,.a3exam.xd-tomorrow #xdHide{color:#4A3300!important}
+.a3exam.xd-tomorrow h2{color:#231800!important}.a3exam.xd-tomorrow>p{color:#3D2B00!important}
+.a3exam.xd-tomorrow .a3group{background:rgba(255,255,255,.82)!important}
+.a3exam.xd-tomorrow .a3row b{color:#1C1C1E!important}.a3exam.xd-tomorrow .a3row small{color:#5C5C62!important}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .a3exam.xd-tomorrow{background:linear-gradient(160deg,#E8B021,#C99500)!important}:root:not([data-theme="light"]) .a3exam.xd-tomorrow .xd-k,:root:not([data-theme="light"]) .a3exam.xd-tomorrow #xdHide{color:#2E2000!important}:root:not([data-theme="light"]) .a3exam.xd-tomorrow h2{color:#1A1200!important}:root:not([data-theme="light"]) .a3exam.xd-tomorrow>p{color:#2E2200!important}:root:not([data-theme="light"]) .a3exam.xd-tomorrow .a3group{background:rgba(28,28,30,.88)!important}:root:not([data-theme="light"]) .a3exam.xd-tomorrow .a3row b{color:#fff!important}:root:not([data-theme="light"]) .a3exam.xd-tomorrow .a3row small{color:#C7C7CC!important}}
+/* ===================== v33 · fun ===================== */
+.lvlchip{display:inline-flex;align-items:center;gap:8px;margin:8px 0 4px;padding:6px 12px 6px 6px;border:0;border-radius:999px;background:var(--surface);box-shadow:var(--shadow);font:inherit;cursor:pointer;color:var(--ink)}
+.lv-n{background:var(--violet);color:#fff;font-weight:800;font-size:.75rem;border-radius:999px;padding:3px 9px}
+.lv-t{font-weight:600;font-size:.88rem}
+.lv-bar{display:block;width:64px;height:4px;border-radius:2px;background:var(--line);overflow:hidden}.lv-bar>i{display:block;height:100%;background:var(--violet);border-radius:2px}
+.funrow{display:grid;grid-template-columns:1fr;gap:12px;margin:14px 0 4px}
+@media (min-width:900px){.funrow{grid-template-columns:1fr 1fr}.funrow .chal{grid-column:1/-1}}
+.fun-card{background:var(--surface);border-radius:var(--r-cell);box-shadow:var(--shadow);padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.fc-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px}.fc-k{font-size:.72rem;font-weight:700;color:var(--violet-ink);letter-spacing:.05em}.fc-m{font-size:.78rem;color:var(--ink-3)}
+.fc-hint{font-size:.78rem;color:var(--ink-3)}
+.spec-q{display:flex;gap:10px;align-items:flex-start}.spec-e{font-size:1.6rem;line-height:1}.spec-q b{font-size:1rem;line-height:1.35}
+.spec-a{background:var(--surface-2);border-radius:12px;padding:10px 12px}.spec-a b{color:var(--violet-ink)}.spec-a p{margin:4px 0 0;font-size:.88rem;color:var(--ink-2);line-height:1.45}
+.fun-card .btn.sm{align-self:flex-start}
+.myst-c{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px;font-size:.92rem}
+.myst-c li.locked{color:var(--ink-3);font-style:italic}
+.myst-a{margin:0;font-size:.92rem}.myst-a b{color:var(--violet-ink)}
+.ch-row{display:flex;align-items:center;gap:10px}.ch-row+.ch-row{border-top:.5px solid var(--line-2);padding-top:10px}
+.ch-m{width:22px;text-align:center;color:var(--ink-3);font-size:1.05rem}.ch-t{flex:1;display:flex;flex-direction:column;gap:5px}.ch-t b{font-size:.93rem;font-weight:600}
+.ch-n{font-size:.8rem;color:var(--ink-3);font-weight:600;min-width:44px;text-align:right}
+.ch-row.ok .ch-t b{color:var(--ink-3)}.ch-row.ok .a3bar>i{background:#34C759!important}
+/* combos */
+.study.hot .prog i{background:linear-gradient(90deg,#F5B800,#E5484D)!important;box-shadow:0 0 10px rgba(229,72,77,.45)}
+.combo-burst{position:fixed;left:50%;top:76px;transform:translateX(-50%);z-index:80;pointer-events:none;animation:cb 1.5s ease forwards}
+.combo-burst span{display:inline-block;background:linear-gradient(135deg,#F5B800,#E5484D);color:#fff;font-weight:800;padding:8px 16px;border-radius:999px;box-shadow:0 8px 24px rgba(229,72,77,.35)}
+@keyframes cb{0%{opacity:0;transform:translate(-50%,8px) scale(.9)}15%{opacity:1;transform:translate(-50%,0) scale(1.05)}25%{transform:translate(-50%,0) scale(1)}80%{opacity:1}100%{opacity:0;transform:translate(-50%,-10px)}}
+@media (prefers-reduced-motion:reduce){.combo-burst{animation:none;opacity:1}}
+/* did you know */
+.dyk{margin:16px auto 0;max-width:460px;background:var(--surface-2);border-radius:12px;padding:10px 14px;text-align:left}.dyk span{font-size:.72rem;font-weight:700;color:var(--violet-ink);letter-spacing:.04em}.dyk p{margin:3px 0 0;font-size:.9rem;line-height:1.45;color:var(--ink-2)}
+.modal .dyk{max-width:none;margin:12px 0 0}
+/* lab life + cabinet */
+.lablife{padding:16px 18px!important}.ll-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.ll-top h3{margin:2px 0;font-size:1.3rem}
+.ll-bar{height:6px!important;margin:12px 0}
+.ll-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.ll-stats div{background:var(--surface-2);border-radius:10px;padding:8px 10px;display:flex;flex-direction:column}.ll-stats b{font-size:1.15rem}.ll-stats span{font-size:.72rem;color:var(--ink-3)}
+@media (max-width:600px){.ll-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.cab{padding:16px 18px!important}
+.cab-shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:12px 6px;padding:10px 6px 4px;background:linear-gradient(180deg,transparent calc(100% - 6px),var(--line-2) calc(100% - 6px));border-radius:0}
+.cab-t{display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center}.cab-t span{font-size:.68rem;color:var(--ink-3);line-height:1.2;max-width:76px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.cab-t.full svg{filter:drop-shadow(0 0 6px rgba(52,199,89,.55))}
+/* wrapped */
+.wrapped{max-width:520px;margin:20px auto;background:linear-gradient(160deg,#8F6BF0,#5B35C8);color:#fff;border-radius:var(--r-hero);padding:28px 24px;min-height:360px;display:flex;flex-direction:column;box-shadow:0 14px 36px rgba(91,53,200,.35)}
+.wr-k{font-size:.75rem;font-weight:700;opacity:.8;letter-spacing:.05em}.wrapped h2{color:#fff!important;margin:6px 0 18px!important;font-size:1.6rem!important}
+.wr-body{flex:1}.wr-body p{font-size:1.05rem;opacity:.92;margin:6px 0 0;line-height:1.45}
+.wr-big{display:block;font-size:4.2rem;font-weight:800;line-height:1;letter-spacing:-.03em}.wr-mid{display:block;font-size:2.1rem;font-weight:800;line-height:1.1}
+.wr-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.wr-grid div{background:rgba(255,255,255,.14);border-radius:14px;padding:12px}.wr-grid b{display:block;font-size:1.8rem;font-weight:800}.wr-grid span{font-size:.82rem;opacity:.9}
+.wr-nav{margin-top:20px}.wrapped .btn{background:rgba(255,255,255,.2)!important;color:#fff!important}.wrapped .btn.primary{background:#fff!important;color:#5B35C8!important}
+.cab-shelf{grid-template-columns:repeat(auto-fill,minmax(64px,1fr))!important}
+.cab-t svg{width:22px;height:48px}
+@media (max-width:600px){.cab-shelf{grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:10px 2px}.cab-t span{font-size:.6rem}}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -2425,7 +2480,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "31.0";
+const APP_VERSION = "33.0";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -12231,6 +12286,245 @@ weekChart = function () {
 { const bc = barChart; barChart = function (o) { const h = bc(o); if (!o.goal) return h; let k = -1; return h.replace(/<div class="bc-col2([^"]*)"><i style="height:([\d.]+)%;background:([^"]*)"><\/i>/g, (m, cls, ht, bg) => { k++; const met = !(o.future || [])[k] && o.vals[k] >= o.goal; return met ? `<div class="bc-col2${cls} met"><i style="height:${ht}%;background:${bg}"><svg class="bc-ok" viewBox="0 0 16 16" aria-label="Goal met"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></i>` : m; }); }; }
 /* study calendar: one legend, goal met in green */
 { const rs = renderStats; renderStats = function (...a) { const out = rs.apply(this, a); $$("#view .cal2").forEach(c => { const panel = c.closest(".panel") || c.parentElement; let dupes = [...panel.querySelectorAll("*")].filter(el => !el.closest(".cal2") && !c.contains(el) && !el.contains(c) && /Goal met/.test(el.textContent) && el.textContent.trim().length < 60); dupes = dupes.filter(el => !dupes.some(o => o !== el && el.contains(o))); dupes.forEach(el => { const box = el.parentElement && el.parentElement !== panel && !el.parentElement.contains(c) && el.parentElement.textContent.trim().length < 60 ? el.parentElement : el; box.remove(); }); }); return out; }; }
+/* ===================== v32: more greetings ===================== */
+EXTRA_TITLES.m.push("Rise and centrifuge", "Morning rounds", "First draw of the day", "Bright and early, sharp and steady", "Good morning, future MLS");
+EXTRA_TITLES.a.push("Afternoon check-in", "Post-lunch push", "Keep the momentum", "Afternoon QC run", "Still going strong");
+EXTRA_TITLES.e.push("Evening shift", "Golden hour study", "Second shift scholar", "Night run, low stakes", "Quiet evening, clear head");
+EXTRA_TITLES.n.push("Burning the midnight oil", "Late-night lab", "Just a few, then sleep", "Night shift mode");
+EXTRA_LINES.push(
+  "Precision is a habit. So is studying.", "Every card is a specimen. Handle with care.", "You’re building a reference range of knowledge.",
+  "Gram positive attitude only.", "Today’s goal: stay within normal limits of stress.", "Hemolysis ruins samples. Cramming ruins memory.",
+  "Spaced repetition: the slow-release capsule of learning.", "Your brain has a better turnaround time than any analyzer.",
+  "Nothing clots faster than a good study habit.", "A little review now beats a lot of panic later.", "Think in patterns, not facts.",
+  "One more card than yesterday is still progress.", "Be the control that always runs in range.", "Read the whole smear, not just the feathered edge.",
+  "Small reps. Big results.", "Questions are just specimens waiting to be identified.", "Your future self will thank you at the bench.",
+  "Confidence comes from repetition.", "Consistency beats intensity.", "A clean draw starts with a calm mind.",
+  "The best study session is the one you actually start.", "Every expert MLS was once confused by the coag cascade.",
+  "Rest is part of the protocol.", "Your brain is the best analyzer in the lab.", "Delta check: you’re better than last week.",
+  "Mix, label, study, repeat.", "Plenty of time to get it right. Start now.", "Curiosity has no reference range.",
+  "Learn it like you’ll teach it.", "Knowledge doesn’t expire, but it does need recalibrating."
+);
+/* ===================== v33 · fun ===================== */
+/* ---------- content ---------- */
+const SPECIMENS = [
+  ["🔬", "Bite cells on a smear point to which enzyme deficiency?", "G6PD deficiency", "Heinz bodies get “bitten” out of red cells by macrophages in the spleen."],
+  ["🧫", "Which organism makes “fried egg” colonies?", "Mycoplasma", "Mycoplasma has no cell wall, so the Gram stain can’t see it."],
+  ["🩸", "What gets drawn first in the order of draw?", "Blood culture bottles", "Drawing them first keeps the cultures from being contaminated by other tubes."],
+  ["🔬", "Auer rods are a clue to which leukemia?", "Acute myeloid leukemia (AML)", "Auer rods are fused, needle-like granules in myeloblasts."],
+  ["🧫", "Which bacterium is famous for a grape-like smell?", "Pseudomonas aeruginosa", "It also makes a blue-green pigment called pyocyanin."],
+  ["🧪", "What’s a normal adult platelet count?", "About 150–450 ×10³/µL", "Platelets live only about 7 to 10 days."],
+  ["🧫", "Grows in 6.5% salt and is bile esculin positive?", "Enterococcus", "That salt tolerance helps tell it apart from group D strep."],
+  ["🔬", "Target cells are classic in which conditions?", "Hemoglobinopathies like thalassemia, and liver disease", "Extra membrane relative to hemoglobin makes the bullseye look."],
+  ["🛡️", "Which antibody class crosses the placenta?", "IgG", "That’s why newborns carry some of mom’s immunity for months."],
+  ["🩸", "Kidd antibodies are notorious for what?", "Delayed hemolytic transfusion reactions", "They can fade below detection, then come roaring back."],
+  ["🧪", "Which urine crystal looks like a coffin lid?", "Triple phosphate (struvite)", "It forms in alkaline urine, often with urease-making bacteria."],
+  ["🧪", "Which crystals look like little envelopes?", "Calcium oxalate dihydrate", "Common, and often seen with high-oxalate diets."],
+  ["🧫", "Which quick test separates staph from strep?", "Catalase", "Staph bubbles (positive); strep doesn’t."],
+  ["🧫", "Alpha-hemolytic, optochin susceptible, bile soluble?", "Streptococcus pneumoniae", "Classic lancet-shaped diplococci on Gram stain."],
+  ["🧫", "Which beta-hemolytic strep is bacitracin susceptible?", "Group A strep (S. pyogenes)", "It’s also PYR positive."],
+  ["🧫", "Which organism gives a positive CAMP test?", "Group B strep (S. agalactiae)", "It enhances the hemolysis of S. aureus in an arrowhead shape."],
+  ["🔬", "Smudge cells are classic in which leukemia?", "Chronic lymphocytic leukemia (CLL)", "The fragile lymphocytes break apart while the smear is made."],
+  ["🔬", "Schistocytes suggest what kind of process?", "Microangiopathic hemolysis (DIC, TTP, HUS)", "Red cells get sliced by fibrin strands in small vessels."],
+  ["⏱️", "The PT tests which pathways?", "Extrinsic and common", "It’s the test used to monitor warfarin (as the INR)."],
+  ["🟣", "What anticoagulant is in a lavender top?", "EDTA", "EDTA binds calcium, so blood can’t clot."],
+  ["🔵", "A light blue top needs what blood-to-additive ratio?", "9 to 1", "Underfilled tubes falsely prolong the PT and PTT."],
+  ["📈", "One control outside ±3 SD breaks which Westgard rule?", "1-3s, so reject the run", "It usually signals random error."],
+  ["🧪", "Hemolysis falsely raises which electrolyte?", "Potassium", "Red cells hold far more potassium than plasma does."],
+  ["🧮", "How is the anion gap calculated?", "Na − (Cl + HCO₃)", "A high gap points to things like ketoacidosis or lactic acidosis."],
+  ["🧪", "Urine ketone strips mainly detect which ketone?", "Acetoacetic acid", "They miss beta-hydroxybutyrate, the main ketone in DKA."],
+  ["🩸", "Who is the universal red cell donor?", "O negative", "No A, B or D antigens on the cells."],
+  ["🩸", "Who is the universal plasma donor?", "AB", "AB plasma has no anti-A or anti-B."],
+  ["🧫", "Swarming motility across a whole plate?", "Proteus", "It’s also urease and H₂S positive."],
+  ["🔬", "Clear halos around yeast in India ink?", "Cryptococcus neoformans", "The halo is its thick polysaccharide capsule."],
+  ["🧪", "Hemoglobin A1c reflects about how long?", "About 2 to 3 months", "It tracks the life span of red cells."]
+].map(([e, q, a, f], i) => ({ id: "s" + i, e, q, a, f }));
+const FUN_FACTS = [
+  "Red blood cells have no nucleus, which leaves more room for hemoglobin.", "Platelets only live about 7 to 10 days.", "Neutrophils are the most common white cell in adults.",
+  "Hans Christian Gram published his famous stain in 1884.", "Agar, the gel in culture plates, comes from seaweed.", "Petri dishes are named after Julius Petri, who worked in Robert Koch’s lab.",
+  "Alexander Fleming noticed penicillin in 1928 on a contaminated plate.", "Karl Landsteiner discovered the ABO blood groups in 1901.", "The Rh factor is named after rhesus monkeys used in early research.",
+  "Bilirubin breaks down in light, so newborn bilirubin samples are kept out of it.", "Cold agglutinins can make a CBC show a falsely high MCV.", "EDTA keeps blood from clotting by grabbing calcium.",
+  "Diabetes mellitus means “sweet” urine; it was once diagnosed by taste.", "The Levey-Jennings chart brought QC charting to the clinical lab in 1950.", "James Westgard published his multirule QC system in 1981.",
+  "Basophils are the rarest white cell in normal blood.", "Sickle cells were first described in 1910.", "Acid-fast bacteria stay pink-red after Ziehl-Neelsen staining.",
+  "Vitamin K is needed to make factors II, VII, IX and X.", "The coagulation cascade was first described as a “waterfall” in 1964.", "Eosinophils rise with parasites and allergies.",
+  "Malaria parasites can be seen right inside red cells on a blood smear.", "Proteus can swarm across an entire agar plate in a day.", "Lymphocytes can live for years; some for decades.",
+  "A single drop of blood holds millions of red cells.", "The spleen recycles old red cells and saves their iron.", "Urine color comes mostly from a pigment called urochrome.",
+  "Reticulocytes still carry a little RNA, which new methylene blue stains.", "Gold top tubes have a gel that sits between serum and cells after spinning.", "Your bone marrow makes billions of new blood cells every day."
+];
+const MYSTERY = [
+  ["Staphylococcus aureus", ["Gram-positive cocci in clusters", "Catalase positive", "Coagulase positive", "Golden, beta-hemolytic colonies", "Ferments mannitol (yellow on MSA)"]],
+  ["Streptococcus pyogenes", ["Gram-positive cocci in chains", "Catalase negative", "Large zone of beta hemolysis", "Bacitracin susceptible and PYR positive", "A classic cause of strep throat"]],
+  ["Streptococcus pneumoniae", ["Gram-positive cocci in pairs, lancet-shaped", "Catalase negative", "Alpha-hemolytic", "Optochin susceptible", "Bile soluble"]],
+  ["Enterococcus faecalis", ["Gram-positive cocci in pairs and short chains", "Catalase negative", "Grows in 6.5% NaCl", "Bile esculin positive", "PYR positive; a common UTI cause"]],
+  ["Escherichia coli", ["Gram-negative rods", "Oxidase negative", "Pink colonies on MacConkey (lactose fermenter)", "Indole positive", "The most common cause of UTIs"]],
+  ["Pseudomonas aeruginosa", ["Gram-negative rods", "Oxidase positive", "Non-lactose fermenter", "Blue-green pigment", "Smells like grapes"]],
+  ["Neisseria gonorrhoeae", ["Gram-negative diplococci, kidney-bean shaped", "Oxidase positive", "Grows on Thayer-Martin agar", "Uses glucose only", "A sexually transmitted infection"]],
+  ["Proteus mirabilis", ["Gram-negative rods", "Oxidase negative", "Non-lactose fermenter", "Swarms across the plate", "Urease and H₂S positive"]],
+  ["Klebsiella pneumoniae", ["Gram-negative rods", "Lactose fermenter", "Very mucoid colonies", "Nonmotile", "Indole negative"]],
+  ["Listeria monocytogenes", ["Gram-positive rods", "Catalase positive", "Tumbling motility", "Grows in the cold", "Narrow zone of beta hemolysis"]]
+];
+const MYSTERY_NAMES = [...MYSTERY.map(m => m[0]), "Staphylococcus epidermidis", "Salmonella enterica"];
+const LEVELS = [[0, "Lab trainee"], [300, "Phlebotomy trainee"], [900, "Lab assistant"], [2000, "Bench tech"], [4000, "MLS intern"], [7000, "Medical lab scientist"], [11000, "Senior MLS"], [16000, "Lead tech"], [23000, "Lab supervisor"], [32000, "Lab director"]];
+
+/* ---------- helpers ---------- */
+const dayNum = (t = Date.now()) => Math.floor(new Date(dayKey(t) + "T12:00").getTime() / DAY);
+const weekKey = () => mondayKey(Date.now());
+const weekDays = () => { const m = new Date(weekKey() + "T12:00").getTime(); const td = dayKey(); return Array.from({ length: 7 }, (_, i) => dayKey(m + i * DAY)).filter(k => k <= td); };
+const sumDaily = (keys, f) => keys.reduce((n, k) => n + (f((S.meta.daily || {})[k] || {}, k) || 0), 0);
+
+/* ---------- lab career: XP is calculated from what you’ve done, never stored ---------- */
+function xpTotal() {
+  const rev = Object.values(S.meta.history || {}).reduce((a, b) => a + (+b || 0), 0);
+  const les = LESSONS.filter(l => lessonState(l).passed).length;
+  const g = Object.values(games()).reduce((a, s) => a + (s.plays || 0) * 5 + (s.wins || 0) * 10, 0);
+  const bad = Object.keys(S.meta.badges || {}).length;
+  const spec = Object.keys(S.meta.specimens || {}).length, chal = Object.values(S.meta.challenges || {}).reduce((a, w) => a + Object.keys(w || {}).length, 0);
+  const mys = Object.values(S.meta.mystery || {}).filter(m => m && m.correct).length;
+  return rev + les * 25 + g + bad * 10 + masteredNow() * 2 + spec * 5 + chal * 50 + mys * 40;
+}
+function levelInfo(xp = xpTotal()) { let i = 0; while (i + 1 < LEVELS.length && xp >= LEVELS[i + 1][0]) i++; const lo = LEVELS[i][0], hi = LEVELS[i + 1] ? LEVELS[i + 1][0] : null; return { n: i + 1, title: LEVELS[i][1], xp, lo, hi, pct: hi ? Math.round((xp - lo) / (hi - lo) * 100) : 100, next: LEVELS[i + 1] ? LEVELS[i + 1][1] : null }; }
+function checkLevelUp() {
+  const L = levelInfo(); if (S.meta.lastLevel == null) { S.meta.lastLevel = L.n; saveMeta(true); return; }
+  const onHome = !(location.hash || "").replace("#", "") && !(ST && ST.el && ST.el.isConnected) && !document.querySelector(".scrim, .modal"); if (!onHome) return;
+  if (L.n > S.meta.lastLevel) { S.meta.lastLevel = L.n; saveMeta(true); modal(`<div class="unl"><div class="unl-burst" aria-hidden="true">${"<i></i>".repeat(12)}</div><span class="unl-k">LEVEL UP</span><h2>Level ${L.n}: ${esc(L.title)}</h2><p class="muted" style="margin:0 0 14px">${L.next ? `${(L.hi - L.xp).toLocaleString()} XP to ${esc(L.next)}.` : "The top of the lab. Incredible work."}</p><div class="modal-foot"><div class="spacer"></div><button class="btn primary" data-close>Nice</button></div></div>`, (s, close) => $$("[data-close]", s).forEach(b => b.onclick = close)); }
+}
+
+/* ---------- specimen of the day ---------- */
+const todaySpecimen = () => SPECIMENS[((dayNum() % SPECIMENS.length) + SPECIMENS.length) % SPECIMENS.length];
+function specimenHtml() {
+  const sp = todaySpecimen(), got = (S.meta.specimens || {})[dayKey()];
+  return `<section class="fun-card spec"><div class="fc-h"><span class="fc-k">SPECIMEN OF THE DAY</span><span class="fc-m">${Object.keys(S.meta.specimens || {}).length} collected</span></div>
+    <div class="spec-q"><span class="spec-e">${sp.e}</span><b>${esc(sp.q)}</b></div>
+    ${got ? `<div class="spec-a"><b>${esc(sp.a)}</b><p>${esc(sp.f)}</p></div>` : `<button class="btn sm primary" id="specGo">Reveal</button>`}</section>`;
+}
+/* ---------- mystery unknown of the week ---------- */
+function mysteryNow() { const w = weekKey(); const i = Math.floor(new Date(w + "T12:00").getTime() / (7 * DAY)) % MYSTERY.length; const [name, clues] = MYSTERY[(i + MYSTERY.length) % MYSTERY.length]; const shown = Math.min(5, weekDays().length); const st = (S.meta.mystery || {})[w] || null; return { w, name, clues, shown, st }; }
+function mysteryHtml() {
+  const m = mysteryNow(); const done = m.st && m.st.guess;
+  return `<section class="fun-card myst"><div class="fc-h"><span class="fc-k">MYSTERY UNKNOWN</span><span class="fc-m">${done ? (m.st.correct ? `Solved · +${m.st.pts} XP` : "Not this time") : `Clue ${m.shown} of 5`}</span></div>
+    <ol class="myst-c">${m.clues.slice(0, done ? 5 : m.shown).map(c => `<li>${esc(c)}</li>`).join("")}${done ? "" : m.clues.slice(m.shown).map(() => `<li class="locked">A new clue tomorrow</li>`).join("")}</ol>
+    ${done ? `<p class="myst-a">${m.st.correct ? "You got it:" : `You guessed ${esc(m.st.guess)}. It was`} <b>${esc(m.name)}</b>.</p>` : `<button class="btn sm primary" id="mystGo">Make your guess</button><span class="fc-hint">Guess early for more XP. One guess a week.</span>`}</section>`;
+}
+function mysteryGuess() {
+  const m = mysteryNow(); if (m.st && m.st.guess) return; const opts = shuffle([m.name, ...pick(MYSTERY_NAMES.filter(n => n !== m.name), 5)]);
+  modal(`${mhead("Name the unknown")}<p class="small muted" style="margin:-4px 0 10px">${m.shown} of 5 clues so far. Solving now earns ${(6 - m.shown) * 20} XP.</p><ol class="myst-c">${m.clues.slice(0, m.shown).map(c => `<li>${esc(c)}</li>`).join("")}</ol><div class="opts" style="margin-top:10px">${opts.map((o, k) => `<button class="opt" data-o="${k}"><span class="k">${k + 1}</span><span>${esc(o)}</span></button>`).join("")}</div>`, (s, close) => {
+    $$("[data-o]", s).forEach(b => b.onclick = () => { const g = opts[+b.dataset.o], ok = g === m.name; (S.meta.mystery = S.meta.mystery || {})[m.w] = { guess: g, correct: ok, clues: m.shown, pts: ok ? (6 - m.shown) * 20 : 0, t: Date.now() }; saveMeta(true); close(); toast(ok ? `Solved! +${(6 - m.shown) * 20} XP` : `Not quite. It was ${m.name}.`); render(); });
+  });
+}
+/* ---------- weekly challenges (progress is calculated, completions are remembered) ---------- */
+const CHALLENGES = [
+  ["rev", "Review {n} cards", () => GOAL() * 4, () => weekDays().reduce((n, k) => n + ((S.meta.history || {})[k] || 0), 0)],
+  ["goal", "Hit your daily goal on {n} days", () => 4, () => weekDays().filter(k => ((S.meta.history || {})[k] || 0) >= GOAL()).length],
+  ["days", "Study on {n} different days", () => 5, () => weekDays().filter(k => ((S.meta.history || {})[k] || 0) > 0).length],
+  ["les", "Pass {n} lessons", () => 2, () => sumDaily(weekDays(), d => d.lessons)],
+  ["games", "Play {n} game rounds", () => 5, () => sumDaily(weekDays(), d => d.games)],
+  ["jrev", "Do your mistake review on {n} days", () => 3, () => weekDays().filter(k => ((S.meta.daily || {})[k] || {}).jreview).length],
+  ["mast", "Master {n} more cards", () => 15, () => { const w = weekKey(); const snap = (S.meta.weekSnap || {})[w]; return snap ? Math.max(0, masteredNow() - snap.m) : 0; }]
+];
+function weekChallenges() {
+  const w = weekKey(); const snap = S.meta.weekSnap = S.meta.weekSnap || {}; if (!snap[w]) { snap[w] = { m: masteredNow(), t: Date.now() }; saveMeta(true); }
+  const seed = Math.floor(new Date(w + "T12:00").getTime() / (7 * DAY)); const idx = [seed % 7, (seed + 2) % 7, (seed + 5) % 7].map(i => (i + 7) % 7);
+  const done = (S.meta.challenges = S.meta.challenges || {})[w] = (S.meta.challenges[w] || {});
+  return idx.map(i => { const [id, t, goal, prog] = CHALLENGES[i]; const g = goal(), p = Math.min(g, prog()); if (p >= g && !done[id]) { done[id] = Date.now(); saveMeta(true); setTimeout(() => toast(`🏅 Challenge complete: ${t.replace("{n}", g)} (+50 XP)`), 400); } return { id, text: t.replace("{n}", g), g, p, ok: !!done[id] || p >= g }; });
+}
+function challengesHtml() {
+  const cs = weekChallenges();
+  return `<section class="fun-card chal"><div class="fc-h"><span class="fc-k">THIS WEEK’S CHALLENGES</span><span class="fc-m">${cs.filter(c => c.ok).length} of 3 done</span></div>${cs.map(c => `<div class="ch-row ${c.ok ? "ok" : ""}"><span class="ch-m">${c.ok ? "🏅" : "○"}</span><div class="ch-t"><b>${esc(c.text)}</b><i class="a3bar"><i style="width:${Math.round(c.p / c.g * 100)}%"></i></i></div><span class="ch-n">${c.p}/${c.g}</span></div>`).join("")}</section>`;
+}
+/* ---------- home: level chip and the fun row ---------- */
+{ const rh = renderHome; renderHome = function (decks) {
+    rh(decks); const v = $("#view"); if (!v) return;
+    try {
+      const L = levelInfo(); const g = v.querySelector(".greetline") || v.querySelector("h1");
+      if (g && !v.querySelector(".lvlchip")) g.insertAdjacentHTML("afterend", `<button class="lvlchip" id="lvlChip" title="${L.xp.toLocaleString()} XP"><span class="lv-n">Lv ${L.n}</span><span class="lv-t">${esc(L.title)}</span><i class="lv-bar"><i style="width:${L.pct}%"></i></i></button>`);
+      const dash = v.querySelector(".a3dash"); if (dash && !v.querySelector(".funrow")) dash.insertAdjacentHTML("afterend", `<div class="funrow">${specimenHtml()}${mysteryHtml()}${challengesHtml()}</div>`);
+      $("#lvlChip") && ($("#lvlChip").onclick = () => { location.hash = "#stats"; });
+      $("#specGo") && ($("#specGo").onclick = () => { (S.meta.specimens = S.meta.specimens || {})[dayKey()] = { id: todaySpecimen().id, t: Date.now() }; saveMeta(true); render(); });
+      $("#mystGo") && ($("#mystGo").onclick = mysteryGuess);
+      checkLevelUp();
+    } catch (e) { console.warn("fun row", e); }
+  }; }
+
+/* ---------- combos in any session ---------- */
+let COMBO = 0;
+function comboBump(ok) {
+  if (!ST || !ST.el || !ST.el.isConnected) return; COMBO = ok ? COMBO + 1 : 0;
+  ST.el.classList.toggle("hot", COMBO >= 5);
+  if (ok && COMBO >= 5 && COMBO % 5 === 0) { const b = document.createElement("div"); b.className = "combo-burst"; b.innerHTML = `<span>🔥 ${COMBO} in a row</span>`; ST.el.appendChild(b); setTimeout(() => b.remove(), 1500); if (COMBO > (S.meta.bestCombo || 0)) { S.meta.bestCombo = COMBO; saveMeta(true); } }
+}
+document.addEventListener("click", e => { const g = e.target.closest(".grades button"); if (!g || !ST || !ST.el || !ST.el.contains(g)) return; if (g.classList.contains("g1")) comboBump(false); else if (g.classList.contains("g3") || g.classList.contains("g4")) comboBump(true); }, true);
+new MutationObserver(muts => { for (const m of muts) for (const n of m.addedNodes) { if (n.nodeType !== 1 || !ST || !ST.el || !ST.el.contains(n)) continue; const f = n.classList && n.classList.contains("feedback") ? n : n.querySelector && n.querySelector(".feedback"); if (!f || f.dataset.counted) continue; f.dataset.counted = 1; if (f.classList.contains("ok")) comboBump(true); else if (f.classList.contains("no")) comboBump(false); } }).observe(document.documentElement, { childList: true, subtree: true });
+{ const os = openStudy; openStudy = function (...a) { COMBO = 0; $$(".scrim").forEach(sc => { if (sc.querySelector(".unl")) sc.remove(); }); return os.apply(this, a); }; }
+
+/* ---------- “Did you know?” at the end of sessions and on unlock screens ---------- */
+function nextFact() { const i = (S.meta.dykIdx || 0) % FUN_FACTS.length; S.meta.dykIdx = i + 1; return FUN_FACTS[i]; }
+new MutationObserver(() => {
+  const r = ST && ST.el && ST.el.isConnected && ST.el.querySelector(".results:not([data-dyk])"); if (r) { r.dataset.dyk = 1; r.insertAdjacentHTML("beforeend", `<div class="dyk"><span>💡 Did you know?</span><p>${esc(nextFact())}</p></div>`); }
+  const u = document.querySelector(".modal .unl:not([data-dyk])"); if (u) { u.dataset.dyk = 1; const foot = u.querySelector(".modal-foot"); foot && foot.insertAdjacentHTML("beforebegin", `<div class="dyk"><span>💡 Did you know?</span><p>${esc(nextFact())}</p></div>`); }
+}).observe(document.documentElement, { childList: true, subtree: true });
+
+/* ---------- Progress: your lab life, the specimen cabinet, and Wrapped ---------- */
+function cabinetHtml() {
+  const decks = Object.values(S.decks).filter(d => !d.hidden && d.cards.length);
+  const tube = (d) => { const c = deckCounts(d); const pct = c.total ? c.mastered / c.total : 0; const lb = labelOf(d); const col = CAPS[lb ? lb.color : d.color] || "#9B7FE6"; const fill = Math.round(pct * 26); return `<div class="cab-t ${pct >= .8 ? "full" : ""}" title="${esc(d.name)}: ${Math.round(pct * 100)}% mastered"><svg viewBox="0 0 20 44" width="26" height="56" aria-hidden="true"><rect x="3" y="1" width="14" height="8" rx="2" fill="${col}"/><path d="M4.5 9h11v26a5.5 5.5 0 0 1-11 0z" fill="var(--surface)" stroke="#8C959F" stroke-width="1.1"/><clipPath id="cl${d.id}"><path d="M4.5 9h11v26a5.5 5.5 0 0 1-11 0z"/></clipPath><rect clip-path="url(#cl${d.id})" x="4" y="${41 - fill}" width="12" height="${fill + 1}" fill="${col}" opacity=".75"/></svg><span>${esc(d.name)}</span></div>`; };
+  const full = decks.filter(d => { const c = deckCounts(d); return c.total && c.mastered / c.total >= .8; }).length;
+  return `<div class="panel cab"><div class="fc-h"><h3 style="margin:0">Specimen cabinet</h3><span class="fc-m">${full} of ${decks.length} decks full</span></div><p class="small muted" style="margin:4px 0 10px">Each tube fills as you master a deck.</p><div class="cab-shelf">${decks.map(tube).join("") || `<p class="small muted">Add a deck to start your cabinet.</p>`}</div></div>`;
+}
+function labLifeHtml() {
+  const L = levelInfo(); const chal = Object.values(S.meta.challenges || {}).reduce((a, w) => a + Object.keys(w || {}).length, 0);
+  const mys = Object.values(S.meta.mystery || {}).filter(m => m && m.correct).length;
+  return `<div class="panel lablife"><div class="ll-top"><div><span class="fc-k">LEVEL ${L.n}</span><h3>${esc(L.title)}</h3><small class="muted">${L.xp.toLocaleString()} XP${L.next ? ` · ${(L.hi - L.xp).toLocaleString()} to ${esc(L.next)}` : ""}</small></div><button class="btn primary" id="wrapGo">LabDeck Wrapped</button></div><i class="a3bar ll-bar"><i style="width:${L.pct}%"></i></i>
+    <div class="ll-stats"><div><b>${Object.keys(S.meta.specimens || {}).length}</b><span>specimens collected</span></div><div><b>${chal}</b><span>challenges done</span></div><div><b>${mys}</b><span>mysteries solved</span></div><div><b>${S.meta.bestCombo || 0}</b><span>best combo</span></div></div></div>`;
+}
+{ const rs = renderStats; renderStats = function (...a) { const out = rs.apply(this, a); const v = $("#view"); if (v && !v.querySelector(".lablife")) { const h1 = v.querySelector("h1"); try { (h1 || v.firstElementChild).insertAdjacentHTML("afterend", labLifeHtml() + cabinetHtml()); $("#wrapGo").onclick = startWrapped; } catch (e) { console.warn(e); } } return out; }; }
+
+/* ---------- LabDeck Wrapped ---------- */
+function wrappedData() {
+  const h = S.meta.history || {}; const keys = Object.keys(h).filter(k => h[k] > 0).sort();
+  let best = 0, run = 0, prev = null; keys.forEach(k => { const t = new Date(k + "T12:00").getTime(); run = prev != null && Math.round((t - prev) / DAY) === 1 ? run + 1 : 1; best = Math.max(best, run); prev = t; });
+  const byLabel = {}; Object.values(S.decks).forEach(d => { const lb = labelOf(d); const name = lb ? lb.name : d.name; const s = S.srs[d.id] || {}; const st = byLabel[name] = byLabel[name] || { reps: 0, e: 0, n: 0 }; Object.values(s).forEach(x => { st.reps += x.r || 0; if (x.r) { st.e += x.e || 2.5; st.n++; } }); });
+  const labs = Object.entries(byLabel).filter(([, s]) => s.n >= 5);
+  const top = labs.sort((a, b) => b[1].reps - a[1].reps)[0], hard = labs.slice().sort((a, b) => a[1].e / a[1].n - b[1].e / b[1].n)[0];
+  const gm = Object.entries(games()).sort((a, b) => (b[1].plays || 0) - (a[1].plays || 0))[0];
+  const favGame = gm && gm[1].plays ? (GAMES.find(g => g[0] === gm[0]) || [0, gm[0]])[1] : null;
+  return { reviews: keys.reduce((n, k) => n + h[k], 0), days: keys.length, best, top: top ? top[0] : null, hard: hard ? hard[0] : null, favGame, plays: gm ? gm[1].plays || 0 : 0, lessons: LESSONS.filter(l => lessonState(l).passed).length, mastered: masteredNow(), badges: Object.keys(S.meta.badges || {}).length, L: levelInfo() };
+}
+function startWrapped() {
+  const W = wrappedData(); openStudy("LabDeck Wrapped");
+  const slides = [
+    ["Your LabDeck Wrapped", `<b class="wr-big">${W.reviews.toLocaleString()}</b><p>reviews, across ${plural(W.days, "study day")}</p>`],
+    ["Consistency", `<b class="wr-big">${W.best}</b><p>day${W.best === 1 ? "" : "s"}: your longest streak</p>`],
+    ["Where you spent your time", W.top ? `<b class="wr-mid">${esc(W.top)}</b><p>your most-studied subject</p>` : `<p>Study a little more to find your favorite subject.</p>`],
+    ["Your toughest subject", W.hard ? `<b class="wr-mid">${esc(W.hard)}</b><p>the one that pushed you the hardest. That’s where the growth is.</p>` : `<p>Nothing’s stumped you yet.</p>`],
+    ["Play time", W.favGame ? `<b class="wr-mid">${esc(W.favGame)}</b><p>your favorite game, played ${plural(W.plays, "time")}</p>` : `<p>Try a game in Play. They count toward your level.</p>`],
+    ["And so far", `<div class="wr-grid"><div><b>${W.lessons}</b><span>lessons passed</span></div><div><b>${W.mastered.toLocaleString()}</b><span>cards mastered</span></div><div><b>${W.badges}</b><span>badges</span></div><div><b>Lv ${W.L.n}</b><span>${esc(W.L.title)}</span></div></div>`]
+  ];
+  let i = 0;
+  const draw = () => { setProg(i / (slides.length - 1)); const [t, body] = slides[i]; ST.stage.innerHTML = `<div class="wrapped"><span class="wr-k">${i + 1} / ${slides.length}</span><h2>${t}</h2><div class="wr-body">${body}</div><div class="row wr-nav">${i ? `<button class="btn" id="wrPrev">Back</button>` : ""}<div class="spacer"></div>${i < slides.length - 1 ? `<button class="btn primary" id="wrNext">Next</button>` : `<button class="btn" id="wrSave">Save image</button><button class="btn primary" id="wrDone">Done</button>`}</div></div>`;
+    $("#wrPrev") && ($("#wrPrev").onclick = () => { i--; draw(); }); $("#wrNext") && ($("#wrNext").onclick = () => { i++; draw(); }); $("#wrDone") && ($("#wrDone").onclick = () => closeStudy()); $("#wrSave") && ($("#wrSave").onclick = () => saveWrappedImage(W)); };
+  ST.onKey = e => { if (e.key === "Enter" || e.key === "ArrowRight") { if (i < slides.length - 1) { i++; draw(); } } else if (e.key === "ArrowLeft" && i) { i--; draw(); } };
+  draw();
+}
+function saveWrappedImage(W) {
+  try {
+    const c = document.createElement("canvas"); c.width = 1080; c.height = 1350; const x = c.getContext("2d");
+    const g = x.createLinearGradient(0, 0, 1080, 1350); g.addColorStop(0, "#8F6BF0"); g.addColorStop(1, "#5B35C8"); x.fillStyle = g; x.fillRect(0, 0, 1080, 1350);
+    const F = "-apple-system, 'Segoe UI', Inter, Roboto, sans-serif"; x.fillStyle = "#fff"; x.textBaseline = "top";
+    x.font = `700 44px ${F}`; x.fillText("LabDeck Wrapped", 80, 90); x.globalAlpha = .8; x.font = `500 30px ${F}`; x.fillText(new Date().toLocaleDateString(undefined, { month: "long", year: "numeric" }), 80, 150); x.globalAlpha = 1;
+    const rows = [[W.reviews.toLocaleString(), "reviews"], [W.days, "study days"], [W.best, "day longest streak"], [W.lessons, "lessons passed"], [W.mastered.toLocaleString(), "cards mastered"], [`Lv ${W.L.n}`, W.L.title]];
+    rows.forEach(([n, l], k) => { const col = k % 2, row = Math.floor(k / 2); const px = 80 + col * 470, py = 280 + row * 260; x.fillStyle = "rgba(255,255,255,.14)"; if (x.roundRect) { x.beginPath(); x.roundRect(px, py, 440, 220, 28); x.fill(); } else x.fillRect(px, py, 440, 220); x.fillStyle = "#fff"; x.font = `800 84px ${F}`; x.fillText(String(n), px + 36, py + 40); x.globalAlpha = .85; x.font = `500 32px ${F}`; x.fillText(String(l).slice(0, 26), px + 36, py + 150); x.globalAlpha = 1; });
+    if (W.top) { x.font = `600 34px ${F}`; x.fillText(`Most studied: ${W.top}`.slice(0, 48), 80, 1100); }
+    if (W.favGame) { x.globalAlpha = .85; x.font = `500 30px ${F}`; x.fillText(`Favorite game: ${W.favGame}`.slice(0, 52), 80, 1160); x.globalAlpha = 1; }
+    c.toBlob(b => { if (!b) { toast("Couldn’t make the image"); return; } const f = new File([b], "labdeck-wrapped.png", { type: "image/png" }); if (navigator.canShare && navigator.canShare({ files: [f] })) navigator.share({ files: [f], title: "My LabDeck Wrapped" }).catch(() => { }); else { const a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = "labdeck-wrapped.png"; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000); toast("Image saved"); } }, "image/png");
+  } catch (e) { toast("Couldn’t make the image on this device"); }
+}
+
+/* ---------- sync: new collections merge by entry, levels never go backward ---------- */
+{ const mr = mergeRemote; mergeRemote = function (r, ...a) {
+    const KEYS = ["specimens", "challenges", "weekSnap", "mystery"]; const keep = {}; KEYS.forEach(k => keep[k] = JSON.parse(JSON.stringify(S.meta[k] || {}))); const lv = S.meta.lastLevel, bc = S.meta.bestCombo || 0, dk = S.meta.dykIdx || 0;
+    const res = mr.call(this, r, ...a); const rm = (r && r.meta) || {};
+    KEYS.forEach(k => { const R = rm[k] || {}, L = keep[k]; const out = { ...R }; Object.entries(L).forEach(([kk, v]) => { const rv = R[kk]; if (rv && typeof rv === "object" && v && typeof v === "object") { if (k === "challenges") out[kk] = { ...rv, ...v }; else if (k === "weekSnap") out[kk] = (rv.t || 0) <= (v.t || 0) ? rv : v; else out[kk] = (rv.t || 0) >= (v.t || 0) ? rv : v; } else out[kk] = v; }); S.meta[k] = out; });
+    S.meta.lastLevel = Math.max(lv || 0, rm.lastLevel || 0) || lv; S.meta.bestCombo = Math.max(bc, rm.bestCombo || 0); S.meta.dykIdx = Math.max(dk, rm.dykIdx || 0);
+    return res; }; }
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
