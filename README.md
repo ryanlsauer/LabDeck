@@ -2,7 +2,7 @@
 
 A free study app for Medical Laboratory Science students, built around the Sentara RMH School of Medical Laboratory Science program. It runs in any modern browser on a phone or a computer, works offline, and keeps your progress on your own device. There are no accounts, ads or fees.
 
-Version 28.0.
+Version 29.0.
 
 ---
 
@@ -23,6 +23,9 @@ LabDeck combines four things you’d otherwise juggle separately:
 - **Up next** shows how many cards are waiting and about how long they’ll take.
 - **Today’s tasks** is a short, ordered list of what to do next: exam prep, reviews, a lesson, your mistake review.
 - **This week** charts your daily reviews against your goal line.
+- **Exam day mode** appears the day before and the day of an exam: weakest cards first, a 20-question practice test, and a quick readiness check. Everything else on home works as usual, and you can hide it for the day.
+- **Weak spots** builds a one-tap session from your shakiest cards across every deck.
+- **Streak protection**: one missed day a week is covered by a freeze, and an evening reminder appears if today’s goal isn’t met yet.
 - **Statistics**: streak, 7-day accuracy, lessons passed, mastered cards, mistake journal (open and fixed), all-time reviews and total cards.
 - **Exams** count down and change color as an exam gets closer, from calm gray to solid red on the day. Past exams disappear on their own.
 - **Lab tools**, in four groups of four (see below).
@@ -32,7 +35,8 @@ LabDeck combines four things you’d otherwise juggle separately:
 
 ## Decks and cards
 
-- **Card types:** term and definition, fill in the blank, and profile (a name plus fields, such as an organism’s Gram stain, catalase and coagulase). Any card can be a profile; deck-wide profile fields are an optional default.
+- **Card types:** term and definition, fill in the blank, image cards, and profile (a name plus fields, such as an organism’s Gram stain, catalase and coagulase). Any card can be a profile; deck-wide profile fields are an optional default.
+- **Image cards** (image occlusion): add a picture, drag boxes over the parts to hide, and label each one. Every box becomes its own card. Study with all boxes hidden, or one at a time.
 - **Why and notes** fields explain the reasoning behind a card and show on the card list.
 - **Labels** group decks by subject, each with a tube-cap color.
 - **Hide a deck** you don’t need right now (like a finished prerequisite). It leaves home and daily review but stays available to study or bring back.
@@ -73,21 +77,22 @@ Lessons that teach the program in order, one course at a time, from “science f
 
 | Teach | Test | Plan | Play |
 |---|---|---|---|
-| Glossary (terms and formulas) | Practice (mixed, look-alikes, range drills, lab math) | Course map | Your recent games |
+| Glossary (terms and formulas) | Practice (weak spots, mixed, look-alikes, range drills, lab math) | Course map | Your recent games |
 | Explain it | Exams (board practice, comprehensive exam) | Study timer | All games |
 | Memory hooks | Case studies (and case talks) | Study plan | |
-| Slide photo | Mistake journal | Starter decks | |
+| Capture (lecture notes, slide photos) | Mistake journal | Starter decks | |
 
 - **Glossary:** every abbreviation spelled out, plus your own words, phrases and formulas. Dotted-underlined terms anywhere in the app show their meaning when tapped. On a computer, the book button adds a term while you study.
 - **Memory hooks:** first-letter sentences, acronyms like PASS, memory palaces, or any saying or rule (like SnNout and SpPin). Each hook becomes a card in one of your decks.
 - **Mistake journal:** real mistakes from cards, lessons and games, with a daily review. Game mistakes come back with a picture of the question, rebuilt if needed.
+- **Lecture capture:** paste lecture notes and LabDeck suggests cards (from “Term: meaning” lines, definitions and reference ranges), fill-in-the-blank cards from **bold** words, glossary terms from abbreviations, and memory hooks from bulleted lists. You review and edit every suggestion before anything is added.
 - **Study timer:** focus sessions with breaks, which you can pause or cancel.
 
 ---
 
 ## Games
 
-Sixteen games with levels and scores, unlocked by the lessons that teach them: Tube trainer (including order-of-draw sprint levels), Critical call (including timed levels), Westgard judge, Smear practice, Anemia workup, Coag detective, Gram stain, ID flowcharts, Bench unknown, ABO and Rh typing, Antibody panel, Acid-base, Urine sediment, UA detective, Body fluid detective and Crossmatch puzzle.
+Sixteen games with levels and scores, unlocked by the lessons that teach them: Tube trainer (with order-of-draw sprint levels), Critical call (with timed levels), Westgard judge, Smear practice, Anemia workup, Coag detective, Gram stain, ID flowcharts, Bench unknown, ABO and Rh typing, Antibody panel, Acid-base, Urine sediment, UA detective, Body fluid detective and Crossmatch puzzle.
 
 ---
 

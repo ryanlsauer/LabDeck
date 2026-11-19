@@ -2228,6 +2228,60 @@ svg.heat{display:block}
 .grades button kbd{line-height:1!important;margin-top:1px!important}
 /* extra levels look like the rest */
 .lvl.xlv span{opacity:1}
+/* ===================== v29 ===================== */
+/* deck progress: quiet two-tone bar */
+.a3bar.dbar{position:relative;height:4px;background:var(--line)!important;max-width:220px}
+.a3bar.dbar>i{position:absolute;left:0;top:0;bottom:0;border-radius:2px}
+.a3bar.dbar>i.seen{background:color-mix(in srgb,var(--violet) 30%,transparent)!important}
+.a3bar.dbar>i.mast{background:var(--violet)!important}
+/* Play: bigger game emojis, four tiles, then a link */
+.tools2 .tl-play .ttile[id^="g_"] .tti{font-size:1.65rem!important;line-height:1}
+.tools2 .tl-play #allGames{grid-column:1/-1;flex-direction:row!important;justify-content:center;padding:6px!important;min-height:0!important}
+.tools2 .tl-play #allGames .tti{display:none!important}
+.tools2 .tl-play #allGames span,.tools2 .tl-play #allGames b{color:var(--violet-ink)!important;font-weight:600!important;font-size:.85rem!important}
+/* evening streak nudge */
+.a3nudge{display:flex;align-items:center;gap:12px;background:var(--surface);border-radius:var(--r-cell);box-shadow:var(--shadow);padding:12px 14px;margin:6px 0 12px}
+.a3nudge .nz-ic{font-size:1.4rem}.a3nudge div{flex:1;display:flex;flex-direction:column}.a3nudge b{font-size:.98rem}.a3nudge small{color:var(--ink-3);font-size:.82rem}
+/* exam day mode */
+.a3exam{background:var(--surface);border-radius:var(--r-hero);box-shadow:0 1px 2px rgba(0,0,0,.04),0 10px 26px rgba(229,72,77,.12);padding:16px;margin:6px 0 14px}
+.xd-h{display:flex;justify-content:space-between;align-items:center}.xd-k{font-size:.72rem;font-weight:700;color:var(--a3-red);letter-spacing:.06em}
+.a3exam h2{margin:4px 0 2px!important;font-size:1.5rem!important}.a3exam>p{margin:0 0 12px;font-size:.92rem}
+.a3exam .a3group{background:var(--surface-2)!important;box-shadow:none!important}
+.xd-conf{cursor:default}.xd-conf:hover{background:transparent!important}.xd-chips{display:flex;gap:4px}.xd-chips .chipbtn{min-width:32px;justify-content:center}
+@media (max-width:600px){.xd-conf{flex-wrap:wrap}.xd-chips{width:100%;padding-left:44px}}
+/* image occlusion */
+.occ{position:relative;display:inline-block;max-width:100%;line-height:0;border-radius:12px;overflow:hidden;user-select:none;-webkit-user-select:none}
+.occ img{display:block;max-width:100%;max-height:52vh;width:auto;height:auto;pointer-events:none}
+.face .occ{margin:6px auto;display:block;width:fit-content}
+.occ-box{position:absolute;box-sizing:border-box;border-radius:6px;display:flex;align-items:center;justify-content:center;line-height:1}
+.occ-box.o{background:#B9B9C2;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.occ-box.t{background:#7B4FE0;box-shadow:0 0 0 2px #fff,0 0 0 4px #7B4FE0}
+.occ-box.t span{color:#fff;font-weight:800;font-size:clamp(.8rem,2.4vw,1.2rem)}
+.occ-box.t.rev{background:rgba(52,199,89,.16);box-shadow:0 0 0 2px #34C759}
+.occ-box.t.rev span{color:#0B5D24;background:rgba(255,255,255,.92);border-radius:6px;padding:3px 6px;font-size:.8rem;font-weight:700;line-height:1.2;max-width:100%;overflow-wrap:anywhere;text-align:center}
+.occ.ed{touch-action:none;cursor:crosshair;margin:10px 0;border-radius:12px;box-shadow:inset 0 0 0 1px var(--line-2)}
+.occ-box.ed{background:rgba(123,79,224,.28);box-shadow:inset 0 0 0 2px #7B4FE0;cursor:pointer}
+.occ-box.ed span{background:#7B4FE0;color:#fff;font-weight:700;font-size:.72rem;border-radius:999px;min-width:20px;height:20px;padding:0 5px;display:flex;align-items:center;justify-content:center}
+.occ-box.ed.sel{background:rgba(123,79,224,.45);box-shadow:inset 0 0 0 2px #fff,0 0 0 2px #7B4FE0}
+.occ-box.ghost{background:rgba(123,79,224,.18);box-shadow:inset 0 0 0 2px #7B4FE0;pointer-events:none;border-radius:4px}
+.occ-pick{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.occ-list{display:flex;flex-direction:column;gap:6px;margin:6px 0 12px}
+.occ-item{display:flex;align-items:center;gap:8px}.occ-item.sel .occ-n{background:#7B4FE0;color:#fff}
+.occ-n{flex:none;width:24px;height:24px;border-radius:999px;background:var(--surface-2);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.78rem}
+.occ-missing{padding:24px;border-radius:12px;background:var(--surface-2);color:var(--ink-3);text-align:center;font-size:.9rem;line-height:1.4}
+.occ.mini{max-width:96px}.occ.mini img{max-height:72px}.occ.mini .occ-box span{display:none}
+.occ-tag{display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;border-radius:999px;background:var(--surface-2);font-size:.82rem}
+.occrow .cr-pic.occ-thumb{width:auto!important;height:auto!important}
+/* lecture capture */
+.lcap h2{margin:0 0 4px}.lcap>p{font-size:.92rem;margin:0 0 12px}
+#lcTxt{min-height:180px;font-size:.95rem;line-height:1.45}
+.lc-res h3{font-size:1rem;margin:18px 4px 8px}
+.lc-row{display:flex;gap:12px;align-items:flex-start;padding:11px 14px;cursor:pointer}
+.lc-row+.lc-row{border-top:.5px solid var(--line-2)}
+.lc-row input[type=checkbox]{margin-top:4px;width:18px;height:18px;accent-color:var(--violet);flex:none}
+.lc-f{flex:1;display:flex;flex-direction:column;gap:6px}.lc-f .input{font-size:.92rem;padding:8px 10px}.lc-f textarea{resize:vertical;min-height:38px}
+.lc-t{flex:1;font-size:.93rem;line-height:1.45}
+.tools2 .tl-play .ttile[id^="g_"] .tti,.tools2 .tl-play .ttile[id^="g_"] .tti *{font-size:27px!important;line-height:1!important}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -2315,7 +2369,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "28.0";
+const APP_VERSION = "29.0";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -2826,7 +2880,7 @@ function examTile(ex) {
     <div class="exam-days"><b>${days <= 0 ? "Today" : days}</b>${days > 0 ? `<span>${days === 1 ? "day" : "days"}</span>` : ""}</div>
     <div style="flex:1;min-width:0"><h3>${esc(ex.name)}</h3><p class="small muted">${new Date(ex.date + "T12:00").toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" })}. ${decks.map(d => esc(d.name)).join(", ") || "No decks linked"}</p>
       <div class="goalbar" style="margin-top:8px"><i style="width:${pctSeen}%"></i></div><p class="small muted" style="margin-top:4px">${pctSeen}% of facts studied, ${total ? Math.round(mastered / total * 100) : 0}% mastered</p></div>
-    <div class="col" style="gap:6px;align-items:flex-end"><span class="btn sm primary">Prep</span>${days <= 2 ? `<button class="btn sm" data-cram="${ex.id}">Cram</button>` : ""}<button class="btn ghost icon sm" data-exedit aria-label="Edit exam">${icon("edit")}</button></div>
+    <div class="col" style="gap:6px;align-items:flex-end"><span class="btn sm primary">Prep</span>${days <= 2 ? `` : ""}<button class="btn ghost icon sm" data-exedit aria-label="Edit exam">${icon("edit")}</button></div>
   </div>`;
 }
 function examModal(ex) {
@@ -6715,7 +6769,7 @@ function renderHome(decks) {
       </div>
     </section>` : ""}
     ${lect.length ? `<div class="section-head"><h2>Lectures</h2></div><div class="list">${lect.map(x => `<button class="listrow" data-lect="${x.ci}|${x.ui}"><span class="when">${x.when}</span><span style="flex:1;min-width:0"><b>${escG(x.u.name)}</b><br><span class="small muted">${esc(x.c.code)}${x.u.ch ? " · Read " + esc(x.u.ch) : ""}</span></span>${icon("right")}</button>`).join("")}</div>` : ""}
-    ${exams.length ? `<div class="section-head"><h2>Exams</h2><button class="btn sm ghost" id="addExam">${icon("plus")}Add</button></div><div class="list">${exams.map(ex => { const d = daysUntil(ex); return `<div class="listrow" data-exam="${ex.id}" role="button" tabindex="0"><span class="when ${d <= 3 ? "soon" : ""}">${d <= 0 ? "Today" : d + "d"}</span><span style="flex:1;min-width:0"><b>${esc(ex.name)}</b><br><span class="small muted">${new Date(ex.date + "T12:00").toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" })}</span></span><span class="btn sm">Prep</span>${d <= 2 ? `<button class="btn sm" data-cram="${ex.id}">Cram</button>` : ""}<button class="btn ghost icon sm" data-exedit aria-label="Edit">${icon("edit")}</button></div>`; }).join("")}</div>` : decks.length ? `<div class="row" style="margin:-4px 0 22px"><button class="btn sm ghost" id="addExam">${icon("calendar")}Add an exam date</button></div>` : ""}
+    ${exams.length ? `<div class="section-head"><h2>Exams</h2><button class="btn sm ghost" id="addExam">${icon("plus")}Add</button></div><div class="list">${exams.map(ex => { const d = daysUntil(ex); return `<div class="listrow" data-exam="${ex.id}" role="button" tabindex="0"><span class="when ${d <= 3 ? "soon" : ""}">${d <= 0 ? "Today" : d + "d"}</span><span style="flex:1;min-width:0"><b>${esc(ex.name)}</b><br><span class="small muted">${new Date(ex.date + "T12:00").toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" })}</span></span><span class="btn sm">Prep</span>${d <= 2 ? `` : ""}<button class="btn ghost icon sm" data-exedit aria-label="Edit">${icon("edit")}</button></div>`; }).join("")}</div>` : decks.length ? `<div class="row" style="margin:-4px 0 22px"><button class="btn sm ghost" id="addExam">${icon("calendar")}Add an exam date</button></div>` : ""}
     <div class="section-head"><h2>Lab tools</h2></div>
     ${toolsHtml()}
     ${prepPath}
@@ -11805,6 +11859,264 @@ new MutationObserver(() => {
     go.onclick = e => { e.stopImmediatePropagation(); const st = gstate(X.game); st.level = Math.max(st.level || 1, n + 1); saveMeta(true); const keep = (S.meta.gameOverride || {})[id]; closeStudy(true); X.start(); if (keep) setOverride(X.game, true); setTimeout(() => { const t = ST.el; if (!t) return; const tt = t.querySelector(".study-top .t"); if (tt) tt.textContent = id === "tubes" ? "Tube trainer" : "Critical call"; t.querySelector(`.lvl[data-lv="${n + 1}"]`)?.click(); t.querySelector("#go")?.click(); }, 60); };
   });
 }).observe(document.documentElement, { childList: true, subtree: true });
+/* ===================== v29 ===================== */
+
+/* ---------- deck rows: a quiet two-tone bar (studied, and mastered) ---------- */
+{ const hd = homeDecksHtml; homeDecksHtml = function () {
+    let h = hd();
+    return h.replace(/<a class="a3deck" href="#d-([^"]+)">([\s\S]*?)<i class="a3bar"><i style="width:[^"]*"><\/i><\/i>/g, (m, id, mid) => {
+      const d = S.decks[id]; if (!d) return m; const c = deckCounts(d); const tot = c.total || 0; const seen = tot ? Math.round((tot - c.nw) / tot * 100) : 0, mast = tot ? Math.round(c.mastered / tot * 100) : 0;
+      return `<a class="a3deck" href="#d-${id}">${mid.replace(/<small>([\s\S]*?)<\/small>/, (_, sm) => `<small>${sm.replace(/ · \d+ new/, "")}${tot ? ` · ${seen}% studied` : ""}</small>`)}<i class="a3bar dbar" title="${seen}% studied, ${mast}% mastered"><i class="seen" style="width:${seen}%"></i><i class="mast" style="width:${mast}%"></i></i>`;
+    });
+  }; }
+
+/* ---------- Play: four recent games, then a link to all of them ---------- */
+{ const ot = ORDERED_TOOLS; ORDERED_TOOLS = function () { const o = ot(); const recent = (typeof recentGames === "function" ? recentGames() : []).map(g => Array.isArray(g) ? g[0] : g).map(id => (o.play || []).find(t => t[0] === "g_" + id)).filter(Boolean); let g = recent.length ? recent : []; const pool = GAMES.map(x => x[0]); for (const id of pool) { if (g.length >= 4) break; if (!g.some(t => t[0] === "g_" + id)) { const meta = GAME_META[id] || ["🎮"]; g.push(["g_" + id, meta[0], GAMES.find(x => x[0] === id)[1]]); } } return { ...o, play: [...g.slice(0, 4), ["allGames", "grid", `See all ${GAMES.length} games`]] }; }; }
+
+/* ---------- weak spots: one tap, your shakiest cards this week ---------- */
+function weakFacts(decks, n = 25) {
+  const jIds = new Set((S.meta.journal || []).filter(x => x.cardId || x.fkey).map(x => x.fkey || x.cardId));
+  const out = [];
+  (decks || Object.values(S.decks).filter(d => !d.hidden)).forEach(d => factsOf(d).forEach(f => {
+    if (isSus(f) || f.card.hook) return; const s = (S.srs[d.id] || {})[f.key]; if (!s || !s.r) return;
+    let w = 0; if (s.e < 2.5) w += (2.5 - s.e) * 3; if (s.i <= 1 && s.r >= 2) w += 2; if (jIds.has(f.key) || jIds.has(f.card.id)) w += 2;
+    if (w > 0) out.push([w, f]);
+  }));
+  return out.sort((a, b) => b[0] - a[0]).slice(0, n).map(x => x[1]);
+}
+function startWeakSpots(decks, label) {
+  const q = weakFacts(decks); if (!q.length) { toast("No weak spots right now. Nice."); return; }
+  startLearn(null, { queue: shuffle(q), title: label || "Weak spots" });
+}
+
+/* ---------- streak protection: one free day a week, and an evening heads-up ---------- */
+const mondayKey = t => { const d = new Date(t); d.setHours(12, 0, 0, 0); d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); return dayKey(d.getTime()); };
+streak = function () {
+  const h = S.meta.history || {}; const F = S.meta.freezes = S.meta.freezes || {}; const before = JSON.stringify(F);
+  let n = 0, t = Date.now(); if (!h[dayKey(t)]) t -= DAY;
+  for (let g = 0; g < 4000; g++) {
+    const k = dayKey(t); if (h[k]) { n++; t -= DAY; continue; }
+    const wk = mondayKey(t), prev = dayKey(t - DAY);
+    if (n > 0 && h[prev] && (!F[wk] || F[wk] === k)) { F[wk] = k; t -= DAY; continue; }
+    break;
+  }
+  if (JSON.stringify(F) !== before) saveMeta(true);
+  return n;
+};
+function freezeNote() { const F = S.meta.freezes || {}; const used = F[mondayKey(Date.now())]; return used ? `Freeze used ${new Date(used + "T12:00").toLocaleDateString(undefined, { weekday: "short" })}` : "1 freeze ready this week"; }
+{ const dh = dashHtml; dashHtml = function (decks) {
+    let h = dh(decks); const st = streak();
+    h = h.replace(/(<div class="a3stat"><span>STREAK<\/span><b>[\s\S]*?<\/b><small>)[^<]*(<\/small>)/, `$1${st ? freezeNote() : "Study today to start one"}$2`);
+    const now = new Date(), rev = (S.meta.history || {})[dayKey()] || 0, goal = GOAL();
+    if (now.getHours() >= 18 && st > 0 && rev < goal) h = `<div class="a3nudge"><span class="nz-ic">🔥</span><div><b>${rev ? `${goal - rev} more reviews to hit today’s goal` : `Your ${st}-day streak needs one review today`}</b><small>${rev ? "Your streak is safe. Finish strong." : "Even a few cards keeps it going."}</small></div><button class="btn sm primary" id="nudgeGo">Review</button></div>` + h;
+    return h;
+  }; }
+
+/* ---------- exam day mode: focused help on top, everything else still there ---------- */
+function examSoon() { return (S.meta.exams || []).map(e => ({ e, d: dayDiff(e.date) })).filter(x => x.d >= 0 && x.d <= 1).sort((a, b) => a.d - b.d)[0]; }
+function examDecks(e) { const ids = (e.decks || []).filter(id => S.decks[id]); return ids.length ? ids.map(id => S.decks[id]) : Object.values(S.decks).filter(d => !d.hidden); }
+function examDayHtml() {
+  const x = examSoon(); if (!x) return ""; const e = x.e; if ((S.meta.examDayHide || {})[e.id] === dayKey()) return "";
+  const conf = e.conf && e.conf.t && dayKey(e.conf.t) === dayKey() ? e.conf.v : null;
+  return `<section class="a3exam"><div class="xd-h"><span class="xd-k">${x.d === 0 ? "EXAM TODAY" : "EXAM TOMORROW"}</span><button class="btn ghost sm" id="xdHide" aria-label="Hide exam day mode for today">Hide for today</button></div>
+    <h2>${esc(e.name)}</h2><p class="muted">${x.d === 0 ? "You’ve done the work. A short warm-up, then trust it." : "A focused plan for tonight. Everything else on home still works as usual."}</p>
+    <div class="a3group">
+      <button class="a3row" id="xdWeak"><span class="a3sym" style="background:#E5484D">${icon("target")}</span><span class="a3rt"><b>Weakest cards first</b><small>Your shakiest cards from this exam’s decks</small></span><span class="a3chev">›</span></button>
+      <button class="a3row" id="xdTest"><span class="a3sym" style="background:#7B4FE0">${icon("exam")}</span><span class="a3rt"><b>Practice test</b><small>20 questions from this exam’s decks, scored</small></span><span class="a3chev">›</span></button>
+      <div class="a3row xd-conf"><span class="a3sym" style="background:#F5B800">${icon("star")}</span><span class="a3rt"><b>How ready do you feel?</b><small>${conf ? `You said ${conf} of 5 today` : "A quick check-in, just for you"}</small></span><span class="xd-chips">${[1, 2, 3, 4, 5].map(v => `<button class="chipbtn sm ${conf === v ? "on" : ""}" data-conf="${v}">${v}</button>`).join("")}</span></div>
+    </div></section>`;
+}
+function practiceTest(e) {
+  const facts = shuffle(examDecks(e).flatMap(d => factsOf(d)).filter(f => !isSus(f) && !f.card.hook && f.card.type !== "occlusion" && f.q && f.a && f.a.length < 140));
+  if (facts.length < 4) { toast("Add a few cards to this exam’s decks first"); return; }
+  const items = facts.slice(0, 20).map(f => { const pool = facts.filter(g => g !== f && g.a !== f.a && (g.field || "") === (f.field || "")); const wrong = shuffle(pool.length >= 3 ? pool : facts.filter(g => g.a !== f.a)).slice(0, 3).map(g => g.a); const opts = shuffle([f.a, ...wrong]); return [f.q, opts, opts.indexOf(f.a), f.card.why || ""]; });
+  openStudy("Practice test: " + e.name);
+  quizRunner(items, "Practice test", score => {
+    const pct = typeof score === "number" ? Math.round(score <= 1 ? score * 100 : score) : null;
+    ST.stage.innerHTML = `<div class="results"><h2>${pct != null ? pct + "%" : "Done"}</h2><p class="muted">${pct == null ? "" : pct >= 85 ? "You’re ready. Get some sleep." : pct >= 70 ? "Solid. Review the misses once more." : "Worth another pass on your weakest cards."}</p><div class="row" style="justify-content:center;gap:8px"><button class="btn" id="ptWeak">Weakest cards</button><button class="btn primary" id="ptDone">Done</button></div></div>`;
+    $("#ptWeak").onclick = () => { closeStudy(true); startWeakSpots(examDecks(e), "Weakest cards: " + e.name); }; $("#ptDone").onclick = () => closeStudy();
+  });
+}
+{ const rh = renderHome; renderHome = function (decks) {
+    rh(decks); const v = $("#view"); if (!v) return;
+    const xd = examDayHtml(); const dash = v.querySelector(".a3dash");
+    if (xd && dash && !v.querySelector(".a3exam")) dash.insertAdjacentHTML("beforebegin", xd);
+    const x = examSoon();
+    if (x) { const e = x.e;
+      $("#xdHide") && ($("#xdHide").onclick = () => { (S.meta.examDayHide = S.meta.examDayHide || {})[e.id] = dayKey(); saveMeta(true); render(); });
+      $("#xdWeak") && ($("#xdWeak").onclick = () => startWeakSpots(examDecks(e), "Weakest cards: " + e.name));
+      $("#xdTest") && ($("#xdTest").onclick = () => practiceTest(e));
+      $$("[data-conf]", v).forEach(b => b.onclick = () => { e.conf = { v: +b.dataset.conf, t: Date.now() }; saveMeta(true); render(); toast("Noted. You’ve got this."); }); }
+    $("#nudgeGo") && ($("#nudgeGo").onclick = () => $("#startAll")?.click());
+    const up = v.querySelector(".a3up-b"); if (up && !v.querySelector("#weakBtn") && weakFacts(null, 1).length) { up.insertAdjacentHTML("beforeend", `<button class="btn bghost" id="weakBtn">Weak spots</button>`); $("#weakBtn").onclick = () => startWeakSpots(); }
+  }; }
+/* Practice picker gets a Weak spots row */
+{ const sm = startMixed; startMixed = function (skip) { const out = sm(skip); if (skip !== true && ST && ST.stage && !ST.stage.querySelector('[data-m="weak"]')) { const g = ST.stage.querySelector(".a3group"); g && g.insertAdjacentHTML("afterbegin", `<button class="a3row" data-m="weak"><span class="a3sym" style="background:#E5484D">${icon("target")}</span><span class="a3rt"><b>Weak spots</b><small>Your 25 shakiest cards across every deck</small></span><span class="a3chev">›</span></button>`); const b = ST.stage.querySelector('[data-m="weak"]'); b && (b.onclick = () => { closeStudy(true); startWeakSpots(); }); } return out; }; }
+
+/* ===================== image occlusion cards ===================== */
+/* A card is { type: "occlusion", img, rects: [{ id, x, y, w, h, label }] in % of the image, occMode: "all" | "one" }.
+   Each box is its own fact (key card.id::box.id), so editing boxes never disturbs the others' review history. */
+{ const fo = factsOf; factsOf = function (d) {
+    const occ = d.cards.filter(c => c.type === "occlusion");
+    if (!occ.length) return fo(d);
+    const all = d.cards; let base; d.cards = all.filter(c => c.type !== "occlusion"); try { base = fo(d); } finally { d.cards = all; }
+    const extra = []; occ.forEach(c => (c.rects || []).filter(r => r.label && r.label.trim()).forEach(r => extra.push({ key: c.id + "::" + r.id, deck: d, card: c, kind: "occl", rect: r, q: "What’s hidden here?", a: r.label.trim() })));
+    return [...base, ...extra];
+  }; }
+function occImg(c, target, reveal) {
+  const src = imgSrc(c.img);
+  if (!src) return `<div class="occ-missing">This card’s picture hasn’t synced to this device yet.</div>`;
+  const mode = c.occMode || "all";
+  return `<div class="occ"><img src="${src}" alt="" draggable="false">${(c.rects || []).map(r => { const isT = target && r.id === target.id; if (!isT && mode === "one") return ""; const cls = isT ? (reveal ? "occ-box t rev" : "occ-box t") : "occ-box o"; return `<div class="${cls}" style="left:${r.x}%;top:${r.y}%;width:${r.w}%;height:${r.h}%">${isT && reveal ? `<span>${esc(r.label)}</span>` : isT ? "<span>?</span>" : ""}</div>`; }).join("")}</div>`;
+}
+{ const ff = factFront; factFront = function (f) { if (f && f.kind === "occl") return `<div class="kicker">Image card</div>${occImg(f.card, f.rect, false)}<div class="sub-text muted">What’s under the highlighted box?</div>`; return ff(f); }; }
+{ const fb = factBack; factBack = function (f) { if (f && f.kind === "occl") return `<div class="kicker">${esc(f.rect.label)}</div>${occImg(f.card, f.rect, true)}${f.card.note ? `<div class="note">${escG(f.card.note)}</div>` : ""}`; return fb(f); }; }
+/* keep image cards in flashcard modes only: no multiple choice, typing, matching or Learn */
+{ const qf = questionFor; questionFor = function (f, a) { if (f && f.kind === "occl") return null; return qf(f, a); }; }
+{ const st = startType; startType = function (d) { const orig = factsOf; factsOf = x => orig(x).filter(f => f.kind !== "occl"); try { return st(d); } finally { factsOf = orig; } }; }
+{ const sm = startMatch; startMatch = function (d) { const orig = factsOf; factsOf = x => orig(x).filter(f => f.kind !== "occl"); try { return sm(d); } finally { factsOf = orig; } }; }
+{ const lf = lmFacts; lmFacts = function (d) { return lf(d).filter(f => f.kind !== "occl" && !(f.rev && f.card.type === "occlusion")); }; }
+
+function occlusionModal(d, card, after) {
+  const c = card ? JSON.parse(JSON.stringify(card)) : { id: uid(), type: "occlusion", img: "", rects: [], occMode: "all", note: "", star: false };
+  let sel = null;
+  modal(`${mhead(card ? "Edit image card" : "New image card")}
+    <p class="small muted" style="margin:-4px 0 10px">Add a picture, then drag boxes over the parts you want to hide. Each box becomes its own card.</p>
+    <div id="occPick" class="occ-pick"></div>
+    <div id="occWrap"></div>
+    <div id="occList" class="occ-list"></div>
+    <div class="field"><span class="lbl">When studying</span><div class="seg" id="occMode"><button type="button" data-m="all" class="${c.occMode !== "one" ? "on" : ""}">Hide all, guess one</button><button type="button" data-m="one" class="${c.occMode === "one" ? "on" : ""}">Hide one at a time</button></div></div>
+    <div class="field"><label for="occNote">Note (optional)</label><textarea class="input" id="occNote" rows="2">${esc(c.note || "")}</textarea></div>
+    <div class="modal-foot">${card ? `<button class="btn danger" id="occDel" style="margin-right:auto">Delete card</button>` : ""}<button class="btn" data-close>Cancel</button><button class="btn primary" id="occSave">Save</button></div>`, (s, close) => {
+    $$("[data-close]", s).forEach(b => b.onclick = close);
+    const pick = () => { $("#occPick", s).innerHTML = `<label class="btn ${c.img ? "" : "primary"}" style="cursor:pointer">${icon("camera")}${c.img ? "Change picture" : "Choose a picture"}<input type="file" accept="image/*" id="occFile" hidden></label>${c.img ? `<span class="small muted">Drag on the picture to add a box. Tap a box to select it.</span>` : ""}`;
+      $("#occFile", s).onchange = async e => { const f = e.target.files[0]; if (!f) return; try { const url = await fileToImage(f); const id = uid(); saveImage(id, url); c.img = id; draw(); } catch { toast("That picture couldn’t be opened. Try a JPG or PNG."); } }; };
+    const draw = () => { pick();
+      const w = $("#occWrap", s); if (!c.img || !imgSrc(c.img)) { w.innerHTML = ""; $("#occList", s).innerHTML = ""; return; }
+      w.innerHTML = `<div class="occ ed" id="occEd"><img src="${imgSrc(c.img)}" alt="" draggable="false">${c.rects.map((r, i) => `<div class="occ-box ed ${sel === r.id ? "sel" : ""}" data-r="${r.id}" style="left:${r.x}%;top:${r.y}%;width:${r.w}%;height:${r.h}%"><span>${i + 1}</span></div>`).join("")}</div>`;
+      $("#occList", s).innerHTML = c.rects.length ? c.rects.map((r, i) => `<div class="occ-item ${sel === r.id ? "sel" : ""}" data-r="${r.id}"><span class="occ-n">${i + 1}</span><input class="input" data-l="${r.id}" value="${esc(r.label || "")}" placeholder="What’s under box ${i + 1}?" autocomplete="off"><button type="button" class="btn ghost icon sm" data-x="${r.id}" aria-label="Remove box ${i + 1}">${icon("trash")}</button></div>`).join("") : `<p class="small muted">No boxes yet. Drag across the picture to add one.</p>`;
+      $$("[data-l]", s).forEach(inp => { inp.oninput = () => { const r = c.rects.find(x => x.id === inp.dataset.l); if (r) r.label = inp.value; }; inp.onfocus = () => { sel = inp.dataset.l; $$(".occ-box.ed", s).forEach(b => b.classList.toggle("sel", b.dataset.r === sel)); }; inp.onkeydown = e => { if (e.key === "Enter") { e.preventDefault(); const nx = inp.closest(".occ-item").nextElementSibling?.querySelector("input"); nx ? nx.focus() : inp.blur(); } }; });
+      $$("[data-x]", s).forEach(b => b.onclick = () => { c.rects = c.rects.filter(r => r.id !== b.dataset.x); if (sel === b.dataset.x) sel = null; draw(); });
+      bindDraw(); };
+    const bindDraw = () => {
+      const ed = $("#occEd", s); if (!ed) return; const img = ed.querySelector("img");
+      const pt = e => { const b = img.getBoundingClientRect(); return { x: Math.max(0, Math.min(100, (e.clientX - b.left) / b.width * 100)), y: Math.max(0, Math.min(100, (e.clientY - b.top) / b.height * 100)) }; };
+      let start = null, ghost = null;
+      ed.onpointerdown = e => { if (e.button > 0) return; const hit = e.target.closest(".occ-box"); if (hit) { sel = hit.dataset.r; draw(); setTimeout(() => $(`[data-l="${sel}"]`, s)?.focus(), 0); return; } e.preventDefault(); ed.setPointerCapture(e.pointerId); start = pt(e); ghost = document.createElement("div"); ghost.className = "occ-box ed ghost"; ed.appendChild(ghost); };
+      ed.onpointermove = e => { if (!start || !ghost) return; const p = pt(e); const x = Math.min(start.x, p.x), y = Math.min(start.y, p.y), w = Math.abs(p.x - start.x), h = Math.abs(p.y - start.y); Object.assign(ghost.style, { left: x + "%", top: y + "%", width: w + "%", height: h + "%" }); };
+      const end = e => { if (!start) return; const p = pt(e); const x = Math.min(start.x, p.x), y = Math.min(start.y, p.y), w = Math.abs(p.x - start.x), h = Math.abs(p.y - start.y); start = null; ghost && ghost.remove(); ghost = null;
+        if (w < 2.5 || h < 2.5) return; if (c.rects.length >= 30) { toast("That’s the most boxes for one picture (30)"); return; }
+        const r = { id: uid(), x: +x.toFixed(2), y: +y.toFixed(2), w: +w.toFixed(2), h: +h.toFixed(2), label: "" }; c.rects.push(r); sel = r.id; draw(); setTimeout(() => $(`[data-l="${r.id}"]`, s)?.focus(), 0); };
+      ed.onpointerup = end; ed.onpointercancel = () => { start = null; ghost && ghost.remove(); ghost = null; };
+      img.onload = () => { }; img.onerror = () => { $("#occWrap", s).innerHTML = `<div class="occ-missing">This picture couldn’t be shown. Choose it again.</div>`; };
+    };
+    $$("#occMode [data-m]", s).forEach(b => b.onclick = () => { c.occMode = b.dataset.m; $$("#occMode [data-m]", s).forEach(x => x.classList.toggle("on", x === b)); });
+    s.addEventListener("keydown", e => { if ((e.key === "Delete" || e.key === "Backspace") && sel && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)) { c.rects = c.rects.filter(r => r.id !== sel); sel = null; draw(); } });
+    $("#occSave", s).onclick = () => {
+      c.note = $("#occNote", s).value.trim(); c.rects.forEach(r => r.label = (r.label || "").trim());
+      if (!c.img) { toast("Choose a picture first"); return; }
+      if (!c.rects.length) { toast("Drag across the picture to add at least one box"); return; }
+      const empty = c.rects.find(r => !r.label); if (empty) { sel = empty.id; draw(); setTimeout(() => $(`[data-l="${empty.id}"]`, s)?.focus(), 0); toast("Give every box a label"); return; }
+      const clean = { id: c.id, type: "occlusion", img: c.img, rects: c.rects.map(({ id, x, y, w, h, label }) => ({ id, x, y, w, h, label })), occMode: c.occMode || "all", note: c.note, star: !!c.star };
+      const i = d.cards.findIndex(x => x.id === c.id); if (i >= 0) d.cards[i] = clean; else d.cards.push(clean);
+      d.updated = Date.now(); saveDeck(d); close(); toast(card ? "Image card saved" : `Image card added: ${plural(clean.rects.length, "box", "boxes")}`); after ? after() : renderDeck(d);
+    };
+    $("#occDel", s) && ($("#occDel", s).onclick = () => { if (!confirm("Delete this image card?")) return; d.cards = d.cards.filter(x => x.id !== c.id); saveDeck(d); close(); after ? after() : renderDeck(d); });
+    draw();
+  });
+}
+/* the card editor gets an "Image" type that opens the image editor; editing an image card goes straight there */
+{ const ec = editCardModal; editCardModal = function (d, card, after, prefType) {
+    if (card && card.type === "occlusion") return occlusionModal(d, card, after);
+    if (prefType === "occlusion") return occlusionModal(d, null, after);
+    const out = ec(d, card, after, prefType);
+    if (!card) setTimeout(() => { const seg = $("#ct"); if (seg && !seg.querySelector('[data-t="occlusion"]')) { seg.insertAdjacentHTML("beforeend", `<button type="button" data-t="occlusion">Image</button>`); seg.querySelector('[data-t="occlusion"]').onclick = e => { e.preventDefault(); e.stopPropagation(); const m = document.querySelector(".scrim:last-of-type"); m && (m.querySelector("[data-close], .mclose, #cx")?.click() || m.remove()); setTimeout(() => occlusionModal(d, null, after), 30); }; } }, 0);
+    return out; }; }
+/* deck list row for an image card */
+{ const cr = cardRow; cardRow = function (d, x, st) {
+    if (x.type !== "occlusion") return cr(d, x, st);
+    const src = imgSrc(x.img);
+    return `<div class="card-row cr2 occrow"><div class="cr-body"><div class="cr-top"><span class="cr-kind">Image card</span>${st ? `<span class="cstat ${st.k}">${esc(st.l)}</span>` : ""}</div><div class="cr-front">${plural((x.rects || []).length, "hidden label")}</div><div class="cr-back">${(x.rects || []).map((r, i) => `<span class="occ-tag">${i + 1}. ${esc(r.label)}</span>`).join("")}</div>${x.note ? `<div class="cr-note"><b>Note</b> ${escG(x.note)}</div>` : ""}</div>
+      ${src ? `<div class="cr-pic occ-thumb">${occImg(x, null, false).replace('class="occ"', 'class="occ mini"')}</div>` : ""}
+      <div class="acts"><button class="btn ghost icon sm star ${x.star ? "on" : ""}" data-act="star" data-id="${x.id}" aria-label="Star">${icon("star")}</button><button class="btn ghost icon sm" data-act="edit" data-id="${x.id}" aria-label="Edit">${icon("edit")}</button><button class="btn ghost icon sm" data-act="del" data-id="${x.id}" aria-label="Delete">${icon("trash")}</button></div></div>`;
+  }; }
+
+/* ===================== lecture capture ===================== */
+function parseLecture(text) {
+  const out = { cards: [], cloze: [], gloss: [], lists: [] }; const seen = new Set();
+  const clean = s => s.replace(/\s+/g, " ").trim().replace(/[.;,]$/, "");
+  const cap = s => s ? s[0].toUpperCase() + s.slice(1) : s;
+  const lines = text.replace(/\r/g, "").split("\n").map(l => l.replace(/\t/g, " ").trimEnd());
+  const bullet = /^\s*(?:[-*•‣◦–]|\d+[.)]|[a-z][.)])\s+/;
+  const addCard = (f, b, why) => { f = clean(f); b = clean(b); if (f.length < 2 || b.length < 2 || f.length > 90 || b.length > 300) return; const k = f.toLowerCase(); if (seen.has(k)) return; seen.add(k); out.cards.push({ front: cap(f), back: cap(b), why: why || "" }); };
+  // lists: a heading line followed by 3 to 10 bullet lines
+  for (let i = 0; i < lines.length; i++) {
+    const h = lines[i].trim(); if (!h || bullet.test(lines[i])) continue;
+    const items = []; let j = i + 1; while (j < lines.length && bullet.test(lines[j])) { items.push(clean(lines[j].replace(bullet, "").replace(/\*\*/g, ""))); j++; }
+    if (items.length >= 3 && items.length <= 10 && h.length <= 80) { const title = clean(h.replace(/:$/, "").replace(/\*\*/g, "")); out.lists.push({ title, items: items.map(x => x.split(/[:–—-]\s/)[0].slice(0, 60)) }); addCard(title.endsWith("?") ? title : `${title}: name all ${items.length}`, items.map(x => x.split(/[:–—]\s/)[0]).join("\n")); }
+  }
+  for (const raw of lines) {
+    const line = clean(raw.replace(bullet, "").replace(/\*\*/g, "")); if (!line) continue;
+    let m; const nBefore = out.cards.length;
+    if ((m = /^(.{2,60}?)\s*[:=–—]\s+(.{3,})$/.exec(line)) && !/^(note|example|e\.g|ex|tip|see)$/i.test(m[1])) addCard(m[1], m[2]);
+    else if ((m = /^(.{2,50}?)\s+-\s+(.{3,})$/.exec(line))) addCard(m[1], m[2]);
+    else if ((m = /^(?:an?\s+|the\s+)?(.{2,50}?)\s+(?:is|are|refers to|means|is defined as|is called)\s+(.{6,})$/i.exec(line)) && !/^(it|this|that|they|there|which|what)$/i.test(m[1])) addCard(m[1], m[2]);
+    if (out.cards.length === nBefore && /normal|range|reference|critical/i.test(line) && (m = /([A-Za-z][A-Za-z0-9 ,()\/-]{1,40}?)[:\s]+(<|>|≤|≥)?\s*(\d+(?:\.\d+)?\s*[–-]\s*\d+(?:\.\d+)?|\d+(?:\.\d+)?)\s*([A-Za-zµ/%·0-9^×]*(?:\/[A-Za-zµ]+)?)/.exec(line))) addCard(`${/critical/i.test(line) ? "Critical value" : "Reference range"}: ${clean(m[1].replace(/\b(normal|range|reference|critical|values?)\b/gi, ""))}`, `${m[2] || ""}${m[3].replace(/\s*-\s*/, "–")} ${m[4] || ""}`.trim());
+    let g; const ab1 = /([A-Z][A-Za-z][A-Za-z\- ]{2,60}?)\s*\(([A-Z][A-Za-z0-9\-]{1,9})\)/g; while ((g = ab1.exec(line))) { const full = clean(g[1]), ab = g[2]; const words = full.split(/\s+/); const tail = words.slice(-Math.max(ab.replace(/[^A-Z]/g, "").length, 1)).join(" "); if (!out.gloss.some(x => x.k === ab)) out.gloss.push({ k: ab, full: tail.length >= 4 ? tail : full }); }
+    const ab2 = /\b([A-Z][A-Z0-9]{1,8})\s*\(([a-z][^)]{3,60})\)/g; while ((g = ab2.exec(line))) if (!out.gloss.some(x => x.k === g[1])) out.gloss.push({ k: g[1], full: clean(g[2]) });
+  }
+  // fill in the blank: sentences with **bold** terms
+  text.split(/(?<=[.!?])\s+|\n/).forEach(sen => { const s = sen.trim(); if (!/\*\*[^*]{2,40}\*\*/.test(s) || s.length > 240) return; const t = s.replace(/\*\*([^*]{2,40})\*\*/g, "{{$1}}").replace(bullet, ""); if (!out.cloze.some(x => x.text === t)) out.cloze.push({ text: t }); });
+  out.gloss = out.gloss.filter(x => !GLOSS[x.k]);
+  return out;
+}
+function startCapturePick() {
+  openStudy("Capture"); setProg(0);
+  ST.stage.innerHTML = `<div class="a3pick"><h2>What are you capturing?</h2><div class="a3group">
+    <button class="a3row" id="capLec"><span class="a3sym" style="background:#7B4FE0">${icon("book")}</span><span class="a3rt"><b>Lecture notes</b><small>Paste your notes. LabDeck suggests cards, glossary terms and memory hooks.</small></span><span class="a3chev">›</span></button>
+    <button class="a3row" id="capSlide"><span class="a3sym" style="background:#7B4FE0">${icon("camera")}</span><span class="a3rt"><b>Slide photo</b><small>Save a microscope or lecture slide photo as a card</small></span><span class="a3chev">›</span></button></div></div>`;
+  $("#capLec").onclick = () => startLectureCapture(); $("#capSlide").onclick = () => { closeStudy(true); TOOL_FN.slideBtn ? TOOL_FN.slideBtn() : addSlideModal(); };
+}
+function startLectureCapture(deckId) {
+  openStudy("Lecture capture"); setProg(0);
+  const decks = Object.values(S.decks).filter(d => !d.hidden && !d.hooksDeck).sort((a, b) => (b.updated || 0) - (a.updated || 0));
+  ST.stage.innerHTML = `<div class="lcap"><h2>Lecture capture</h2><p class="muted">Paste notes from a lecture or slides. Lines like “Term: meaning”, “X is Y”, reference ranges, abbreviations in parentheses, bulleted lists and **bold** words all become suggestions you can check over before anything is added.</p>
+    <div class="field"><label for="lcTxt">Your notes</label><textarea class="input" id="lcTxt" rows="10" placeholder="Hemolysis: destruction of red blood cells&#10;Normal potassium: 3.5-5.1 mmol/L&#10;Complete blood count (CBC)&#10;Neutrophils are the most common white cells.&#10;Order of draw:&#10;- Blood culture&#10;- Light blue&#10;- Red or gold&#10;- Green&#10;- Lavender"></textarea></div>
+    <div class="field"><label for="lcDeck">Add cards to</label><select class="input" id="lcDeck"><option value="__new">A new deck…</option>${decks.map(d => `<option value="${d.id}" ${d.id === deckId ? "selected" : ""}>${esc(d.name)}</option>`).join("")}</select><input class="input hidden" id="lcNew" placeholder="New deck name, e.g. Heme lecture 3" style="margin-top:8px"></div>
+    <div class="row"><div class="spacer"></div><button class="btn primary" id="lcGo">Find cards</button></div><div id="lcOut"></div></div>`;
+  const sel = $("#lcDeck"), nw = $("#lcNew"); const tg = () => nw.classList.toggle("hidden", sel.value !== "__new"); sel.onchange = tg; if (decks.length && !deckId) sel.value = decks[0].id; tg();
+  $("#lcGo").onclick = () => {
+    const t = $("#lcTxt").value; if (t.trim().length < 10) { toast("Paste some notes first"); return; }
+    const r = parseLecture(t); const n = r.cards.length + r.cloze.length + r.gloss.length + r.lists.length;
+    if (!n) { $("#lcOut").innerHTML = `<div class="empty"><p>No suggestions found. Try lines like “Term: meaning” or a heading followed by bullet points.</p></div>`; return; }
+    const row = (kind, i, body, on) => `<label class="lc-row"><input type="checkbox" data-k="${kind}" data-i="${i}" ${on ? "checked" : ""}>${body}</label>`;
+    $("#lcOut").innerHTML = `<div class="lc-res">
+      ${r.cards.length ? `<h3>Cards <span class="small muted">${r.cards.length}</span></h3><div class="a3group">${r.cards.map((c, i) => row("card", i, `<span class="lc-f"><input class="input" data-f="${i}" value="${esc(c.front)}" aria-label="Front"><textarea class="input" data-b="${i}" rows="1" aria-label="Back">${esc(c.back)}</textarea></span>`, true)).join("")}</div>` : ""}
+      ${r.cloze.length ? `<h3>Fill in the blank <span class="small muted">${r.cloze.length}</span></h3><div class="a3group">${r.cloze.map((c, i) => row("cloze", i, `<span class="lc-t">${esc(c.text).replace(/\{\{(.+?)\}\}/g, '<span class="cr-blank">$1</span>')}</span>`, true)).join("")}</div>` : ""}
+      ${r.gloss.length ? `<h3>Glossary <span class="small muted">${r.gloss.length}</span></h3><div class="a3group">${r.gloss.map((g, i) => row("gloss", i, `<span class="lc-t"><b>${esc(g.k)}</b> ${esc(g.full)}</span>`, true)).join("")}</div>` : ""}
+      ${r.lists.length ? `<h3>Memory hook ideas <span class="small muted">${r.lists.length}</span></h3><div class="a3group">${r.lists.map((l, i) => row("hook", i, `<span class="lc-t"><b>${esc(l.title)}</b> ${esc(l.items.join(", "))}<br><small class="muted">Hook: ${esc(l.items.map(x => (x.match(/[A-Za-z0-9]/) || ["?"])[0].toUpperCase()).join(""))}</small></span>`, false)).join("")}</div>` : ""}
+      <div class="row" style="margin-top:12px"><div class="spacer"></div><button class="btn primary" id="lcAdd">Add selected</button></div></div>`;
+    $$("#lcOut textarea").forEach(t => { t.style.height = "auto"; t.style.height = t.scrollHeight + "px"; });
+    $("#lcAdd").onclick = () => {
+      let d = sel.value === "__new" ? null : S.decks[sel.value];
+      if (!d) { const name = nw.value.trim() || "Lecture notes " + new Date().toLocaleDateString(undefined, { month: "short", day: "numeric" }); d = { id: uid(), name, cards: [], fields: [], updated: Date.now() }; S.decks[d.id] = d; }
+      let nc = 0, ng = 0, nh = 0;
+      $$("#lcOut input[type=checkbox]:checked").forEach(cb => { const i = +cb.dataset.i;
+        if (cb.dataset.k === "card") { const f = $(`[data-f="${i}"]`).value.trim(), b = $(`[data-b="${i}"]`).value.trim(); if (f && b) { d.cards.push({ id: uid(), type: "basic", front: f, back: b, note: "From lecture notes", star: false }); nc++; } }
+        if (cb.dataset.k === "cloze") { d.cards.push({ id: uid(), type: "cloze", text: r.cloze[i].text, note: "From lecture notes", star: false }); nc++; }
+        if (cb.dataset.k === "gloss") { const g = r.gloss[i]; glossUser()[g.k] = { full: g.full, desc: "", t: Date.now() }; ng++; }
+        if (cb.dataset.k === "hook") { const l = r.lists[i]; const h = { id: uid(), title: l.title, items: l.items, ordered: true, method: "sentence", phrase: l.items.map(x => (x.match(/[A-Za-z0-9]/) || ["?"])[0].toUpperCase()).join(""), note: "From lecture notes", deckId: d.id }; (S.meta.hooks = S.meta.hooks || []).push(h); saveHook(h); nh++; }
+      });
+      d.updated = Date.now(); saveDeck(d); if (ng) applyUserGloss(); saveMeta(true);
+      if (!nc && !ng && !nh) { toast("Nothing selected"); return; }
+      ST.stage.innerHTML = `<div class="results"><h2>Captured</h2><p class="muted">${[nc ? plural(nc, "card") + ` in ${esc(d.name)}` : "", ng ? plural(ng, "glossary term") : "", nh ? plural(nh, "memory hook") : ""].filter(Boolean).join(" · ")}</p><div class="row" style="justify-content:center;gap:8px"><button class="btn" id="lcMore">Capture more</button><button class="btn primary" id="lcOpen">Open deck</button></div></div>`;
+      $("#lcMore").onclick = () => startLectureCapture(d.id); $("#lcOpen").onclick = () => { closeStudy(true); location.hash = "#d-" + d.id; };
+    };
+  };
+}
+TOOL_FN.captureBtn = () => startCapturePick();
+{ const i = TOOLS.learn.findIndex(t => t[0] === "slideBtn"); const cap = ["captureBtn", "camera", "Capture"]; if (i >= 0) TOOLS.learn[i] = cap; else TOOLS.learn.push(cap); TILE_SHORT.captureBtn = "Capture"; TOOL_SYM.captureBtn = "#7B4FE0"; }
+{ const rh = renderHome; renderHome = function (decks) { rh(decks); const g = $("#view .greetline"); if (g && / is in 1 day\b/.test(g.textContent)) g.textContent = g.textContent.replace(/ is in 1 day\b/, " is tomorrow"); }; }
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
