@@ -2115,6 +2115,98 @@ kbd{border-bottom-width:0!important}
 .fbox .feq{background:transparent!important;padding:0!important;border:0!important;box-shadow:none!important;color:var(--ink-3)!important;font-weight:500!important;font-size:1rem!important}
 .fbox .flhs{color:var(--violet-ink)!important;font-weight:700!important}
 .fbox .frhs{color:var(--ink)!important;font-weight:500!important}
+/* ===================== v27 · polish ===================== */
+/* spacing between home sections */
+#view .section-head{margin-top:36px!important}
+.a3dash+.section-head,.a3yday+.section-head{margin-top:30px!important}
+/* stat tiles: each takes the room it needs, the rest fill in */
+.a3stats{display:flex!important;flex-wrap:wrap;gap:10px!important}
+.a3stat{flex:1 1 150px;min-width:0;min-height:0!important}
+@media (min-width:900px){.a3stat{flex:1 1 auto;min-width:150px}}
+/* yesterday: its own summary card */
+.a3yday{background:var(--surface);border-radius:var(--r-cell);box-shadow:var(--shadow);padding:14px 16px;margin-top:12px}
+.yd-h{display:flex;flex-direction:column;gap:2px;margin-bottom:10px}.yd-h b{font-size:1.05rem}.yd-h span{font-size:.85rem;color:var(--ink-3)}
+.yd-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+@media (min-width:900px){.yd-grid{grid-template-columns:repeat(8,minmax(0,1fr))}}
+.yd-i{display:flex;flex-direction:column;gap:1px;padding:8px 10px;border-radius:10px;background:var(--surface-2)}.yd-i b{font-size:1.05rem;font-weight:700}.yd-i span{font-size:.7rem;color:var(--ink-3);line-height:1.2}
+/* fixed-design bar charts */
+.bc{display:flex;flex-direction:column;gap:6px}
+.bc-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}.bc-m{font-size:.78rem;color:var(--ink-3)}
+.bc-plot{position:relative;height:120px;display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:8px;align-items:end;border-bottom:.5px solid var(--line-2);padding-top:16px}
+.bc-col{position:relative;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center}
+.bc-col i{display:block;width:100%;max-width:34px;border-radius:7px 7px 3px 3px;min-height:0}
+.bc-v{font-size:.72rem;font-weight:600;color:var(--ink-2);margin-bottom:3px;min-height:1em}
+.bc-col.fut i{background:transparent!important}
+.bc-goal{position:absolute;left:0;right:0;border-top:1px dashed color-mix(in srgb,var(--ink-3) 60%,transparent);pointer-events:none;z-index:1}.bc-goal span{position:absolute;right:0;top:-15px;font-size:.66rem;color:var(--ink-3)}
+.bc-x{display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:8px}.bc-x span{text-align:center;font-size:.72rem;color:var(--ink-3)}.bc-x span.td{color:var(--violet-ink);font-weight:700}
+@media (max-width:600px){.bc-plot{height:110px;gap:5px}.bc-x{gap:5px}}
+.a3week{padding:14px 16px 12px!important}
+.pchart{padding:16px 18px!important}
+.pchart .bc-plot{height:110px}
+svg.heat{display:block}
+/* lab tools: four sections of four, as cards */
+.tools2{display:grid!important;grid-template-columns:1fr;gap:14px!important}
+@media (min-width:900px){.tools2{grid-template-columns:1fr 1fr}}
+.tools2 .tsec{background:var(--surface)!important;box-shadow:var(--shadow)!important;border-radius:var(--r-cell)!important;padding:14px 14px 12px!important}
+.tools2 .tsec-h{display:flex;align-items:baseline;gap:8px;padding:0 2px 10px!important}
+.tools2 .tsec-h b{font-size:1.02rem!important}.tools2 .tsec-h small{font-size:.78rem;color:var(--ink-3)}
+.tools2 .tl-learn .tsec-h b{color:#6B4BD8!important}.tools2 .tl-test .tsec-h b{color:#C8292F!important}.tools2 .tl-plan .tsec-h b{color:#2F6FB5!important}.tools2 .tl-play .tsec-h b{color:#2E8B47!important}
+.tools2 .ttiles{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:6px!important}
+.tools2 .ttile{background:transparent!important;box-shadow:none!important;padding:8px 2px 6px!important;border-radius:12px!important;min-height:0!important}
+.tools2 .ttile:hover{background:var(--surface-2)!important}
+.tools2 .ttile .tti{width:44px!important;height:44px!important;border-radius:12px!important}
+.tools2 .ttile .tti svg{width:22px;height:22px}
+.tools2 .ttile span:not(.tti),.tools2 .ttile b{font-size:.74rem!important;text-align:center;line-height:1.2}
+.tools2 .tl-learn .tti{background:linear-gradient(180deg,#8B66F2,#6B4BD8)!important}.tools2 .tl-test .tti{background:linear-gradient(180deg,#F0626A,#D63B42)!important}.tools2 .tl-plan .tti{background:linear-gradient(180deg,#4A90DA,#2F6FB5)!important}.tools2 .tl-play .tti{background:linear-gradient(180deg,#46B866,#2E8B47)!important}
+.tools2 #allGames{background:transparent!important}.tools2 #allGames .tti{background:var(--surface-2)!important;color:var(--ink-2)!important}.tools2 #allGames .tti svg{stroke:var(--ink-2)!important}
+.dark-fix{}
+/* glossary: the Yours tag sits with the term */
+.ytag{margin-left:8px!important;vertical-align:2px}
+/* games: merged extra modes */
+.xmode{margin-top:12px}.xm-e{background:var(--surface-2)!important;font-size:1.15rem}
+/* timer: an iOS-style picker */
+#tp button{display:flex!important;justify-content:space-between;align-items:center;padding:0 16px!important;text-align:left}
+#tp button.on::after{content:"✓";font-weight:800}
+#tp button:not(.on){color:var(--ink)!important}
+.modal #tstop{color:var(--a3-red)!important}
+/* fill-in-the-blank inputs are clearly blanks */
+.blankin{background:var(--violet-soft)!important;border:0!important;border-radius:8px!important;box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--violet) 45%,transparent)!important;padding:2px 6px!important;color:var(--ink)!important;font:inherit!important;font-weight:600!important;text-align:center;margin:0 2px}
+.blankin:focus{outline:none;box-shadow:inset 0 0 0 2px var(--violet)!important}
+.blankin.ok{background:color-mix(in srgb,#34C759 16%,var(--surface))!important;box-shadow:inset 0 0 0 1.5px #34C759!important}
+.blankin.no,.blankin.bad{background:color-mix(in srgb,#E5484D 14%,var(--surface))!important;box-shadow:inset 0 0 0 1.5px #E5484D!important}
+/* consistent corners on every card-like block in lessons and bootcamp */
+.study [class*="card"]:not(img):not(.cardimg),.study .panel,.study .callout,.study .qbanner,.study .beat,.study .lesson>div,.study .bootcard,.study .results>.panel,#view [class*="card"]:not(img):not(.cardimg){border-radius:var(--r-cell)!important}
+.study .qbanner{border:0!important;background:var(--surface)!important;box-shadow:var(--shadow)!important}
+/* grade numbers: subtle, in the button's own color, desktop only */
+.grades button kbd{display:block!important;background:transparent!important;border:0!important;box-shadow:none!important;font:600 .66rem var(--font-body)!important;opacity:.55;margin-top:1px;padding:0!important}
+.grades .g4 kbd{color:#fff!important}.grades .g1 kbd{color:var(--a3-red)!important}.grades .g2 kbd{color:var(--a3-yellow)!important}.grades .g3 kbd{color:var(--a3-green)!important}
+.grades button{flex-direction:column;justify-content:center}
+@media (hover:none),(max-width:700px){.grades button kbd{display:none!important}}
+/* deck page cards: actions top right, crisper profile rows */
+.card-row.cr2{grid-template-areas:"body acts" "body pic"!important;grid-template-columns:1fr auto!important}
+.cr2 .acts{grid-area:acts!important;align-self:start;margin:-6px -6px 0 0!important}
+.cr2 .cr-pic{grid-area:pic!important;justify-self:end}
+.cr-facts{gap:0!important;margin-top:6px!important}
+.cr-facts dt,.cr-facts dd{padding:7px 0!important;border-top:.5px solid var(--line-2)}
+.cr-facts dt{color:var(--ink-3);font-weight:600;font-size:.82rem;padding-right:14px!important}
+.cr-facts dd{color:var(--ink);font-size:.9rem}
+/* deck toolbar on phones: Add card stays top right */
+@media (max-width:640px){.deckbar,.decktools,#view .row:has(> #addCard){display:flex!important;flex-wrap:wrap;gap:8px}
+  #view .row:has(> #addCard) > .search{order:1;flex:1 1 0;min-width:0}#view .row:has(> #addCard) > #addCard{order:2}#view .row:has(> #addCard) > *:not(.search):not(#addCard){order:3}}
+/* toasts: tidy on phones */
+.toast{border-radius:16px!important;max-width:min(92vw,440px)!important;text-align:center;padding:10px 16px!important;line-height:1.35;white-space:normal!important;width:max-content}
+/* My program buttons: a clean ring on hover, all four sides */
+.mode{border:0!important;box-shadow:var(--shadow)!important;border-radius:var(--r-cell)!important;background:var(--surface)!important;transition:box-shadow .15s}
+.mode:hover{box-shadow:0 0 0 2px var(--violet)!important}
+.a3stats{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important}
+@media (min-width:700px){.a3stats{grid-template-columns:repeat(auto-fit,minmax(118px,1fr))!important}}
+.a3stat{flex:none!important}
+@media (max-width:640px){#view :has(> #addCard){display:flex!important;flex-wrap:wrap!important;gap:8px!important}
+  #view :has(> #addCard) > .search{order:1!important;flex:1 1 0!important;min-width:0!important}
+  #view :has(> #addCard) > #addCard{order:2!important;flex:none!important}
+  #view :has(> #addCard) > *:not(.search):not(#addCard){order:3!important}}
+@media (max-width:640px){#view :has(> #addCard) > .search{flex:1 1 calc(100% - 150px)!important}
+  #view :has(> #addCard) > *:not(.search):not(#addCard){flex:1 1 auto!important}}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -2202,7 +2294,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "26.0";
+const APP_VERSION = "27.0";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -3962,7 +4054,7 @@ function packsModal() {
   const have = new Set(Object.values(S.decks).map(d => d.pack).filter(Boolean));
   const areas = [...new Set(PACKS.map(p => p.area))];
   const sel = new Set();
-  modal(`${mhead("Starter packs")}
+  modal(`${mhead("Starter decks")}
     <p class="muted small" style="margin-bottom:14px">Ready-made decks to get a head start. They follow common textbook values, but programs differ, so edit anything to match your course. Reference ranges especially vary by lab.</p>
     ${Object.values(S.decks).some(d => d.pack) ? `<button class="btn sm ghost" id="rmPk" style="margin-bottom:10px">${icon("trash")}Remove starter decks…</button>` : ""}
     <div class="row" style="margin-bottom:12px">${missingPacks().length ? `<button class="btn sm primary" id="addAllM">Add all ${missingPacks().length} new packs</button>` : `<span class="small muted">You have every pack.</span>`}<button class="btn sm" id="selAll">Select all new</button>${packUpdates().length ? `<button class="btn sm" id="updP">Add ${packUpdates().reduce((n, u) => n + u.missing.length, 0)} new cards to packs you have</button>` : ""}</div>
@@ -11517,6 +11609,136 @@ Object.assign(GAME_META, { drawrun: ["🏃", "Order of draw, fast: first, next, 
 Object.assign(GAME_REQ, { drawrun: ["b-collect", "l-collect"], critclock: ["b-ref", "l-ref"], fluids: ["l-fluids"], xmatch: ["b-bb1", "l-bb", "l-txrxn"] });
 GAMES.slice(-4).forEach(([id, n, , fn]) => { GAME_OPEN[id] = [n, fn]; TOOL_FN["g_" + id] = () => gated(id, n, fn)(); });
 Object.assign(GAME_CAP, { drawrun: "#D8433A", critclock: "#E5484D", fluids: "#E8B422", xmatch: "#E07AA6" });
+/* ===================== v27 · polish round ===================== */
+
+/* ---------- Lab tools: four sections of four ---------- */
+TOOL_FN.examsBtn = () => examsPicker();
+function examsPicker() {
+  openStudy("Exam practice"); setProg(0);
+  const rows = [["board", "Board practice", "Exam-style questions across every subject, timed like the real thing", "exam", () => { closeStudy(true); TOOL_FN.boardBtn ? TOOL_FN.boardBtn() : startBoard(); }], ["comp", "Comprehensive exam", "One long exam covering the whole program, scored like your final", "exam", () => { closeStudy(true); startComprehensive(); }]];
+  ST.stage.innerHTML = `<div class="a3pick"><h2>Which exam?</h2><div class="a3group">${rows.map(([k, t, s, ic]) => `<button class="a3row" data-x="${k}"><span class="a3sym" style="background:#E5484D">${icon(ic)}</span><span class="a3rt"><b>${t}</b><small>${s}</small></span><span class="a3chev">›</span></button>`).join("")}</div></div>`;
+  $$("[data-x]").forEach(b => b.onclick = () => rows.find(r => r[0] === b.dataset.x)[4]());
+}
+{ const all = [...(TOOLS.learn || []), ...(TOOLS.test || []), ...(TOOLS.plan || [])]; const find = id => all.find(t => t[0] === id);
+  const slide = ["slideBtn", "camera", "Slide photo"];
+  TOOLS.learn = [find("gloBtn"), find("teachBtn"), find("hookBtn"), slide].filter(Boolean);
+  TOOLS.test = [find("mixBtn"), ["examsBtn", "exam", "Exams"], find("casesBtn"), find("mistBtn")].filter(Boolean);
+  TOOLS.plan = [find("mapBtn"), find("timerBtn"), find("planBtn"), find("packsBtn")].filter(Boolean);
+  TILE_SHORT.examsBtn = "Exams"; TILE_SHORT.mixBtn = "Practice"; TILE_SHORT.packsBtn = "Starter decks"; TILE_SHORT.slideBtn = "Slide photo"; }
+{ const ot = ORDERED_TOOLS; ORDERED_TOOLS = function () { const o = ot(); const games = (o.play || []).filter(t => t[0] !== "allGames" && t[0].startsWith("g_")).slice(0, 3); return { learn: TOOLS.learn, test: TOOLS.test, plan: TOOLS.plan, play: [...games, ["allGames", "grid", "All games"]] }; }; }
+Object.assign(TOOL_SYM, { slideBtn: "#7B4FE0", examsBtn: "#E5484D" });
+
+/* ---------- Rings: three daily goals that actually move ---------- */
+function ringData() {
+  const goal = GOAL(), rev = (S.meta.history || {})[dayKey()] || 0;
+  const npd = +((S.meta.settings || {}).newPerDay || 20), newDone = Math.max(0, npd - newLeftToday());
+  let tasks = [0, 0]; try { const it = buildPlan(); tasks = [it.filter(x => x.done).length, it.length]; } catch { }
+  return { rev, goal, newDone, npd, tasks };
+}
+function ringsCard() {
+  const r = ringData();
+  const ring = (rad, c, f) => { const C = 2 * Math.PI * rad; return `<circle cx="80" cy="80" r="${rad}" fill="none" stroke="color-mix(in srgb, ${c} 18%, transparent)" stroke-width="16"></circle><circle cx="80" cy="80" r="${rad}" fill="none" stroke="${c}" stroke-width="16" stroke-linecap="round" stroke-dasharray="${Math.max(0.1, Math.min(1, f) * C).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 80 80)"></circle>`; };
+  const tf = r.tasks[1] ? r.tasks[0] / r.tasks[1] : 1;
+  return `<div class="a3card a3rings"><svg width="148" height="148" viewBox="0 0 160 160" role="img" aria-label="Reviews ${r.rev} of ${r.goal}, new cards ${r.newDone} of ${r.npd}, tasks ${r.tasks[0]} of ${r.tasks[1]}">${ring(68, RING.purple, r.rev / r.goal)}${ring(48, RING.yellow, r.newDone / r.npd)}${ring(28, RING.red, tf)}</svg>
+    <div class="a3ringlab"><div><span>Reviews</span><b style="color:${RING.purple}">${r.rev}<small>/${r.goal}</small></b></div><div><span>New cards</span><b class="rl-y">${r.newDone}<small>/${r.npd}</small></b></div><div><span>Today’s tasks</span><b class="rl-r">${r.tasks[0]}<small>/${r.tasks[1]}</small></b></div></div></div>`;
+}
+
+/* ---------- Bar charts with a real, fixed design (no scaling) ---------- */
+function barChart({ vals, labels, goal, todayIdx = -1, title, meta, color = "var(--violet)", future = [] }) {
+  const mx = Math.max(goal ? goal * 1.15 : 0, ...vals, 5);
+  const gp = goal ? Math.min(100, goal / mx * 100) : null;
+  return `<div class="bc">${title ? `<div class="bc-h"><span class="a3cap">${title}</span>${meta ? `<span class="bc-m">${meta}</span>` : ""}</div>` : ""}
+    <div class="bc-plot" style="--n:${vals.length}">${gp != null ? `<div class="bc-goal" style="bottom:${gp}%"><span>Goal ${goal}</span></div>` : ""}
+      ${vals.map((v, i) => `<div class="bc-col ${i === todayIdx ? "td" : ""} ${future[i] ? "fut" : ""}"><span class="bc-v">${future[i] || !v ? "" : v}</span><i style="height:${future[i] ? 0 : Math.max(v ? 3 : 0, v / mx * 100)}%;background:${goal && v >= goal ? color : `color-mix(in srgb, ${color} ${goal ? 40 : 75}%, transparent)`}"></i></div>`).join("")}</div>
+    <div class="bc-x" style="--n:${vals.length}">${labels.map((l, i) => `<span class="${i === todayIdx ? "td" : ""}">${l}</span>`).join("")}</div></div>`;
+}
+weekChart = function () {
+  const goal = GOAL(), ws = weekStart(), td = dayKey(); const days = Array.from({ length: 7 }, (_, i) => dayKey(ws + i * DAY + 3600e3)); const v = days.map(d => (S.meta.history || {})[d] || 0);
+  return `<div class="a3week">${barChart({ vals: v, labels: days.map(d => new Date(d + "T12:00").toLocaleDateString(undefined, { weekday: "short" })), goal, todayIdx: days.indexOf(td), future: days.map(d => d > td), title: `THIS WEEK · ${v.reduce((a, b) => a + b, 0).toLocaleString()} REVIEWS · GOAL ${goal} A DAY`, meta: `${v.filter(n => n >= goal).length} of 7 days at goal` })}</div>`;
+};
+
+/* ---------- Yesterday: its own summary card ---------- */
+function yesterdayCard() {
+  const y = dayKey(Date.now() - DAY), Y = (S.meta.daily || {})[y] || {}, rev = (S.meta.history || {})[y] || 0;
+  const tot = (Y.right || 0) + (Y.wrong || 0), acc = tot ? Math.round((Y.right || 0) / tot * 100) : null;
+  const items = [["Reviews", rev], ["Accuracy", acc != null ? acc + "%" : "—"], ["Lessons", Y.lessons || 0], ["Games", Y.games || 0], ["Mistake review", Y.jreview ? "Done" : "—"], ["Objectives rated", Y.rated || 0], ["Lectures logged", Y.lecture || 0], ["Exam prep", Y.examPrep ? "Done" : "—"]];
+  const verdict = !rev && !Y.lessons && !Y.games ? "A rest day. Today’s a fresh start." : rev >= GOAL() ? "Goal met. Nice work." : `${GOAL() - rev} short of your goal.`;
+  return `<section class="a3yday"><div class="yd-h"><b>Yesterday</b><span>${new Date(y + "T12:00").toLocaleDateString(undefined, { weekday: "long", month: "short", day: "numeric" })} · ${verdict}</span></div><div class="yd-grid">${items.map(([k, v]) => `<div class="yd-i"><b>${v}</b><span>${k}</span></div>`).join("")}</div></section>`;
+}
+{ const dh = dashHtml; dashHtml = function (decks) {
+    let h = dh(decks);
+    const a = h.indexOf('<div class="a3card a3rings">'), b = h.indexOf('<div class="a3up">');
+    if (a >= 0 && b > a) h = h.slice(0, a) + ringsCard() + h.slice(b);
+    h = h.replace(/<div class="a3stat"><span>YESTERDAY<\/span>[\s\S]*?<\/div>/, "");
+    return h.replace(/<\/section>\s*$/, "") + `</section>${yesterdayCard()}`;
+  }; }
+
+/* ---------- Home decks: no Study buttons ---------- */
+{ const hd = homeDecksHtml; homeDecksHtml = function () { return hd().replace(/<button class="btn sm a3study"[^>]*>Study<\/button>/g, ""); }; }
+
+/* ---------- Progress: its own 14-day chart, a forecast, a fixed-size calendar ---------- */
+{ const rs = renderStats; renderStats = function (...a) {
+    const out = rs.apply(this, a); const v = $("#view"); if (!v) return out;
+    const days = Array.from({ length: 14 }, (_, i) => dayKey(Date.now() - (13 - i) * DAY)); const vals = days.map(k => (S.meta.history || {})[k] || 0);
+    const c14 = barChart({ vals, labels: days.map(d => new Date(d + "T12:00").toLocaleDateString(undefined, { weekday: "narrow" })), goal: GOAL(), todayIdx: 13, title: `LAST 14 DAYS · ${vals.reduce((x, y) => x + y, 0).toLocaleString()} REVIEWS`, meta: `${vals.filter(n => n >= GOAL()).length} days at goal` });
+    const wk = v.querySelector(".a3week"); if (wk) wk.outerHTML = `<div class="panel pchart">${c14}</div>`;
+    const fc = Array.from({ length: 7 }, () => 0); const st = new Date(); st.setHours(0, 0, 0, 0);
+    Object.values(S.decks).filter(d => !d.hidden).forEach(d => Object.values(S.srs[d.id] || {}).forEach(s => { if (!s.d) return; const k = Math.floor((s.d - st.getTime()) / DAY); if (k >= 0 && k < 7) fc[k]++; else if (k < 0) fc[0]++; }));
+    $$("svg.chart", v).forEach(svg => { const host = svg.closest(".panel") || svg.parentElement; const h3 = host.querySelector("h3"); host.innerHTML = `${h3 ? h3.outerHTML : ""}${barChart({ vals: fc, labels: fc.map((_, i) => i ? new Date(Date.now() + i * DAY).toLocaleDateString(undefined, { weekday: "short" }) : "Today"), todayIdx: 0, title: "CARDS COMING DUE · NEXT 7 DAYS", color: "#2F7FC0" })}`; host.classList.add("pchart"); });
+    $$("svg.heat", v).forEach(svg => { const vb = (svg.getAttribute("viewBox") || "").split(/\s+/).map(Number); if (vb.length === 4) { svg.style.width = Math.round(vb[2] * .82) + "px"; svg.style.height = Math.round(vb[3] * .82) + "px"; svg.style.minWidth = "0"; } });
+    return out; }; }
+
+/* ---------- Draw order, done right (red/gold and lavender/pink are interchangeable) ---------- */
+const DRAW2 = [["Blood culture", "#F1D54E", 0, "bottle"], ["Light blue (citrate)", "#7DB7E8", 1], ["Red (serum)", "#D8433A", 2], ["Gold (SST)", "#E8B422", 2], ["Green (heparin)", "#3E9C5B", 3], ["Lavender (EDTA)", "#8B6FD6", 4], ["Pink (EDTA)", "#E07AA6", 4], ["Gray (fluoride/oxalate)", "#7E868F", 5]];
+const tubeL2 = t => `<span class="drawtube">${capIcon(t[1], t[3] || "tube", 34)}<b>${esc(t[0])}</b></span>`;
+startDrawSprint = function () {
+  leveledGame("drawrun", "Draw order sprint", ["First or second?", "What comes next?", "Spot the mistake"], ["Two tubes. Which is drawn first? Tubes in the same group (red and gold, lavender and pink) can go in either order, so you won’t see those pairs.", "Name the next group. Blood culture, light blue, serum (red or gold), green, EDTA (lavender or pink), gray.", "A phlebotomist drew in this order. Which tube is out of place?"], [
+    done => mcAll(Array.from({ length: 12 }, () => { let a, b; do { [a, b] = pick(DRAW2, 2); } while (a[2] === b[2]); const first = a[2] < b[2] ? a : b; const L = Math.random() < .5 ? [a, b] : [b, a]; return { kicker: "Draw order", html: `<div class="drawpair">${L.map(tubeL2).join("")}</div>`, q: "Which is drawn first?", opts: L.map(t => t[0]), a: first[0], why: `${first[0]} comes before ${(first === a ? b : a)[0]}.`, game: "drawrun" }; }), "Draw order sprint", done),
+    done => mcAll(Array.from({ length: 10 }, () => { const cur = rpick(DRAW2.filter(t => t[2] < 5)); const nextRank = cur[2] + 1; const nexts = DRAW2.filter(t => t[2] === nextRank); const ans = rpick(nexts); const wrong = DRAW2.filter(t => t[2] !== nextRank && t[2] !== cur[2]); return { kicker: "Draw order", html: `<div class="drawpair">${tubeL2(cur)}<span class="drawarrow">→ ?</span></div>`, q: `What comes after ${cur[0]}?`, opts: shuffle([ans[0], ...pick(wrong, 3).map(t => t[0])]), a: ans[0], why: nexts.length > 1 ? `Next is the ${nexts.map(t => t[0]).join(" or ")} group. Either tube in that group is fine.` : `${ans[0]} comes next.`, game: "drawrun" }; }), "Draw order sprint", done),
+    done => mcAll(Array.from({ length: 8 }, () => { let seq; do { const ranks = shuffle([0, 1, 2, 3, 4, 5]).slice(0, 4).sort((x, y) => x - y); seq = ranks.map(r => rpick(DRAW2.filter(t => t[2] === r))); } while (seq.length < 4); const j = Math.floor(Math.random() * 3); [seq[j], seq[j + 1]] = [seq[j + 1], seq[j]]; const early = seq[j]; return { kicker: "Spot the mistake", html: `<div class="drawseq">${seq.map(tubeL2).join("")}</div>`, q: "Which tube was drawn too early?", opts: seq.map(t => t[0]), a: early[0], why: `${early[0]} belongs after ${seq[j + 1][0]}. Drawing it early risks additive carryover.`, game: "drawrun" }; }), "Draw order sprint", done)
+  ]);
+};
+/* the two merged games live inside Tube trainer and Critical call */
+for (const id of ["drawrun", "critclock"]) { const i = GAMES.findIndex(g => g[0] === id); if (i >= 0) GAMES.splice(i, 1); }
+GAME_REQ.drawrun = GAME_REQ.tubes || []; GAME_REQ.critclock = GAME_REQ.critical || [];
+{ const gh = gameHero; gameHero = function (id, ...a) { const out = gh(id, ...a); try { ST.el.dataset.game = id; } catch { } return out; }; }
+const EXTRA_MODES = { tubes: ["🏃", "Draw order sprint", "Fast rounds: first, next, and spot the mistake", () => startDrawSprint()], critical: ["⏱️", "On the clock", "Call critical values before the timer runs out", () => startCritClock()] };
+new MutationObserver(() => { const el = ST && ST.el; if (!el || !el.isConnected) return; const id = el.dataset.game; const m = EXTRA_MODES[id]; if (!m) return; const hero = el.querySelector(".ghero"); if (!hero || el.querySelector("#xmode")) return; const anchor = el.querySelector(".levels") || hero; anchor.insertAdjacentHTML("afterend", `<div class="a3group xmode"><button class="a3row" id="xmode"><span class="a3sym xm-e">${m[0]}</span><span class="a3rt"><b>${m[1]}</b><small>${m[2]}</small></span><span class="a3chev">›</span></button></div>`); el.querySelector("#xmode").onclick = () => { closeStudy(true); m[3](); }; }).observe(document.documentElement, { childList: true, subtree: true });
+
+/* ---------- Your own formulas ---------- */
+const myFormulas = () => (S.meta.formulasUser || []).filter(f => !f.del);
+function formulaModal(f, after) {
+  const x = f ? { ...f } : { id: uid(), l: "", r: "", n: "" };
+  modal(`${mhead(f ? "Edit formula" : "Add a formula")}
+    <div class="field"><label for="fl">Name or left side</label><input class="input" id="fl" value="${esc(x.l)}" placeholder="e.g. Corrected WBC" autocomplete="off"></div>
+    <div class="field"><label for="fr">Formula</label><input class="input" id="fr" value="${esc(x.r)}" placeholder="e.g. WBC × 100 ÷ (100 + nRBCs)" autocomplete="off"></div>
+    <div class="field"><label for="fn">Note (optional)</label><textarea class="input" id="fn" rows="2" placeholder="When to use it, units, a worked example">${esc(x.n)}</textarea></div>
+    <div class="modal-foot">${f ? `<button class="btn danger" id="fdel" style="margin-right:auto">Delete</button>` : ""}<button class="btn" data-close>Cancel</button><button class="btn primary" id="fsave">Save</button></div>`, (s, close) => {
+      $$("[data-close]", s).forEach(b => b.onclick = close);
+      $("#fsave", s).onclick = () => { x.l = $("#fl", s).value.trim(); x.r = $("#fr", s).value.trim(); x.n = $("#fn", s).value.trim(); if (!x.l || !x.r) { toast("Add a name and the formula"); return; } x.t = Date.now(); const L = S.meta.formulasUser = S.meta.formulasUser || []; const i = L.findIndex(y => y.id === x.id); i >= 0 ? (L[i] = x) : L.push(x); saveMeta(true); close(); toast("Formula saved"); after && after(); };
+      $("#fdel", s) && ($("#fdel", s).onclick = () => { const L = S.meta.formulasUser || []; const i = L.findIndex(y => y.id === x.id); if (i >= 0) { L[i] = { id: x.id, del: true, t: Date.now() }; saveMeta(true); } close(); after && after(); });
+      setTimeout(() => $("#fl", s)?.focus(), 30);
+    });
+}
+function myFormulasHtml() {
+  const L = myFormulas();
+  return `<section class="fsec myf"><div class="fsec-h"><div><b>My formulas</b><small>${L.length ? plural(L.length, "formula") : "Add the ones from your lectures"}</small></div><button class="btn sm primary" id="faddF">${icon("plus")}Add formula</button></div>${L.map(f => `<div class="frow myfrow" data-q="${esc((f.l + " " + f.r + " " + (f.n || "")).toLowerCase())}"><div class="fbox"><span class="flhs">${esc(f.l)}</span><span class="feq">=</span><span class="frhs">${esc(f.r)}</span><button class="btn ghost icon sm fedit" data-f="${f.id}" aria-label="Edit formula">${icon("edit")}</button></div>${f.n ? `<p class="fnote">${escG(f.n)}</p>` : ""}</div>`).join("")}</section>`;
+}
+{ const sf = startFormulas; startFormulas = function (...a) {
+    const out = sf.apply(this, a);
+    const draw = () => { const host = ST && ST.stage; if (!host) return; host.querySelector(".myf")?.remove(); const first = host.querySelector(".fsec"); (first ? first : host.lastElementChild).insertAdjacentHTML(first ? "beforebegin" : "afterend", myFormulasHtml()); $("#faddF").onclick = () => formulaModal(null, draw); $$(".fedit").forEach(b => b.onclick = () => formulaModal(myFormulas().find(f => f.id === b.dataset.f), draw)); };
+    draw();
+    const q = ST.stage.querySelector("input"); if (q) q.addEventListener("input", () => { const t = q.value.trim().toLowerCase(); $$(".myfrow").forEach(r => r.style.display = !t || r.dataset.q.includes(t) ? "" : "none"); });
+    return out; }; }
+{ const mr = mergeRemote; mergeRemote = function (r, ...a) { try { const rm = (r && r.meta) || {}; const L = S.meta.formulasUser || [], R = rm.formulasUser || []; const by = new Map(L.map(x => [x.id, x])); R.forEach(x => { const m = by.get(x.id); if (!m || (x.t || 0) > (m.t || 0)) by.set(x.id, x); }); const merged = [...by.values()]; const res = mr.call(this, r, ...a); S.meta.formulasUser = merged; return res; } catch (e) { return mr.call(this, r, ...a); } }; }
+
+/* ---------- Deck page: no status filters; shorter hidden message ---------- */
+{ const rd = renderDeck; renderDeck = function (d, ...a) { deckFilter.status = ""; const out = rd(d, ...a); $$("#view .pickchips").forEach(p => { if (p.querySelector("[data-sf]")) p.remove(); }); const hb = $("#hideDeck"); if (hb) { const o = hb.onclick; hb.onclick = () => { o && o(); setTimeout(() => { const t = $(".toast"); if (t) t.textContent = d.hidden ? "Deck hidden. Find it under Hidden decks." : "Deck is back on home"; }, 0); }; } return out; }; }
+
+/* ---------- Glossary: the “Yours” tag sits with the term, away from the pencil ---------- */
+new MutationObserver(() => { $$(".gitem .row .tag").forEach(t => { const item = t.closest(".gitem"); const b = item && item.querySelector("b"); if (b && t.parentElement !== b.parentElement && /Yours/.test(t.textContent)) { b.insertAdjacentElement("afterend", t); t.classList.add("ytag"); } }); }).observe(document.documentElement, { childList: true, subtree: true });
+/* every home tool tile works, including ones that moved sections */
+{ const rh = renderHome; renderHome = function (decks) { rh(decks); $$("#view .tools2 .ttile").forEach(b => { if (!b.onclick && TOOL_FN[b.id]) b.onclick = () => TOOL_FN[b.id](); }); const ex = $("#examsBtn"); if (ex) ex.onclick = examsPicker; }; }
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
