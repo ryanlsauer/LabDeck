@@ -2318,6 +2318,26 @@ svg.heat{display:block}
 .occ-rev span.below{bottom:auto;top:100%;margin:3px 0 0}
 .occ{overflow:visible!important}
 .occ img{border-radius:12px!important}
+/* ===================== v31 ===================== */
+/* exam tomorrow: warm yellow card; exam today: soft red */
+.a3exam.xd-tomorrow{background:#FFF4C2!important;box-shadow:0 1px 2px rgba(0,0,0,.05),0 10px 26px rgba(214,160,0,.18)!important}
+.a3exam.xd-tomorrow .xd-k{color:#7A5800!important}.a3exam.xd-tomorrow h2{color:#2E2200!important}.a3exam.xd-tomorrow>p{color:#5C4A12!important}
+.a3exam.xd-tomorrow .a3group{background:rgba(255,255,255,.72)!important}
+.a3exam.xd-tomorrow .a3row b{color:#1C1C1E!important}.a3exam.xd-tomorrow .a3row small{color:#5C5C62!important}
+.a3exam.xd-tomorrow #xdHide{color:#7A5800!important}
+.a3exam.xd-today{background:#FFE4E4!important}
+.a3exam.xd-today .xd-k{color:#B0242A!important}.a3exam.xd-today h2{color:#2B0B0C!important}.a3exam.xd-today>p{color:#6B2A2D!important}
+.a3exam.xd-today .a3group{background:rgba(255,255,255,.72)!important}.a3exam.xd-today .a3row b{color:#1C1C1E!important}.a3exam.xd-today .a3row small{color:#5C5C62!important}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .a3exam.xd-tomorrow{background:#3A2E05!important}:root:not([data-theme="light"]) .a3exam.xd-tomorrow .xd-k{color:#FFD60A!important}:root:not([data-theme="light"]) .a3exam.xd-tomorrow h2{color:#FFF6D6!important}:root:not([data-theme="light"]) .a3exam.xd-tomorrow>p{color:#E8D9A8!important}:root:not([data-theme="light"]) .a3exam.xd-tomorrow .a3group{background:rgba(0,0,0,.28)!important}:root:not([data-theme="light"]) .a3exam.xd-tomorrow .a3row b{color:#fff!important}:root:not([data-theme="light"]) .a3exam.xd-tomorrow .a3row small{color:#D8CFB4!important}:root:not([data-theme="light"]) .a3exam.xd-tomorrow #xdHide{color:#FFD60A!important}
+  :root:not([data-theme="light"]) .a3exam.xd-today{background:#3D1416!important}:root:not([data-theme="light"]) .a3exam.xd-today .xd-k{color:#FF8A8E!important}:root:not([data-theme="light"]) .a3exam.xd-today h2{color:#FFE9EA!important}:root:not([data-theme="light"]) .a3exam.xd-today>p{color:#E9C3C5!important}:root:not([data-theme="light"]) .a3exam.xd-today .a3group{background:rgba(0,0,0,.28)!important}:root:not([data-theme="light"]) .a3exam.xd-today .a3row b{color:#fff!important}:root:not([data-theme="light"]) .a3exam.xd-today .a3row small{color:#E0C8C9!important}}
+/* bars grow out of the axis: square bottoms, a check when the goal is met */
+.bc-col2 i,.bc-col i{border-radius:8px 8px 0 0!important}
+.bc-col2.met i{display:flex;justify-content:center;align-items:flex-start}
+.bc-ok{width:15px;height:15px;margin-top:6px;flex:none}
+/* calendar: goal met is green, like the legend */
+.cal-c.l3{background:#34C759!important}
+/* play tile emojis 10% smaller */
+.tools2 .tl-play .ttile[id^="g_"] .tti,.tools2 .tl-play .ttile[id^="g_"] .tti *{font-size:28px!important}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -2405,7 +2425,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "30.0";
+const APP_VERSION = "31.0";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -12200,6 +12220,17 @@ function calendarHtml(weeks = 18) {
   return `<div class="cal2"><div class="cal-m" style="--w:${weeks}">${months}</div><div class="cal-g" style="--w:${weeks}">${cells}</div><div class="cal-k"><span>Less</span><i class="cal-c l0"></i><i class="cal-c l1"></i><i class="cal-c l2"></i><i class="cal-c l3"></i><span>Goal met</span></div></div>`;
 }
 { const rs = renderStats; renderStats = function (...a) { const out = rs.apply(this, a); $$("#view svg.heat").forEach(svg => { const narrow = innerWidth < 600; const panel = svg.closest(".panel") || svg.parentElement; svg.outerHTML = calendarHtml(narrow ? 14 : 26); [...panel.querySelectorAll("*")].filter(el => !el.closest(".cal2") && /^\s*Less\b/.test(el.textContent) && el.children.length < 12 && el.textContent.length < 40).forEach(el => el.remove()); }); return out; }; }
+/* ===================== v31 ===================== */
+/* exam card: colored by how close the exam is */
+{ const ed = examDayHtml; examDayHtml = function () { const h = ed(); const x = examSoon(); return h && x ? h.replace('<section class="a3exam">', `<section class="a3exam ${x.d === 0 ? "xd-today" : "xd-tomorrow"}">`) : h; }; }
+/* home chart: the last 7 days, today on the right; a check on bars that met the goal */
+weekChart = function () {
+  const goal = GOAL(); const days = Array.from({ length: 7 }, (_, i) => dayKey(Date.now() - (6 - i) * DAY)); const v = days.map(d => (S.meta.history || {})[d] || 0);
+  return `<div class="a3week">${barChart({ vals: v, labels: days.map((d, i) => i === 6 ? "Today" : new Date(d + "T12:00").toLocaleDateString(undefined, { weekday: "short" })), goal, todayIdx: 6, title: `LAST 7 DAYS · ${v.reduce((a, b) => a + b, 0).toLocaleString()} REVIEWS · GOAL ${goal} A DAY`, meta: `${v.filter(n => n >= goal).length} of 7 days at goal` })}</div>`;
+};
+{ const bc = barChart; barChart = function (o) { const h = bc(o); if (!o.goal) return h; let k = -1; return h.replace(/<div class="bc-col2([^"]*)"><i style="height:([\d.]+)%;background:([^"]*)"><\/i>/g, (m, cls, ht, bg) => { k++; const met = !(o.future || [])[k] && o.vals[k] >= o.goal; return met ? `<div class="bc-col2${cls} met"><i style="height:${ht}%;background:${bg}"><svg class="bc-ok" viewBox="0 0 16 16" aria-label="Goal met"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></i>` : m; }); }; }
+/* study calendar: one legend, goal met in green */
+{ const rs = renderStats; renderStats = function (...a) { const out = rs.apply(this, a); $$("#view .cal2").forEach(c => { const panel = c.closest(".panel") || c.parentElement; let dupes = [...panel.querySelectorAll("*")].filter(el => !el.closest(".cal2") && !c.contains(el) && !el.contains(c) && /Goal met/.test(el.textContent) && el.textContent.trim().length < 60); dupes = dupes.filter(el => !dupes.some(o => o !== el && el.contains(o))); dupes.forEach(el => { const box = el.parentElement && el.parentElement !== panel && !el.parentElement.contains(c) && el.parentElement.textContent.trim().length < 60 ? el.parentElement : el; box.remove(); }); }); return out; }; }
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
