@@ -1,108 +1,122 @@
 # LabDeck
 
-A free, private study app for Medical Laboratory Science (MLS) students, built around the Sentara RMH School of Medical Laboratory Science curriculum. It runs entirely in your browser on a laptop or phone, works offline, and has no accounts, ads or server.
+A free study app for Medical Laboratory Science students, built around the Sentara RMH School of Medical Laboratory Science program. It runs in any modern browser on a phone or a computer, works offline, and keeps your progress on your own device. There are no accounts, ads or fees.
 
-LabDeck combines the study methods with the strongest evidence behind them (active recall, spaced repetition, interleaving, elaboration and error correction) with lessons, games and tools written for MLS coursework.
-
----
-
-## What's inside
-
-### Learn
-- **Head start lessons.** About 94 guided lessons across 11 units, from "science from zero" through every course: lab orientation and safety, phlebotomy, immunology, microbiology, hematology and hemostasis, chemistry, blood bank, and urinalysis. Bootcamp lessons start with a quick warm-up from earlier lessons and a no-penalty guess at what's coming, teach in small steps (read, recall the missing terms, check understanding), and finish with a recap of the key ideas you can save as fill-in-the-blank cards. Each unit ends with a review.
-- **Learn mode.** A gentle first pass through any deck: see each card, pick the answer from four, then recall it yourself. Missed cards come back twice until they stick, and learned cards move into spaced review.
-- **Memory hooks.** Silly sentences and memory palaces for lists and sequences (order of draw, coagulation factors, MUDPILES and more). Each hook is also a review card in the deck you link it to. Starter hooks are included and can be edited, deleted or restored.
-- **Explain it.** Write an explanation in your own words. It's graded idea by idea against a model answer and checks for common MLS misconceptions.
-- **Glossary.** Every abbreviation the app uses, spelled out. Tap any dotted-underlined term anywhere to see its meaning. Add your own.
-- **Formula sheet.** Every lab-math formula with what each variable means and a worked example.
-- **Listen.** Hands-free review: it reads each question, pauses for you to answer out loud, then reads the answer.
-
-### Practice and test
-- **Study (spaced repetition).** Rate each card Again, Hard, Good or Easy:
-  - **Again:** back after 3 cards, then needs two good answers this session. Due again tomorrow.
-  - **Hard:** comes back once more about 8 cards later. Small step forward.
-  - **Good:** done for today. Normal spacing.
-  - **Easy:** done for today. Big step forward. Easy three times in a row means mastered.
-- **Deck modes.** Multiple choice, type it, select all that apply, unknown ID, picture ID, match and sequence.
-- **Mixed practice, look-alike drills, range drills and lab math** with fresh numbers every time, so you learn the method instead of memorizing an answer.
-- **Board practice and a comprehensive exam,** weighted by course credit hours or by the ASCP BOC content areas.
-- **Case studies and case presentations,** including a builder for the chemistry case-study assignment.
-- **Mistake journal.** A question lands here only if you miss it twice (or miss it on an exam). End each day with a short mistake review; get each one right twice and it's cleared.
-
-### Play
-Fourteen leveled games with points, lives and high scores, all in one games hub (your recent games also show on the home screen and sidebar). Levels climb from recognizing to reasoning. Each game unlocks when you pass the lesson that teaches it:
-- **Tube trainer:** drag tubes into the order of draw, then pick tubes for real orders.
-- **Smear practice:** find, name and count cells, from normal cells to a mini differential.
-- **Urine sediment:** casts, crystals and cells.
-- **Gram stain:** read stains, judge specimen quality, and beat the clock.
-- **Antibody panel:** identify antibodies and do rule-outs.
-- **Acid-base:** read blood gases, from pH to compensation.
-- **Westgard judge:** accept or reject QC runs, tell random from systematic error, prove a rejection by tapping the points that break the rule, and choose the right next step.
-- **Critical call:** learn critical limits, then report, call or recollect.
-- **Bench unknown:** identify organisms with the fewest tests.
-- **ID flowcharts:** Gram stain first, then walk the charts to an identification.
-- **Coag detective:** read PT/PTT patterns, interpret mixing studies, and solve bleeding and clotting cases.
-- **Anemia workup:** size the anemia, read iron studies, and diagnose from indices, retic count and smear findings.
-- **ABO & Rh typing:** type from forward and reverse reactions, pick compatible red cells and plasma, and solve typing discrepancies.
-- **UA detective:** what each dipstick pad really detects, when the dipstick and microscope disagree, and whole-picture urinalysis cases.
-
-### Plan
-- **Today's targets:** a short, realistic list each day that ends with your mistake review.
-- **Dashboard:** due cards, daily goal, streak, the week at a glance, next exam, mastery and lessons.
-- **My program:** all 10 courses and 1,110 objectives from the curriculum guide, a readiness meter per course, objective ratings, an exam map for each course, and rotation prep.
-- **Exams:** add exam dates for countdowns, focused prep and last-minute cramming.
-- **Course map, study timer, study plan, starter packs** (35 ready-made decks) and **slide photos** (turn your own microscope photos into picture practice).
-- **Badges:** about 130 achievements for long-term habits, mastery, games and milestones.
-
-### Make it yours
-- Create decks with term and definition cards, profile cards (for example, an organism with fields like Gram stain, catalase and oxidase), fill-in-the-blank cards and image cards.
-- Every card can hold a note and a "why."
-- Import from a pasted list or a spreadsheet.
-- Group decks with color-coded labels, star cards, and add a new card in the middle of any study session.
+Version 28.0.
 
 ---
 
-## Keyboard
-Press **Enter** to move to the next screen whenever a Next or Continue button is showing, and **1–4** to pick an answer. In study, **Space** flips the card.
+## What it does
 
-## Where your data lives
-- **On each device,** in the browser's storage for this website (IndexedDB, plus a second copy in localStorage).
-- **Optionally, in a private GitHub gist** if you turn on sync in Settings. Sync keeps your phone and laptop in step. Changes merge both ways, and for settings like game unlocks, the most recent choice wins.
-- Your data is never stored in the app's files, so updating the app never touches your progress.
+LabDeck combines four things you’d otherwise juggle separately:
 
-## Setting up sync
-1. On GitHub, go to Settings > Developer settings > Personal access tokens > Tokens (classic).
-2. Create a token with only the **gist** box checked. Set the expiration to "No expiration" or a long date.
-3. In LabDeck, open Settings > Sync between devices, paste the token, and tap Connect.
-4. Repeat step 3 on each device you use.
+1. **Flashcards with spaced repetition**, so you review each card right before you’d forget it.
+2. **Modules**: short guided lessons that teach the program from the ground up, before and during the program.
+3. **Practice tools and games** that test the skills you’ll use at the bench.
+4. **A planner** built around your exams, with daily tasks and progress tracking.
 
-The token stays in your browser. It can only read and write your gists.
+---
 
-## Installing on a phone
-- **iPhone (Safari):** open the site, tap Share, then Add to Home Screen.
-- **Android (Chrome):** open the menu, then Install app or Add to Home screen.
+## Home
 
-LabDeck then opens full screen like an app and works offline.
+- **Rings** track three daily goals: reviews (against your daily goal), new cards learned (against your daily limit), and today’s tasks completed.
+- **Up next** shows how many cards are waiting and about how long they’ll take.
+- **Today’s tasks** is a short, ordered list of what to do next: exam prep, reviews, a lesson, your mistake review.
+- **This week** charts your daily reviews against your goal line.
+- **Statistics**: streak, 7-day accuracy, lessons passed, mastered cards, mistake journal (open and fixed), all-time reviews and total cards.
+- **Exams** count down and change color as an exam gets closer, from calm gray to solid red on the day. Past exams disappear on their own.
+- **Lab tools**, in four groups of four (see below).
+- **Modules**, your lesson path, and **Decks**, grouped by label.
 
-## Updating the app
-1. In your GitHub repository, click **Add file > Upload files**.
-2. Drop in the new `index.html` and `sw.js` (and any other changed files), then click **Commit changes**.
-3. Wait about a minute for GitHub Pages to finish (the Actions tab shows a green check).
-4. Close and reopen LabDeck. The version number in Settings confirms the update.
+---
 
-On iPhone, if the home-screen icon changes in an update, remove the shortcut and add it again.
+## Decks and cards
 
-## Backups
-**Settings > Download backup** saves everything (decks, images, review history, progress) to one file. Use **Restore or import** to load it on any device. Spreadsheet exports of your study log, lesson scores and deck stats are also available there.
+- **Card types:** term and definition, fill in the blank, and profile (a name plus fields, such as an organism’s Gram stain, catalase and coagulase). Any card can be a profile; deck-wide profile fields are an optional default.
+- **Why and notes** fields explain the reasoning behind a card and show on the card list.
+- **Labels** group decks by subject, each with a tube-cap color.
+- **Hide a deck** you don’t need right now (like a finished prerequisite). It leaves home and daily review but stays available to study or bring back.
+- **Import** from text or spreadsheets, **Snap** a photo of notes, and add slide photos.
+- **Starter decks** cover phlebotomy, microbiology, hematology, chemistry, urinalysis, blood bank and QC.
 
-## Files
-| File | Purpose |
-|---|---|
-| `index.html` | The entire app: interface, content and logic |
-| `sw.js` | Service worker that makes the app work offline |
-| `manifest.webmanifest` | Lets phones install LabDeck as an app |
-| `icon-192.png`, `icon-512.png`, `apple-touch-icon.png` | App icons |
-| `README.md` | This file |
+### Study modes
 
-## A note on content
-LabDeck's lessons and starter decks follow standard MLS textbook values and the program's curriculum guide. Reference ranges, critical values and procedures vary by laboratory. When your instructors' materials or your lab's policies differ, theirs are the ones to follow.
+- **Learn** teaches every card from scratch: read, recognize, then recall. Profiles also ask in reverse (“which organism fits these results?”).
+- **Study** is classic flip-and-grade with Again, Hard, Good and Easy.
+- **Test** modes: multiple choice, type the answer, select all, and unknown identification.
+- **Match**, a timed matching game.
+
+### Spaced repetition
+
+An SM-2-style schedule: Again brings a card back after 3 cards and tomorrow, Hard brings it back once more this session, Good and Easy finish it for the day. Intervals grow with each success, adjust to how hard a card is for you, and include a small random spread so reviews don’t pile up on one day. Remembering a card you reviewed late earns a longer next interval. A card is **mastered** after Easy three times in a row.
+
+Typed answers forgive small slips: dashes, minus signs, × and µ all match their plain forms, so 8-10 matches 8–10.
+
+---
+
+## Modules
+
+Lessons that teach the program in order, one course at a time, from “science from zero” through hematology, hemostasis, chemistry, urinalysis and body fluids, microbiology (including fungi and parasites), and blood bank (including transfusion reactions).
+
+- **Bootcamp lessons** walk you through short steps with fill-in-the-blank recall. A miss shows the first letter, a second miss opens the word bank, and a third fills in the word for you to type over. Enter moves to the next empty blank.
+- **Checkpoints** end each lesson. A wrong answer must be corrected before you move on, and it comes back twice more later.
+- **Lesson cards** join your reviews automatically when you pass.
+- **Memory hooks** unlock as lessons introduce them.
+- **At the bench** notes connect each module to real lab work.
+- A **new unlock** screen shows what a lesson opened up: games, decks, hooks, badges.
+
+**Head start** (pre-program mode) unlocks starter cards only after their lesson. On your program’s first day, LabDeck offers to switch to program mode.
+
+---
+
+## Lab tools
+
+| Teach | Test | Plan | Play |
+|---|---|---|---|
+| Glossary (terms and formulas) | Practice (mixed, look-alikes, range drills, lab math) | Course map | Your recent games |
+| Explain it | Exams (board practice, comprehensive exam) | Study timer | All games |
+| Memory hooks | Case studies (and case talks) | Study plan | |
+| Slide photo | Mistake journal | Starter decks | |
+
+- **Glossary:** every abbreviation spelled out, plus your own words, phrases and formulas. Dotted-underlined terms anywhere in the app show their meaning when tapped. On a computer, the book button adds a term while you study.
+- **Memory hooks:** first-letter sentences, acronyms like PASS, memory palaces, or any saying or rule (like SnNout and SpPin). Each hook becomes a card in one of your decks.
+- **Mistake journal:** real mistakes from cards, lessons and games, with a daily review. Game mistakes come back with a picture of the question, rebuilt if needed.
+- **Study timer:** focus sessions with breaks, which you can pause or cancel.
+
+---
+
+## Games
+
+Sixteen games with levels and scores, unlocked by the lessons that teach them: Tube trainer (including order-of-draw sprint levels), Critical call (including timed levels), Westgard judge, Smear practice, Anemia workup, Coag detective, Gram stain, ID flowcharts, Bench unknown, ABO and Rh typing, Antibody panel, Acid-base, Urine sediment, UA detective, Body fluid detective and Crossmatch puzzle.
+
+---
+
+## Progress
+
+Your week in review, badges (130), focus time, a 14-day review chart, the next 7 days of cards coming due, a study calendar, and readiness for each course.
+
+---
+
+## Saving and sync
+
+- Everything saves in your browser automatically.
+- **Sync** (optional) keeps your phone and computer in step through a private GitHub gist. Each setting syncs separately, so the newest change to each one wins.
+- **Backup** downloads a full copy as a file, and you can export spreadsheets of your study log, lesson scores and deck stats.
+
+---
+
+## Install and update
+
+LabDeck is a single web page hosted on GitHub Pages.
+
+1. In your GitHub repository, choose **Add file → Upload files**.
+2. Upload the changed files (usually `index.html` and `sw.js`) and choose **Commit changes**.
+3. Wait for the green check under **Actions**, then reopen LabDeck. The version number is at the bottom of Settings.
+
+To install it like an app on a phone: open it in Safari (iPhone) or Chrome (Android) and choose **Add to Home Screen**.
+
+---
+
+## Notes
+
+Starter content follows standard MLS textbook values. Reference ranges and critical values vary by laboratory, so always follow your own lab’s procedures and your instructors. Drawn smears, sediment and charts are simplified teaching images.

@@ -2207,6 +2207,27 @@ svg.heat{display:block}
   #view :has(> #addCard) > *:not(.search):not(#addCard){order:3!important}}
 @media (max-width:640px){#view :has(> #addCard) > .search{flex:1 1 calc(100% - 150px)!important}
   #view :has(> #addCard) > *:not(.search):not(#addCard){flex:1 1 auto!important}}
+/* ===================== v28 ===================== */
+/* correct / wrong feedback: no heavy top edge, ever */
+.feedback,.feedback.ok,.feedback.no,.study .feedback.ok,.study .feedback.no{box-shadow:none!important;border:0!important}
+/* stat tiles on desktop: real gaps, inside the margins */
+.a3stats{gap:10px!important;width:100%;box-sizing:border-box}
+.a3stat{min-width:0!important;box-sizing:border-box;flex:none!important}
+@media (min-width:700px){.a3stats{grid-template-columns:repeat(auto-fit,minmax(130px,1fr))!important}}
+/* charts v2: bars and goal line share one box */
+.bc-plot2{position:relative;height:124px;display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:8px;border-bottom:.5px solid var(--line-2)}
+.bc-col2{position:relative;height:100%}
+.bc-col2 i{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:34px;border-radius:7px 7px 3px 3px}
+.bc-v2{position:absolute;left:0;right:0;text-align:center;font-size:.72rem;font-weight:600;color:var(--ink-2)}
+.bc-goal2{position:absolute;left:0;right:0;border-top:1px dashed color-mix(in srgb,var(--ink-3) 65%,transparent);z-index:2;pointer-events:none}
+.bc-goal2 span{position:absolute;right:0;top:-15px;font-size:.66rem;color:var(--ink-3);background:var(--surface);padding:0 3px}
+@media (max-width:600px){.bc-plot2{height:112px;gap:5px}}
+/* grade buttons: number tucked right under the word */
+.grades button{gap:0!important;line-height:1.1!important}
+.grades button b{line-height:1.1!important}
+.grades button kbd{line-height:1!important;margin-top:1px!important}
+/* extra levels look like the rest */
+.lvl.xlv span{opacity:1}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -2294,7 +2315,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "27.0";
+const APP_VERSION = "28.0";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -6568,7 +6589,11 @@ function startBootcamp(l) {
       ins.forEach(x => { if (x.disabled) return; const ok = okWord(x.value, x.dataset.ans); x.classList.toggle("ok", ok); x.classList.toggle("bad", !ok); if (ok) { if (!exact(x.value, x.dataset.ans)) fixed.push(x.dataset.ans); x.value = x.dataset.ans; x.disabled = true; } else all = false; });
       if (all) { $("#rfb").innerHTML = fizzSays((copying ? "Recorded." : pickLine("right")) + (fixed.length ? ` Check the spelling: ${fixed.map(esc).join(", ")}.` : ""), "good"); $("#chk").textContent = beats[i][1] ? "Next: think further" : "Next step"; $("#chk").onclick = () => beats[i][1] ? think() : (i++, read()); $("#show").remove(); $("#wb").remove(); return; }
       tries++;
-      if (tries >= 2 && !copying) {
+      if (tries === 2 && !copying) {
+        const bk = $("#bank"); if (bk) { bk.classList.remove("hidden"); const wb = $("#wb"); if (wb) wb.textContent = "Hide word bank"; }
+        ins.forEach(x => { if (!x.disabled) { x.value = ""; x.placeholder = x.dataset.ans[0] + "…"; } });
+        $("#rfb").innerHTML = fizzSays("Still not it. Pick the missing words from the word bank.");
+      } else if (tries >= 3 && !copying) {
         copying = true;
         ins.forEach(x => { if (!x.disabled) { x.value = ""; x.placeholder = x.dataset.ans; } });
         $("#rfb").innerHTML = fizzSays(pickLine("copy"));
@@ -6579,8 +6604,8 @@ function startBootcamp(l) {
       (ins.find(x => !x.disabled) || {}).focus?.();
     };
     $("#chk").onclick = check;
-    $("#show").onclick = () => { tries = 2; copying = false; check(); };
-    ST.onKey = e => { if (e.key === "Enter") { e.preventDefault(); $("#chk").click(); } };
+    $("#show").onclick = () => { tries = 3; copying = false; ins.forEach(x => { if (!x.disabled) { x.value = ""; x.placeholder = x.dataset.ans; } }); copying = true; $("#rfb").innerHTML = fizzSays(pickLine("copy")); (ins.find(x => !x.disabled) || {}).focus?.(); };
+    ST.onKey = e => { if (e.key !== "Enter") return; e.preventDefault(); const empty = ins.filter(x => !x.disabled && !x.value.trim()); if (empty.length && !$("#chk").textContent.startsWith("Next")) { const cur = ins.indexOf(document.activeElement); const nxt = empty.find(x => ins.indexOf(x) > cur) || empty[0]; if (nxt !== document.activeElement) { nxt.focus(); focused = nxt; return; } } $("#chk").click(); };
   }
   function think() {
     const [q, opts, a, why] = varyItem(beats[i][1]);
@@ -11739,6 +11764,47 @@ function myFormulasHtml() {
 new MutationObserver(() => { $$(".gitem .row .tag").forEach(t => { const item = t.closest(".gitem"); const b = item && item.querySelector("b"); if (b && t.parentElement !== b.parentElement && /Yours/.test(t.textContent)) { b.insertAdjacentElement("afterend", t); t.classList.add("ytag"); } }); }).observe(document.documentElement, { childList: true, subtree: true });
 /* every home tool tile works, including ones that moved sections */
 { const rh = renderHome; renderHome = function (decks) { rh(decks); $$("#view .tools2 .ttile").forEach(b => { if (!b.onclick && TOOL_FN[b.id]) b.onclick = () => TOOL_FN[b.id](); }); const ex = $("#examsBtn"); if (ex) ex.onclick = examsPicker; }; }
+/* ===================== v28 ===================== */
+/* home: no Yesterday card */
+{ const dh = dashHtml; dashHtml = function (decks) { return dh(decks).replace(/<section class="a3yday">[\s\S]*?<\/section>\s*$/, ""); }; }
+
+/* charts: bars rise above the goal line when you beat it */
+barChart = function ({ vals, labels, goal, todayIdx = -1, title, meta, color = "var(--violet)", future = [] }) {
+  const mx = Math.max(goal || 0, ...vals, 5) * 1.12;
+  const pct = v => Math.max(v ? 2.5 : 0, v / mx * 100);
+  return `<div class="bc">${title ? `<div class="bc-h"><span class="a3cap">${title}</span>${meta ? `<span class="bc-m">${meta}</span>` : ""}</div>` : ""}
+    <div class="bc-plot2" style="--n:${vals.length}">${goal ? `<div class="bc-goal2" style="bottom:${(goal / mx * 100).toFixed(2)}%"><span>Goal ${goal}</span></div>` : ""}
+      ${vals.map((v, i) => { const p = future[i] ? 0 : pct(v); return `<div class="bc-col2 ${i === todayIdx ? "td" : ""}"><i style="height:${p}%;background:${goal && v >= goal ? color : `color-mix(in srgb, ${color} ${goal ? 40 : 75}%, transparent)`}"></i>${!future[i] && v ? `<span class="bc-v2" style="bottom:calc(${p}% + 3px)">${v}</span>` : ""}</div>`; }).join("")}</div>
+    <div class="bc-x" style="--n:${vals.length}">${labels.map((l, i) => `<span class="${i === todayIdx ? "td" : ""}">${l}</span>`).join("")}</div></div>`;
+};
+
+/* Enter in any fill-in-the-blank moves to the next empty blank first */
+document.addEventListener("keydown", e => {
+  if (e.key !== "Enter" || !e.target.classList || !e.target.classList.contains("blankin")) return;
+  const scope = e.target.closest(".study, .modal, #view") || document; const ins = [...scope.querySelectorAll(".blankin")].filter(x => !x.disabled);
+  const empty = ins.filter(x => !x.value.trim()); if (!empty.length) return;
+  const cur = ins.indexOf(e.target); const nxt = empty.find(x => ins.indexOf(x) > cur) || empty.find(x => x !== e.target);
+  if (nxt) { e.preventDefault(); e.stopImmediatePropagation(); nxt.focus(); }
+}, true);
+
+/* games: the sprint and the clock are extra levels inside Tube trainer and Critical call */
+const XLV = {
+  tubes: { base: 4, game: "drawrun", start: () => startDrawSprint(), names: ["Sprint: first or second", "Sprint: what comes next", "Sprint: spot the mistake"], unlock: n => n === 0 ? gstate("tubes").level >= 4 : gstate("drawrun").level > n },
+  critical: { base: 3, game: "critclock", start: () => startCritClock(), names: ["On the clock: 12 seconds", "On the clock: 8 seconds", "On the clock: 5 seconds"], unlock: n => n === 0 ? gstate("critical").level >= 3 : gstate("critclock").level > n }
+};
+for (const id in EXTRA_MODES) delete EXTRA_MODES[id];
+new MutationObserver(() => {
+  const el = ST && ST.el; if (!el || !el.isConnected) return; const id = el.dataset.game; const X = XLV[id]; if (!X) return;
+  const lv = el.querySelector(".levels"); if (!lv || lv.querySelector("[data-xlv]")) return;
+  const over = (S.meta.gameOverride || {})[id];
+  lv.insertAdjacentHTML("beforeend", X.names.map((nm, i) => { const open = over || X.unlock(i); return `<button class="lvl xlv" data-xlv="${i}" ${open ? "" : "disabled"}><span>Level ${X.base + i + 1}</span><b>${esc(nm)}</b>${open ? "" : `<small>${i ? `Clear level ${X.base + i} first` : `Reach level ${X.base} first`}</small>`}</button>`; }).join(""));
+  $$("[data-xlv]", lv).forEach(b => b.onclick = () => {
+    $$(".lvl", lv).forEach(x => x.classList.remove("on")); b.classList.add("on");
+    const go = el.querySelector("#go"); if (!go) return; const n = +b.dataset.xlv;
+    go.textContent = `Start level ${X.base + n + 1}`;
+    go.onclick = e => { e.stopImmediatePropagation(); const st = gstate(X.game); st.level = Math.max(st.level || 1, n + 1); saveMeta(true); const keep = (S.meta.gameOverride || {})[id]; closeStudy(true); X.start(); if (keep) setOverride(X.game, true); setTimeout(() => { const t = ST.el; if (!t) return; const tt = t.querySelector(".study-top .t"); if (tt) tt.textContent = id === "tubes" ? "Tube trainer" : "Critical call"; t.querySelector(`.lvl[data-lv="${n + 1}"]`)?.click(); t.querySelector("#go")?.click(); }, 60); };
+  });
+}).observe(document.documentElement, { childList: true, subtree: true });
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
