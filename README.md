@@ -2,7 +2,7 @@
 
 A free study app for Medical Laboratory Science students, built around the Sentara RMH School of Medical Laboratory Science program. It runs in any modern browser on a phone or a computer, works offline, and keeps your progress on your own device. There are no accounts, ads or fees.
 
-Version 33.0.
+Version 34.0.
 
 ---
 
@@ -21,7 +21,7 @@ LabDeck combines four things you’d otherwise juggle separately:
 
 - **Rings** track three daily goals: reviews (against your daily goal), new cards learned (against your daily limit), and today’s tasks completed.
 - **Up next** shows how many cards are waiting and about how long they’ll take.
-- **Today’s tasks** is a short, ordered list of what to do next: exam prep, reviews, a lesson, your mistake review.
+- **Today’s tasks** is a short, ordered list of what to do next: exam prep, reviews, lessons, your mistake review. Before the program starts, it sets how many lessons to finish each day to complete Modules by day one, and adjusts daily as you go.
 - **This week** charts your daily reviews against your goal line.
 - **Exam day mode** appears the day before and the day of an exam: weakest cards first, a 20-question practice test, and a quick readiness check. Everything else on home works as usual, and you can hide it for the day.
 - **Weak spots** builds a one-tap session from your shakiest cards across every deck.
@@ -97,20 +97,18 @@ Sixteen games with levels and scores, unlocked by the lessons that teach them: T
 
 ## Fun extras
 
-- **Lab career levels:** earn XP from reviews, lessons, games, badges, mastered cards and more, and rise from Lab trainee to Lab director. XP is calculated from what you’ve done, so it never gets lost in sync.
-- **Specimen of the day:** one slide, organism, value or mini-case each day. Reveal it to add it to your collection.
-- **Mystery unknown of the week:** an organism with a new clue each day. One guess a week; guess early for more XP.
-- **Weekly challenges:** three goals each week, each with a medal.
+- **Lab career levels:** earn XP from reviews, lessons, games, badges, mastered cards and more, and rise through 20 levels from Lab trainee to Lab director, paced for heavy daily use. XP is calculated from what you’ve done, so it never gets lost in sync.
+- **Lab corner:** a small card on home with the specimen of the day (reveal it to collect it) and the mystery unknown of the week (a new clue each day, one guess a week; guess early for more XP).
 - **Combos:** answer 5, 10, 15 in a row for a little celebration.
 - **Did you know?** A lab fun fact at the end of sessions and on unlock screens.
-- **Specimen cabinet:** on Progress, a tube for every deck that fills as you master it.
+- **Specimen cabinet:** on Progress, a shelf of tubes that fill as you master each deck, with the full list one tap away.
 - **LabDeck Wrapped:** a recap of your reviews, streaks, subjects and favorite game, saved as an image to share.
 
 ---
 
 ## Progress
 
-Your week in review, badges (130), focus time, a 14-day review chart, the next 7 days of cards coming due, a study calendar, and readiness for each course.
+Your level, your week in review, badges (151), focus time, a 14-day review chart, the next 7 days of cards coming due, a full-year study calendar, and readiness for each course.
 
 ---
 

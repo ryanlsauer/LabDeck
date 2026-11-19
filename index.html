@@ -2393,6 +2393,34 @@ svg.heat{display:block}
 .cab-shelf{grid-template-columns:repeat(auto-fill,minmax(64px,1fr))!important}
 .cab-t svg{width:22px;height:48px}
 @media (max-width:600px){.cab-shelf{grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:10px 2px}.cab-t span{font-size:.6rem}}
+/* ===================== v34 ===================== */
+.lvlchip{margin:10px 0 2px!important}
+.lvlchip+.a3start,.a3start+.lvlchip{margin-top:10px!important}
+.a3start{margin:12px 0 4px!important}
+/* lab corner: one small, quiet card */
+.labcorner{background:var(--surface);border-radius:var(--r-cell);box-shadow:var(--shadow);margin:12px 0 4px;overflow:hidden}
+.lc-row2{display:flex;align-items:center;gap:12px;width:100%;padding:10px 14px;background:transparent;border:0;font:inherit;color:var(--ink);text-align:left;cursor:pointer}
+.lc-row2+.lc-row2{border-top:.5px solid var(--line-2)}.lc-row2:hover{background:var(--surface-2)}
+.lc-e{font-size:1.15rem;width:24px;text-align:center;flex:none}
+.lc-t{flex:1;min-width:0;display:flex;flex-direction:column}.lc-t small{font-size:.72rem;color:var(--ink-3)}.lc-t b{font-size:.9rem;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lc-a{font-size:.82rem;font-weight:600;color:var(--violet-ink);flex:none}
+/* mistake journal: red when it piles up */
+.a3stat b.jred{color:var(--a3-red)!important}
+/* cabinet: one shelf row, tubes standing on it */
+.cab-row{display:flex;gap:6px;align-items:flex-end;justify-content:flex-start;overflow:hidden;padding:4px 2px 0;height:56px}
+.cab-tube{flex:none;width:40px;display:flex;justify-content:center;background:transparent;border:0;padding:0;cursor:pointer}
+.cab-tube.full svg{filter:drop-shadow(0 0 5px rgba(52,199,89,.6))}
+.cab-shelf2{height:6px;border-radius:3px;background:linear-gradient(180deg,var(--line-2),var(--line));margin-top:-1px}
+.cab-list{display:flex;flex-direction:column;max-height:60vh;overflow:auto}
+.cab-li{display:flex;align-items:center;gap:12px;padding:8px 4px;text-decoration:none;color:var(--ink)}.cab-li+.cab-li{border-top:.5px solid var(--line-2)}
+.cab-n{display:flex;flex-direction:column}.cab-n b{font-size:.93rem;font-weight:600}.cab-n small{font-size:.78rem;color:var(--ink-3)}
+/* year calendar */
+.cal3{display:flex;flex-direction:column;gap:8px;width:100%}
+.cal3-g{display:grid;grid-template-columns:repeat(var(--c),minmax(0,1fr));gap:2px;width:100%}
+.cal3 .cal-c{border-radius:3px}
+.cal-c.td{box-shadow:inset 0 0 0 2px var(--violet-ink)!important}
+.cal3 .cal-k{justify-content:flex-start;flex-wrap:wrap}.cal3 .spacer{flex:1}
+.cal3-from,.cal3-to{font-size:.72rem;color:var(--ink-3)}.cal3-to{margin-left:8px;font-weight:600;color:var(--violet-ink)}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -2480,7 +2508,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "33.0";
+const APP_VERSION = "34.0";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -12525,6 +12553,103 @@ function saveWrappedImage(W) {
     KEYS.forEach(k => { const R = rm[k] || {}, L = keep[k]; const out = { ...R }; Object.entries(L).forEach(([kk, v]) => { const rv = R[kk]; if (rv && typeof rv === "object" && v && typeof v === "object") { if (k === "challenges") out[kk] = { ...rv, ...v }; else if (k === "weekSnap") out[kk] = (rv.t || 0) <= (v.t || 0) ? rv : v; else out[kk] = (rv.t || 0) >= (v.t || 0) ? rv : v; } else out[kk] = v; }); S.meta[k] = out; });
     S.meta.lastLevel = Math.max(lv || 0, rm.lastLevel || 0) || lv; S.meta.bestCombo = Math.max(bc, rm.bestCombo || 0); S.meta.dykIdx = Math.max(dk, rm.dykIdx || 0);
     return res; }; }
+/* ===================== v34 ===================== */
+/* ---------- lessons-per-day pacing toward day one ---------- */
+function paceInfo() {
+  const p = prep(); const left = LESSONS.filter(l => !lessonState(l).passed).length; const doneToday = ((S.meta.daily || {})[dayKey()] || {}).lessons || 0;
+  if (!p || !p.start) return { n: 1, left, doneToday, days: null };
+  const days = Math.max(1, dayDiff(p.start)); const n = Math.max(1, Math.ceil((left + doneToday) / days));
+  return { n, left, doneToday, days };
+}
+paceLessonsToday = function () { return paceInfo().n; };
+{ const pv = planView; planView = function (it) { const v = pv(it); if (it && /^lessons/.test(it.id) && v && prepOn()) { const P = paceInfo(); if (P.days) { v.t = P.n > 1 ? `Complete ${P.n} lessons today` : "Complete a lesson today"; v.s = `${Math.min(P.doneToday, P.n)} of ${P.n} done · ${P.left} lessons left · ${plural(P.days, "day")} to day one`; v.prog = Math.min(1, P.doneToday / P.n); v.done = P.doneToday >= P.n; } } return v; }; }
+
+/* ---------- XP: a long road, built for heavy daily use ---------- */
+LEVELS.length = 0;
+["Lab trainee", "Specimen runner", "Phlebotomy trainee", "Phlebotomist", "Lab assistant", "Processing tech", "Bench trainee", "Bench tech", "MLS student", "MLS intern", "Clinical intern", "Medical lab scientist", "Staff MLS", "Experienced MLS", "Senior MLS", "Specialist", "Lead tech", "Lab supervisor", "Lab manager", "Lab director"]
+  .forEach((t, i) => LEVELS.push([i === 0 ? 0 : Math.round(150 * Math.pow(i, 2.1) / 50) * 50, t]));
+if (!S.meta.xpV2) { S.meta.lastLevel = levelInfo().n; S.meta.xpV2 = 1; saveMeta(true); }
+
+/* ---------- home: one quiet “Lab corner” card replaces the specimen and mystery cards ---------- */
+function labCornerHtml() {
+  const sp = todaySpecimen(), got = (S.meta.specimens || {})[dayKey()]; const m = mysteryNow(); const done = m.st && m.st.guess;
+  return `<section class="labcorner"><button class="lc-row2" id="lcSpec"><span class="lc-e">${sp.e}</span><span class="lc-t"><small>Specimen of the day</small><b>${esc(got ? sp.a : sp.q)}</b></span><span class="lc-a">${got ? "✓" : "Reveal"}</span></button>
+    <button class="lc-row2" id="lcMyst"><span class="lc-e">🧫</span><span class="lc-t"><small>Mystery unknown · ${done ? (m.st.correct ? "solved" : "this week’s answer") : `clue ${m.shown} of 5`}</small><b>${esc(done ? m.name : m.clues[m.shown - 1])}</b></span><span class="lc-a">${done ? (m.st.correct ? "✓" : "") : "Guess"}</span></button></section>`;
+}
+function specimenModal() {
+  const sp = todaySpecimen(); const got = (S.meta.specimens || {})[dayKey()];
+  if (!got) { (S.meta.specimens = S.meta.specimens || {})[dayKey()] = { id: sp.id, t: Date.now() }; saveMeta(true); }
+  modal(`${mhead("Specimen of the day")}<div class="spec-q"><span class="spec-e">${sp.e}</span><b>${esc(sp.q)}</b></div><div class="spec-a" style="margin-top:10px"><b>${esc(sp.a)}</b><p>${esc(sp.f)}</p></div><p class="small muted" style="margin:10px 0 0">${Object.keys(S.meta.specimens).length} of ${SPECIMENS.length} collected</p><div class="modal-foot"><div class="spacer"></div><button class="btn primary" data-close>Done</button></div>`, (s, close) => $$("[data-close]", s).forEach(b => b.onclick = () => { close(); render(); }));
+}
+function mysteryModal() {
+  const m = mysteryNow(); if (!(m.st && m.st.guess)) return mysteryGuess();
+  modal(`${mhead("Mystery unknown")}<ol class="myst-c">${m.clues.map(c => `<li>${esc(c)}</li>`).join("")}</ol><p class="myst-a" style="margin-top:10px">${m.st.correct ? `You solved it with ${m.st.clues} clues (+${m.st.pts} XP):` : `You guessed ${esc(m.st.guess)}. It was`} <b>${esc(m.name)}</b>.</p><p class="small muted">A new mystery starts Monday.</p><div class="modal-foot"><div class="spacer"></div><button class="btn primary" data-close>Done</button></div>`, (s, close) => $$("[data-close]", s).forEach(b => b.onclick = close));
+}
+{ const rh = renderHome; renderHome = function (decks) {
+    rh(decks); const v = $("#view"); if (!v) return;
+    const fr = v.querySelector(".funrow"); if (fr) { fr.outerHTML = labCornerHtml(); $("#lcSpec").onclick = specimenModal; $("#lcMyst").onclick = mysteryModal; }
+    $$(".a3stat span", v).forEach(s => { if (s.textContent === "ACCURACY · 7 DAYS") s.textContent = "7-DAY ACCURACY"; });
+    const jt = $("#dashJ b", v); if (jt && journalVisible().length > 10) jt.classList.add("jred");
+  }; }
+
+/* ---------- Progress: lab life without challenges; a one-row cabinet; a full-year calendar ---------- */
+labLifeHtml = function () {
+  const L = levelInfo(); const mys = Object.values(S.meta.mystery || {}).filter(m => m && m.correct).length;
+  return `<div class="panel lablife"><div class="ll-top"><div><span class="fc-k">LEVEL ${L.n} OF ${LEVELS.length}</span><h3>${esc(L.title)}</h3><small class="muted">${L.xp.toLocaleString()} XP${L.next ? ` · ${(L.hi - L.xp).toLocaleString()} to ${esc(L.next)}` : ""}</small></div><button class="btn primary" id="wrapGo">LabDeck Wrapped</button></div><i class="a3bar ll-bar"><i style="width:${L.pct}%"></i></i>
+    <div class="ll-stats"><div><b>${Object.keys(S.meta.specimens || {}).length}</b><span>specimens collected</span></div><div><b>${mys}</b><span>mysteries solved</span></div><div><b>${S.meta.bestCombo || 0}</b><span>best combo</span></div><div><b>${Object.keys(S.meta.badges || {}).length}</b><span>badges</span></div></div></div>`;
+};
+const cabDecks = () => Object.values(S.decks).filter(d => !d.hidden && d.cards.length).map(d => { const c = deckCounts(d); return { d, pct: c.total ? c.mastered / c.total : 0, seen: c.total ? (c.total - c.nw) / c.total : 0 }; }).sort((a, b) => b.pct - a.pct || b.seen - a.seen);
+function cabTube(x, big) { const lb = labelOf(x.d); const col = CAPS[lb ? lb.color : x.d.color] || "#9B7FE6"; const fill = Math.round(x.pct * 26); const id = "cb" + x.d.id + (big ? "b" : ""); return `<svg viewBox="0 0 20 44" width="${big ? 24 : 22}" height="${big ? 52 : 48}" aria-hidden="true"><rect x="3" y="1" width="14" height="8" rx="2" fill="${col}"/><path d="M4.5 9h11v26a5.5 5.5 0 0 1-11 0z" fill="var(--surface)" stroke="#8C959F" stroke-width="1.1"/><clipPath id="${id}"><path d="M4.5 9h11v26a5.5 5.5 0 0 1-11 0z"/></clipPath><rect clip-path="url(#${id})" x="4" y="${41 - fill}" width="12" height="${fill + 1}" fill="${col}" opacity=".75"/></svg>`; }
+cabinetHtml = function () {
+  const all = cabDecks(); const full = all.filter(x => x.pct >= .8).length;
+  return `<div class="panel cab"><div class="fc-h"><h3 style="margin:0">Specimen cabinet</h3><button class="btn ghost sm" id="cabAll">View all ${all.length} ›</button></div><p class="small muted" style="margin:4px 0 8px">${full} of ${all.length} tubes full. Each fills as you master a deck.</p>
+    <div class="cab-row">${all.map(x => `<button class="cab-tube ${x.pct >= .8 ? "full" : ""}" title="${esc(x.d.name)}: ${Math.round(x.pct * 100)}% mastered" data-cab="${x.d.id}">${cabTube(x)}</button>`).join("")}</div><div class="cab-shelf2"></div></div>`;
+};
+function cabinetModal() {
+  const all = cabDecks();
+  modal(`${mhead("Specimen cabinet")}<p class="small muted" style="margin:-4px 0 10px">Every deck, most mastered first.</p><div class="cab-list">${all.map(x => `<a class="cab-li" href="#d-${x.d.id}" data-close>${cabTube(x, true)}<span class="cab-n"><b>${esc(x.d.name)}</b><small>${Math.round(x.pct * 100)}% mastered · ${Math.round(x.seen * 100)}% studied</small></span></a>`).join("")}</div><div class="modal-foot"><div class="spacer"></div><button class="btn primary" data-close>Done</button></div>`, (s, close) => $$("[data-close]", s).forEach(b => b.onclick = () => close()));
+}
+function fitCabinet() { const row = $(".cab-row"); if (!row) return; const items = [...row.children]; const per = Math.max(1, Math.floor((row.clientWidth + 6) / 46)); items.forEach((el, i) => el.style.display = i < per ? "" : "none"); }
+function calendarYear(host) {
+  const h = S.meta.history || {}, goal = GOAL(); const W = Math.max(240, host.clientWidth || 600); const H = W * 7 / (W < 600 ? 14 : 26);
+  const step = Math.sqrt(W * H / 365); let cols = Math.max(14, Math.round(W / step)); let rows = Math.ceil(365 / cols); if (rows * (W / cols) > H * 1.12) { cols = Math.ceil(Math.sqrt(365 * W / H)); rows = Math.ceil(365 / cols); }
+  const pad = rows * cols - 365; const td = dayKey(); let cells = "";
+  for (let i = 0; i < pad; i++) cells += `<i class="cal-c lf" aria-hidden="true"></i>`;
+  for (let i = 364; i >= 0; i--) { const t = Date.now() - i * DAY; const k = dayKey(t); const n = h[k] || 0; const lv = !n ? 0 : n < goal / 3 ? 1 : n < goal ? 2 : 3; cells += `<i class="cal-c l${lv} ${k === td ? "td" : ""}" title="${new Date(k + "T12:00").toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}: ${n} review${n === 1 ? "" : "s"}"></i>`; }
+  return `<div class="cal3" style="--c:${cols}"><div class="cal3-g">${cells}</div><div class="cal-k"><span class="cal3-from">A year ago</span><span class="spacer"></span><span>Less</span><i class="cal-c l0"></i><i class="cal-c l1"></i><i class="cal-c l2"></i><i class="cal-c l3"></i><span>Goal met</span><span class="cal3-to">Today</span></div></div>`;
+}
+{ const rs = renderStats; renderStats = function (...a) { const out = rs.apply(this, a); const v = $("#view"); if (!v) return out;
+    const cab = v.querySelector(".cab"); if (cab) { cab.outerHTML = cabinetHtml(); $("#cabAll") && ($("#cabAll").onclick = cabinetModal); $$("[data-cab]").forEach(b => b.onclick = () => { const d = S.decks[b.dataset.cab]; toast(`${d.name}: ${Math.round((cabDecks().find(x => x.d === d) || {}).pct * 100)}% mastered`); }); requestAnimationFrame(fitCabinet); }
+    $$(".cal2", v).forEach(c => { const host = c.parentElement; c.outerHTML = `<div class="cal3-host"></div>`; const hh = host.querySelector(".cal3-host"); requestAnimationFrame(() => { hh.outerHTML = calendarYear(host); }); });
+    return out; }; }
+addEventListener("resize", () => { fitCabinet(); });
+
+/* ---------- badges: retire Listen, refresh wording, add new ones ---------- */
+{ const i = BADGES2.findIndex(b => b.id === "listen10"); if (i >= 0) BADGES2.splice(i, 1);
+  const fix = (id, f) => { const b = BADGES2.find(x => x.id === id); if (b) f(b); };
+  fix("gloss5", b => b.desc = "Add 5 terms to your glossary"); fix("gloss25", b => b.desc = "Add 25 terms to your glossary");
+  fix("tg7", b => b.desc = "Complete all of Today’s tasks on 7 days"); fix("tg30", b => b.desc = "Complete all of Today’s tasks on 30 days"); fix("tg100", b => b.desc = "Complete all of Today’s tasks on 100 days");
+  fix("tube4", b => b.desc = "Master Tube trainer’s four core levels"); fix("gall", b => b.desc = "Clear every level of seven leveled games");
+  const occN = () => Object.values(S.decks).reduce((n, d) => n + d.cards.filter(c => c.type === "occlusion").length, 0);
+  const spN = () => Object.keys(S.meta.specimens || {}).length, myN = () => Object.values(S.meta.mystery || {}).filter(m => m && m.correct).length;
+  const lvN = () => levelInfo().n, full = () => cabDecks().filter(x => x.pct >= .8).length, gs = id => gstate(id);
+  BADGES2.push(
+    B("img1", "m", "🖼️", "Picture this", "Make an image card", 1, occN), B("img10", "m", "🗺️", "Mapmaker", "Make 10 image cards", 10, occN),
+    B("spec7", "s", "🔬", "Specimen collector", "Collect 7 specimens of the day", 7, spN), B("spec30", "s", "🧪", "Full collection", `Collect all ${SPECIMENS.length} specimens`, SPECIMENS.length, spN),
+    B("myst1", "g", "🕵️", "Detective", "Solve a mystery unknown", 1, myN), B("myst5", "g", "🔎", "Master detective", "Solve 5 mystery unknowns", 5, myN),
+    B("combo10", "r", "🔥", "On fire", "Get 10 right in a row", 10, () => S.meta.bestCombo || 0), B("combo25", "r", "☄️", "Unstoppable", "Get 25 right in a row", 25, () => S.meta.bestCombo || 0),
+    B("lv5", "p", "🥼", "Lab assistant", "Reach level 5", 5, lvN), B("lv10", "p", "🎓", "MLS intern", "Reach level 10", 10, lvN), B("lv15", "p", "🏅", "Senior MLS", "Reach level 15", 15, lvN), B("lv20", "p", "👑", "Lab director", "Reach level 20", 20, lvN),
+    B("freeze1", "s", "🧊", "Saved by the freeze", "Have a streak saved by a weekly freeze", 1, () => Object.keys(S.meta.freezes || {}).length),
+    B("ptest3", "p", "📝", "Test run", "Finish 3 exam-day practice tests", 3, () => sv("practiceTests")), B("weak10", "r", "🎯", "Shore up", "Start 10 weak-spot sessions", 10, () => sv("weakRuns")),
+    B("fluids5", "g", "💧", "Fluid thinker", "Play Body fluid detective 5 times", 5, () => gs("fluids").plays || 0), B("xmatch5", "g", "🧩", "Crossmatched", "Play Crossmatch puzzle 5 times", 5, () => gs("xmatch").plays || 0),
+    B("sprint", "g", "🏃", "Sprinter", "Clear a Tube trainer sprint level", 2, () => gs("drawrun").level || 1), B("clock", "g", "⏱️", "Beat the clock", "Clear a timed Critical call level", 2, () => gs("critclock").level || 1),
+    B("cab1", "m", "🧫", "Full tube", "Fill a specimen cabinet tube (80% mastered)", 1, full), B("cab5", "m", "🗄️", "Stocked shelf", "Fill 5 cabinet tubes", 5, full),
+    B("form3", "l", "🧮", "Formula keeper", "Add 3 of your own formulas", 3, () => (S.meta.formulasUser || []).filter(f => !f.del).length)
+  ); }
+{ const ws = startWeakSpots; startWeakSpots = function (...a) { stat("weakRuns"); return ws.apply(this, a); }; }
+{ const pt = practiceTest; practiceTest = function (e) { const out = pt(e); const sx = () => { if (ST && ST.stage && ST.stage.querySelector("#ptDone") && !ST.stage.dataset.pt) { ST.stage.dataset.pt = 1; stat("practiceTests"); } }; const iv = setInterval(() => { sx(); if (!ST || !ST.el || !ST.el.isConnected) clearInterval(iv); }, 800); return out; }; }
+/* weekly challenges are retired: nothing computes or toasts them anymore */
+challengesHtml = function () { return ""; };
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
