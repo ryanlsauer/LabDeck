@@ -2421,6 +2421,29 @@ svg.heat{display:block}
 .cal-c.td{box-shadow:inset 0 0 0 2px var(--violet-ink)!important}
 .cal3 .cal-k{justify-content:flex-start;flex-wrap:wrap}.cal3 .spacer{flex:1}
 .cal3-from,.cal3-to{font-size:.72rem;color:var(--ink-3)}.cal3-to{margin-left:8px;font-weight:600;color:var(--violet-ink)}
+/* ===================== v35 ===================== */
+/* level chip and program countdown: separate rows with real space between */
+.lvlchip,.a3start{display:flex!important;width:max-content;max-width:100%}
+.lvlchip{margin:12px 0 0!important}
+.a3start{margin:12px 0 4px!important}
+/* startup splash */
+.boot-splash{min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--ink-3);font-weight:700;animation:bsIn .4s ease .15s both}
+@keyframes bsIn{from{opacity:0}to{opacity:1}}
+/* cabinet: tubes stand on a shelf; names appear on hover (tap on phones) */
+.cab-row{height:60px!important;padding:14px 10px 0!important;position:relative;z-index:1;overflow:visible!important}
+.cab-tube{position:relative}
+.cab-tube::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%) translateY(4px);white-space:nowrap;background:rgba(28,28,30,.92);color:#fff;font:600 .72rem/1.2 var(--font-body);padding:5px 9px;border-radius:8px;opacity:0;pointer-events:none;transition:opacity .12s,transform .12s;z-index:5}
+@media (hover:hover){.cab-tube:hover::after{opacity:1;transform:translateX(-50%) translateY(0)}}
+.cab-tube:first-child::after{left:0;transform:translateY(4px)}@media (hover:hover){.cab-tube:first-child:hover::after{transform:none}}
+.cab-shelf2{position:relative;height:12px!important;margin:-3px 2px 10px!important;border-radius:3px 3px 4px 4px!important;background:linear-gradient(180deg,#EDE6DA 0,#E2D8C8 45%,#CFC3AF 100%)!important;box-shadow:0 4px 8px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.7)}
+.cab-shelf2::before,.cab-shelf2::after{content:"";position:absolute;top:12px;width:8px;height:12px;background:linear-gradient(180deg,#CFC3AF,#B9AC95);clip-path:polygon(0 0,100% 0,100% 100%)}
+.cab-shelf2::before{left:14px;transform:scaleX(-1)}.cab-shelf2::after{right:14px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .cab-shelf2{background:linear-gradient(180deg,#5A5248 0,#4A433A 50%,#3A342D 100%)!important;box-shadow:0 4px 8px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.08)}:root:not([data-theme="light"]) .cab-shelf2::before,:root:not([data-theme="light"]) .cab-shelf2::after{background:linear-gradient(180deg,#3A342D,#2E2924)}}
+.cab .fc-h{margin-bottom:0}
+.a3start{margin-top:16px!important}
+.cab-row{height:76px!important;padding-top:30px!important}
+.cab p.small{margin-bottom:0!important}
+.lvlchip+.a3start,.a3start+.lvlchip,#view .lvlchip+.a3start{margin-top:16px!important}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -2508,7 +2531,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "34.0";
+const APP_VERSION = "35.0";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -11631,7 +11654,7 @@ function celebrateUnlocks(l, before) {
 /* ===================== v26 · Apple LabDeck 3, all in ===================== */
 
 /* ---------- settings sync: remember when each setting changed ---------- */
-{ let snap = null; const stamp = () => { try { const cur = S.meta && S.meta.settings; if (!cur) return; const now = JSON.stringify(cur); if (snap === null) { snap = now; return; } if (now === snap) return; const old = JSON.parse(snap); const T = S.meta.settingsT = S.meta.settingsT || {}; for (const k of new Set([...Object.keys(cur), ...Object.keys(old)])) if (JSON.stringify(cur[k]) !== JSON.stringify(old[k])) T[k] = Date.now(); snap = now; saveMeta(true); } catch { } }; setInterval(stamp, 1000); }
+{ let snap = null; const stamp = () => { try { if (!S.loaded) return; const cur = S.meta && S.meta.settings; if (!cur) return; const now = JSON.stringify(cur); if (snap === null) { snap = now; return; } if (now === snap) return; const old = JSON.parse(snap); const T = S.meta.settingsT = S.meta.settingsT || {}; for (const k of new Set([...Object.keys(cur), ...Object.keys(old)])) if (JSON.stringify(cur[k]) !== JSON.stringify(old[k])) T[k] = Date.now(); snap = now; saveMeta(true); } catch { } }; setInterval(stamp, 1000); }
 
 /* ---------- greetings: many more ---------- */
 const EXTRA_TITLES = { n: ["Night owl session", "Quiet hours, clear mind", "The lab never sleeps"], m: ["Good morning", "Fresh start, fresh specimens", "Morning QC: you", "Coffee, then cultures", "Up and pipetting"], a: ["Good afternoon", "Afternoon run", "Midday check-in", "Halfway through the shift"], e: ["Good evening", "Evening review", "Wind-down rounds", "One more run before bed"] };
@@ -12568,7 +12591,7 @@ paceLessonsToday = function () { return paceInfo().n; };
 LEVELS.length = 0;
 ["Lab trainee", "Specimen runner", "Phlebotomy trainee", "Phlebotomist", "Lab assistant", "Processing tech", "Bench trainee", "Bench tech", "MLS student", "MLS intern", "Clinical intern", "Medical lab scientist", "Staff MLS", "Experienced MLS", "Senior MLS", "Specialist", "Lead tech", "Lab supervisor", "Lab manager", "Lab director"]
   .forEach((t, i) => LEVELS.push([i === 0 ? 0 : Math.round(150 * Math.pow(i, 2.1) / 50) * 50, t]));
-if (!S.meta.xpV2) { S.meta.lastLevel = levelInfo().n; S.meta.xpV2 = 1; saveMeta(true); }
+{ const ad = applyDocs; applyDocs = function (docs) { const out = ad(docs); try { if (!S.meta.xpV2) { S.meta.lastLevel = levelInfo().n; S.meta.xpV2 = 1; } } catch { } return out; }; }
 
 /* ---------- home: one quiet “Lab corner” card replaces the specimen and mystery cards ---------- */
 function labCornerHtml() {
@@ -12650,6 +12673,18 @@ addEventListener("resize", () => { fitCabinet(); });
 { const pt = practiceTest; practiceTest = function (e) { const out = pt(e); const sx = () => { if (ST && ST.stage && ST.stage.querySelector("#ptDone") && !ST.stage.dataset.pt) { ST.stage.dataset.pt = 1; stat("practiceTests"); } }; const iv = setInterval(() => { sx(); if (!ST || !ST.el || !ST.el.isConnected) clearInterval(iv); }, 800); return out; }; }
 /* weekly challenges are retired: nothing computes or toasts them anymore */
 challengesHtml = function () { return ""; };
+/* ===================== v35: clean startup ===================== */
+/* Nothing is drawn or saved until your data has loaded, so home appears once, already filled in,
+   and checks like badges never run (or save) against empty placeholder data. */
+{ const ad = applyDocs; applyDocs = function (docs) { const out = ad(docs); S.loaded = true; return out; }; }
+{ const sv = Store.save; Store.save = function (...a) { if (!S.loaded) return; return sv.apply(this, a); }; }
+{ const cb = checkBadges; checkBadges = function (...a) { if (!S.ready) return; return cb.apply(this, a); }; }
+{ const r = render; render = function (...a) {
+    if (!S.ready) { const v = document.getElementById("view"); if (v && !v.querySelector(".boot-splash")) v.innerHTML = `<div class="boot-splash" role="status" aria-label="Loading LabDeck"><svg width="44" height="44" viewBox="0 0 30 30" aria-hidden="true"><rect width="30" height="30" rx="7" fill="#7B4FE0"></rect><path d="M12 7h6M13 7v6l-5 9a1.5 1.5 0 0 0 1.3 2.2h11.4A1.5 1.5 0 0 0 22 22l-5-9V7" fill="none" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"></path></svg><span>LabDeck</span></div>`; return; }
+    return r.apply(this, a); }; }
+
+/* ---------- specimen cabinet: names on hover (tap on phones), and a real shelf ---------- */
+{ const ch = cabinetHtml; cabinetHtml = function () { return ch().replace(/<button class="cab-tube([^"]*)" title="([^"]*)"/g, (m, cls, t) => `<button class="cab-tube${cls}" data-tip="${t}" aria-label="${t}"`); }; }
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));

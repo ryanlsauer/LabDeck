@@ -2,7 +2,7 @@
 
 A free study app for Medical Laboratory Science students, built around the Sentara RMH School of Medical Laboratory Science program. It runs in any modern browser on a phone or a computer, works offline, and keeps your progress on your own device. There are no accounts, ads or fees.
 
-Version 34.0.
+Version 35.0.
 
 ---
 
