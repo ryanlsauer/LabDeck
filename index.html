@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#F6F7F9" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#0E1116" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -2471,6 +2471,43 @@ svg.heat{display:block}
 /* progress numbers */
 .pnums .a3stats{margin:0}
 .a3chips .a3start,.a3chips .lvlchip+.a3start,#view .a3chips .lvlchip+.a3start{margin:0!important}
+/* ===================== v37: no zooming on phones ===================== */
+/* Zoom is prevented by the viewport (maximum-scale=1, user-scalable=no) plus gesture blocking,
+   so text fields keep their designed sizes. */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+html,body{touch-action:pan-x pan-y}
+/* the image editor draws with a finger, so it keeps full control of touches */
+.occ.ed{touch-action:none}
+/* ===================== v38 ===================== */
+/* glossary: no “Yours” tag on cards (the Yours filter still finds them) */
+.gitem .ytag,.gitem .tag{display:none!important}
+/* titles never show glossary underlines or spelled-out text */
+h1 .ac,h2 .ac,h3 .ac,h4 .ac,.kicker .ac,.study-top .ac,.lhead .ac,.lesson-head .ac,[class*="title"] .ac,.tsec-h .ac,.cr-front .ac{border:0!important;text-decoration:none!important;background:none!important;color:inherit!important;pointer-events:none;cursor:inherit;padding:0!important}
+h1 .acx,h2 .acx,h3 .acx,h4 .acx,.kicker .acx,.study-top .acx,[class*="title"] .acx{display:none!important}
+/* Did you know: only on finished lessons, full width */
+.dyk{display:none!important}
+.study.lesson-run .results .dyk{display:block!important;max-width:none!important;width:100%;margin:16px 0 0!important;text-align:left;box-sizing:border-box}
+/* dropdown arrow: one small chevron, never a pattern, in light and dark */
+select,select.input{background-repeat:no-repeat!important;background-position:right 14px center!important;background-size:12px 8px!important;background-color:var(--surface)!important;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%236E6E73' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")!important}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) select,:root:not([data-theme="light"]) select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%2398989F' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")!important}}
+:root[data-theme="dark"] select,:root[data-theme="dark"] select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%2398989F' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")!important}
+/* badge preview: a tidy grid, never a sideways scroll */
+.bp-row{display:none!important}
+.bp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px;padding-top:10px}
+.bp-grid .bpill{min-width:0;max-width:none}
+/* all badges: equal tiles */
+.ball-grid{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))!important;align-items:stretch}
+.bdg{display:flex;gap:12px;align-items:flex-start;background:var(--surface);border-radius:var(--r-cell);box-shadow:var(--shadow);padding:12px 14px;min-width:0;box-sizing:border-box;height:100%}
+.bdg .bt-t{min-width:0}.bdg .bt-t b,.bdg .bt-t small{overflow-wrap:anywhere}
+.bdg.on em{color:var(--a3-green);font-weight:600}.bdg.off{opacity:.6}.bdg.off .bt-e{filter:grayscale(1)}
+.bdg .a3bar{margin-top:4px}
+@media (max-width:600px){.ball-grid{grid-template-columns:1fr!important}.ball-f{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+/* calendar: month labels never collide */
+.cal-m3 span{font-size:.66rem}
+@media (max-width:600px){.cal3-g{gap:2px}.cal-m3{gap:2px}}
+/* mobile bar charts: rectangles with soft corners, not pills */
+@media (max-width:600px){.bc-col2 i,.bc-col i{border-radius:4px 4px 0 0!important}}
+@media (max-width:600px){.bp-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.bp-grid .bpill{padding:8px 10px!important}.bp-grid .bp-t b{font-size:.78rem}}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -2558,7 +2595,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "36.0";
+const APP_VERSION = "38.0";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -2844,7 +2881,7 @@ function nextState(st, g) {
   s.s = now;
   if (g === 1) { if (s.r > 0) s.l++; s.r = 0; s.i = 0; s.e = Math.max(1.3, s.e - 0.2); { const t = new Date(now + DAY); t.setHours(4, 0, 0, 0); s.d = t.getTime(); } s.w++; return { s, requeue: true }; }
   s.c++;
-  if (s.r === 0) s.i = g === 2 ? 1 : g === 3 ? 1 : 4;
+  if (s.r === 0) s.i = g === 2 ? 1 : g === 3 ? 1 : 2;
   else if (g === 2) { s.i = Math.max(1, s.i * 1.2); s.e = Math.max(1.3, s.e - 0.15); }
   else if (g === 3) { const late = st && st.d ? Math.max(0, (now - st.d) / DAY) : 0; s.i = Math.max(s.i + 1, (s.i + late / 2) * s.e); }
   else { const late = st && st.d ? Math.max(0, (now - st.d) / DAY) : 0; s.i = Math.max(s.i + 2, (s.i + late) * s.e * 1.3); s.e += 0.15; }
@@ -3178,7 +3215,7 @@ function renderDeck(d) {
     const card = d.cards.find(x => x.id === b.dataset.id); if (!card) return;
     if (b.dataset.act === "edit") editCardModal(d, card);
     if (b.dataset.act === "star") { card.star = !card.star; saveDeck(d); renderDeck(d); }
-    if (b.dataset.act === "del") confirmModal("Delete this card?", "Its review history goes with it.", "Delete card", () => { d.cards = d.cards.filter(x => x !== card); saveDeck(d); renderDeck(d); toast("Card deleted"); });
+    if (b.dataset.act === "del") confirmModal("Delete this card?", "Its review history goes with it.", "Delete card", () => { d.cards = d.cards.filter(x => x !== card); saveDeck(d); const hk = card.hook && (S.meta.hooks || []).find(h => h.id === card.hook); if (hk) { hk.del = true; hk.t = Date.now(); saveMeta(true); } renderDeck(d); toast(hk ? `Memory hook “${hk.title}” deleted` : "Card deleted"); });
   };
 }
 const cardLabel = c => c.type === "profile" ? c.name : c.type === "cloze" ? "" : (c.back || "");
@@ -6585,7 +6622,7 @@ function gloss(html, seen, force) {
     const end = off + whole.length; const after = str.slice(end, end + 3);
     if (/;$/.test(pre) && /&[a-z#0-9]*$/.test(str.slice(Math.max(0, off - 8), off + 1))) return whole;
     let x = "";
-    if (expand && !seen.has(key) && !after.startsWith(" (") && !str.toLowerCase().includes(g[0].split(" (")[0].toLowerCase())) x = `<span class="acx"> (${esc(g[0].split(" (or")[0])})</span>`;
+    if (expand && !seen.has(key) && !after.startsWith(" (") && !/^[\/\-–]/.test(after) && !str.toLowerCase().includes(g[0].split(" (")[0].toLowerCase())) x = `<span class="acx"> (${esc(g[0].split(" (or")[0])})</span>`;
     seen.add(key);
     return `${pre}<span class="ac" data-ac="${esc(key)}" tabindex="0" role="button" title="${esc(g[0])}">${m}</span>${x}`;
   });
@@ -12782,6 +12819,81 @@ startBadges = function () {
       $("#pJ") && ($("#pJ").onclick = () => startJournal());
     } catch (e) { console.warn("progress layout", e); }
     return out; }; }
+/* ===================== v37: feel like an app, not a web page ===================== */
+/* Safari on iPhone can ignore "user-scalable=no" for pinches, so block its pinch gestures directly. */
+["gesturestart", "gesturechange", "gestureend"].forEach(t => document.addEventListener(t, e => e.preventDefault(), { passive: false }));
+/* two-finger pinches anywhere: no zoom (one-finger scrolling is untouched) */
+document.addEventListener("touchmove", e => { if (e.touches && e.touches.length > 1) e.preventDefault(); }, { passive: false });
+/* ===================== v38 ===================== */
+/* ---------- home numbers: one “reviews today” everywhere, clearly labeled ---------- */
+const revToday = () => (S.meta.history || {})[dayKey()] || 0;
+function taskCounts() { try { const vs = todayPlan().map(planView).filter(Boolean); return [vs.filter(v => v.done).length, vs.length]; } catch { return [0, 0]; } }
+{ const pv = planView; planView = function (it) { const v = pv(it); if (!v || !it) return v; const goal = GOAL(), r = revToday();
+    if (it.id === "goal") { v.s = `${Math.min(r, goal)} of ${goal} reviews today`; v.prog = Math.min(1, r / goal); v.done = r >= goal; }
+    if ((it.id === "review" || it.id === "reviews") && !v.done) { let due = 0; Object.values(S.decks).filter(d => !d.hidden).forEach(d => due += deckCounts(d).due); v.s = `${due} due card${due === 1 ? "" : "s"} left`; }
+    return v; }; }
+{ const dh = dashHtml; dashHtml = function (decks) {
+    let h = dh(decks); const goal = GOAL(), r = revToday(); const [td, tt] = taskCounts();
+    let due = 0, nw = 0; decks.forEach(d => { const c = deckCounts(d); due += c.due; nw += c.nw; }); const newLeft = Math.min(nw, newLeftToday());
+    h = h.replace(/(<div class="a3ringlab"><div><span>)Reviews(<\/span>)/, "$1Reviews today$2").replace(/<span>New cards<\/span>/, "<span>New cards learned</span>").replace(/<span>Today’s tasks<\/span><b class="rl-r">\d+<small>\/\d+<\/small><\/b>/, `<span>Tasks done</span><b class="rl-r">${td}<small>/${tt}</small></b>`);
+    h = h.replace(/(<div class="a3up-t"><span>UP NEXT<\/span><b>[^<]*<\/b><small>)[^<]*(<\/small>)/, `$1${due + newLeft ? `${due} due + ${newLeft} new left today` : "Nothing due right now"}$2`);
+    h = h.replace(/<div class="a3nudge">[\s\S]*?<\/div><button/, m => m.replace(/<b>[^<]*<\/b><small>[^<]*<\/small>/, r ? `<b>${goal - r} more reviews to reach today’s goal</b><small>${r} of ${goal} done. Your streak is safe.</small>` : `<b>One review keeps your streak alive</b><small>0 of ${goal} reviews today.</small>`));
+    return h; }; }
+{ const rd = ringData; ringData = function () { const r = rd(); r.tasks = taskCounts(); return r; }; }
+
+/* ---------- exams: each exam syncs on its own, and deleting one is remembered ---------- */
+{ let snap = null; setInterval(() => { try { if (!S.loaded) return; const L = S.meta.exams || []; const now = {}; L.forEach(e => now[e.id] = JSON.stringify({ ...e, t: 0 })); if (snap === null) { snap = now; return; } let ch = false;
+    L.forEach(e => { if (snap[e.id] !== now[e.id]) { e.t = Date.now(); ch = true; } }); Object.keys(snap).forEach(id => { if (!now[id]) { (S.meta.examDel = S.meta.examDel || {})[id] = Date.now(); ch = true; } });
+    snap = {}; L.forEach(e => snap[e.id] = JSON.stringify({ ...e, t: 0 })); if (ch) saveMeta(true); } catch { } }, 1000); }
+{ const mr = mergeRemote; mergeRemote = function (r, ...a) {
+    const mine = JSON.parse(JSON.stringify(S.meta.exams || [])), myDel = { ...(S.meta.examDel || {}) }; const res = mr.call(this, r, ...a); const rm = (r && r.meta) || {};
+    const del = { ...(rm.examDel || {}) }; Object.entries(myDel).forEach(([k, t]) => { if (!del[k] || del[k] < t) del[k] = t; });
+    const by = new Map(); [...(rm.exams || []), ...mine].forEach(e => { if (!e || !e.id) return; const o = by.get(e.id); if (!o || (e.t || 0) >= (o.t || 0)) by.set(e.id, e); });
+    S.meta.exams = [...by.values()].filter(e => !del[e.id] || (e.t || 0) > del[e.id]); S.meta.examDel = del; return res; }; }
+
+/* ---------- memory hooks: one copy of each starter hook, and deleting a hook’s card deletes the hook ---------- */
+{ const sa = starterAsHook; starterAsHook = function (l) { const h = sa(l); h.id = "starter-" + l.id; return h; }; }
+function dedupeHooks() {
+  const L = S.meta.hooks || []; const live = L.filter(h => !h.del); const groups = new Map();
+  live.forEach(h => { const k = h.starter ? "s:" + h.starter : "u:" + (h.title || "").trim().toLowerCase() + "|" + (h.items || []).join("|").toLowerCase(); if (!groups.has(k)) groups.set(k, []); groups.get(k).push(h); });
+  let n = 0;
+  groups.forEach(g => { if (g.length < 2) return; g.sort((a, b) => ((b.lastP || 0) + (b.best || 0)) - ((a.lastP || 0) + (a.best || 0)) || (b.t || 0) - (a.t || 0)); g.slice(1).forEach(h => { h.del = true; h.t = Date.now(); syncHookCard(h); n++; }); });
+  return n;
+}
+function hookCardsDeletedByYou() {
+  (S.meta.hooks || []).forEach(h => { if (h.del || !h.cardId || !h.deckId) return; const d = S.decks[h.deckId]; if (!d) return; const has = Object.values(S.decks).some(x => x.cards.some(c => c.hook === h.id || c.id === h.cardId)); if (!has && (d.updated || 0) > (h.t || 0)) { h.del = true; h.t = Date.now(); } });
+}
+{ const ch = cleanHookCards; cleanHookCards = function () { hookCardsDeletedByYou(); dedupeHooks(); return ch(); }; }
+{ const ad = applyDocs; applyDocs = function (docs) { const out = ad(docs); return out; }; }
+/* (deleting a hook card now deletes its hook inside the confirm step itself) */
+
+/* ---------- lesson recaps save to the deck automatically ---------- */
+{ const br = bindRecap; bindRecap = function (l) { br(l); const b = $("#recapSave"); if (b && !(S.meta.recapSaved || {})[l.id]) b.click(); else if (b) { b.disabled = true; b.classList.remove("primary"); b.textContent = "Saved to your deck ✓"; } }; }
+
+/* ---------- Did you know: only on a finished lesson’s results ---------- */
+{ const sl = startLesson; startLesson = function (...a) { const out = sl.apply(this, a); try { ST.el.classList.add("lesson-run"); } catch { } return out; }; }
+
+/* ---------- course map: real game names, no merged modes ---------- */
+delete GAME_REQ.drawrun; delete GAME_REQ.critclock;
+Object.assign(GAME_NAMES, { fluids: "Body fluid detective", xmatch: "Crossmatch puzzle" });
+
+/* ---------- study calendar: a full grid, no gaps; today in the last square ---------- */
+calendarYear = function (host) {
+  const h = S.meta.history || {}, goal = GOAL(); const W = Math.max(240, host.clientWidth || 600); const narrow = W < 600;
+  const rows = narrow ? 14 : 7, cols = narrow ? 27 : 53, N = rows * cols; const td = dayKey(); let cells = "";
+  const days = Array.from({ length: N }, (_, i) => dayKey(Date.now() - (N - 1 - i) * DAY)); const labels = new Array(cols).fill(""); let lastM = -1, lastC = -9;
+  for (let c = 0; c < cols; c++) { const m = new Date(days[c * rows] + "T12:00").getMonth(); if (m !== lastM && c - lastC >= (narrow ? 4 : 3) && c <= cols - (narrow ? 3 : 2)) { labels[c] = new Date(days[c * rows] + "T12:00").toLocaleDateString(undefined, { month: "short" }); lastC = c; } lastM = m; }
+  days.forEach((k, i) => { const n = h[k] || 0, lv = !n ? 0 : n < goal / 3 ? 1 : n < goal ? 2 : 3; cells += `<i class="cal-c l${lv} ${k === td ? "td" : ""}" style="grid-column:${Math.floor(i / rows) + 1};grid-row:${i % rows + 1}" title="${new Date(k + "T12:00").toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}: ${n} review${n === 1 ? "" : "s"}"></i>`; });
+  return `<div class="cal3 colmajor" style="--c:${cols};--r:${rows}"><div class="cal-m3">${labels.map(m => `<span>${m}</span>`).join("")}</div><div class="cal3-g">${cells}</div><div class="cal-k"><span class="cal3-from">${narrow ? "Past 54 weeks" : "Past 53 weeks"}</span><span class="spacer"></span><span>Less</span><i class="cal-c l0"></i><i class="cal-c l1"></i><i class="cal-c l2"></i><i class="cal-c l3"></i><span>Goal met</span><span class="cal3-to">Today</span></div></div>`;
+};
+
+/* ---------- badges: a small grid preview (no sideways scrolling), and a clean full screen ---------- */
+badgesPreviewHtml = function () {
+  const { earned, close } = badgeLists(); const items = [...earned.slice(0, 4).map(b => [b, null]), ...close.slice(0, 4).map(x => [x.b, x.p])];
+  return `<div class="panel bprev"><div class="fc-h"><h3 style="margin:0">Badges</h3><span class="fc-m">${earned.length} of ${BADGES2.length}</span><button class="btn sm" id="seeBadges">See all</button></div>
+    <div class="bp-grid">${items.map(([b, p]) => `<div class="bpill ${p == null ? "got" : ""}" title="${esc(b.desc)}"><span class="bp-e">${b.e}</span><span class="bp-t"><b>${esc(b.name)}</b>${p == null ? `<small>Earned</small>` : `<i class="a3bar"><i style="width:${Math.round(p * 100)}%"></i></i>`}</span></div>`).join("") || `<p class="small muted">Your first badge is one review away.</p>`}</div></div>`;
+};
+{ const sb = startBadges; startBadges = function () { sb(); const fix = () => { if (!ST || !ST.stage) return; $$(".btile", ST.stage).forEach(t => { t.classList.remove("btile"); t.classList.add("bdg"); }); }; fix(); new MutationObserver(fix).observe(ST.stage, { childList: true, subtree: true }); }; }
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
