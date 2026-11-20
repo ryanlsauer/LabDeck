@@ -2508,6 +2508,67 @@ select,select.input{background-repeat:no-repeat!important;background-position:ri
 /* mobile bar charts: rectangles with soft corners, not pills */
 @media (max-width:600px){.bc-col2 i,.bc-col i{border-radius:4px 4px 0 0!important}}
 @media (max-width:600px){.bp-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.bp-grid .bpill{padding:8px 10px!important}.bp-grid .bp-t b{font-size:.78rem}}
+/* ===================== v39 ===================== */
+/* badges: square tiles, progress on top */
+.bsum{background:var(--surface);border-radius:var(--r-cell);box-shadow:var(--shadow);padding:14px 16px;margin-bottom:12px;display:flex;flex-direction:column;gap:8px}.bsum div{color:var(--ink-3)}.bsum b{font-size:1.5rem;color:var(--ink)}.bsum .a3bar{height:6px}
+.bcat-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}.bcat-h h3{margin:0}.bcat-h span{font-size:.8rem;color:var(--ink-3)}
+.badges.sq{display:grid!important;grid-template-columns:repeat(auto-fill,minmax(118px,1fr))!important;gap:10px!important}
+.badges.sq .badge{aspect-ratio:1;display:flex!important;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:4px;padding:10px!important;border-radius:var(--r-cell)!important;min-width:0;overflow:hidden}
+.badges.sq .badge>*{max-width:100%}
+.badges.sq .badge .be,.badges.sq .badge>span:first-child{font-size:1.8rem;line-height:1}
+.badges.sq .badge b,.badges.sq .badge strong{font-size:.8rem;line-height:1.2;overflow-wrap:anywhere}
+.badges.sq .badge small,.badges.sq .badge p{font-size:.68rem;line-height:1.25;color:var(--ink-3);margin:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.badges.sq .badge .bprog,.badges.sq .badge .a3bar{width:80%;margin-top:4px}
+@media (max-width:600px){.badges.sq{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:8px!important}}
+/* badge preview */
+.bprev .bp-grid{display:none!important}
+.bp2-h{font-size:.72rem;font-weight:700;color:var(--ink-3);letter-spacing:.04em;text-transform:uppercase;margin:14px 2px 6px}
+.bp2-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+@media (max-width:760px){.bp2-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.bp2{display:flex;align-items:center;gap:10px;background:var(--surface-2);border-radius:12px;padding:9px 11px;min-width:0}
+.bp2-e{font-size:1.35rem;line-height:1;flex:none}.bp2-t{display:flex;flex-direction:column;gap:1px;min-width:0;flex:1}
+.bp2-t b{font-size:.82rem;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.bp2-t small{font-size:.7rem;line-height:1.2;color:var(--ink-3)}.bp2.got .bp2-t small{color:var(--a3-green)}
+.bp2 .a3bar{margin-top:4px;height:3px}
+/* study timer */
+.tm-now{display:flex;align-items:center;gap:12px;background:var(--surface-2);border-radius:12px;padding:12px 14px;margin-bottom:12px}.tm-now div{display:flex;flex-direction:column}.tm-now small{color:var(--ink-3);font-size:.82rem}
+.tm-dot{width:12px;height:12px;border-radius:50%;background:var(--violet);box-shadow:0 0 0 4px var(--violet-soft)}.tm-dot.break{background:#34C759;box-shadow:0 0 0 4px color-mix(in srgb,#34C759 20%,transparent)}
+.tm-list{display:flex;flex-direction:column;background:var(--surface-2);border-radius:var(--r-cell);overflow:hidden}
+.tm-opt{display:flex;align-items:center;gap:14px;width:100%;padding:12px 14px;border:0;background:transparent;font:inherit;color:var(--ink);text-align:left;cursor:pointer}
+.tm-opt+.tm-opt{border-top:.5px solid var(--line-2)}
+.tm-big{width:54px;font-size:1.5rem;font-weight:800;line-height:1;display:flex;align-items:baseline;gap:2px}.tm-big small{font-size:.7rem;font-weight:600;color:var(--ink-3)}
+.tm-t{flex:1;display:flex;flex-direction:column}.tm-t small{color:var(--ink-3);font-size:.8rem}
+.tm-chk{width:22px;height:22px;border-radius:50%;box-shadow:inset 0 0 0 1.5px var(--line-2);flex:none}
+.tm-opt.on .tm-chk{background:var(--violet);box-shadow:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Cpath d='M6.5 11.5l3 3 6-6' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+#tp{display:none!important}
+.tcancel{display:none!important}
+.tbar{position:fixed;z-index:61;display:flex;align-items:center;background:var(--surface);border-radius:999px;box-shadow:0 8px 24px rgba(0,0,0,.16);overflow:hidden}
+.tbar button{border:0;background:transparent;font:inherit;font-weight:600;padding:10px 16px;cursor:pointer;color:var(--violet-ink)}.tbar #tbEnd{color:var(--a3-red)}
+.tbar i{width:.5px;align-self:stretch;margin:8px 0;background:var(--line-2)}
+/* cards: actions float in the corner; content uses the full width */
+.card-row.cr2{display:block!important;position:relative}
+.cr2 .acts{position:absolute!important;top:8px;right:8px;margin:0!important;display:flex;gap:0}
+.cr2 .cr-top{padding-right:112px;min-height:28px}
+.cr2 .cr-pic{display:block;margin-top:10px;max-width:120px;height:auto!important;max-height:96px}
+.occrow .cr-pic.occ-thumb{max-width:none}
+/* home chips: one line on phones, short wording */
+.a3start{cursor:pointer}.a3start .a3chev{color:var(--ink-3);margin-left:4px;font-size:1rem;line-height:1}
+.a3start .sh{display:none}
+@media (max-width:600px){.a3start .lg{display:none}.a3start .sh{display:inline}.lvlchip .lv-bar{width:40px}.a3chips{flex-wrap:nowrap;gap:8px}.a3chips>*{min-width:0}.lvlchip .lv-t{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:110px}}
+/* charts: just the goal line, no label over the bars */
+.bc-goal2 span,.bc-goal span{display:none!important}
+/* exams: three across on desktop */
+@media (min-width:900px){.extiles{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:12px!important}.extiles .extile{width:auto!important;min-width:0!important;max-width:none!important}}
+/* merged games: speed round row */
+.xmode .xm-e{font-size:1.2rem!important;background:var(--surface-2)!important}
+/* progress on phones: hover labels can't push the page sideways */
+.cab{overflow:hidden}
+@media (hover:none){.cab-tube::after{display:none!important}}
+.cab-tube:last-child::after,.cab-tube:nth-last-child(2)::after{left:auto;right:0;transform:translateY(4px)}
+@media (hover:hover){.cab-tube:last-child:hover::after,.cab-tube:nth-last-child(2):hover::after{transform:none}}
+html,body{max-width:100%;overflow-x:hidden}
+.badges.sq{width:100%!important;max-width:none!important;height:auto!important;min-height:0!important;flex:none!important;overflow:visible!important}
+.bcat{overflow:hidden}
+@media (max-width:600px){.badges.sq .badge small,.badges.sq .badge p{display:none!important}.badges.sq .badge{gap:3px;padding:8px!important}.badges.sq .badge .be{font-size:1.6rem}.badges.sq .badge b{font-size:.74rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -2595,7 +2656,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "38.0";
+const APP_VERSION = "39.0";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -6453,7 +6514,7 @@ function weeklyHtml(compact) {
       <div class="stat"><div class="n">${w.lessons}</div><div class="l">lessons passed</div></div>
     </div>
     ${compact ? "" : `<p style="margin-top:12px">${w.slipping.length ? `<b>Slipping:</b> ${w.slipping.map(([n, c]) => `${escG(n)} (${c})`).join(", ")}. ` : "<b>Nothing slipping.</b> "}${w.confident ? `You marked ${plural(w.confident, "objective")} confident. ` : ""}</p>
-    <p class="small" style="margin-top:6px"><b>Focus next week:</b> ${escG(w.focus.c.code)} ${escG(w.focus.c.name)} (${w.focus.s.ready}% ready). <a href="#c-${w.focus.ci}">Open the course</a></p>`}
+    <p style="margin-top:6px"><b>Focus next week:</b>&nbsp;${escG(w.focus.c.name)} (${w.focus.s.ready}% ready). <a href="#c-${w.focus.ci}">Open the course</a></p>`}
   </div>`;
 }
 
@@ -12894,6 +12955,105 @@ badgesPreviewHtml = function () {
     <div class="bp-grid">${items.map(([b, p]) => `<div class="bpill ${p == null ? "got" : ""}" title="${esc(b.desc)}"><span class="bp-e">${b.e}</span><span class="bp-t"><b>${esc(b.name)}</b>${p == null ? `<small>Earned</small>` : `<i class="a3bar"><i style="width:${Math.round(p * 100)}%"></i></i>`}</span></div>`).join("") || `<p class="small muted">Your first badge is one review away.</p>`}</div></div>`;
 };
 { const sb = startBadges; startBadges = function () { sb(); const fix = () => { if (!ST || !ST.stage) return; $$(".btile", ST.stage).forEach(t => { t.classList.remove("btile"); t.classList.add("bdg"); }); }; fix(); new MutationObserver(fix).observe(ST.stage, { childList: true, subtree: true }); }; }
+/* ===================== v39 ===================== */
+/* ---------- labels: each label syncs on its own; your edits stick ---------- */
+{ let snap = null; setInterval(() => { try { if (!S.loaded) return; const L = S.meta.labels || []; const now = {}; L.forEach(l => now[l.id] = JSON.stringify({ ...l, t: 0 })); if (snap === null) { snap = now; return; } let ch = false;
+    L.forEach(l => { if (snap[l.id] !== now[l.id]) { l.t = Date.now(); ch = true; } }); Object.keys(snap).forEach(id => { if (!now[id]) { (S.meta.labelDel = S.meta.labelDel || {})[id] = Date.now(); ch = true; } });
+    snap = {}; L.forEach(l => snap[l.id] = JSON.stringify({ ...l, t: 0 })); if (ch) saveMeta(true); } catch { } }, 1000); }
+{ const mr = mergeRemote; mergeRemote = function (r, ...a) {
+    const mine = JSON.parse(JSON.stringify(S.meta.labels || [])), myDel = { ...(S.meta.labelDel || {}) }, myLD = [...(S.meta.labelsDeleted || [])]; const res = mr.call(this, r, ...a); const rm = (r && r.meta) || {};
+    const del = { ...(rm.labelDel || {}) }; Object.entries(myDel).forEach(([k, t]) => { if (!del[k] || del[k] < t) del[k] = t; });
+    const by = new Map(); [...(rm.labels || []), ...mine].forEach(l => { if (!l || !l.id) return; const o = by.get(l.id); if (!o || (l.t || 0) >= (o.t || 0)) by.set(l.id, l); });
+    S.meta.labels = [...by.values()].filter(l => !del[l.id] || (l.t || 0) > del[l.id]); S.meta.labelDel = del; S.meta.labelsDeleted = [...new Set([...(rm.labelsDeleted || []), ...myLD])]; return res; }; }
+
+/* ---------- merged games: one game, with a speed round inside it ---------- */
+for (const k of Object.keys(XLV)) delete XLV[k];
+function sprintItems(n) {
+  const out = []; for (let i = 0; i < n; i++) { const kind = i % 3;
+    if (kind === 0) { let a, b; do { [a, b] = pick(DRAW2, 2); } while (a[2] === b[2]); const first = a[2] < b[2] ? a : b; out.push({ kicker: "Speed round · order of draw", html: `<div class="drawpair">${tubeL2(a)}${tubeL2(b)}</div>`, q: "Which is drawn first?", opts: [a[0], b[0]], a: first[0], why: `${first[0]} comes first.`, game: "tubes" }); }
+    else if (kind === 1) { const cur = rpick(DRAW2.filter(t => t[2] < 5)); const nexts = DRAW2.filter(t => t[2] === cur[2] + 1); const ans = rpick(nexts); out.push({ kicker: "Speed round · order of draw", html: `<div class="drawpair">${tubeL2(cur)}<span class="drawarrow">→ ?</span></div>`, q: `What comes after ${cur[0]}?`, opts: shuffle([ans[0], ...pick(DRAW2.filter(t => t[2] !== cur[2] + 1 && t[2] !== cur[2]), 3).map(t => t[0])]), a: ans[0], why: nexts.length > 1 ? `Either tube in the ${nexts.map(t => t[0]).join(" / ")} group comes next.` : `${ans[0]} comes next.`, game: "tubes" }); }
+    else { let seq; const ranks = shuffle([0, 1, 2, 3, 4, 5]).slice(0, 4).sort((x, y) => x - y); seq = ranks.map(r => rpick(DRAW2.filter(t => t[2] === r))); const j = Math.floor(Math.random() * 3); [seq[j], seq[j + 1]] = [seq[j + 1], seq[j]]; out.push({ kicker: "Speed round · spot the mistake", html: `<div class="drawseq">${seq.map(tubeL2).join("")}</div>`, q: "Which tube was drawn too early?", opts: seq.map(t => t[0]), a: seq[j][0], why: `${seq[j][0]} belongs after ${seq[j + 1][0]}.`, game: "tubes" }); }
+  } return out;
+}
+function clockItems(n, secs) { const out = []; for (let i = 0; i < n; i++) { const c = rpick(CRIT); const crit = Math.random() < .5, lowSide = c.crit[0] && Math.random() < .5; const v = crit ? (lowSide ? c.crit[0] * R(.8, .97, 2) : c.crit[1] * R(1.03, 1.2, 2)) : R(c.ref[0], c.ref[1], 2); const val = (+v).toFixed(c.dec ?? 1); const isCrit = (c.crit[0] && +val < c.crit[0]) || +val > c.crit[1]; const ans = isCrit ? "Critical: call now" : "Not critical: report normally"; out.push({ kicker: `On the clock · ${secs} seconds`, html: `<div class="xmpt"><span>${esc(c.t)}</span><b>${val} <small>${esc(c.u)}</small></b></div><i hidden class="tans" data-a="${ans}"></i>`, q: "Call it in?", opts: ["Critical: call now", "Not critical: report normally"], a: ans, why: `${c.t} critical limits: ${c.crit[0] ? `below ${c.crit[0]} or ` : ""}above ${c.crit[1]} ${c.u}.`, game: "critical" }); } return out; }
+const SPEED = { tubes: { name: "Speed round", sub: "Order of draw against the clock: first, next, and spot the mistake.", run: done => mcAll(sprintItems(9), "Tube trainer", done) },
+  critical: { name: "Beat the clock", sub: "Critical or not? Each result gets less time as you level up.", run: done => { const lv = Math.max(1, gstate("critical").level || 1); const secs = lv >= 3 ? 6 : lv >= 2 ? 9 : 12; mcAll(clockItems(10, secs), "Critical call", done); } } };
+function speedRow(id) { const m = SPEED[id]; const st = gstate(id); const best = (st.best || {}).speed; return `<div class="a3group xmode"><button class="a3row" id="speedGo"><span class="a3sym xm-e">⚡</span><span class="a3rt"><b>${m.name}</b><small>${m.sub}${best != null ? ` Best: ${best}%.` : ""}</small></span><span class="a3chev">›</span></button></div>`; }
+new MutationObserver(() => { const el = ST && ST.el; if (!el || !el.isConnected) return; const id = el.dataset.game; if (!SPEED[id]) return;
+  const lv = el.querySelector(".levels"); if (lv && !el.querySelector("#speedGo") && !el.dataset.speeding) { lv.insertAdjacentHTML("afterend", speedRow(id)); el.querySelector("#speedGo").onclick = () => runSpeed(id); }
+  const res = el.dataset.speeding ? null : el.querySelector(".results:not([data-speed])"); if (res && !el.querySelector(".levels")) { res.dataset.speed = 1; const row = res.querySelector(".row") || res; row.insertAdjacentHTML("beforebegin", `<button class="btn" id="speedAfter" style="margin:10px auto 0;display:flex">⚡ ${SPEED[id].name}</button>`); res.querySelector("#speedAfter").onclick = () => runSpeed(id); }
+}).observe(document.documentElement, { childList: true, subtree: true });
+function runSpeed(id) { const el = ST.el; el.dataset.speeding = 1; SPEED[id].run(score => { delete el.dataset.speeding; const st = gstate(id); st.best = st.best || {}; const pct = typeof score === "number" ? Math.round(score <= 1 ? score * 100 : score) : null; if (pct != null && (st.best.speed == null || pct > st.best.speed)) st.best.speed = pct; st.plays = (st.plays || 0) + 1; st.last = Date.now(); saveMeta(true); }); }
+
+/* ---------- badges: the simple square-tile screen, with progress on top ---------- */
+startBadges = function () {
+  openStudy("Badges"); const got = S.meta.badges || {}; const n = BADGES2.filter(b => got[b.id]).length; setProg(n / BADGES2.length);
+  ST.stage.innerHTML = `<div class="bsum"><div><b>${n}</b> of ${BADGES2.length} badges earned</div><i class="a3bar"><i style="width:${Math.round(n / BADGES2.length * 100)}%"></i></i></div>` + Object.entries(BCAT).map(([k, name]) => { const L = BADGES2.filter(b => b.cat === k); if (!L.length) return ""; return `<div class="panel bcat"><div class="bcat-h"><h3>${esc(name)}</h3><span>${L.filter(b => got[b.id]).length} of ${L.length}</span></div><div class="badges sq">${L.map(b => badgeCard(b, got[b.id])).join("")}</div></div>`; }).join("");
+};
+badgesPreviewHtml = function () {
+  const { earned, close, got } = badgeLists(); const fmt = t => new Date(t).toLocaleDateString(undefined, { month: "short", day: "numeric" });
+  const cell = (b, p) => `<div class="bp2 ${p == null ? "got" : ""}" title="${esc(b.desc)}"><span class="bp2-e">${b.e}</span><span class="bp2-t"><b>${esc(b.name)}</b><small>${p == null ? `Earned ${fmt(got[b.id])}` : `${Math.round(p * 100)}% there`}</small>${p == null ? "" : `<i class="a3bar"><i style="width:${Math.round(p * 100)}%"></i></i>`}</span></div>`;
+  return `<div class="panel bprev"><div class="fc-h"><h3 style="margin:0">Badges</h3><span class="fc-m">${earned.length} of ${BADGES2.length}</span><button class="btn sm" id="seeBadges">See all</button></div>
+    ${earned.length ? `<div class="bp2-h">Recently earned</div><div class="bp2-grid">${earned.slice(0, 4).map(b => cell(b, null)).join("")}</div>` : ""}
+    ${close.length ? `<div class="bp2-h">Up next</div><div class="bp2-grid">${close.slice(0, 4).map(x => cell(x.b, x.p)).join("")}</div>` : ""}
+    ${!earned.length && !close.length ? `<p class="small muted">Your first badge is one review away.</p>` : ""}</div>`;
+};
+
+/* ---------- study timer: a clean picker, and one tidy control while it runs ---------- */
+timerModal = function () {
+  const running = TM.phase !== "off"; let f = TM.focus || 25, b = TM.brk || 5;
+  const opts = [[25, 5, "Classic", "25 min focus, 5 min break"], [45, 10, "Deep work", "45 min focus, 10 min break"], [15, 3, "Quick sprint", "15 min focus, 3 min break"]];
+  modal(`${mhead("Study timer")}<p class="small muted" style="margin:-2px 0 14px">Focus in short blocks with breaks between. Focused minutes count toward your progress and badges.</p>
+    ${running ? `<div class="tm-now"><span class="tm-dot ${TM.phase}"></span><div><b>${TM.phase === "focus" ? "Focusing" : "On a break"}${TM.paused ? " · paused" : ""}</b><small>${Math.max(0, Math.ceil(((TM.paused ? TM.left : TM.end - Date.now())) / 60000))} min left</small></div></div>` : ""}
+    <div class="tm-list" role="radiogroup">${opts.map(([F, B, t, s]) => `<button type="button" role="radio" aria-checked="${f === F}" class="tm-opt ${f === F ? "on" : ""}" data-f="${F}" data-b="${B}"><span class="tm-big">${F}<small>min</small></span><span class="tm-t"><b>${t}</b><small>${s}</small></span><span class="tm-chk"></span></button>`).join("")}</div>
+    <div class="modal-foot">${running ? `<button class="btn danger" id="tstop" style="margin-right:auto">End timer</button>` : ""}<button class="btn" data-close>Close</button><button class="btn primary" id="tgo">${running ? "Restart" : "Start focusing"}</button></div>`, (s, close) => {
+      $$("[data-close]", s).forEach(x => x.onclick = close);
+      $$(".tm-opt", s).forEach(x => x.onclick = () => { f = +x.dataset.f; b = +x.dataset.b; $$(".tm-opt", s).forEach(y => { y.classList.toggle("on", y === x); y.setAttribute("aria-checked", y === x); }); });
+      $("#tstop", s) && ($("#tstop", s).onclick = () => { timerStop(); close(); toast("Timer ended"); });
+      $("#tgo", s).onclick = () => { TM.focus = f; TM.brk = b; timerStart("focus"); close(); };
+    });
+};
+/* the running control: one capsule; when paused it shows Resume and End side by side */
+setInterval(() => { const c = document.getElementById("tchip"); const old = document.getElementById("tcancel"); old && old.remove(); let bar = document.getElementById("tbar");
+  if (c && c.classList.contains("paused")) { c.style.visibility = "hidden"; if (!bar) { document.body.insertAdjacentHTML("beforeend", `<div id="tbar" class="tbar"><button id="tbRes">▶︎ Resume</button><i></i><button id="tbEnd">End</button></div>`); bar = document.getElementById("tbar"); bar.querySelector("#tbRes").onclick = () => { document.getElementById("tchip")?.click(); }; bar.querySelector("#tbEnd").onclick = () => { timerStop(); bar.remove(); toast("Timer ended"); }; }
+    const r = c.getBoundingClientRect(); bar.style.right = Math.max(12, innerWidth - r.right) + "px"; bar.style.bottom = Math.max(12, innerHeight - r.bottom) + "px"; }
+  else { if (c) c.style.visibility = ""; bar && bar.remove(); } }, 300);
+
+/* ---------- labels and icons ---------- */
+Object.assign(ICONS, {
+  bubble: '<path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-9l-5 4v-4H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/><path d="M8 10h8M8 13h5"/>',
+  bulb: '<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.8 10.6c.6.5.8 1.2.8 1.9V16h6v-.5c0-.7.2-1.4.8-1.9A6 6 0 0 0 12 3z"/>',
+  cards: '<rect x="3" y="7" width="13" height="13" rx="2"/><path d="M7 4h11a3 3 0 0 1 3 3v11"/>'
+});
+{ const set = (id, ic, label) => ["learn", "test", "plan"].forEach(k => (TOOLS[k] || []).forEach(t => { if (t[0] === id) { if (ic) t[1] = ic; if (label) t[2] = label; } }));
+  set("teachBtn", "bubble"); set("hookBtn", "bulb"); set("mixBtn", null, "Practice"); }
+/* tube icons: a soft highlight on the cap and lighter glass */
+{ const ci = capIcon; capIcon = function (color, shape, size) { return ci(color, shape, size).replace(/stroke="#8C959F"/g, 'stroke="#B4B4BB"').replace(/(<rect x="2" y="1" width="12" height="7" rx="1.5" fill="[^"]+"\/>)/, '$1<rect x="3" y="1.6" width="10" height="2.2" rx="1.1" fill="#fff" opacity=".3"/>'); }; }
+
+/* ---------- home: chips on one line (short wording on phones); countdown opens My program ---------- */
+{ const rh = renderHome; renderHome = function (decks) { rh(decks); const v = $("#view"); if (!v) return;
+    const s = v.querySelector(".a3start"); if (s && !s.dataset.short) { s.dataset.short = 1; const n = (s.querySelector("b") || {}).textContent || ""; s.innerHTML = `<b>${n}</b><span class="lg"> day${n === "1" ? "" : "s"} until your program starts</span><span class="sh"> days to day one</span><span class="a3chev">›</span>`; s.setAttribute("role", "link"); s.tabIndex = 0; s.onclick = () => { location.hash = "#program"; }; s.onkeydown = e => { if (e.key === "Enter") s.click(); }; }
+  }; }
+
+/* ---------- Today’s tasks: games only when they help ---------- */
+const GAME_SUBJ = { "Lab basics": /orient|lab skill|safety|phleb|qc|quality/i, "Hematology & coag": /hem|coag|blood cell/i, "Microbiology": /micro|bacter|myco|parasit|virus/i, "Blood bank": /blood bank|immun|transf|abo/i, "Chemistry & urinalysis": /chem|urin|fluid|electrolyte/i };
+function smartGame() {
+  const ids = GAMES.map(g => g[0]).filter(id => { try { return gameUnlocked(id); } catch { return false; } }); if (!ids.length) return null;
+  const subj = id => (GAMES.find(g => g[0] === id) || [])[2] || ""; const last = id => gstate(id).last || 0; const days = id => last(id) ? (Date.now() - last(id)) / DAY : 999;
+  let due = 0; Object.values(S.decks).filter(d => !d.hidden).forEach(d => due += deckCounts(d).due); const heavy = due > GOAL() * 1.2;
+  const ex = (S.meta.exams || []).map(e => ({ e, d: dayDiff(e.date) })).filter(x => x.d >= 0 && x.d <= 10).sort((a, b) => a.d - b.d)[0];
+  if (ex) { const names = examDecks(ex.e).map(d => (labelOf(d) || {}).name || d.name).join(" "); const rel = ids.filter(id => (GAME_SUBJ[subj(id)] || /$^/).test(names)).sort((a, b) => last(a) - last(b)).slice(0, 2); if (rel.length) return { ids: rel, why: `Drills topics on ${ex.e.name}`, pri: 3 }; }
+  if (heavy) return null;
+  const fresh = ids.find(id => !gstate(id).plays && (GAME_REQ[id] || []).length); if (fresh) return { ids: [fresh], why: "Newly unlocked by your lessons", pri: 5 };
+  const anyRecent = Math.min(...ids.map(days)); if (anyRecent < 3) return null;
+  const weak = {}; try { weakFacts(null, 60).forEach(f => { const n = ((labelOf(f.deck) || {}).name || f.deck.name); Object.keys(GAME_SUBJ).forEach(s => { if (GAME_SUBJ[s].test(n)) weak[s] = (weak[s] || 0) + 1; }); }); } catch { }
+  const best = ids.slice().sort((a, b) => (weak[subj(b)] || 0) - (weak[subj(a)] || 0) || last(a) - last(b))[0];
+  return { ids: [best], why: weak[subj(best)] ? `${subj(best)} cards are slipping` : `No games in ${Math.floor(anyRecent)} days`, pri: 5 };
+}
+{ const pc = planCandidates; planCandidates = function () { const out = pc().filter(x => !/^game:/.test(x.id)); const g = smartGame(); if (g) out.push({ id: "game:" + g.ids.join("+"), pri: g.pri, why: g.why }); return out.sort((a, b) => a.pri - b.pri); }; }
+{ const pv = planView; planView = function (it) { if (it && /^game:/.test(it.id)) { const ids = it.id.slice(5).split("+"); const nm = ids.map(id => (GAMES.find(g => g[0] === id) || [0, id])[1]); const today = dayKey(); const done = ids.every(id => gstate(id).last && dayKey(gstate(id).last) === today);
+      return { ic: "grid", t: ids.length > 1 ? `Play a round each: ${nm.join(" and ")}` : `Play ${nm[0]}`, s: it.why || "", done, btn: "Play", fn: () => TOOL_FN["g_" + ids.find(id => !(gstate(id).last && dayKey(gstate(id).last) === today)) || ids[0]]() }; }
+    return pv(it); }; }
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
