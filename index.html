@@ -2605,6 +2605,12 @@ html{overflow-x:clip}
 .tctl .tc-main,.tctl .tc-b{display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:center!important;gap:8px;min-height:0!important;width:auto!important}
 .tctl .tc-dot{display:block;flex:none;width:9px!important;height:9px!important}
 .tctl .tc-ph,.tctl .tc-time{display:inline!important}
+/* ===================== v40.1 ===================== */
+/* desktop countdown chip: always wide enough for its full wording and arrow */
+@media (min-width:601px){.a3chips .a3start{width:auto!important;max-width:none!important;flex:none!important;overflow:visible!important;padding-right:14px!important}.a3chips{overflow:visible!important}}
+.a3start{width:max-content!important}
+.a3start>*{flex:none!important;white-space:nowrap!important;min-width:max-content}
+@media (min-width:601px){.a3start .lg{display:inline-block!important}}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -2692,7 +2698,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "40.0";
+const APP_VERSION = "40.1";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -3082,7 +3088,7 @@ function render() {
     <aside class="side">
       <div class="brand">${BRAND}LabDeck</div>
       ${nav("home", "home", "Home", r.v === "home")}
-      <a href="#" id="sideReview">${icon("brain")}<span>Review</span>${S.ready ? (() => { let n = 0; decks.forEach(d => n += deckCounts(d).due); return n ? `<span class="navcount">${n}</span>` : ""; })() : ""}</a>
+      <a href="#" id="sideReview">${icon("brain")}<span>Review</span>${S.ready ? (() => { let n = 0, nw = 0; decks.forEach(d => { const c = deckCounts(d); n += c.due; nw += c.nw; }); n += Math.min(nw, newLeftToday()); return n ? `<span class="navcount">${n}</span>` : ""; })() : ""}</a>
       ${nav("program", "school", "My program", r.v === "program" || r.v === "course")}
       ${nav("stats", "chart", "Progress", r.v === "stats")}
       ${nav("more", "gear", "Settings", r.v === "more")}
@@ -13143,6 +13149,23 @@ setInterval(() => { const chip = document.getElementById("tchip"); let ctl = doc
 
 /* ---------- badges: tap a tile to read its description on phones ---------- */
 document.addEventListener("click", e => { const b = e.target.closest(".badges.sq .badge"); if (!b || !matchMedia("(hover:none)").matches) return; const t = b.getAttribute("title"); if (t) toast(t); });
+/* ===================== v40.1 ===================== */
+/* ---------- settings: a customized value without a sync stamp still wins over a default ---------- */
+const SETTING_DEFAULTS = { newPerDay: 20, theme: "auto", dailyGoal: 50, rate: 1, pause: 4 };
+{ const ad = applyDocs; applyDocs = function (docs) { const out = ad(docs); try { const st = S.meta.settings || {}, T = S.meta.settingsT = S.meta.settingsT || {}; let ch = false;
+      Object.keys(st).forEach(k => { if (!T[k] && k in SETTING_DEFAULTS && st[k] !== SETTING_DEFAULTS[k]) { T[k] = S.meta.updated || 1; ch = true; } }); if (ch) S.meta._stampedFix = 1; } catch { } return out; }; }
+{ const mr = mergeRemote; mergeRemote = function (r, ...a) {
+    const before = { ...(S.meta.settings || {}) }, beforeT = { ...(S.meta.settingsT || {}) }; const res = mr.call(this, r, ...a); const rm = (r && r.meta) || {}; const rs = rm.settings || {}, rt = rm.settingsT || {};
+    Object.keys(SETTING_DEFAULTS).forEach(k => { if (!(k in rs)) return; const mine = before[k], theirs = rs[k], def = SETTING_DEFAULTS[k];
+      if (!beforeT[k] && !rt[k] && mine !== theirs && (mine === undefined || mine === def) && theirs !== def) { S.meta.settings[k] = theirs; (S.meta.settingsT = S.meta.settingsT || {})[k] = Date.now(); } });
+    return res; }; }
+
+/* ---------- the Review badge counts what a review session will show (due + today’s new) ---------- */
+function reviewTotal() { let due = 0, nw = 0; Object.values(S.decks).filter(d => !d.hidden).forEach(d => { const c = deckCounts(d); due += c.due; nw += c.nw; }); return due + Math.min(nw, newLeftToday()); }
+
+
+/* ---------- tube icons: liquid sits inside the glass, outline drawn on top ---------- */
+{ const ci = capIcon; capIcon = function (...a) { return ci(...a).replace(/(<path d="([^"]+)" fill="var\(--surface\)" stroke="#B4B4BB" stroke-width="1\.1"\/>)([\s\S]*?)(<rect x="(?:2|7)" y="(?:1|6)")/, (m, body, d, mid, capStart) => `<path d="${d}" fill="var(--surface)"/>${mid}<path d="${d}" fill="none" stroke="#B4B4BB" stroke-width="1.1"/>${capStart}`); }; }
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
