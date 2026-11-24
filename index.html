@@ -2685,6 +2685,45 @@ a.a3deck.dtile+a.a3deck.dtile{border-top:0!important}
 .study.rv .flip .face:not(.back){padding-top:44px!important}
 .study.rv .flip .face{display:flex!important;flex-direction:column;justify-content:center}
 .study.rv .flip .face.back{gap:4px}
+/* ===================== v42 ===================== */
+/* meet-this-card and First look */
+.intro-card{background:var(--surface);border-radius:20px;box-shadow:0 1px 2px rgba(0,0,0,.04),0 12px 32px color-mix(in srgb,var(--dc,#7B4FE0) 14%,rgba(0,0,0,.06));padding:46px 24px 24px;position:relative;margin-top:8px}
+.intro-card .rv-pill{position:absolute;top:16px;left:18px}
+.ic-lead{font-size:.88rem;color:var(--ink-3);margin:0 0 14px}
+.ic-q{font-size:clamp(1.25rem,4vw,1.6rem);font-weight:700;line-height:1.25}
+.ic-q .kicker{display:none}
+.ic-div{height:.5px;background:var(--line-2);margin:16px 0}
+.ic-a{font-size:1.08rem;line-height:1.5}
+.ic-why{margin-top:14px;background:var(--surface-2);border-radius:12px;padding:10px 14px}.ic-why b{font-size:.75rem;color:var(--violet-ink);letter-spacing:.03em;text-transform:uppercase}.ic-why p{margin:4px 0 0;font-size:.92rem;line-height:1.45}
+.ic-hide{margin-top:16px}
+.btn.block{width:100%;justify-content:center;min-height:48px}
+.fl-steps{display:flex;gap:6px;justify-content:center;margin:4px 0 10px}
+.fl-steps i{width:28px;height:5px;border-radius:3px;background:var(--line)}.fl-steps i.done{background:color-mix(in srgb,var(--violet) 45%,transparent)}.fl-steps i.on{background:var(--violet)}
+.fl-recap{display:flex;flex-direction:column;gap:8px}.fl-recap div{background:var(--surface-2);border-radius:12px;padding:10px 14px;display:flex;flex-direction:column;gap:2px}.fl-recap b{font-size:.95rem}.fl-recap span{font-size:.9rem;color:var(--ink-2)}
+.fl-opts{margin-top:12px}
+.fl-in{margin-top:14px;font-size:1.05rem;min-height:48px}
+.fl-bank{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+/* hidden decks: muted tiles */
+.a3hidden summary{cursor:pointer;font-weight:600;color:var(--ink-2);padding:6px 2px;list-style:none}.a3hidden summary::-webkit-details-marker{display:none}
+.a3hidden summary::before{content:"›";display:inline-block;margin-right:8px;transition:transform .15s}.a3hidden[open] summary::before{transform:rotate(90deg)}
+.hidtiles{margin-top:8px}
+a.a3deck.dtile.hid{background:transparent!important;box-shadow:inset 0 0 0 1px var(--line-2)!important;min-height:96px}
+a.a3deck.dtile.hid .capico{filter:grayscale(1);opacity:.55}
+a.a3deck.dtile.hid .dt-name{color:var(--ink-2)}
+.dt-pill.hidp{display:inline-flex;align-items:center;gap:4px;background:var(--surface-2);color:var(--ink-3)}.dt-pill.hidp svg{width:12px;height:12px}
+/* popups: lock the page behind */
+html.modal-open,html.modal-open body{overflow:hidden!important}
+html.modal-open body{position:fixed;left:0;right:0;width:100%}
+/* card flip: a clean crossfade instead of a 3D turn */
+.study .flip-inner{transform:none!important;transition:none!important}
+.study .flip .face{transform:none!important;-webkit-backface-visibility:visible!important;backface-visibility:visible!important;transition:opacity .22s ease}
+.study .flip .face.back{opacity:0;pointer-events:none}
+.study .flip.on .face.back{opacity:1;pointer-events:auto}
+.study .flip.on .face:not(.back){opacity:0;pointer-events:none}
+.study.rv .flip .face.back{justify-content:center!important}
+.study.rv .flip .face.back>*{flex:none}
+@media (prefers-reduced-motion:reduce){.study .flip .face{transition:none}}
+.fl-opts .opt .fl-ot{display:block;text-align:left;line-height:1.4}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -2772,7 +2811,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "41.1";
+const APP_VERSION = "42.1";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -4021,6 +4060,7 @@ function startLearn(deck, opts = {}) {
   function show() {
     if (i >= queue.length) return finish();
     const f = queue[i]; flipped = false;
+    if (f && !opts.browse && !opts.queue && !stOf(f) && f.kind !== "occl" && S.meta.settings.introNew !== false && !(ST.intro = ST.intro || new Set()).has(f.key)) { try { topRight(); } catch { } introNew(f, () => { ST.intro.add(f.key); queue.splice(i, 1); queue.splice(Math.min(queue.length, i + 3), 0, f); show(); }); return; }
     ST.stage.innerHTML = `${studyHead(f.deck)}${flipCard("", capOf(f.deck), (stOf(f) || f.kind !== "basic" ? "" : `<div class="kicker">New</div>`) + (opts.reverse && f.kind === "basic" && f.a ? revFront(f) : factFront(f)), opts.reverse && f.kind === "basic" && f.a ? revBack(f) : factBack(f))}
       <div id="ctl"><button class="btn primary" id="show" style="width:100%;min-height:54px">Show answer</button><p class="tap-hint kbd-hint" style="margin-top:8px"><kbd>Space</kbd> to flip</p></div>`;
     sizeFlip();
@@ -12853,7 +12893,7 @@ function mysteryModal() {
     rh(decks); const v = $("#view"); if (!v) return;
     const fr = v.querySelector(".funrow"); if (fr) { fr.outerHTML = labCornerHtml(); $("#lcSpec").onclick = specimenModal; $("#lcMyst").onclick = mysteryModal; }
     $$(".a3stat span", v).forEach(s => { if (s.textContent === "ACCURACY · 7 DAYS") s.textContent = "7-DAY ACCURACY"; });
-    const jt = $("#dashJ b", v); if (jt && journalVisible().length > 10) jt.classList.add("jred");
+    const jt = $("#dashJ b", v); if (jt && journalVisible().length >= 3) jt.classList.add("jred");
   }; }
 
 /* ---------- Progress: lab life without challenges; a one-row cabinet; a full-year calendar ---------- */
@@ -13568,7 +13608,7 @@ function homeDeckTile(a) {
 const RV = { right: 0, again: 0, best: 0, run: 0, deckCache: {} };
 { const sl = startLearn; startLearn = function (deck, opts = {}) { Object.assign(RV, { right: 0, again: 0, best: 0, run: 0, deckCache: {} }); const out = sl(deck, opts); try { ST.el.classList.add("rv"); } catch { } return out; }; }
 function rvDeckByName(name) { if (RV.deckCache[name]) return RV.deckCache[name]; const d = Object.values(S.decks).find(x => x.name === name); RV.deckCache[name] = d; return d; }
-function rvFormat(ms) { const m = ms / 60000; if (m < 60) return "today"; const d = ms / DAY; if (d < 1.5) return "1d"; if (d < 13.5) return Math.round(d) + "d"; if (d < 60) return Math.round(d / 7) + "w"; return Math.round(d / 30) + "mo"; }
+function rvFormat(ms) { const m = ms / 60000; if (m < 60) return "today"; const sod = t => { const x = new Date(t); x.setHours(0, 0, 0, 0); return x.getTime(); }; const d = Math.round((sod(Date.now() + ms) - sod(Date.now())) / DAY); if (d <= 0) return "today"; if (d < 14) return d + "d"; if (d < 60) return Math.round(d / 7) + "w"; return Math.round(d / 30) + "mo"; }
 function rvFindFact(deck, frontText) { const key = frontText.replace(/\s+/g, " ").trim(); if (!deck) return null; const box = document.createElement("div");
   for (const f of factsOf(deck)) { try { box.innerHTML = factFront(f); box.querySelectorAll(".kicker").forEach(k => k.remove()); if (box.textContent.replace(/\s+/g, " ").trim() === key) return f; } catch { } } return null; }
 function rvDecorate() {
@@ -13594,6 +13634,81 @@ document.addEventListener("click", e => { const g = e.target.closest(".study.rv 
   const front = ST.stage && ST.stage.querySelector(".flip .face:not(.back)"); if (n === 1) { RV.again++; RV.run = 0; RV.lastAgainFront = front ? front.textContent.trim() : null; } else { RV.right++; RV.run++; RV.best = Math.max(RV.best, RV.run); } }, true);
 document.addEventListener("keydown", e => { if (!ST || !ST.el || !ST.el.classList.contains("rv")) return; const n = +e.key; if (n >= 1 && n <= 4 && ST.stage.querySelector(".grades")) { if (n === 1) { RV.again++; RV.run = 0; } else { RV.right++; RV.run++; RV.best = Math.max(RV.best, RV.run); } } }, true);
 new MutationObserver(() => rvDecorate()).observe(document.documentElement, { childList: true, subtree: true });
+/* ===================== v42 ===================== */
+/* ---------- new cards in a review: meet the card first, recall it a few cards later ---------- */
+function introNew(f, done) {
+  const why = f.card && (f.card.why || f.card.note);
+  ST.stage.innerHTML = `${studyHead(f.deck)}<div class="intro-card rv-in"><span class="rv-pill nw">New card</span><p class="ic-lead">Meet this one first. It’ll come back in a few cards for you to recall.</p>
+    <div class="ic-q">${factFront(f).replace(/<div class="kicker">New<\/div>/, "")}</div><div class="ic-div"></div><div class="ic-a">${factBack(f)}</div>${why ? `<div class="ic-why"><b>Why it matters</b><p>${escG(why)}</p></div>` : ""}</div>
+    <button class="btn primary block" id="icGo" style="margin-top:14px">Got it</button>`;
+  $("#icGo").onclick = done; ST.onKey = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); done(); } };
+}
+{ const sl = startLearn; startLearn = function (...a) { const out = sl.apply(this, a); try { ST.intro = new Set(); } catch { } return out; }; }
+
+/* ---------- First look: a slow, gentle walk through brand-new cards ---------- */
+const normA = s => String(s || "").toLowerCase().replace(/<[^>]+>/g, "").replace(/[–—−]/g, "-").replace(/[^a-z0-9µ%./+-]+/g, " ").trim();
+function lev(a, b) { const m = a.length, n = b.length; if (Math.abs(m - n) > 2) return 9; const d = Array.from({ length: m + 1 }, (_, i) => [i]); for (let j = 1; j <= n; j++) d[0][j] = j; for (let i = 1; i <= m; i++) for (let j = 1; j <= n; j++) d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)); return d[m][n]; }
+const typedOk = (t, a) => { const x = normA(t), y = normA(a); return x === y || (y.length > 5 && lev(x, y) <= 1); };
+const flQ = f => f.field && f.kind !== "basic" ? `${f.q}: ${f.field}` : f.q;
+function startFirstLook(d) {
+  const all = lmFacts(d).filter(f => f.q && f.a && f.kind !== "occl"); const lmS = lmStore(d); const fresh = all.filter(f => !((S.srs[d.id] || {})[f.key] || {}).r && (lmS[f.key] || 0) < 2);
+  let pool = fresh.slice(); if (!pool.length) { return LEARN_PRACTICE(d); }
+  openStudy("Learn: " + d.name); try { ST.right.innerHTML = `<button class="btn ghost icon sm" id="flAdd" aria-label="Add a card">${icon("plus")}</button>`; $("#flAdd").onclick = () => editCardModal(d, null, () => toast("Card added. It’ll be part of your next Learn session.")); } catch { } const batch = () => pool.slice(0, 3);
+  let B = batch(), step = 0, q = [], qi = 0, misses = 0;
+  const STEPS = ["meet", "recap", "pick2", "pick4", "hint", "recall"];
+  const shortA = f => normA(f.a).length <= 32;
+  const others = f => shuffle(all.filter(g => g !== f && g.a !== f.a && (g.field || "") === (f.field || ""))).concat(shuffle(all.filter(g => g.a !== f.a))).map(g => g.a).filter((v, i, a) => a.indexOf(v) === i);
+  const head = () => `<div class="fl-steps">${STEPS.map((s, k) => `<i class="${k < step ? "done" : k === step ? "on" : ""}"></i>`).join("")}</div>`;
+  const nextStep = () => { step++; while (step < STEPS.length && (STEPS[step] === "hint" || STEPS[step] === "recall") && !B.some(shortA)) step++; if (step >= STEPS.length) return finish(); q = STEPS[step] === "recap" ? [null] : (STEPS[step] === "hint" || STEPS[step] === "recall") ? shuffle(B.filter(shortA)) : STEPS[step] === "meet" ? B.slice() : shuffle(B.slice()); qi = 0; render(); };
+  const advance = (f, ok) => { if (!ok && f) { q.push(f); misses++; } qi++; if (qi >= q.length) nextStep(); else render(); };
+  const render = () => { setProg((STEPS.length * (3 - B.length) + step) / (STEPS.length * 3)); const s = STEPS[step], f = q[qi];
+    if (s === "meet") { ST.stage.innerHTML = `${head()}<div class="intro-card rv-in"><span class="rv-pill nw">Card ${qi + 1} of ${B.length}</span><p class="ic-lead">Just read this one. No pressure, nothing to remember yet.</p><div class="ic-q">${escG(flQ(f))}</div><div class="ic-hide" id="flA"><button class="btn" id="flShow">Show me the answer</button></div></div>`;
+      $("#flShow").onclick = () => { $("#flA").outerHTML = `<div class="ic-div"></div><div class="ic-a">${escG(f.a)}</div>${f.card.why ? `<div class="ic-why"><b>Why it matters</b><p>${escG(f.card.why)}</p></div>` : ""}<button class="btn primary block" id="flNext" style="margin-top:14px">Got it</button>`; $("#flNext").onclick = () => advance(f, true); $("#flNext").focus(); }; return; }
+    if (s === "recap") { ST.stage.innerHTML = `${head()}<div class="intro-card rv-in"><span class="rv-pill rv">Quick recap</span><p class="ic-lead">Here are all ${B.length} together. Read them once more.</p><div class="fl-recap">${B.map(x => `<div><b>${escG(flQ(x))}</b><span>${escG(x.a)}</span></div>`).join("")}</div><button class="btn primary block" id="flNext" style="margin-top:14px">I’m ready for a few easy questions</button></div>`; $("#flNext").onclick = () => advance(null, true); return; }
+    if (s === "pick2" || s === "pick4") { const n = s === "pick2" ? 1 : 3; const opts = shuffle([f.a, ...others(f).slice(0, n)]);
+      ST.stage.innerHTML = `${head()}<div class="intro-card rv-in"><span class="rv-pill rv">${s === "pick2" ? "Pick one of two" : "Pick the right one"}</span><div class="ic-q">${escG(flQ(f))}</div></div><div class="opts fl-opts">${opts.map((o, k) => `<button class="opt" data-k="${k}"><span class="fl-ot">${escG(o)}</span></button>`).join("")}</div><div id="flFb"></div>`;
+      $$(".fl-opts .opt").forEach(b => b.onclick = () => { const ok = opts[+b.dataset.k] === f.a; $$(".fl-opts .opt").forEach(x => { x.disabled = true; if (opts[+x.dataset.k] === f.a) x.classList.add("right"); }); if (!ok) b.classList.add("wrong");
+        $("#flFb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? "That’s it." : `Not quite. It’s <b>${escG(f.a)}</b>. It’ll come up again.`}</div></div><button class="btn primary block" id="flNext" style="margin-top:12px">Next</button>`; $("#flNext").onclick = () => advance(f, ok); $("#flNext").focus(); }); return; }
+    const hint = s === "hint"; const words = f.a.split(/\s+/); const bank = hint ? shuffle([...new Set([...words, ...others(f).slice(0, 2).join(" ").split(/\s+/)].map(w => w.replace(/[.,;]$/, "")).filter(Boolean))]).slice(0, 10) : [];
+    ST.stage.innerHTML = `${head()}<div class="intro-card rv-in"><span class="rv-pill rv">${hint ? "Type it, with help" : "Type it from memory"}</span><div class="ic-q">${escG(flQ(f))}</div>${hint ? `<p class="ic-lead">Starts with “${esc(f.a.slice(0, 1))}”. Tap words below or type.</p>` : ""}</div>
+      <input class="input fl-in" id="flIn" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="${hint ? esc(f.a.slice(0, 1)) + "…" : "Your answer"}">${hint ? `<div class="fl-bank">${bank.map(w => `<button class="chipbtn sm" data-w="${esc(w)}">${esc(w)}</button>`).join("")}</div>` : ""}<div id="flFb"></div><button class="btn primary block" id="flChk" style="margin-top:12px">Check</button>`;
+    const inp = $("#flIn"); setTimeout(() => inp.focus(), 50); $$(".fl-bank [data-w]").forEach(b => b.onclick = () => { inp.value = (inp.value ? inp.value + " " : "") + b.dataset.w; inp.focus(); });
+    const check = () => { const ok = typedOk(inp.value, f.a); $("#flChk").remove(); inp.disabled = true; $("#flFb").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div style="flex:1">${ok ? "Nice. You remembered it." : `The answer is <b>${escG(f.a)}</b>. You’ll get another go.`}</div></div><button class="btn primary block" id="flNext" style="margin-top:12px">Next</button>`; $("#flNext").onclick = () => advance(f, ok); $("#flNext").focus(); };
+    $("#flChk").onclick = check; ST.onKey = e => { if (e.key === "Enter") { e.preventDefault(); const n = $("#flNext"); n ? n.click() : check(); } };
+  };
+  const finish = () => { const sr = S.srs[d.id] = S.srs[d.id] || {}; const lmS2 = lmStore(d); B.forEach(f => { if (!sr[f.key] || !sr[f.key].r) { try { sr[f.key] = nextState(null, 3).s; } catch { } } lmS2[f.key] = Math.max(lmS2[f.key] || 0, 2); }); saveSrs(d.id); saveMeta(true);
+    pool = pool.slice(B.length); const left = pool.length;
+    ST.stage.innerHTML = `<div class="results"><h2>${B.length === 1 ? "One card" : B.length + " cards"} learned</h2><p class="muted">They’re in your reviews now and will come back tomorrow, then spaced out from there.${misses ? ` You worked through ${plural(misses, "miss", "misses")} along the way, which is exactly how it sticks.` : ""}</p><div class="row" style="justify-content:center;gap:8px">${left ? `<button class="btn primary" id="flMore">Next ${Math.min(3, left)} cards</button>` : `<button class="btn primary" id="flPractice">Practice the whole deck</button>`}<button class="btn" id="flDone">Done</button></div></div>`;
+    $("#flMore") && ($("#flMore").onclick = () => { B = batch(); step = 0; misses = 0; q = B.slice(); qi = 0; render(); }); $("#flDone").onclick = () => closeStudy(); $("#flPractice") && ($("#flPractice").onclick = () => { closeStudy(true); LEARN_PRACTICE(d); }); };
+  q = B.slice(); render();
+}
+/* (First look is now part of Learn) */
+
+/* ---------- hidden decks: muted tiles, clearly set apart ---------- */
+{ const rh = renderHome; renderHome = function (decks) { rh(decks); const v = $("#view"); if (!v) return;
+    $$(".a3hidden .a3dlist", v).forEach(list => { if (list.classList.contains("dtiles")) return; list.classList.add("dtiles", "hidtiles"); $$("a.a3deck", list).forEach(a => { homeDeckTile(a); a.classList.add("hid"); const p = a.querySelector(".dt-pill"); const pill = `<span class="dt-pill hidp">${icon("eyeoff")}Hidden</span>`; p ? p.outerHTML = pill : a.querySelector(".dt-top").insertAdjacentHTML("beforeend", pill); }); }); }; }
+
+/* ---------- popups: the page behind them doesn’t scroll ---------- */
+{ let locked = false, y = 0; new MutationObserver(() => { const open = !!document.querySelector(".scrim"); if (open && !locked) { locked = true; y = scrollY; document.documentElement.classList.add("modal-open"); document.body.style.top = -y + "px"; } else if (!open && locked) { locked = false; document.documentElement.classList.remove("modal-open"); document.body.style.top = ""; scrollTo(0, y); } }).observe(document.body, { childList: true }); }
+
+/* ---------- games in tasks: games you already had don’t count as new ---------- */
+{ const ad = applyDocs; applyDocs = function (docs) { const out = ad(docs); try { if (!S.meta.gameSeenV2) { const old = dayKey(Date.now() - 30 * DAY); const seen = S.meta.gameSeen = S.meta.gameSeen || {}; GAMES.forEach(g => { try { if (gameUnlocked(g[0])) seen[g[0]] = old; } catch { } }); S.meta.gameSeenV2 = 1; } } catch { } return out; }; }
+
+/* ---------- Settings: how much space you’re using, and keep it safe ---------- */
+{ const r = render; render = function (...a) { const out = r.apply(this, a); if ((location.hash || "") === "#more" && !document.getElementById("storeBox")) { const v = $("#view"); const anchor = v && [...v.querySelectorAll(".panel")].pop(); if (anchor) { anchor.insertAdjacentHTML("afterend", `<div class="panel" id="storeBox"><h3>Storage</h3><p class="small muted" id="storeTxt">Checking…</p><div class="row" style="gap:8px;margin-top:8px"><button class="btn sm" id="storePersist">Protect my data on this device</button></div></div>`); storeInfo(); $("#storePersist").onclick = async () => { const ok = navigator.storage && navigator.storage.persist ? await navigator.storage.persist() : false; toast(ok ? "Protected: this browser won’t clear LabDeck to free up space" : "This browser decides on its own, so keep sync or backups on"); storeInfo(); }; } } return out; }; }
+async function storeInfo() { const el = document.getElementById("storeTxt"); if (!el) return; const imgs = Object.keys(S.images || {}).length, cards = Object.values(S.decks).reduce((n, d) => n + d.cards.length, 0);
+  let txt = `${cards.toLocaleString()} cards and ${imgs} picture${imgs === 1 ? "" : "s"}.`; try { const e = await navigator.storage.estimate(); const mb = x => (x / 1048576).toFixed(x < 10485760 ? 1 : 0); txt += ` Using ${mb(e.usage || 0)} MB of about ${mb(e.quota || 0)} MB this browser allows.`; const p = navigator.storage.persisted ? await navigator.storage.persisted() : false; txt += p ? " Protected from automatic clearing." : ""; } catch { }
+  if (imgs > 250) txt += " Sync keeps each picture as its own file, and very large numbers of pictures can slow syncing."; el.textContent = txt; }
+Object.assign(ICONS, { eyeoff: '<path d="M3 3l18 18"/><path d="M10.6 6.1A9.8 9.8 0 0 1 12 6c5 0 9 6 9 6a17 17 0 0 1-3.3 3.8M6.1 7.8A16.6 16.6 0 0 0 3 12s4 6 9 6a9.4 9.4 0 0 0 3.9-.9"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/>' });
+
+/* ---------- one Learn ---------- */
+const LEARN_PRACTICE = startLearnMode;
+startLearnMode = function (d, ...a) {
+  if (!d) return LEARN_PRACTICE(d, ...a);
+  const lmS = lmStore(d); const sr = S.srs[d.id] || {};
+  const fresh = lmFacts(d).filter(f => f.q && f.a && f.kind !== "occl" && !(sr[f.key] || {}).r && (lmS[f.key] || 0) < 2);
+  return fresh.length ? startFirstLook(d) : LEARN_PRACTICE(d, ...a);
+};
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
