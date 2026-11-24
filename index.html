@@ -2644,6 +2644,7 @@ a.a3deck.dtile+a.a3deck.dtile{border-top:0!important}
 .dt-pill.ok{background:color-mix(in srgb,#34C759 16%,var(--surface));color:#248A3D;padding:3px 8px}
 .dt-name{font-size:.95rem;line-height:1.25;font-weight:650;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-top:2px}
 .dt-meta{font-size:.78rem;color:var(--ink-3);margin-top:auto}
+.a3decks .dh-ic{display:none!important}
 /* ===================== v41.1 · a livelier review screen ===================== */
 .study.rv{--dc:#7B4FE0}
 .study.rv .stage{position:relative}
@@ -2760,6 +2761,91 @@ html.modal-open body{position:fixed;left:0;right:0;width:100%}
 .study.pg .pickchips,.study.pg .chips{gap:6px!important}
 /* home: week-in-review button never underlined */
 .notice a,.notice a.btn,.notice a:hover{text-decoration:none!important}
+/* ===================== v43.2 · components, cleaned up everywhere ===================== */
+:root{--seg-track:rgba(118,118,128,.12);--seg-on:#FFFFFF;--fill-2:rgba(118,118,128,.12)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--seg-track:rgba(118,118,128,.24);--seg-on:#636366;--fill-2:rgba(118,118,128,.24)}}
+:root[data-theme="dark"]{--seg-track:rgba(118,118,128,.24);--seg-on:#636366;--fill-2:rgba(118,118,128,.24)}
+
+/* segmented controls (Terms / Formulas, flowchart modes and organisms, filters) */
+.seg{display:flex!important;gap:0!important;padding:2px!important;border-radius:10px!important;background:var(--seg-track)!important;border:0!important;box-shadow:none!important;width:100%;max-width:520px}
+.seg>button{flex:1 1 0;min-width:0;height:32px!important;min-height:0!important;padding:0 10px!important;border:0!important;border-radius:8px!important;background:transparent!important;box-shadow:none!important;color:var(--ink-2)!important;font:600 .85rem/1 var(--font-body)!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:background .15s,box-shadow .15s}
+.seg>button.on,.seg>button[aria-pressed="true"],.seg>button[aria-selected="true"]{background:var(--seg-on)!important;color:var(--ink)!important;box-shadow:0 3px 8px rgba(0,0,0,.12),0 0 0 .5px rgba(0,0,0,.04)!important}
+.seg>button:not(.on):hover{background:color-mix(in srgb,var(--seg-on) 45%,transparent)!important}
+.seg+.seg{margin-top:8px}
+
+/* filter chips */
+.pickchips{display:flex!important;flex-wrap:wrap;gap:6px!important}
+.pickchips .chipbtn,.chipbtn{height:30px;min-height:0!important;padding:0 12px!important;border:0!important;border-radius:999px!important;background:var(--surface)!important;color:var(--ink-2)!important;box-shadow:inset 0 0 0 .5px var(--line-2),0 1px 2px rgba(0,0,0,.04)!important;font:600 .8rem/1 var(--font-body)!important;display:inline-flex;align-items:center;gap:5px}
+.pickchips .chipbtn.on,.chipbtn.on{background:var(--violet)!important;color:#fff!important;box-shadow:0 2px 6px color-mix(in srgb,var(--violet) 30%,transparent)!important}
+.chipbtn.sm{height:28px;padding:0 10px!important;font-size:.78rem!important}
+
+/* search bars and selects */
+label.search{display:flex!important;align-items:center;gap:8px;height:40px;padding:0 12px!important;border:0!important;border-radius:10px!important;background:var(--fill-2)!important;box-shadow:none!important}
+label.search svg{width:16px;height:16px;stroke:var(--ink-3)!important;flex:none}
+label.search input{border:0!important;background:transparent!important;box-shadow:none!important;padding:0!important;height:100%;font-size:.95rem;color:var(--ink);outline:none;min-width:0;flex:1}
+.study.pg select.input,.study.pg input.input,.study.pg input[type=date]{height:42px;border:0!important;border-radius:10px!important;background:var(--surface)!important;box-shadow:inset 0 0 0 .5px var(--line-2)!important;padding:0 14px!important;font-size:.95rem}
+.study.pg textarea.input{border:0!important;background:var(--surface)!important;box-shadow:inset 0 0 0 .5px var(--line-2),var(--shadow)!important}
+
+/* secondary buttons on tool pages: tinted, not gray */
+.study.pg .btn:not(.primary):not(.danger):not(.icon):not(.opt){background:var(--violet-soft)!important;color:var(--violet-ink)!important;border:0!important;box-shadow:none!important;border-radius:10px!important;font-weight:600}
+.study.pg .btn.sm:not(.primary):not(.icon){border-radius:999px!important;height:30px;min-height:0!important;padding:0 12px!important;font-size:.8rem!important}
+.study.pg .btn.primary{border-radius:10px!important}
+
+/* list items become clean cards */
+.study.pg .gitem,.study.pg .hookcard,.study.pg .fitem,.study.pg .mapcard,.study.pg .jitem,.study.pg .jcard,.study.pg .casecard{background:var(--surface)!important;border:0!important;border-radius:var(--r-cell)!important;box-shadow:var(--shadow)!important;padding:14px 16px!important}
+.study.pg .gitem b:first-child,.study.pg .gitem .gk{color:var(--violet-ink)!important;font-weight:800!important;letter-spacing:.01em}
+.study.pg .gitem p,.study.pg .gitem small,.study.pg .hookcard small{color:var(--ink-3)!important;line-height:1.4}
+.study.pg .hookcard .hk-ph{color:var(--violet-ink)!important;font-weight:700}
+.study.pg .hk-meta{color:var(--ink-3)!important;font-size:.78rem!important}
+
+/* formulas */
+.study.pg .fsec{background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important;margin-top:18px}
+.study.pg .fsec-h{padding:0 4px 8px!important;background:transparent!important;border:0!important}
+.study.pg .fsec-h b,.study.pg .fsec-h h3{font-size:.78rem!important;font-weight:700!important;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3)!important}
+.study.pg .fbox{background:var(--surface)!important;border:0!important;border-radius:12px!important;box-shadow:var(--shadow)!important;padding:12px 14px!important;margin-bottom:8px}
+
+/* stat tiles inside tool pages (mistakes, study plan) */
+.study.pg .stat{background:var(--surface)!important;border:0!important;border-radius:var(--r-cell)!important;box-shadow:var(--shadow)!important;padding:12px 14px!important}
+.study.pg .stat .n{font-size:1.6rem!important;font-weight:800!important;letter-spacing:-.01em;line-height:1.1}
+.study.pg .stat .l{font-size:.75rem!important;color:var(--ink-3)!important}
+
+/* progress bars */
+.study.pg .thinbar,.study.pg .mastery,.study.pg .bar{height:6px!important;border-radius:3px!important;background:var(--line)!important;overflow:hidden;border:0!important}
+.study.pg .thinbar>*,.study.pg .mastery>*,.study.pg .bar>*{border-radius:3px!important}
+
+/* course map */
+.study.pg .maphead{font-weight:700}
+.study.pg .mapgrid{gap:10px 16px!important}
+.study.pg .mapgrid>div>:first-child,.study.pg .mapgrid b{font-size:.72rem!important;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3)!important}
+
+/* flowchart walkthrough: the current test is the hero, answers are rows */
+.study.pg .opts{display:flex!important;flex-direction:column;gap:8px!important}
+.study.pg .opts .opt{background:var(--surface)!important;border:0!important;border-radius:12px!important;box-shadow:var(--shadow)!important;min-height:52px;padding:12px 14px!important;text-align:left;justify-content:flex-start}
+.study.pg .opts .opt .k{width:26px;height:26px;border-radius:50%;background:var(--violet-soft)!important;color:var(--violet-ink)!important;font-weight:700;display:inline-flex;align-items:center;justify-content:center;border:0!important;flex:none}
+.study.pg .opts .opt:hover{box-shadow:0 0 0 2px var(--violet),var(--shadow)!important}
+
+/* section labels and spacing */
+.study.pg .stage>h3,.study.pg .panel>h3,.study.pg .qcard>h3{font-size:1.02rem!important;font-weight:700!important;margin:4px 0 10px!important}
+.study.pg .stage>*+*{margin-top:12px}
+.study.pg .muted.small,.study.pg p.small{line-height:1.45}
+
+/* deck pickers (study plan, exams) and checks */
+.study.pg .checks .check .n,.study.pg .checks .check small{margin-left:auto;color:var(--ink-3);font-size:.8rem}
+
+/* mistake sources and deck rows: real rows, readable */
+.study.pg .deckbar{display:grid!important;align-items:center;gap:12px!important;padding:7px 0!important;min-height:30px;font-size:.88rem}
+.study.pg .deckbar+.deckbar{border-top:.5px solid var(--line-2)}
+.study.pg .deckbar .bar,.study.pg .deckbar>i{height:6px!important;border-radius:3px!important}
+/* formulas: section header with its note under it, button at normal size */
+.study.pg .fsec-h{display:flex!important;justify-content:space-between;align-items:center;gap:12px}
+.study.pg .fsec-h>div{display:flex;flex-direction:column;gap:2px}
+.study.pg .fsec-h small{font-size:.8rem;color:var(--ink-3);text-transform:none;letter-spacing:0;font-weight:400}
+.study.pg .fsec-h .btn{width:auto!important;flex:none}
+.study.pg .fsec-h{display:grid!important;grid-template-columns:1fr auto!important;align-items:center!important;justify-items:start!important;text-align:left!important;column-gap:12px;row-gap:2px;flex-direction:initial!important}
+.study.pg .fsec-h>b,.study.pg .fsec-h>h3,.study.pg .fsec-h>small,.study.pg .fsec-h>div,.study.pg .fsec-h>span{grid-column:1;text-align:left!important;margin:0!important}
+.study.pg .fsec-h>.btn{grid-column:2;grid-row:1 / span 2}
+.study.pg .fsec-h>div{align-items:flex-start!important}
+@media (max-width:600px){.seg>button{padding:0 4px!important;font-size:.76rem!important}}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -2847,7 +2933,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "43.0";
+const APP_VERSION = "43.2";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -13640,7 +13726,7 @@ function homeDeckTile(a) {
 }
 { const rh = renderHome; renderHome = function (decks) { rh(decks); const v = $("#view"); if (!v) return;
     $$(".a3decks .a3dgroup", v).forEach(g => { const list = g.querySelector(".a3dlist"); if (!list || list.classList.contains("dtiles")) return; list.classList.add("dtiles"); $$("a.a3deck", list).forEach(homeDeckTile);
-      const head = g.querySelector(".a3dhead b"); const first = list.querySelector("a.dtile"); if (head && first && !g.querySelector(".dh-ic")) { const d = S.decks[(first.getAttribute("href") || "").replace("#d-", "")]; const lb = d && labelOf(d); if (lb) head.insertAdjacentHTML("beforebegin", `<span class="dh-ic">${capIcon(lb.color, lb.shape || SHAPE_OF[lb.id] || "tube", 18)}</span>`); } });
+      /* (no tube icon beside label headings) */ });
   }; }
 /* ===================== v41.1 · a livelier review screen ===================== */
 const RV = { right: 0, again: 0, best: 0, run: 0, deckCache: {} };
@@ -13794,6 +13880,7 @@ new MutationObserver(() => {
   const dup = [ph[0], "How do you want to practice?", "Which exam?", "Build a study plan", "Clinical rotations", "Case studies", "Memory hooks", "Reference range drills", "ID flowcharts"].map(x => x.toLowerCase());
   st.querySelectorAll(":scope > h2, :scope > .qcard > h2:first-child, :scope > .a3pick > h2, :scope > .panel > h2:first-child, :scope > .a3pick > p.muted:first-of-type").forEach(h => { if (dup.includes(h.textContent.trim().toLowerCase()) || h.matches(".a3pick > p.muted")) h.classList.add("pg-dup"); });
   st.querySelectorAll(":scope > p.coach:first-of-type, :scope > p.muted:first-of-type").forEach(p => p.classList.add("pg-dup"));
+  setTimeout(() => st.querySelectorAll(":scope > .qcard, :scope > .panel").forEach(c => { if (![...c.children].some(k => !k.classList.contains("pg-dup") && k.offsetParent !== null && (k.textContent.trim() || k.querySelector("input,button,select,textarea,svg,img")))) c.classList.add("pg-dup"); }), 0);
   [...st.querySelectorAll("h2")].slice(0, 3).forEach(h => { if (h.closest(".pghead")) return; if (h.textContent.trim().toLowerCase() === ph[0].toLowerCase()) { h.classList.add("pg-dup"); const n = h.nextElementSibling; if (n && n.tagName === "P" && n.textContent.length < 220) n.classList.add("pg-dup"); } });
 }).observe(document.documentElement, { childList: true, subtree: true });
 
