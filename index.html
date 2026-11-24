@@ -2724,6 +2724,11 @@ html.modal-open body{position:fixed;left:0;right:0;width:100%}
 .study.rv .flip .face.back>*{flex:none}
 @media (prefers-reduced-motion:reduce){.study .flip .face{transition:none}}
 .fl-opts .opt .fl-ot{display:block;text-align:left;line-height:1.4}
+/* ===================== v42.2 ===================== */
+/* grade buttons: the 1–4 key numbers are back (desktop only) */
+.study.rv .grades button kbd{display:block!important}
+@media (hover:none),(max-width:700px){.study.rv .grades button kbd{display:none!important}}
+.study.rv .rv-int{display:none!important}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -2811,7 +2816,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "42.1";
+const APP_VERSION = "42.2";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -4093,10 +4098,11 @@ function startLearn(deck, opts = {}) {
     else recordQuiz(f, g > 2);
     sq.first = false;
     let back = 0;
-    if (g === 1) { sq.owe = 2; back = 3; }
+    if (g === 1) { sq.agains = (sq.agains || 0) + 1; if (sq.agains >= 3) { sq.owe = 0; back = 0; toast("Let’s leave this one for today. It’s scheduled to come back tomorrow."); } else { sq.owe = 2; back = 3; } }
     else if (g === 2) { sq.owe = Math.max(sq.owe, 1); back = 8; }
     else if (sq.owe > 0) { sq.owe--; if (sq.owe > 0) back = 10; }
     if (g === 1) again++; else good++;
+    if (back && queue.length - (i + 1) === 0 && (sq.agains || 0) >= 2) { back = 0; toast("Let’s leave this one for today. It’s scheduled to come back tomorrow."); }
     if (back) queue.splice(Math.min(queue.length, i + 1 + back), 0, f); else doneN++;
     i++; show();
   }
@@ -13626,7 +13632,7 @@ function rvDecorate() {
     let f = null; if (front) { const c = front.cloneNode(true); c.querySelectorAll(".kicker,.rv-pill").forEach(k => k.remove()); f = rvFindFact(deck, c.textContent); }
     const now = Date.now(); const s = f && deck ? (S.srs[deck.id] || {})[f.key] : null;
     const lab = g => { if (g === 1) return "3 cards"; if (g === 2) return "later today"; try { const ns = nextState(s || null, g).s; return rvFormat(ns.d - now); } catch { return g === 3 ? "1d" : "2d"; } };
-    $$("button[data-g]", gr).forEach(b => { const g = +b.dataset.g; if (!b.querySelector(".rv-int")) b.insertAdjacentHTML("beforeend", `<span class="rv-int">${lab(g)}</span>`); }); }
+    /* (interval labels removed: the 1–4 key numbers are back) */ }
   const tools = stage.querySelector(".grades + div, .grades ~ .row"); if (tools && !tools.dataset.rv && tools.querySelector("button, a")) { tools.dataset.rv = 1; tools.classList.add("rv-tools"); }
   const res = stage.querySelector(".results"); if (res && !res.dataset.rv && /Session complete/.test(res.textContent)) { res.dataset.rv = 1; const h = res.querySelector("h2"); h && h.insertAdjacentHTML("afterend", `<div class="rv-sum"><div><b>${RV.right}</b><span>right</span></div><div><b>${RV.again}</b><span>again</span></div><div><b>🔥 ${RV.best}</b><span>best streak</span></div></div>`); }
 }
@@ -13641,7 +13647,8 @@ function introNew(f, done) {
   ST.stage.innerHTML = `${studyHead(f.deck)}<div class="intro-card rv-in"><span class="rv-pill nw">New card</span><p class="ic-lead">Meet this one first. It’ll come back in a few cards for you to recall.</p>
     <div class="ic-q">${factFront(f).replace(/<div class="kicker">New<\/div>/, "")}</div><div class="ic-div"></div><div class="ic-a">${factBack(f)}</div>${why ? `<div class="ic-why"><b>Why it matters</b><p>${escG(why)}</p></div>` : ""}</div>
     <button class="btn primary block" id="icGo" style="margin-top:14px">Got it</button>`;
-  $("#icGo").onclick = done; ST.onKey = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); done(); } };
+  const prevKey = ST.onKey; const go = () => { ST.onKey = prevKey; done(); };
+  $("#icGo").onclick = go; ST.onKey = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } };
 }
 { const sl = startLearn; startLearn = function (...a) { const out = sl.apply(this, a); try { ST.intro = new Set(); } catch { } return out; }; }
 
@@ -13709,6 +13716,18 @@ startLearnMode = function (d, ...a) {
   const fresh = lmFacts(d).filter(f => f.q && f.a && f.kind !== "occl" && !(sr[f.key] || {}).r && (lmS[f.key] || 0) < 2);
   return fresh.length ? startFirstLook(d) : LEARN_PRACTICE(d, ...a);
 };
+/* ===================== v42.2 ===================== */
+/* species names stay on one line: “S. aureus”, “E. coli” */
+{ const g0 = gloss; gloss = function (html, ...a) { const out = g0(html, ...a); return typeof out === "string" ? out.replace(/\b([A-Z])\. (?=[a-z]{2,})/g, "$1.\u00A0") : out; }; }
+/* Learn walkthrough: Space or Enter does whatever the purple button says; 1–4 pick an answer */
+{ const sf = startFirstLook; startFirstLook = function (d) { const out = sf(d); try {
+      const keyer = e => { const t = e.target; const typing = t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA");
+        if (/^[1-4]$/.test(e.key) && !typing) { const o = document.querySelectorAll(".fl-opts .opt:not([disabled])")[+e.key - 1]; if (o) { e.preventDefault(); o.click(); return; } }
+        if (e.key === "Enter" || (e.key === " " && !typing)) { const b = ["#flNext", "#flShow", "#flChk", "#flMore", "#flPractice"].map(s => document.querySelector(s)).find(Boolean); if (b) { e.preventDefault(); b.click(); } } };
+      ST.onKey = keyer; new MutationObserver(() => { if (ST && ST.el && ST.el.isConnected && ST.el.querySelector(".fl-steps, #flDone")) ST.onKey = keyer; }).observe(ST.stage, { childList: true });
+    } catch { } return out; }; }
+/* home: no glossary marks or spelled-out text in any title, including your own terms */
+{ const rh = renderHome; renderHome = function (decks) { rh(decks); const v = $("#view"); if (!v) return; $$(".acx", v).forEach(x => x.remove()); $$(".ac", v).forEach(a => a.replaceWith(document.createTextNode(a.textContent))); }; }
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
