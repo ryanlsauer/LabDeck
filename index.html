@@ -2729,6 +2729,37 @@ html.modal-open body{position:fixed;left:0;right:0;width:100%}
 .study.rv .grades button kbd{display:block!important}
 @media (hover:none),(max-width:700px){.study.rv .grades button kbd{display:none!important}}
 .study.rv .rv-int{display:none!important}
+/* ===================== v43 · on-brand tool pages ===================== */
+.study.pg .stage{max-width:780px;margin-left:auto;margin-right:auto}
+.pghead{display:flex;align-items:center;gap:14px;margin:8px 0 18px}
+.pg-ic{flex:none;width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,color-mix(in srgb,var(--pc) 82%,#fff),var(--pc));box-shadow:0 6px 16px color-mix(in srgb,var(--pc) 30%,transparent)}
+.pg-ic svg{width:24px;height:24px;stroke:#fff!important;color:#fff}
+.pghead h1{font-size:1.6rem;font-weight:800;letter-spacing:-.01em;margin:0;line-height:1.15}
+.pghead p{margin:3px 0 0;color:var(--ink-3);font-size:.93rem;line-height:1.4}
+.pg-dup{display:none!important}
+/* cards */
+.study.pg .qcard,.study.pg .mapcard,.study.pg .planbox{background:var(--surface)!important;border:0!important;border-radius:var(--r-cell)!important;box-shadow:var(--shadow)!important;padding:16px 18px!important}
+.study.pg .mapcard{margin-bottom:10px}
+.study.pg .qcard>p:first-child{margin-top:0}
+/* checkbox lists: one grouped list */
+.study.pg .checks{background:var(--surface);border-radius:var(--r-cell);box-shadow:var(--shadow);overflow:hidden;margin:12px 0;padding:0!important;display:block!important}
+.study.pg .checks .check{display:flex!important;align-items:center;gap:12px;padding:12px 16px!important;margin:0!important;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important}
+.study.pg .checks .check+.check{border-top:.5px solid var(--line-2)!important}
+.study.pg .checks .check input[type=checkbox]{width:20px;height:20px;accent-color:var(--violet);flex:none}
+/* level tiles (lab math and friends) */
+.study.pg .levels{display:grid!important;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px!important;margin-bottom:12px}
+.study.pg .levels .lvl{background:var(--surface)!important;border:0!important;border-radius:var(--r-cell)!important;box-shadow:var(--shadow)!important;padding:12px 14px!important;text-align:left}
+.study.pg .levels .lvl.on{box-shadow:0 0 0 2px var(--violet),var(--shadow)!important}
+.study.pg .levels .lvl[disabled]{opacity:.55;box-shadow:none!important;background:var(--surface-2)!important}
+/* primary actions: full width */
+.study.pg .stage>.btn.primary,.study.pg .qcard>.btn.primary,.study.pg .checks+.btn.primary,.study.pg .stage>.row>.btn.primary:only-child{width:100%;justify-content:center;min-height:48px;border-radius:12px!important}
+/* explain it */
+.study.pg textarea.input{min-height:180px;border-radius:var(--r-cell)!important;padding:14px 16px!important;line-height:1.5;font-size:1rem}
+.study.pg .field>label{font-weight:600;color:var(--ink-2)}
+/* chips rows (pairs, case filters) */
+.study.pg .pickchips,.study.pg .chips{gap:6px!important}
+/* home: week-in-review button never underlined */
+.notice a,.notice a.btn,.notice a:hover{text-decoration:none!important}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -2816,7 +2847,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "42.2";
+const APP_VERSION = "43.0";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -4065,7 +4096,8 @@ function startLearn(deck, opts = {}) {
   function show() {
     if (i >= queue.length) return finish();
     const f = queue[i]; flipped = false;
-    if (f && !opts.browse && !opts.queue && !stOf(f) && f.kind !== "occl" && S.meta.settings.introNew !== false && !(ST.intro = ST.intro || new Set()).has(f.key)) { try { topRight(); } catch { } introNew(f, () => { ST.intro.add(f.key); queue.splice(i, 1); queue.splice(Math.min(queue.length, i + 3), 0, f); show(); }); return; }
+    const forced = ((ST.forceIntro = ST.forceIntro || {})[f && f.key] || 0) > 0;
+    if (f && !opts.browse && f.kind !== "occl" && (forced || (!opts.queue && !stOf(f) && S.meta.settings.introNew !== false && !(ST.intro = ST.intro || new Set()).has(f.key)))) { try { topRight(); } catch { } introNew(f, () => { (ST.intro = ST.intro || new Set()).add(f.key); if (forced) ST.forceIntro[f.key]--; queue.splice(i, 1); queue.splice(Math.min(queue.length, i + 3), 0, f); show(); }, forced); return; }
     ST.stage.innerHTML = `${studyHead(f.deck)}${flipCard("", capOf(f.deck), (stOf(f) || f.kind !== "basic" ? "" : `<div class="kicker">New</div>`) + (opts.reverse && f.kind === "basic" && f.a ? revFront(f) : factFront(f)), opts.reverse && f.kind === "basic" && f.a ? revBack(f) : factBack(f))}
       <div id="ctl"><button class="btn primary" id="show" style="width:100%;min-height:54px">Show answer</button><p class="tap-hint kbd-hint" style="margin-top:8px"><kbd>Space</kbd> to flip</p></div>`;
     sizeFlip();
@@ -4077,11 +4109,11 @@ function startLearn(deck, opts = {}) {
     const f = queue[i], st = stOf(f);
     $("#fc").classList.add("on");
     $("#ctl").innerHTML = `<div class="grades">${[[1, "Again"], [2, "Hard"], [3, "Good"], [4, "Easy"]].map(([g, l]) => `<button class="g${g}" data-g="${g}" title="${{ 1: "Didn’t know it: back in 3 cards, then needs two good answers. Due again tomorrow.", 2: "Got it, but struggled: comes back once more this session. Small step forward.", 3: "Right, but not quick yet: done for today. Normal spacing.", 4: "Came instantly: done for today. Big step forward, and counts toward mastery." }[g]}"><b>${l}</b><kbd>${g}</kbd></button>`).join("")}</div>
-      <div class="row" style="justify-content:center;margin-top:10px"><button class="btn sm ghost" id="whyB">${icon("brain")}Why?</button>${f.deck.pack && lessonsForPack(f.deck.pack).length ? `<button class="btn sm ghost" id="teach">${icon("book")}Teach me this</button>` : ""}${typeof hookable === "function" && hookable(f) ? `<button class="btn sm ghost" id="hookB">${icon("brain")}Make a memory hook</button>` : ""}</div>
+      <div class="row" style="justify-content:center;margin-top:10px"><button class="btn sm ghost" id="whyB">${icon("brain")}Why?</button>${f.kind !== "occl" ? `<button class="btn sm ghost" id="teach">${icon("book")}Teach me this</button>` : ""}${typeof hookable === "function" && hookable(f) ? `<button class="btn sm ghost" id="hookB">${icon("brain")}Make a memory hook</button>` : ""}</div>
       `;
     $("#whyB").onclick = () => whyModal(f);
     $("#hookB") && ($("#hookB").onclick = () => hookModal({ title: f.kind === "field" ? `${f.q}: ${f.field}` : f.q, items: hookParts(f.a), ordered: /order|steps?|sequence|first|then/i.test(f.q + " " + (f.field || "")), method: "sentence", palace: "home" }, { fact: f, noPractice: true }));
-    $("#teach") && ($("#teach").onclick = () => startLesson(lessonsForPack(f.deck.pack)[0]));
+    $("#teach") && ($("#teach").onclick = () => { (ST.forceIntro = ST.forceIntro || {})[f.key] = 2; grade(1); toast("Counted as a miss. You’ll see it explained twice, then try it again."); });
     $$(".grades button").forEach(b => b.onclick = () => grade(+b.dataset.g));
   }
   function grade(g) {
@@ -12899,7 +12931,7 @@ function mysteryModal() {
     rh(decks); const v = $("#view"); if (!v) return;
     const fr = v.querySelector(".funrow"); if (fr) { fr.outerHTML = labCornerHtml(); $("#lcSpec").onclick = specimenModal; $("#lcMyst").onclick = mysteryModal; }
     $$(".a3stat span", v).forEach(s => { if (s.textContent === "ACCURACY · 7 DAYS") s.textContent = "7-DAY ACCURACY"; });
-    const jt = $("#dashJ b", v); if (jt && journalVisible().length >= 3) jt.classList.add("jred");
+    const jt = $("#dashJ b", v); if (jt && journalVisible().length >= 10) jt.classList.add("jred");
   }; }
 
 /* ---------- Progress: lab life without challenges; a one-row cabinet; a full-year calendar ---------- */
@@ -13642,9 +13674,9 @@ document.addEventListener("keydown", e => { if (!ST || !ST.el || !ST.el.classLis
 new MutationObserver(() => rvDecorate()).observe(document.documentElement, { childList: true, subtree: true });
 /* ===================== v42 ===================== */
 /* ---------- new cards in a review: meet the card first, recall it a few cards later ---------- */
-function introNew(f, done) {
-  const why = f.card && (f.card.why || f.card.note);
-  ST.stage.innerHTML = `${studyHead(f.deck)}<div class="intro-card rv-in"><span class="rv-pill nw">New card</span><p class="ic-lead">Meet this one first. It’ll come back in a few cards for you to recall.</p>
+function introNew(f, done, forced) {
+  const why = f.card && (f.card.why || f.card.note); const left = forced ? (ST.forceIntro || {})[f.key] || 1 : 0;
+  ST.stage.innerHTML = `${studyHead(f.deck)}<div class="intro-card rv-in">${forced ? `<span class="rv-pill ag">Learning · explained ${3 - left} of 2</span><p class="ic-lead">Let’s go over this one. ${left > 1 ? "You’ll see it explained once more, then try it yourself." : "Next time it comes up, you’ll try it yourself."}</p>` : `<span class="rv-pill nw">New card</span><p class="ic-lead">Meet this one first. It’ll come back in a few cards for you to recall.</p>`}
     <div class="ic-q">${factFront(f).replace(/<div class="kicker">New<\/div>/, "")}</div><div class="ic-div"></div><div class="ic-a">${factBack(f)}</div>${why ? `<div class="ic-why"><b>Why it matters</b><p>${escG(why)}</p></div>` : ""}</div>
     <button class="btn primary block" id="icGo" style="margin-top:14px">Got it</button>`;
   const prevKey = ST.onKey; const go = () => { ST.onKey = prevKey; done(); };
@@ -13728,6 +13760,50 @@ startLearnMode = function (d, ...a) {
     } catch { } return out; }; }
 /* home: no glossary marks or spelled-out text in any title, including your own terms */
 { const rh = renderHome; renderHome = function (decks) { rh(decks); const v = $("#view"); if (!v) return; $$(".acx", v).forEach(x => x.remove()); $$(".ac", v).forEach(a => a.replaceWith(document.createTextNode(a.textContent))); }; }
+/* ===================== v43 · on-brand tool pages ===================== */
+const PAGEHEAD = [
+  ["Explain it", "bubble", "#7B4FE0", "Teach it back in your own words. You’re graded on the key ideas, not exact wording."],
+  ["Practice", "shuffle", "#E5484D", "Pick how you want to practice today."],
+  ["Mixed practice", "shuffle", "#E5484D", "Twenty questions from different decks. Switching topics is what makes it stick."],
+  ["Look-alike drills", "layers", "#E5484D", "Pairs that are easy to confuse, one telling feature at a time."],
+  ["Reference range drills", "target", "#E5484D", "High, low or normal, plus the ranges themselves."],
+  ["Lab math", "chart", "#E5484D", "Dilutions, conversions and calculations, with fresh numbers every time."],
+  ["Mistake journal", "rotate", "#E5484D", "Every miss in one place, so you can fix it for good."],
+  ["Glossary", "book", "#7B4FE0", "Every abbreviation and term, plus your own words and formulas."],
+  ["Memory hooks", "bulb", "#7B4FE0", "Tricks for lists, sequences and the facts that won’t stick."],
+  ["Course map", "layers", "#2F6FB5", "What each Head start course teaches and unlocks."],
+  ["Study plan", "list", "#2F6FB5", "Pick a finish date and the decks to cover. LabDeck sets the daily pace."],
+  ["ID flowcharts", "order", "#2F6FB5", "Identify an organism one test at a time."],
+  ["ID flowchart", "order", "#2F6FB5", "Follow the tests one step at a time, then try it from memory."],
+  ["Case studies", "micro", "#E5484D", "Patient stories with real lab results. Explanations follow each case."],
+  ["Case talks", "micro", "#E5484D", "Present a case out loud, the way you will on rotations."],
+  ["Rotation prep", "check", "#2F6FB5", "Checklists for each bench rotation."],
+  ["Clinical rotations", "check", "#2F6FB5", "Checklists for each bench rotation."],
+  ["Exam practice", "quiz", "#E5484D", "Practice under exam conditions."],
+  ["Board practice", "quiz", "#E5484D", "Exam-style questions across every subject, timed like the real thing."],
+  ["Comprehensive exam", "quiz", "#E5484D", "One long exam covering the whole program."]
+];
+function pageHeadFor(title) { const t = (title || "").trim(); return PAGEHEAD.find(([k]) => t === k || t.startsWith(k + ":")) || null; }
+new MutationObserver(() => {
+  const el = ST && ST.el; if (!el || !el.isConnected || !ST.stage) return; const title = (el.querySelector(".study-top .t") || {}).textContent || ""; const ph = pageHeadFor(title); if (!ph) return;
+  el.classList.add("pg"); const st = ST.stage; if (st.querySelector(":scope > .pghead")) return;
+  if (!/^ID flowchart/.test(title) && st.querySelector(".opts .opt, .flip, .results") && !st.querySelector(".checks, .a3pick, .levels, .mapcard, .gitem, .hookcard")) return; /* a question is on screen: no header */
+  const sub = title.includes(":") ? title.split(":").slice(1).join(":").trim() : ph[3];
+  st.insertAdjacentHTML("afterbegin", `<div class="pghead"><span class="pg-ic" style="--pc:${ph[2]}">${icon(ph[1])}</span><div><h1>${esc(title.includes(":") ? ph[0] : title)}</h1><p>${esc(title.includes(":") ? sub : ph[3])}</p></div></div>`);
+  /* drop headings and intro lines that now repeat the header */
+  const dup = [ph[0], "How do you want to practice?", "Which exam?", "Build a study plan", "Clinical rotations", "Case studies", "Memory hooks", "Reference range drills", "ID flowcharts"].map(x => x.toLowerCase());
+  st.querySelectorAll(":scope > h2, :scope > .qcard > h2:first-child, :scope > .a3pick > h2, :scope > .panel > h2:first-child, :scope > .a3pick > p.muted:first-of-type").forEach(h => { if (dup.includes(h.textContent.trim().toLowerCase()) || h.matches(".a3pick > p.muted")) h.classList.add("pg-dup"); });
+  st.querySelectorAll(":scope > p.coach:first-of-type, :scope > p.muted:first-of-type").forEach(p => p.classList.add("pg-dup"));
+  [...st.querySelectorAll("h2")].slice(0, 3).forEach(h => { if (h.closest(".pghead")) return; if (h.textContent.trim().toLowerCase() === ph[0].toLowerCase()) { h.classList.add("pg-dup"); const n = h.nextElementSibling; if (n && n.tagName === "P" && n.textContent.length < 220) n.classList.add("pg-dup"); } });
+}).observe(document.documentElement, { childList: true, subtree: true });
+
+/* ---------- home: the Lessons tile becomes Objectives once the program starts ---------- */
+{ const dh = dashHtml; dashHtml = function (decks) { let h = dh(decks); if (prepOn()) return h;
+    let n = 0, rated = 0; try { (PROGRAM.courses || []).forEach((c, ci) => { const s = courseStats(ci); if (s) { n += s.n; rated += s.rated; } }); } catch { }
+    if (!n) { try { PROGRAM.courses.forEach((c, ci) => (c.units || []).forEach((u, ui) => (u.obj || u.objectives || []).forEach((o, oi) => { n++; if (objVal(objKey(ci, ui, oi)) != null) rated++; }))); } catch { } }
+    const box = document.createElement("div"); box.innerHTML = h; const tile = [...box.querySelectorAll(".a3stat")].find(t => (t.querySelector("span") || {}).textContent === "LESSONS");
+    if (tile) tile.innerHTML = `<span>OBJECTIVES</span><b>${rated}<small>/${n}</small></b><i class="a3bar"><i style="width:${n ? Math.round(rated / n * 100) : 0}%"></i></i><small>rated so far</small>`;
+    return box.innerHTML; }; }
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
