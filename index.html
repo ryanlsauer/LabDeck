@@ -2626,6 +2626,65 @@ html{overflow-x:clip}
 .row.cact{display:grid!important;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px!important}
 .row.cact .btn{width:100%;justify-content:flex-start;min-height:44px;margin:0!important}
 @media (max-width:600px){.row.cact{grid-template-columns:1fr}}
+/* ===================== v41.1 · home decks as tiles ===================== */
+.a3decks .a3dgroup{background:transparent!important;box-shadow:none!important;padding:0!important;margin-bottom:18px}
+.a3decks .a3dhead{display:flex;align-items:center;gap:8px;padding:0 2px 8px!important;background:transparent!important}
+.a3decks .a3dhead b{font-size:1rem}.a3decks .a3dhead .a3dcount{margin-left:auto;font-size:.8rem;color:var(--ink-3)}
+.dh-ic{display:inline-flex;align-items:center}
+.a3dlist.dtiles{display:grid!important;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;background:transparent!important;box-shadow:none!important;border-radius:0!important;overflow:visible!important}
+@media (max-width:600px){.a3dlist.dtiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}}
+a.a3deck.dtile{display:flex!important;flex-direction:column;align-items:stretch;gap:6px;padding:12px 14px 13px!important;background:var(--surface)!important;border-radius:var(--r-cell)!important;box-shadow:var(--shadow)!important;border:0!important;text-decoration:none;color:var(--ink);min-height:118px;transition:transform .12s,box-shadow .12s}
+a.a3deck.dtile+a.a3deck.dtile{border-top:0!important}
+@media (hover:hover){a.a3deck.dtile:hover{transform:translateY(-1px);box-shadow:0 2px 4px rgba(0,0,0,.05),0 8px 20px rgba(0,0,0,.08)!important}}
+.dt-top{display:flex;align-items:flex-start;justify-content:space-between}
+.dt-ic{display:inline-flex;height:40px;align-items:flex-end}
+.dt-pill{font-size:.72rem;font-weight:700;border-radius:999px;padding:3px 9px;line-height:1.3;white-space:nowrap}
+.dt-pill.due{background:var(--violet);color:#fff}
+.dt-pill.new{background:var(--surface-2);color:var(--ink-2)}
+.dt-pill.ok{background:color-mix(in srgb,#34C759 16%,var(--surface));color:#248A3D;padding:3px 8px}
+.dt-name{font-size:.95rem;line-height:1.25;font-weight:650;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-top:2px}
+.dt-meta{font-size:.78rem;color:var(--ink-3);margin-top:auto}
+/* ===================== v41.1 · a livelier review screen ===================== */
+.study.rv{--dc:#7B4FE0}
+.study.rv .stage{position:relative}
+.study.rv::before{content:"";position:fixed;inset:0 0 auto 0;height:340px;pointer-events:none;z-index:0;background:radial-gradient(120% 100% at 50% -10%,color-mix(in srgb,var(--dc) 22%,transparent),transparent 70%)}
+.study.rv>*{position:relative;z-index:1}
+.study.rv .studyhead{display:flex;align-items:center;gap:12px}
+.study.rv .studyhead .capico{width:18px!important;height:38px!important}
+.study.rv .studyhead small,.study.rv .studyhead .lbl,.study.rv .studyhead span:first-of-type{color:color-mix(in srgb,var(--dc) 75%,var(--ink))}
+.rv-tally{margin-left:auto;display:flex;gap:6px}
+.rv-tally span{font-size:.8rem;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--surface);box-shadow:var(--shadow)}
+.rt-ok{color:#248A3D}.rt-ag{color:var(--a3-red)}.rt-fire{color:#B25E00}
+/* the card */
+.study.rv .flip{border-radius:20px!important}
+.study.rv .flip .face{border-radius:20px!important;box-shadow:0 1px 2px rgba(0,0,0,.04),0 12px 32px color-mix(in srgb,var(--dc) 14%,rgba(0,0,0,.06))!important}
+.study.rv .flip .face:not(.back) .main-text,.study.rv .flip .face:not(.back)>b,.study.rv .flip .face:not(.back) h2{font-size:clamp(1.4rem,4.5vw,1.9rem)!important;line-height:1.2}
+.study.rv .flip .face.back>:first-child{font-size:1rem!important;color:var(--ink-3);padding-bottom:12px;margin-bottom:14px;border-bottom:.5px solid var(--line-2)}
+.rv-pill{position:absolute;top:16px;left:18px;font-size:.7rem;font-weight:700;letter-spacing:.02em;padding:3px 10px;border-radius:999px}
+.rv-pill.nw{background:var(--violet-soft);color:var(--violet-ink)}.rv-pill.rv{background:var(--surface-2);color:var(--ink-3)}.rv-pill.ag{background:color-mix(in srgb,#E5484D 14%,var(--surface));color:#C8292F}
+/* grade buttons with what happens next */
+.study.rv .grades button{flex-direction:column!important;gap:1px!important;min-height:54px!important;border-radius:14px!important}
+.study.rv .grades button kbd{display:none!important}
+.study.rv .grades .rv-int{display:block!important;font-size:.68rem;font-weight:600;opacity:.75;line-height:1;margin-top:2px}
+.study.rv .grades .g4 .rv-int{color:#fff;opacity:.85}
+/* helper links as pills */
+.rv-tools{display:flex!important;flex-wrap:wrap;justify-content:center;gap:8px!important;margin-top:12px}
+.rv-tools>button,.rv-tools>a{background:var(--surface)!important;box-shadow:var(--shadow)!important;border-radius:999px!important;padding:7px 14px!important;font-size:.85rem!important;color:var(--ink-2)!important;border:0!important}
+/* show answer */
+.study.rv #show{border-radius:14px!important;min-height:52px;font-size:1.02rem;box-shadow:0 8px 20px color-mix(in srgb,var(--violet) 28%,transparent)}
+/* end of session */
+.rv-sum{display:flex;justify-content:center;gap:10px;margin:6px 0 14px}
+.rv-sum div{background:var(--surface);box-shadow:var(--shadow);border-radius:14px;padding:10px 16px;min-width:84px;display:flex;flex-direction:column;align-items:center}
+.rv-sum b{font-size:1.3rem}.rv-sum span{font-size:.75rem;color:var(--ink-3)}
+/* a quiet entrance for each card */
+.rv-in{animation:rvIn .22s ease-out both}
+@keyframes rvIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.rv-in{animation:none}}
+
+/* leave room for the status pill above the card text */
+.study.rv .flip .face:not(.back){padding-top:44px!important}
+.study.rv .flip .face{display:flex!important;flex-direction:column;justify-content:center}
+.study.rv .flip .face.back{gap:4px}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -2713,7 +2772,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "41.0";
+const APP_VERSION = "41.1";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -13493,6 +13552,48 @@ function startFlowPick() {
     return res; }; }
 /* course page: the five action buttons become an even grid */
 { const r = render; render = function (...a) { const out = r.apply(this, a); const q = document.getElementById("quizC"); if (q && q.parentElement && !q.parentElement.classList.contains("cact")) q.parentElement.classList.add("cact"); return out; }; }
+/* ===================== v41.1 · home decks as tiles ===================== */
+function homeDeckTile(a) {
+  const id = (a.getAttribute("href") || "").replace("#d-", ""); const d = S.decks[id]; if (!d) return;
+  const c = deckCounts(d); const fs = factsOf(d).filter(f => !isSus(f)); const tot = fs.length; const sr = S.srs[d.id] || {}; const done = fs.filter(f => sr[f.key] && sr[f.key].r).length; const seen = tot ? done / tot : 0; const pct = Math.round(seen * 100);
+  const lb = labelOf(d); const color = lb ? lb.color : d.color; const shape = (lb && (lb.shape || SHAPE_OF[lb.id])) || "tube";
+  const pill = c.due ? `<span class="dt-pill due">${c.due} due</span>` : (c.nw && newLeftToday() > 0 ? `<span class="dt-pill new">New</span>` : (done ? `<span class="dt-pill ok" aria-label="Caught up">✓</span>` : ""));
+  a.classList.add("dtile"); a.innerHTML = `<div class="dt-top"><span class="dt-ic">${capIcon(color, shape, 40, seen)}</span>${pill}</div><b class="dt-name">${esc(d.name)}</b><span class="dt-meta">${plural(d.cards.length, "card")}${tot ? ` · ${pct}% studied` : ""}</span>`;
+}
+{ const rh = renderHome; renderHome = function (decks) { rh(decks); const v = $("#view"); if (!v) return;
+    $$(".a3decks .a3dgroup", v).forEach(g => { const list = g.querySelector(".a3dlist"); if (!list || list.classList.contains("dtiles")) return; list.classList.add("dtiles"); $$("a.a3deck", list).forEach(homeDeckTile);
+      const head = g.querySelector(".a3dhead b"); const first = list.querySelector("a.dtile"); if (head && first && !g.querySelector(".dh-ic")) { const d = S.decks[(first.getAttribute("href") || "").replace("#d-", "")]; const lb = d && labelOf(d); if (lb) head.insertAdjacentHTML("beforebegin", `<span class="dh-ic">${capIcon(lb.color, lb.shape || SHAPE_OF[lb.id] || "tube", 18)}</span>`); } });
+  }; }
+/* ===================== v41.1 · a livelier review screen ===================== */
+const RV = { right: 0, again: 0, best: 0, run: 0, deckCache: {} };
+{ const sl = startLearn; startLearn = function (deck, opts = {}) { Object.assign(RV, { right: 0, again: 0, best: 0, run: 0, deckCache: {} }); const out = sl(deck, opts); try { ST.el.classList.add("rv"); } catch { } return out; }; }
+function rvDeckByName(name) { if (RV.deckCache[name]) return RV.deckCache[name]; const d = Object.values(S.decks).find(x => x.name === name); RV.deckCache[name] = d; return d; }
+function rvFormat(ms) { const m = ms / 60000; if (m < 60) return "today"; const d = ms / DAY; if (d < 1.5) return "1d"; if (d < 13.5) return Math.round(d) + "d"; if (d < 60) return Math.round(d / 7) + "w"; return Math.round(d / 30) + "mo"; }
+function rvFindFact(deck, frontText) { const key = frontText.replace(/\s+/g, " ").trim(); if (!deck) return null; const box = document.createElement("div");
+  for (const f of factsOf(deck)) { try { box.innerHTML = factFront(f); box.querySelectorAll(".kicker").forEach(k => k.remove()); if (box.textContent.replace(/\s+/g, " ").trim() === key) return f; } catch { } } return null; }
+function rvDecorate() {
+  const el = ST && ST.el; if (!el || !el.isConnected || !el.classList.contains("rv")) return; const stage = ST.stage; if (!stage) return;
+  const head = stage.querySelector(".studyhead"); const flip = stage.querySelector(".flip");
+  if (head && !head.dataset.rv) { head.dataset.rv = 1; const name = (head.querySelector("b, h2, .dn") || head.lastElementChild || {}).textContent || ""; const d = rvDeckByName(name.trim()) || null; const lb = d && labelOf(d);
+    const col = CAPS[lb ? lb.color : (d && d.color)] || "#7B4FE0"; el.style.setProperty("--dc", col);
+    head.insertAdjacentHTML("beforeend", `<div class="rv-tally" aria-live="polite"><span class="rt-ok">✓ ${RV.right}</span><span class="rt-ag">↺ ${RV.again}</span>${RV.run >= 3 ? `<span class="rt-fire">🔥 ${RV.run}</span>` : ""}</div>`); }
+  if (flip && !flip.dataset.rv) { flip.dataset.rv = 1; flip.classList.add("rv-in");
+    const front = flip.querySelector(".face:not(.back)"); const kick = front && front.querySelector(".kicker"); const isNew = kick && /new/i.test(kick.textContent); const again = flip.closest(".stage, .study") && RV.lastAgainFront && front && front.textContent.trim() === RV.lastAgainFront;
+    if (front && !front.querySelector(".rv-pill")) front.insertAdjacentHTML("afterbegin", `<span class="rv-pill ${again ? "ag" : isNew ? "nw" : "rv"}">${again ? "Again" : isNew ? "New card" : "Review"}</span>`);
+    if (kick && /^new$/i.test(kick.textContent.trim())) kick.remove(); }
+  const gr = stage.querySelector(".grades"); if (gr && !gr.dataset.rv) { gr.dataset.rv = 1;
+    const name = ((stage.querySelector(".studyhead b, .studyhead h2") || {}).textContent || "").trim(); const deck = rvDeckByName(name); const front = stage.querySelector(".flip .face:not(.back)");
+    let f = null; if (front) { const c = front.cloneNode(true); c.querySelectorAll(".kicker,.rv-pill").forEach(k => k.remove()); f = rvFindFact(deck, c.textContent); }
+    const now = Date.now(); const s = f && deck ? (S.srs[deck.id] || {})[f.key] : null;
+    const lab = g => { if (g === 1) return "3 cards"; if (g === 2) return "later today"; try { const ns = nextState(s || null, g).s; return rvFormat(ns.d - now); } catch { return g === 3 ? "1d" : "2d"; } };
+    $$("button[data-g]", gr).forEach(b => { const g = +b.dataset.g; if (!b.querySelector(".rv-int")) b.insertAdjacentHTML("beforeend", `<span class="rv-int">${lab(g)}</span>`); }); }
+  const tools = stage.querySelector(".grades + div, .grades ~ .row"); if (tools && !tools.dataset.rv && tools.querySelector("button, a")) { tools.dataset.rv = 1; tools.classList.add("rv-tools"); }
+  const res = stage.querySelector(".results"); if (res && !res.dataset.rv && /Session complete/.test(res.textContent)) { res.dataset.rv = 1; const h = res.querySelector("h2"); h && h.insertAdjacentHTML("afterend", `<div class="rv-sum"><div><b>${RV.right}</b><span>right</span></div><div><b>${RV.again}</b><span>again</span></div><div><b>🔥 ${RV.best}</b><span>best streak</span></div></div>`); }
+}
+document.addEventListener("click", e => { const g = e.target.closest(".study.rv .grades button[data-g]"); if (!g) return; const n = +g.dataset.g;
+  const front = ST.stage && ST.stage.querySelector(".flip .face:not(.back)"); if (n === 1) { RV.again++; RV.run = 0; RV.lastAgainFront = front ? front.textContent.trim() : null; } else { RV.right++; RV.run++; RV.best = Math.max(RV.best, RV.run); } }, true);
+document.addEventListener("keydown", e => { if (!ST || !ST.el || !ST.el.classList.contains("rv")) return; const n = +e.key; if (n >= 1 && n <= 4 && ST.stage.querySelector(".grades")) { if (n === 1) { RV.again++; RV.run = 0; } else { RV.right++; RV.run++; RV.best = Math.max(RV.best, RV.run); } } }, true);
+new MutationObserver(() => rvDecorate()).observe(document.documentElement, { childList: true, subtree: true });
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
