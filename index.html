@@ -2611,6 +2611,21 @@ html{overflow-x:clip}
 .a3start{width:max-content!important}
 .a3start>*{flex:none!important;white-space:nowrap!important;min-width:max-content}
 @media (min-width:601px){.a3start .lg{display:inline-block!important}}
+/* ===================== v41 ===================== */
+/* home: no glossary links anywhere on the home screen */
+.is-home .ac{border:0!important;text-decoration:none!important;background:none!important;color:inherit!important;pointer-events:none;cursor:inherit;padding:0!important}
+.is-home .acx{display:none!important}
+/* glossary popover: the Open glossary button is a proper filled button */
+.acpop [data-gopen]{background:var(--surface-2)!important;color:var(--violet-ink)!important;box-shadow:none!important;border:0!important;margin-top:8px;align-self:flex-start}
+.acpop [data-gopen]:hover{background:var(--violet-soft)!important}
+/* home notices match every other card */
+.notice{background:var(--surface)!important;border:0!important;border-radius:var(--r-cell)!important;box-shadow:var(--shadow)!important;padding:12px 14px!important;display:flex;align-items:center;gap:12px}
+.notice>svg{color:var(--violet-ink);flex:none}
+.notice-top{margin:6px 0 12px!important}
+/* course page actions: an even grid instead of ragged buttons */
+.row.cact{display:grid!important;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px!important}
+.row.cact .btn{width:100%;justify-content:flex-start;min-height:44px;margin:0!important}
+@media (max-width:600px){.row.cact{grid-template-columns:1fr}}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -2698,7 +2713,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "40.1";
+const APP_VERSION = "41.0";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -13166,6 +13181,318 @@ function reviewTotal() { let due = 0, nw = 0; Object.values(S.decks).filter(d =>
 
 /* ---------- tube icons: liquid sits inside the glass, outline drawn on top ---------- */
 { const ci = capIcon; capIcon = function (...a) { return ci(...a).replace(/(<path d="([^"]+)" fill="var\(--surface\)" stroke="#B4B4BB" stroke-width="1\.1"\/>)([\s\S]*?)(<rect x="(?:2|7)" y="(?:1|6)")/, (m, body, d, mid, capStart) => `<path d="${d}" fill="var(--surface)"/>${mid}<path d="${d}" fill="none" stroke="#B4B4BB" stroke-width="1.1"/>${capStart}`); }; }
+/* ===================== v41 · sync audit ===================== */
+/* Every piece of synced data now merges entry by entry with timestamps, so two devices always
+   end up with exactly the same result no matter which one syncs first. */
+const STAMPED = ["lectures", "objnotes", "rot", "rotnotes", "palaces", "glossUser"];
+const prepFields = () => { const P = S.meta.prep || {}; return { on: P.on, start: P.start, order: P.order, seen: P.seen }; };
+function stampBag() { const b = {}; STAMPED.forEach(k => b[k] = S.meta[k] || {}); b.prepF = prepFields(); return b; }
+const jsonOf = v => JSON.stringify(v === undefined ? null : v);
+/* a fair tiebreak: both devices pick the same value when neither has a timestamp */
+const pickTie = (a, b) => (jsonOf(a) >= jsonOf(b) ? a : b);
+{ let snap = null, cardSnap = null;
+  setInterval(() => { try { if (!S.loaded) return; const T = S.meta._T = S.meta._T || {}; const bag = stampBag(); let ch = false;
+      if (snap === null) { snap = {}; Object.entries(bag).forEach(([k, o]) => { snap[k] = {}; Object.entries(o || {}).forEach(([s, v]) => snap[k][s] = jsonOf(v)); }); }
+      else Object.entries(bag).forEach(([k, o]) => { const t = T[k] = T[k] || {}; const now = {}; Object.entries(o || {}).forEach(([s, v]) => now[s] = jsonOf(v));
+        Object.keys(now).forEach(s => { if (snap[k][s] !== now[s]) { t[s] = Date.now(); ch = true; } }); Object.keys(snap[k]).forEach(s => { if (!(s in now) || now[s] === "null") { if (!(t[s] < 0)) { t[s] = -Date.now(); ch = true; } } }); snap[k] = now; });
+      /* card deletions: a card id that vanishes from every deck is remembered as deleted */
+      const ids = new Set(); Object.values(S.decks).forEach(d => d.cards.forEach(c => ids.add(c.id)));
+      if (cardSnap) { cardSnap.forEach(id => { if (!ids.has(id)) { (S.meta.cardDel = S.meta.cardDel || {})[id] = Date.now(); ch = true; } }); }
+      cardSnap = ids;
+      if (ch) saveMeta(true);
+    } catch (e) { } }, 1000); }
+{ const mr = mergeRemote; mergeRemote = function (r, ...a) {
+    const before = JSON.parse(JSON.stringify(stampBag())), beforeT = JSON.parse(JSON.stringify(S.meta._T || {}));
+    const myDecks = {}; Object.values(S.decks).forEach(d => myDecks[d.id] = JSON.parse(JSON.stringify(d)));
+    const myFixed = S.meta.jfixed || 0, myRecap = { ...(S.meta.recapSaved || {}) }, myFreeze = { ...(S.meta.freezes || {}) }, myHide = { ...(S.meta.examDayHide || {}) }, myCardDel = { ...(S.meta.cardDel || {}) }, myGameSeen = { ...(S.meta.gameSeen || {}) };
+    const res = mr.call(this, r, ...a); const rm = (r && r.meta) || {}; const m = S.meta; const rT = rm._T || {};
+    /* stamped maps */
+    const T = m._T = {}; const remoteBag = {}; STAMPED.forEach(k => remoteBag[k] = rm[k] || {}); const rp = rm.prep || {}; remoteBag.prepF = { on: rp.on, start: rp.start, order: rp.order, seen: rp.seen };
+    Object.keys(before).forEach(k => { const L = before[k] || {}, R = remoteBag[k] || {}, lt = beforeT[k] || {}, rt = rT[k] || {}; const out = {}; T[k] = {};
+      new Set([...Object.keys(L), ...Object.keys(R), ...Object.keys(lt), ...Object.keys(rt)]).forEach(s => { const a1 = Math.abs(lt[s] || 0), b1 = Math.abs(rt[s] || 0);
+        let win, wt; if (a1 > b1) { win = "L"; wt = lt[s]; } else if (b1 > a1) { win = "R"; wt = rt[s]; } else { const v = pickTie(L[s], R[s]); win = v === L[s] ? "L" : "R"; wt = lt[s] || rt[s] || 0; }
+        if (wt) T[k][s] = wt; if (wt < 0) return; const v = win === "L" ? L[s] : R[s]; if (v !== undefined && v !== null) out[s] = v; });
+      if (k === "prepF") { const P = m.prep = m.prep || {}; ["on", "start", "order", "seen"].forEach(f => { if (f in out) P[f] = out[f]; }); }
+      else if (k === "glossUser") { const G = {}; new Set([...Object.keys(L), ...Object.keys(R)]).forEach(s => { const x = L[s], y = R[s]; G[s] = !x ? y : !y ? x : (x.t || 0) > (y.t || 0) ? x : (y.t || 0) > (x.t || 0) ? y : pickTie(x, y); }); m.glossUser = G; }
+      else m[k] = out; });
+    try { applyUserGloss(); } catch { }
+    /* decks: keep cards added on either device; drop cards deleted on either device */
+    const cardDel = { ...(rm.cardDel || {}) }; Object.entries(myCardDel).forEach(([k, t]) => { if (!cardDel[k] || cardDel[k] < t) cardDel[k] = t; }); m.cardDel = cardDel;
+    const cut = Date.now() - 180 * DAY; Object.keys(cardDel).forEach(k => { if (cardDel[k] < cut) delete cardDel[k]; });
+    Object.values(S.decks).forEach(d => { const other = myDecks[d.id] && JSON.stringify(myDecks[d.id].cards) !== JSON.stringify(d.cards) ? myDecks[d.id] : ((r.decks || {})[d.id] && (r.decks || {})[d.id] !== d ? (r.decks || {})[d.id] : null); if (!other) return;
+      const have = new Set(d.cards.map(c => c.id)); let ch = false;
+      (other.cards || []).forEach(c => { if (!have.has(c.id) && !cardDel[c.id] && !Object.values(S.decks).some(x => x !== d && x.cards.some(y => y.id === c.id))) { d.cards.push(JSON.parse(JSON.stringify(c))); ch = true; } });
+      const n0 = d.cards.length; d.cards = d.cards.filter(c => !cardDel[c.id]); if (d.cards.length !== n0) ch = true;
+      if (ch) { IDB.put("deck-" + d.id, d); LS.set("doc:deck-" + d.id, JSON.stringify(d)); } });
+    /* small flags combine instead of overwriting */
+    m.jfixed = Math.max(myFixed, rm.jfixed || 0);
+    m.recapSaved = { ...(rm.recapSaved || {}), ...myRecap };
+    m.freezes = { ...(rm.freezes || {}), ...myFreeze };
+    m.examDayHide = { ...(rm.examDayHide || {}), ...myHide };
+    m.gameSeen = { ...(rm.gameSeen || {}) }; Object.entries(myGameSeen).forEach(([k, v]) => { if (!m.gameSeen[k] || v < m.gameSeen[k]) m.gameSeen[k] = v; });
+    ["dayOneShown", "programSeen"].forEach(k => { if (rm[k]) m[k] = m[k] || rm[k]; });
+    if ((rm.weekSeen || "") > (m.weekSeen || "")) m.weekSeen = rm.weekSeen;
+    IDB.put("meta", JSON.parse(JSON.stringify(m))); LS.set("doc:meta", JSON.stringify(m));
+    return res; }; }
+/* ===================== v41 · fun facts (cycled in a fixed shuffled order, saved and synced) ===================== */
+const MORE_FACTS = [
+/* hematology */
+"Red cells are about 7 to 8 micrometers across, which makes a handy size ruler on a smear: a small lymphocyte’s nucleus is about the same size.",
+"A red cell can squeeze through capillaries narrower than itself thanks to its flexible membrane and biconcave shape.",
+"Mature red cells have no mitochondria, so they make energy by glycolysis alone.",
+"Hemoglobin is made of four globin chains, each holding a heme group with one iron atom.",
+"Adult hemoglobin (Hb A) is two alpha and two beta chains; fetal hemoglobin (Hb F) swaps the betas for gammas.",
+"Fetal hemoglobin grabs oxygen more tightly than adult hemoglobin, which helps a fetus pull oxygen from the mother’s blood.",
+"Sickle hemoglobin comes from a single amino acid change: valine replaces glutamic acid in the beta chain.",
+"Howell-Jolly bodies are leftover bits of nuclear DNA; they show up when the spleen is missing or not working.",
+"Basophilic stippling is clumped ribosomes and is a classic clue to lead poisoning.",
+"Pappenheimer bodies are iron granules; they stain blue with Prussian blue.",
+"Rouleaux look like stacks of coins and suggest high plasma proteins, like in multiple myeloma.",
+"Spherocytes have no central pallor because they’ve lost membrane relative to their volume.",
+"Teardrop cells (dacrocytes) are a classic clue to myelofibrosis.",
+"Hypersegmented neutrophils (6 or more lobes) point toward B12 or folate deficiency.",
+"Döhle bodies are pale blue patches of rough ER in neutrophils, often seen with infection.",
+"Toxic granulation is darker, coarser granules in neutrophils during infection or inflammation.",
+"Band neutrophils have a curved, unsegmented nucleus; more of them is called a left shift.",
+"Monocytes are the largest normal white cells in blood and become macrophages in tissues.",
+"Reactive lymphocytes, common in mono, often look like they’re hugging the red cells around them.",
+"The MCV is the average red cell volume, reported in femtoliters.",
+"The RDW measures how varied red cell sizes are; it rises early in iron deficiency.",
+"MCHC rarely goes above normal except with spherocytes or a sample problem like cold agglutinins or lipemia.",
+"The rule of three: hemoglobin times 3 is about the hematocrit, and RBC count times 3 is about the hemoglobin.",
+"A corrected reticulocyte count adjusts for anemia so the marrow’s response isn’t overstated.",
+"Reticulocytes mature into red cells within about a day in the blood.",
+"Erythropoietin, the hormone that drives red cell production, is made mainly by the kidneys.",
+"Ferritin is the best single blood test for iron stores, but it also rises with inflammation.",
+"In iron deficiency, TIBC goes up while serum iron and ferritin go down.",
+"Thalassemias reduce globin chain production rather than changing the chain’s structure.",
+"Hemoglobin H disease happens when three of the four alpha genes are missing.",
+"The Mentzer index (MCV ÷ RBC) helps separate thalassemia trait (low) from iron deficiency (high).",
+"Platelets come from megakaryocytes, giant marrow cells that shed thousands of platelets each.",
+"Platelet clumping in EDTA can falsely lower a platelet count; redrawing in citrate can fix it.",
+"Platelet satellitism is platelets ringing neutrophils, an EDTA artifact.",
+"An automated analyzer flags cells it can’t classify, and that’s when a manual smear review steps in.",
+"The feathered edge of a smear is where cells lie in a single layer, ideal for a differential.",
+"Wright stain is a Romanowsky stain: an acidic dye (eosin) and basic dyes (methylene blue and its relatives).",
+"Leukemoid reactions can look like leukemia, but the cells are mature and the LAP score is high.",
+"The Philadelphia chromosome, t(9;22), creates the BCR-ABL fusion in CML.",
+"Auer rods are made of fused primary granules.",
+"Acute promyelocytic leukemia (APL) can cause DIC, which makes it a lab emergency.",
+"Hairy cell leukemia gets its name from the thin projections on its lymphocytes.",
+"Sézary cells have a folded, brain-like nucleus.",
+"Plasma cells have an off-center nucleus and a pale zone next to it called the hof.",
+"Bone marrow is usually sampled from the posterior iliac crest.",
+/* hemostasis */
+"The PT/INR monitors warfarin, while the PTT is classically used for unfractionated heparin.",
+"The INR standardizes PT results so they can be compared between labs and reagents.",
+"Citrate tubes are drawn 9 parts blood to 1 part anticoagulant; a short draw throws that ratio off.",
+"A very high hematocrit leaves less plasma for the citrate, which can falsely prolong clotting times.",
+"Fibrinogen is factor I, and it’s also an acute phase reactant.",
+"D-dimer comes from breaking down cross-linked fibrin, so it shows that a clot formed and was broken down.",
+"Factor VIII deficiency causes hemophilia A; factor IX deficiency causes hemophilia B.",
+"Von Willebrand factor carries factor VIII and helps platelets stick to damaged vessels.",
+"Factor XII deficiency prolongs the PTT but doesn’t cause bleeding.",
+"A mixing study tells a factor deficiency (it corrects) from an inhibitor (it doesn’t).",
+"Lupus anticoagulant prolongs clotting tests in the lab but raises clotting risk in the body.",
+"Heparin works by boosting antithrombin.",
+"Bleeding time was once tested by making a tiny cut on the forearm and timing it.",
+"Platelet aggregation studies watch how platelets clump when exposed to agonists like ADP and collagen.",
+"Vitamin K–dependent factors are II, VII, IX and X, plus proteins C and S.",
+"Factor VII has the shortest half-life of the clotting factors, so the PT rises first with warfarin.",
+"Thrombin time checks the last step: fibrinogen turning into fibrin.",
+/* microbiology */
+"Gram-positive bacteria hold the crystal violet stain thanks to their thick peptidoglycan wall.",
+"In a Gram stain, decolorizing is the critical step; too much makes everything look Gram-negative.",
+"Staphylococcus means “grape cluster” in Greek, describing how it looks under the microscope.",
+"Streptococcus means “twisted chain.”",
+"Blood agar shows hemolysis: alpha is green, beta is clear, and gamma is no change.",
+"MacConkey agar grows Gram-negatives and shows lactose fermenters as pink colonies.",
+"Chocolate agar is made with heated blood, which releases nutrients that Haemophilus needs.",
+"Thayer-Martin agar contains antibiotics that suppress normal flora to help isolate Neisseria.",
+"Mannitol salt agar uses high salt to select for staph; S. aureus turns it yellow.",
+"Hektoen enteric agar shows Salmonella as colonies with black centers from H₂S.",
+"The coagulase test separates S. aureus from most other staph.",
+"The catalase test bubbles because the enzyme breaks hydrogen peroxide into water and oxygen.",
+"The oxidase test turns purple within seconds when cytochrome c oxidase is present.",
+"The indole test detects bacteria that break tryptophan down into indole.",
+"Spot indole positive plus lactose fermenter is a quick presumptive E. coli.",
+"Urease-positive organisms like Proteus raise urine pH and can help form struvite stones.",
+"Pseudomonas often has a metallic sheen and a grape-like smell.",
+"Klebsiella makes thick, mucoid colonies because of its capsule.",
+"Haemophilus influenzae needs both X factor (hemin) and V factor (NAD) to grow.",
+"Satellite growth is Haemophilus growing next to a staph streak, which supplies V factor.",
+"Campylobacter grows best at 42 °C in low oxygen.",
+"Helicobacter pylori is strongly urease positive, which helps it survive stomach acid.",
+"Clostridioides difficile is a spore-former and a major cause of hospital diarrhea.",
+"Anaerobes are often missed if specimens sit exposed to air.",
+"Mycobacterium tuberculosis can take weeks to grow in culture.",
+"Acid-fast bacteria have waxy mycolic acids in their walls that resist decolorizing.",
+"Cryptococcus has a thick capsule seen as a halo with India ink.",
+"Candida albicans forms germ tubes when incubated in serum.",
+"Aspergillus has septate hyphae that branch at acute angles.",
+"Mucor and Rhizopus have broad, ribbon-like hyphae with few or no septa.",
+"Dimorphic fungi grow as molds at room temperature and yeasts at body temperature.",
+"Giardia trophozoites have a face-like appearance with two nuclei like eyes.",
+"Plasmodium falciparum often shows multiple ring forms in one red cell and banana-shaped gametocytes.",
+"Thick blood smears find parasites; thin smears help identify the species.",
+"Pinworm eggs are collected with clear tape pressed against the skin.",
+"Ova and parasite exams often need three samples on different days.",
+"Blood cultures are usually drawn in sets of two from separate sites.",
+"A single positive blood culture with skin flora may be contamination, which is why sets are compared.",
+"Kirby-Bauer testing measures zones around antibiotic disks to judge susceptibility.",
+"MIC stands for minimum inhibitory concentration, the lowest drug level that stops visible growth.",
+"MRSA carries the mecA gene, which changes the penicillin-binding protein.",
+"ESBL enzymes let bacteria break down many penicillins and cephalosporins.",
+"Carbapenemase producers, like KPC, are a serious resistance threat.",
+"MALDI-TOF identifies bacteria by their protein fingerprint in minutes.",
+"Biosafety cabinets protect you, the sample and the environment with HEPA-filtered airflow.",
+/* blood bank / immunology */
+"ABO antibodies are naturally occurring: you have them without ever being transfused.",
+"Type O red cells lack A and B antigens, so O-negative is the universal red cell donor.",
+"AB plasma has neither anti-A nor anti-B, which makes AB the universal plasma donor.",
+"The Rh D antigen is the most immunogenic red cell antigen after A and B.",
+"Rh immune globulin (RhIG) keeps an Rh-negative mother from making anti-D.",
+"The Bombay phenotype lacks H antigen, so these people make anti-H and need Bombay blood.",
+"Kell antibodies can cause severe hemolytic disease of the fetus and newborn.",
+"Duffy-negative red cells resist infection by Plasmodium vivax.",
+"Kidd antibodies are famous for delayed hemolytic transfusion reactions.",
+"Lewis antigens aren’t made by red cells; they’re absorbed from plasma.",
+"The direct antiglobulin test (DAT) detects antibody already stuck to red cells in the body.",
+"The indirect antiglobulin test (IAT) finds antibodies in plasma that could react with donor cells.",
+"Antihuman globulin (Coombs reagent) bridges antibody-coated cells so they visibly clump.",
+"Check cells are IgG-coated cells added to negative AHG tests to prove the test worked.",
+"Agglutination is graded from 0 to 4+, with 4+ being one solid clump.",
+"An antibody panel compares reactions against cells with known antigens to identify the antibody.",
+"Dosage means an antibody reacts more strongly with cells that have a double dose of the antigen.",
+"Platelets are stored at room temperature with gentle agitation for about five days.",
+"Red cells are stored refrigerated, while plasma is frozen.",
+"Irradiating blood prevents transfusion-associated graft-versus-host disease.",
+"Leukoreduction removes white cells to reduce fever reactions and some infections.",
+"TRALI is lung injury within hours of transfusion, often linked to donor antibodies.",
+"TACO is circulatory overload from giving blood too fast or in too large a volume.",
+"An acute hemolytic transfusion reaction is most often caused by ABO incompatibility, usually a clerical error.",
+"IgM is the largest antibody, a pentamer, and is great at agglutinating cells.",
+"IgG is the only antibody class that crosses the placenta.",
+"IgA protects mucous membranes and is found in tears, saliva and breast milk.",
+"IgE drives allergic reactions by triggering mast cells.",
+"Complement can punch holes in cell membranes with the membrane attack complex.",
+"ELISA tests use an enzyme-linked antibody that produces a color change.",
+"Flow cytometry identifies cells by their surface markers, like CD4 and CD8.",
+"CD4 counts are used to monitor HIV infection.",
+"An ANA test screens for autoimmune disease; the pattern gives clues to the cause.",
+"Rheumatoid factor is an antibody against the Fc part of IgG.",
+"A positive monospot detects heterophile antibodies in infectious mononucleosis.",
+/* chemistry */
+"Glucose drops about 5 to 7 percent per hour in an unspun tube as cells keep using it.",
+"Gray-top tubes contain sodium fluoride, which stops cells from using glucose.",
+"Potassium leaks out of red cells, so hemolysis falsely raises it.",
+"Squeezing the arm or clenching the fist during a draw can falsely raise potassium.",
+"Sodium is the main cation outside cells; potassium is the main cation inside.",
+"The anion gap helps sort metabolic acidosis into high-gap and normal-gap types.",
+"BUN and creatinine together help tell kidney problems from dehydration.",
+"Creatinine comes from muscle, so people with more muscle tend to have higher levels.",
+"eGFR estimates kidney filtering from creatinine, age and sex.",
+"Troponin is the preferred marker for heart muscle damage.",
+"BNP rises when the heart’s ventricles are stretched, as in heart failure.",
+"ALT is more liver-specific than AST.",
+"Alkaline phosphatase rises with bile duct blockage and with bone growth.",
+"GGT helps confirm that a high alkaline phosphatase is from the liver.",
+"Direct bilirubin is conjugated; indirect bilirubin is unconjugated.",
+"Newborn jaundice is usually from unconjugated bilirubin.",
+"Lipase is more specific for pancreatitis than amylase.",
+"Hemoglobin A1c reflects about the past two to three months of blood glucose.",
+"Lipemic samples can scatter light and interfere with many tests.",
+"Icteric samples are dark yellow from bilirubin and can interfere with some methods.",
+"Beer’s law says absorbance is proportional to concentration, which is the basis of spectrophotometry.",
+"Ion-selective electrodes measure sodium, potassium and chloride.",
+"Arterial blood gases must be kept free of air bubbles to stay accurate.",
+"A pH below 7.35 is acidemia; above 7.45 is alkalemia.",
+"In respiratory problems, CO₂ moves the pH; in metabolic problems, bicarbonate does.",
+"Lactate rises when tissues don’t get enough oxygen.",
+"Ammonia samples go on ice and get tested quickly, since levels rise as the tube sits.",
+"TSH is usually the first test for thyroid function.",
+"Calcium is about half bound to proteins, so low albumin lowers total calcium.",
+"Therapeutic drug monitoring often uses trough levels drawn right before the next dose.",
+/* urinalysis */
+"A urine dipstick’s protein pad mainly detects albumin.",
+"The blood pad on a dipstick reacts to hemoglobin and myoglobin.",
+"Nitrite on a dipstick means bacteria that convert nitrate, often Gram-negative rods.",
+"Leukocyte esterase detects enzymes from neutrophils in the urine.",
+"Urine specific gravity reflects how concentrated the urine is.",
+"Waxy casts suggest long-standing kidney disease.",
+"Red cell casts point to bleeding from the glomerulus, such as glomerulonephritis.",
+"White cell casts suggest pyelonephritis.",
+"Uric acid crystals form in acidic urine and can look like rhombuses or rosettes.",
+"Cystine crystals are hexagons and are always abnormal.",
+"Glitter cells are neutrophils whose granules shimmer in dilute urine.",
+"First-morning urine is the most concentrated sample of the day.",
+"A clean-catch midstream sample reduces contamination from the skin.",
+"Urine should be tested within about two hours or refrigerated.",
+/* QC, safety and phlebotomy */
+"Westgard rules help decide whether to accept or reject a QC run.",
+"A shift on a Levey-Jennings chart suggests systematic error, like a new reagent lot.",
+"A trend on a Levey-Jennings chart is a slow drift in one direction.",
+"Precision is how close repeated results are to each other; accuracy is how close they are to the true value.",
+"Proficiency testing compares your lab’s results with other labs on the same samples.",
+"Delta checks compare a patient’s result with their previous one to catch errors.",
+"Most lab errors happen before the sample is tested, in collection and handling.",
+"Two patient identifiers, like name and date of birth, are required before every draw.",
+"A tourniquet left on longer than a minute can change some test results.",
+"The order of draw keeps additives from one tube contaminating the next.",
+"Tubes with additives should be gently inverted, not shaken.",
+"Hemolysis is the most common reason a sample gets rejected.",
+"Chain of custody documents who handled a sample, which matters for legal testing.",
+"Sharps go straight into a puncture-resistant container, never recapped by hand.",
+"The fire extinguisher method is PASS: pull, aim, squeeze, sweep.",
+"RACE stands for rescue, alarm, contain, extinguish.",
+"Safety Data Sheets (SDS) describe the hazards of each chemical in the lab.",
+"Standard precautions treat all blood and body fluids as potentially infectious.",
+/* history and fun */
+"The first blood transfusions between humans were done in the 1800s, long before blood types were known.",
+"The Coombs test is named after Robin Coombs, who described it in 1945.",
+"Paul Ehrlich developed staining methods that let scientists tell white cell types apart.",
+"Dmitri Romanowsky’s 1891 stain is the ancestor of the Wright and Giemsa stains used today.",
+"Antonie van Leeuwenhoek was one of the first people to see bacteria, using microscopes he built himself.",
+"Louis Pasteur’s experiments helped disprove spontaneous generation.",
+"Robert Koch’s postulates set the rules for linking a microbe to a disease.",
+"Ignaz Semmelweis showed that handwashing saved lives, long before germs were understood.",
+"The Wallace Coulter principle counts cells by the change in electrical resistance as each passes through a tiny opening.",
+"The hemocytometer, a counting chamber, is still used to count cells in body fluids.",
+"Lab professionals are behind a large share of the information doctors use to make decisions.",
+"Medical lab professionals celebrate Lab Week every April.",
+"MLS stands for Medical Laboratory Scientist; you may also see the older title CLS, Clinical Laboratory Scientist.",
+"Many labs run around the clock, because sick patients don’t keep business hours."
+];
+FUN_FACTS.push(...MORE_FACTS.filter(f => !FUN_FACTS.includes(f)));
+/* one fixed shuffled order for every device, cycled all the way through before repeating */
+const FACT_ORDER = (() => { const n = FUN_FACTS.length, a = [...Array(n).keys()]; let s = 1234567; for (let i = n - 1; i > 0; i--) { s = (s * 1103515245 + 12345) % 2147483648; const j = s % (i + 1); [a[i], a[j]] = [a[j], a[i]]; } return a; })();
+nextFact = function () { const i = (S.meta.dykIdx || 0) % FUN_FACTS.length; S.meta.dykIdx = (S.meta.dykIdx || 0) + 1; saveMeta(true); return FUN_FACTS[FACT_ORDER[i]]; };
+/* ===================== v41 · fixes ===================== */
+/* home: titles and labels on the home screen never turn into glossary links */
+{ const r = render; render = function (...a) { const out = r.apply(this, a); const v = $("#view"); if (v) v.classList.toggle("is-home", !(location.hash || "").replace("#", "")); return out; }; }
+{ const rh = renderHome; renderHome = function (decks) { rh(decks); const v = $("#view"); if (!v) return; v.classList.add("is-home");
+    /* the week-in-review notice sits at the top of the dashboard */
+    const wk = [...v.querySelectorAll(".notice")].find(n => /week in review/i.test(n.textContent)); const dash = v.querySelector(".a3exam") || v.querySelector(".a3dash");
+    if (wk && dash && wk.nextElementSibling !== dash) { wk.classList.add("notice-top"); dash.before(wk); }
+  }; }
+
+/* ID flowcharts: reachable from Practice */
+function startFlowPick() {
+  openStudy("ID flowcharts"); setProg(0);
+  ST.stage.innerHTML = `<div class="a3pick"><h2>ID flowcharts</h2><p class="muted" style="margin:-4px 0 12px">Walk through an identification one test at a time.</p><div class="a3group">${Object.entries(FLOWS).map(([id, f]) => `<button class="a3row" data-flow="${id}"><span class="a3sym" style="background:#2F6FB5">${icon("order")}</span><span class="a3rt"><b>${esc(f.name || id)}</b><small>${Object.keys(f.nodes || {}).length} steps</small></span><span class="a3chev">›</span></button>`).join("")}</div>
+    <div class="a3group" style="margin-top:12px"><button class="a3row" id="flowGame"><span class="a3sym" style="background:#2E8B47">${icon("grid")}</span><span class="a3rt"><b>Play the ID flowcharts game</b><small>Timed identifications with levels</small></span><span class="a3chev">›</span></button></div></div>`;
+  $$("[data-flow]").forEach(b => b.onclick = () => { closeStudy(true); startFlow(b.dataset.flow); });
+  $("#flowGame").onclick = () => { closeStudy(true); (TOOL_FN.g_flow || startFlowGame)(); };
+}
+{ const sm = startMixed; startMixed = function (skip) { const out = sm(skip); if (skip !== true && ST && ST.stage && !ST.stage.querySelector('[data-m="flow"]')) { const g = ST.stage.querySelector(".a3group"); g && g.insertAdjacentHTML("beforeend", `<button class="a3row" data-m="flow"><span class="a3sym" style="background:#2F6FB5">${icon("order")}</span><span class="a3rt"><b>ID flowcharts</b><small>Step-by-step organism identification</small></span><span class="a3chev">›</span></button>`); const b = ST.stage.querySelector('[data-m="flow"]'); b && (b.onclick = () => { closeStudy(true); startFlowPick(); }); } return out; }; }
+
+/* games in Today’s tasks: a new game is suggested only in its first two days */
+{ const sg = smartGame; smartGame = function () {
+    const seen = S.meta.gameSeen = S.meta.gameSeen || {}; let ch = false; GAMES.forEach(g => { try { if (gameUnlocked(g[0]) && !seen[g[0]]) { seen[g[0]] = dayKey(); ch = true; } } catch { } }); if (ch) saveMeta(true);
+    const res = sg(); if (res && /Newly unlocked/.test(res.why || "")) { const id = res.ids[0]; const age = (new Date(dayKey() + "T12:00") - new Date((seen[id] || dayKey()) + "T12:00")) / DAY; if (age > 2) return null; }
+    return res; }; }
+/* course page: the five action buttons become an even grid */
+{ const r = render; render = function (...a) { const out = r.apply(this, a); const q = document.getElementById("quizC"); if (q && q.parentElement && !q.parentElement.classList.contains("cact")) q.parentElement.classList.add("cact"); return out; }; }
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
