@@ -3001,6 +3001,7 @@ html.study-open,html.study-open body{overflow:hidden!important;overscroll-behavi
 .empty .btn{margin-top:4px}
 /* disabled rows */
 .a3row[disabled]{opacity:.55;cursor:default}
+.rv-pill.lc{background:color-mix(in srgb,#E5484D 14%,var(--surface));color:#C8292F}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -3088,7 +3089,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "47.0";
+const APP_VERSION = "47.1";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -4388,7 +4389,6 @@ function startLearn(deck, opts = {}) {
       if (sq.agains >= 6 || !othersLeft) { for (let k = queue.length - 1; k > i; k--) if (same(queue[k])) queue.splice(k, 1); toast("Let’s leave this one for today. It’s scheduled to come back tomorrow."); }
       else addAt([3, 6, 9], "again");
     } else if (g === 2) { if (queue.slice(i + 1).filter(same).length < 12) addAt([8, 16, 24], "hard"); }
-    else if (g === 3 && kind === "first") addAt([10], "check");
     if (g === 1) again++; else good++;
     if (!queue.slice(i + 1).some(same)) doneN++;
     i++; show();
@@ -14456,9 +14456,9 @@ function startTour() {
 { const r = render; render = function (...a) { const out = r.apply(this, a); if ((location.hash || "") === "#more" && !document.getElementById("tourBox")) { const v = $("#view"); const h1 = v && v.querySelector("h1"); if (h1) { h1.insertAdjacentHTML("afterend", `<div class="panel tourcard" id="tourBox"><span class="tc-e">🧭</span><div><b>Take a tour</b><small>A one-minute walkthrough of everything LabDeck can do.</small></div><button class="btn primary sm" id="tourGo">Start</button></div>`); $("#tourGo").onclick = startTour; } } return out; }; }
 /* ===================== v47 ===================== */
 /* ---------- leeches: part of weak spots, and their own practice ---------- */
-{ const wf = weakFacts; weakFacts = function (decks, n = 25) { const base = wf(decks, 400); const leeches = []; (decks || Object.values(S.decks).filter(d => !d.hidden)).forEach(d => factsOf(d).forEach(f => { const s = (S.srs[d.id] || {})[f.key]; if (s && (s.l || 0) >= 4 && !isSus(f)) leeches.push(f); }));
+{ const wf = weakFacts; weakFacts = function (decks, n = 25) { const base = wf(decks, 400); const leeches = []; (decks || Object.values(S.decks).filter(d => !d.hidden)).forEach(d => factsOf(d).forEach(f => { if (isLeech(stOf(f)) && !isSus(f)) leeches.push(f); }));
     const seen = new Set(); return [...leeches, ...base].filter(f => !seen.has(f.key) && seen.add(f.key)).slice(0, n); }; }
-function leechFacts() { const out = []; Object.values(S.decks).filter(d => !d.hidden).forEach(d => factsOf(d).forEach(f => { const s = (S.srs[d.id] || {})[f.key]; if (s && (s.l || 0) >= 4 && !isSus(f)) out.push(f); })); return out; }
+function leechFacts() { const out = []; Object.values(S.decks).filter(d => !d.hidden).forEach(d => factsOf(d).forEach(f => { if (isLeech(stOf(f)) && !isSus(f)) out.push(f); })); return out; }
 /* ---------- practice one detail across every profile (e.g. catalase for every organism) ---------- */
 function profileFields() { const m = new Map(); Object.values(S.decks).filter(d => !d.hidden).forEach(d => factsOf(d).forEach(f => { if (f.kind === "field" && f.field && !isSus(f)) { const k = f.field.trim(); if (!m.has(k)) m.set(k, []); m.get(k).push(f); } })); return [...m.entries()].filter(([, L]) => L.length >= 2).sort((a, b) => b[1].length - a[1].length); }
 function startFieldPick() {
@@ -14472,7 +14472,7 @@ function startFieldPick() {
 PAGEHEAD.push(["Practice one detail", "list", "#2F6FB5", "Drill a single detail across every profile card, like catalase for every organism."]);
 navWrap("startFieldPick");
 { const sm = startMixed; startMixed = function (skip) { const out = sm(skip); try { if (skip !== true && ST && ST.stage) { const g = ST.stage.querySelector(".a3group"); const ws = g && g.querySelector('[data-m="weak"] small'); if (ws) ws.textContent = "Your shakiest cards across every deck, leeches first";
-      if (g && !g.querySelector('[data-m="leech"]')) { const n = leechFacts().length; g.insertAdjacentHTML("beforeend", `<button class="a3row" data-m="leech" ${n ? "" : "disabled"}><span class="a3sym" style="background:#C8292F">${icon("target")}</span><span class="a3rt"><b>Leeches</b><small>${n ? `${n} card${n === 1 ? "" : "s"} you’ve missed 4 or more times, all together` : "No leeches right now. Nice."}</small></span><span class="a3chev">›</span></button>`); const b = g.querySelector('[data-m="leech"]'); n && (b.onclick = () => { closeStudy(true); startLearn(null, { queue: shuffle(leechFacts()), title: "Leeches" }); }); }
+      if (g && !g.querySelector('[data-m="leech"]')) { const n = leechFacts().length; g.insertAdjacentHTML("beforeend", `<button class="a3row" data-m="leech" ${n ? "" : "disabled"}><span class="a3sym" style="background:#C8292F">${icon("target")}</span><span class="a3rt"><b>Leeches</b><small>${n ? `${n} card${n === 1 ? "" : "s"} you keep missing, all together` : "No leeches right now. Nice."}</small></span><span class="a3chev">›</span></button>`); const b = g.querySelector('[data-m="leech"]'); n && (b.onclick = () => { closeStudy(true); startLearn(null, { queue: shuffle(leechFacts()), title: "Leeches" }); }); }
       if (g && !g.querySelector('[data-m="field"]') && profileFields().length) { g.insertAdjacentHTML("beforeend", `<button class="a3row" data-m="field"><span class="a3sym" style="background:#2F6FB5">${icon("list")}</span><span class="a3rt"><b>Practice one detail</b><small>Like catalase or Gram stain, across every profile</small></span><span class="a3chev">›</span></button>`); g.querySelector('[data-m="field"]').onclick = () => startFieldPick(); } } } catch { } return out; }; }
 
 /* ---------- games: a level you’ve unlocked never locks again ---------- */
@@ -14490,6 +14490,11 @@ setInterval(() => { try { if (!S.loaded) return; let ch = false; Object.values(g
 
 /* ---------- consistent empty states ---------- */
 new MutationObserver(() => { document.querySelectorAll(".empty:not([data-es])").forEach(e => { e.dataset.es = 1; if (!e.querySelector(".es-ic")) e.insertAdjacentHTML("afterbegin", `<span class="es-ic">${icon("sparkle")}</span>`); }); }).observe(document.documentElement, { childList: true, subtree: true });
+/* ---------- review: leech cards wear a red “Leech” label ---------- */
+{ const rd = rvDecorate; rvDecorate = function () { rd(); try { const fl = ST && ST.stage && ST.stage.querySelector(".flip:not([data-lch])"); if (!fl) return; fl.dataset.lch = 1;
+    const name = ((ST.stage.querySelector(".studyhead b, .studyhead h2") || {}).textContent || "").trim(); const deck = rvDeckByName(name); const front = fl.querySelector(".face:not(.back)"); if (!deck || !front) return;
+    const c = front.cloneNode(true); c.querySelectorAll(".kicker,.rv-pill").forEach(k => k.remove()); const f = rvFindFact(deck, c.textContent);
+    if (f && isLeech(stOf(f))) { const p = front.querySelector(".rv-pill"); if (p && !/Final check/.test(p.textContent)) { p.textContent = "Leech"; p.className = "rv-pill lc"; } } } catch { } }; }
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
