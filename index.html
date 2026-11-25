@@ -3002,6 +3002,11 @@ html.study-open,html.study-open body{overflow:hidden!important;overscroll-behavi
 /* disabled rows */
 .a3row[disabled]{opacity:.55;cursor:default}
 .rv-pill.lc{background:color-mix(in srgb,#E5484D 14%,var(--surface));color:#C8292F}
+.sync-diag{margin-top:8px}
+.sd-ok{font-size:.8rem;color:var(--ink-3)}
+.sd-err{background:color-mix(in srgb,#F5B800 12%,var(--surface));border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:4px}
+.sd-err b{font-size:.9rem}.sd-err p{margin:0;font-size:.88rem;line-height:1.45;color:var(--ink-2)}.sd-err small{font-size:.75rem;color:var(--ink-3)}
+.sd-err .btn{align-self:flex-start;margin-top:6px;background:var(--surface)!important;color:var(--violet-ink)!important;border:0!important;border-radius:999px!important}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -3089,7 +3094,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "47.1";
+const APP_VERSION = "47.2";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -14495,6 +14500,49 @@ new MutationObserver(() => { document.querySelectorAll(".empty:not([data-es])").
     const name = ((ST.stage.querySelector(".studyhead b, .studyhead h2") || {}).textContent || "").trim(); const deck = rvDeckByName(name); const front = fl.querySelector(".face:not(.back)"); if (!deck || !front) return;
     const c = front.cloneNode(true); c.querySelectorAll(".kicker,.rv-pill").forEach(k => k.remove()); const f = rvFindFact(deck, c.textContent);
     if (f && isLeech(stOf(f))) { const p = front.querySelector(".rv-pill"); if (p && !/Final check/.test(p.textContent)) { p.textContent = "Leech"; p.className = "rv-pill lc"; } } } catch { } }; }
+/* ===================== v47.2 · sync that repairs itself ===================== */
+/* Sync is on whenever you’ve connected a token. If the sync file’s location is lost or not found,
+   LabDeck finds it again (or recreates it) instead of stalling. Failures retry on a timer, and the
+   last problem is shown in Settings in plain words. */
+Sync.on = function () { return !!this.token; };
+Sync.relink = async function () {
+  let found = null;
+  for (let page = 1; page <= 5 && !found; page++) { const list = await this.api(`/gists?per_page=100&page=${page}`); found = (list || []).find(g => g.files && g.files[GIST_FILE]); if (!list || list.length < 100) break; }
+  if (found) this.gist = found.id;
+  else { const g = await this.api("/gists", { method: "POST", body: JSON.stringify({ description: "LabDeck study data (private)", public: false, files: { [GIST_FILE]: { content: JSON.stringify(snapshot()) } } }) }); this.gist = g.id; }
+  LS.set("gh_gist", this.gist);
+};
+{ const api0 = Sync.api; Sync.api = async function (...a) { try { return await api0.apply(this, a); } catch (e) { this.lastErr = { status: e && e.status || 0, msg: String((e && (e.msg || e.message)) || "").slice(0, 240), rate: !!(e && e.rate), t: Date.now() }; try { LS.set("gh_err", JSON.stringify(this.lastErr)); } catch { } throw e; } }; }
+{ const now0 = Sync.now; Sync.now = async function (...a) {
+    if (!this.token) return;
+    if (!this.gist) { if (this.busy) return; this.busy = true; this.set("syncing"); try { await this.relink(); } catch (e) { this.busy = false; this.set(e && e.status === 401 ? "auth" : "error"); return; } this.busy = false; }
+    return now0.apply(this, a); }; }
+{ const set0 = Sync.set; const waits = [30, 60, 120, 300, 600]; Sync.set = function (s, ...a) { const out = set0.call(this, s, ...a);
+    if (s === "ok") { this.fails = 0; this.lastErr = null; try { LS.del("gh_err"); } catch { } clearTimeout(this.retryT); }
+    if (s === "error") { this.fails = (this.fails || 0) + 1; clearTimeout(this.retryT); const w = (this.lastErr && this.lastErr.rate ? 2 : 1) * waits[Math.min(waits.length - 1, this.fails - 1)]; this.retryAt = Date.now() + w * 1000; this.retryT = setTimeout(() => this.now(), w * 1000); }
+    try { syncDiag(); } catch { } return out; }; }
+try { Sync.lastErr = JSON.parse(LS.get("gh_err") || "null"); } catch { }
+function syncReason(e) {
+  if (!e) return "";
+  if (!e.status) return navigator.onLine ? "LabDeck couldn’t reach GitHub. It may be a brief network hiccup." : "You’re offline. LabDeck will sync when you’re back online.";
+  if (e.rate || e.status === 429 || (e.status === 403 && /rate limit|secondary|abuse/i.test(e.msg))) return "GitHub asked LabDeck to slow down for a bit, which can happen after uploading many pictures. It will try again on its own.";
+  if (e.status === 404) return "GitHub couldn’t find your sync file, so LabDeck is finding it again or making a new one. If this keeps happening, your token may not be a classic token with the gist box checked.";
+  if (e.status === 401) return "GitHub no longer accepts your token. Paste a new one below.";
+  if (e.status === 403) return "Your token doesn’t have permission for gists. Make a classic token with only the gist box checked.";
+  if (e.status === 413 || e.status === 422) return "GitHub turned down an upload, possibly a very large picture. Your data is safe on this device.";
+  if (e.status >= 500) return "GitHub is having a temporary problem. LabDeck will try again shortly.";
+  return `GitHub returned an error (${e.status}). LabDeck will try again shortly.`;
+}
+function syncDiag() {
+  const box = document.getElementById("syncDiag"); if (!box) return; const e = Sync.lastErr;
+  if (!Sync.token || Sync.status === "ok" || Sync.status === "syncing" || !e) { box.innerHTML = Sync.status === "ok" && Sync.lastOk ? `<span class="sd-ok">Last synced ${new Date(Sync.lastOk).toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" })}</span>` : ""; return; }
+  const mins = Sync.retryAt ? Math.max(0, Math.round((Sync.retryAt - Date.now()) / 60000)) : null;
+  box.innerHTML = `<div class="sd-err"><b>Why sync is waiting</b><p>${esc(syncReason(e))}</p><small>${new Date(e.t).toLocaleString(undefined, { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })}${e.status ? ` · code ${e.status}` : ""}${mins != null ? ` · next try ${mins ? `in about ${mins} min` : "in a moment"}` : ""}</small><button class="btn sm" id="sdNow">Try again now</button></div>`;
+  $("#sdNow").onclick = () => { Sync.fails = 0; Sync.now(); };
+}
+{ const r = render; render = function (...a) { const out = r.apply(this, a); if ((location.hash || "") === "#more") { const line = document.getElementById("syncline") || document.getElementById("syncline2"); if (line && !document.getElementById("syncDiag")) { line.insertAdjacentHTML("afterend", `<div id="syncDiag" class="sync-diag"></div>`); syncDiag(); } } return out; }; }
+/* if the location was lost by an earlier version, reconnect right away */
+setTimeout(() => { try { if (Sync.token && !Sync.gist) Sync.now(); } catch { } }, 2500);
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
