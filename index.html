@@ -2881,6 +2881,62 @@ label.search input{border:0!important;background:transparent!important;box-shado
 .bsum-today{margin:6px 0 0;font-size:.85rem;color:#7A5800;font-weight:600}
 /* speed round level tile */
 .lvl.lvl-speed b{color:var(--violet-ink)}
+/* ===================== v45 ===================== */
+/* segmented controls never cut a word: buttons size to their label and wrap to a second row if needed */
+.seg{flex-wrap:wrap!important;row-gap:2px!important}
+.seg>button{flex:1 1 auto!important;white-space:normal!important;overflow:visible!important;text-overflow:clip!important;height:auto!important;min-height:32px!important;padding:6px 12px!important;line-height:1.2!important}
+@media (max-width:600px){.seg>button{padding:6px 8px!important;font-size:.8rem!important}}
+/* dropdowns: room for the arrow, never clipped */
+select.input{padding-right:36px!important;text-overflow:ellipsis;max-width:100%}
+.study.pg select.input{min-width:0}
+/* tags */
+.tagbox{display:flex;flex-wrap:wrap;align-items:center;gap:6px;min-height:44px;padding:6px 8px;border-radius:10px;background:var(--surface);box-shadow:inset 0 0 0 .5px var(--line-2)}
+.tagbox input{flex:1;min-width:120px;border:0;outline:none;background:transparent;font:inherit;font-size:.95rem;color:var(--ink);padding:4px}
+.tagchips{display:contents}
+.tagchip{display:inline-flex;align-items:center;gap:4px;height:26px;padding:0 4px 0 10px;border-radius:999px;background:var(--violet-soft);color:var(--violet-ink);font:600 .78rem/1 var(--font-body)}
+.tagchip button{width:20px;height:20px;border:0;border-radius:50%;background:transparent;color:inherit;font-size:1rem;line-height:1;cursor:pointer}
+.tagchip button:hover{background:color-mix(in srgb,var(--violet) 18%,transparent)}
+.tagchip.sm{height:22px;padding:0 9px;font-size:.72rem}
+.cr-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+/* all cards */
+.brz{display:flex;flex-direction:column;gap:10px;padding-bottom:84px}
+.bz-row{display:flex;gap:8px}.bz-row select{flex:1}
+.bz-count{font-size:.78rem;color:var(--ink-3);padding:0 4px;font-weight:600}
+.bz-item{align-items:flex-start!important;gap:12px}
+.bz-ic{flex:none;padding-top:2px}
+.bz-item .a3rt b{font-size:.95rem}.bz-item .a3rt small{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.bz-meta{font-size:.72rem;color:var(--ink-3);margin-top:2px}
+.bz-st{display:flex;align-items:center;gap:6px;flex:none;color:#F5B800}
+.dt-pill.lc{background:color-mix(in srgb,#E5484D 14%,var(--surface));color:#C8292F}
+.bz-tip{margin:0 4px}
+.bz-bar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 16px);width:min(740px,calc(100% - 24px));display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 10px 10px 18px;border-radius:16px;background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 10px 30px rgba(0,0,0,.14),0 0 0 .5px var(--line-2);z-index:5}
+.bz-bar span{font-size:.88rem;color:var(--ink-2);font-weight:600}
+@media (max-width:899px){.bz-bar{bottom:calc(env(safe-area-inset-bottom,0px) + 12px)}}
+/* exam report */
+.xr{width:100%;max-width:640px;margin:8px auto 0;text-align:left;display:flex;flex-direction:column;gap:12px}
+.xr-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.xr-stats div{background:var(--surface);border-radius:14px;box-shadow:var(--shadow);padding:12px;text-align:center;display:flex;flex-direction:column}.xr-stats b{font-size:1.4rem;font-weight:800}.xr-stats span{font-size:.75rem;color:var(--ink-3)}
+.xr-p{padding:16px 18px!important}.xr-p h3{margin:0 0 10px}
+.xr-row{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) auto;gap:12px;align-items:center;padding:7px 0}.xr-row+.xr-row{border-top:.5px solid var(--line-2)}
+.xr-a{font-weight:600;font-size:.9rem}.xr-n{font-size:.8rem;color:var(--ink-3);font-weight:600;white-space:nowrap}.xr-row .a3bar{height:6px}
+.xr-miss{display:flex;flex-direction:column;gap:8px;margin-top:10px;max-height:420px;overflow:auto}
+.xr-m{background:var(--surface-2);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:3px}.xr-m b{font-size:.9rem;line-height:1.35}
+.xr-you{font-size:.82rem;color:#C8292F}.xr-ok{font-size:.82rem;color:#248A3D;font-weight:600}
+.xr-hist{margin-top:12px;padding:16px 18px!important}
+.xr-list{display:flex;flex-direction:column;margin-top:6px}.xr-list div{display:flex;justify-content:space-between;padding:7px 0;font-size:.88rem}.xr-list div+div{border-top:.5px solid var(--line-2)}
+/* hear it said */
+.spk{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;border:0;background:var(--surface-2);color:var(--ink-2);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:3;transition:background .15s,color .15s}
+.spk svg{width:17px;height:17px}.spk:hover{background:var(--violet-soft);color:var(--violet-ink)}.spk.on{background:var(--violet);color:#fff}
+.gitem{position:relative}.gitem .spk{top:10px;right:40px;width:28px;height:28px}.gitem .spk svg{width:14px;height:14px}
+.intro-card .spk{top:14px;right:14px}
+/* switches */
+.sw-list{display:flex;flex-direction:column}
+.sw-row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0;cursor:pointer}.sw-row+.sw-row{border-top:.5px solid var(--line-2)}
+.sw-row span{display:flex;flex-direction:column;gap:2px}.sw-row b{font-size:.95rem}.sw-row small{font-size:.8rem;color:var(--ink-3);line-height:1.4}
+.ios-sw{appearance:none;-webkit-appearance:none;flex:none;width:51px;height:31px;border-radius:999px;background:var(--seg-track);position:relative;cursor:pointer;transition:background .2s;margin:0}
+.ios-sw::after{content:"";position:absolute;top:2px;left:2px;width:27px;height:27px;border-radius:50%;background:#fff;box-shadow:0 3px 8px rgba(0,0,0,.15),0 1px 1px rgba(0,0,0,.08);transition:transform .2s}
+.ios-sw:checked{background:#34C759}.ios-sw:checked::after{transform:translateX(20px)}
+.xr-n{min-width:78px;text-align:right}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -2968,7 +3024,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "44.0";
+const APP_VERSION = "45.0";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -4219,6 +4275,8 @@ function startLearn(deck, opts = {}) {
     if (i >= queue.length) return finish();
     const f = queue[i]; flipped = false;
     const forced = ((ST.forceIntro = ST.forceIntro || {})[f && f.key] || 0) > 0;
+    const stub = !forced && f && !opts.browse && !opts.cram && S.meta.settings.smart !== false && stOf(f) && (stOf(f).l || 0) >= 2 && !(ST.stubDone = ST.stubDone || new Set()).has(f.key);
+    if (stub) { ST.stubDone.add(f.key); try { topRight(); } catch { } introNew(f, () => { queue.splice(i, 1); queue.splice(Math.min(queue.length, i + 3), 0, f); show(); }, "stub"); return; }
     if (f && !opts.browse && f.kind !== "occl" && (forced || (!opts.queue && !stOf(f) && S.meta.settings.introNew !== false && !(ST.intro = ST.intro || new Set()).has(f.key)))) { try { topRight(); } catch { } introNew(f, () => { (ST.intro = ST.intro || new Set()).add(f.key); if (forced) ST.forceIntro[f.key]--; queue.splice(i, 1); queue.splice(Math.min(queue.length, i + 3), 0, f); show(); }, forced); return; }
     ST.stage.innerHTML = `${studyHead(f.deck)}${flipCard("", capOf(f.deck), (stOf(f) || f.kind !== "basic" ? "" : `<div class="kicker">New</div>`) + (opts.reverse && f.kind === "basic" && f.a ? revFront(f) : factFront(f)), opts.reverse && f.kind === "basic" && f.a ? revBack(f) : factBack(f))}
       <div id="ctl"><button class="btn primary" id="show" style="width:100%;min-height:54px">Show answer</button><p class="tap-hint kbd-hint" style="margin-top:8px"><kbd>Space</kbd> to flip</p></div>`;
@@ -7766,7 +7824,7 @@ function runExam(qs, per, label) {
     if (done) return; done = true; ST.timers.forEach(clearInterval);
     let right = 0; const by = {};
     qs.forEach((q, k) => { const ok = q.options[ans[k]] === q.answer; if (ok) right++; by[q.area] = by[q.area] || [0, 0]; by[q.area][1]++; if (ok) by[q.area][0]++; if (q.f && !q.identify) recordQuiz(q.f, ok); if (!ok) logMistake({ img: !q.text && q.f && q.f.card && q.f.card.img ? q.f.card.img : undefined, src: label + " exam", q: q.text || qLabel(q), yours: ans[k] >= 0 ? q.options[ans[k]] : "", right: q.answer, opts: q.options, why: q.why || "" }); });
-    const pct = Math.round(right / qs.length * 100); setProg(1); ST.right.innerHTML = ""; if (label === "Comprehensive") statMax("compBest", pct); if (label === "Board-style") statMax("bocBest", pct);
+    const pct = Math.round(right / qs.length * 100); try { ST.lastExam = { qs, ans: ans.slice(), label, pct, ms: Date.now() - t0, by, flags: [...flags] }; } catch { } setProg(1); ST.right.innerHTML = ""; if (label === "Comprehensive") statMax("compBest", pct); if (label === "Board-style") statMax("bocBest", pct);
     ST.stage.innerHTML = `<div class="results">${ring(pct)}<h2>${right} of ${qs.length} correct</h2><p class="muted">${pct >= 80 ? "Comfortably above your program’s 70% line." : pct >= 70 ? "Passing, with little margin." : "Below the 70% line. The breakdown shows where to focus."} Finished in ${plural(Math.round((Date.now() - t0) / 60000), "minute")}.</p></div>
       <div class="panel"><h3 style="margin-bottom:8px">By course</h3>${Object.entries(by).map(([a, [r, t]]) => `<div class="deckbar"><span style="font-weight:600">${esc(a)}</span><div class="mastery"><i class="m" style="width:${r / t * 100}%;background:${r / t >= .8 ? "var(--good)" : r / t >= .7 ? "var(--warn)" : "var(--bad)"}"></i></div><span class="small muted">${r}/${t}</span></div>`).join("")}</div>
       <div class="row" style="justify-content:center"><button class="btn primary" id="rev">Review answers</button><button class="btn" id="dn">Done</button></div><div id="review" class="missed-list"></div>`;
@@ -14058,6 +14116,145 @@ function navReopen(entry) { const h0 = location.hash; setTimeout(() => { if ((ST
     return out; }; }
 /* leaving through the bottom tabs or sidebar always starts fresh */
 addEventListener("hashchange", () => { if (!(ST && ST.el && ST.el.isConnected)) { NAV.stack = []; NAV.cur = null; } });
+/* ===================== v45 ===================== */
+/* ---------- fixes ---------- */
+/* sentences only break before a capital, number or quote, and never after a known abbreviation,
+   so “S. saprophyticus”, “e.g. urine” and “vs. Staph” stay together */
+splitSent = function (t) {
+  t = String(t || ""); const out = []; let start = 0; const ABBR = /(?:^|\s|\()(?:e\.g|i\.e|vs|approx|etc|cf|Fig|No|Dr|St|Mr|Ms|[A-Z])\.$/;
+  for (let k = 0; k < t.length; k++) { const c = t[k]; if (c !== "." && c !== "!" && c !== "?") continue; let j = k + 1; while (j < t.length && /["”’)\]]/.test(t[j])) j++; if (j < t.length && !/\s/.test(t[j])) continue; let n = j; while (n < t.length && /\s/.test(t[n])) n++; if (n >= t.length) break;
+    if (!/[A-Z0-9"“(]/.test(t[n])) continue; if (c === "." && ABBR.test(t.slice(Math.max(0, k - 8), k + 1))) continue; out.push(t.slice(start, j).trim()); start = n; k = n - 1; }
+  const last = t.slice(start).trim(); if (last) out.push(last); return out.length ? out : [t];
+};
+/* going back: inside games only, an in-level screen returns to the game; otherwise straight to the previous screen, with no flash */
+{ const GAME_STARTS = new Set(GAMES.map(g => (String(g[3]).match(/start[A-Za-z]+/) || [])[0]).filter(Boolean)); const cs0 = closeStudy;
+  closeStudy = function (arg, ...rest) {
+    if (arg === true || NAV.reopening) return cs0.call(this, arg, ...rest);
+    const cur = NAV.cur, sig = navSig(); let target = null;
+    if (cur && GAME_STARTS.has(cur.name) && sig && sig !== cur.sig) target = cur; else if (NAV.stack.length) target = NAV.stack.pop();
+    if (!target) { NAV.cur = null; NAV.stack = []; return cs0.call(this, arg, ...rest); }
+    const before = ST && ST.el; const out = cs0.call(this, true); if (ST && ST.el && ST.el !== before && ST.el.isConnected) return out;
+    NAV.reopening = true; try { target.raw.apply(null, target.args); NAV.cur = { ...target, sig: navSig() }; } catch { NAV.stack = []; NAV.cur = null; cs0.call(this, arg); } finally { NAV.reopening = false; }
+    return out; }; }
+
+/* ---------- smart difficulty: cards you keep nailing space out a little faster ---------- */
+{ const rr = recordReview; recordReview = function (deckId, key, g, isNew) {
+    const prev = ((S.srs[deckId] || {})[key]) ? { ...S.srs[deckId][key] } : null; const out = rr(deckId, key, g, isNew); try { const s = (S.srs[deckId] || {})[key]; if (!s) return out;
+      s.ok = g >= 3 ? ((prev && prev.ok) || 0) + 1 : 0;
+      if (S.meta.settings.smart !== false && g >= 3 && s.ok >= 3 && (s.i || 0) >= 2) { const boost = 1 + Math.min(.3, .1 * (s.ok - 2)); const ni = Math.round(s.i * boost); if (ni > s.i) { s.d += (ni - s.i) * DAY; s.i = ni; } }
+      saveSrs(deckId); } catch { } return out; }; }
+{ const inn = introNew; introNew = function (f, done, forced) { inn(f, done, forced === "stub" ? true : forced); if (forced === "stub") { const p = ST.stage.querySelector(".intro-card .rv-pill"); if (p) { p.textContent = "Keeps slipping"; p.className = "rv-pill ag"; } const l = ST.stage.querySelector(".ic-lead"); if (l) l.innerHTML = l.innerHTML.replace(/^[^.]*\./, "This one keeps slipping, so let’s lock it in."); } }; }
+
+/* ---------- tags on cards ---------- */
+const cardTags = c => (c && Array.isArray(c.tags) ? c.tags : []);
+const allTags = () => { const m = new Map(); Object.values(S.decks).forEach(d => d.cards.forEach(c => cardTags(c).forEach(t => m.set(t, (m.get(t) || 0) + 1)))); return [...m.entries()].sort((a, b) => b[1] - a[1]).map(x => x[0]); };
+const normTag = t => String(t || "").trim().toLowerCase().replace(/\s+/g, " ").slice(0, 32);
+function tagField(initial) {
+  let tags = [...new Set((initial || []).map(normTag).filter(Boolean))];
+  const box = document.createElement("div"); box.className = "field tagfield"; box.innerHTML = `<label for="tagIn">Tags <span class="small muted">(optional)</span></label><div class="tagbox"><span class="tagchips"></span><input id="tagIn" list="tagList" autocomplete="off" placeholder="${tags.length ? "Add another" : "e.g. exam 2, bench: heme"}"></div><datalist id="tagList">${allTags().map(t => `<option value="${esc(t)}">`).join("")}</datalist>`;
+  const chips = box.querySelector(".tagchips"), inp = box.querySelector("#tagIn");
+  const draw = () => { chips.innerHTML = tags.map(t => `<span class="tagchip">${esc(t)}<button type="button" data-x="${esc(t)}" aria-label="Remove ${esc(t)}">×</button></span>`).join(""); chips.querySelectorAll("[data-x]").forEach(b => b.onclick = () => { tags = tags.filter(x => x !== b.dataset.x); draw(); }); };
+  const add = v => { v.split(",").map(normTag).filter(Boolean).forEach(t => { if (!tags.includes(t)) tags.push(t); }); inp.value = ""; draw(); };
+  inp.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === ",") { if (inp.value.trim()) { e.preventDefault(); e.stopPropagation(); add(inp.value); } } else if (e.key === "Backspace" && !inp.value && tags.length) { tags.pop(); draw(); } });
+  inp.addEventListener("change", () => { if (inp.value.trim()) add(inp.value); });
+  draw(); return { el: box, get: () => { if (inp.value.trim()) add(inp.value); return tags.slice(); } };
+}
+{ const ec = editCardModal; editCardModal = function (d, card, after, prefType) {
+    const before = new Set(d.cards.map(c => c.id)); const out = ec(d, card, after, prefType);
+    setTimeout(() => { const m = document.querySelector(".scrim:last-of-type .modal"); const save = m && m.querySelector("#saveC"); if (!save || m.querySelector(".tagfield")) return;
+      const tf = tagField(card ? cardTags(card) : []); const foot = m.querySelector(".modal-foot"); foot ? foot.before(tf.el) : save.parentElement.before(tf.el);
+      save.addEventListener("click", () => { const tags = tf.get(); setTimeout(() => { const target = card ? d.cards.find(c => c.id === card.id) : d.cards.find(c => !before.has(c.id)); if (target) { if (tags.length) target.tags = tags; else delete target.tags; d.updated = Date.now(); saveDeck(d); } }, 0); }, true);
+    }, 0); return out; }; }
+{ const cr = cardRow; cardRow = function (d, x, st) { const h = cr(d, x, st); const t = cardTags(x); return t.length ? h.replace(/(<div class="acts")/, `<div class="cr-tags">${t.map(v => `<span class="tagchip sm">${esc(v)}</span>`).join("")}</div>$1`) : h; }; }
+
+/* ---------- all cards: one place to search, filter and study any mix ---------- */
+function cardStatus(d, c) { const fs = factsOf(d).filter(f => f.card === c); const sr = S.srs[d.id] || {}; const now = Date.now(); let due = false, isNew = true, leech = false; fs.forEach(f => { const s = sr[f.key]; if (s && s.r) { isNew = false; if (s.d <= now) due = true; if ((s.l || 0) >= 4) leech = true; } }); return { due, isNew, leech, facts: fs }; }
+function startBrowser(pre = {}) {
+  openStudy("All cards"); setProg(0);
+  const st = { q: "", filter: pre.filter || "all", tags: new Set(pre.tags || []), deck: pre.deck || "", limit: 150 };
+  const decks = Object.values(S.decks).filter(d => !d.hidden).sort((a, b) => a.name.localeCompare(b.name));
+  const rows = () => { const q = st.q.toLowerCase(); const out = [];
+    decks.forEach(d => { if (st.deck && d.id !== st.deck) return; d.cards.forEach(c => { const tags = cardTags(c); if (st.tags.size && ![...st.tags].every(t => tags.includes(t))) return;
+      const text = (c.front || c.text || c.name || (c.rects || []).map(r => r.label).join(" ") || "") + " " + (c.back || "") + " " + Object.values(c.values || {}).join(" ") + " " + tags.join(" ");
+      if (q && !text.toLowerCase().includes(q)) return; const s = cardStatus(d, c);
+      if (st.filter === "new" && !s.isNew) return; if (st.filter === "due" && !s.due) return; if (st.filter === "leech" && !s.leech) return; if (st.filter === "star" && !c.star) return;
+      out.push({ d, c, s }); }); }); return out; };
+  const title = c => c.type === "occlusion" ? `Image card · ${(c.rects || []).length} labels` : (c.front || c.name || (c.text || "").replace(/\{\{(.+?)\}\}/g, "$1") || "Card");
+  const sub = c => c.type === "occlusion" ? (c.rects || []).map(r => r.label).join(", ") : c.type === "cloze" ? "Fill in the blank" : c.back || Object.entries(c.values || {}).map(([k, v]) => `${k}: ${v}`).join(" · ");
+  const draw = () => { const list = rows(); const tagsAll = allTags(); const shown = list.slice(0, st.limit);
+    ST.stage.innerHTML = `<div class="brz">
+      <label class="search"><span>${icon("search")}</span><input id="bzQ" placeholder="Search every card" value="${esc(st.q)}" autocomplete="off"></label>
+      <div class="seg bz-f">${[["all", "All"], ["new", "New"], ["due", "Due"], ["leech", "Leeches"], ["star", "Starred"]].map(([k, l]) => `<button data-f="${k}" class="${st.filter === k ? "on" : ""}">${l}</button>`).join("")}</div>
+      <div class="bz-row"><select class="input" id="bzDeck"><option value="">All decks</option>${decks.map(d => `<option value="${d.id}" ${st.deck === d.id ? "selected" : ""}>${esc(d.name)}</option>`).join("")}</select></div>
+      ${tagsAll.length ? `<div class="pickchips bz-tags">${tagsAll.map(t => `<button class="chipbtn sm ${st.tags.has(t) ? "on" : ""}" data-t="${esc(t)}">#${esc(t)}</button>`).join("")}</div>` : `<p class="small muted bz-tip">Tip: add tags to cards (like “exam 2”) to build sessions from any mix of decks.</p>`}
+      <div class="bz-count">${list.length.toLocaleString()} card${list.length === 1 ? "" : "s"}</div>
+      <div class="a3group bz-list">${shown.map(({ d, c, s }) => { const lb = labelOf(d); return `<button class="a3row bz-item" data-d="${d.id}" data-c="${c.id}"><span class="bz-ic">${capIcon(lb ? lb.color : d.color, (lb && (lb.shape || SHAPE_OF[lb.id])) || "tube", 26)}</span><span class="a3rt"><b>${escG(title(c))}</b><small>${esc(String(sub(c)).slice(0, 120))}</small><span class="bz-meta">${esc(d.name)}${cardTags(c).map(t => ` · #${esc(t)}`).join("")}</span></span><span class="bz-st">${s.leech ? `<span class="dt-pill lc">Leech</span>` : s.due ? `<span class="dt-pill due">Due</span>` : s.isNew ? `<span class="dt-pill new">New</span>` : ""}${c.star ? "★" : ""}</span></button>`; }).join("") || `<p class="small muted" style="padding:16px">No cards match.</p>`}</div>
+      ${list.length > st.limit ? `<button class="btn" id="bzMore" style="margin-top:10px;width:100%;justify-content:center">Show more</button>` : ""}
+      <div class="bz-bar"><span>${list.length ? `Study ${Math.min(list.length, 200)} card${list.length === 1 ? "" : "s"} from this list` : "Pick some cards to study"}</span><button class="btn primary" id="bzGo" ${list.length ? "" : "disabled"}>Study these</button></div></div>`;
+    const q = $("#bzQ"); q.oninput = () => { st.q = q.value; clearTimeout(q._t); q._t = setTimeout(() => { const pos = q.selectionStart; draw(); const n = $("#bzQ"); n.focus(); n.setSelectionRange(pos, pos); }, 180); };
+    $$(".bz-f [data-f]").forEach(b => b.onclick = () => { st.filter = b.dataset.f; draw(); });
+    $("#bzDeck").onchange = e => { st.deck = e.target.value; draw(); };
+    $$(".bz-tags [data-t]").forEach(b => b.onclick = () => { const t = b.dataset.t; st.tags.has(t) ? st.tags.delete(t) : st.tags.add(t); draw(); });
+    $("#bzMore") && ($("#bzMore").onclick = () => { st.limit += 150; draw(); });
+    $$(".bz-item").forEach(r => r.onclick = () => { const d = S.decks[r.dataset.d], c = d.cards.find(x => x.id === r.dataset.c); editCardModal(d, c, () => draw()); });
+    $("#bzGo").onclick = () => { const facts = list.slice(0, 200).flatMap(x => x.s.facts).filter(f => !isSus(f)); if (!facts.length) { toast("Those cards aren’t ready to study yet"); return; } const label = st.tags.size ? [...st.tags].map(t => "#" + t).join(" ") : st.filter !== "all" ? { new: "New cards", due: "Due cards", leech: "Leeches", star: "Starred cards" }[st.filter] : "Your selection"; closeStudy(true); startLearn(null, { queue: shuffle(facts).slice(0, 120), title: label }); };
+  };
+  draw();
+}
+PAGEHEAD.push(["All cards", "cards", "#2F6FB5", "Search every card in every deck, filter by tag or status, then study any mix."]);
+navWrap("startBrowser");
+{ const rh = renderHome; renderHome = function (decks) { rh(decks); const v = $("#view"); if (!v) return; const h = [...v.querySelectorAll(".section-head")].find(x => /^Decks/.test(x.textContent.trim())); if (h && !h.querySelector("#allCards")) { const nb = h.querySelector("button, a"); (nb ? nb : h).insertAdjacentHTML(nb ? "beforebegin" : "beforeend", `<button class="btn sm ghost" id="allCards">${icon("search")}All cards</button>`); $("#allCards").onclick = () => startBrowser(); } }; }
+{ const sm = startMixed; startMixed = function (skip) { const out = sm(skip); if (skip !== true && ST && ST.stage && !ST.stage.querySelector('[data-m="pick"]')) { const g = ST.stage.querySelector(".a3group"); g && g.insertAdjacentHTML("beforeend", `<button class="a3row" data-m="pick"><span class="a3sym" style="background:#2F6FB5">${icon("search")}</span><span class="a3rt"><b>Pick your own cards</b><small>Any mix of decks, tags, new, due or leeches</small></span><span class="a3chev">›</span></button>`); const b = ST.stage.querySelector('[data-m="pick"]'); b && (b.onclick = () => startBrowser()); } return out; }; }
+
+/* ---------- exam reports: where the points went, what you missed, and how you’re trending ---------- */
+new MutationObserver(() => { const E = ST && ST.lastExam; if (!E || !ST.stage) return; const res = ST.stage.querySelector(".results:not([data-rep])"); if (!res) return; res.dataset.rep = 1;
+  const rows = Object.entries(E.by).map(([a, [r, t]]) => ({ a, r, t, p: Math.round(r / t * 100), lost: t - r })).sort((x, y) => x.p - y.p);
+  const missed = E.qs.map((q, k) => ({ q, k, pick: E.ans[k] })).filter(x => x.q.options[x.pick] !== x.q.answer);
+  const avg = Math.round(E.ms / 1000 / E.qs.length);
+  const H = S.meta.examHist = S.meta.examHist || []; if (!H.some(h => h.t === E.t0)) { E.t0 = E.t0 || Date.now(); H.push({ t: E.t0, label: E.label, pct: E.pct, n: E.qs.length, by: E.by, avg }); if (H.length > 60) H.shift(); saveMeta(true); }
+  [...res.querySelectorAll(".panel")].filter(p => /^\s*By (course|deck)/.test(p.textContent)).forEach(p => p.remove());
+  res.insertAdjacentHTML("beforeend", `<div class="xr">
+    <div class="xr-stats"><div><b>${E.pct}%</b><span>score</span></div><div><b>${missed.length}</b><span>missed</span></div><div><b>${avg}s</b><span>per question</span></div></div>
+    <div class="panel xr-p"><h3>Where your points went</h3>${rows.map(x => `<div class="xr-row"><span class="xr-a">${esc(x.a)}</span><i class="a3bar"><i style="width:${x.p}%;background:${x.p >= 80 ? "#34C759" : x.p >= 70 ? "#F5B800" : "#E5484D"}"></i></i><span class="xr-n">${x.r}/${x.t}${x.lost ? ` · −${x.lost}` : ""}</span></div>`).join("")}</div>
+    ${missed.length ? `<div class="panel xr-p"><div class="fc-h"><h3 style="margin:0">What you missed</h3><button class="btn sm primary" id="xrStudy">Review these ${missed.length}</button></div><div class="xr-miss">${missed.slice(0, 40).map(x => `<div class="xr-m"><b>${escG(x.q.q || x.q.question || "")}</b>${x.pick >= 0 ? `<span class="xr-you">You: ${escG(x.q.options[x.pick])}</span>` : `<span class="xr-you">Not answered</span>`}<span class="xr-ok">Answer: ${escG(x.q.answer)}</span></div>`).join("")}</div></div>` : ""}</div>`);
+  $("#xrStudy") && ($("#xrStudy").onclick = () => { const facts = missed.map(x => x.q.f).filter(Boolean); if (!facts.length) { toast("These questions don’t map to cards"); return; } closeStudy(true); startLearn(null, { queue: facts, title: "Exam misses" }); });
+}).observe(document.documentElement, { childList: true, subtree: true });
+{ const ep = examsPicker; examsPicker = function (...a) { const out = ep.apply(this, a); try { const H = (S.meta.examHist || []).slice(-12); if (H.length) { const W = 600, Hh = 120, P = 26; const x = i => P + i * (W - 2 * P) / Math.max(1, H.length - 1), y = v => Hh - 18 - v / 100 * (Hh - 34);
+      ST.stage.insertAdjacentHTML("beforeend", `<div class="panel xr-hist"><div class="fc-h"><h3 style="margin:0">Your past attempts</h3><span class="fc-m">Best ${Math.max(...H.map(h => h.pct))}%</span></div><svg viewBox="0 0 ${W} ${Hh}" class="accsvg">${[70].map(v => `<line x1="${P}" x2="${W - P}" y1="${y(v)}" y2="${y(v)}" class="acc-grid" stroke-dasharray="4 4"/><text x="${W - P}" y="${y(v) - 4}" class="acc-yl" text-anchor="end">70% pass line</text>`).join("")}${H.length > 1 ? `<polyline points="${H.map((h, i) => x(i) + "," + y(h.pct)).join(" ")}" class="acc-line"/>` : ""}${H.map((h, i) => `<circle cx="${x(i)}" cy="${y(h.pct)}" r="4.5" class="acc-dot"><title>${esc(h.label)} · ${new Date(h.t).toLocaleDateString(undefined, { month: "short", day: "numeric" })}: ${h.pct}%</title></circle>`).join("")}</svg>
+        <div class="xr-list">${H.slice().reverse().slice(0, 5).map(h => `<div><span>${esc(h.label === "Board-style" ? "Board practice" : h.label)} · ${new Date(h.t).toLocaleDateString(undefined, { month: "short", day: "numeric" })}</span><b style="color:${h.pct >= 70 ? "#248A3D" : "#C8292F"}">${h.pct}%</b></div>`).join("")}</div></div>`); } } catch { } return out; }; }
+{ const mr = mergeRemote; mergeRemote = function (r, ...a) { const mine = (S.meta.examHist || []).slice(); const res = mr.call(this, r, ...a); const R = (((r && r.meta) || {}).examHist) || []; const by = new Map(); [...R, ...mine].forEach(h => h && by.set(h.t, h)); S.meta.examHist = [...by.values()].sort((a, b) => a.t - b.t).slice(-60); return res; }; }
+
+/* ---------- pronunciation: hear any term said out loud ---------- */
+const CAN_SPEAK = "speechSynthesis" in window;
+function say(text) { if (!CAN_SPEAK || !text) return; try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text.replace(/\s+/g, " ").trim()); u.lang = "en-US"; u.rate = .92; const vs = speechSynthesis.getVoices(); const v = vs.find(x => /en[-_]US/i.test(x.lang) && /Samantha|Google US|Natural|Ava|Allison/i.test(x.name)) || vs.find(x => /en[-_]US/i.test(x.lang)); if (v) u.voice = v; speechSynthesis.speak(u); } catch { } }
+const spkBtn = t => CAN_SPEAK && S.meta.settings.speak !== false && t ? `<button class="spk" type="button" data-say="${esc(t)}" aria-label="Hear it said">${icon("speaker")}</button>` : "";
+Object.assign(ICONS, { speaker: '<path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/>', cards: ICONS.cards || '<rect x="3" y="7" width="13" height="13" rx="2"/><path d="M7 4h11a3 3 0 0 1 3 3v11"/>' });
+document.addEventListener("click", e => { const b = e.target.closest(".spk"); if (!b) return; e.preventDefault(); e.stopPropagation(); say(b.dataset.say); b.classList.add("on"); setTimeout(() => b.classList.remove("on"), 700); }, true);
+new MutationObserver(() => { if (!CAN_SPEAK || S.meta.settings.speak === false) return;
+  document.querySelectorAll(".study .flip .face:not([data-spk]), .intro-card:not([data-spk]), .gitem:not([data-spk])").forEach(el => { el.dataset.spk = 1; let t = "";
+    if (el.classList.contains("gitem")) { const b = el.querySelector("b"); const full = el.querySelectorAll("b")[1]; t = [b && b.textContent, full && full.textContent].filter(Boolean).join(". "); }
+    else if (el.classList.contains("intro-card")) { const q = el.querySelector(".ic-q"); t = q ? plainOf(q.innerHTML) : ""; }
+    else { const c = el.cloneNode(true); c.querySelectorAll(".rv-pill,.kicker,.acx,.spk,button").forEach(x => x.remove()); t = c.textContent.replace(/\s+/g, " ").trim().slice(0, 220); }
+    if (t) el.insertAdjacentHTML("afterbegin", spkBtn(t)); }); }).observe(document.documentElement, { childList: true, subtree: true });
+
+/* ---------- sounds: soft, optional, off until you turn them on ---------- */
+let AC = null; function chime(kind) { if (!S.meta.settings.sounds) return; try { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); const now = AC.currentTime;
+    const notes = { done: [[659, 0], [880, .12]], combo: [[784, 0], [988, .07], [1175, .14]], level: [[523, 0], [659, .1], [784, .2], [1047, .32]], badge: [[880, 0], [1319, .1]], tick: [[1200, 0]] }[kind] || [[660, 0]];
+    notes.forEach(([f, t]) => { const o = AC.createOscillator(), g = AC.createGain(); o.type = "sine"; o.frequency.value = f; g.gain.setValueAtTime(0, now + t); g.gain.linearRampToValueAtTime(kind === "tick" ? .04 : .09, now + t + .015); g.gain.exponentialRampToValueAtTime(.0001, now + t + .5); o.connect(g).connect(AC.destination); o.start(now + t); o.stop(now + t + .55); }); } catch { } }
+{ const tt = toast; toast = function (msg, ...a) { if (/^(Badge earned|🏅)/.test(String(msg))) chime("badge"); return tt(msg, ...a); }; }
+{ const cb = comboBump; comboBump = function (ok) { cb(ok); if (ok && typeof COMBO !== "undefined" && COMBO >= 5 && COMBO % 5 === 0) chime("combo"); }; }
+new MutationObserver(() => { const u = document.querySelector(".modal .unl:not([data-snd])"); if (u) { u.dataset.snd = 1; if (/LEVEL UP/.test(u.textContent)) chime("level"); }
+  const r = ST && ST.stage && ST.stage.querySelector(".results:not([data-snd])"); if (r && /Session complete|cards learned|correct/.test(r.textContent)) { r.dataset.snd = 1; chime("done"); } }).observe(document.documentElement, { childList: true, subtree: true });
+
+/* ---------- Settings: smart spacing, voice and sound ---------- */
+{ const r = render; render = function (...a) { const out = r.apply(this, a); if ((location.hash || "") === "#more" && !document.getElementById("svBox")) { const v = $("#view"); const anchor = document.getElementById("storeBox") || (v && [...v.querySelectorAll(".panel")].pop()); if (anchor) {
+      const sw = (id, on, t, s) => `<label class="sw-row"><span><b>${t}</b><small>${s}</small></span><input type="checkbox" class="ios-sw" id="${id}" ${on ? "checked" : ""}></label>`;
+      anchor.insertAdjacentHTML("beforebegin", `<div class="panel" id="svBox"><h3>Study &amp; sound</h3><div class="sw-list">${sw("swSmart", S.meta.settings.smart !== false, "Smart spacing", "Cards you keep getting right space out a little faster, and cards that keep slipping get a quick learning round.")}${CAN_SPEAK ? sw("swSpeak", S.meta.settings.speak !== false, "Hear it said", "A speaker button on cards and glossary terms reads them aloud.") : ""}${sw("swSound", !!S.meta.settings.sounds, "Sounds", "Soft chimes when you finish a session, hit a combo, level up or earn a badge.")}</div></div>`);
+      $("#swSmart").onchange = e => { S.meta.settings.smart = e.target.checked; saveMeta(true); };
+      $("#swSpeak") && ($("#swSpeak").onchange = e => { S.meta.settings.speak = e.target.checked; saveMeta(true); });
+      $("#swSound").onchange = e => { S.meta.settings.sounds = e.target.checked; saveMeta(true); if (e.target.checked) chime("done"); }; } } return out; }; }
+/* tags on the deck page’s card rows, however the rows were drawn */
+{ const rd = renderDeck; renderDeck = function (d, ...a) { const out = rd(d, ...a); try { $$("#view .card-row").forEach(r => { if (r.querySelector(".cr-tags")) return; const id = (r.querySelector("[data-id]") || {}).dataset?.id; const c = id && d.cards.find(x => x.id === id); const t = cardTags(c); if (t.length) (r.querySelector(".cr-body") || r).insertAdjacentHTML("beforeend", `<div class="cr-tags">${t.map(v => `<span class="tagchip sm">${esc(v)}</span>`).join("")}</div>`); }); } catch { } return out; }; }
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
@@ -14426,6 +14623,7 @@ function startBoard() {
       let right = 0; const byDeck = {};
       qs.forEach((q, k) => { const ok = q.options[ans[k]] === q.answer; if (ok) right++; const id = q.f.deck.id; byDeck[id] = byDeck[id] || [0, 0]; byDeck[id][1]++; if (ok) byDeck[id][0]++; if (!q.identify) recordQuiz(q.f, ok); });
       const pct = Math.round(right / qs.length * 100); statMax("boardBest", pct); const took = Math.round((Date.now() - t0) / 60000);
+      try { const by = {}; Object.entries(byDeck).forEach(([id, v]) => { by[(S.decks[id] || {}).name || id] = v; }); ST.lastExam = { qs, ans: ans.slice(), label: "Board practice", pct, ms: Date.now() - t0, by }; } catch { }
       ST.right.innerHTML = ""; setProg(1);
       ST.stage.innerHTML = `<div class="results">${ring(pct)}<h2>${right} of ${qs.length} correct</h2><p class="muted">${timeUp ? "Time ran out. " : ""}Finished in ${plural(took, "minute")}. Every miss is scheduled for review today.</p></div>
         <div class="panel"><h3 style="margin-bottom:8px">By content area</h3>${Object.entries(byDeck).map(([id, [r, t]]) => `<div class="deckbar"><span style="font-weight:600">${escG(S.decks[id]?.name || "")}</span><div class="mastery"><i class="m" style="width:${r / t * 100}%;background:${r / t >= .7 ? "var(--good)" : r / t >= .5 ? "var(--warn)" : "var(--bad)"}"></i></div><span class="small muted">${r}/${t}</span></div>`).join("")}</div>
