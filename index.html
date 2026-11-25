@@ -2975,6 +2975,32 @@ html.study-open,html.study-open body{overflow:hidden!important;overscroll-behavi
 @media (prefers-reduced-motion:reduce){.tour-in{animation:none}}
 .tour-dots{display:flex;justify-content:center;gap:6px;margin:14px 0 4px}.tour-dots i{width:7px;height:7px;border-radius:50%;background:var(--line)}.tour-dots i.done{background:color-mix(in srgb,var(--violet) 40%,transparent)}.tour-dots i.on{background:var(--violet);width:18px;border-radius:4px}
 .tourcard{display:flex;align-items:center;gap:14px;padding:14px 16px!important}.tc-e{font-size:1.6rem}.tourcard div{flex:1;display:flex;flex-direction:column}.tourcard small{color:var(--ink-3);font-size:.85rem}
+/* ===================== v47 ===================== */
+/* rings: animate only when the numbers change */
+.a3rings.noanim circle{animation:none!important}
+/* fact of the day: no refresh button */
+#factNext{display:none!important}
+/* up next: larger, clearer text */
+.a3up-t span{font-size:.8rem!important;letter-spacing:.06em}
+.a3up-t b{font-size:clamp(2rem,3.6vw,2.6rem)!important;line-height:1.05!important;letter-spacing:-.02em}
+.a3up-t small{font-size:1rem!important;opacity:.92}
+.a3up .btn{font-size:1rem!important;min-height:44px}
+/* desktop: rings card hugs its content, Up next takes the rest */
+@media (min-width:900px){.a3dash{grid-template-columns:minmax(0,max-content) minmax(0,1fr)!important}.a3dash>.a3rings{padding-right:28px!important}}
+/* done for today */
+.donecard{position:relative;overflow:hidden;display:flex;align-items:center;gap:14px;padding:16px 18px;margin:6px 0 12px;border-radius:var(--r-hero,20px);background:linear-gradient(135deg,color-mix(in srgb,#34C759 16%,var(--surface)),color-mix(in srgb,#7B4FE0 12%,var(--surface)));box-shadow:var(--shadow)}
+.dc-e{font-size:1.8rem;flex:none}.donecard div{display:flex;flex-direction:column;gap:2px;position:relative;z-index:1}.donecard b{font-size:1.05rem}.donecard small{font-size:.86rem;color:var(--ink-2);line-height:1.4}
+.confetti{position:absolute;inset:0;pointer-events:none}
+.confetti i{position:absolute;top:-10px;left:calc(var(--k) * 5.5%);width:7px;height:11px;border-radius:2px;background:hsl(calc(var(--k) * 37) 75% 60%);animation:conf 1.8s cubic-bezier(.2,.6,.3,1) calc(var(--k) * 40ms) both}
+@keyframes conf{0%{transform:translateY(0) rotate(0);opacity:1}100%{transform:translateY(140px) rotate(calc(var(--k) * 45deg));opacity:0}}
+@media (prefers-reduced-motion:reduce){.confetti{display:none}}
+/* empty states: one calm design everywhere */
+.empty{display:flex!important;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;padding:28px 20px!important;background:var(--surface)!important;border:0!important;border-radius:var(--r-cell)!important;box-shadow:var(--shadow)!important;color:var(--ink-2)}
+.empty .es-ic{width:44px;height:44px;border-radius:50%;background:var(--violet-soft);color:var(--violet-ink);display:flex;align-items:center;justify-content:center}.empty .es-ic svg{width:22px;height:22px}
+.empty p{margin:0;max-width:36ch;line-height:1.45;font-size:.92rem}.empty h3,.empty b{margin:0;font-size:1rem;color:var(--ink)}
+.empty .btn{margin-top:4px}
+/* disabled rows */
+.a3row[disabled]{opacity:.55;cursor:default}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -3062,7 +3088,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "46.0";
+const APP_VERSION = "47.0";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -4304,7 +4330,7 @@ function startLearn(deck, opts = {}) {
   let total = queue.length; let doneN = 0, i = 0, flipped = false, again = 0, good = 0;
   const seenNew = new Set(); const undo = []; let SESS = {};
   function topRight() {
-    ST.right.innerHTML = `<button class="btn ghost icon sm star ${(queue[i] && queue[i].card.star) ? "on" : ""}" id="sBtn" aria-label="Star this card">${icon("star")}</button><button class="btn ghost icon sm" id="uBtn" aria-label="Undo last grade" ${undo.length ? "" : "disabled"}>${icon("undo")}</button><button class="btn ghost icon sm" id="eBtn" aria-label="Edit this card" title="Edit this card">${icon("edit")}</button><button class="btn ghost icon sm" id="nBtn" aria-label="New card in this deck" title="New card in this deck">${icon("plus")}</button><span class="small muted">${total - doneN} left</span>`;
+    ST.right.innerHTML = `<button class="btn ghost icon sm star ${(queue[i] && queue[i].card.star) ? "on" : ""}" id="sBtn" aria-label="Star this card">${icon("star")}</button><button class="btn ghost icon sm" id="uBtn" aria-label="Undo last grade" ${undo.length ? "" : "disabled"}>${icon("undo")}</button><button class="btn ghost icon sm" id="eBtn" aria-label="Edit this card" title="Edit this card">${icon("edit")}</button><button class="btn ghost icon sm" id="nBtn" aria-label="New card in this deck" title="New card in this deck">${icon("plus")}</button><span class="small muted">${Math.max(0, queue.length - i + (!ST.finalDone ? (ST.finalList || []).length : 0))} left</span>`;
     $("#uBtn").onclick = doUndo; $("#eBtn").onclick = editCurrent;
     $("#nBtn").onclick = () => { const cur = queue[i] || queue[queue.length - 1]; if (!cur) return; const d = cur.deck; const before = new Set(d.cards.map(c => c.id));
       editCardModal(d, null, () => { const fresh = factsOf(d).filter(f => !before.has(f.card.id)); d.cards.forEach(c => before.add(c.id)); if (fresh.length && !opts.browse) { queue.push(...fresh); total += fresh.length; } topRight(); toast(`Card added to ${d.name}${fresh.length && !opts.browse ? ". It’s at the end of this session." : ""}`); }); }; $("#sBtn").onclick = () => { const f = queue[i]; if (!f) return; f.card.star = !f.card.star; saveDeck(f.deck); topRight(); toast(f.card.star ? "Starred" : "Unstarred"); };
@@ -4332,7 +4358,7 @@ function startLearn(deck, opts = {}) {
       `;
     $("#whyB").onclick = () => whyModal(f);
     $("#hookB") && ($("#hookB").onclick = () => hookModal({ title: f.kind === "field" ? `${f.q}: ${f.field}` : f.q, items: hookParts(f.a), ordered: /order|steps?|sequence|first|then/i.test(f.q + " " + (f.field || "")), method: "sentence", palace: "home" }, { fact: f, noPractice: true }));
-    $("#teach") && ($("#teach").onclick = () => { (ST.forceIntro = ST.forceIntro || {})[f.key] = 2; grade(1); toast("Counted as a miss. You’ll see it explained twice, then try it again."); });
+    $("#teach") && ($("#teach").onclick = () => { const sq = SESS[f.key] = SESS[f.key] || { first: true, owe: 0 }; if (sq.first && !opts.cram && !opts.browse) { const pv = (S.srs[f.deck.id] || {})[f.key]; const wn = !pv && !seenNew.has(f.key); recordReview(f.deck.id, f.key, 1, wn); if (wn) seenNew.add(f.key); } sq.first = false; again++; (ST.forceIntro = ST.forceIntro || {})[f.key] = 2; show(); });
     $$(".grades button").forEach(b => b.onclick = () => grade(+b.dataset.g));
   }
   function grade(g) {
@@ -4345,18 +4371,26 @@ function startLearn(deck, opts = {}) {
        Only the first rating of a card in a session sets its schedule; repeats are practice. */
     const sq = SESS[f.key] = SESS[f.key] || { first: true, owe: 0 };
     if (ST.finalPhase && ST.finalSet && ST.finalSet.has(f.key)) { if (g === 1) sq.first = true; else stat("finalPass"); }
-    else if (sq.first && g >= 3 && !opts.browse && !opts.cram && !opts.queue && (ST.finalList = ST.finalList || []).length < 6) ST.finalList.push(f);
+    else if (sq.first && g >= 3 && !opts.browse && !opts.cram && !opts.queue && (ST.finalList = ST.finalList || []).length < 7) ST.finalList.push(f._base || f);
     if (opts.cram || opts.browse) recordQuiz(f, g > 2);
     else if (sq.first) { recordReview(f.deck.id, f.key, g, wasNew); if (wasNew) seenNew.add(f.key); if (g === 1 && (stOf(f) || {}).l === 4) setTimeout(() => toast("That one’s a leech. Find it under Leeches in the deck to rewrite it."), 400); }
     else recordQuiz(f, g > 2);
     sq.first = false;
-    let back = 0;
-    if (g === 1) { sq.agains = (sq.agains || 0) + 1; if (sq.agains >= 3) { sq.owe = 0; back = 0; toast("Let’s leave this one for today. It’s scheduled to come back tomorrow."); } else { sq.owe = 2; back = 3; } }
-    else if (g === 2) { sq.owe = Math.max(sq.owe, 1); back = 8; }
-    else if (sq.owe > 0) { sq.owe--; if (sq.owe > 0) back = 10; }
+    /* every showing is its own instance: again → 3 more, hard → 3 more, good on a first showing → 1 check later */
+    const base = f._base || f, kind = f._inst || "first";
+    const mk = t => { const x = Object.create(base); x._inst = t; x._base = base; return x; };
+    const same = q => (q._base || q).key === base.key;
+    const addAt = (offs, t) => offs.forEach((o, k) => queue.splice(Math.min(queue.length, i + 1 + o + k), 0, mk(t)));
+    const inFinal = ST.finalPhase && ST.finalSet && ST.finalSet.has(base.key);
+    if (inFinal) { /* the final check never adds repeats; a miss here is rescheduled as a miss */ }
+    else if (g === 1) {
+      sq.agains = (sq.agains || 0) + 1; const othersLeft = queue.slice(i + 1).some(q => !same(q));
+      if (sq.agains >= 6 || !othersLeft) { for (let k = queue.length - 1; k > i; k--) if (same(queue[k])) queue.splice(k, 1); toast("Let’s leave this one for today. It’s scheduled to come back tomorrow."); }
+      else addAt([3, 6, 9], "again");
+    } else if (g === 2) { if (queue.slice(i + 1).filter(same).length < 12) addAt([8, 16, 24], "hard"); }
+    else if (g === 3 && kind === "first") addAt([10], "check");
     if (g === 1) again++; else good++;
-    if (back && queue.length - (i + 1) === 0 && (sq.agains || 0) >= 2) { back = 0; toast("Let’s leave this one for today. It’s scheduled to come back tomorrow."); }
-    if (back) queue.splice(Math.min(queue.length, i + 1 + back), 0, f); else doneN++;
+    if (!queue.slice(i + 1).some(same)) doneN++;
     i++; show();
   }
   function doUndo() {
@@ -4373,7 +4407,7 @@ function startLearn(deck, opts = {}) {
     const f = queue[i]; if (!f) return;
     editCardModal(S.decks[f.deck.id] || f.deck, f.card, () => {
       const fresh = factsOf(S.decks[f.deck.id] || f.deck);
-      queue = queue.map(q => fresh.find(x => x.key === q.key) || null).filter(Boolean);
+      const ids = new Set((S.decks[f.deck.id] || f.deck).cards.map(c => c.id)); queue = queue.map(q => { const nf = fresh.find(x => x.key === q.key); if (nf) { if (q._inst) { const x = Object.create(nf); x._inst = q._inst; x._base = nf; return x; } return nf; } return ids.has(q.card.id) ? q : null; }).filter(Boolean);
       if (queue[i] && queue[i].card.id === f.card.id && queue.length - i > 1) { const here = queue.splice(i, 1)[0]; queue.splice(Math.min(queue.length, i + 3), 0, here); toast("Saved. You’ll see this card again in a few cards."); }
       stat("midEdit"); i = Math.min(i, queue.length); show();
     });
@@ -14381,9 +14415,9 @@ const typedOk2 = (t, a) => { const x = looseNorm(t), y = looseNorm(a); if (!x) r
       inp.placeholder = useTerm ? termT : "Type it exactly as shown above";
       const go = $("#icGo"); const fb = $("#icFb"); const prev = ST.reviewKey || null; let fired = false;
       const finish = () => { if (fired) return; fired = true; ST.onKey = ST.reviewKey || prev; done(); };
-      const check = () => { if (typedOk2(inp.value, target)) { stat("lockedIn"); inp.classList.add("ok"); fb.textContent = "Locked in."; go.textContent = "Continue"; go.onclick = finish; setTimeout(finish, 650); } else { inp.classList.add("no"); fb.textContent = useTerm ? `Type the term: ${termT}` : "Not quite. Check the spelling against the answer above."; setTimeout(() => inp.classList.remove("no"), 500); inp.focus(); } };
+      const check = () => { if (typedOk2(inp.value, target)) { stat("lockedIn"); inp.classList.add("ok"); inp.readOnly = true; inp.blur(); fb.textContent = "Locked in. Press Enter or Space to continue."; go.textContent = "Continue"; go.onclick = finish; } else { inp.classList.add("no"); fb.textContent = useTerm ? `Type the term: ${termT}` : "Not quite. Check the spelling against the answer above."; setTimeout(() => inp.classList.remove("no"), 500); inp.focus(); } };
       go.onclick = check; $("#icSkip") && ($("#icSkip").onclick = finish);
-      ST.onKey = e => { const typing = e.target && e.target.id === "icIn"; if (e.key === "Enter") { e.preventDefault(); go.textContent === "Check" ? check() : finish(); } else if (e.key === " " && !typing) { e.preventDefault(); inp.focus(); } };
+      ST.onKey = e => { const done2 = go.textContent !== "Check"; const typing = e.target && e.target.id === "icIn" && !inp.readOnly; if (e.key === "Enter") { e.preventDefault(); done2 ? finish() : check(); } else if (e.key === " " && (done2 || !typing)) { e.preventDefault(); done2 ? finish() : inp.focus(); } };
     } catch { } }; }
 /* any learning screen that ends hands Space back to the review, never to a stale handler */
 { const os = openStudy; openStudy = function (...a) { const out = os.apply(this, a); try { ST.reviewKey = null; } catch { } return out; }; }
@@ -14420,6 +14454,42 @@ function startTour() {
   });
 }
 { const r = render; render = function (...a) { const out = r.apply(this, a); if ((location.hash || "") === "#more" && !document.getElementById("tourBox")) { const v = $("#view"); const h1 = v && v.querySelector("h1"); if (h1) { h1.insertAdjacentHTML("afterend", `<div class="panel tourcard" id="tourBox"><span class="tc-e">🧭</span><div><b>Take a tour</b><small>A one-minute walkthrough of everything LabDeck can do.</small></div><button class="btn primary sm" id="tourGo">Start</button></div>`); $("#tourGo").onclick = startTour; } } return out; }; }
+/* ===================== v47 ===================== */
+/* ---------- leeches: part of weak spots, and their own practice ---------- */
+{ const wf = weakFacts; weakFacts = function (decks, n = 25) { const base = wf(decks, 400); const leeches = []; (decks || Object.values(S.decks).filter(d => !d.hidden)).forEach(d => factsOf(d).forEach(f => { const s = (S.srs[d.id] || {})[f.key]; if (s && (s.l || 0) >= 4 && !isSus(f)) leeches.push(f); }));
+    const seen = new Set(); return [...leeches, ...base].filter(f => !seen.has(f.key) && seen.add(f.key)).slice(0, n); }; }
+function leechFacts() { const out = []; Object.values(S.decks).filter(d => !d.hidden).forEach(d => factsOf(d).forEach(f => { const s = (S.srs[d.id] || {})[f.key]; if (s && (s.l || 0) >= 4 && !isSus(f)) out.push(f); })); return out; }
+/* ---------- practice one detail across every profile (e.g. catalase for every organism) ---------- */
+function profileFields() { const m = new Map(); Object.values(S.decks).filter(d => !d.hidden).forEach(d => factsOf(d).forEach(f => { if (f.kind === "field" && f.field && !isSus(f)) { const k = f.field.trim(); if (!m.has(k)) m.set(k, []); m.get(k).push(f); } })); return [...m.entries()].filter(([, L]) => L.length >= 2).sort((a, b) => b[1].length - a[1].length); }
+function startFieldPick() {
+  openStudy("Practice one detail"); setProg(0); const F = profileFields(); let q = "";
+  const draw = () => { const list = F.filter(([k]) => !q || k.toLowerCase().includes(q)); ST.stage.innerHTML = `<label class="search"><span>${icon("search")}</span><input id="fpQ" placeholder="Find a detail, like catalase or Gram stain" value="${esc(q)}" autocomplete="off"></label>
+    <div class="a3group" style="margin-top:12px">${list.map(([k, L]) => `<button class="a3row" data-fd="${esc(k)}"><span class="a3sym" style="background:#2F6FB5">${icon("list")}</span><span class="a3rt"><b>${esc(k)}</b><small>${L.length} ${L.length === 1 ? "card" : "cards"} across ${new Set(L.map(f => f.deck.id)).size} ${new Set(L.map(f => f.deck.id)).size === 1 ? "deck" : "decks"}</small></span><span class="a3chev">›</span></button>`).join("") || `<div class="empty"><p>No profile details match.</p></div>`}</div>`;
+    const inp = $("#fpQ"); inp.oninput = () => { q = inp.value.trim().toLowerCase(); clearTimeout(inp._t); inp._t = setTimeout(() => { const pos = inp.selectionStart; draw(); const n = $("#fpQ"); n.focus(); n.setSelectionRange(pos, pos); }, 150); };
+    $$("[data-fd]").forEach(b => b.onclick = () => { const L = (F.find(([k]) => k === b.dataset.fd) || [0, []])[1]; closeStudy(true); startLearn(null, { queue: shuffle(L.slice()), title: b.dataset.fd + " across every profile" }); }); };
+  draw();
+}
+PAGEHEAD.push(["Practice one detail", "list", "#2F6FB5", "Drill a single detail across every profile card, like catalase for every organism."]);
+navWrap("startFieldPick");
+{ const sm = startMixed; startMixed = function (skip) { const out = sm(skip); try { if (skip !== true && ST && ST.stage) { const g = ST.stage.querySelector(".a3group"); const ws = g && g.querySelector('[data-m="weak"] small'); if (ws) ws.textContent = "Your shakiest cards across every deck, leeches first";
+      if (g && !g.querySelector('[data-m="leech"]')) { const n = leechFacts().length; g.insertAdjacentHTML("beforeend", `<button class="a3row" data-m="leech" ${n ? "" : "disabled"}><span class="a3sym" style="background:#C8292F">${icon("target")}</span><span class="a3rt"><b>Leeches</b><small>${n ? `${n} card${n === 1 ? "" : "s"} you’ve missed 4 or more times, all together` : "No leeches right now. Nice."}</small></span><span class="a3chev">›</span></button>`); const b = g.querySelector('[data-m="leech"]'); n && (b.onclick = () => { closeStudy(true); startLearn(null, { queue: shuffle(leechFacts()), title: "Leeches" }); }); }
+      if (g && !g.querySelector('[data-m="field"]') && profileFields().length) { g.insertAdjacentHTML("beforeend", `<button class="a3row" data-m="field"><span class="a3sym" style="background:#2F6FB5">${icon("list")}</span><span class="a3rt"><b>Practice one detail</b><small>Like catalase or Gram stain, across every profile</small></span><span class="a3chev">›</span></button>`); g.querySelector('[data-m="field"]').onclick = () => startFieldPick(); } } } catch { } return out; }; }
+
+/* ---------- games: a level you’ve unlocked never locks again ---------- */
+setInterval(() => { try { if (!S.loaded) return; let ch = false; Object.values(games()).forEach(g => { if (!g) return; const lv = g.level || 1; if (lv > (g.maxLv || 0)) { g.maxLv = lv; ch = true; } else if (lv < (g.maxLv || 0)) { g.level = g.maxLv; ch = true; } }); if (ch) saveMeta(true); } catch { } }, 800);
+{ const mr = mergeRemote; mergeRemote = function (r, ...a) { const res = mr.call(this, r, ...a); try { const R = ((r && r.meta) || {}).games || {}; Object.entries(S.meta.games || {}).forEach(([k, g]) => { const m = Math.max(g.maxLv || 0, (R[k] || {}).maxLv || 0, g.level || 1); g.maxLv = m; g.level = Math.max(g.level || 1, m); }); } catch { } return res; }; }
+
+/* ---------- home: fact of the day changes once a day; rings animate only when they change ---------- */
+{ const rh = renderHome; renderHome = function (decks) { rh(decks); const v = $("#view"); if (!v) return;
+    const nx = v.querySelector("#factNext"); nx && nx.remove(); const fp = v.querySelector(".factcard p"); if (fp) fp.textContent = FUN_FACTS[factIndex(0)];
+    try { const rd = ringData(); const key = [rd.rev, rd.goal, rd.newDone, rd.npd, ...(rd.tasks || [])].join("|"); const rings = v.querySelector(".a3rings"); if (rings) { if (window.__ringKey === key) rings.classList.add("noanim"); window.__ringKey = key; } } catch { }
+    /* done for today */
+    try { const rd = ringData(); const [td, tt] = taskCounts(); const done = rd.rev >= rd.goal && tt > 0 && td >= tt; const dash = v.querySelector(".a3dash");
+      if (done && dash && !v.querySelector(".donecard")) { const fresh = S.meta.celebrated !== dayKey(); dash.insertAdjacentHTML("beforebegin", `<section class="donecard ${fresh ? "burst" : ""}">${fresh ? `<div class="confetti" aria-hidden="true">${Array.from({ length: 18 }, (_, k) => `<i style="--k:${k}"></i>`).join("")}</div>` : ""}<span class="dc-e">🎉</span><div><b>You’re done for today</b><small>Your reviews and today’s tasks are done. Anything more is a bonus, and tomorrow will be lighter for it.</small></div></section>`); if (fresh) { S.meta.celebrated = dayKey(); saveMeta(); try { chime("level"); } catch { } } } } catch { }
+  }; }
+
+/* ---------- consistent empty states ---------- */
+new MutationObserver(() => { document.querySelectorAll(".empty:not([data-es])").forEach(e => { e.dataset.es = 1; if (!e.querySelector(".es-ic")) e.insertAdjacentHTML("afterbegin", `<span class="es-ic">${icon("sparkle")}</span>`); }); }).observe(document.documentElement, { childList: true, subtree: true });
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
