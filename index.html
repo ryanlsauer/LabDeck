@@ -2846,6 +2846,41 @@ label.search input{border:0!important;background:transparent!important;box-shado
 .study.pg .fsec-h>.btn{grid-column:2;grid-row:1 / span 2}
 .study.pg .fsec-h>div{align-items:flex-start!important}
 @media (max-width:600px){.seg>button{padding:0 4px!important;font-size:.76rem!important}}
+/* ===================== v44 ===================== */
+/* no color wash behind the review screen */
+.study.rv::before{display:none!important}
+/* learning cards: type it to lock it in */
+.ic-type{margin-top:16px}
+.ic-type .input{min-height:48px;font-size:1.05rem;border-radius:12px!important}
+.ic-type .input.ok{box-shadow:inset 0 0 0 2px #34C759!important;background:color-mix(in srgb,#34C759 8%,var(--surface))!important}
+.ic-type .input.no{box-shadow:inset 0 0 0 2px #E5484D!important;animation:icShake .3s}
+@keyframes icShake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+@media (prefers-reduced-motion:reduce){.ic-type .input.no{animation:none}}
+.ic-fb{min-height:1.2em;margin-top:6px;font-size:.85rem;color:var(--ink-3)}
+.ic-why{display:none!important}
+.rv-pill.fc{background:color-mix(in srgb,#F5B800 22%,var(--surface));color:#7A5800}
+/* session accuracy on the results screen */
+.rv-sum .acc b{color:var(--violet-ink)}
+/* accuracy chart */
+.accp{padding:16px 18px!important}.acc-wrap{margin-top:8px}
+.accsvg{width:100%;height:auto;display:block;max-height:200px}
+.acc-grid{stroke:var(--line);stroke-width:1}.acc-yl,.acc-xl{fill:var(--ink-3);font-size:11px;font-family:var(--font-body)}
+.acc-line{fill:none;stroke:var(--violet);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round}
+.acc-dot{fill:var(--surface);stroke:var(--violet);stroke-width:2.5}
+/* cabinet hover labels stay in the box */
+.cab-tube::after{transform:translateX(calc(-50% + var(--tipx,0px))) translateY(4px)!important;left:50%!important;right:auto!important}
+@media (hover:hover){.cab-tube:hover::after{transform:translateX(calc(-50% + var(--tipx,0px)))!important}}
+/* home rings animate in */
+.a3rings circle[stroke-dasharray]{animation:ringIn .9s cubic-bezier(.2,.7,.2,1) both}
+.a3rings circle[stroke-dasharray]:nth-of-type(4){animation-delay:.08s}.a3rings circle[stroke-dasharray]:nth-of-type(6){animation-delay:.16s}
+@keyframes ringIn{from{stroke-dasharray:0 999}}
+@media (prefers-reduced-motion:reduce){.a3rings circle[stroke-dasharray]{animation:none}}
+/* badges earned today */
+.badges.sq .badge.today{box-shadow:0 0 0 2px #F5B800,0 6px 18px rgba(245,184,0,.28)!important;position:relative}
+.badges.sq .badge.today::before{content:"Today";position:absolute;top:8px;right:8px;font:700 .62rem/1 var(--font-body);color:#7A5800;background:#FFF1BF;padding:3px 6px;border-radius:999px}
+.bsum-today{margin:6px 0 0;font-size:.85rem;color:#7A5800;font-weight:600}
+/* speed round level tile */
+.lvl.lvl-speed b{color:var(--violet-ink)}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -2933,7 +2968,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "43.2";
+const APP_VERSION = "44.0";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -4149,7 +4184,7 @@ function startLearn(deck, opts = {}) {
     queue = [...due, ...shuffle(weak), ...fresh, ...rest].slice(0, 60);
   } else {
     const due = all.filter(f => isDue(stOf(f), cutoff)).sort((a, b) => stOf(a).d - stOf(b).d);
-    const fresh = all.filter(f => !stOf(f) && eligibleNew(f)).slice(0, newLeftToday());
+    const fresh = rotateNew(all.filter(f => !stOf(f) && eligibleNew(f)), newLeftToday());
     queue = []; const step = fresh.length ? Math.max(1, Math.floor(due.length / fresh.length)) : 0; let di = 0;
     fresh.forEach(f => { for (let k = 0; k < step && di < due.length; k++) queue.push(due[di++]); queue.push(f); });
     while (di < due.length) queue.push(due[di++]);
@@ -4180,6 +4215,7 @@ function startLearn(deck, opts = {}) {
       editCardModal(d, null, () => { const fresh = factsOf(d).filter(f => !before.has(f.card.id)); d.cards.forEach(c => before.add(c.id)); if (fresh.length && !opts.browse) { queue.push(...fresh); total += fresh.length; } topRight(); toast(`Card added to ${d.name}${fresh.length && !opts.browse ? ". It’s at the end of this session." : ""}`); }); }; $("#sBtn").onclick = () => { const f = queue[i]; if (!f) return; f.card.star = !f.card.star; saveDeck(f.deck); topRight(); toast(f.card.star ? "Starred" : "Unstarred"); };
   }
   function show() {
+    if (typeof opts !== "undefined" && i >= queue.length && !opts.browse && !opts.cram && !opts.queue && !ST.finalDone && (ST.finalList || []).length) { ST.finalDone = true; ST.finalPhase = true; ST.finalSet = new Set(ST.finalList.map(x => x.key)); queue.push(...ST.finalList); }
     if (i >= queue.length) return finish();
     const f = queue[i]; flipped = false;
     const forced = ((ST.forceIntro = ST.forceIntro || {})[f && f.key] || 0) > 0;
@@ -4211,6 +4247,8 @@ function startLearn(deck, opts = {}) {
     /* session rules: Again = back in 3 cards, then two good answers to clear; Hard = once more ~8 cards later; Good/Easy = done.
        Only the first rating of a card in a session sets its schedule; repeats are practice. */
     const sq = SESS[f.key] = SESS[f.key] || { first: true, owe: 0 };
+    if (ST.finalPhase && ST.finalSet && ST.finalSet.has(f.key)) { if (g === 1) sq.first = true; else stat("finalPass"); }
+    else if (sq.first && g >= 3 && !opts.browse && !opts.cram && !opts.queue && (ST.finalList = ST.finalList || []).length < 6) ST.finalList.push(f);
     if (opts.cram || opts.browse) recordQuiz(f, g > 2);
     else if (sq.first) { recordReview(f.deck.id, f.key, g, wasNew); if (wasNew) seenNew.add(f.key); if (g === 1 && (stOf(f) || {}).l === 4) setTimeout(() => toast("That one’s a leech. Find it under Leeches in the deck to rewrite it."), 400); }
     else recordQuiz(f, g > 2);
@@ -4238,7 +4276,8 @@ function startLearn(deck, opts = {}) {
     editCardModal(f.deck, f.card, () => {
       const fresh = factsOf(f.deck);
       queue = queue.map(q => fresh.find(x => x.key === q.key) || null).filter(Boolean);
-      i = Math.min(i, queue.length); show();
+      if (queue[i] && queue[i].card.id === f.card.id && queue.length - i > 1) { const here = queue.splice(i, 1)[0]; queue.splice(Math.min(queue.length, i + 3), 0, here); toast("Saved. You’ll see this card again in a few cards."); }
+      stat("midEdit"); i = Math.min(i, queue.length); show();
     });
   }
   function finish() {
@@ -13260,8 +13299,10 @@ const SPEED = { tubes: { name: "Speed round", sub: "Order of draw against the cl
   critical: { name: "Beat the clock", sub: "Critical or not? Each result gets less time as you level up.", run: done => { const lv = Math.max(1, gstate("critical").level || 1); const secs = lv >= 3 ? 6 : lv >= 2 ? 9 : 12; mcAll(clockItems(10, secs), "Critical call", done); } } };
 function speedRow(id) { const m = SPEED[id]; const st = gstate(id); const best = (st.best || {}).speed; return `<div class="a3group xmode"><button class="a3row" id="speedGo"><span class="a3sym xm-e">⚡</span><span class="a3rt"><b>${m.name}</b><small>${m.sub}${best != null ? ` Best: ${best}%.` : ""}</small></span><span class="a3chev">›</span></button></div>`; }
 new MutationObserver(() => { const el = ST && ST.el; if (!el || !el.isConnected) return; const id = el.dataset.game; if (!SPEED[id]) return;
-  const lv = el.querySelector(".levels"); if (lv && !el.querySelector("#speedGo") && !el.dataset.speeding) { lv.insertAdjacentHTML("afterend", speedRow(id)); el.querySelector("#speedGo").onclick = () => runSpeed(id); }
-  const res = el.dataset.speeding ? null : el.querySelector(".results:not([data-speed])"); if (res && !el.querySelector(".levels")) { res.dataset.speed = 1; const row = res.querySelector(".row") || res; row.insertAdjacentHTML("beforebegin", `<button class="btn" id="speedAfter" style="margin:10px auto 0;display:flex">⚡ ${SPEED[id].name}</button>`); res.querySelector("#speedAfter").onclick = () => runSpeed(id); }
+  const lv = el.querySelector(".levels"); if (lv && !lv.querySelector("[data-speedlv]") && !el.dataset.speeding) { const tiles = [...lv.querySelectorAll(".lvl")]; const n = tiles.length + 1; const open = tiles.length && !tiles[tiles.length - 1].disabled || ((S.meta.gameOverride || {})[id]); const best = (gstate(id).best || {}).speed;
+    lv.insertAdjacentHTML("beforeend", `<button class="lvl lvl-speed" data-speedlv ${open ? "" : "disabled"}><span>Level ${n}</span><b>⚡ ${SPEED[id].name}</b>${open ? (best != null ? `<small>Best ${best}%</small>` : "") : `<small>Unlock level ${n - 1} first</small>`}</button>`);
+    const t = lv.querySelector("[data-speedlv]"); t.onclick = () => { $$(".lvl", lv).forEach(x => x.classList.remove("on")); t.classList.add("on"); const go = el.querySelector("#go"); if (go) { go.textContent = `Start ${SPEED[id].name.toLowerCase()}`; go.onclick = ev => { ev.stopImmediatePropagation(); runSpeed(id); }; } }; }
+  /* (speed rounds are now a level of their own) */
 }).observe(document.documentElement, { childList: true, subtree: true });
 function runSpeed(id) { const el = ST.el; el.dataset.speeding = 1; SPEED[id].run(score => { delete el.dataset.speeding; const st = gstate(id); st.best = st.best || {}; const pct = typeof score === "number" ? Math.round(score <= 1 ? score * 100 : score) : null; if (pct != null && (st.best.speed == null || pct > st.best.speed)) st.best.speed = pct; st.plays = (st.plays || 0) + 1; st.last = Date.now(); saveMeta(true); }); }
 
@@ -13358,10 +13399,10 @@ capIcon = function (color, shape = "tube", size = 18, level) {
   const isTiger = color === "tiger", c = CAPS[color] || color || CAPS.lavender; const glass = "#B4B4BB", gid = "g" + Math.random().toString(36).slice(2, 8);
   const capFill = isTiger ? `url(#${gid}t)` : c; const capEdge = (color === "white" || c.toUpperCase() === "#FFFFFF" || color === "pearl") ? ` stroke="${glass}" stroke-width="1"` : "";
   const defs = `<defs>${isTiger ? `<pattern id="${gid}t" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><rect width="4" height="4" fill="#B8342B"/><rect width="1.6" height="4" fill="#2B1A16"/></pattern>` : ""}<linearGradient id="${gid}h" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".45"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>`;
-  const liq = isTiger ? "#B8342B" : c; const lv = level == null ? .45 : Math.max(0, Math.min(1, level));
-  if (shape === "cup") { const h = size, w = Math.round(h * .63); const top = 34 - lv * 20; return `<svg class="capico" width="${w}" height="${h}" viewBox="0 0 24 38" aria-hidden="true">${defs}<path d="M3.5 12h17l-1.6 20a3 3 0 0 1-3 2.8H8.1a3 3 0 0 1-3-2.8z" fill="var(--surface)" stroke="${glass}" stroke-width="1.1"/><clipPath id="${gid}c"><path d="M3.5 12h17l-1.6 20a3 3 0 0 1-3 2.8H8.1a3 3 0 0 1-3-2.8z"/></clipPath><rect clip-path="url(#${gid}c)" x="2" y="${top}" width="20" height="${36 - top}" fill="#E8C547" opacity=".55"/><rect x="2" y="6" width="20" height="6" rx="1.6" fill="${capFill}"${capEdge}/><rect x="2" y="6" width="20" height="6" rx="1.6" fill="url(#${gid}h)"/></svg>`; }
-  if (shape === "bottle") { const h = size, w = Math.round(h * .58); const top = 35 - lv * 16; return `<svg class="capico" width="${w}" height="${h}" viewBox="0 0 22 38" aria-hidden="true">${defs}<path d="M8 6h6v4l4 4c.6.6 1 1.4 1 2.3V33a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V16.3c0-.9.4-1.7 1-2.3l4-4z" fill="var(--surface)" stroke="${glass}" stroke-width="1.1"/><clipPath id="${gid}b"><path d="M8 6h6v4l4 4c.6.6 1 1.4 1 2.3V33a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V16.3c0-.9.4-1.7 1-2.3l4-4z"/></clipPath><rect clip-path="url(#${gid}b)" x="2" y="${top}" width="18" height="${37 - top}" fill="#C98F52" opacity=".5"/><rect x="3.6" y="19" width="14.8" height="7" fill="#FFFFFF" opacity=".92"/><rect x="3.6" y="19" width="14.8" height="1.6" fill="${liq}" opacity=".85"/><rect x="7" y="1" width="8" height="5.4" rx="1.4" fill="${capFill}"${capEdge}/><rect x="7" y="1" width="8" height="5.4" rx="1.4" fill="url(#${gid}h)"/></svg>`; }
-  const h = size, w = Math.round(h * .47); const top = 30 - lv * 13;
+  const liq = isTiger ? "#B8342B" : c; const lv = level == null ? (shape === "cup" ? .42 : shape === "bottle" ? .3 : .28) : Math.max(0, Math.min(1, level));
+  if (shape === "cup") { const h = size, w = Math.round(h * .63); const top = 34 - lv * 21.5; return `<svg class="capico" width="${w}" height="${h}" viewBox="0 0 24 38" aria-hidden="true">${defs}<path d="M3.5 12h17l-1.6 20a3 3 0 0 1-3 2.8H8.1a3 3 0 0 1-3-2.8z" fill="var(--surface)" stroke="${glass}" stroke-width="1.1"/><clipPath id="${gid}c"><path d="M3.5 12h17l-1.6 20a3 3 0 0 1-3 2.8H8.1a3 3 0 0 1-3-2.8z"/></clipPath><rect clip-path="url(#${gid}c)" x="2" y="${top}" width="20" height="${36 - top}" fill="#E8C547" opacity=".55"/><rect x="2" y="6" width="20" height="6" rx="1.6" fill="${capFill}"${capEdge}/><rect x="2" y="6" width="20" height="6" rx="1.6" fill="url(#${gid}h)"/></svg>`; }
+  if (shape === "bottle") { const h = size, w = Math.round(h * .58); const top = 35 - lv * 24; return `<svg class="capico" width="${w}" height="${h}" viewBox="0 0 22 38" aria-hidden="true">${defs}<path d="M8 6h6v4l4 4c.6.6 1 1.4 1 2.3V33a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V16.3c0-.9.4-1.7 1-2.3l4-4z" fill="var(--surface)" stroke="${glass}" stroke-width="1.1"/><clipPath id="${gid}b"><path d="M8 6h6v4l4 4c.6.6 1 1.4 1 2.3V33a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V16.3c0-.9.4-1.7 1-2.3l4-4z"/></clipPath><rect clip-path="url(#${gid}b)" x="2" y="${top}" width="18" height="${37 - top}" fill="#C98F52" opacity=".5"/><rect x="3.6" y="19" width="14.8" height="7" fill="#FFFFFF" opacity=".92"/><rect x="3.6" y="19" width="14.8" height="1.6" fill="${liq}" opacity=".85"/><rect x="7" y="1" width="8" height="5.4" rx="1.4" fill="${capFill}"${capEdge}/><rect x="7" y="1" width="8" height="5.4" rx="1.4" fill="url(#${gid}h)"/></svg>`; }
+  const h = size, w = Math.round(h * .47); const top = 30 - lv * 21;
   return `<svg class="capico" width="${w}" height="${h}" viewBox="0 0 16 34" aria-hidden="true">${defs}<path d="M3.5 7.5h9v18.5a4.5 4.5 0 0 1-9 0z" fill="var(--surface)" stroke="${glass}" stroke-width="1.1"/><clipPath id="${gid}u"><path d="M3.5 7.5h9v18.5a4.5 4.5 0 0 1-9 0z"/></clipPath><rect clip-path="url(#${gid}u)" x="3" y="${top}" width="10" height="${32 - top}" fill="${liq}" opacity=".38"/><rect x="2" y="1" width="12" height="7.5" rx="1.6" fill="${capFill}"${capEdge}/><rect x="2" y="1" width="12" height="7.5" rx="1.6" fill="url(#${gid}h)"/></svg>`;
 };
 cabTube = function (x, big) { const lb = labelOf(x.d); return capIcon(lb ? lb.color : x.d.color, (lb && (lb.shape || SHAPE_OF[lb.id])) || "tube", big ? 52 : 48, x.pct); };
@@ -13891,6 +13932,132 @@ new MutationObserver(() => {
     const box = document.createElement("div"); box.innerHTML = h; const tile = [...box.querySelectorAll(".a3stat")].find(t => (t.querySelector("span") || {}).textContent === "LESSONS");
     if (tile) tile.innerHTML = `<span>OBJECTIVES</span><b>${rated}<small>/${n}</small></b><i class="a3bar"><i style="width:${n ? Math.round(rated / n * 100) : 0}%"></i></i><small>rated so far</small>`;
     return box.innerHTML; }; }
+/* ===================== v44 ===================== */
+/* ---------- new cards rotate across every deck, starting from a different deck each day ---------- */
+function rotateNew(list, n) {
+  if (n <= 0 || !list.length) return []; const by = new Map(); list.forEach(f => { const k = f.deck.id; if (!by.has(k)) by.set(k, []); by.get(k).push(f); });
+  const keys = [...by.keys()]; const off = Math.floor(Date.now() / DAY) % keys.length; const order = [...keys.slice(off), ...keys.slice(0, off)];
+  const out = []; let r = 0; while (out.length < n) { let added = false; for (const k of order) { const L = by.get(k); if (L[r]) { out.push(L[r]); added = true; if (out.length >= n) break; } } if (!added) break; r++; }
+  return out;
+}
+
+/* ---------- review: learning cards are interactive (type it to lock it in), and press once only ---------- */
+const plainOf = h => { const d = document.createElement("div"); d.innerHTML = h || ""; d.querySelectorAll(".kicker,.acx").forEach(x => x.remove()); return d.textContent.replace(/\s+/g, " ").trim(); };
+introNew = function (f, done, forced) {
+  const left = forced ? (ST.forceIntro || {})[f.key] || 1 : 0;
+  const ans = plainOf(f.a ? escG(f.a) : factBack(f)), term = plainOf(f.q ? escG(f.q) : factFront(f));
+  const target = ans && ans.length <= 40 ? ans : (term && term.length <= 40 ? term : "");
+  const what = target === ans ? "the answer" : "the term";
+  ST.stage.innerHTML = `${studyHead(f.deck)}<div class="intro-card rv-in">${forced ? `<span class="rv-pill ag">Learning · ${3 - left} of 2</span>` : `<span class="rv-pill nw">New card</span>`}
+    <p class="ic-lead">${forced ? "Let’s lock this one in." : "Meet this one first."} ${target ? `Type ${what} below, even while you look at it. Writing it out is what makes it stick.` : "Read it through once, slowly."}</p>
+    <div class="ic-q">${factFront(f).replace(/<div class="kicker">New<\/div>/, "")}</div><div class="ic-div"></div><div class="ic-a">${factBack(f)}</div>
+    ${target ? `<div class="ic-type"><input class="input" id="icIn" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Type ${what}"><div class="ic-fb" id="icFb"></div></div>` : ""}</div>
+    <div class="row" style="margin-top:14px;gap:8px">${target ? `<button class="btn" id="icSkip">Skip</button>` : ""}<button class="btn primary" id="icGo" style="flex:1;justify-content:center;min-height:48px">${target ? "Check" : "Got it"}</button></div>`;
+  const prevKey = ST.onKey; let fired = false;
+  const finish = () => { if (fired) return; fired = true; ST.onKey = prevKey; done(); };
+  const check = () => { const inp = $("#icIn"); if (!inp) return finish(); if (typedOk(inp.value, target)) { stat("lockedIn"); inp.classList.add("ok"); $("#icFb").textContent = "Locked in."; $("#icGo").textContent = "Continue"; $("#icGo").onclick = finish; setTimeout(finish, 650); } else { inp.classList.add("no"); $("#icFb").textContent = "Not quite. Copy it from above, letter for letter."; setTimeout(() => inp.classList.remove("no"), 500); inp.focus(); } };
+  $("#icGo").onclick = () => target ? check() : finish(); $("#icSkip") && ($("#icSkip").onclick = finish);
+  ST.onKey = e => { const typing = e.target && e.target.id === "icIn"; if (e.key === "Enter") { e.preventDefault(); target && $("#icGo").textContent === "Check" ? check() : finish(); } else if (e.key === " " && !typing) { e.preventDefault(); if (!target) finish(); else $("#icIn").focus(); } };
+  setTimeout(() => { const inp = $("#icIn"); inp ? inp.focus() : (document.activeElement && document.activeElement.blur && document.activeElement.blur()); }, 30);
+};
+/* a button that still has keyboard focus never gets “pressed” again by the Space bar */
+document.addEventListener("keydown", e => { if (e.key === " " && ST && ST.el && ST.el.contains(document.activeElement) && document.activeElement.tagName === "BUTTON") document.activeElement.blur(); }, true);
+{ const sl = startLearn; startLearn = function (...a) { try { ST.finalList = []; ST.finalDone = false; ST.finalPhase = false; ST.finalSet = null; ST.forceIntro = {}; } catch { } const out = sl.apply(this, a); return out; }; }
+{ const os = openStudy; openStudy = function (...a) { const out = os.apply(this, a); try { ST.finalList = []; ST.finalDone = false; ST.finalPhase = false; ST.finalSet = null; } catch { } return out; }; }
+
+/* ---------- review accuracy: tracked by day, shown at the end, charted on Progress ---------- */
+document.addEventListener("click", e => { const g = e.target.closest(".study.rv .grades button[data-g]"); if (g) revAccNote(+g.dataset.g); }, true);
+document.addEventListener("keydown", e => { if (ST && ST.el && ST.el.classList.contains("rv") && /^[1-4]$/.test(e.key) && ST.stage.querySelector(".grades") && document.activeElement?.id !== "icIn") revAccNote(+e.key); }, true);
+function revAccNote(g) { const A = (S.meta.revAcc = S.meta.revAcc || {}); const k = dayKey(); const o = A[k] = A[k] || { r: 0, a: 0 }; if (g === 1) o.a++; else o.r++; }
+{ const rd = rvDecorate; rvDecorate = function () { rd(); try { const res = ST.stage && ST.stage.querySelector(".results"); if (res && !res.dataset.acc && /Session complete/.test(res.textContent)) { res.dataset.acc = 1; const tot = RV.right + RV.again; if (tot) { const pct = Math.round(RV.right / tot * 100); res.querySelector(".rv-sum")?.insertAdjacentHTML("afterbegin", `<div class="acc"><b>${pct}%</b><span>accuracy</span></div>`); if (tot >= 20 && pct >= 90) stat("acc90"); if (tot >= 10 && pct >= 95) stat("acc95"); } saveMeta(true); }
+    const fp = ST.finalPhase && ST.stage && ST.stage.querySelector(".flip .rv-pill"); if (fp && fp.textContent !== "Final check") { fp.textContent = "Final check"; fp.className = "rv-pill fc"; } } catch { } }; }
+function accChartHtml() {
+  const A = S.meta.revAcc || {}; const days = Object.keys(A).filter(k => (A[k].r + A[k].a) > 0).sort().slice(-30); if (days.length < 2) return `<div class="panel accp"><h3 style="margin:0 0 4px">Review accuracy</h3><p class="small muted" style="margin:0">Finish a couple of review days and your accuracy trend will show here.</p></div>`;
+  const pts = days.map(k => Math.round(A[k].r / (A[k].r + A[k].a) * 100)); const W = 640, H = 160, P = 28; const x = i => P + i * (W - P * 2) / Math.max(1, days.length - 1), y = v => H - 22 - v / 100 * (H - 40);
+  const avg = Math.round(pts.reduce((a, b) => a + b, 0) / pts.length);
+  return `<div class="panel accp"><div class="fc-h"><h3 style="margin:0">Review accuracy</h3><span class="fc-m">${avg}% average · ${days.length} days</span></div><div class="acc-wrap"><svg viewBox="0 0 ${W} ${H}" class="accsvg" role="img" aria-label="Review accuracy by day">${[0, 50, 100].map(v => `<line x1="${P}" x2="${W - P}" y1="${y(v)}" y2="${y(v)}" class="acc-grid"/><text x="${P - 6}" y="${y(v) + 4}" class="acc-yl" text-anchor="end">${v}%</text>`).join("")}<polyline points="${pts.map((v, i) => x(i) + "," + y(v)).join(" ")}" class="acc-line"/>${pts.map((v, i) => `<circle cx="${x(i)}" cy="${y(v)}" r="4" class="acc-dot"><title>${new Date(days[i] + "T12:00").toLocaleDateString(undefined, { month: "short", day: "numeric" })}: ${v}%</title></circle>`).join("")}${[0, days.length - 1].map(i => `<text x="${x(i)}" y="${H - 4}" class="acc-xl" text-anchor="${i ? "end" : "start"}">${new Date(days[i] + "T12:00").toLocaleDateString(undefined, { month: "short", day: "numeric" })}</text>`).join("")}</svg></div></div>`;
+}
+{ const rs = renderStats; renderStats = function (...a) { const out = rs.apply(this, a); const v = $("#view"); if (v && !v.querySelector(".accp")) { const c14 = [...v.querySelectorAll(".pchart")].find(c => /LAST 14 DAYS/.test(c.textContent)); (c14 || v.querySelector(".pnums") || v.lastElementChild).insertAdjacentHTML(c14 ? "afterend" : "beforebegin", accChartHtml()); } return out; }; }
+{ const mr = mergeRemote; mergeRemote = function (r, ...a) { const mine = JSON.parse(JSON.stringify(S.meta.revAcc || {})); const res = mr.call(this, r, ...a); const R = ((r && r.meta) || {}).revAcc || {}; const out = { ...R }; Object.entries(mine).forEach(([k, v]) => { const o = out[k] || { r: 0, a: 0 }; out[k] = { r: Math.max(o.r, v.r), a: Math.max(o.a, v.a) }; }); S.meta.revAcc = out; return res; }; }
+
+/* ---------- XP: a much longer road ---------- */
+LEVELS.forEach((l, i) => { if (i) l[0] = Math.round(450 * Math.pow(i, 2.15) / 50) * 50; });
+{ const ad = applyDocs; applyDocs = function (docs) { const out = ad(docs); try { if (!S.meta.xpV3) { S.meta.lastLevel = levelInfo().n; S.meta.xpV3 = 1; } } catch { } return out; }; }
+
+/* (tube fill math now lives in the tube drawing itself) */
+
+/* ---------- specimen cabinet: hover labels always stay inside the box ---------- */
+document.addEventListener("mouseover", e => { const t = e.target.closest(".cab-tube"); if (!t) return; const box = t.closest(".cab"); if (!box) return; const name = t.dataset.tip || ""; const m = document.createElement("span"); m.style.cssText = "position:absolute;visibility:hidden;white-space:nowrap;font:600 .72rem/1.2 var(--font-body);padding:5px 9px"; m.textContent = name; document.body.appendChild(m); const w = m.offsetWidth; m.remove();
+  const b = box.getBoundingClientRect(), r = t.getBoundingClientRect(); const cx = r.left + r.width / 2; let left = cx - w / 2; const min = b.left + 8, max = b.right - 8 - w; const shift = Math.round(Math.min(Math.max(left, min), max) - left); t.style.setProperty("--tipx", shift + "px"); });
+
+/* ---------- more badges ---------- */
+{ const occN = () => Object.values(S.decks).reduce((n, d) => n + d.cards.filter(c => c.type === "occlusion").length, 0);
+  const maxDay = () => Math.max(0, ...Object.values(S.meta.history || {}));
+  const goalRun = () => { const h = S.meta.history || {}, g = GOAL(); let best = 0, run = 0; Object.keys(h).sort().forEach((k, i, a) => { const prev = i && Math.round((new Date(k + "T12:00") - new Date(a[i - 1] + "T12:00")) / DAY) === 1; run = h[k] >= g ? (prev && run ? run + 1 : 1) : 0; best = Math.max(best, run); }); return best; };
+  const comeback = () => { const k = Object.keys(S.meta.history || {}).filter(x => S.meta.history[x] > 0).sort(); let n = 0; for (let i = 1; i < k.length; i++) if ((new Date(k[i] + "T12:00") - new Date(k[i - 1] + "T12:00")) / DAY >= 7) n++; return n; };
+  const accDays = () => Object.values(S.meta.revAcc || {}).filter(o => o.r + o.a >= 20 && o.r / (o.r + o.a) >= .85).length;
+  const full = () => cabDecks().filter(x => x.pct >= .8).length, lvN = () => levelInfo().n, gs = id => gstate(id);
+  BADGES2.push(
+    B("acc90", "r", "🎯", "Sharpshooter", "Finish a 20+ card review at 90% accuracy", 1, () => sv("acc90")), B("acc95x5", "r", "🏹", "Precision", "Five reviews at 95% accuracy or better", 5, () => sv("acc95")),
+    B("accdays7", "r", "📈", "Steady hand", "Seven days with 85%+ review accuracy", 7, accDays), B("final10", "r", "🔨", "Nailed it", "Pass 10 final checks at the end of a review", 10, () => sv("finalPass")), B("final100", "r", "🧱", "Rock solid", "Pass 100 final checks", 100, () => sv("finalPass")),
+    B("lock25", "l", "✍️", "Locked in", "Type 25 answers on learning cards", 25, () => sv("lockedIn")), B("lock250", "l", "🖊️", "Muscle memory", "Type 250 answers on learning cards", 250, () => sv("lockedIn")),
+    B("fl3", "l", "🌱", "First steps", "Finish 3 Learn walkthroughs", 3, () => sv("flBatches")), B("fl30", "l", "🌳", "Growing roots", "Finish 30 Learn walkthroughs", 30, () => sv("flBatches")),
+    B("edit5", "m", "🛠️", "Fixer", "Improve 5 cards in the middle of a review", 5, () => sv("midEdit")), B("img25", "m", "🖼️", "Gallery", "Make 25 image cards", 25, occN),
+    B("max300", "r", "🏃", "Marathon", "300 reviews in one day", 300, maxDay), B("max500", "r", "🚀", "Ultramarathon", "500 reviews in one day", 500, maxDay),
+    B("goal7", "s", "🗓️", "Perfect week", "Hit your daily goal 7 days in a row", 7, goalRun), B("goal30", "s", "🏆", "Perfect month", "Hit your daily goal 30 days in a row", 30, goalRun),
+    B("back1", "s", "🔁", "Comeback", "Come back after a week away", 1, comeback),
+    B("cab10", "m", "🧪", "Well stocked", "Fill 10 cabinet tubes", 10, full), B("cab20", "m", "🏛️", "Collector’s cabinet", "Fill 20 cabinet tubes", 20, full),
+    B("spec20", "s", "🔬", "Specimen hoarder", "Collect 20 specimens of the day", 20, () => Object.keys(S.meta.specimens || {}).length), B("myst10", "g", "🗝️", "Case cracker", "Solve 10 mystery unknowns", 10, () => Object.values(S.meta.mystery || {}).filter(m => m && m.correct).length),
+    B("speed100", "g", "⚡", "Speed demon", "Score 100% on a speed round", 100, () => Math.max(((gs("tubes").best || {}).speed) || 0, ((gs("critical").best || {}).speed) || 0)),
+    B("lv7", "p", "🧑‍🔬", "Bench tech", "Reach level 7", 7, lvN), B("lv12", "p", "🔭", "Medical lab scientist", "Reach level 12", 12, lvN), B("lv17", "p", "🧭", "Lead tech", "Reach level 17", 17, lvN),
+    B("gloss50", "l", "📚", "Lexicon", "Add 50 terms to your glossary", 50, () => Object.values(S.meta.glossUser || {}).filter(x => x && !x.deleted).length),
+    B("hooks20", "m", "🪝", "Hook collector", "Make 20 memory hooks", 20, () => (S.meta.hooks || []).filter(h => !h.del && !h.starter).length),
+    B("form10", "l", "📐", "Formula fan", "Add 10 of your own formulas", 10, () => (S.meta.formulasUser || []).filter(f => !f.del).length),
+    B("teach10", "l", "🧑‍🏫", "Teach me", "Use “Teach me this” 10 times", 10, () => sv("teachUse"))
+  ); }
+{ const fl = startFirstLook; startFirstLook = function (d) { const out = fl(d); try { new MutationObserver((m, o) => { if (ST.stage && ST.stage.querySelector("#flDone") && !ST.stage.dataset.flc) { ST.stage.dataset.flc = 1; stat("flBatches"); } }).observe(ST.stage, { childList: true }); } catch { } return out; }; }
+document.addEventListener("click", e => { if (e.target.closest("#teach")) stat("teachUse"); }, true);
+
+/* ---------- badges earned today stand out on the full list ---------- */
+{ const sb = startBadges; startBadges = function () { sb(); try { const got = S.meta.badges || {}; const td = dayKey(); const todays = BADGES2.filter(b => got[b.id] && dayKey(got[b.id]) === td);
+      $$(".badges.sq .badge", ST.stage).forEach(t => { const nm = (t.querySelector("b") || {}).textContent; if (todays.some(b => b.name === nm)) t.classList.add("today"); });
+      if (todays.length) ST.stage.querySelector(".bsum")?.insertAdjacentHTML("beforeend", `<p class="bsum-today">✨ ${plural(todays.length, "new badge")} today, highlighted below.</p>`); } catch { } }; }
+
+/* ---------- speed rounds are a real level inside the game, unlocked after the others ---------- */
+for (const k of Object.keys(SPEED)) SPEED[k].asLevel = true;
+/* ===================== v44 · going back where you came from ===================== */
+/* When you close a screen that was opened from another screen, LabDeck reopens the one before it.
+   Inside a game, closing a level returns to that game’s levels first. Only menu-style screens are
+   tracked, and this hooks into the normal close, so any “are you sure?” step still happens first. */
+const NAV = { stack: [], cur: null, inWrap: 0, reopening: false, softAt: 0 };
+const navSig = () => { try { return (ST.stage && ST.stage.innerHTML || "").slice(0, 400); } catch { return ""; } };
+const navOpen = () => !!(ST && ST.el && ST.el.isConnected) || Date.now() - NAV.softAt < 400;
+function navWrap(name) {
+  const raw = window[name]; if (typeof raw !== "function" || raw.__nav) return;
+  const w = function (...a) {
+    if (name === "startMixed" && a[0] === true) return raw.apply(this, a);
+    if (NAV.reopening) return raw.apply(this, a);
+    const was = navOpen(); if (!was) NAV.stack = []; else if (NAV.cur && NAV.cur.name !== name) { NAV.stack.push(NAV.cur); if (NAV.stack.length > 12) NAV.stack.shift(); }
+    NAV.inWrap++; let out; try { out = raw.apply(this, a); } finally { NAV.inWrap--; }
+    NAV.cur = { name, raw, args: a, sig: navSig() }; return out; };
+  w.__nav = true; window[name] = w;
+}
+const NAV_SCREENS = ["startGamesHub", "startMixed", "startCases", "startGlossary", "startFormulas", "startHooks", "startJournal", "startCourseMap", "startPlan", "startFlowPick", "examsPicker", "startBadges", "startRotations", "startTeachFizz", "startCapturePick"];
+GAMES.forEach(g => { const m = String(g[3]).match(/start[A-Za-z]+/); if (m) NAV_SCREENS.push(m[0]); });
+[...new Set(NAV_SCREENS)].forEach(navWrap);
+/* screens that open from a tracked screen (a practice mode, a lesson, a session) remember where they came from */
+{ const os = openStudy; openStudy = function (...a) { if (!NAV.inWrap && !NAV.reopening && navOpen() && NAV.cur) { NAV.stack.push(NAV.cur); NAV.cur = null; } return os.apply(this, a); }; }
+function navReopen(entry) { const h0 = location.hash; setTimeout(() => { if ((ST && ST.el && ST.el.isConnected) || document.querySelector(".scrim") || location.hash !== h0) { NAV.stack = []; NAV.cur = null; return; } NAV.reopening = true; try { entry.raw.apply(null, entry.args); NAV.cur = { ...entry, sig: navSig() }; } catch (e) { NAV.stack = []; NAV.cur = null; } finally { NAV.reopening = false; } }, 0); }
+{ const cs = closeStudy; closeStudy = function (arg, ...rest) {
+    if (arg === true) { NAV.softAt = Date.now(); return cs.call(this, arg, ...rest); }
+    const cur = NAV.cur, sig = navSig(); const out = cs.call(this, arg, ...rest);
+    if (NAV.reopening) return out;
+    if (cur && sig && sig !== cur.sig) { NAV.cur = null; navReopen(cur); }
+    else if (NAV.stack.length) { NAV.cur = null; navReopen(NAV.stack.pop()); }
+    else { NAV.cur = null; }
+    return out; }; }
+/* leaving through the bottom tabs or sidebar always starts fresh */
+addEventListener("hashchange", () => { if (!(ST && ST.el && ST.el.isConnected)) { NAV.stack = []; NAV.cur = null; } });
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
