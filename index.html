@@ -2937,6 +2937,44 @@ select.input{padding-right:36px!important;text-overflow:ellipsis;max-width:100%}
 .ios-sw::after{content:"";position:absolute;top:2px;left:2px;width:27px;height:27px;border-radius:50%;background:#fff;box-shadow:0 3px 8px rgba(0,0,0,.15),0 1px 1px rgba(0,0,0,.08);transition:transform .2s}
 .ios-sw:checked{background:#34C759}.ios-sw:checked::after{transform:translateX(20px)}
 .xr-n{min-width:78px;text-align:right}
+/* ===================== v46 ===================== */
+/* “Did you know?” is retired everywhere; Fact of the day lives on home */
+.dyk,.study .results .dyk,.study.lesson-run .results .dyk,.modal .dyk{display:none!important}
+.labcorner{display:none!important}
+.factcard{display:flex;align-items:flex-start;gap:14px;background:var(--surface);border-radius:var(--r-cell);box-shadow:var(--shadow);padding:14px 12px 14px 16px;margin:12px 0 4px}
+.fact-ic{font-size:1.4rem;line-height:1.3;flex:none}
+.fact-t{flex:1;min-width:0}.fact-k{display:block;font-size:.7rem;font-weight:700;letter-spacing:.06em;color:var(--violet-ink);margin-bottom:3px}
+.fact-t p{margin:0;font-size:.95rem;line-height:1.45;color:var(--ink);transition:opacity .14s}
+.factcard #factNext{flex:none;margin-top:-4px;color:var(--ink-3)}
+/* deck page: matching top buttons */
+.deck-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.deck-head>.btn{height:36px!important;min-height:36px!important;border-radius:10px!important;border:0!important;box-shadow:none!important;background:var(--violet-soft)!important;color:var(--violet-ink)!important;font-weight:600}
+.deck-head>.btn.icon{width:36px;padding:0!important;display:inline-flex;align-items:center;justify-content:center}
+.deck-head>.btn svg{width:18px;height:18px}
+.deck-head>.btn:hover{background:color-mix(in srgb,var(--violet) 18%,var(--surface))!important}
+/* deck page: hidden notice */
+.hiddenbar{display:none!important}
+.hidnote{display:flex;align-items:center;gap:14px;width:100%;box-sizing:border-box;background:var(--surface);border-radius:var(--r-cell);box-shadow:var(--shadow);padding:12px 14px;margin:10px 0 14px}
+.hn-ic{flex:none;width:38px;height:38px;border-radius:10px;background:var(--surface-2);display:flex;align-items:center;justify-content:center;color:var(--ink-3)}.hn-ic svg{width:20px;height:20px}
+.hidnote div{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}.hidnote b{font-size:.95rem}.hidnote small{font-size:.82rem;color:var(--ink-3);line-height:1.4}
+.hidnote .btn{flex:none;background:var(--violet-soft)!important;color:var(--violet-ink)!important;border:0!important;border-radius:999px!important}
+@media (max-width:520px){.hidnote{flex-wrap:wrap}.hidnote .btn{margin-left:52px}}
+/* learning cards: say exactly what to type */
+.ic-lab{display:block;font-size:.82rem;color:var(--ink-2);margin-bottom:6px}
+.ic-why2{margin:0 0 8px;font-size:.85rem;color:var(--ink-3);line-height:1.4}.ic-why2 b{color:var(--violet-ink)}
+/* full screens lock the page behind them */
+html.study-open,html.study-open body{overflow:hidden!important;overscroll-behavior:none}
+.study{overscroll-behavior:contain}
+/* speed round tile: identical to the other levels */
+.lvl.lvl-speed b{color:inherit!important}
+/* tour */
+.tour{text-align:center}.tour-body{padding:12px 8px 4px;min-height:190px}
+.tour-e{display:block;font-size:2.6rem;line-height:1;margin:6px 0 12px}
+.tour-body h2{margin:0 0 8px;font-size:1.35rem}.tour-body p{margin:0 auto;max-width:36ch;color:var(--ink-2);line-height:1.5}
+.tour-in{animation:tourIn .28s ease both}@keyframes tourIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.tour-in{animation:none}}
+.tour-dots{display:flex;justify-content:center;gap:6px;margin:14px 0 4px}.tour-dots i{width:7px;height:7px;border-radius:50%;background:var(--line)}.tour-dots i.done{background:color-mix(in srgb,var(--violet) 40%,transparent)}.tour-dots i.on{background:var(--violet);width:18px;border-radius:4px}
+.tourcard{display:flex;align-items:center;gap:14px;padding:14px 16px!important}.tc-e{font-size:1.6rem}.tourcard div{flex:1;display:flex;flex-direction:column}.tourcard small{color:var(--ink-3);font-size:.85rem}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -3024,7 +3062,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "45.0";
+const APP_VERSION = "46.0";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -3215,7 +3253,7 @@ const Sync = {
     if (token) headers.Authorization = "Bearer " + token;
     if (opts.body) headers["Content-Type"] = "application/json";
     const r = await fetch("https://api.github.com" + path, { cache: "no-store", ...opts, headers });
-    if (!r.ok) { const e = new Error("GitHub " + r.status); e.status = r.status; throw e; }
+    if (!r.ok) { const e = new Error("GitHub " + r.status); e.status = r.status; e.rate = r.status === 429 || r.headers.get("x-ratelimit-remaining") === "0"; try { e.msg = await r.text(); } catch { e.msg = ""; } throw e; }
     return r.json();
   },
   async readFile(f) { if (!f) return null; if (f.truncated) { const r = await fetch(f.raw_url, { cache: "no-store" }); return r.ok ? r.text() : null; } return f.content; },
@@ -3265,8 +3303,9 @@ const Sync = {
       this.set("ok");
       if (changed && !ST && !$(".scrim")) render();
     } catch (e) {
-      if (e && (e.status === 401 || e.status === 403)) this.set("auth");
-      else if (e && e.status === 404) { this.gist = ""; LS.del("gh_gist"); this.set("auth"); }
+      if (e && (e.status === 429 || (e.status === 403 && (e.rate || /rate limit|abuse|secondary/i.test(e.msg || ""))))) this.set("error");
+      else if (e && (e.status === 401 || e.status === 403)) this.set("auth");
+      else if (e && e.status === 404) { this.gist = ""; LS.del("gh_gist"); this.set("error"); }
       else this.set("error");
     } finally {
       this.busy = false;
@@ -4277,7 +4316,7 @@ function startLearn(deck, opts = {}) {
     const forced = ((ST.forceIntro = ST.forceIntro || {})[f && f.key] || 0) > 0;
     const stub = !forced && f && !opts.browse && !opts.cram && S.meta.settings.smart !== false && stOf(f) && (stOf(f).l || 0) >= 2 && !(ST.stubDone = ST.stubDone || new Set()).has(f.key);
     if (stub) { ST.stubDone.add(f.key); try { topRight(); } catch { } introNew(f, () => { queue.splice(i, 1); queue.splice(Math.min(queue.length, i + 3), 0, f); show(); }, "stub"); return; }
-    if (f && !opts.browse && f.kind !== "occl" && (forced || (!opts.queue && !stOf(f) && S.meta.settings.introNew !== false && !(ST.intro = ST.intro || new Set()).has(f.key)))) { try { topRight(); } catch { } introNew(f, () => { (ST.intro = ST.intro || new Set()).add(f.key); if (forced) ST.forceIntro[f.key]--; queue.splice(i, 1); queue.splice(Math.min(queue.length, i + 3), 0, f); show(); }, forced); return; }
+    if (f && !opts.browse && f.kind !== "occl" && (forced || (!opts.queue && !stOf(f) && (lmStore(f.deck)[f.key] || 0) < 2 && S.meta.settings.introNew !== false && !(ST.intro = ST.intro || new Set()).has(f.key)))) { try { topRight(); } catch { } introNew(f, () => { undo.push({ queue: queue.slice(), i, doneN, again, good, deckId: f.deck.id, key: f.key, prev: stOf(f) ? { ...stOf(f) } : null, hist: S.meta.history[dayKey()] || 0, newDay: S.meta.newDay, newCount: S.meta.newCount, seen: seenNew.has(f.key), sess: JSON.stringify(SESS), intro: true }); (ST.intro = ST.intro || new Set()).add(f.key); if (forced) ST.forceIntro[f.key]--; queue.splice(i, 1); queue.splice(Math.min(queue.length, i + 3), 0, f); show(); }, forced); return; }
     ST.stage.innerHTML = `${studyHead(f.deck)}${flipCard("", capOf(f.deck), (stOf(f) || f.kind !== "basic" ? "" : `<div class="kicker">New</div>`) + (opts.reverse && f.kind === "basic" && f.a ? revFront(f) : factFront(f)), opts.reverse && f.kind === "basic" && f.a ? revBack(f) : factBack(f))}
       <div id="ctl"><button class="btn primary" id="show" style="width:100%;min-height:54px">Show answer</button><p class="tap-hint kbd-hint" style="margin-top:8px"><kbd>Space</kbd> to flip</p></div>`;
     sizeFlip();
@@ -4322,6 +4361,7 @@ function startLearn(deck, opts = {}) {
   }
   function doUndo() {
     const u = undo.pop(); if (!u) return; if (u.sess) SESS = JSON.parse(u.sess);
+    if (u.intro && ST.intro) { ST.intro.delete(u.key); if (ST.forceIntro && ST.forceIntro[u.key] != null) ST.forceIntro[u.key]++; }
     queue = u.queue; i = u.i; doneN = u.doneN; again = u.again; good = u.good;
     S.srs[u.deckId] = S.srs[u.deckId] || {};
     if (u.prev) S.srs[u.deckId][u.key] = u.prev; else delete S.srs[u.deckId][u.key];
@@ -4331,8 +4371,8 @@ function startLearn(deck, opts = {}) {
   }
   function editCurrent() {
     const f = queue[i]; if (!f) return;
-    editCardModal(f.deck, f.card, () => {
-      const fresh = factsOf(f.deck);
+    editCardModal(S.decks[f.deck.id] || f.deck, f.card, () => {
+      const fresh = factsOf(S.decks[f.deck.id] || f.deck);
       queue = queue.map(q => fresh.find(x => x.key === q.key) || null).filter(Boolean);
       if (queue[i] && queue[i].card.id === f.card.id && queue.length - i > 1) { const here = queue.splice(i, 1)[0]; queue.splice(Math.min(queue.length, i + 3), 0, here); toast("Saved. You’ll see this card again in a few cards."); }
       stat("midEdit"); i = Math.min(i, queue.length); show();
@@ -4352,6 +4392,7 @@ function startLearn(deck, opts = {}) {
     if (e.key === " " || e.key === "Enter") { e.preventDefault(); if (!flipped) flip(); else if (e.key === "Enter") grade(3); }
     else if (flipped && /^[1-4]$/.test(e.key)) grade(+e.key);
   };
+  ST.reviewKey = ST.onKey;
   show();
 }
 
@@ -7824,7 +7865,7 @@ function runExam(qs, per, label) {
     if (done) return; done = true; ST.timers.forEach(clearInterval);
     let right = 0; const by = {};
     qs.forEach((q, k) => { const ok = q.options[ans[k]] === q.answer; if (ok) right++; by[q.area] = by[q.area] || [0, 0]; by[q.area][1]++; if (ok) by[q.area][0]++; if (q.f && !q.identify) recordQuiz(q.f, ok); if (!ok) logMistake({ img: !q.text && q.f && q.f.card && q.f.card.img ? q.f.card.img : undefined, src: label + " exam", q: q.text || qLabel(q), yours: ans[k] >= 0 ? q.options[ans[k]] : "", right: q.answer, opts: q.options, why: q.why || "" }); });
-    const pct = Math.round(right / qs.length * 100); try { ST.lastExam = { qs, ans: ans.slice(), label, pct, ms: Date.now() - t0, by, flags: [...flags] }; } catch { } setProg(1); ST.right.innerHTML = ""; if (label === "Comprehensive") statMax("compBest", pct); if (label === "Board-style") statMax("bocBest", pct);
+    const pct = Math.round(right / qs.length * 100); setProg(1); ST.right.innerHTML = ""; if (label === "Comprehensive") statMax("compBest", pct); if (label === "Board-style") statMax("bocBest", pct);
     ST.stage.innerHTML = `<div class="results">${ring(pct)}<h2>${right} of ${qs.length} correct</h2><p class="muted">${pct >= 80 ? "Comfortably above your program’s 70% line." : pct >= 70 ? "Passing, with little margin." : "Below the 70% line. The breakdown shows where to focus."} Finished in ${plural(Math.round((Date.now() - t0) / 60000), "minute")}.</p></div>
       <div class="panel"><h3 style="margin-bottom:8px">By course</h3>${Object.entries(by).map(([a, [r, t]]) => `<div class="deckbar"><span style="font-weight:600">${esc(a)}</span><div class="mastery"><i class="m" style="width:${r / t * 100}%;background:${r / t >= .8 ? "var(--good)" : r / t >= .7 ? "var(--warn)" : "var(--bad)"}"></i></div><span class="small muted">${r}/${t}</span></div>`).join("")}</div>
       <div class="row" style="justify-content:center"><button class="btn primary" id="rev">Review answers</button><button class="btn" id="dn">Done</button></div><div id="review" class="missed-list"></div>`;
@@ -13358,7 +13399,7 @@ const SPEED = { tubes: { name: "Speed round", sub: "Order of draw against the cl
 function speedRow(id) { const m = SPEED[id]; const st = gstate(id); const best = (st.best || {}).speed; return `<div class="a3group xmode"><button class="a3row" id="speedGo"><span class="a3sym xm-e">⚡</span><span class="a3rt"><b>${m.name}</b><small>${m.sub}${best != null ? ` Best: ${best}%.` : ""}</small></span><span class="a3chev">›</span></button></div>`; }
 new MutationObserver(() => { const el = ST && ST.el; if (!el || !el.isConnected) return; const id = el.dataset.game; if (!SPEED[id]) return;
   const lv = el.querySelector(".levels"); if (lv && !lv.querySelector("[data-speedlv]") && !el.dataset.speeding) { const tiles = [...lv.querySelectorAll(".lvl")]; const n = tiles.length + 1; const open = tiles.length && !tiles[tiles.length - 1].disabled || ((S.meta.gameOverride || {})[id]); const best = (gstate(id).best || {}).speed;
-    lv.insertAdjacentHTML("beforeend", `<button class="lvl lvl-speed" data-speedlv ${open ? "" : "disabled"}><span>Level ${n}</span><b>⚡ ${SPEED[id].name}</b>${open ? (best != null ? `<small>Best ${best}%</small>` : "") : `<small>Unlock level ${n - 1} first</small>`}</button>`);
+    const lockSvg = (lv.querySelector(".lvl[disabled] .lvn svg") || {}).outerHTML || "🔒"; lv.insertAdjacentHTML("beforeend", `<button class="lvl" data-speedlv ${open ? "" : "disabled"} title="${open ? (best != null ? `Best ${best}%` : "") : "Clear the level before to unlock"}"><span class="lvn">${open ? n : lockSvg}</span><span class="lvt"><small>Level ${n}</small><b>${SPEED[id].name}</b></span></button>`);
     const t = lv.querySelector("[data-speedlv]"); t.onclick = () => { $$(".lvl", lv).forEach(x => x.classList.remove("on")); t.classList.add("on"); const go = el.querySelector("#go"); if (go) { go.textContent = `Start ${SPEED[id].name.toLowerCase()}`; go.onclick = ev => { ev.stopImmediatePropagation(); runSpeed(id); }; } }; }
   /* (speed rounds are now a level of their own) */
 }).observe(document.documentElement, { childList: true, subtree: true });
@@ -14145,98 +14186,6 @@ splitSent = function (t) {
       saveSrs(deckId); } catch { } return out; }; }
 { const inn = introNew; introNew = function (f, done, forced) { inn(f, done, forced === "stub" ? true : forced); if (forced === "stub") { const p = ST.stage.querySelector(".intro-card .rv-pill"); if (p) { p.textContent = "Keeps slipping"; p.className = "rv-pill ag"; } const l = ST.stage.querySelector(".ic-lead"); if (l) l.innerHTML = l.innerHTML.replace(/^[^.]*\./, "This one keeps slipping, so let’s lock it in."); } }; }
 
-/* ---------- tags on cards ---------- */
-const cardTags = c => (c && Array.isArray(c.tags) ? c.tags : []);
-const allTags = () => { const m = new Map(); Object.values(S.decks).forEach(d => d.cards.forEach(c => cardTags(c).forEach(t => m.set(t, (m.get(t) || 0) + 1)))); return [...m.entries()].sort((a, b) => b[1] - a[1]).map(x => x[0]); };
-const normTag = t => String(t || "").trim().toLowerCase().replace(/\s+/g, " ").slice(0, 32);
-function tagField(initial) {
-  let tags = [...new Set((initial || []).map(normTag).filter(Boolean))];
-  const box = document.createElement("div"); box.className = "field tagfield"; box.innerHTML = `<label for="tagIn">Tags <span class="small muted">(optional)</span></label><div class="tagbox"><span class="tagchips"></span><input id="tagIn" list="tagList" autocomplete="off" placeholder="${tags.length ? "Add another" : "e.g. exam 2, bench: heme"}"></div><datalist id="tagList">${allTags().map(t => `<option value="${esc(t)}">`).join("")}</datalist>`;
-  const chips = box.querySelector(".tagchips"), inp = box.querySelector("#tagIn");
-  const draw = () => { chips.innerHTML = tags.map(t => `<span class="tagchip">${esc(t)}<button type="button" data-x="${esc(t)}" aria-label="Remove ${esc(t)}">×</button></span>`).join(""); chips.querySelectorAll("[data-x]").forEach(b => b.onclick = () => { tags = tags.filter(x => x !== b.dataset.x); draw(); }); };
-  const add = v => { v.split(",").map(normTag).filter(Boolean).forEach(t => { if (!tags.includes(t)) tags.push(t); }); inp.value = ""; draw(); };
-  inp.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === ",") { if (inp.value.trim()) { e.preventDefault(); e.stopPropagation(); add(inp.value); } } else if (e.key === "Backspace" && !inp.value && tags.length) { tags.pop(); draw(); } });
-  inp.addEventListener("change", () => { if (inp.value.trim()) add(inp.value); });
-  draw(); return { el: box, get: () => { if (inp.value.trim()) add(inp.value); return tags.slice(); } };
-}
-{ const ec = editCardModal; editCardModal = function (d, card, after, prefType) {
-    const before = new Set(d.cards.map(c => c.id)); const out = ec(d, card, after, prefType);
-    setTimeout(() => { const m = document.querySelector(".scrim:last-of-type .modal"); const save = m && m.querySelector("#saveC"); if (!save || m.querySelector(".tagfield")) return;
-      const tf = tagField(card ? cardTags(card) : []); const foot = m.querySelector(".modal-foot"); foot ? foot.before(tf.el) : save.parentElement.before(tf.el);
-      save.addEventListener("click", () => { const tags = tf.get(); setTimeout(() => { const target = card ? d.cards.find(c => c.id === card.id) : d.cards.find(c => !before.has(c.id)); if (target) { if (tags.length) target.tags = tags; else delete target.tags; d.updated = Date.now(); saveDeck(d); } }, 0); }, true);
-    }, 0); return out; }; }
-{ const cr = cardRow; cardRow = function (d, x, st) { const h = cr(d, x, st); const t = cardTags(x); return t.length ? h.replace(/(<div class="acts")/, `<div class="cr-tags">${t.map(v => `<span class="tagchip sm">${esc(v)}</span>`).join("")}</div>$1`) : h; }; }
-
-/* ---------- all cards: one place to search, filter and study any mix ---------- */
-function cardStatus(d, c) { const fs = factsOf(d).filter(f => f.card === c); const sr = S.srs[d.id] || {}; const now = Date.now(); let due = false, isNew = true, leech = false; fs.forEach(f => { const s = sr[f.key]; if (s && s.r) { isNew = false; if (s.d <= now) due = true; if ((s.l || 0) >= 4) leech = true; } }); return { due, isNew, leech, facts: fs }; }
-function startBrowser(pre = {}) {
-  openStudy("All cards"); setProg(0);
-  const st = { q: "", filter: pre.filter || "all", tags: new Set(pre.tags || []), deck: pre.deck || "", limit: 150 };
-  const decks = Object.values(S.decks).filter(d => !d.hidden).sort((a, b) => a.name.localeCompare(b.name));
-  const rows = () => { const q = st.q.toLowerCase(); const out = [];
-    decks.forEach(d => { if (st.deck && d.id !== st.deck) return; d.cards.forEach(c => { const tags = cardTags(c); if (st.tags.size && ![...st.tags].every(t => tags.includes(t))) return;
-      const text = (c.front || c.text || c.name || (c.rects || []).map(r => r.label).join(" ") || "") + " " + (c.back || "") + " " + Object.values(c.values || {}).join(" ") + " " + tags.join(" ");
-      if (q && !text.toLowerCase().includes(q)) return; const s = cardStatus(d, c);
-      if (st.filter === "new" && !s.isNew) return; if (st.filter === "due" && !s.due) return; if (st.filter === "leech" && !s.leech) return; if (st.filter === "star" && !c.star) return;
-      out.push({ d, c, s }); }); }); return out; };
-  const title = c => c.type === "occlusion" ? `Image card · ${(c.rects || []).length} labels` : (c.front || c.name || (c.text || "").replace(/\{\{(.+?)\}\}/g, "$1") || "Card");
-  const sub = c => c.type === "occlusion" ? (c.rects || []).map(r => r.label).join(", ") : c.type === "cloze" ? "Fill in the blank" : c.back || Object.entries(c.values || {}).map(([k, v]) => `${k}: ${v}`).join(" · ");
-  const draw = () => { const list = rows(); const tagsAll = allTags(); const shown = list.slice(0, st.limit);
-    ST.stage.innerHTML = `<div class="brz">
-      <label class="search"><span>${icon("search")}</span><input id="bzQ" placeholder="Search every card" value="${esc(st.q)}" autocomplete="off"></label>
-      <div class="seg bz-f">${[["all", "All"], ["new", "New"], ["due", "Due"], ["leech", "Leeches"], ["star", "Starred"]].map(([k, l]) => `<button data-f="${k}" class="${st.filter === k ? "on" : ""}">${l}</button>`).join("")}</div>
-      <div class="bz-row"><select class="input" id="bzDeck"><option value="">All decks</option>${decks.map(d => `<option value="${d.id}" ${st.deck === d.id ? "selected" : ""}>${esc(d.name)}</option>`).join("")}</select></div>
-      ${tagsAll.length ? `<div class="pickchips bz-tags">${tagsAll.map(t => `<button class="chipbtn sm ${st.tags.has(t) ? "on" : ""}" data-t="${esc(t)}">#${esc(t)}</button>`).join("")}</div>` : `<p class="small muted bz-tip">Tip: add tags to cards (like “exam 2”) to build sessions from any mix of decks.</p>`}
-      <div class="bz-count">${list.length.toLocaleString()} card${list.length === 1 ? "" : "s"}</div>
-      <div class="a3group bz-list">${shown.map(({ d, c, s }) => { const lb = labelOf(d); return `<button class="a3row bz-item" data-d="${d.id}" data-c="${c.id}"><span class="bz-ic">${capIcon(lb ? lb.color : d.color, (lb && (lb.shape || SHAPE_OF[lb.id])) || "tube", 26)}</span><span class="a3rt"><b>${escG(title(c))}</b><small>${esc(String(sub(c)).slice(0, 120))}</small><span class="bz-meta">${esc(d.name)}${cardTags(c).map(t => ` · #${esc(t)}`).join("")}</span></span><span class="bz-st">${s.leech ? `<span class="dt-pill lc">Leech</span>` : s.due ? `<span class="dt-pill due">Due</span>` : s.isNew ? `<span class="dt-pill new">New</span>` : ""}${c.star ? "★" : ""}</span></button>`; }).join("") || `<p class="small muted" style="padding:16px">No cards match.</p>`}</div>
-      ${list.length > st.limit ? `<button class="btn" id="bzMore" style="margin-top:10px;width:100%;justify-content:center">Show more</button>` : ""}
-      <div class="bz-bar"><span>${list.length ? `Study ${Math.min(list.length, 200)} card${list.length === 1 ? "" : "s"} from this list` : "Pick some cards to study"}</span><button class="btn primary" id="bzGo" ${list.length ? "" : "disabled"}>Study these</button></div></div>`;
-    const q = $("#bzQ"); q.oninput = () => { st.q = q.value; clearTimeout(q._t); q._t = setTimeout(() => { const pos = q.selectionStart; draw(); const n = $("#bzQ"); n.focus(); n.setSelectionRange(pos, pos); }, 180); };
-    $$(".bz-f [data-f]").forEach(b => b.onclick = () => { st.filter = b.dataset.f; draw(); });
-    $("#bzDeck").onchange = e => { st.deck = e.target.value; draw(); };
-    $$(".bz-tags [data-t]").forEach(b => b.onclick = () => { const t = b.dataset.t; st.tags.has(t) ? st.tags.delete(t) : st.tags.add(t); draw(); });
-    $("#bzMore") && ($("#bzMore").onclick = () => { st.limit += 150; draw(); });
-    $$(".bz-item").forEach(r => r.onclick = () => { const d = S.decks[r.dataset.d], c = d.cards.find(x => x.id === r.dataset.c); editCardModal(d, c, () => draw()); });
-    $("#bzGo").onclick = () => { const facts = list.slice(0, 200).flatMap(x => x.s.facts).filter(f => !isSus(f)); if (!facts.length) { toast("Those cards aren’t ready to study yet"); return; } const label = st.tags.size ? [...st.tags].map(t => "#" + t).join(" ") : st.filter !== "all" ? { new: "New cards", due: "Due cards", leech: "Leeches", star: "Starred cards" }[st.filter] : "Your selection"; closeStudy(true); startLearn(null, { queue: shuffle(facts).slice(0, 120), title: label }); };
-  };
-  draw();
-}
-PAGEHEAD.push(["All cards", "cards", "#2F6FB5", "Search every card in every deck, filter by tag or status, then study any mix."]);
-navWrap("startBrowser");
-{ const rh = renderHome; renderHome = function (decks) { rh(decks); const v = $("#view"); if (!v) return; const h = [...v.querySelectorAll(".section-head")].find(x => /^Decks/.test(x.textContent.trim())); if (h && !h.querySelector("#allCards")) { const nb = h.querySelector("button, a"); (nb ? nb : h).insertAdjacentHTML(nb ? "beforebegin" : "beforeend", `<button class="btn sm ghost" id="allCards">${icon("search")}All cards</button>`); $("#allCards").onclick = () => startBrowser(); } }; }
-{ const sm = startMixed; startMixed = function (skip) { const out = sm(skip); if (skip !== true && ST && ST.stage && !ST.stage.querySelector('[data-m="pick"]')) { const g = ST.stage.querySelector(".a3group"); g && g.insertAdjacentHTML("beforeend", `<button class="a3row" data-m="pick"><span class="a3sym" style="background:#2F6FB5">${icon("search")}</span><span class="a3rt"><b>Pick your own cards</b><small>Any mix of decks, tags, new, due or leeches</small></span><span class="a3chev">›</span></button>`); const b = ST.stage.querySelector('[data-m="pick"]'); b && (b.onclick = () => startBrowser()); } return out; }; }
-
-/* ---------- exam reports: where the points went, what you missed, and how you’re trending ---------- */
-new MutationObserver(() => { const E = ST && ST.lastExam; if (!E || !ST.stage) return; const res = ST.stage.querySelector(".results:not([data-rep])"); if (!res) return; res.dataset.rep = 1;
-  const rows = Object.entries(E.by).map(([a, [r, t]]) => ({ a, r, t, p: Math.round(r / t * 100), lost: t - r })).sort((x, y) => x.p - y.p);
-  const missed = E.qs.map((q, k) => ({ q, k, pick: E.ans[k] })).filter(x => x.q.options[x.pick] !== x.q.answer);
-  const avg = Math.round(E.ms / 1000 / E.qs.length);
-  const H = S.meta.examHist = S.meta.examHist || []; if (!H.some(h => h.t === E.t0)) { E.t0 = E.t0 || Date.now(); H.push({ t: E.t0, label: E.label, pct: E.pct, n: E.qs.length, by: E.by, avg }); if (H.length > 60) H.shift(); saveMeta(true); }
-  [...res.querySelectorAll(".panel")].filter(p => /^\s*By (course|deck)/.test(p.textContent)).forEach(p => p.remove());
-  res.insertAdjacentHTML("beforeend", `<div class="xr">
-    <div class="xr-stats"><div><b>${E.pct}%</b><span>score</span></div><div><b>${missed.length}</b><span>missed</span></div><div><b>${avg}s</b><span>per question</span></div></div>
-    <div class="panel xr-p"><h3>Where your points went</h3>${rows.map(x => `<div class="xr-row"><span class="xr-a">${esc(x.a)}</span><i class="a3bar"><i style="width:${x.p}%;background:${x.p >= 80 ? "#34C759" : x.p >= 70 ? "#F5B800" : "#E5484D"}"></i></i><span class="xr-n">${x.r}/${x.t}${x.lost ? ` · −${x.lost}` : ""}</span></div>`).join("")}</div>
-    ${missed.length ? `<div class="panel xr-p"><div class="fc-h"><h3 style="margin:0">What you missed</h3><button class="btn sm primary" id="xrStudy">Review these ${missed.length}</button></div><div class="xr-miss">${missed.slice(0, 40).map(x => `<div class="xr-m"><b>${escG(x.q.q || x.q.question || "")}</b>${x.pick >= 0 ? `<span class="xr-you">You: ${escG(x.q.options[x.pick])}</span>` : `<span class="xr-you">Not answered</span>`}<span class="xr-ok">Answer: ${escG(x.q.answer)}</span></div>`).join("")}</div></div>` : ""}</div>`);
-  $("#xrStudy") && ($("#xrStudy").onclick = () => { const facts = missed.map(x => x.q.f).filter(Boolean); if (!facts.length) { toast("These questions don’t map to cards"); return; } closeStudy(true); startLearn(null, { queue: facts, title: "Exam misses" }); });
-}).observe(document.documentElement, { childList: true, subtree: true });
-{ const ep = examsPicker; examsPicker = function (...a) { const out = ep.apply(this, a); try { const H = (S.meta.examHist || []).slice(-12); if (H.length) { const W = 600, Hh = 120, P = 26; const x = i => P + i * (W - 2 * P) / Math.max(1, H.length - 1), y = v => Hh - 18 - v / 100 * (Hh - 34);
-      ST.stage.insertAdjacentHTML("beforeend", `<div class="panel xr-hist"><div class="fc-h"><h3 style="margin:0">Your past attempts</h3><span class="fc-m">Best ${Math.max(...H.map(h => h.pct))}%</span></div><svg viewBox="0 0 ${W} ${Hh}" class="accsvg">${[70].map(v => `<line x1="${P}" x2="${W - P}" y1="${y(v)}" y2="${y(v)}" class="acc-grid" stroke-dasharray="4 4"/><text x="${W - P}" y="${y(v) - 4}" class="acc-yl" text-anchor="end">70% pass line</text>`).join("")}${H.length > 1 ? `<polyline points="${H.map((h, i) => x(i) + "," + y(h.pct)).join(" ")}" class="acc-line"/>` : ""}${H.map((h, i) => `<circle cx="${x(i)}" cy="${y(h.pct)}" r="4.5" class="acc-dot"><title>${esc(h.label)} · ${new Date(h.t).toLocaleDateString(undefined, { month: "short", day: "numeric" })}: ${h.pct}%</title></circle>`).join("")}</svg>
-        <div class="xr-list">${H.slice().reverse().slice(0, 5).map(h => `<div><span>${esc(h.label === "Board-style" ? "Board practice" : h.label)} · ${new Date(h.t).toLocaleDateString(undefined, { month: "short", day: "numeric" })}</span><b style="color:${h.pct >= 70 ? "#248A3D" : "#C8292F"}">${h.pct}%</b></div>`).join("")}</div></div>`); } } catch { } return out; }; }
-{ const mr = mergeRemote; mergeRemote = function (r, ...a) { const mine = (S.meta.examHist || []).slice(); const res = mr.call(this, r, ...a); const R = (((r && r.meta) || {}).examHist) || []; const by = new Map(); [...R, ...mine].forEach(h => h && by.set(h.t, h)); S.meta.examHist = [...by.values()].sort((a, b) => a.t - b.t).slice(-60); return res; }; }
-
-/* ---------- pronunciation: hear any term said out loud ---------- */
-const CAN_SPEAK = "speechSynthesis" in window;
-function say(text) { if (!CAN_SPEAK || !text) return; try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text.replace(/\s+/g, " ").trim()); u.lang = "en-US"; u.rate = .92; const vs = speechSynthesis.getVoices(); const v = vs.find(x => /en[-_]US/i.test(x.lang) && /Samantha|Google US|Natural|Ava|Allison/i.test(x.name)) || vs.find(x => /en[-_]US/i.test(x.lang)); if (v) u.voice = v; speechSynthesis.speak(u); } catch { } }
-const spkBtn = t => CAN_SPEAK && S.meta.settings.speak !== false && t ? `<button class="spk" type="button" data-say="${esc(t)}" aria-label="Hear it said">${icon("speaker")}</button>` : "";
-Object.assign(ICONS, { speaker: '<path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/>', cards: ICONS.cards || '<rect x="3" y="7" width="13" height="13" rx="2"/><path d="M7 4h11a3 3 0 0 1 3 3v11"/>' });
-document.addEventListener("click", e => { const b = e.target.closest(".spk"); if (!b) return; e.preventDefault(); e.stopPropagation(); say(b.dataset.say); b.classList.add("on"); setTimeout(() => b.classList.remove("on"), 700); }, true);
-new MutationObserver(() => { if (!CAN_SPEAK || S.meta.settings.speak === false) return;
-  document.querySelectorAll(".study .flip .face:not([data-spk]), .intro-card:not([data-spk]), .gitem:not([data-spk])").forEach(el => { el.dataset.spk = 1; let t = "";
-    if (el.classList.contains("gitem")) { const b = el.querySelector("b"); const full = el.querySelectorAll("b")[1]; t = [b && b.textContent, full && full.textContent].filter(Boolean).join(". "); }
-    else if (el.classList.contains("intro-card")) { const q = el.querySelector(".ic-q"); t = q ? plainOf(q.innerHTML) : ""; }
-    else { const c = el.cloneNode(true); c.querySelectorAll(".rv-pill,.kicker,.acx,.spk,button").forEach(x => x.remove()); t = c.textContent.replace(/\s+/g, " ").trim().slice(0, 220); }
-    if (t) el.insertAdjacentHTML("afterbegin", spkBtn(t)); }); }).observe(document.documentElement, { childList: true, subtree: true });
-
 /* ---------- sounds: soft, optional, off until you turn them on ---------- */
 let AC = null; function chime(kind) { if (!S.meta.settings.sounds) return; try { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); const now = AC.currentTime;
     const notes = { done: [[659, 0], [880, .12]], combo: [[784, 0], [988, .07], [1175, .14]], level: [[523, 0], [659, .1], [784, .2], [1047, .32]], badge: [[880, 0], [1319, .1]], tick: [[1200, 0]] }[kind] || [[660, 0]];
@@ -14249,12 +14198,228 @@ new MutationObserver(() => { const u = document.querySelector(".modal .unl:not([
 /* ---------- Settings: smart spacing, voice and sound ---------- */
 { const r = render; render = function (...a) { const out = r.apply(this, a); if ((location.hash || "") === "#more" && !document.getElementById("svBox")) { const v = $("#view"); const anchor = document.getElementById("storeBox") || (v && [...v.querySelectorAll(".panel")].pop()); if (anchor) {
       const sw = (id, on, t, s) => `<label class="sw-row"><span><b>${t}</b><small>${s}</small></span><input type="checkbox" class="ios-sw" id="${id}" ${on ? "checked" : ""}></label>`;
-      anchor.insertAdjacentHTML("beforebegin", `<div class="panel" id="svBox"><h3>Study &amp; sound</h3><div class="sw-list">${sw("swSmart", S.meta.settings.smart !== false, "Smart spacing", "Cards you keep getting right space out a little faster, and cards that keep slipping get a quick learning round.")}${CAN_SPEAK ? sw("swSpeak", S.meta.settings.speak !== false, "Hear it said", "A speaker button on cards and glossary terms reads them aloud.") : ""}${sw("swSound", !!S.meta.settings.sounds, "Sounds", "Soft chimes when you finish a session, hit a combo, level up or earn a badge.")}</div></div>`);
+      anchor.insertAdjacentHTML("beforebegin", `<div class="panel" id="svBox"><h3>Study &amp; sound</h3><div class="sw-list">${sw("swSmart", S.meta.settings.smart !== false, "Smart spacing", "Cards you keep getting right space out a little faster, and cards that keep slipping get a quick learning round.")}${sw("swSound", !!S.meta.settings.sounds, "Sounds", "Soft chimes when you finish a session, hit a combo, level up or earn a badge.")}</div></div>`);
       $("#swSmart").onchange = e => { S.meta.settings.smart = e.target.checked; saveMeta(true); };
-      $("#swSpeak") && ($("#swSpeak").onchange = e => { S.meta.settings.speak = e.target.checked; saveMeta(true); });
       $("#swSound").onchange = e => { S.meta.settings.sounds = e.target.checked; saveMeta(true); if (e.target.checked) chime("done"); }; } } return out; }; }
-/* tags on the deck page’s card rows, however the rows were drawn */
-{ const rd = renderDeck; renderDeck = function (d, ...a) { const out = rd(d, ...a); try { $$("#view .card-row").forEach(r => { if (r.querySelector(".cr-tags")) return; const id = (r.querySelector("[data-id]") || {}).dataset?.id; const c = id && d.cards.find(x => x.id === id); const t = cardTags(c); if (t.length) (r.querySelector(".cr-body") || r).insertAdjacentHTML("beforeend", `<div class="cr-tags">${t.map(v => `<span class="tagchip sm">${esc(v)}</span>`).join("")}</div>`); }); } catch { } return out; }; }
+/* ===================== v46 · more facts for Fact of the day ===================== */
+const FACTS_V46 = [
+"A single milliliter of blood holds roughly five billion red cells.",
+"Laid end to end, the blood vessels in one adult would wrap around Earth more than twice.",
+"Your red cells make a full lap of your body in about a minute.",
+"Hemoglobin is the reason blood is red, and the reason it turns brighter red when it picks up oxygen.",
+"Octopuses and horseshoe crabs have blue blood because they carry oxygen with copper, not iron.",
+"Horseshoe crab blood is used to test injectable drugs for bacterial toxins. The test is called LAL.",
+"Camels have oval red cells, which may help them keep flowing when the camel is dehydrated.",
+"Frogs, birds and reptiles have red cells with a nucleus. Mammals are the odd ones out.",
+"Icefish living in Antarctic waters have almost no red cells and clear-looking blood.",
+"Platelets aren’t whole cells. They’re fragments pinched off giant megakaryocytes.",
+"One megakaryocyte can shed a few thousand platelets.",
+"Neutrophils can throw out sticky webs of DNA, called NETs, to trap bacteria.",
+"Eosinophils were named for how much they love eosin, the pink-orange dye in Wright stain.",
+"Basophil granules hold histamine, one of the drivers of allergy symptoms.",
+"Macrophages are the same cell type as monocytes; they just moved out of the blood and settled in tissue.",
+"Kupffer cells are macrophages that live in the liver.",
+"Some memory lymphocytes can protect you for decades after an infection or vaccine.",
+"The thymus, where T cells train, shrinks steadily after puberty.",
+"The B in B cell comes from the bursa of Fabricius, an organ in birds where they were discovered.",
+"Antibodies are Y-shaped, and the tips of the Y are what grab the target.",
+"Your body can make an enormous number of different antibodies by shuffling gene segments.",
+"Edward Jenner’s smallpox vaccine came from cowpox, and “vacca” is Latin for cow.",
+"Smallpox is the only human disease ever eradicated worldwide.",
+"Anemia comes from Greek for “without blood.”",
+"Leukemia means “white blood,” from the pale look of blood with very high white counts.",
+"Hematocrit tubes used to be spun and read by eye against a printed scale.",
+"The first automated cell counter, the Coulter counter, was patented in the 1950s.",
+"Sickle cell trait offers some protection against severe malaria.",
+"Iron deficiency is the most common nutritional deficiency in the world.",
+"Pica, craving things like ice or dirt, can be a sign of iron deficiency.",
+"Pernicious anemia was once fatal; eating large amounts of liver turned out to treat it, because of its B12.",
+"The 1934 Nobel Prize went to the doctors who found the liver treatment for pernicious anemia.",
+"Hemophilia ran through Queen Victoria’s descendants in several European royal families.",
+"Warfarin was first developed as a rat poison before it became a blood thinner.",
+"Heparin was originally isolated from liver, which is where its name comes from.",
+"Leeches make hirudin, a powerful natural anticoagulant.",
+"Some snake venoms work by triggering or blocking the clotting cascade.",
+"Aspirin’s effect on a platelet lasts for that platelet’s whole life.",
+"The ESR test literally measures how far red cells fall in a tube in one hour.",
+"Gram stain results can come back in minutes, long before a culture grows.",
+"Hans Christian Gram was actually trying to make bacteria easier to see in lung tissue.",
+"Some bacteria can double their numbers about every 20 minutes in ideal conditions.",
+"Mycobacterium tuberculosis divides roughly once a day, which is why its cultures take weeks.",
+"There are more bacterial cells in and on you than you might expect, roughly as many as your own cells.",
+"Serratia marcescens can make a red pigment, and its colonies were once mistaken for blood.",
+"Chromobacterium violaceum makes violet colonies.",
+"Some Vibrio species glow in the dark.",
+"Streptococcus pyogenes is the bacterium behind both strep throat and “flesh-eating” infections.",
+"Staphylococcus aureus gets its name from its golden colonies; aureus means golden.",
+"About a third of people carry Staphylococcus aureus in their nose without being sick.",
+"Clostridium botulinum makes one of the most potent toxins known, the one in Botox.",
+"Clostridium tetani spores live in soil, which is why puncture wounds raise tetanus concerns.",
+"Bacillus anthracis spores can survive in soil for decades.",
+"Helicobacter pylori was proven to cause ulcers when a researcher drank a culture of it.",
+"That researcher, Barry Marshall, shared the 2005 Nobel Prize for the discovery.",
+"Legionella got its name from a 1976 outbreak at an American Legion convention.",
+"Listeria can grow at refrigerator temperatures, which is why it’s a food-safety concern.",
+"E. coli is named after Theodor Escherich, who described it in 1885.",
+"Salmonella is named after Daniel Salmon, though his assistant did much of the work.",
+"Yersinia pestis, the plague bacterium, is named after Alexandre Yersin.",
+"Neisseria is named after Albert Neisser, who described the gonococcus.",
+"Penicillium, the mold that makes penicillin, is related to the molds on blue cheese.",
+"Candida auris is an emerging yeast that resists several antifungal drugs.",
+"Dimorphic fungi switch shape with temperature: mold in the soil, yeast in the body.",
+"Coccidioides, the cause of Valley fever, lives in desert soil in the American Southwest.",
+"Histoplasma is linked to soil rich in bird and bat droppings.",
+"Tapeworms can grow many meters long inside the intestine.",
+"Plasmodium spends part of its life cycle hiding inside liver cells.",
+"The malaria parasite is carried by female Anopheles mosquitoes only.",
+"Toxoplasma gondii completes its life cycle in cats.",
+"Trichomonas swims with whip-like flagella, which you can see moving on a wet mount.",
+"Viruses are too small to see with a regular light microscope.",
+"Bacteriophages are viruses that infect bacteria, and they outnumber bacteria on Earth.",
+"PCR was invented in 1983 by Kary Mullis, who won a Nobel Prize for it.",
+"PCR relies on an enzyme from bacteria that live in hot springs, which is why it survives the heating steps.",
+"A single PCR run can make billions of copies of a DNA target.",
+"Blood types were discovered in 1901, but transfusions didn’t become routine until blood could be stored.",
+"Sodium citrate made blood storage possible by stopping it from clotting.",
+"The first blood bank in the United States opened in Chicago in 1937.",
+"Charles Drew pioneered large-scale blood plasma banking in the 1940s.",
+"Type O is the most common blood type in the United States.",
+"AB negative is one of the rarest blood types.",
+"Rh negative blood is much more common in some populations than others.",
+"There are more than 40 recognized blood group systems, not just ABO and Rh.",
+"Some people have red cells missing almost every common antigen, which makes finding donor blood very hard.",
+"Donated red cells can be stored refrigerated for about six weeks, depending on the preservative.",
+"Platelets are stored at room temperature, which is why they have such a short shelf life.",
+"Plasma can be frozen and kept for a year or more.",
+"A single whole blood donation can be split into red cells, plasma and platelets for different patients.",
+"Your body replaces the plasma from a donation within a day or two.",
+"The crossmatch is the final check that a donor unit is compatible with a patient.",
+"Glucose meters use an enzyme reaction, often glucose oxidase, to measure blood sugar.",
+"The A1c test works because glucose sticks to hemoglobin over a red cell’s lifetime.",
+"Ancient doctors noticed that ants were drawn to the sweet urine of people with diabetes.",
+"Insulin was discovered in 1921 and first used to treat a patient in 1922.",
+"Creatinine is a breakdown product of muscle, so a bodybuilder can have a higher normal level.",
+"Bilirubin is what gives bruises their yellow-green color as they heal.",
+"Bilirubin also colors stool brown and urine yellow, after the body breaks it down further.",
+"Newborn jaundice is often treated with blue light, which changes bilirubin so the body can clear it.",
+"Troponin is so heart-specific that tiny rises can flag heart muscle damage.",
+"Potassium that’s too high or too low can disturb the heart’s rhythm, which is why it’s a critical value.",
+"A lipemic sample can look like strawberry milk.",
+"A hemolyzed sample looks pink to red in the serum.",
+"An icteric sample looks dark yellow, like strong tea.",
+"Ammonia in blood rises the longer a sample sits, so it goes straight to the lab on ice.",
+"Blood gases are often drawn from an artery, usually at the wrist.",
+"Ion-selective electrodes measure electrolytes using membranes that let one ion through.",
+"Mass spectrometry can identify drugs and hormones by the weight of their molecules.",
+"Urine color can change with beets, blackberries and some medicines.",
+"Asparagus can give urine a distinctive smell, though not everyone can detect it.",
+"Maple syrup urine disease is named for the sweet smell of affected babies’ urine.",
+"Kidney stones can form from calcium oxalate, uric acid, struvite or cystine.",
+"Each kidney has about a million tiny filtering units called nephrons.",
+"Your kidneys filter your entire blood volume many times every day.",
+"Cerebrospinal fluid is normally crystal clear, so cloudiness is a red flag.",
+"A xanthochromic (yellowish) CSF can point to an earlier bleed.",
+"Synovial fluid is normally thick enough to form a long string between your fingers.",
+"Gout crystals are needle-shaped and look different under polarized light than pseudogout crystals.",
+"The Levey-Jennings chart was adapted from factory quality control charts.",
+"Walter Shewhart created control charts for manufacturing in the 1920s.",
+"A control is tested just like a patient sample, but its expected value is already known.",
+"Labs keep careful temperature logs because many reagents only work within a narrow range.",
+"Pipettes are calibrated because a tiny volume error can throw off an entire result.",
+"The biosafety cabinet’s airflow forms an invisible curtain between you and the sample.",
+"Biosafety levels run from BSL-1 to BSL-4, with BSL-4 used for the most dangerous pathogens.",
+"Autoclaves sterilize with steam under pressure, usually at 121 °C.",
+"The phlebotomy needle gauge goes the opposite way you’d think: a bigger number means a thinner needle.",
+"Butterfly needles are named for their plastic wings.",
+"Tourniquets were used on battlefields long before they were used for blood draws.",
+"Vacuum tubes draw a set amount of blood because each tube holds a measured vacuum.",
+"Tube cap colors follow a standard so anyone in the lab knows the additive at a glance.",
+"Blood culture bottles have separate versions for oxygen-loving and oxygen-avoiding bacteria.",
+"Microscopes use oil immersion because oil bends light the same way glass does, sharpening the image.",
+"A standard light microscope tops out around 1000× magnification for routine work.",
+"Antonie van Leeuwenhoek called the tiny creatures he saw “animalcules.”",
+"Robert Hooke coined the word “cell” after looking at cork under a microscope.",
+"Lab tests influence a large share of the decisions doctors make.",
+"Many hospital labs run thousands of tests every day.",
+"The medical lab is sometimes called the “hidden profession,” because patients rarely see the people doing the testing."
+];
+FUN_FACTS.push(...FACTS_V46.filter(f => !FUN_FACTS.includes(f)));
+/* ===================== v46 ===================== */
+/* ---------- cleanup of removed features ---------- */
+{ const ad = applyDocs; applyDocs = function (docs) { const out = ad(docs); try { if (!S.meta.v46clean) { delete S.meta.examHist; delete S.meta.settings.speak; Object.values(S.decks).forEach(d => { let ch = false; d.cards.forEach(c => { if (c.tags) { delete c.tags; ch = true; } }); if (ch) { d.updated = Date.now(); IDB.put("deck-" + d.id, d); LS.set("doc:deck-" + d.id, JSON.stringify(d)); } }); S.meta.v46clean = 1; } } catch { } return out; }; }
+{ const gone = new Set(["spec7", "spec30", "spec20", "myst1", "myst5", "myst10"]); for (let k = BADGES2.length - 1; k >= 0; k--) if (gone.has(BADGES2[k].id)) BADGES2.splice(k, 1); }
+
+/* ---------- fact of the day (replaces specimen of the day and the mystery unknown) ---------- */
+const FACT_ORDER2 = (() => { const n = FUN_FACTS.length, a = [...Array(n).keys()]; let s = 97531; for (let i = n - 1; i > 0; i--) { s = (s * 1103515245 + 12345) % 2147483648; const j = s % (i + 1); [a[i], a[j]] = [a[j], a[i]]; } return a; })();
+const factIndex = (off = 0) => { const day = Math.floor(new Date(dayKey() + "T12:00").getTime() / DAY); return FACT_ORDER2[((day + off) % FUN_FACTS.length + FUN_FACTS.length) % FUN_FACTS.length]; };
+function factCardHtml() { const off = S.meta.factOff && S.meta.factOff.d === dayKey() ? S.meta.factOff.n : 0; return `<section class="factcard"><span class="fact-ic">💡</span><div class="fact-t"><span class="fact-k">FACT OF THE DAY</span><p>${esc(FUN_FACTS[factIndex(off)])}</p></div><button class="btn ghost icon sm" id="factNext" aria-label="Another fact" title="Another fact">${icon("rotate")}</button></section>`; }
+{ const rh = renderHome; renderHome = function (decks) { rh(decks); const v = $("#view"); if (!v) return;
+    const lc = v.querySelector(".labcorner"); if (lc) lc.outerHTML = factCardHtml(); else if (!v.querySelector(".factcard")) { const dash = v.querySelector(".a3dash"); dash && dash.insertAdjacentHTML("afterend", factCardHtml()); }
+    $("#factNext") && ($("#factNext").onclick = () => { const o = S.meta.factOff && S.meta.factOff.d === dayKey() ? S.meta.factOff.n + 1 : 1; S.meta.factOff = { d: dayKey(), n: o }; saveMeta(); const c = $(".factcard p"); if (c) { c.style.opacity = 0; setTimeout(() => { c.textContent = FUN_FACTS[factIndex(o)]; c.style.opacity = 1; }, 140); } }); }; }
+labLifeHtml = function () {
+  const L = levelInfo(); const lessons = LESSONS.filter(l => lessonState(l).passed).length;
+  return `<div class="panel lablife"><div class="ll-top"><div><span class="fc-k">LEVEL ${L.n} OF ${LEVELS.length}</span><h3>${esc(L.title)}</h3><small class="muted">${L.xp.toLocaleString()} XP${L.next ? ` · ${(L.hi - L.xp).toLocaleString()} to ${esc(L.next)}` : ""}</small></div><button class="btn primary" id="wrapGo">LabDeck Wrapped</button></div><i class="a3bar ll-bar"><i style="width:${L.pct}%"></i></i>
+    <div class="ll-stats"><div><b>${Object.keys(S.meta.badges || {}).length}</b><span>badges</span></div><div><b>${S.meta.bestCombo || 0}</b><span>best combo</span></div><div><b>${lessons}</b><span>lessons passed</span></div><div><b>${masteredNow().toLocaleString()}</b><span>cards mastered</span></div></div></div>`;
+};
+
+/* ---------- deck page: a proper hidden notice, and matching top buttons ---------- */
+{ const rd = renderDeck; renderDeck = function (d, ...a) { const out = rd(d, ...a); try { const hb = $("#view .hiddenbar"); if (hb) { hb.outerHTML = `<div class="hidnote"><span class="hn-ic">${icon("eyeoff")}</span><div><b>This deck is hidden</b><small>It’s out of home and daily review. You can still study it from here.</small></div><button class="btn sm" id="hnShow">Show it again</button></div>`; $("#hnShow").onclick = () => $("#hideDeck")?.click(); } } catch { } return out; }; }
+
+/* ---------- badges: the gold “Today” tag only on badges actually earned today ---------- */
+startBadges = function () {
+  openStudy("Badges"); const got = S.meta.badges || {}; const td = dayKey(); const earned = b => got[b.id] && bCur(b) >= bTarget(b) || (got[b.id] && !bTarget(b)); const n = BADGES2.filter(b => got[b.id]).length; setProg(n / BADGES2.length);
+  const todays = BADGES2.filter(b => got[b.id] && dayKey(got[b.id]) === td && (!bTarget(b) || bCur(b) >= bTarget(b)));
+  ST.stage.innerHTML = `<div class="bsum"><div><b>${n}</b> of ${BADGES2.length} badges earned</div><i class="a3bar"><i style="width:${Math.round(n / BADGES2.length * 100)}%"></i></i>${todays.length ? `<p class="bsum-today">✨ ${plural(todays.length, "new badge")} today, highlighted below.</p>` : ""}</div>` + Object.entries(BCAT).map(([k, name]) => { const L = BADGES2.filter(b => b.cat === k); if (!L.length) return ""; return `<div class="panel bcat"><div class="bcat-h"><h3>${esc(name)}</h3><span>${L.filter(b => got[b.id]).length} of ${L.length}</span></div><div class="badges sq">${L.map(b => { const h = badgeCard(b, got[b.id]); return got[b.id] && dayKey(got[b.id]) === td && (!bTarget(b) || bCur(b) >= bTarget(b)) ? h.replace(/^<div class="badge/, '<div class="badge today') : h; }).join("")}</div></div>`; }).join("");
+};
+
+/* ---------- typing on learning cards: clearer prompts and fair matching ---------- */
+const looseNorm = s => String(s || "").toLowerCase().replace(/<[^>]+>/g, "").replace(/\([^)]*\)/g, " ").replace(/[–—−]/g, "-").replace(/[^a-z0-9µ%./+-]+/g, " ").replace(/\s+/g, " ").trim();
+const typedOk2 = (t, a) => { const x = looseNorm(t), y = looseNorm(a); if (!x) return false; if (x === y) return true; const tol = Math.max(1, Math.floor(y.length * .08)); return y.length > 4 && lev(x, y) <= tol; };
+{ const inn = introNew; introNew = function (f, done, forced) { inn(f, done, forced); try { const inp = $("#icIn"); if (!inp) return; const ansT = plainOf(f.a ? escG(f.a) : factBack(f)), termT = plainOf(f.q ? escG(f.q) : factFront(f)); const useTerm = !(ansT && ansT.length <= 40);
+      const target = useTerm ? termT : ansT; const box = inp.closest(".ic-type");
+      box.insertAdjacentHTML("afterbegin", `<label class="ic-lab" for="icIn">${useTerm ? "Type the <b>term</b>" : "Type the <b>answer</b>"}</label>${useTerm ? `<p class="ic-why2">The answer is long, so type the term it belongs to: <b>${esc(termT)}</b></p>` : ""}`);
+      inp.placeholder = useTerm ? termT : "Type it exactly as shown above";
+      const go = $("#icGo"); const fb = $("#icFb"); const prev = ST.reviewKey || null; let fired = false;
+      const finish = () => { if (fired) return; fired = true; ST.onKey = ST.reviewKey || prev; done(); };
+      const check = () => { if (typedOk2(inp.value, target)) { stat("lockedIn"); inp.classList.add("ok"); fb.textContent = "Locked in."; go.textContent = "Continue"; go.onclick = finish; setTimeout(finish, 650); } else { inp.classList.add("no"); fb.textContent = useTerm ? `Type the term: ${termT}` : "Not quite. Check the spelling against the answer above."; setTimeout(() => inp.classList.remove("no"), 500); inp.focus(); } };
+      go.onclick = check; $("#icSkip") && ($("#icSkip").onclick = finish);
+      ST.onKey = e => { const typing = e.target && e.target.id === "icIn"; if (e.key === "Enter") { e.preventDefault(); go.textContent === "Check" ? check() : finish(); } else if (e.key === " " && !typing) { e.preventDefault(); inp.focus(); } };
+    } catch { } }; }
+/* any learning screen that ends hands Space back to the review, never to a stale handler */
+{ const os = openStudy; openStudy = function (...a) { const out = os.apply(this, a); try { ST.reviewKey = null; } catch { } return out; }; }
+
+/* ---------- full screens: the page behind never scrolls ---------- */
+new MutationObserver(() => { const open = !!document.querySelector("body > .study, .study.on, #study"); document.documentElement.classList.toggle("study-open", !!(ST && ST.el && ST.el.isConnected) || open); }).observe(document.body, { childList: true });
+
+/* ---------- games: X from a game’s level screen always leaves the game ---------- */
+{ const GAME_STARTS = new Set(GAMES.map(g => (String(g[3]).match(/start[A-Za-z]+/) || [])[0]).filter(Boolean)); const prevCS = closeStudy;
+  closeStudy = function (arg, ...rest) {
+    if (arg !== true && NAV.cur && GAME_STARTS.has(NAV.cur.name) && ST && ST.stage && ST.stage.querySelector(".levels")) { NAV.cur.sig = navSig(); }
+    return prevCS.call(this, arg, ...rest); }; }
+
+/* ---------- take a tour ---------- */
+const TOUR = [
+  ["👋", "Welcome to LabDeck", "Your study partner for the MLS program. This tour takes about a minute."],
+  ["🏠", "Home is your daily plan", "The rings track today’s reviews, new cards and tasks. Up next tells you exactly what to study, and Today’s tasks lays out the rest."],
+  ["🗂️", "Decks are your cards", "Every deck is a tube that fills as you study it. Tap one to see its cards, then Learn (for brand-new cards) or Study."],
+  ["🧠", "Review is the heart of it", "Grade each card Again, Hard, Good or Easy. LabDeck brings it back right before you’d forget. New cards start with a quick type-it-in round."],
+  ["🎓", "Modules teach from zero", "Short lessons with recall checks, in program order. Passing one adds its cards to your reviews."],
+  ["🧰", "Lab tools", "Teach (glossary, Explain it, memory hooks), Test (practice, exams, cases, mistakes) and Plan (course map, timer, study plan)."],
+  ["🎮", "Games with levels", "Tube trainer, Critical call, Westgard judge and more. Lessons unlock them, and each one ends with a speed round."],
+  ["📈", "Progress shows the long game", "Your level, badges, study calendar, accuracy trend and the specimen cabinet, where every mastered deck fills a tube."],
+  ["🔄", "It syncs and saves", "Everything saves on your device. Turn on sync in Settings to keep your phone and computer matched."],
+  ["✨", "That’s it", "Start with Up next on home. Little and often beats cramming."]
+];
+function startTour() {
+  let i = 0;
+  modal(`<div class="tour"><div class="tour-body" id="tourBody"></div><div class="tour-dots" id="tourDots"></div><div class="modal-foot"><button class="btn" id="tourBack">Back</button><div class="spacer"></div><button class="btn" data-close>Skip</button><button class="btn primary" id="tourNext">Next</button></div></div>`, (s, close) => {
+    const draw = () => { const [e, t, b] = TOUR[i]; $("#tourBody", s).innerHTML = `<span class="tour-e">${e}</span><h2>${esc(t)}</h2><p>${esc(b)}</p>`; $("#tourDots", s).innerHTML = TOUR.map((_, k) => `<i class="${k === i ? "on" : k < i ? "done" : ""}"></i>`).join(""); $("#tourBack", s).style.visibility = i ? "visible" : "hidden"; $("#tourNext", s).textContent = i === TOUR.length - 1 ? "Let’s go" : "Next"; const bd = $("#tourBody", s); bd.classList.remove("tour-in"); void bd.offsetWidth; bd.classList.add("tour-in"); };
+    $$("[data-close]", s).forEach(b => b.onclick = close); $("#tourBack", s).onclick = () => { if (i) { i--; draw(); } }; $("#tourNext", s).onclick = () => { if (i < TOUR.length - 1) { i++; draw(); } else { S.meta.tourDone = 1; saveMeta(); close(); } };
+    s.addEventListener("keydown", e => { if (e.key === "ArrowRight" || e.key === "Enter") { e.preventDefault(); $("#tourNext", s).click(); } else if (e.key === "ArrowLeft") $("#tourBack", s).click(); });
+    draw();
+  });
+}
+{ const r = render; render = function (...a) { const out = r.apply(this, a); if ((location.hash || "") === "#more" && !document.getElementById("tourBox")) { const v = $("#view"); const h1 = v && v.querySelector("h1"); if (h1) { h1.insertAdjacentHTML("afterend", `<div class="panel tourcard" id="tourBox"><span class="tc-e">🧭</span><div><b>Take a tour</b><small>A one-minute walkthrough of everything LabDeck can do.</small></div><button class="btn primary sm" id="tourGo">Start</button></div>`); $("#tourGo").onclick = startTour; } } return out; }; }
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
@@ -14623,7 +14788,6 @@ function startBoard() {
       let right = 0; const byDeck = {};
       qs.forEach((q, k) => { const ok = q.options[ans[k]] === q.answer; if (ok) right++; const id = q.f.deck.id; byDeck[id] = byDeck[id] || [0, 0]; byDeck[id][1]++; if (ok) byDeck[id][0]++; if (!q.identify) recordQuiz(q.f, ok); });
       const pct = Math.round(right / qs.length * 100); statMax("boardBest", pct); const took = Math.round((Date.now() - t0) / 60000);
-      try { const by = {}; Object.entries(byDeck).forEach(([id, v]) => { by[(S.decks[id] || {}).name || id] = v; }); ST.lastExam = { qs, ans: ans.slice(), label: "Board practice", pct, ms: Date.now() - t0, by }; } catch { }
       ST.right.innerHTML = ""; setProg(1);
       ST.stage.innerHTML = `<div class="results">${ring(pct)}<h2>${right} of ${qs.length} correct</h2><p class="muted">${timeUp ? "Time ran out. " : ""}Finished in ${plural(took, "minute")}. Every miss is scheduled for review today.</p></div>
         <div class="panel"><h3 style="margin-bottom:8px">By content area</h3>${Object.entries(byDeck).map(([id, [r, t]]) => `<div class="deckbar"><span style="font-weight:600">${escG(S.decks[id]?.name || "")}</span><div class="mastery"><i class="m" style="width:${r / t * 100}%;background:${r / t >= .7 ? "var(--good)" : r / t >= .5 ? "var(--warn)" : "var(--bad)"}"></i></div><span class="small muted">${r}/${t}</span></div>`).join("")}</div>
