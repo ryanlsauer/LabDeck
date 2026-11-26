@@ -3007,6 +3007,7 @@ html.study-open,html.study-open body{overflow:hidden!important;overscroll-behavi
 .sd-err{background:color-mix(in srgb,#F5B800 12%,var(--surface));border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:4px}
 .sd-err b{font-size:.9rem}.sd-err p{margin:0;font-size:.88rem;line-height:1.45;color:var(--ink-2)}.sd-err small{font-size:.75rem;color:var(--ink-3)}
 .sd-err .btn{align-self:flex-start;margin-top:6px;background:var(--surface)!important;color:var(--violet-ink)!important;border:0!important;border-radius:999px!important}
+.side .sync-diag,.sidebar .sync-diag{display:none!important}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -3094,7 +3095,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "47.2";
+const APP_VERSION = "47.3";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -3192,7 +3193,9 @@ function normalizeDeck(d) {
   d.updated = d.updated || d.created || Date.now();
   return d;
 }
-const saveDeck = d => { d.updated = Date.now(); Store.save("deck-" + d.id, d); };
+const __deckSig = {};
+/* a deck only gets a new “last updated” time when its content actually changed */
+const saveDeck = d => { const sig = JSON.stringify({ ...d, updated: 0 }); if (__deckSig[d.id] === sig && d.updated) { Store.save("deck-" + d.id, d); return; } __deckSig[d.id] = sig; d.updated = Date.now(); Store.save("deck-" + d.id, d); };
 const saveSrs = id => Store.save("srs-" + id, { facts: S.srs[id] || {}, updated: Date.now() });
 const saveMeta = (settingsChanged) => { if (settingsChanged) S.meta.updated = Date.now(); Store.save("meta", S.meta); };
 const saveImage = (id, dataUrl) => { S.images[id] = dataUrl; Store.save("img-" + id, dataUrl); };
@@ -3200,6 +3203,9 @@ function deleteDeck(id) { delete S.decks[id]; delete S.srs[id]; S.meta.deleted[i
 function referencedImages() { const set = new Set(); Object.values(S.decks).forEach(d => d.cards.forEach(c => c.img && set.add(c.img))); return set; }
 
 /* ---------- merging two copies of your data (this device + the sync copy) ---------- */
+/* compare content, not text: the same data with fields in a different order is not a change */
+function stableStr(v) { if (v === null || typeof v !== "object") return JSON.stringify(v); if (Array.isArray(v)) return "[" + v.map(stableStr).join(",") + "]"; return "{" + Object.keys(v).sort().filter(k => v[k] !== undefined).map(k => JSON.stringify(k) + ":" + stableStr(v[k])).join(",") + "}"; }
+function sameData(a, b) { try { return stableStr(JSON.parse(a)) === stableStr(JSON.parse(b || "null")); } catch { return false; } }
 function snapshot() {
   return { app: "labdeck", v: 2, decks: S.decks, srs: S.srs, meta: S.meta };
 }
@@ -3326,7 +3332,7 @@ const Sync = {
       for (const id of remoteImgs) if (!S.images[id] && refs.has(id)) { const c = await this.readFile(g.files["img-" + id + ".txt"]); if (c) { S.images[id] = c; IDB.put("img-" + id, c); changed = true; } }
       const out = JSON.stringify(snapshot());
       const imgs = [...refs].filter(id => !remoteImgs.has(id) && S.images[id]);
-      if (out !== txt) await this.api("/gists/" + this.gist, { method: "PATCH", body: JSON.stringify({ files: { [GIST_FILE]: { content: out } } }) });
+      if (out !== txt && !sameData(out, txt)) await this.api("/gists/" + this.gist, { method: "PATCH", body: JSON.stringify({ files: { [GIST_FILE]: { content: out } } }) });
       for (let i = 0; i < imgs.length; i += 4) {
         const files = {}; imgs.slice(i, i + 4).forEach(id => files["img-" + id + ".txt"] = { content: S.images[id] });
         await this.api("/gists/" + this.gist, { method: "PATCH", body: JSON.stringify({ files }) });
@@ -9861,7 +9867,7 @@ function planCandidates() {
 function todayPlan() {
   const k = dayKey(); let P = S.meta.plan;
   if (!P || P.day !== k) { P = S.meta.plan = { day: k, items: planCandidates().slice(0, 6) }; saveMeta(); }
-  else { const have = new Set(P.items.map(x => x.id)); planCandidates().filter(c => !have.has(c.id) && (c.pri <= 2 || P.items.length < 7)).forEach(c => { if (P.items.length < 8) { P.items.push(c); have.add(c.id); } }); P.items.sort((a, b) => a.pri - b.pri); saveMeta(); }
+  else { const before = JSON.stringify(P.items); const have = new Set(P.items.map(x => x.id)); planCandidates().filter(c => !have.has(c.id) && (c.pri <= 2 || P.items.length < 7)).forEach(c => { if (P.items.length < 8) { P.items.push(c); have.add(c.id); } }); P.items.sort((a, b) => a.pri - b.pri); if (JSON.stringify(P.items) !== before) saveMeta(); }
   return P.items;
 }
 const GOAL = () => S.meta.settings.dailyGoal || 50;
@@ -12236,7 +12242,7 @@ function celebrateUnlocks(l, before) {
 /* ===================== v26 · Apple LabDeck 3, all in ===================== */
 
 /* ---------- settings sync: remember when each setting changed ---------- */
-{ let snap = null; const stamp = () => { try { if (!S.loaded) return; const cur = S.meta && S.meta.settings; if (!cur) return; const now = JSON.stringify(cur); if (snap === null) { snap = now; return; } if (now === snap) return; const old = JSON.parse(snap); const T = S.meta.settingsT = S.meta.settingsT || {}; for (const k of new Set([...Object.keys(cur), ...Object.keys(old)])) if (JSON.stringify(cur[k]) !== JSON.stringify(old[k])) T[k] = Date.now(); snap = now; saveMeta(true); } catch { } }; setInterval(stamp, 1000); }
+{ let snap = null, __g = 0; const stamp = () => { try { if (!S.loaded) return; if ((S.__mergeGen || 0) !== __g) { __g = S.__mergeGen || 0; snap = null; } const cur = S.meta && S.meta.settings; if (!cur) return; const now = JSON.stringify(cur); if (snap === null) { snap = now; return; } if (now === snap) return; const old = JSON.parse(snap); const T = S.meta.settingsT = S.meta.settingsT || {}; for (const k of new Set([...Object.keys(cur), ...Object.keys(old)])) if (JSON.stringify(cur[k]) !== JSON.stringify(old[k])) T[k] = Date.now(); snap = now; saveMeta(true); } catch { } }; setInterval(stamp, 1000); }
 
 /* ---------- greetings: many more ---------- */
 const EXTRA_TITLES = { n: ["Night owl session", "Quiet hours, clear mind", "The lab never sleeps"], m: ["Good morning", "Fresh start, fresh specimens", "Morning QC: you", "Coffee, then cultures", "Up and pipetting"], a: ["Good afternoon", "Afternoon run", "Midday check-in", "Halfway through the shift"], e: ["Good evening", "Evening review", "Wind-down rounds", "One more run before bed"] };
@@ -13360,7 +13366,7 @@ function taskCounts() { try { const vs = todayPlan().map(planView).filter(Boolea
 { const rd = ringData; ringData = function () { const r = rd(); r.tasks = taskCounts(); return r; }; }
 
 /* ---------- exams: each exam syncs on its own, and deleting one is remembered ---------- */
-{ let snap = null; setInterval(() => { try { if (!S.loaded) return; const L = S.meta.exams || []; const now = {}; L.forEach(e => now[e.id] = JSON.stringify({ ...e, t: 0 })); if (snap === null) { snap = now; return; } let ch = false;
+{ let snap = null, __g = 0; setInterval(() => { try { if (!S.loaded) return; if ((S.__mergeGen || 0) !== __g) { __g = S.__mergeGen || 0; snap = null; } const L = S.meta.exams || []; const now = {}; L.forEach(e => now[e.id] = JSON.stringify({ ...e, t: 0 })); if (snap === null) { snap = now; return; } let ch = false;
     L.forEach(e => { if (snap[e.id] !== now[e.id]) { e.t = Date.now(); ch = true; } }); Object.keys(snap).forEach(id => { if (!now[id]) { (S.meta.examDel = S.meta.examDel || {})[id] = Date.now(); ch = true; } });
     snap = {}; L.forEach(e => snap[e.id] = JSON.stringify({ ...e, t: 0 })); if (ch) saveMeta(true); } catch { } }, 1000); }
 { const mr = mergeRemote; mergeRemote = function (r, ...a) {
@@ -13414,7 +13420,7 @@ badgesPreviewHtml = function () {
 { const sb = startBadges; startBadges = function () { sb(); const fix = () => { if (!ST || !ST.stage) return; $$(".btile", ST.stage).forEach(t => { t.classList.remove("btile"); t.classList.add("bdg"); }); }; fix(); new MutationObserver(fix).observe(ST.stage, { childList: true, subtree: true }); }; }
 /* ===================== v39 ===================== */
 /* ---------- labels: each label syncs on its own; your edits stick ---------- */
-{ let snap = null; setInterval(() => { try { if (!S.loaded) return; const L = S.meta.labels || []; const now = {}; L.forEach(l => now[l.id] = JSON.stringify({ ...l, t: 0 })); if (snap === null) { snap = now; return; } let ch = false;
+{ let snap = null, __g = 0; setInterval(() => { try { if (!S.loaded) return; if ((S.__mergeGen || 0) !== __g) { __g = S.__mergeGen || 0; snap = null; } const L = S.meta.labels || []; const now = {}; L.forEach(l => now[l.id] = JSON.stringify({ ...l, t: 0 })); if (snap === null) { snap = now; return; } let ch = false;
     L.forEach(l => { if (snap[l.id] !== now[l.id]) { l.t = Date.now(); ch = true; } }); Object.keys(snap).forEach(id => { if (!now[id]) { (S.meta.labelDel = S.meta.labelDel || {})[id] = Date.now(); ch = true; } });
     snap = {}; L.forEach(l => snap[l.id] = JSON.stringify({ ...l, t: 0 })); if (ch) saveMeta(true); } catch { } }, 1000); }
 { const mr = mergeRemote; mergeRemote = function (r, ...a) {
@@ -13516,7 +13522,7 @@ function smartGame() {
 /* ===================== v40 ===================== */
 /* ---------- sync: both devices end up with exactly the same data ---------- */
 /* journal entries get an update stamp whenever they change, so the newest copy of each mistake wins */
-{ let snap = null; setInterval(() => { try { if (!S.loaded) return; const L = S.meta.journal || []; const now = {}; L.forEach(x => now[x.id] = JSON.stringify({ ...x, u: 0 })); if (snap === null) { snap = now; return; } let ch = false; L.forEach(x => { if (snap[x.id] !== undefined && snap[x.id] !== now[x.id]) { x.u = Date.now(); ch = true; } else if (snap[x.id] === undefined && !x.u) { x.u = x.t || Date.now(); } }); snap = {}; L.forEach(x => snap[x.id] = JSON.stringify({ ...x, u: 0 })); if (ch) saveMeta(true); } catch { } }, 1000); }
+{ let snap = null, __g = 0; setInterval(() => { try { if (!S.loaded) return; if ((S.__mergeGen || 0) !== __g) { __g = S.__mergeGen || 0; snap = null; } const L = S.meta.journal || []; const now = {}; L.forEach(x => now[x.id] = JSON.stringify({ ...x, u: 0 })); if (snap === null) { snap = now; return; } let ch = false; L.forEach(x => { if (snap[x.id] !== undefined && snap[x.id] !== now[x.id]) { x.u = Date.now(); ch = true; } else if (snap[x.id] === undefined && !x.u) { x.u = x.t || Date.now(); } }); snap = {}; L.forEach(x => snap[x.id] = JSON.stringify({ ...x, u: 0 })); if (ch) saveMeta(true); } catch { } }, 1000); }
 { const mr = mergeRemote; mergeRemote = function (r, ...a) {
     const myJ = JSON.parse(JSON.stringify(S.meta.journal || [])), myG = JSON.parse(JSON.stringify(S.meta.games || {}));
     const res = mr.call(this, r, ...a); const rm = (r && r.meta) || {}; const m = S.meta;
@@ -13592,8 +13598,8 @@ function stampBag() { const b = {}; STAMPED.forEach(k => b[k] = S.meta[k] || {})
 const jsonOf = v => JSON.stringify(v === undefined ? null : v);
 /* a fair tiebreak: both devices pick the same value when neither has a timestamp */
 const pickTie = (a, b) => (jsonOf(a) >= jsonOf(b) ? a : b);
-{ let snap = null, cardSnap = null;
-  setInterval(() => { try { if (!S.loaded) return; const T = S.meta._T = S.meta._T || {}; const bag = stampBag(); let ch = false;
+{ let snap = null, cardSnap = null, __g = 0;
+  setInterval(() => { try { if (!S.loaded) return; if ((S.__mergeGen || 0) !== __g) { __g = S.__mergeGen || 0; snap = null; cardSnap = null; } const T = S.meta._T = S.meta._T || {}; const bag = stampBag(); let ch = false;
       if (snap === null) { snap = {}; Object.entries(bag).forEach(([k, o]) => { snap[k] = {}; Object.entries(o || {}).forEach(([s, v]) => snap[k][s] = jsonOf(v)); }); }
       else Object.entries(bag).forEach(([k, o]) => { const t = T[k] = T[k] || {}; const now = {}; Object.entries(o || {}).forEach(([s, v]) => now[s] = jsonOf(v));
         Object.keys(now).forEach(s => { if (snap[k][s] !== now[s]) { t[s] = Date.now(); ch = true; } }); Object.keys(snap[k]).forEach(s => { if (!(s in now) || now[s] === "null") { if (!(t[s] < 0)) { t[s] = -Date.now(); ch = true; } } }); snap[k] = now; });
@@ -14538,11 +14544,45 @@ function syncDiag() {
   if (!Sync.token || Sync.status === "ok" || Sync.status === "syncing" || !e) { box.innerHTML = Sync.status === "ok" && Sync.lastOk ? `<span class="sd-ok">Last synced ${new Date(Sync.lastOk).toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" })}</span>` : ""; return; }
   const mins = Sync.retryAt ? Math.max(0, Math.round((Sync.retryAt - Date.now()) / 60000)) : null;
   box.innerHTML = `<div class="sd-err"><b>Why sync is waiting</b><p>${esc(syncReason(e))}</p><small>${new Date(e.t).toLocaleString(undefined, { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })}${e.status ? ` · code ${e.status}` : ""}${mins != null ? ` · next try ${mins ? `in about ${mins} min` : "in a moment"}` : ""}</small><button class="btn sm" id="sdNow">Try again now</button></div>`;
-  $("#sdNow").onclick = () => { Sync.fails = 0; Sync.now(); };
+  $("#sdNow").onclick = () => { Sync.fails = 0; Sync.retryAt = 0; Sync.forceNow = true; Sync.now(); };
 }
-{ const r = render; render = function (...a) { const out = r.apply(this, a); if ((location.hash || "") === "#more") { const line = document.getElementById("syncline") || document.getElementById("syncline2"); if (line && !document.getElementById("syncDiag")) { line.insertAdjacentHTML("afterend", `<div id="syncDiag" class="sync-diag"></div>`); syncDiag(); } } return out; }; }
+{ const r = render; render = function (...a) { const out = r.apply(this, a); if ((location.hash || "") === "#more") { const v = document.getElementById("view"); const panel = v && [...v.querySelectorAll(".panel")].find(p => /Sync between devices/i.test((p.querySelector("h3") || {}).textContent || "")); if (panel && !panel.querySelector("#syncDiag")) { document.getElementById("syncDiag")?.remove(); const h = panel.querySelector("h3"); (h.nextElementSibling || h).insertAdjacentHTML("afterend", `<div id="syncDiag" class="sync-diag"></div>`); syncDiag(); } } return out; }; }
 /* if the location was lost by an earlier version, reconnect right away */
 setTimeout(() => { try { if (Sync.token && !Sync.gist) Sync.now(); } catch { } }, 2500);
+/* ===================== v47.3 · calm, steady sync ===================== */
+/* 1) Changes that arrive from sync are not re-stamped as new edits (the stamp checks re-baseline after each merge). */
+{ const mr = mergeRemote; mergeRemote = function (...a) { const out = mr.apply(this, a); S.__mergeGen = (S.__mergeGen || 0) + 1; return out; }; }
+/* 2) While sync is waiting out a failure, edits and app switches wait for the scheduled retry. */
+{ const now1 = Sync.now; Sync.now = async function (...a) { const forced = this.forceNow; this.forceNow = false; if (!forced && this.status === "error" && this.retryAt && Date.now() < this.retryAt) return; return now1.apply(this, a); }; }
+/* 3) Bursts of edits become one sync. */
+Sync.changed = function () { if (!this.on()) return; if (this.status === "ok") this.set("pending"); if (this.status === "error" && this.retryAt && Date.now() < this.retryAt) return; clearTimeout(this.timer); this.timer = setTimeout(() => this.now(), 8000); };
+/* the scheduled retry itself always goes through */
+{ const set1 = Sync.set; Sync.set = function (s, ...a) { const out = set1.call(this, s, ...a); if (s === "error" && this.retryT) { clearTimeout(this.retryT); const w = Math.max(1000, (this.retryAt || Date.now()) - Date.now()); this.retryT = setTimeout(() => { this.forceNow = true; this.now(); }, w); } return out; }; }
+/* the sidebar keeps a short status; the explanation lives in Settings */
+setInterval(() => { const sb = document.querySelector(".side #syncDiag, .sidebar #syncDiag"); sb && sb.remove(); }, 1500);
+/* today’s plan is per-device: it isn’t synced, so two devices never fight over it */
+{ const snap0 = snapshot; snapshot = function (...a) { const out = snap0.apply(this, a); try { if (out && out.meta) { const m = { ...out.meta }; delete m.plan; out.meta = m; } } catch { } return out; }; }
+{ const mr = mergeRemote; mergeRemote = function (r, ...a) {
+    const myPlan = S.meta.plan ? JSON.parse(JSON.stringify(S.meta.plan)) : null; const myCards = { ...((S.meta.prep || {}).cards || {}) };
+    try { if (r && r.meta) { r = { ...r, meta: { ...r.meta } }; delete r.meta.plan; } } catch { }
+    const out = mr.call(this, r, ...a);
+    if (myPlan) S.meta.plan = myPlan;
+    /* Head start unlocks: always keep the larger value (a timestamp beats a plain 1), so both devices agree */
+    try { const P = S.meta.prep = S.meta.prep || {}; const R = ((r && r.meta && r.meta.prep) || {}).cards || {}; const C = P.cards = P.cards || {}; new Set([...Object.keys(myCards), ...Object.keys(R), ...Object.keys(C)]).forEach(k => { C[k] = Math.max(+myCards[k] || 0, +R[k] || 0, +C[k] || 0); }); } catch { }
+    return out; }; }
+/* remember each deck’s current content so unchanged decks keep their timestamp */
+{ const ad = applyDocs; applyDocs = function (docs) { const out = ad(docs); try { Object.values(S.decks).forEach(d => { __deckSig[d.id] = JSON.stringify({ ...d, updated: 0 }); }); } catch { } return out; }; }
+/* both devices always pick the same winner for small records, so nothing flips back and forth */
+{ const mr = mergeRemote; mergeRemote = function (r, ...a) {
+    const mine = { badges: { ...(S.meta.badges || {}) }, freezes: { ...(S.meta.freezes || {}) }, recapSaved: { ...(S.meta.recapSaved || {}) }, examDayHide: { ...(S.meta.examDayHide || {}) } };
+    const out = mr.call(this, r, ...a); const R = (r && r.meta) || {};
+    const pick = (key, choose) => { const A = mine[key], B = R[key] || {}, C = S.meta[key] || {}; const res = {}; new Set([...Object.keys(A), ...Object.keys(B), ...Object.keys(C)]).forEach(k => { const vals = [A[k], B[k], C[k]].filter(v => v !== undefined && v !== null && v !== false); if (vals.length) res[k] = choose(vals); }); S.meta[key] = res; };
+    const minOf = vals => vals.reduce((x, y) => (typeof x === "number" && typeof y === "number" ? Math.min(x, y) : String(x) <= String(y) ? x : y));
+    const maxOf = vals => vals.reduce((x, y) => (typeof x === "number" && typeof y === "number" ? Math.max(x, y) : String(x) >= String(y) ? x : y));
+    pick("badges", minOf); pick("freezes", minOf); pick("recapSaved", maxOf); pick("examDayHide", maxOf);
+    return out; }; }
+/* no need to re-download when you just synced and nothing has changed since */
+{ const now2 = Sync.now; Sync.now = async function (...a) { if (!this.forceNow && this.status === "ok" && this.lastOk && Date.now() - this.lastOk < 45000) return; return now2.apply(this, a); }; }
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
