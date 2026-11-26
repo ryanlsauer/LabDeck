@@ -3060,6 +3060,16 @@ textarea#icIn{resize:none;overflow:hidden;line-height:1.45;padding:12px 14px!imp
 .tour-tips{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:14px}.tour-tips span{background:var(--violet-soft);color:var(--violet-ink);font-size:.78rem;font-weight:600;padding:5px 10px;border-radius:999px}
 .tour-body{min-height:240px}
 .wrp2{width:100%;box-sizing:border-box}.wrp2 .wr-nav{width:100%}
+/* done for today: clear tints at both ends, and real confetti */
+.donecard{background:linear-gradient(120deg,#DDF5E4 0%,#E9E3FF 100%)!important;box-shadow:inset 0 0 0 1px rgba(123,79,224,.12),var(--shadow)!important}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .donecard{background:linear-gradient(120deg,#163A24 0%,#2A2152 100%)!important;box-shadow:inset 0 0 0 1px rgba(176,151,255,.18)!important}}
+:root[data-theme="dark"] .donecard{background:linear-gradient(120deg,#163A24 0%,#2A2152 100%)!important;box-shadow:inset 0 0 0 1px rgba(176,151,255,.18)!important}
+.confetti i{left:var(--x)!important;top:55%!important;width:var(--w)!important;height:var(--h)!important;border-radius:var(--br)!important;opacity:0;animation:confBurst var(--t) cubic-bezier(.15,.6,.35,1) var(--d) both!important}
+@keyframes confBurst{0%{opacity:1;transform:translate(0,0) rotate(0)}30%{opacity:1;transform:translate(calc(var(--dx) * .55),var(--up)) rotate(calc(var(--rot) * .35))}100%{opacity:0;transform:translate(var(--dx),var(--dn)) rotate(var(--rot))}}
+.donecard{overflow:visible!important}.donecard .confetti{overflow:visible}
+/* Up next: narrower on desktop */
+@media (min-width:900px){.a3dash{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)!important}.a3dash>.a3rings{padding-right:20px!important}}
+.donecard .confetti{position:absolute!important;inset:0!important;display:block!important;z-index:0!important;gap:0!important}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -3147,7 +3157,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "49.0";
+const APP_VERSION = "49.1";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -7102,7 +7112,7 @@ function groupDecksByLabel(decks) {
 }
 
 /* ---------- lab-flavored interface pieces ---------- */
-const BRAND = `<svg class="brandsvg" viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="lbBg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3B2F73"/><stop offset="1" stop-color="#1A1533"/></linearGradient><linearGradient id="lbLq2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C3ADFF"/><stop offset="1" stop-color="#7B4FE0"/></linearGradient><clipPath id="lbTb2"><rect x="16" y="11" width="8" height="21" rx="4"/></clipPath></defs><rect x="1" y="1" width="38" height="38" rx="10" fill="url(#lbBg2)"/><g transform="rotate(22 20 21)"><rect x="16" y="11" width="8" height="21" rx="4" fill="#fff" fill-opacity=".14"/><g clip-path="url(#lbTb2)"><rect x="15" y="20.5" width="10" height="13" fill="url(#lbLq2)"/><ellipse cx="20" cy="20.5" rx="4" ry="1" fill="#D9CCFF"/></g><rect x="16" y="11" width="8" height="21" rx="4" fill="none" stroke="#fff" stroke-width="1.7"/><rect x="14.8" y="7.6" width="10.4" height="4.6" rx="1.6" fill="#B9A6FF"/><rect x="15.6" y="8.3" width="8.8" height="1.2" rx=".6" fill="#fff" fill-opacity=".45"/><path d="M17.6 14v5" stroke="#fff" stroke-opacity=".55" stroke-width="1.1" stroke-linecap="round"/><circle cx="21.5" cy="26" r=".9" fill="#fff" fill-opacity=".8"/><circle cx="19.2" cy="23.6" r=".6" fill="#fff" fill-opacity=".7"/></g><circle cx="10.5" cy="12" r="1.1" fill="#FFD66B"/><path d="M10.5 8.9v1.1M10.5 14v1.1M7.4 12h1.1M12.5 12h1.1" stroke="#FFD66B" stroke-width=".9" stroke-linecap="round"/></svg>`;
+const BRAND = `<svg class="brandsvg" viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="lbBg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#363A5E"/><stop offset="1" stop-color="#1B1D30"/></linearGradient><linearGradient id="lbLq" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B097FF"/><stop offset="1" stop-color="#7B4FE0"/></linearGradient></defs><rect x="1" y="1" width="38" height="38" rx="10" fill="url(#lbBg)"/><rect x="1.5" y="1.5" width="37" height="37" rx="9.5" fill="none" stroke="#fff" stroke-opacity=".10"/><path d="M14.3 25.5h11.4l2.15 3.45a1.8 1.8 0 0 1-1.55 2.75H13.7a1.8 1.8 0 0 1-1.55-2.75z" fill="url(#lbLq)"/><circle cx="18.2" cy="28.2" r="1" fill="#fff" fill-opacity=".8"/><circle cx="22" cy="29.9" r=".7" fill="#fff" fill-opacity=".6"/><path d="M16 9h8M17.5 9v7.4q0 1.1-.6 2.1L11.9 27.7a3.3 3.3 0 0 0 2.8 4.8h10.6a3.3 3.3 0 0 0 2.8-4.8L23.1 18.5q-.6-1-.6-2.1V9" fill="none" stroke="#fff" stroke-width="2.1" stroke-linejoin="round" stroke-linecap="round"/></svg>`;
 const SPIN = `<svg class="cfuge" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".35"/><g><rect x="10.6" y="2.6" width="2.8" height="6" rx="1.4" fill="#A48BDB"/><rect x="10.6" y="15.4" width="2.8" height="6" rx="1.4" fill="#F2709B"/><rect x="2.6" y="10.6" width="6" height="2.8" rx="1.4" fill="#7CC6E4"/><rect x="15.4" y="10.6" width="6" height="2.8" rx="1.4" fill="#E3B53E"/></g><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>`;
 function rack(done, left) {
   const total = Math.max(1, done + left), n = 8, full = Math.round(done / total * n);
@@ -10900,8 +10910,8 @@ function greeting() {
   else if (md === 101) { title = "Happy New Year"; line = "New year, new reference ranges. Same great you."; }
   else if (md === 1031) { title = "Happy Halloween 🎃"; line = "Nothing scarier than a mislabeled specimen."; }
   else if (exd != null && exd <= 3 && exd >= 0) line = `${ex.name} ${exd === 0 ? "is today" : `is in ${plural(exd, "day")}`}. You’ve prepped for this.`;
-  else if (st >= 30) line = `🔥 ${st}-day streak. That’s a whole month of showing up.`;
-  else if (st >= 7 && hsh % 2) line = `🔥 ${st}-day streak. Westgard would approve of this consistency.`;
+  else if (st >= 30) { const L = [`${st} days in a row. That’s a whole month of showing up.`, `${st}-day streak. This is what passing the boards looks like.`, `${st} straight days. Your future self is taking notes.`, `${st} days strong. Consistency like this doesn’t need a control chart.`, `${st}-day streak. Steady as a calibrated pipette.`, `${st} days running. At this point it’s just who you are.`]; line = "🔥 " + L[(hsh + st) % L.length]; }
+  else if (st >= 7 && hsh % 2) { const L = [`${st}-day streak. Westgard would approve of this consistency.`, `${st} days in a row. Your recall curve is trending up.`, `${st}-day streak. Small daily doses, big long-term results.`, `${st} days straight. No shifts, no trends, just progress.`, `${st}-day streak. Keep the chain going.`, `${st} days in a row. Spaced repetition is doing its thing.`, `${st}-day streak. Show up today and it’s ${st + 1}.`]; line = "🔥 " + L[(hsh + st) % L.length]; }
   else if (dow === 5 && hsh % 2) line = "Happy Friday. A short review now makes the weekend guilt-free.";
   else if (dow === 1 && hsh % 2) line = "New week, clean slate. Let’s run some controls.";
   else if ((dow === 0 || dow === 6) && hsh % 2) line = "Weekend study session? Future you says thanks.";
@@ -14549,7 +14559,7 @@ setInterval(() => { try { if (!S.loaded) return; let ch = false; Object.values(g
     try { const rd = ringData(); const key = [rd.rev, rd.goal, rd.newDone, rd.npd, ...(rd.tasks || [])].join("|"); const rings = v.querySelector(".a3rings"); if (rings) { if (window.__ringKey === key) rings.classList.add("noanim"); window.__ringKey = key; } } catch { }
     /* done for today */
     try { const rd = ringData(); const [td, tt] = taskCounts(); const done = rd.rev >= rd.goal && tt > 0 && td >= tt; const dash = v.querySelector(".a3dash");
-      if (done && dash && !v.querySelector(".donecard")) { const fresh = S.meta.celebrated !== dayKey(); dash.insertAdjacentHTML("beforebegin", `<section class="donecard ${fresh ? "burst" : ""}">${fresh ? `<div class="confetti" aria-hidden="true">${Array.from({ length: 18 }, (_, k) => `<i style="--k:${k}"></i>`).join("")}</div>` : ""}<span class="dc-e">🎉</span><div><b>You’re done for today</b><small>Your reviews and today’s tasks are done. Anything more is a bonus, and tomorrow will be lighter for it.</small></div></section>`); if (fresh) { S.meta.celebrated = dayKey(); saveMeta(); try { chime("level"); } catch { } } } } catch { }
+      if (done && dash && !v.querySelector(".donecard")) { const fresh = S.meta.celebrated !== dayKey(); dash.insertAdjacentHTML("beforebegin", `<section class="donecard ${fresh ? "burst" : ""}">${fresh ? `<div class="confetti" aria-hidden="true">${Array.from({ length: 34 }, (_, k) => { const r = (a, b) => a + Math.random() * (b - a); const cols = ["#7B4FE0", "#34C759", "#F5B800", "#FF6B6B", "#3AA0FF", "#FF9F45", "#B097FF"]; const dot = Math.random() < .3; return `<i style="--x:${r(30, 70).toFixed(1)}%;--dx:${r(-180, 180).toFixed(0)}px;--up:${r(-70, -25).toFixed(0)}px;--dn:${r(90, 170).toFixed(0)}px;--rot:${r(-540, 540).toFixed(0)}deg;--d:${r(0, 260).toFixed(0)}ms;--t:${r(1.3, 2.1).toFixed(2)}s;--w:${dot ? 6 : r(5, 8).toFixed(1)}px;--h:${dot ? 6 : r(9, 14).toFixed(1)}px;--br:${dot ? "50%" : "2px"};background:${cols[k % cols.length]}"></i>`; }).join("")}</div>` : ""}<span class="dc-e">🎉</span><div><b>You’re done for today</b><small>Your reviews and today’s tasks are done. Anything more is a bonus, and tomorrow will be lighter for it.</small></div></section>`); if (fresh) { S.meta.celebrated = dayKey(); saveMeta(); try { chime("level"); } catch { } } } } catch { }
   }; }
 
 /* ---------- consistent empty states ---------- */
