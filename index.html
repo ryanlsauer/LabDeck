@@ -3008,6 +3008,8 @@ html.study-open,html.study-open body{overflow:hidden!important;overscroll-behavi
 .sd-err b{font-size:.9rem}.sd-err p{margin:0;font-size:.88rem;line-height:1.45;color:var(--ink-2)}.sd-err small{font-size:.75rem;color:var(--ink-3)}
 .sd-err .btn{align-self:flex-start;margin-top:6px;background:var(--surface)!important;color:var(--violet-ink)!important;border:0!important;border-radius:999px!important}
 .side .sync-diag,.sidebar .sync-diag{display:none!important}
+.sd-more{margin-top:6px}.sd-more summary{cursor:pointer;font-size:.8rem;color:var(--violet-ink);font-weight:600}
+.sd-more pre{white-space:pre-wrap;font:.75rem/1.45 ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--surface);border-radius:8px;padding:8px 10px;margin:6px 0;color:var(--ink-2)}
 /* ===================== v48 · hub pages ===================== */
 .hubwrap{display:flex;flex-direction:column;gap:18px}
 .hubrec{display:flex;flex-direction:column;align-items:flex-start;gap:4px;width:100%;text-align:left;border:0;cursor:pointer;padding:20px 22px;border-radius:var(--r-hero,20px);color:#fff;background:linear-gradient(135deg,color-mix(in srgb,var(--rc) 88%,#fff),var(--rc));box-shadow:0 10px 26px color-mix(in srgb,var(--rc) 30%,transparent);font:inherit;transition:transform .12s}
@@ -3120,7 +3122,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "48.0";
+const APP_VERSION = "48.1";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -3316,7 +3318,7 @@ const Sync = {
     if (token) headers.Authorization = "Bearer " + token;
     if (opts.body) headers["Content-Type"] = "application/json";
     const r = await fetch("https://api.github.com" + path, { cache: "no-store", ...opts, headers });
-    if (!r.ok) { const e = new Error("GitHub " + r.status); e.status = r.status; e.rate = r.status === 429 || r.headers.get("x-ratelimit-remaining") === "0"; try { e.msg = await r.text(); } catch { e.msg = ""; } throw e; }
+    if (!r.ok) { const e = new Error("GitHub " + r.status); e.status = r.status; e.rate = r.status === 429 || r.headers.get("x-ratelimit-remaining") === "0"; e.retryAfter = +(r.headers.get("retry-after") || 0); e.reset = +(r.headers.get("x-ratelimit-reset") || 0); e.remaining = r.headers.get("x-ratelimit-remaining"); try { e.msg = await r.text(); } catch { e.msg = ""; } throw e; }
     return r.json();
   },
   async readFile(f) { if (!f) return null; if (f.truncated) { const r = await fetch(f.raw_url, { cache: "no-store" }); return r.ok ? r.text() : null; } return f.content; },
@@ -14710,6 +14712,20 @@ function hubSection(title, rows) { const s = document.createElement("section"); 
 { const fp = startFlowPick; startFlowPick = function (...a) { const out = fp.apply(this, a); try { const gs = ST.stage.querySelectorAll(".a3group"); gs.forEach(g => { g.classList.add("hubgrid"); g.querySelectorAll(".a3row").forEach(r => hubTile(r, null)); }); } catch { } return out; }; }
 /* Explain it: a clear prompt card and a calm writing area */
 new MutationObserver(() => { const el = ST && ST.el; if (!el || !el.isConnected) return; const t = (el.querySelector(".study-top .t") || {}).textContent || ""; el.classList.toggle("pg-explain", t === "Explain it"); }).observe(document.documentElement, { childList: true, subtree: true });
+/* ===================== v48.1 · sync you can see into ===================== */
+/* keep everything GitHub tells us about an error */
+{ const api2 = Sync.api; Sync.api = async function (path, ...a) { try { return await api2.call(this, path, ...a); } catch (e) { if (e && e.status) { let gm = ""; try { gm = JSON.parse(e.msg || "{}").message || ""; } catch { gm = String(e.msg || "").slice(0, 160); } this.lastErr = { status: e.status, msg: gm || e.msg || "", rate: !!e.rate || /rate limit|secondary|abuse/i.test(gm), retryAfter: e.retryAfter || 0, reset: e.reset || 0, remaining: e.remaining, path: String(path).split("?")[0], t: Date.now(), v: APP_VERSION }; try { LS.set("gh_err", JSON.stringify(this.lastErr)); } catch { } } throw e; } }; }
+/* wait as long as GitHub asks, and much longer when it keeps asking */
+{ const set2 = Sync.set; const waits = [60, 120, 300, 600, 1200, 1800]; Sync.set = function (s, ...a) { const out = set2.call(this, s, ...a);
+    if (s === "error" && this.lastErr && this.lastErr.rate) { this.rateFails = (this.rateFails || 0) + 1; let w = waits[Math.min(waits.length - 1, this.rateFails - 1)] * 1000; const e = this.lastErr; if (e.retryAfter) w = Math.max(w, e.retryAfter * 1000 + 2000); if (e.reset && e.remaining === "0") w = Math.max(w, e.reset * 1000 - Date.now() + 2000); clearTimeout(this.retryT); this.retryAt = Date.now() + w; this.retryT = setTimeout(() => { this.forceNow = true; this.now(); }, w); try { syncDiag(); } catch { } }
+    if (s === "ok") this.rateFails = 0; return out; }; }
+/* Settings: full details, copyable, and a GitHub limit check */
+{ const sd = syncDiag; syncDiag = function () { sd(); const box = document.getElementById("syncDiag"); if (!box) return; const e = Sync.lastErr; const err = box.querySelector(".sd-err");
+    if (err && e && !err.querySelector(".sd-more")) { err.insertAdjacentHTML("beforeend", `<details class="sd-more"><summary>Details</summary><pre>${esc(`LabDeck ${e.v || APP_VERSION}\nCode ${e.status || "none"}${e.rate ? " (rate limit)" : ""}\nRequest ${e.path || "?"}\nGitHub said: ${e.msg || "(nothing)"}\n${e.retryAfter ? `GitHub asked to wait ${e.retryAfter}s\n` : ""}${e.reset ? `Limit resets ${new Date(e.reset * 1000).toLocaleTimeString()}\n` : ""}When ${new Date(e.t).toLocaleString()}`)}</pre><div class="row" style="gap:8px"><button class="btn sm" id="sdCopy">Copy details</button><button class="btn sm" id="sdLim">Check GitHub limits</button></div><p class="small muted" id="sdLimOut"></p></details>`); }
+    if (!err && Sync.token && !box.querySelector("#sdLim")) box.insertAdjacentHTML("beforeend", `<div class="row" style="gap:8px;margin-top:6px"><button class="btn sm" id="sdLim">Check GitHub limits</button></div><p class="small muted" id="sdLimOut"></p>`);
+    $("#sdCopy") && ($("#sdCopy").onclick = async () => { try { await navigator.clipboard.writeText(err.querySelector("pre").textContent); toast("Copied"); } catch { toast("Couldn’t copy on this device"); } });
+    $("#sdLim") && ($("#sdLim").onclick = async () => { const o = $("#sdLimOut"); o.textContent = "Checking…"; try { const r = await fetch("https://api.github.com/rate_limit", { headers: { Authorization: "Bearer " + Sync.token, Accept: "application/vnd.github+json" }, cache: "no-store" }); const j = await r.json(); if (!r.ok) { o.textContent = `GitHub said: ${j.message || r.status}`; return; } const c = j.resources.core; o.textContent = `${c.remaining} of ${c.limit} GitHub requests left this hour · resets ${new Date(c.reset * 1000).toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" })}. ${c.remaining > 100 ? "Your account isn’t over the hourly limit, so any slow-down is GitHub’s short-term limit and clears on its own." : "Your account is near the hourly limit; LabDeck will wait until it resets."}`; } catch { o.textContent = "Couldn’t reach GitHub to check."; } });
+  }; }
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
