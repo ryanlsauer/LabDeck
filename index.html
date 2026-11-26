@@ -3008,6 +3008,31 @@ html.study-open,html.study-open body{overflow:hidden!important;overscroll-behavi
 .sd-err b{font-size:.9rem}.sd-err p{margin:0;font-size:.88rem;line-height:1.45;color:var(--ink-2)}.sd-err small{font-size:.75rem;color:var(--ink-3)}
 .sd-err .btn{align-self:flex-start;margin-top:6px;background:var(--surface)!important;color:var(--violet-ink)!important;border:0!important;border-radius:999px!important}
 .side .sync-diag,.sidebar .sync-diag{display:none!important}
+/* ===================== v48 · hub pages ===================== */
+.hubwrap{display:flex;flex-direction:column;gap:18px}
+.hubrec{display:flex;flex-direction:column;align-items:flex-start;gap:4px;width:100%;text-align:left;border:0;cursor:pointer;padding:20px 22px;border-radius:var(--r-hero,20px);color:#fff;background:linear-gradient(135deg,color-mix(in srgb,var(--rc) 88%,#fff),var(--rc));box-shadow:0 10px 26px color-mix(in srgb,var(--rc) 30%,transparent);font:inherit;transition:transform .12s}
+.hubrec:hover{transform:translateY(-1px)}
+.hr-k{font-size:.7rem;font-weight:700;letter-spacing:.07em;opacity:.85}.hubrec b{font-size:1.5rem;font-weight:800;letter-spacing:-.01em;line-height:1.15}.hr-s{font-size:.92rem;opacity:.92;max-width:52ch;line-height:1.4}
+.hr-go{margin-top:10px;display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.22);padding:7px 14px;border-radius:999px;font-weight:700;font-size:.9rem}.hr-go svg{width:16px;height:16px}
+.hubsec-h{margin:0 2px 10px!important;font-size:.78rem!important;font-weight:700!important;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)!important}
+.hubgrid{display:grid!important;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px!important;background:transparent!important;box-shadow:none!important;border-radius:0!important;overflow:visible!important}
+.hubgrid-2{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+@media (max-width:600px){.hubgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.hubgrid-2{grid-template-columns:1fr}}
+.a3row.hubtile{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:10px!important;padding:16px!important;min-height:140px;background:var(--surface)!important;border:0!important;border-radius:var(--r-cell)!important;box-shadow:var(--shadow)!important;text-align:left;transition:transform .12s,box-shadow .12s}
+.a3row.hubtile+.a3row.hubtile{border-top:0!important}
+@media (hover:hover){.a3row.hubtile:not([disabled]):hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(0,0,0,.05),0 10px 24px rgba(0,0,0,.09)!important}}
+.a3row.hubtile .a3sym{width:42px!important;height:42px!important;border-radius:12px!important}.a3row.hubtile .a3sym svg{width:21px;height:21px}
+.a3row.hubtile .a3rt{display:flex;flex-direction:column;gap:3px;width:100%}.a3row.hubtile .a3rt b{font-size:1rem}.a3row.hubtile .a3rt small{font-size:.8rem;line-height:1.35;color:var(--ink-3)}
+.hub-meta{margin-top:auto;padding-top:8px;font-size:.72rem;font-weight:700;color:var(--violet-ink);letter-spacing:.02em}
+.a3row.hubtile[disabled] .hub-meta{color:var(--ink-3)}
+@media (max-width:600px){.a3row.hubtile{min-height:128px;padding:14px!important}.a3row.hubtile .a3rt small{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}}
+/* Explain it */
+.pg-explain .stage>.qcard{background:linear-gradient(135deg,var(--violet-soft),color-mix(in srgb,var(--violet-soft) 60%,var(--surface)))!important;box-shadow:none!important;padding:18px 20px!important}
+.pg-explain .stage>.qcard .kicker{color:var(--violet-ink)!important;font-weight:800;letter-spacing:.06em}
+.pg-explain .stage>.qcard b,.pg-explain .stage>.qcard .qtext{font-size:1.2rem!important;line-height:1.35}
+.pg-explain textarea.input{min-height:220px!important;box-shadow:var(--shadow)!important}
+.pg-explain .stage>.row{justify-content:space-between;align-items:center}
+.pg-explain .field select.input{max-width:420px}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -3095,7 +3120,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "47.3";
+const APP_VERSION = "48.0";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -7049,7 +7074,7 @@ function groupDecksByLabel(decks) {
 }
 
 /* ---------- lab-flavored interface pieces ---------- */
-const BRAND = `<svg class="brandsvg" viewBox="0 0 40 40" aria-hidden="true"><rect x="1" y="1" width="38" height="38" rx="10" fill="#23263A"/><path d="M16 9h8M17.5 9v8.2L11.6 28a3 3 0 0 0 2.6 4.5h11.6a3 3 0 0 0 2.6-4.5L22.5 17.2V9" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><path d="M14 25.5h12l2.2 3.6a1.6 1.6 0 0 1-1.4 2.4H13.2a1.6 1.6 0 0 1-1.4-2.4z" fill="#8B74F2"/></svg>`;
+const BRAND = `<svg class="brandsvg" viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="lbBg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#363A5E"/><stop offset="1" stop-color="#1B1D30"/></linearGradient><linearGradient id="lbLq" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B097FF"/><stop offset="1" stop-color="#7B4FE0"/></linearGradient></defs><rect x="1" y="1" width="38" height="38" rx="10" fill="url(#lbBg)"/><rect x="1.5" y="1.5" width="37" height="37" rx="9.5" fill="none" stroke="#fff" stroke-opacity=".10"/><path d="M14 25.5h12l2.2 3.6a1.6 1.6 0 0 1-1.4 2.4H13.2a1.6 1.6 0 0 1-1.4-2.4z" fill="url(#lbLq)"/><circle cx="18.2" cy="28.2" r="1" fill="#fff" fill-opacity=".8"/><circle cx="22" cy="29.9" r=".7" fill="#fff" fill-opacity=".6"/><path d="M16 9h8M17.5 9v8.2L11.6 28a3 3 0 0 0 2.6 4.5h11.6a3 3 0 0 0 2.6-4.5L22.5 17.2V9" fill="none" stroke="#fff" stroke-width="2.1" stroke-linejoin="round" stroke-linecap="round"/></svg>`;
 const SPIN = `<svg class="cfuge" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".35"/><g><rect x="10.6" y="2.6" width="2.8" height="6" rx="1.4" fill="#A48BDB"/><rect x="10.6" y="15.4" width="2.8" height="6" rx="1.4" fill="#F2709B"/><rect x="2.6" y="10.6" width="6" height="2.8" rx="1.4" fill="#7CC6E4"/><rect x="15.4" y="10.6" width="6" height="2.8" rx="1.4" fill="#E3B53E"/></g><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>`;
 function rack(done, left) {
   const total = Math.max(1, done + left), n = 8, full = Math.round(done / total * n);
@@ -14583,6 +14608,108 @@ setInterval(() => { const sb = document.querySelector(".side #syncDiag, .sidebar
     return out; }; }
 /* no need to re-download when you just synced and nothing has changed since */
 { const now2 = Sync.now; Sync.now = async function (...a) { if (!this.forceNow && this.status === "ok" && this.lastOk && Date.now() - this.lastOk < 45000) return; return now2.apply(this, a); }; }
+/* ===================== v48 · sync, rebuilt for pictures ===================== */
+/* Your study data and your pictures now live in two separate private gists:
+   - the data gist stays small, so each sync is one quick download and (only if something changed) one upload;
+   - pictures upload once each, tracked in your data (imgUp), and download individually when a device is missing one;
+   - pictures still sitting in the old data gist are moved over a few at a time, then removed from it.
+   A built-in speed limit keeps LabDeck well under GitHub’s limits. */
+const IMG_FILE = "labdeck-pictures.json";
+Sync.imgGist = LS.get("gh_imgs") || ""; Sync.login = LS.get("gh_login") || "";
+{ const api1 = Sync.api; const calls = []; Sync.api = async function (path, opts = {}, ...a) {
+    const now = Date.now(); while (calls.length && now - calls[0] > 60000) calls.shift();
+    const heavy = opts.method && opts.method !== "GET";
+    if (calls.length >= 30 || (heavy && calls.filter(c => c.w).length >= 12)) { const e = new Error("local limit"); e.status = 429; e.rate = true; e.msg = "LabDeck paused itself to stay under GitHub’s limits"; this.lastErr = { status: 429, msg: e.msg, rate: true, t: now }; throw e; }
+    calls.push({ t: now, w: heavy }); try { return await api1.call(this, path, opts, ...a); } catch (e) { if (e) e.path = path; throw e; } }; }
+Sync.findOrMakeImgGist = async function () {
+  if (this.imgGist) return this.imgGist; let found = null;
+  for (let page = 1; page <= 5 && !found; page++) { const list = await this.api(`/gists?per_page=100&page=${page}`); found = (list || []).find(g => g.files && g.files[IMG_FILE]); if (!list || list.length < 100) break; }
+  if (found) this.imgGist = found.id; else { const g = await this.api("/gists", { method: "POST", body: JSON.stringify({ description: "LabDeck pictures (private)", public: false, files: { [IMG_FILE]: { content: JSON.stringify({ v: 1, note: "Pictures used by LabDeck cards" }) } } }) }); this.imgGist = g.id; }
+  LS.set("gh_imgs", this.imgGist); return this.imgGist;
+};
+Sync.syncPictures = async function (dataGist) {
+  const refs = referencedImages(); const up = S.meta.imgUp = S.meta.imgUp || {}; let budget = 4, changed = false;
+  const legacy = Object.keys((dataGist && dataGist.files) || {}).filter(n => /^img-.+\.txt$/.test(n));
+  const needUp = [...refs].filter(id => S.images[id] && !up[id]);
+  const legacyIds = legacy.map(n => n.slice(4, -4)).filter(id => !up[id] && refs.has(id));
+  if (needUp.length || legacyIds.length) await this.findOrMakeImgGist();
+  /* upload: local pictures first, then any that only exist in the old data gist; two per request, a few per sync */
+  const queue = [...new Set([...needUp, ...legacyIds])];
+  for (let k = 0; k < queue.length && budget > 0; k += 2) {
+    const files = {}; for (const id of queue.slice(k, k + 2)) { let c = S.images[id]; if (!c && dataGist.files["img-" + id + ".txt"]) { c = await this.readFile(dataGist.files["img-" + id + ".txt"]); if (c) { S.images[id] = c; IDB.put("img-" + id, c); } } if (c) files["img-" + id + ".txt"] = { content: c }; }
+    if (!Object.keys(files).length) continue; budget--;
+    await this.api("/gists/" + this.imgGist, { method: "PATCH", body: JSON.stringify({ files }) });
+    Object.keys(files).forEach(n => { up[n.slice(4, -4)] = Date.now(); }); changed = true;
+  }
+  /* clean the old data gist once its pictures are safely in the picture gist */
+  const movable = legacy.filter(n => up[n.slice(4, -4)] || !refs.has(n.slice(4, -4))).slice(0, 10);
+  if (movable.length && budget > 0) { const files = {}; movable.forEach(n => files[n] = null); await this.api("/gists/" + this.gist, { method: "PATCH", body: JSON.stringify({ files }) }); }
+  /* download pictures this device is missing */
+  const missing = [...refs].filter(id => !S.images[id] && up[id]).slice(0, 6);
+  if (missing.length && !this.imgGist) { for (let page = 1; page <= 5 && !this.imgGist; page++) { const list = await this.api(`/gists?per_page=100&page=${page}`); const f = (list || []).find(g => g.files && g.files[IMG_FILE]); if (f) { this.imgGist = f.id; LS.set("gh_imgs", f.id); } if (!list || list.length < 100) break; } }
+  if (missing.length && this.imgGist) { let listing = null;
+    for (const id of missing) { let c = null;
+      if (this.login) { try { const r = await fetch(`https://gist.githubusercontent.com/${this.login}/${this.imgGist}/raw/img-${id}.txt`, { cache: "no-store" }); if (r.ok) c = await r.text(); } catch { } }
+      if (!c) { if (!listing) listing = await this.api("/gists/" + this.imgGist); c = await this.readFile((listing.files || {})["img-" + id + ".txt"]); }
+      if (c) { S.images[id] = c; IDB.put("img-" + id, c); changed = true; } } }
+  if (changed) saveMeta();
+  return changed;
+};
+Sync.now = async function () {
+  if (!this.token) return; const forced = this.forceNow; this.forceNow = false;
+  if (!forced) { if (this.status === "error" && this.retryAt && Date.now() < this.retryAt) return; if (this.status === "ok" && this.lastOk && Date.now() - this.lastOk < 45000) return; }
+  if (this.busy) { this.again = true; return; } if (!navigator.onLine) { this.set("offline"); return; }
+  this.busy = true; clearTimeout(this.timer); this.set("syncing");
+  try {
+    if (!this.gist) await this.relink();
+    const g = await this.api("/gists/" + this.gist); if (g.owner && g.owner.login) { this.login = g.owner.login; LS.set("gh_login", this.login); }
+    const txt = await this.readFile((g.files || {})[GIST_FILE]); let changed = false;
+    if (txt) { try { changed = mergeRemote(JSON.parse(txt)); } catch { } }
+    const pics = await this.syncPictures(g); changed = changed || pics;
+    const out = JSON.stringify(snapshot());
+    if (!txt || (out !== txt && !sameData(out, txt))) await this.api("/gists/" + this.gist, { method: "PATCH", body: JSON.stringify({ files: { [GIST_FILE]: { content: out } } }) });
+    this.lastOk = Date.now(); LS.set("gh_last", String(this.lastOk)); this.set("ok");
+    if (changed && !ST && !$(".scrim")) render();
+    /* more pictures still waiting: carry on in a minute, gently */
+    const left = [...referencedImages()].filter(id => S.images[id] && !(S.meta.imgUp || {})[id]).length + Object.keys(g.files || {}).filter(n => /^img-/.test(n)).length;
+    if (left) { clearTimeout(this.picT); this.picT = setTimeout(() => { this.forceNow = true; this.now(); }, 60000); }
+  } catch (e) {
+    if (e && (e.status === 429 || (e.status === 403 && (e.rate || /rate limit|abuse|secondary/i.test(e.msg || ""))))) this.set("error");
+    else if (e && e.status === 401) this.set("auth");
+    else if (e && e.status === 403) this.set("auth");
+    else if (e && e.status === 404) { if (String(e.path || "").includes(this.imgGist) && this.imgGist) { this.imgGist = ""; LS.del("gh_imgs"); } else { this.gist = ""; LS.del("gh_gist"); } this.set("error"); }
+    else this.set("error");
+  } finally { this.busy = false; if (this.again) { this.again = false; setTimeout(() => this.now(), 3000); } }
+};
+/* the picture tracking list merges by union, so every device knows what’s already uploaded */
+{ const mr = mergeRemote; mergeRemote = function (r, ...a) { const mine = { ...(S.meta.imgUp || {}) }; const out = mr.call(this, r, ...a); const R = ((r && r.meta) || {}).imgUp || {}; const U = {}; new Set([...Object.keys(mine), ...Object.keys(R)]).forEach(k => { U[k] = Math.min(mine[k] || Infinity, R[k] || Infinity); }); S.meta.imgUp = U; return out; }; }
+/* disconnecting forgets the picture gist on this device too */
+{ const dc = Sync.disconnect; Sync.disconnect = function (...a) { this.imgGist = ""; LS.del("gh_imgs"); return dc.apply(this, a); }; }
+/* ===================== v48 · hub pages ===================== */
+function hubTile(row, meta) { row.classList.add("hubtile"); const ch = row.querySelector(".a3chev"); ch && ch.remove(); if (meta != null && !row.querySelector(".hub-meta")) row.querySelector(".a3rt")?.insertAdjacentHTML("beforeend", `<span class="hub-meta">${meta}</span>`); return row; }
+function hubSection(title, rows) { const s = document.createElement("section"); s.className = "hubsec"; s.innerHTML = `<h3 class="hubsec-h">${esc(title)}</h3><div class="hubgrid"></div>`; const g = s.querySelector(".hubgrid"); rows.filter(Boolean).forEach(r => g.appendChild(r)); return s; }
+/* Practice: recommended first, then grouped tiles with live counts */
+{ const sm = startMixed; startMixed = function (skip) { const out = sm(skip); if (skip === true) return out; try {
+    const st = ST.stage, g = st.querySelector(".a3group"); if (!g || st.querySelector(".hubsec")) return out;
+    const R = k => st.querySelector(`[data-m="${k}"]`) || g.querySelector(`[data-m="${k}"]`);
+    const weakN = (() => { try { return weakFacts(null, 25).length; } catch { return 0; } })(), leechN = (() => { try { return leechFacts().length; } catch { return 0; } })(), fieldN = (() => { try { return profileFields().length; } catch { return 0; } })();
+    const decks = Object.values(S.decks).filter(d => !d.hidden).length;
+    const rec = leechN ? { k: "leech", t: `Clear ${plural(leechN, "leech", "leeches")}`, s: "These keep slipping. A focused round now saves you the most time later.", c: "#C8292F" } : weakN ? { k: "weak", t: `Shore up ${plural(weakN, "weak spot")}`, s: "Your shakiest cards across every deck, in one short session.", c: "#E5484D" } : { k: "mix", t: "Mixed practice", s: "Twenty questions across your decks. Switching topics makes it stick.", c: "#7B4FE0" };
+    const recEl = document.createElement("button"); recEl.className = "hubrec"; recEl.style.setProperty("--rc", rec.c); recEl.innerHTML = `<span class="hr-k">RECOMMENDED FOR YOU</span><b>${esc(rec.t)}</b><span class="hr-s">${esc(rec.s)}</span><span class="hr-go">Start ${icon("right")}</span>`; recEl.onclick = () => R(rec.k)?.click();
+    hubTile(R("weak"), weakN ? plural(weakN, "card") : "All solid"); hubTile(R("leech"), leechN ? plural(leechN, "leech", "leeches") : "None right now"); R("field") && hubTile(R("field"), fieldN ? plural(fieldN, "detail") : null);
+    hubTile(R("mix"), `${plural(decks, "deck")}`); hubTile(R("look"), `${LOOKALIKES.length} pairs`); hubTile(R("range"), "Labs and ranges"); hubTile(R("math"), "Leveled"); hubTile(R("flow"), `${Object.keys(FLOWS).length} charts`);
+    const wrap = document.createElement("div"); wrap.className = "hubwrap"; wrap.appendChild(recEl);
+    wrap.appendChild(hubSection("Fix what’s slipping", [R("weak"), R("leech"), R("field")]));
+    wrap.appendChild(hubSection("Drills", [R("mix"), R("look"), R("range"), R("math")]));
+    wrap.appendChild(hubSection("Identify", [R("flow")]));
+    g.replaceWith(wrap); st.querySelectorAll(".a3pick > h2, .a3pick > p.muted").forEach(h => h.classList.add("pg-dup"));
+  } catch (e) { console.warn("practice hub", e); } return out; }; }
+/* Exam practice: two clear choices with what to expect */
+{ const ep = examsPicker; examsPicker = function (...a) { const out = ep.apply(this, a); try { const g = ST.stage.querySelector(".a3group"); if (g && !g.classList.contains("hubgrid")) { g.classList.add("hubgrid", "hubgrid-2"); const b = g.querySelector('[data-x="board"]'), c = g.querySelector('[data-x="comp"]'); hubTile(b, "Pick decks · timed · 50 or 100 questions"); hubTile(c, "Whole program · scored like your final"); } } catch { } return out; }; }
+/* ID flowcharts: one tile per chart */
+{ const fp = startFlowPick; startFlowPick = function (...a) { const out = fp.apply(this, a); try { const gs = ST.stage.querySelectorAll(".a3group"); gs.forEach(g => { g.classList.add("hubgrid"); g.querySelectorAll(".a3row").forEach(r => hubTile(r, null)); }); } catch { } return out; }; }
+/* Explain it: a clear prompt card and a calm writing area */
+new MutationObserver(() => { const el = ST && ST.el; if (!el || !el.isConnected) return; const t = (el.querySelector(".study-top .t") || {}).textContent || ""; el.classList.toggle("pg-explain", t === "Explain it"); }).observe(document.documentElement, { childList: true, subtree: true });
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
