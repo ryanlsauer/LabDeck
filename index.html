@@ -3157,7 +3157,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "49.1";
+const APP_VERSION = "49.2";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -7112,7 +7112,7 @@ function groupDecksByLabel(decks) {
 }
 
 /* ---------- lab-flavored interface pieces ---------- */
-const BRAND = `<svg class="brandsvg" viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="lbBg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#363A5E"/><stop offset="1" stop-color="#1B1D30"/></linearGradient><linearGradient id="lbLq" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B097FF"/><stop offset="1" stop-color="#7B4FE0"/></linearGradient></defs><rect x="1" y="1" width="38" height="38" rx="10" fill="url(#lbBg)"/><rect x="1.5" y="1.5" width="37" height="37" rx="9.5" fill="none" stroke="#fff" stroke-opacity=".10"/><path d="M14.3 25.5h11.4l2.15 3.45a1.8 1.8 0 0 1-1.55 2.75H13.7a1.8 1.8 0 0 1-1.55-2.75z" fill="url(#lbLq)"/><circle cx="18.2" cy="28.2" r="1" fill="#fff" fill-opacity=".8"/><circle cx="22" cy="29.9" r=".7" fill="#fff" fill-opacity=".6"/><path d="M16 9h8M17.5 9v7.4q0 1.1-.6 2.1L11.9 27.7a3.3 3.3 0 0 0 2.8 4.8h10.6a3.3 3.3 0 0 0 2.8-4.8L23.1 18.5q-.6-1-.6-2.1V9" fill="none" stroke="#fff" stroke-width="2.1" stroke-linejoin="round" stroke-linecap="round"/></svg>`;
+const BRAND = `<svg class="brandsvg" viewBox="0 0 40 40" aria-hidden="true"><rect x="1" y="1" width="38" height="38" rx="10" fill="#23263A"/><path d="M16 9h8M17.5 9v8.2L11.6 28a3 3 0 0 0 2.6 4.5h11.6a3 3 0 0 0 2.6-4.5L22.5 17.2V9" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><path d="M14 25.5h12l2.2 3.6a1.6 1.6 0 0 1-1.4 2.4H13.2a1.6 1.6 0 0 1-1.4-2.4z" fill="#8B74F2"/></svg>`;
 const SPIN = `<svg class="cfuge" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".35"/><g><rect x="10.6" y="2.6" width="2.8" height="6" rx="1.4" fill="#A48BDB"/><rect x="10.6" y="15.4" width="2.8" height="6" rx="1.4" fill="#F2709B"/><rect x="2.6" y="10.6" width="6" height="2.8" rx="1.4" fill="#7CC6E4"/><rect x="15.4" y="10.6" width="6" height="2.8" rx="1.4" fill="#E3B53E"/></g><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>`;
 function rack(done, left) {
   const total = Math.max(1, done + left), n = 8, full = Math.round(done / total * n);
