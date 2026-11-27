@@ -3110,6 +3110,76 @@ textarea#icIn{resize:none;overflow:hidden;line-height:1.45;padding:12px 14px!imp
 /* delete inside the edit window */
 .btn.danger-ghost{background:color-mix(in srgb,#E5484D 10%,var(--surface))!important;color:#C8292F!important;border:0!important}
 .btn.danger-ghost svg{width:16px;height:16px;margin-right:4px}
+/* ===================== v51 · new games ===================== */
+.g2-fb{min-height:1.5em;margin-top:10px;font-size:.92rem;line-height:1.45;text-align:center}.g2-fb .ok{color:#248A3D;font-weight:700}.g2-fb .no{color:#C8292F;font-weight:700}.g2-fb .muted{color:var(--ink-3)}
+/* cell counter */
+.g2-diff{display:flex;flex-direction:column;align-items:center;gap:14px}
+.g2-scope{position:relative;width:min(300px,76vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 50% 45%,#FFF8F4 0%,#FBE9E4 55%,#E9CFCB 100%);box-shadow:inset 0 0 0 10px #1F2030,inset 0 0 40px rgba(0,0,0,.25),0 12px 30px rgba(0,0,0,.18);overflow:hidden;display:flex;align-items:center;justify-content:center}
+.g2-field{width:78%;height:78%;display:flex;align-items:center;justify-content:center;animation:g2pop .22s ease both}
+.wbc-cell{width:100%;height:100%}
+@keyframes g2pop{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:none}}
+.g2-timer{position:absolute;top:16px;right:50%;transform:translateX(50%);background:rgba(31,32,48,.8);color:#fff;font:700 .8rem/1 var(--font-body);padding:5px 10px;border-radius:999px}
+.g2-pad{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:8px;width:100%;max-width:560px}
+.g2-key{position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;padding:12px 8px 10px;border:0;border-radius:14px;background:linear-gradient(180deg,#fff,#F1F1F6);box-shadow:inset 0 1px 0 #fff,0 3px 0 #D3D3DD,0 6px 14px rgba(0,0,0,.08);cursor:pointer;font:inherit;color:var(--ink);transition:transform .06s}
+.g2-key:active{transform:translateY(2px);box-shadow:inset 0 1px 0 #fff,0 1px 0 #D3D3DD}
+.g2-key b{font-size:.85rem}.g2-kn{position:absolute;top:6px;left:8px;font-size:.68rem;color:var(--ink-3);font-weight:700}.g2-cnt{font:800 1.3rem/1 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--violet-ink)}
+.g2-key.hit{background:linear-gradient(180deg,#E8FAEE,#CFF2DA);box-shadow:inset 0 1px 0 #fff,0 3px 0 #8FD3A5}.g2-key.miss{background:linear-gradient(180deg,#FFEDEE,#FBD3D5);box-shadow:inset 0 1px 0 #fff,0 3px 0 #EDA3A6}
+/* hemocytometer */
+.g2-hemo{display:flex;flex-direction:column;align-items:center;max-width:520px;margin:0 auto}.g2-hemo-q{text-align:center;font-size:.95rem;margin-bottom:10px;color:var(--ink-2)}
+.g2-grid{width:min(420px,88vw);background:var(--surface);border-radius:16px;box-shadow:var(--shadow);touch-action:manipulation}
+.g2-gl{stroke:#C9B98F;stroke-width:1}.g2-gb{stroke:#8E7B4B;stroke-width:2.2}.g2-in{stroke:#34C759;stroke-width:3.2}.g2-out{stroke:#E5484D;stroke-width:3.2;stroke-dasharray:6 4}
+.g2-c{cursor:pointer}.g2-cd{fill:#E9A0A3;stroke:#B8585D;stroke-width:1.2;transition:fill .12s}.g2-c.on .g2-cd{fill:#7B4FE0;stroke:#4A2BA8}
+.g2-c.should .g2-cd{stroke:#248A3D;stroke-width:2.4}.g2-c.shouldnt .g2-cd{fill:#C8C8CF;stroke:#8A8A93}
+.g2-tally{font-size:.95rem}
+.g2-calc .g2-formula{margin:10px 0;padding:10px 12px;border-radius:10px;background:var(--surface-2);font:600 .85rem/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ink-2)}
+.g2-numrow{display:flex;align-items:center;gap:8px;margin:8px 0}.g2-numrow .input{flex:1;font-size:1.15rem;min-height:48px}.g2-numrow span{font-weight:700;color:var(--ink-2)}
+/* specimen sort */
+.g2-sort{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:14px}.g2-sort-top{display:flex;flex-direction:column;align-items:center;gap:8px;min-height:120px;justify-content:center}
+.g2-chip-drag{display:flex;align-items:center;gap:10px;padding:14px 18px;border-radius:16px;background:var(--surface);box-shadow:0 2px 4px rgba(0,0,0,.05),0 10px 24px rgba(0,0,0,.10);font-weight:700;font-size:1.02rem;cursor:grab;touch-action:none;user-select:none;transition:transform .18s,opacity .25s;max-width:100%;text-align:center}
+.g2-chip-drag.lift{cursor:grabbing;transition:none;box-shadow:0 20px 40px rgba(0,0,0,.2);z-index:10}.g2-chip-drag.in{transform:scale(.6) translateY(60px)!important;opacity:0}.g2-chip-drag.bounce{animation:g2shake .4s}
+@keyframes g2shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.g2-hint{margin:0;font-size:.85rem;color:var(--ink-3)}
+.g2-bins{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.g2-bins.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g2-bin{min-height:86px;border:0;border-radius:16px;cursor:pointer;font:inherit;color:var(--ink);background:color-mix(in srgb,var(--bc) 12%,var(--surface));box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--bc) 35%,transparent);display:flex;align-items:flex-end;padding:12px;transition:transform .12s,box-shadow .12s,background .12s}
+.g2-bin b{font-size:.92rem}.g2-bin.over{transform:scale(1.04);box-shadow:inset 0 0 0 3px var(--bc)}.g2-bin.hit{background:color-mix(in srgb,#34C759 22%,var(--surface));box-shadow:inset 0 0 0 3px #34C759}.g2-bin.miss{background:color-mix(in srgb,#E5484D 18%,var(--surface));box-shadow:inset 0 0 0 3px #E5484D}
+@media (max-width:520px){.g2-bins{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* dilution bench */
+.g2-dil{max-width:620px;margin:0 auto}.g2-bench{display:flex;gap:18px;align-items:center;margin-top:12px;background:var(--surface);border-radius:16px;box-shadow:var(--shadow);padding:14px}
+.g2-tubewrap{flex:none;width:90px}.g2-tube{width:90px;height:auto;display:block}
+.g2-ctrls{flex:1;display:flex;flex-direction:column;gap:12px}.g2-ctrls label{display:flex;flex-direction:column;gap:6px;font-weight:700;font-size:.88rem}
+.g2-step{display:flex;align-items:center;gap:8px}.g2-step input{flex:1;accent-color:#7B4FE0}.g2-step button{width:34px;height:34px;border-radius:10px;border:0;background:var(--violet-soft);color:var(--violet-ink);font-size:1.1rem;font-weight:800;cursor:pointer}
+.g2-vals{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 12px;font-size:.84rem;color:var(--ink-2)}
+.g2-chain{display:flex;align-items:flex-end;justify-content:center;gap:6px;margin:8px 0}.g2-ch{display:flex;flex-direction:column;align-items:center}.g2-ch .g2-tube{width:52px}.g2-ch small{font-weight:700;color:var(--ink-2)}.g2-arrow{font-size:1.3rem;color:var(--ink-3);margin-bottom:30px}
+/* memory match */
+.g2-mm{max-width:640px;margin:0 auto}.g2-mm-bar{display:flex;justify-content:center;gap:18px;font-size:.9rem;color:var(--ink-2);margin-bottom:12px}
+.g2-mm-grid{display:grid;grid-template-columns:repeat(var(--cols),minmax(0,1fr));gap:10px;perspective:900px}
+@media (max-width:520px){.g2-mm-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.g2-card{position:relative;aspect-ratio:3/4;border:0;background:none;padding:0;cursor:pointer;transform-style:preserve-3d;transition:transform .38s cubic-bezier(.3,.7,.3,1)}
+.g2-card.up,.g2-card.done{transform:rotateY(180deg)}
+.g2-face{position:absolute;inset:0;border-radius:14px;backface-visibility:hidden;display:flex;align-items:center;justify-content:center;padding:8px;text-align:center;font-weight:700;font-size:.82rem;line-height:1.25}
+.g2-back{background:linear-gradient(135deg,#8E6CF5,#5B33C0);box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 4px 12px rgba(91,51,192,.3)}
+.g2-back::after{content:"";width:34%;aspect-ratio:1;border-radius:50%;border:2px solid rgba(255,255,255,.35)}
+.g2-front{transform:rotateY(180deg);background:var(--surface);box-shadow:0 4px 14px rgba(0,0,0,.1);color:var(--ink)}.g2-front.b{color:var(--violet-ink)}
+.g2-card.done .g2-front{background:color-mix(in srgb,#34C759 16%,var(--surface));box-shadow:inset 0 0 0 2px #34C759}
+/* procedures */
+.g2-proc{max-width:620px;margin:0 auto}.g2-steps{list-style:none;padding:0;margin:12px 0;display:flex;flex-direction:column;gap:8px}
+.g2-step{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--surface);border-radius:14px;box-shadow:var(--shadow);cursor:pointer;touch-action:none;user-select:none;transition:box-shadow .12s,background .12s}
+.g2-step.sel{box-shadow:0 0 0 2px var(--violet),var(--shadow)}.g2-step.drag{position:relative;z-index:5;box-shadow:0 16px 30px rgba(0,0,0,.18);transition:none}
+.g2-step.ok{background:color-mix(in srgb,#34C759 14%,var(--surface))}.g2-step.no{background:color-mix(in srgb,#E5484D 12%,var(--surface))}
+.g2-n{width:26px;height:26px;border-radius:50%;background:var(--violet-soft);color:var(--violet-ink);font-weight:800;font-size:.8rem;display:flex;align-items:center;justify-content:center;flex:none}.g2-t{flex:1;font-size:.92rem;font-weight:600}.g2-grip{color:var(--ink-3);letter-spacing:-2px}
+/* term builder */
+.g2-term{max-width:620px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.g2-slots{display:flex;flex-wrap:wrap;justify-content:center;gap:5px}.g2-slot{width:30px;height:38px;border-radius:8px;background:var(--surface);box-shadow:inset 0 -2px 0 var(--line-2);display:flex;align-items:center;justify-content:center;font:800 1.05rem/1 var(--font-body)}
+.g2-slot.f{box-shadow:inset 0 -2px 0 var(--violet)}.g2-slot.ok{background:color-mix(in srgb,#34C759 16%,var(--surface));box-shadow:inset 0 -2px 0 #34C759}.g2-slot.no{background:color-mix(in srgb,#E5484D 14%,var(--surface));box-shadow:inset 0 -2px 0 #E5484D}
+.g2-tiles{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}.g2-tile{width:42px;height:46px;border:0;border-radius:11px;background:linear-gradient(180deg,#9B7BF7,#7B4FE0);color:#fff;font:800 1.1rem/1 var(--font-body);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 3px 0 #5B33C0;cursor:pointer;transition:transform .06s}
+.g2-tile:active{transform:translateY(2px)}.g2-tile[disabled]{opacity:.22;box-shadow:none;cursor:default}
+/* electrophoresis */
+.g2-spep{width:100%;max-width:440px;display:block;margin:6px auto}.g2-sp-fill{fill:color-mix(in srgb,#7B4FE0 18%,transparent)}.g2-sp-line{fill:none;stroke:#7B4FE0;stroke-width:2.2;stroke-linejoin:round}.g2-sp-ax{stroke:var(--line-2);stroke-width:1}.g2-sp-t{fill:var(--ink-3);font:600 11px var(--font-body)}
+/* dark mode */
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .g2-key{background:linear-gradient(180deg,#3A3A42,#2E2E35);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 3px 0 #1B1B20;color:var(--ink)}}
+:root[data-theme="dark"] .g2-key{background:linear-gradient(180deg,#3A3A42,#2E2E35);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 3px 0 #1B1B20;color:var(--ink)}
+.g2-mm,.g2-term,.g2-proc,.g2-dil,.g2-sort,.g2-hemo,.g2-diff{width:100%;box-sizing:border-box}
+.g2-mm-grid{width:100%}.g2-card{min-height:96px}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -3197,7 +3267,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "50.1";
+const APP_VERSION = "51.0";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -10004,7 +10074,7 @@ function planView(it) {
     case "lessons": { const n = it.n || 1, got = D.lessons || 0, nl = nextLesson(); return { ic: "book", t: n > 1 ? `Complete ${n} lessons` : "Complete a lesson", s: nl ? `Next: ${nl.title}` : "All lessons done", done: got >= n, prog: Math.min(1, got / n), btn: "Start", fn: () => nl && startLesson(nl) }; }
     case "weak": return { ic: "target", t: "Drill your weak spots", s: "Facts you keep missing", done: (D.weak || 0) >= 1, btn: "Drill", fn: () => startLearn(null, { weak: true }) };
     case "conf": return { ic: "rotate", t: "Fix a repeat miss", s: "Missed more than once: your weakest spots", done: (D.cleared || 0) >= 1, btn: "Journal", fn: startJournal };
-    case "game": return { ic: "target", t: `Play ${GAME_NAMES[ref]}`, s: "Unlocked by your lessons", done: (gstate(ref).plays || 0) > 0 || (D.games || 0) >= 1, btn: "Play", fn: () => document.getElementById(GAME_BTN[ref])?.click() };
+    case "game": return { ic: "target", t: `Play ${GAME_NAMES[ref]}`, s: "Unlocked by your lessons", done: (gstate(ref).plays || 0) > 0 || (D.games || 0) >= 1, btn: "Play", fn: () => (TOOL_FN["g_" + ref] ? TOOL_FN["g_" + ref]() : document.getElementById(GAME_BTN[ref])?.click()) };
     case "focus": return { ic: "timer", t: "One focused block", s: "25 minutes, phone away", done: ((S.meta.focus || {})[k] || 0) > 0, btn: "Timer", fn: timerModal, optional: true };
     case "exam": return ex ? { ic: "exam", t: `Prep for ${ex.name}`, s: `In ${daysUntil(ex)} days`, done: (D.examPrep || 0) >= 1, btn: "Prep", fn: () => startLearn(null, { exam: ex.id }) } : null;
     case "cram": return ex ? { ic: "exam", t: `Cram for ${ex.name}`, s: daysUntil(ex) <= 0 ? "Today" : `In ${plural(daysUntil(ex), "day")}`, done: (D.examPrep || 0) >= 1, btn: "Study →", link: true, fn: () => startLearn(null, { exam: ex.id, cram: true }) } : null;
@@ -14972,6 +15042,306 @@ function organizeSettings() {
   if (recapN && lim && !lim.querySelector("#rmRecap")) { lim.insertAdjacentHTML("beforeend", `<div class="set-action"><span><b>Lesson recap cards</b><small>${plural(recapN, "card")} added automatically from module recaps.</small></span><button class="btn sm" id="rmRecap">Remove them</button></div>`); $("#rmRecap").onclick = () => modal(`<h2>Remove ${plural(recapN, "recap card")}?</h2><p class="muted">These fill-in-the-blank cards were added from module recaps. Starter cards and cards you made stay.</p><div class="modal-foot"><button class="btn" data-close>Cancel</button><div class="spacer"></div><button class="btn danger" id="rrGo">Remove</button></div>`, (s, close) => { $$("[data-close]", s).forEach(b => b.onclick = close); $("#rrGo", s).onclick = () => { Object.values(S.decks).forEach(d => { const gone = d.cards.filter(c => c.recap); if (!gone.length) return; const ids = new Set(gone.map(c => c.id)); const keys = new Set(factsOf(d).filter(f => ids.has(f.card.id)).map(f => f.key)); d.cards = d.cards.filter(c => !c.recap); const sr = S.srs[d.id] || {}; keys.forEach(k => delete sr[k]); saveDeck(d); saveSrs(d.id); }); saveMeta(true); close(); toast("Recap cards removed"); render(); }; }); }
 }
 { const r = render; render = function (...a) { const out = r.apply(this, a); if ((location.hash || "") === "#more") setTimeout(organizeSettings, 0); return out; }; }
+/* ===================== v51 · new games, part 1 ===================== */
+const g2rand = (a, b) => a + Math.random() * (b - a);
+const g2pick = a => a[Math.floor(Math.random() * a.length)];
+function g2finish(sc, done, score, total) { LAST_PTS = sc.save(); done(score, total); }
+function g2top(sc, i, n) { ST.right.innerHTML = `${sc.chip()}<span class="small muted">${i}/${n}</span>`; setProg(n ? (i - 1) / n : 0); }
+
+/* ---------- Cell counter: a manual differential on a counter keypad ---------- */
+const WBC = {
+  neut: { name: "Neutrophil", key: "N", why: "Segmented nucleus with 3–5 lobes and fine pink-lilac granules." },
+  lymph: { name: "Lymphocyte", key: "L", why: "Small, round dense nucleus with a thin rim of sky-blue cytoplasm." },
+  mono: { name: "Monocyte", key: "M", why: "Largest cell: folded or kidney-shaped nucleus, gray-blue cytoplasm, often vacuoles." },
+  eos: { name: "Eosinophil", key: "E", why: "Bilobed nucleus and large orange-red granules." },
+  baso: { name: "Basophil", key: "B", why: "Dark purple-black granules that crowd over the nucleus." },
+  band: { name: "Band", key: "Bd", why: "Curved, unsegmented nucleus shaped like a C or U." }
+};
+function wbcSvg(t) {
+  const rot = g2rand(0, 360).toFixed(0), s = g2rand(.92, 1.08);
+  const dots = (n, r, col, sz) => Array.from({ length: n }, () => { const a = Math.random() * 6.283, d = Math.sqrt(Math.random()) * r; return `<circle cx="${(60 + d * Math.cos(a)).toFixed(1)}" cy="${(60 + d * Math.sin(a)).toFixed(1)}" r="${sz}" fill="${col}"/>`; }).join("");
+  let body = "";
+  if (t === "neut") body = `<circle cx="60" cy="60" r="34" fill="#F2DCE6"/>${dots(90, 31, "#D9A7C3", .9)}<g fill="#5A2A84"><ellipse cx="46" cy="52" rx="10" ry="8"/><ellipse cx="62" cy="47" rx="9" ry="8"/><ellipse cx="72" cy="62" rx="9" ry="8"/><ellipse cx="56" cy="70" rx="9" ry="7"/></g><path d="M48 54 L60 48 L71 60 L58 69" stroke="#5A2A84" stroke-width="3.5" fill="none"/>`;
+  if (t === "band") body = `<circle cx="60" cy="60" r="34" fill="#F2DCE6"/>${dots(90, 31, "#D9A7C3", .9)}<path d="M42 48 Q38 74 58 78 Q78 78 78 58" stroke="#5A2A84" stroke-width="11" fill="none" stroke-linecap="round"/>`;
+  if (t === "lymph") body = `<circle cx="60" cy="60" r="24" fill="#9EC5F0"/><circle cx="58" cy="59" r="20" fill="#3E1E70"/><circle cx="52" cy="54" r="3" fill="#53308A" opacity=".7"/>`;
+  if (t === "mono") body = `<circle cx="60" cy="60" r="40" fill="#BCC6DD"/>${Array.from({ length: 6 }, () => `<circle cx="${g2rand(34, 86).toFixed(1)}" cy="${g2rand(34, 86).toFixed(1)}" r="${g2rand(2, 4).toFixed(1)}" fill="#EEF2FA"/>`).join("")}<path d="M38 50 Q44 34 62 38 Q80 42 76 56 Q66 52 62 62 Q58 74 44 70 Q34 64 38 50z" fill="#6E4A9E"/>`;
+  if (t === "eos") body = `<circle cx="60" cy="60" r="32" fill="#F6D0B8"/>${dots(130, 29, "#E2622F", 2.1)}<g fill="#53307E"><ellipse cx="48" cy="58" rx="11" ry="10"/><ellipse cx="72" cy="58" rx="11" ry="10"/></g><path d="M56 58 H64" stroke="#53307E" stroke-width="4"/>`;
+  if (t === "baso") body = `<circle cx="60" cy="60" r="28" fill="#D8C6E8"/><ellipse cx="60" cy="60" rx="16" ry="13" fill="#4B2A72"/>${dots(110, 26, "#2A1340", 2.2)}`;
+  return `<svg viewBox="0 0 120 120" class="wbc-cell" style="transform:rotate(${rot}deg) scale(${s.toFixed(2)})">${Array.from({ length: 7 }, () => `<circle cx="${g2rand(-6, 126).toFixed(0)}" cy="${g2rand(-6, 126).toFixed(0)}" r="13" fill="#F4C7C3" opacity=".55"/>`).join("")}${body}</svg>`;
+}
+function diffRound(types, n, timed) {
+  return done => {
+    const sc = makeScorer("diff"); let i = 0, score = 0; const counts = {}; types.forEach(t => counts[t] = 0); const t0 = Date.now(); let tick = null;
+    const keys = types.map((t, k) => [t, String(k + 1)]);
+    const end = () => { clearInterval(tick); g2finish(sc, done, score, n); };
+    const next = () => {
+      if (i >= n || (timed && Date.now() - t0 > timed * 1000)) return end();
+      const t = g2pick(types); i++; g2top(sc, i, n); sc.start();
+      ST.stage.innerHTML = `<div class="g2-diff"><div class="g2-scope"><div class="g2-field">${wbcSvg(t)}</div>${timed ? `<div class="g2-timer" id="gTim"></div>` : ""}</div>
+        <div class="g2-pad">${keys.map(([k, n]) => `<button class="g2-key" data-t="${k}"><span class="g2-kn">${n}</span><b>${WBC[k].name}</b><span class="g2-cnt">${counts[k]}</span></button>`).join("")}</div><div id="gFb" class="g2-fb"></div></div>`;
+      if (timed) { const upd = () => { const left = Math.max(0, timed - Math.round((Date.now() - t0) / 1000)); const e = $("#gTim"); if (e) e.textContent = `${left}s`; if (!left) end(); }; clearInterval(tick); tick = setInterval(upd, 250); upd(); }
+      let answered = false;
+      const pickT = k => { if (answered) return; answered = true; counts[k]++; const ok = k === t; sc.hit(ok); if (ok) score++; else logMistake({ q: "Identify this white cell", right: WBC[t].name, src: "Cell counter" });
+        const b = ST.stage.querySelector(`[data-t="${k}"]`); b.classList.add(ok ? "hit" : "miss"); b.querySelector(".g2-cnt").textContent = counts[k];
+        if (!ok) ST.stage.querySelector(`[data-t="${t}"]`).classList.add("hit");
+        $("#gFb").innerHTML = ok ? `<span class="ok">✓ ${WBC[t].name}</span>` : `<span class="no">That was a ${WBC[t].name.toLowerCase()}.</span> <span class="muted">${WBC[t].why}</span>`;
+        setTimeout(next, ok ? 380 : 1500); };
+      $$(".g2-key").forEach(b => b.onclick = () => pickT(b.dataset.t));
+      ST.onKey = e => { const m = keys.find(x => x[1] === e.key); if (m) pickT(m[0]); };
+    };
+    next();
+  };
+}
+function startDiffCounter() {
+  leveledGame("diff", "Cell counter", ["Neutrophil or lymphocyte", "The full differential", "Timed 30-cell diff"],
+    ["Cells come up one at a time, like scanning a smear. Tap the key (or press 1 or 2) to count each one.", "All five normal white cells. Watch for granule color and nucleus shape.", "Thirty cells, 75 seconds, bands included. Speed and accuracy both count."],
+    [diffRound(["neut", "lymph"], 12), diffRound(["neut", "lymph", "mono", "eos", "baso"], 15), diffRound(["neut", "band", "lymph", "mono", "eos", "baso"], 30, 75)]);
+}
+
+/* ---------- Hemocytometer: count the square, then do the math ---------- */
+function hemoRound(mode) {
+  return done => {
+    const sc = makeScorer("hemocyt"); const N = mode === 3 ? 5 : 4; let r = 0, score = 0;
+    const next = () => {
+      if (r >= N) return g2finish(sc, done, score, N); r++; g2top(sc, r, N); sc.start();
+      if (mode === 3) {
+        const kind = g2pick([["WBC", 20, 4, "large corner"], ["WBC", 20, 4, "large corner"], ["RBC", 200, 5, "small center"], ["Platelet", 100, 25, "small center"]]);
+        const [cell, dil, sq, where] = kind; const area = where === "large corner" ? 1 : .04;
+        const counts = Array.from({ length: sq === 25 ? 5 : sq }, () => Math.round(cell === "WBC" ? g2rand(18, 45) : cell === "RBC" ? g2rand(80, 120) : g2rand(5, 8)));
+        const total = counts.reduce((a, b) => a + b, 0); const nsq = counts.length; const perUL = Math.round(total * dil / (nsq * area * .1));
+        ST.stage.innerHTML = `<div class="qcard g2-calc"><div class="kicker">${cell} count</div><p>You counted <b>${counts.join(" + ")} = ${total}</b> cells in <b>${nsq} ${where}</b> squares (${area === 1 ? "1 mm²" : "0.04 mm²"} each). Dilution <b>1:${dil}</b>, chamber depth 0.1 mm.</p>
+          <div class="g2-formula">cells/µL = cells counted × dilution ÷ (squares × area × 0.1)</div><label class="g2-numrow"><input class="input" id="gNum" inputmode="numeric" placeholder="cells per µL" autocomplete="off"><span>/µL</span></label><button class="btn primary" id="gChk">Check</button><div id="gFb" class="g2-fb"></div></div>`;
+        const check = () => { const v = +String($("#gNum").value).replace(/[, ]/g, ""); const ok = Math.abs(v - perUL) <= perUL * .01; sc.hit(ok); if (ok) score++; else logMistake({ q: `${cell} count: ${total} cells in ${nsq} squares, 1:${dil}`, right: perUL.toLocaleString() + "/µL", src: "Hemocytometer" });
+          $("#gFb").innerHTML = ok ? `<span class="ok">✓ ${perUL.toLocaleString()}/µL</span>` : `<span class="no">${perUL.toLocaleString()}/µL.</span> <span class="muted">${total} × ${dil} ÷ (${nsq} × ${area} × 0.1)</span>`; $("#gChk").textContent = "Next"; $("#gChk").onclick = next; };
+        $("#gChk").onclick = check; ST.onKey = e => { if (e.key === "Enter") { e.preventDefault(); $("#gChk").click(); } }; setTimeout(() => $("#gNum")?.focus(), 50); return;
+      }
+      const cells = []; const far = c => cells.every(o => Math.hypot(o.x - c.x, o.y - c.y) >= 22);
+      if (mode === 2) { for (let k = 0, tries = 0; k < 6 && tries < 200; tries++) { const side = k % 4; const p = g2rand(20, 180); const c = side === 0 ? { x: p, y: 0 } : side === 1 ? { x: 0, y: p } : side === 2 ? { x: p, y: 200 } : { x: 200, y: p }; if (far(c)) { cells.push(c); k++; } } }
+      const n = Math.round(g2rand(9, 16)); for (let k = 0, tries = 0; k < n && tries < 600; tries++) { const c = { x: g2rand(12, 188), y: g2rand(12, 188) }; if (far(c)) { cells.push(c); k++; } }
+      const counts = c => mode === 1 ? true : !(c.y >= 199 || c.x >= 199);
+      const truth = cells.filter(counts).length; const marked = new Set();
+      ST.stage.innerHTML = `<div class="g2-hemo"><div class="g2-hemo-q">${mode === 1 ? "Tap every cell in this large square to count it." : "Tap the cells you’d count. Cells touching the <b>top</b> or <b>left</b> line count; <b>bottom</b> and <b>right</b> don’t."}</div>
+        <svg viewBox="-14 -14 228 228" class="g2-grid"><rect x="0" y="0" width="200" height="200" fill="#FBF7EE"/>${[50, 100, 150].map(v => `<line x1="${v}" y1="0" x2="${v}" y2="200" class="g2-gl"/><line x1="0" y1="${v}" x2="200" y2="${v}" class="g2-gl"/>`).join("")}<rect x="0" y="0" width="200" height="200" fill="none" class="g2-gb"/>${mode === 2 ? `<line x1="0" y1="0" x2="200" y2="0" class="g2-in"/><line x1="0" y1="0" x2="0" y2="200" class="g2-in"/><line x1="0" y1="200" x2="200" y2="200" class="g2-out"/><line x1="200" y1="0" x2="200" y2="200" class="g2-out"/>` : ""}
+        ${cells.map((c, k) => `<g class="g2-c" data-k="${k}"><circle cx="${c.x.toFixed(1)}" cy="${c.y.toFixed(1)}" r="12" fill="transparent"/><circle cx="${c.x.toFixed(1)}" cy="${c.y.toFixed(1)}" r="6.5" class="g2-cd"/><circle cx="${(c.x - 1.8).toFixed(1)}" cy="${(c.y - 1.8).toFixed(1)}" r="2.2" fill="#fff" opacity=".5"/></g>`).join("")}</svg>
+        <div class="row" style="justify-content:space-between;align-items:center;margin-top:10px"><span class="g2-tally">Counted: <b id="gCnt">0</b></span><button class="btn primary" id="gChk">Done counting</button></div><div id="gFb" class="g2-fb"></div></div>`;
+      $$(".g2-c").forEach(g => g.onclick = () => { const k = +g.dataset.k; marked.has(k) ? marked.delete(k) : marked.add(k); g.classList.toggle("on", marked.has(k)); $("#gCnt").textContent = marked.size; });
+      $("#gChk").onclick = () => { const okSet = cells.map((c, k) => counts(c) ? k : null).filter(k => k != null); const exact = okSet.length === marked.size && okSet.every(k => marked.has(k)); const ok = exact || (mode === 1 && marked.size === truth);
+        sc.hit(ok); if (ok) score++; else logMistake({ q: mode === 1 ? "Hemocytometer: count the large square" : "Hemocytometer border rule", right: `${truth} cells`, src: "Hemocytometer" });
+        $$(".g2-c").forEach(g => { const k = +g.dataset.k; const should = counts(cells[k]); g.classList.add(should ? "should" : "shouldnt"); });
+        $("#gFb").innerHTML = ok ? `<span class="ok">✓ ${truth} cells</span>` : `<span class="no">The count is ${truth}.</span> <span class="muted">${mode === 2 ? "Green = counts, gray = touches the bottom or right line." : ""}</span>`; $("#gChk").textContent = "Next"; $("#gChk").onclick = next; };
+      ST.onKey = e => { if (e.key === "Enter") { e.preventDefault(); $("#gChk").click(); } };
+    };
+    next();
+  };
+}
+function startHemocyt() {
+  leveledGame("hemocyt", "Hemocytometer", ["Count the square", "The border rule", "Do the math"],
+    ["Tap each cell in the large square to count it. The count updates as you go.", "Real counts use a border rule: cells on the top and left lines count, cells on the bottom and right don’t. Tap only the ones that count.", "Turn your counts into cells per microliter: count × dilution ÷ (squares × area × depth)."],
+    [hemoRound(1), hemoRound(2), hemoRound(3)]);
+}
+/* ===================== v51 · new games, part 2 ===================== */
+/* ---------- Specimen sort: drag each specimen to the right bench ---------- */
+const SORT_BINS = { heme: ["Hematology", "#E5484D"], coag: ["Coagulation", "#3AA0FF"], chem: ["Chemistry", "#F5B800"], bb: ["Blood bank", "#E07AA6"], micro: ["Microbiology", "#34C759"], ua: ["Urinalysis", "#C9A227"], reject: ["Reject", "#6B7280"], accept: ["Accept", "#34C759"] };
+const SORT_L1 = [["lavender", "tube", "Lavender top (EDTA)", "heme"], ["lightblue", "tube", "Light blue top (citrate)", "coag"], ["gold", "tube", "Gold top (SST)", "chem"], ["green", "tube", "Green top (heparin)", "chem"], ["pink", "tube", "Pink top (EDTA)", "bb"], ["gray", "tube", "Gray top (fluoride)", "chem"], ["#C9A227", "cup", "Urine cup", "ua"], ["#2E7D5B", "bottle", "Blood culture bottles", "micro"], ["red", "tube", "Red top (serum, no additive)", "chem"]];
+const SORT_L2 = [["PT/INR", "coag"], ["aPTT", "coag"], ["D-dimer", "coag"], ["Fibrinogen", "coag"], ["CBC with diff", "heme"], ["Reticulocyte count", "heme"], ["ESR", "heme"], ["Peripheral smear review", "heme"], ["CMP", "chem"], ["Troponin", "chem"], ["Lipid panel", "chem"], ["TSH", "chem"], ["Lactate", "chem"], ["Type and screen", "bb"], ["Antibody identification", "bb"], ["DAT (direct Coombs)", "bb"], ["Crossmatch", "bb"], ["Blood culture", "micro"], ["Gram stain", "micro"], ["Throat culture", "micro"], ["Urine culture", "micro"], ["Urine dipstick", "ua"], ["Urine microscopic", "ua"]];
+const SORT_L3 = [["Lavender top for a CBC, clotted", "reject", "Clots trap cells and platelets, so counts are wrong."], ["Light blue top for a PT, half full", "reject", "Citrate tubes must be filled to the line; the 9:1 blood-to-anticoagulant ratio matters."], ["Gold top for potassium, grossly hemolyzed", "reject", "Lysed red cells release potassium and falsely raise it."], ["Unlabeled tube from the ED", "reject", "No label, no test. Specimens need two identifiers."], ["Type and screen tube labeled at the bedside with two identifiers", "accept", "Exactly how blood bank samples should arrive."], ["Ammonia on ice, delivered within 15 minutes", "accept", "Ammonia rises at room temperature, so ice and speed are right."], ["Urine for culture, at room temperature for 4 hours", "reject", "Bacteria multiply; culture urine within 2 hours or refrigerate it."], ["Gray top for glucose, 2 hours at room temperature", "accept", "Fluoride stops glycolysis, so glucose stays stable."], ["Pink top where the name doesn’t match the requisition", "reject", "Any ID mismatch is a reject, especially in blood bank."], ["Lipemic gold top for triglycerides", "accept", "Lipemia is the result here, not an interference."], ["Blood culture bottles drawn after the lavender top", "accept", "Accept it, but note it: cultures should be drawn first."], ["CSF tube 3 sent to hematology for a cell count", "accept", "Tube 3 is the right one for cell counts."], ["Light blue top drawn first with a butterfly, no discard tube", "reject", "The tubing’s air underfills the first tube; a discard tube is needed."], ["Serum left on cells overnight for a potassium", "reject", "Cells leak potassium over time; separate within 2 hours."]];
+function sortRound(level) {
+  return done => {
+    const sc = makeScorer("sort"); let items, bins;
+    if (level === 1) { items = shuffle(SORT_L1.slice()).slice(0, 8).map(([c, sh, label, b]) => ({ label, b, ic: capIcon(c, sh, 34) })); bins = ["heme", "coag", "chem", "bb", "micro", "ua"]; }
+    else if (level === 2) { items = shuffle(SORT_L2.slice()).slice(0, 10).map(([label, b]) => ({ label, b })); bins = ["heme", "coag", "chem", "bb", "micro", "ua"]; }
+    else { items = shuffle(SORT_L3.slice()).slice(0, 8).map(([label, b, why]) => ({ label, b, why })); bins = ["accept", "reject"]; }
+    let i = 0, score = 0;
+    const next = () => {
+      if (i >= items.length) return g2finish(sc, done, score, items.length); const it = items[i]; i++; g2top(sc, i, items.length); sc.start();
+      ST.stage.innerHTML = `<div class="g2-sort"><div class="g2-sort-top"><div class="g2-chip-drag" id="gItem" draggable="false">${it.ic || ""}<span>${esc(it.label)}</span></div><p class="g2-hint">${level === 3 ? "Accept or reject this specimen?" : "Drag it to the right bench, or tap a bench."}</p></div>
+        <div class="g2-bins ${bins.length === 2 ? "two" : ""}">${bins.map(b => `<button class="g2-bin" data-b="${b}" style="--bc:${SORT_BINS[b][1]}"><b>${SORT_BINS[b][0]}</b></button>`).join("")}</div><div id="gFb" class="g2-fb"></div></div>`;
+      let answered = false;
+      const drop = b => { if (answered) return; answered = true; const ok = b === it.b; sc.hit(ok); if (ok) score++; else logMistake({ q: level === 3 ? `Accept or reject: ${it.label}` : `Which bench: ${it.label}`, right: SORT_BINS[it.b][0], src: "Specimen sort" });
+        const bb = ST.stage.querySelector(`[data-b="${b}"]`); bb.classList.add(ok ? "hit" : "miss"); if (!ok) ST.stage.querySelector(`[data-b="${it.b}"]`).classList.add("hit");
+        const item = $("#gItem"); item.classList.add(ok ? "in" : "bounce");
+        $("#gFb").innerHTML = (ok ? `<span class="ok">✓ ${SORT_BINS[it.b][0]}</span>` : `<span class="no">${SORT_BINS[it.b][0]}.</span>`) + (it.why ? ` <span class="muted">${esc(it.why)}</span>` : "");
+        setTimeout(next, ok && !it.why ? 450 : 1700); };
+      $$(".g2-bin").forEach(x => x.onclick = () => drop(x.dataset.b));
+      /* drag with mouse or finger */
+      const el = $("#gItem"); let sx, sy, dragging = false;
+      el.addEventListener("pointerdown", e => { if (answered) return; dragging = true; sx = e.clientX; sy = e.clientY; el.setPointerCapture(e.pointerId); el.classList.add("lift"); });
+      el.addEventListener("pointermove", e => { if (!dragging) return; el.style.transform = `translate(${e.clientX - sx}px,${e.clientY - sy}px) rotate(${Math.max(-8, Math.min(8, (e.clientX - sx) / 20))}deg)`; const t = document.elementFromPoint(e.clientX, e.clientY); $$(".g2-bin").forEach(x => x.classList.toggle("over", !!(t && x.contains(t)))); });
+      el.addEventListener("pointerup", e => { if (!dragging) return; dragging = false; el.classList.remove("lift"); el.style.visibility = "hidden"; const t = document.elementFromPoint(e.clientX, e.clientY); el.style.visibility = ""; const bin = t && t.closest && t.closest(".g2-bin"); $$(".g2-bin").forEach(x => x.classList.remove("over")); el.style.transform = ""; if (bin) drop(bin.dataset.b); });
+      ST.onKey = e => { const k = +e.key; if (k >= 1 && k <= bins.length) drop(bins[k - 1]); };
+    };
+    next();
+  };
+}
+function startSort() {
+  leveledGame("sort", "Specimen sort", ["Tubes to benches", "Tests to benches", "Accept or reject"],
+    ["Each specimen goes to one bench. Drag the tube to where it belongs, or tap the bench.", "Now it’s the test name. Which department runs it?", "Specimen processing: should this one be accepted or rejected? You’ll get the reason either way."],
+    [sortRound(1), sortRound(2), sortRound(3)]);
+}
+
+/* ---------- Dilution bench: set the volumes and watch the tube fill ---------- */
+function dilTube(sample, diluent, cap = 1000) { const H = 150, s = sample / cap * H, d = diluent / cap * H;
+  return `<svg viewBox="0 0 80 200" class="g2-tube"><defs><clipPath id="dtc"><path d="M22 22h36v140a18 18 0 0 1-36 0z"/></clipPath></defs><g clip-path="url(#dtc)"><rect x="18" y="${(180 - s - d).toFixed(1)}" width="44" height="${d.toFixed(1)}" fill="#BFE3F5"/><rect x="18" y="${(180 - s).toFixed(1)}" width="44" height="${s.toFixed(1)}" fill="#C0392B" opacity=".85"/></g><path d="M22 22h36v140a18 18 0 0 1-36 0z" fill="none" stroke="#9AA3B2" stroke-width="2.5"/><rect x="18" y="10" width="44" height="14" rx="4" fill="#B9A6FF"/>${[.25, .5, .75].map(p => `<line x1="54" x2="58" y1="${(180 - p * H).toFixed(1)}" y2="${(180 - p * H).toFixed(1)}" stroke="#9AA3B2" stroke-width="1.5"/>`).join("")}</svg>`; }
+function dilRound(level) {
+  return done => {
+    const sc = makeScorer("dilbench"); const N = level === 1 ? 5 : 6; let r = 0, score = 0;
+    const next = () => {
+      if (r >= N) return g2finish(sc, done, score, N); r++; g2top(sc, r, N); sc.start();
+      if (level === 1) {
+        const [ratio, total] = g2pick([[2, 500], [4, 400], [5, 500], [10, 1000], [5, 1000], [10, 500], [4, 800], [20, 1000], [2, 200]]); const need = total / ratio; let s = 0, d = 0;
+        const draw = () => { $("#gTube").innerHTML = dilTube(s, d, Math.max(1000, total)); $("#gVals").innerHTML = `<span>Sample <b>${s} µL</b></span><span>Diluent <b>${d} µL</b></span><span>Total <b>${s + d} µL</b></span><span>Ratio <b>${s ? `1:${+((s + d) / s).toFixed(2)}` : "–"}</b></span>`; };
+        ST.stage.innerHTML = `<div class="g2-dil"><div class="qcard"><div class="kicker">Make a dilution</div><div class="qtext">Make <b>${total} µL</b> of a <b>1:${ratio}</b> dilution.</div></div>
+          <div class="g2-bench"><div id="gTube" class="g2-tubewrap"></div><div class="g2-ctrls"><label>Sample <span class="g2-step"><button data-v="s" data-d="-10">−</button><input type="range" id="gS" min="0" max="${total}" step="10" value="0"><button data-v="s" data-d="10">+</button></span></label><label>Diluent <span class="g2-step"><button data-v="d" data-d="-10">−</button><input type="range" id="gD" min="0" max="${total}" step="10" value="0"><button data-v="d" data-d="10">+</button></span></label><div class="g2-vals" id="gVals"></div><button class="btn primary" id="gChk">Check</button></div></div><div id="gFb" class="g2-fb"></div></div>`;
+        $("#gS").oninput = e => { s = +e.target.value; draw(); }; $("#gD").oninput = e => { d = +e.target.value; draw(); };
+        $$(".g2-step button").forEach(b => b.onclick = () => { if (b.dataset.v === "s") { s = Math.max(0, Math.min(total, s + +b.dataset.d)); $("#gS").value = s; } else { d = Math.max(0, Math.min(total, d + +b.dataset.d)); $("#gD").value = d; } draw(); });
+        $("#gChk").onclick = () => { const ok = s === need && s + d === total; sc.hit(ok); if (ok) score++; else logMistake({ q: `Make ${total} µL of a 1:${ratio} dilution`, right: `${need} µL sample + ${total - need} µL diluent`, src: "Dilution bench" });
+          $("#gFb").innerHTML = ok ? `<span class="ok">✓ ${need} µL sample + ${total - need} µL diluent</span>` : `<span class="no">${need} µL sample + ${total - need} µL diluent.</span> <span class="muted">1:${ratio} means 1 part sample in ${ratio} parts total: ${total} ÷ ${ratio} = ${need}.</span>`; $("#gChk").textContent = "Next"; $("#gChk").onclick = next; };
+        draw(); return;
+      }
+      let q, ans, why, tubes = "";
+      if (level === 2) { const steps = Array.from({ length: g2pick([2, 3]) }, () => g2pick([2, 4, 5, 10])); ans = steps.reduce((a, b) => a * b, 1); q = `Final dilution after ${steps.map(x => `1:${x}`).join(", then ")}?`; why = `Multiply the steps: ${steps.join(" × ")} = ${ans}, so 1:${ans}.`;
+        tubes = `<div class="g2-chain">${steps.map((x, k) => `<div class="g2-ch">${dilTube(100, 100 * (x - 1), 100 * x)}<small>1:${x}</small></div>${k < steps.length - 1 ? `<span class="g2-arrow">→</span>` : ""}`).join("")}</div>`; }
+      else { const v = g2pick([[10, "glucose", "mg/dL", g2rand(40, 90)], [5, "ALT", "U/L", g2rand(60, 160)], [20, "hCG", "mIU/mL", g2rand(200, 900)], [2, "creatinine", "mg/dL", g2rand(3, 8)], [4, "amylase", "U/L", g2rand(150, 400)]]); const read = +v[3].toFixed(v[2] === "mg/dL" && v[1] === "creatinine" ? 1 : 0); ans = +(read * v[0]).toFixed(1); q = `The ${v[1]} was too high, so you ran it on a 1:${v[0]} dilution and read <b>${read} ${v[2]}</b>. What do you report?`; why = `Multiply by the dilution factor: ${read} × ${v[0]} = ${ans} ${v[2]}.`; }
+      ST.stage.innerHTML = `<div class="g2-dil"><div class="qcard"><div class="kicker">${level === 2 ? "Serial dilution" : "Correct the result"}</div>${tubes}<div class="qtext">${q}</div></div><label class="g2-numrow">${level === 2 ? "<span>1 :</span>" : ""}<input class="input" id="gNum" inputmode="decimal" autocomplete="off" placeholder="${level === 2 ? "e.g. 20" : "result"}"></label><button class="btn primary" id="gChk">Check</button><div id="gFb" class="g2-fb"></div></div>`;
+      const check = () => { const v = +String($("#gNum").value).replace(/[, ]/g, "").replace(/^1:/, ""); const ok = Math.abs(v - ans) <= Math.max(.05, ans * .005); sc.hit(ok); if (ok) score++; else logMistake({ q: q.replace(/<[^>]+>/g, ""), right: level === 2 ? `1:${ans}` : String(ans), src: "Dilution bench" });
+        $("#gFb").innerHTML = (ok ? `<span class="ok">✓ ${level === 2 ? "1:" : ""}${ans}</span> ` : `<span class="no">${level === 2 ? "1:" : ""}${ans}.</span> `) + `<span class="muted">${why}</span>`; $("#gChk").textContent = "Next"; $("#gChk").onclick = next; };
+      $("#gChk").onclick = check; ST.onKey = e => { if (e.key === "Enter") { e.preventDefault(); $("#gChk").click(); } }; setTimeout(() => $("#gNum")?.focus(), 50);
+    };
+    next();
+  };
+}
+function startDilBench() {
+  leveledGame("dilbench", "Dilution bench", ["Make the dilution", "Serial dilutions", "Correct the result"],
+    ["Set the sample and diluent volumes. The tube fills as you go: red is sample, blue is diluent.", "Dilutions in series multiply. Work out the final dilution of the chain.", "A result run on a dilution has to be multiplied back. What gets reported?"],
+    [dilRound(1), dilRound(2), dilRound(3)]);
+}
+/* ===================== v51 · new games, part 3 ===================== */
+/* ---------- Memory match: flip two, find the pairs ---------- */
+const MM_SETS = {
+  tubes: [["Lavender", "EDTA"], ["Light blue", "Sodium citrate"], ["Gray", "Sodium fluoride"], ["Green", "Heparin"], ["Gold", "Clot activator + gel"], ["Royal blue", "Trace elements"], ["Pink", "EDTA (blood bank)"], ["Yellow", "SPS (cultures)"]],
+  abbr: [["MCV", "Mean cell volume"], ["RDW", "Red cell distribution width"], ["PT", "Prothrombin time"], ["DAT", "Direct antiglobulin test"], ["BUN", "Blood urea nitrogen"], ["ESR", "Sed rate"], ["ALT", "Liver enzyme (hepatocellular)"], ["TIBC", "Total iron-binding capacity"], ["INR", "Standardized PT ratio"], ["CSF", "Cerebrospinal fluid"]],
+  ranges: [["Sodium", "135–145 mmol/L"], ["Potassium", "3.5–5.0 mmol/L"], ["Glucose (fasting)", "70–99 mg/dL"], ["Calcium", "8.5–10.5 mg/dL"], ["Hemoglobin (adult F)", "12–16 g/dL"], ["Platelets", "150–400 ×10³/µL"], ["WBC", "4.5–11 ×10³/µL"], ["Chloride", "98–107 mmol/L"], ["BUN", "7–20 mg/dL"], ["Creatinine", "0.6–1.2 mg/dL"]]
+};
+function mmRound(set, n, timed) {
+  return done => {
+    const sc = makeScorer("match2"); const pairs = shuffle(MM_SETS[set].slice()).slice(0, n); const cards = shuffle(pairs.flatMap((p, k) => [{ k, t: p[0], side: "a" }, { k, t: p[1], side: "b" }]));
+    let open = [], found = 0, misses = 0, lock = false; const t0 = Date.now(); let tick = null;
+    ST.stage.innerHTML = `<div class="g2-mm"><div class="g2-mm-bar"><span>Pairs <b id="mmF">0</b>/${n}</span><span>Misses <b id="mmM">0</b></span>${timed ? `<span id="mmT"></span>` : ""}</div><div class="g2-mm-grid" style="--cols:${n <= 8 ? 4 : 5}">${cards.map((c, i) => `<button class="g2-card" data-i="${i}"><span class="g2-face g2-back"></span><span class="g2-face g2-front ${c.side}">${esc(c.t)}</span></button>`).join("")}</div></div>`;
+    g2top(sc, 1, 1); sc.start();
+    const end = () => { clearInterval(tick); const score = Math.max(0, n - Math.max(0, misses - Math.ceil(n / 2))); g2finish(sc, done, Math.min(n, score), n); };
+    if (timed) { tick = setInterval(() => { const left = Math.max(0, timed - Math.round((Date.now() - t0) / 1000)); const e = $("#mmT"); if (e) e.innerHTML = `Time <b>${left}s</b>`; if (!left) end(); }, 250); }
+    $$(".g2-card").forEach(b => b.onclick = () => { if (lock || b.classList.contains("up") || b.classList.contains("done")) return; b.classList.add("up"); open.push(b);
+      if (open.length === 2) { lock = true; const [x, y] = open.map(e => cards[+e.dataset.i]);
+        if (x.k === y.k) { sc.hit(true); setTimeout(() => { open.forEach(e => e.classList.add("done")); open = []; lock = false; found++; $("#mmF").textContent = found; ST.right.innerHTML = sc.chip(); if (found === n) setTimeout(end, 500); }, 380); }
+        else { sc.hit(false); misses++; $("#mmM").textContent = misses; if (misses % 3 === 0) logMistake({ q: `Match: ${x.side === "a" ? x.t : y.t}`, right: pairs[(x.side === "a" ? x : y).k][1], src: "Memory match" }); setTimeout(() => { open.forEach(e => e.classList.remove("up")); open = []; lock = false; }, 900); } } });
+  };
+}
+function startMemMatch() {
+  leveledGame("match2", "Memory match", ["Tubes and additives", "Abbreviations", "Reference ranges, timed"],
+    ["Flip two cards at a time and match each tube to its additive. Fewer misses, more points.", "Abbreviations you’ll see on every requisition. Match each to its meaning.", "Adult reference ranges against the clock: 10 pairs, 120 seconds."],
+    [mmRound("tubes", 6), mmRound("abbr", 8), mmRound("ranges", 10, 120)]);
+}
+
+/* ---------- Bench procedures: put the steps in order ---------- */
+const PROCS = [
+  ["Order of draw", 1, ["Blood culture bottles", "Light blue (citrate)", "Red or gold (serum)", "Green (heparin)", "Lavender (EDTA)", "Gray (fluoride)"]],
+  ["CSF tubes", 1, ["Tube 1: chemistry and serology", "Tube 2: microbiology", "Tube 3: hematology cell count", "Tube 4: extra or additional micro"]],
+  ["Gram stain", 2, ["Heat or methanol fix the smear", "Crystal violet (primary stain)", "Gram’s iodine (mordant)", "Decolorize with acetone-alcohol", "Safranin (counterstain)", "Rinse, dry, examine under oil"]],
+  ["Hemostasis", 2, ["Vascular constriction", "Platelet adhesion (vWF)", "Platelet activation and aggregation", "Coagulation cascade makes thrombin", "Fibrin clot forms and stabilizes", "Fibrinolysis dissolves the clot"]],
+  ["Neutrophil maturation", 2, ["Myeloblast", "Promyelocyte", "Myelocyte", "Metamyelocyte", "Band", "Segmented neutrophil"]],
+  ["Red cell maturation", 2, ["Pronormoblast", "Basophilic normoblast", "Polychromatic normoblast", "Orthochromic normoblast", "Reticulocyte", "Mature red cell"]],
+  ["Pretransfusion testing", 3, ["Verify patient ID on the sample", "ABO and Rh typing", "Antibody screen", "Select ABO/Rh-compatible units", "Crossmatch", "Tag the unit and release it"]],
+  ["Venipuncture", 3, ["Identify the patient with two identifiers", "Hand hygiene and gloves", "Apply the tourniquet and choose a vein", "Clean the site and let it dry", "Insert the needle and fill tubes in order of draw", "Release the tourniquet", "Remove the needle, apply pressure, engage the safety", "Label the tubes at the bedside"]],
+  ["Blood culture collection", 3, ["Identify the patient", "Disinfect the bottle tops", "Prep the skin and let it dry fully", "Draw without re-touching the site", "Inoculate the aerobic bottle, then anaerobic (syringe draw)", "Label and send promptly"]]
+];
+function procRound(level) {
+  return done => {
+    const sc = makeScorer("procs"); const list = shuffle(PROCS.filter(p => p[1] <= level && (level === 1 ? p[1] === 1 : level === 2 ? p[1] === 2 : p[1] >= 2))).slice(0, level === 1 ? 2 : 3); let r = 0, score = 0;
+    const next = () => {
+      if (r >= list.length) return g2finish(sc, done, score, list.length); const [name, , steps] = list[r]; r++; g2top(sc, r, list.length); sc.start();
+      let order = shuffle(steps.map((s, k) => k)); while (order.every((v, k) => v === k)) order = shuffle(order); let tries = 0, sel = null;
+      const draw = (mark) => { ST.stage.innerHTML = `<div class="g2-proc"><div class="qcard"><div class="kicker">Put it in order</div><div class="qtext">${esc(name)}</div><p class="small muted" style="margin:4px 0 0">Drag a step to move it, or tap two steps to swap them.</p></div><ol class="g2-steps">${order.map((k, pos) => `<li class="g2-step ${mark ? (k === pos ? "ok" : "no") : ""} ${sel === pos ? "sel" : ""}" data-pos="${pos}"><span class="g2-n">${pos + 1}</span><span class="g2-t">${esc(steps[k])}</span><span class="g2-grip">⋮⋮</span></li>`).join("")}</ol><button class="btn primary" id="gChk">${mark ? "Next" : "Check order"}</button><div id="gFb" class="g2-fb"></div></div>`;
+        const lis = $$(".g2-step");
+        lis.forEach(li => { li.onclick = () => { if (mark) return; const p = +li.dataset.pos; if (sel == null) { sel = p; draw(); } else { [order[sel], order[p]] = [order[p], order[sel]]; sel = null; draw(); } };
+          li.addEventListener("pointerdown", e => { if (mark || e.target.closest(".g2-t") && e.pointerType === "mouse" && false) return; const start = +li.dataset.pos; let moved = false; const y0 = e.clientY; li.setPointerCapture(e.pointerId);
+            const mv = ev => { if (Math.abs(ev.clientY - y0) > 6) { moved = true; li.classList.add("drag"); li.style.transform = `translateY(${ev.clientY - y0}px)`; } };
+            const up = ev => { li.removeEventListener("pointermove", mv); li.removeEventListener("pointerup", up); if (!moved) return; li.style.visibility = "hidden"; const t = document.elementFromPoint(ev.clientX, ev.clientY); li.style.visibility = ""; const tgt = t && t.closest && t.closest(".g2-step"); if (tgt) { const to = +tgt.dataset.pos; const [m] = order.splice(start, 1); order.splice(to, 0, m); } sel = null; li.onclick = null; setTimeout(() => draw(), 0); };
+            li.addEventListener("pointermove", mv); li.addEventListener("pointerup", up); }); });
+        $("#gChk").onclick = () => { if (mark) return next(); tries++; const ok = order.every((v, k) => v === k); if (ok || tries >= 2) { const first = ok && tries === 1; sc.hit(first); if (first) score++; else logMistake({ q: `Order: ${name}`, right: steps.join(" → "), src: "Bench procedures" }); order = ok ? order : steps.map((s, k) => k); draw(true); $("#gFb").innerHTML = first ? `<span class="ok">✓ Perfect order</span>` : ok ? `<span class="ok">Got it on the second try.</span>` : `<span class="no">Here’s the right order.</span>`; }
+          else { draw(true); $("#gFb").innerHTML = `<span class="no">${order.filter((v, k) => v !== k).length} steps out of place.</span> <span class="muted">Fix the red ones and check again.</span>`; setTimeout(() => { if (!$(".g2-step.ok, .g2-step.no")) return; draw(); $("#gFb").innerHTML = `<span class="muted">One more try.</span>`; }, 1400); } };
+      };
+      draw();
+    };
+    next();
+  };
+}
+function startProcs() {
+  leveledGame("procs", "Bench procedures", ["Short sequences", "Stains, stages and cascades", "Full procedures"],
+    ["Order of draw and CSF tubes. Put every step in the right place.", "Gram stain, hemostasis and the cell maturation series.", "Venipuncture, blood cultures and pretransfusion testing, start to finish."],
+    [procRound(1), procRound(2), procRound(3)]);
+}
+
+/* ---------- Term builder: spell it from the definition ---------- */
+const TERMS = [["Lysis of red cells", "hemolysis"], ["Too few platelets", "thrombocytopenia"], ["Variation in red cell size", "anisocytosis"], ["Variation in red cell shape", "poikilocytosis"], ["Clumping of cells by antibody", "agglutination"], ["Fragmented red cell", "schistocyte"], ["Sphere-shaped red cell without central pallor", "spherocyte"], ["Enzyme that clots plasma (S. aureus)", "coagulase"], ["Enzyme that splits peroxide into bubbles", "catalase"], ["Young red cell with residual RNA", "reticulocyte"], ["Platelet-producing giant cell", "megakaryocyte"], ["Too few neutrophils", "neutropenia"], ["High white count", "leukocytosis"], ["All three cell lines low", "pancytopenia"], ["Too many red cells", "polycythemia"], ["Yellow color of CSF from old bleeding", "xanthochromia"], ["Milky serum from lipids", "lipemic"], ["Yellow serum from bilirubin", "icteric"], ["Portion poured off a specimen", "aliquot"], ["Protein made into fibrin", "fibrinogen"], ["Kidney hormone that drives red cell production", "erythropoietin"], ["Cell fragment that helps clot", "platelet"], ["Liquid left after blood clots", "serum"], ["Too many eosinophils", "eosinophilia"], ["Breaks down clots", "plasmin"], ["Microscope stain for blood smears", "wright"], ["Red cell precursor with a nucleus", "normoblast"], ["Cell that matures into a macrophage", "monocyte"]];
+function termRound(minL, maxL) {
+  return done => {
+    const sc = makeScorer("terms"); const pool = shuffle(TERMS.filter(([, w]) => w.length >= minL && w.length <= maxL)).slice(0, 8); let r = 0, score = 0;
+    const next = () => {
+      if (r >= pool.length) return g2finish(sc, done, score, pool.length); const [def, word] = pool[r]; r++; g2top(sc, r, pool.length); sc.start();
+      const letters = shuffle(word.toUpperCase().split("").map((ch, k) => ({ ch, k }))); let typed = [], hints = 0, over = false;
+      const draw = () => { ST.stage.innerHTML = `<div class="g2-term"><div class="qcard"><div class="kicker">Spell the term</div><div class="qtext">${esc(def)}</div></div>
+        <div class="g2-slots">${word.split("").map((_, k) => `<span class="g2-slot ${typed[k] ? "f" : ""} ${over ? (typed.map(t => t.ch).join("") === word.toUpperCase() ? "ok" : "no") : ""}">${typed[k] ? typed[k].ch : ""}</span>`).join("")}</div>
+        <div class="g2-tiles">${letters.map((l, i) => `<button class="g2-tile" data-i="${i}" ${typed.includes(l) || over ? "disabled" : ""}>${l.ch}</button>`).join("")}</div>
+        <div class="row" style="justify-content:center;gap:8px"><button class="btn sm" id="gBk" ${over ? "disabled" : ""}>⌫ Back</button><button class="btn sm" id="gHint" ${over ? "disabled" : ""}>Hint</button>${over ? `<button class="btn primary" id="gNx">Next</button>` : ""}</div><div id="gFb" class="g2-fb"></div></div>`;
+        $$(".g2-tile").forEach(b => b.onclick = () => add(letters[+b.dataset.i]));
+        $("#gBk").onclick = () => { typed.pop(); draw(); }; $("#gHint").onclick = hint; $("#gNx") && ($("#gNx").onclick = next); };
+      const add = l => { if (over || typed.includes(l)) return; typed.push(l); if (typed.length === word.length) finish(); else draw(); };
+      const hint = () => { hints++; const want = word.toUpperCase(); let k = 0; while (k < typed.length && typed[k].ch === want[k]) k++; typed = typed.slice(0, k); const l = letters.find(x => x.ch === want[k] && !typed.includes(x)); if (l) add(l); };
+      const finish = () => { over = true; const ok = typed.map(t => t.ch).join("") === word.toUpperCase(); const full = ok && hints === 0; sc.hit(full); if (full) score++; else logMistake({ q: def, right: word, src: "Term builder" }); draw(); $("#gFb").innerHTML = ok ? `<span class="ok">✓ ${word}</span>${hints ? ` <span class="muted">(${plural(hints, "hint")})</span>` : ""}` : `<span class="no">${word}</span>`; };
+      ST.onKey = e => { if (over) { if (e.key === "Enter") next(); return; } if (e.key === "Backspace") { e.preventDefault(); typed.pop(); draw(); return; } const ch = (e.key || "").toUpperCase(); if (/^[A-Z]$/.test(ch)) { const l = letters.find(x => x.ch === ch && !typed.includes(x)); if (l) add(l); } };
+      draw();
+    };
+    next();
+  };
+}
+function startTerms() {
+  leveledGame("terms", "Term builder", ["Short terms", "Medium terms", "The long ones"],
+    ["Read the definition, then tap the letters in order (or type them). Hints reveal the next letter.", "Nine to twelve letters. Think prefix, root, suffix.", "The big ones, like thrombocytopenia and erythropoietin."],
+    [termRound(4, 9), termRound(9, 12), termRound(12, 20)]);
+}
+
+/* ---------- Electrophoresis reader: read the curve ---------- */
+const SPEP = {
+  normal: ["Normal pattern", { alb: 1, a1: 1, a2: 1, b: 1, g: 1 }, "Tall albumin, small alpha bands, broad gamma."],
+  mspike: ["Monoclonal gammopathy (M spike)", { alb: .9, a1: 1, a2: 1, b: 1, g: .7, spike: 1 }, "A tall, narrow spike in gamma: one clone making one protein, as in myeloma or MGUS."],
+  poly: ["Polyclonal gammopathy", { alb: .85, a1: 1, a2: 1.1, b: 1, g: 2.1 }, "A broad, tall gamma hump: many clones, as in chronic infection, inflammation or liver disease."],
+  nephrotic: ["Nephrotic syndrome", { alb: .45, a1: .9, a2: 2.3, b: 1.2, g: .6 }, "Albumin is lost in urine, while big alpha-2 macroglobulin stays and rises."],
+  cirrhosis: ["Cirrhosis (beta-gamma bridging)", { alb: .55, a1: .8, a2: .8, b: 1.4, g: 1.9, bridge: 1 }, "Low albumin with beta and gamma fused into one band."],
+  acute: ["Acute inflammation", { alb: .85, a1: 2, a2: 1.8, b: 1, g: 1 }, "Acute-phase proteins push up alpha-1 and alpha-2."],
+  hypo: ["Hypogammaglobulinemia", { alb: 1, a1: 1, a2: 1, b: 1, g: .25 }, "A nearly flat gamma region: too few antibodies."],
+  a1at: ["Alpha-1 antitrypsin deficiency", { alb: 1, a1: .12, a2: 1, b: 1, g: 1 }, "The alpha-1 band is almost missing."]
+};
+function spepSvg(p) { const G = (x, m, s, h) => h * Math.exp(-((x - m) ** 2) / (2 * s * s)); const pts = [];
+  for (let x = 0; x <= 300; x += 2) { let y = G(x, 50, 13, 100 * p.alb) + G(x, 105, 8, 14 * p.a1) + G(x, 140, 10, 26 * p.a2) + G(x, 185, 11, 24 * p.b) + G(x, 245, p.bridge ? 34 : 22, 26 * p.g); if (p.spike) y += G(x, 240, 4.5, 95); if (p.bridge) y += G(x, 212, 14, 18); pts.push([x, y]); }
+  const yMax = 110; const path = pts.map(([x, y], k) => `${k ? "L" : "M"}${(x + 10).toFixed(0)} ${(150 - y / yMax * 125).toFixed(1)}`).join(" ");
+  return `<svg viewBox="0 0 320 175" class="g2-spep"><path d="${path} L310 150 L10 150 Z" class="g2-sp-fill"/><path d="${path}" class="g2-sp-line"/><line x1="10" x2="310" y1="150" y2="150" class="g2-sp-ax"/>${[["Alb", 60], ["α1", 115], ["α2", 150], ["β", 195], ["γ", 255]].map(([t, x]) => `<text x="${x}" y="168" class="g2-sp-t" text-anchor="middle">${t}</text>`).join("")}</svg>`; }
+function spepRound(keys, n) {
+  return done => mcAll(Array.from({ length: n }, () => { const k = g2pick(keys); const opts = shuffle([k, ...shuffle(keys.filter(x => x !== k)).slice(0, 3)]); return { kicker: "Serum protein electrophoresis", html: spepSvg(SPEP[k][1]), q: "What pattern is this?", opts: opts.map(x => SPEP[x][0]), a: SPEP[k][0], why: SPEP[k][2], keep: true }; }), "Electrophoresis", done);
+}
+function startSpep() {
+  leveledGame("spep", "Electrophoresis reader", ["The big three", "Every pattern"],
+    ["Normal, monoclonal spike, or polyclonal hump? Read the gamma region first.", "Nephrotic, cirrhosis, acute inflammation, low gamma and more. Look at albumin, the alpha bands and the beta-gamma zone."],
+    [spepRound(["normal", "mspike", "poly"], 8), spepRound(Object.keys(SPEP), 10)]);
+}
+
+/* ---------- register the new games ---------- */
+GAMES.push(["diff", "Cell counter", "Hematology & coag", () => startDiffCounter()], ["hemocyt", "Hemocytometer", "Hematology & coag", () => startHemocyt()], ["sort", "Specimen sort", "Lab basics", () => startSort()], ["dilbench", "Dilution bench", "Lab basics", () => startDilBench()], ["procs", "Bench procedures", "Lab basics", () => startProcs()], ["spep", "Electrophoresis reader", "Chemistry & urinalysis", () => startSpep()], ["match2", "Memory match", "Review & recall", () => startMemMatch()], ["terms", "Term builder", "Review & recall", () => startTerms()]);
+Object.assign(GAME_NAMES, { diff: "Cell counter", hemocyt: "Hemocytometer", sort: "Specimen sort", dilbench: "Dilution bench", procs: "Bench procedures", spep: "Electrophoresis reader", match2: "Memory match", terms: "Term builder" });
+Object.assign(GAME_META, { diff: ["🔬", "Classify white cells on a counter keypad, like a real manual diff"], hemocyt: ["🧮", "Count cells on the grid, apply the border rule, do the math"], sort: ["📦", "Drag specimens to the right bench, then accept or reject"], dilbench: ["🧪", "Set the volumes, watch the tube fill, correct the results"], procs: ["🧭", "Drag the steps of real procedures into order"], spep: ["📈", "Read protein electrophoresis curves and name the pattern"], match2: ["🃏", "Flip and match tubes, abbreviations and reference ranges"], terms: ["🔤", "Spell lab terms from their definitions"] });
+Object.assign(GAME_REQ, { diff: ["b-heme1", "l-wbc"], hemocyt: ["b-cbc", "l-blood"], sort: ["b-collect", "l-collect"], dilbench: ["b-dil", "l-dil"], procs: ["b-collect", "l-collect"], spep: ["b-proteins", "l-markers"], match2: [], terms: [] });
+Object.assign(GAME_CAP, { diff: "#A48BDB", hemocyt: "#E5484D", sort: "#3AA0FF", dilbench: "#C0392B", procs: "#2F6FB5", spep: "#1FA2A0", match2: "#7B4FE0", terms: "#34C759" });
+GAMES.slice(-8).forEach(([id, n, , fn]) => { GAME_OPEN[id] = [n, fn]; TOOL_FN["g_" + id] = () => gated(id, n, fn)(); });
+["startDiffCounter", "startHemocyt", "startSort", "startDilBench", "startProcs", "startSpep", "startMemMatch", "startTerms"].forEach(n => { try { navWrap(n); } catch { } });
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
