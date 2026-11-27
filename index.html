@@ -3070,6 +3070,39 @@ textarea#icIn{resize:none;overflow:hidden;line-height:1.45;padding:12px 14px!imp
 /* Up next: narrower on desktop */
 @media (min-width:900px){.a3dash{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)!important}.a3dash>.a3rings{padding-right:20px!important}}
 .donecard .confetti{position:absolute!important;inset:0!important;display:block!important;z-index:0!important;gap:0!important}
+/* ===================== v50 ===================== */
+/* type-to-learn: term, definition (with the typing guide built in), box */
+.intro-card.ic-min .ic-q{font-size:1.35rem;font-weight:700;line-height:1.3;margin:6px 0 2px}
+.intro-card.ic-min .ic-div{margin:12px 0}
+.intro-card.ic-min .ic-a{font-size:1.08rem;line-height:1.6;color:var(--ink-2)}
+.ic-a .g-ok{color:#248A3D;background:color-mix(in srgb,#34C759 12%,transparent);border-radius:3px}
+.ic-a .g-next{box-shadow:inset 0 -2px 0 var(--violet);color:var(--ink)}
+.ic-a .g-bad{background:color-mix(in srgb,#E5484D 20%,transparent);color:#C8292F;border-radius:3px}
+.intro-card.ic-min .ic-type{margin-top:16px}
+.intro-card.ic-min .ic-fb{font-size:.8rem;min-height:1em}
+/* card faces: redundant labels hidden, other labels quiet */
+.flip .kicker.kick-hide{display:none!important}
+.flip .kicker.kick-soft{color:var(--ink-3)!important;font-weight:600!important;font-size:.78rem!important;letter-spacing:.02em!important;text-transform:none!important;background:none!important;padding:0!important}
+.flip .face:not(.back){font-size:1.3rem;line-height:1.35}
+/* review tallies: fixed meaning, fixed color */
+.rv-tally span{transition:none!important}
+.rv-tally span:nth-child(1){background:color-mix(in srgb,#34C759 14%,var(--surface))!important;color:#248A3D!important}
+.rv-tally span:nth-child(2){background:color-mix(in srgb,#E5484D 12%,var(--surface))!important;color:#C8292F!important}
+.rv-tally span:nth-child(3){background:color-mix(in srgb,#F5B800 16%,var(--surface))!important;color:#7A5800!important}
+/* grade buttons: one shape, one surface; only the label color differs */
+.grades button[data-g]{background:var(--surface)!important;border:0!important;box-shadow:var(--shadow)!important;border-radius:14px!important;font-weight:700!important;min-height:56px}
+.grades button[data-g="1"]{color:#C8292F!important}.grades button[data-g="2"]{color:#B25E00!important}.grades button[data-g="3"]{color:#248A3D!important}.grades button[data-g="4"]{color:#2F6FB5!important}
+.grades button[data-g]:hover{box-shadow:0 0 0 2px currentColor,var(--shadow)!important}
+/* rings */
+.rg3d .rg-cap{transition:none}
+/* settings */
+.setgroups{display:flex;flex-direction:column;gap:26px;margin-top:8px}
+.setgroup .sg-h{margin:0 4px 10px}.setgroup .sg-h h2{margin:0;font-size:1.15rem;font-weight:800}.setgroup .sg-h p{margin:2px 0 0;font-size:.85rem;color:var(--ink-3)}
+.setgroup .sg-body{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px;align-items:start}
+@media (max-width:700px){.setgroup .sg-body{grid-template-columns:1fr}}
+.setgroup .panel{margin:0!important;border-radius:var(--r-cell)!important}
+.set-action{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px;padding-top:12px;border-top:.5px solid var(--line-2)}.set-action span{display:flex;flex-direction:column}.set-action small{color:var(--ink-3);font-size:.8rem}
+.grades button[data-g] *{color:inherit!important}.grades button[data-g] small,.grades button[data-g] .k{opacity:.6}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -3157,7 +3190,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "49.2";
+const APP_VERSION = "50.0";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -4404,20 +4437,22 @@ function startLearn(deck, opts = {}) {
   let total = queue.length; let doneN = 0, i = 0, flipped = false, again = 0, good = 0;
   const seenNew = new Set(); const undo = []; let SESS = {};
   function topRight() {
-    ST.right.innerHTML = `<button class="btn ghost icon sm star ${(queue[i] && queue[i].card.star) ? "on" : ""}" id="sBtn" aria-label="Star this card">${icon("star")}</button><button class="btn ghost icon sm" id="uBtn" aria-label="Undo last grade" ${undo.length ? "" : "disabled"}>${icon("undo")}</button><button class="btn ghost icon sm" id="eBtn" aria-label="Edit this card" title="Edit this card">${icon("edit")}</button><button class="btn ghost icon sm" id="nBtn" aria-label="New card in this deck" title="New card in this deck">${icon("plus")}</button><span class="small muted">${Math.max(0, queue.length - i + (!ST.finalDone ? (ST.finalList || []).length : 0))} left</span>`;
-    $("#uBtn").onclick = doUndo; $("#eBtn").onclick = editCurrent;
+    ST.right.innerHTML = `<button class="btn ghost icon sm star ${(queue[i] && queue[i].card.star) ? "on" : ""}" id="sBtn" aria-label="Star this card">${icon("star")}</button><button class="btn ghost icon sm" id="uBtn" aria-label="Undo last grade" ${undo.length ? "" : "disabled"}>${icon("undo")}</button><button class="btn ghost icon sm" id="dBtn" aria-label="Delete this card" title="Delete this card">${icon("trash")}</button><button class="btn ghost icon sm" id="eBtn" aria-label="Edit this card" title="Edit this card">${icon("edit")}</button><button class="btn ghost icon sm" id="nBtn" aria-label="New card in this deck" title="New card in this deck">${icon("plus")}</button><span class="small muted">${ST.finalPhase ? "Final check · " : ""}${Math.max(0, queue.length - i)} left</span>`;
+    $("#uBtn").onclick = doUndo; $("#eBtn").onclick = editCurrent; $("#dBtn") && ($("#dBtn").onclick = deleteCurrent);
     $("#nBtn").onclick = () => { const cur = queue[i] || queue[queue.length - 1]; if (!cur) return; const d = cur.deck; const before = new Set(d.cards.map(c => c.id));
       editCardModal(d, null, () => { const fresh = factsOf(d).filter(f => !before.has(f.card.id)); d.cards.forEach(c => before.add(c.id)); if (fresh.length && !opts.browse) { queue.push(...fresh); total += fresh.length; } topRight(); toast(`Card added to ${d.name}${fresh.length && !opts.browse ? ". It’s at the end of this session." : ""}`); }); }; $("#sBtn").onclick = () => { const f = queue[i]; if (!f) return; f.card.star = !f.card.star; saveDeck(f.deck); topRight(); toast(f.card.star ? "Starred" : "Unstarred"); };
   }
   function show() {
     if (ST && ST.reviewKey) ST.onKey = ST.reviewKey;
+    if (typeof opts !== "undefined" && i >= queue.length && !ST.finalDone && (ST.finalList || []).length) { const n0 = queue.length, at = ST.finalAt || {}; ST.finalList = ST.finalList.filter(x => at[x.key] != null && at[x.key] < n0 / 3 && n0 - at[x.key] >= 10).slice(0, 7); }
     if (typeof opts !== "undefined" && i >= queue.length && !opts.browse && !opts.cram && !opts.queue && !ST.finalDone && (ST.finalList || []).length) { ST.finalDone = true; ST.finalPhase = true; ST.finalSet = new Set(ST.finalList.map(x => x.key)); queue.push(...ST.finalList); }
+    try { if (ST.sessKey) { const SS = S.meta.sessions = S.meta.sessions || {}; if (i >= queue.length) delete SS[ST.sessKey]; else SS[ST.sessKey] = { day: dayKey(), items: queue.slice(i).map(q => [q.deck.id, (q._base || q).key, q._inst || ""]), fl: (ST.finalList || []).map(x => [x.deck.id, x.key]), fa: ST.finalAt || {} }; saveMeta(); } } catch { }
     if (i >= queue.length) return finish();
     const f = queue[i]; flipped = false;
     const forced = ((ST.forceIntro = ST.forceIntro || {})[f && f.key] || 0) > 0;
-    const stub = !forced && f && !opts.browse && !opts.cram && S.meta.settings.smart !== false && stOf(f) && (stOf(f).l || 0) >= 2 && !(ST.stubDone = ST.stubDone || new Set()).has(f.key);
+    const stub = !forced && f && !opts.browse && !opts.cram && S.meta.settings.smart !== false && S.meta.settings.slipping !== false && isSlipping(stOf(f)) && !(ST.stubDone = ST.stubDone || new Set()).has(f.key);
     if (stub) { ST.stubDone.add(f.key); try { topRight(); } catch { } introNew(f, () => { queue.splice(i, 1); queue.splice(Math.min(queue.length, i + 3), 0, f); show(); }, "stub"); return; }
-    if (f && !opts.browse && f.kind !== "occl" && (forced || (!opts.queue && !stOf(f) && (lmStore(f.deck)[f.key] || 0) < 2 && S.meta.settings.introNew !== false && !(ST.intro = ST.intro || new Set()).has(f.key)))) { try { topRight(); } catch { } introNew(f, () => { undo.push({ queue: queue.slice(), i, doneN, again, good, deckId: f.deck.id, key: f.key, prev: stOf(f) ? { ...stOf(f) } : null, hist: S.meta.history[dayKey()] || 0, newDay: S.meta.newDay, newCount: S.meta.newCount, seen: seenNew.has(f.key), sess: JSON.stringify(SESS), intro: true }); (ST.intro = ST.intro || new Set()).add(f.key); if (forced) ST.forceIntro[f.key]--; queue.splice(i, 1); queue.splice(Math.min(queue.length, i + 3), 0, f); show(); }, forced); return; }
+    if (f && !opts.browse && f.kind !== "occl" && (forced || (!opts.queue && !stOf(f) && (lmStore(f.deck)[f.key] || 0) < 2 && S.meta.settings.introNew !== false && !(ST.intro = ST.intro || new Set()).has(f.key)))) { try { topRight(); } catch { } introNew(f, () => { undo.push({ fl: (ST.finalList || []).slice(), queue: queue.slice(), i, doneN, again, good, deckId: f.deck.id, key: f.key, prev: stOf(f) ? { ...stOf(f) } : null, hist: S.meta.history[dayKey()] || 0, newDay: S.meta.newDay, newCount: S.meta.newCount, seen: seenNew.has(f.key), sess: JSON.stringify(SESS), intro: true }); (ST.intro = ST.intro || new Set()).add(f.key); if (forced) ST.forceIntro[f.key]--; queue.splice(i, 1); queue.splice(Math.min(queue.length, i + 3), 0, f); show(); }, forced); return; }
     ST.stage.innerHTML = `${studyHead(f.deck)}${flipCard("", capOf(f.deck), (stOf(f) || f.kind !== "basic" ? "" : `<div class="kicker">New</div>`) + (opts.reverse && f.kind === "basic" && f.a ? revFront(f) : factFront(f)), opts.reverse && f.kind === "basic" && f.a ? revBack(f) : factBack(f))}
       <div id="ctl"><button class="btn primary" id="show" style="width:100%;min-height:54px">Show answer</button><p class="tap-hint kbd-hint" style="margin-top:8px"><kbd>Space</kbd> to flip</p></div>`;
     sizeFlip();
@@ -4439,14 +4474,14 @@ function startLearn(deck, opts = {}) {
   function grade(g) {
     const f = queue[i];
     const prev = (S.srs[f.deck.id] || {})[f.key];
-    undo.push({ queue: queue.slice(), i, doneN, again, good, deckId: f.deck.id, key: f.key, prev: prev ? { ...prev } : null, hist: S.meta.history[dayKey()] || 0, newDay: S.meta.newDay, newCount: S.meta.newCount, seen: seenNew.has(f.key), sess: JSON.stringify(SESS) });
+    undo.push({ fl: (ST.finalList || []).slice(), queue: queue.slice(), i, doneN, again, good, deckId: f.deck.id, key: f.key, prev: prev ? { ...prev } : null, hist: S.meta.history[dayKey()] || 0, newDay: S.meta.newDay, newCount: S.meta.newCount, seen: seenNew.has(f.key), sess: JSON.stringify(SESS) });
     if (undo.length > 30) undo.shift();
     const wasNew = !prev && !seenNew.has(f.key);
     /* session rules: Again = back in 3 cards, then two good answers to clear; Hard = once more ~8 cards later; Good/Easy = done.
        Only the first rating of a card in a session sets its schedule; repeats are practice. */
     const sq = SESS[f.key] = SESS[f.key] || { first: true, owe: 0 };
     if (ST.finalPhase && ST.finalSet && ST.finalSet.has(f.key)) { if (g === 1) sq.first = true; else stat("finalPass"); }
-    else if (sq.first && g >= 3 && !opts.browse && !opts.cram && !opts.queue && (ST.finalList = ST.finalList || []).length < 7) ST.finalList.push(f._base || f);
+    else if (sq.first && g >= 3 && !opts.browse && !opts.cram && !opts.queue && S.meta.settings.finalCheck !== false && !(ST.finalList = ST.finalList || []).some(x => x.key === (f._base || f).key)) { ST.finalList.push(f._base || f); (ST.finalAt = ST.finalAt || {})[(f._base || f).key] = i; }
     if (opts.cram || opts.browse) recordQuiz(f, g > 2);
     else if (sq.first) { recordReview(f.deck.id, f.key, g, wasNew); if (wasNew) seenNew.add(f.key); if (g === 1 && (stOf(f) || {}).l === 4) setTimeout(() => toast("That one’s a leech. Find it under Leeches in the deck to rewrite it."), 400); }
     else recordQuiz(f, g > 2);
@@ -4455,7 +4490,7 @@ function startLearn(deck, opts = {}) {
     const base = f._base || f, kind = f._inst || "first";
     const mk = t => { const x = Object.create(base); x._inst = t; x._base = base; return x; };
     const same = q => (q._base || q).key === base.key;
-    const addAt = (offs, t) => offs.forEach((o, k) => queue.splice(Math.min(queue.length, i + 1 + o + k), 0, mk(t)));
+    const addAt = (offs, t) => { const others = queue.slice(i + 1).filter(q => !same(q)).length; offs = offs.slice(0, Math.max(1, Math.min(offs.length, others))); offs.forEach((o, k) => { let at = Math.min(queue.length, i + 1 + o + k); while (at > i + 1 && (same(queue[at - 1] || {}) || same(queue[at] || {})) && at < queue.length) at++; queue.splice(at, 0, mk(t)); }); };
     const inFinal = ST.finalPhase && ST.finalSet && ST.finalSet.has(base.key);
     if (inFinal) { /* the final check never adds repeats; a miss here is rescheduled as a miss */ }
     else if (g === 1) {
@@ -4469,6 +4504,7 @@ function startLearn(deck, opts = {}) {
   }
   function doUndo() {
     const u = undo.pop(); if (!u) return; if (u.sess) SESS = JSON.parse(u.sess);
+    if (u.fl) ST.finalList = u.fl;
     if (u.intro && ST.intro) { ST.intro.delete(u.key); if (ST.forceIntro && ST.forceIntro[u.key] != null) ST.forceIntro[u.key]++; }
     queue = u.queue; i = u.i; doneN = u.doneN; again = u.again; good = u.good;
     S.srs[u.deckId] = S.srs[u.deckId] || {};
@@ -4476,6 +4512,14 @@ function startLearn(deck, opts = {}) {
     S.meta.history[dayKey()] = u.hist; S.meta.newDay = u.newDay; S.meta.newCount = u.newCount;
     if (!u.seen) seenNew.delete(u.key);
     saveSrs(u.deckId); saveMeta(); show(); toast("Undone");
+  }
+  function deleteCurrent() {
+    const f = queue[i]; if (!f) return; const base = f._base || f; const d = S.decks[base.deck.id] || base.deck; const card = base.card;
+    modal(`<h2>Delete this card?</h2><p class="muted">It’ll be removed from “${esc(d.name)}”, from this review and from your other devices. This can’t be undone.</p><div class="modal-foot"><button class="btn" data-close>Cancel</button><div class="spacer"></div><button class="btn danger" id="dcGo">Delete card</button></div>`, (sc, close) => {
+      $$("[data-close]", sc).forEach(b => b.onclick = close);
+      $("#dcGo", sc).onclick = () => { const keys = new Set(factsOf(d).filter(x => x.card.id === card.id).map(x => x.key)); d.cards = d.cards.filter(c => c.id !== card.id); const sr = S.srs[d.id] || {}; keys.forEach(k => delete sr[k]); saveDeck(d); saveSrs(d.id); saveMeta(true);
+        const cur = i; queue = queue.filter((q, k) => k < cur || !keys.has((q._base || q).key)); if (ST.finalList) ST.finalList = ST.finalList.filter(x => !keys.has(x.key)); undo.length = 0; close(); toast("Card deleted"); show(); };
+    });
   }
   function editCurrent() {
     const f = queue[i]; if (!f) return;
@@ -4501,6 +4545,12 @@ function startLearn(deck, opts = {}) {
     else if (flipped && /^[1-4]$/.test(e.key)) grade(+e.key);
   };
   ST.reviewKey = ST.onKey;
+  const sessKey = !opts.queue && !opts.cram && !opts.browse && !opts.reverse ? (deck ? "d:" + deck.id : "all") : null; ST.sessKey = sessKey;
+  if (sessKey) { try { const sv = ((S.meta.sessions || {})[sessKey]); if (sv && sv.day === dayKey() && sv.items && sv.items.length) {
+    const find = (did, key) => { const dk = S.decks[did]; return dk && !dk.hidden ? factsOf(dk).find(x => x.key === key) : null; };
+    const restored = sv.items.map(([did, key, t]) => { const fx = find(did, key); if (!fx) return null; if (!t) return fx; const x = Object.create(fx); x._inst = t; x._base = fx; return x; }).filter(Boolean);
+    const have = new Set(restored.map(x => (x._base || x).key)); const extra = queue.filter(q => !have.has(q.key));
+    if (restored.length) { queue = [...restored, ...extra]; total = queue.length; ST.finalList = (sv.fl || []).map(([did, key]) => find(did, key)).filter(Boolean); ST.finalAt = sv.fa || {}; ST.resumed = true; } } } catch (e) { console.warn("resume", e); } }
   show();
 }
 
@@ -13455,7 +13505,7 @@ function hookCardsDeletedByYou() {
 /* (deleting a hook card now deletes its hook inside the confirm step itself) */
 
 /* ---------- lesson recaps save to the deck automatically ---------- */
-{ const br = bindRecap; bindRecap = function (l) { br(l); const b = $("#recapSave"); if (b && !(S.meta.recapSaved || {})[l.id]) b.click(); else if (b) { b.disabled = true; b.classList.remove("primary"); b.textContent = "Saved to your deck ✓"; } }; }
+{ const br = bindRecap; bindRecap = function (l) { br(l); const b = $("#recapSave"); if (b && !(S.meta.recapSaved || {})[l.id]) { /* recap cards are only added when you tap the button */ } else if (b) { b.disabled = true; b.classList.remove("primary"); b.textContent = "Saved to your deck ✓"; } }; }
 
 /* ---------- Did you know: only on a finished lesson’s results ---------- */
 { const sl = startLesson; startLesson = function (...a) { const out = sl.apply(this, a); try { ST.el.classList.add("lesson-run"); } catch { } return out; }; }
@@ -14290,6 +14340,7 @@ splitSent = function (t) {
 { const rr = recordReview; recordReview = function (deckId, key, g, isNew) {
     const prev = ((S.srs[deckId] || {})[key]) ? { ...S.srs[deckId][key] } : null; const out = rr(deckId, key, g, isNew); try { const s = (S.srs[deckId] || {})[key]; if (!s) return out;
       s.ok = g >= 3 ? ((prev && prev.ok) || 0) + 1 : 0;
+      s.lg = g;
       if (S.meta.settings.smart !== false && g >= 3 && s.ok >= 3 && (s.i || 0) >= 2) { const boost = 1 + Math.min(.3, .1 * (s.ok - 2)); const ni = Math.round(s.i * boost); if (ni > s.i) { s.d += (ni - s.i) * DAY; s.i = ni; } }
       saveSrs(deckId); } catch { } return out; }; }
 { const inn = introNew; introNew = function (f, done, forced) { inn(f, done, forced === "stub" ? true : forced); if (forced === "stub") { const p = ST.stage.querySelector(".intro-card .rv-pill"); if (p) { p.textContent = "Keeps slipping"; p.className = "rv-pill ag"; } const l = ST.stage.querySelector(".ic-lead"); if (l) l.innerHTML = l.innerHTML.replace(/^[^.]*\./, "This one keeps slipping, so let’s lock it in."); } }; }
@@ -14837,6 +14888,82 @@ TOUR.push(
 );
 { const st0 = startTour; startTour = function () { st0(); try { const s = document.querySelector(".scrim:last-of-type"); const body = s && s.querySelector("#tourBody"); if (!body) return; const paint = () => { const h = body.querySelector("h2"); if (!h) return; const it = TOUR.find(x => x[1] === h.textContent); if (it && it[3] && it[3].length && !body.querySelector(".tour-tips")) body.insertAdjacentHTML("beforeend", `<div class="tour-tips">${it[3].map(t => `<span>${esc(t)}</span>`).join("")}</div>`); }; new MutationObserver(paint).observe(body, { childList: true }); paint();
     let x0 = null; s.addEventListener("touchstart", e => { x0 = e.touches[0].clientX; }, { passive: true }); s.addEventListener("touchend", e => { if (x0 == null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 50) (dx < 0 ? s.querySelector("#tourNext") : s.querySelector("#tourBack"))?.click(); }); } catch { } }; }
+/* ===================== v50 ===================== */
+/* ---------- “Keeps slipping” only for cards that truly keep slipping:
+   missed 3+ times overall AND missed last time (or, for older history, ease worn down to the floor) ---------- */
+function isSlipping(st) { if (!st || st.sus) return false; const l = st.l || 0; if (l < 3) return false; if (st.lg != null) return st.lg === 1; return (st.e || 2.5) <= 1.5; }
+
+/* ---------- the saved session is per-device, like today’s plan ---------- */
+{ const snap1 = snapshot; snapshot = function (...a) { const out = snap1.apply(this, a); try { if (out && out.meta) { const m = { ...out.meta }; delete m.sessions; out.meta = m; } } catch { } return out; }; }
+{ const mr = mergeRemote; mergeRemote = function (r, ...a) { const mine = S.meta.sessions ? JSON.parse(JSON.stringify(S.meta.sessions)) : null; try { if (r && r.meta) { r = { ...r, meta: { ...r.meta } }; delete r.meta.sessions; } } catch { } const out = mr.call(this, r, ...a); if (mine) S.meta.sessions = mine; return out; }; }
+
+/* ---------- sounds: lower, softer, more “instrument” than “chime” ---------- */
+chime = function (kind) { if (!S.meta.settings.sounds) return; try { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); const now = AC.currentTime;
+    const N = { done: [[196, 0, .5], [294, .09, .6]], combo: [[392, 0, .18], [494, .06, .2]], level: [[196, 0, .45], [247, .1, .45], [294, .2, .5], [392, .32, .7]], badge: [[247, 0, .35], [370, .08, .5]], tick: [[330, 0, .08]] }[kind] || [[262, 0, .3]];
+    const lp = AC.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 1400; lp.connect(AC.destination);
+    N.forEach(([f, t, len]) => { const o = AC.createOscillator(), g = AC.createGain(); o.type = "triangle"; o.frequency.value = f; g.gain.setValueAtTime(0, now + t); g.gain.linearRampToValueAtTime(.16, now + t + .008); g.gain.exponentialRampToValueAtTime(.0001, now + t + len); o.connect(g).connect(lp); o.start(now + t); o.stop(now + t + len + .05); }); } catch { } };
+
+/* ---------- type-to-learn: just the term, the definition (which doubles as the typing guide) and the box ---------- */
+{ const inn = introNew; introNew = function (f, done, forced) { inn(f, done, forced); try {
+    const card = ST.stage.querySelector(".intro-card"); const inp = $("#icIn"); if (!card || !inp) return;
+    card.querySelectorAll(".ic-lead,.ic-lab,.ic-why2,#icGuide").forEach(x => x.remove()); card.classList.add("ic-min");
+    const target = plainOf(f.a ? escG(f.a) : factBack(f)) || plainOf(f.q ? escG(f.q) : factFront(f)); const aEl = card.querySelector(".ic-a");
+    const term = plainOf(f.q ? escG(f.q) : factFront(f)); const qEl = card.querySelector(".ic-q"); if (qEl && term) qEl.textContent = term;
+    inp.placeholder = "Type the definition to lock it in"; const fb = $("#icFb"); fb && (fb.textContent = "");
+    const low = c => c.toLowerCase();
+    const paint = () => { const t = inp.value; let k = 0; while (k < t.length && k < target.length && low(t[k]) === low(target[k])) k++; const bad = k < t.length;
+      aEl.innerHTML = `<span class="g-ok">${esc(target.slice(0, k))}</span>${bad ? `<span class="g-bad">${esc(target.slice(k, k + 1))}</span>` : `<span class="g-next">${esc(target.slice(k, k + 1))}</span>`}<span>${esc(target.slice(k + 1))}</span>`; };
+    inp.addEventListener("input", paint); paint();
+  } catch (e) { console.warn(e); } }; }
+
+/* ---------- card faces: no repeated label when the question already says it ---------- */
+const kickerRedundant = (kick, q) => { const w = String(kick || "").toLowerCase().replace(/[^a-z0-9 ]+/g, " ").split(/\s+/).filter(x => x.length > 2); const qq = String(q || "").toLowerCase(); return w.length && w.every(x => qq.includes(x)); };
+new MutationObserver(() => { document.querySelectorAll(".study .flip .face .kicker:not([data-kr])").forEach(k => { k.dataset.kr = 1; if (/^(New|Review|Again)$/i.test(k.textContent.trim())) return; const face = k.closest(".face"); const c = face.cloneNode(true); c.querySelectorAll(".kicker,.rv-pill,.spk,button").forEach(x => x.remove()); if (kickerRedundant(k.textContent, c.textContent)) k.classList.add("kick-hide"); else k.classList.add("kick-soft"); }); }).observe(document.documentElement, { childList: true, subtree: true });
+
+/* ---------- rings: Apple-style, with depth and a visible second lap past 100% ---------- */
+function ringSvg3d(r) {
+  const tf = r.tasks[1] ? r.tasks[0] / r.tasks[1] : 1; const R = [[68, RING.purple, r.rev / Math.max(1, r.goal)], [50, RING.yellow, r.npd ? r.newDone / r.npd : 1], [32, RING.red, tf]];
+  const W = 16, cx = 80, cy = 80; let defs = `<filter id="rgSh" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="0" stdDeviation="1.6" flood-color="#000" flood-opacity=".45"/></filter>`; let body = "";
+  R.forEach(([rad, c, f], k) => {
+    const C = 2 * Math.PI * rad; const id = "rg" + k; defs += `<linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="color-mix(in srgb, ${c} 72%, #fff)"/><stop offset="1" stop-color="${c}"/></linearGradient>`;
+    body += `<circle cx="${cx}" cy="${cy}" r="${rad}" fill="none" stroke="color-mix(in srgb, ${c} 20%, transparent)" stroke-width="${W}"/>`;
+    const f1 = Math.max(0, Math.min(1, f)); if (f1 > 0) body += `<circle cx="${cx}" cy="${cy}" r="${rad}" fill="none" stroke="url(#${id})" stroke-width="${W}" stroke-linecap="round" stroke-dasharray="${(C * f1).toFixed(2)} ${C.toFixed(2)}" transform="rotate(-90 ${cx} ${cy})"/>`;
+    const over = Math.max(0, Math.min(1.98, f - 1));
+    if (f >= .97) { const ang = (Math.min(f, 2.98) % 1 || (f >= 1 ? 1 : f)) * 2 * Math.PI - Math.PI / 2; const ex = cx + rad * Math.cos(ang), ey = cy + rad * Math.sin(ang);
+      if (over > 0) body += `<circle cx="${cx}" cy="${cy}" r="${rad}" fill="none" stroke="color-mix(in srgb, ${c} 82%, #000)" stroke-width="${W}" stroke-linecap="round" stroke-dasharray="${(C * Math.min(1, over)).toFixed(2)} ${C.toFixed(2)}" transform="rotate(-90 ${cx} ${cy})" class="rg-over"/>`;
+      body += `<circle cx="${ex.toFixed(2)}" cy="${ey.toFixed(2)}" r="${W / 2}" fill="${over > 0 ? `color-mix(in srgb, ${c} 82%, #000)` : c}" filter="url(#rgSh)" class="rg-cap"/>`; }
+  });
+  return `<svg width="148" height="148" viewBox="0 0 160 160" class="rg3d" role="img" aria-label="Reviews ${r.rev} of ${r.goal}, new cards ${r.newDone} of ${r.npd}, tasks ${r.tasks[0]} of ${r.tasks[1]}"><defs>${defs}</defs>${body}</svg>`;
+}
+{ const rh = renderHome; renderHome = function (decks) { rh(decks); try { const box = $("#view .a3rings"); const svg = box && box.querySelector("svg"); if (svg) { const noanim = box.classList.contains("noanim"); svg.outerHTML = ringSvg3d(ringData()); if (noanim) box.classList.add("noanim"); } } catch (e) { console.warn("rings", e); } }; }
+
+/* ---------- Settings: grouped, ordered, and a few more options ---------- */
+const SETTINGS_GROUPS = [
+  ["Studying", "How reviews and new cards work", ["Study limits", "Study & sound", "Spell out abbreviations"]],
+  ["Your program", "Head start and the starter decks", ["Head start (pre-program mode)", "Starter decks"]],
+  ["Look and feel", "Theme and how decks are grouped", ["Appearance", "Labels"]],
+  ["Sync and data", "Keep devices matched and your data safe", ["Sync between devices", "Backup file", "Storage"]],
+  ["Help", "Getting around LabDeck", ["Take a tour", "Install on your phone", "Keyboard shortcuts"]]
+];
+function organizeSettings() {
+  const v = $("#view"); if (!v || v.querySelector(".setgroups")) return; const panels = [...v.querySelectorAll(":scope > .panel")]; if (!panels.length) return;
+  const titleOf = p => ((p.querySelector("h3,b") || {}).textContent || "").trim();
+  const wrap = document.createElement("div"); wrap.className = "setgroups"; const used = new Set();
+  SETTINGS_GROUPS.forEach(([name, sub, titles]) => { const sec = document.createElement("section"); sec.className = "setgroup"; sec.innerHTML = `<div class="sg-h"><h2>${esc(name)}</h2><p>${esc(sub)}</p></div><div class="sg-body"></div>`; const body = sec.querySelector(".sg-body");
+    titles.forEach(t => { const p = panels.find(x => !used.has(x) && titleOf(x).startsWith(t)); if (p) { used.add(p); body.appendChild(p); } }); if (body.children.length) wrap.appendChild(sec); });
+  const rest = panels.filter(p => !used.has(p)); if (rest.length) { const sec = document.createElement("section"); sec.className = "setgroup"; sec.innerHTML = `<div class="sg-h"><h2>More</h2></div><div class="sg-body"></div>`; rest.forEach(p => sec.querySelector(".sg-body").appendChild(p)); wrap.appendChild(sec); }
+  const foot = v.querySelector(":scope > .small"); foot ? foot.before(wrap) : v.appendChild(wrap);
+  /* extra study options, in the Study & sound panel */
+  const sv = document.getElementById("svBox"); if (sv && !sv.querySelector("#swFinal")) { const list = sv.querySelector(".sw-list"); const sw = (id, on, t, s) => `<label class="sw-row"><span><b>${t}</b><small>${s}</small></span><input type="checkbox" class="ios-sw" id="${id}" ${on ? "checked" : ""}></label>`;
+    list.insertAdjacentHTML("afterbegin", sw("swIntro", S.meta.settings.introNew !== false, "Type-to-learn for new cards", "New cards start with a quick round where you type the definition while looking at it.") + sw("swFinal", S.meta.settings.finalCheck !== false, "Final check", "In longer sessions, a few cards you got right early come back once at the end.") + sw("swSlip", S.meta.settings.slipping !== false, "Extra help for stubborn cards", "Cards you’ve missed 3+ times, including last time, get a quick typing round."));
+    $("#swIntro").onchange = e => { S.meta.settings.introNew = e.target.checked; saveMeta(true); }; $("#swFinal").onchange = e => { S.meta.settings.finalCheck = e.target.checked; saveMeta(true); }; $("#swSlip").onchange = e => { S.meta.settings.slipping = e.target.checked; saveMeta(true); };
+    const h = sv.querySelector("h3"); if (h) h.textContent = "Study options"; }
+  /* tidy up cards that earlier versions added automatically from lesson recaps */
+  const recapN = Object.values(S.decks).reduce((n, d) => n + d.cards.filter(c => c.recap).length, 0);
+  const lim = [...v.querySelectorAll(".panel")].find(p => titleOf(p).startsWith("Study limits"));
+  if (recapN && lim && !lim.querySelector("#rmRecap")) { lim.insertAdjacentHTML("beforeend", `<div class="set-action"><span><b>Lesson recap cards</b><small>${plural(recapN, "card")} added automatically from module recaps.</small></span><button class="btn sm" id="rmRecap">Remove them</button></div>`); $("#rmRecap").onclick = () => modal(`<h2>Remove ${plural(recapN, "recap card")}?</h2><p class="muted">These fill-in-the-blank cards were added from module recaps. Starter cards and cards you made stay.</p><div class="modal-foot"><button class="btn" data-close>Cancel</button><div class="spacer"></div><button class="btn danger" id="rrGo">Remove</button></div>`, (s, close) => { $$("[data-close]", s).forEach(b => b.onclick = close); $("#rrGo", s).onclick = () => { Object.values(S.decks).forEach(d => { const gone = d.cards.filter(c => c.recap); if (!gone.length) return; const ids = new Set(gone.map(c => c.id)); const keys = new Set(factsOf(d).filter(f => ids.has(f.card.id)).map(f => f.key)); d.cards = d.cards.filter(c => !c.recap); const sr = S.srs[d.id] || {}; keys.forEach(k => delete sr[k]); saveDeck(d); saveSrs(d.id); }); saveMeta(true); close(); toast("Recap cards removed"); render(); }; }); }
+}
+{ const r = render; render = function (...a) { const out = r.apply(this, a); if ((location.hash || "") === "#more") setTimeout(organizeSettings, 0); return out; }; }
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
