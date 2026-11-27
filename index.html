@@ -3084,25 +3084,32 @@ textarea#icIn{resize:none;overflow:hidden;line-height:1.45;padding:12px 14px!imp
 .flip .kicker.kick-hide{display:none!important}
 .flip .kicker.kick-soft{color:var(--ink-3)!important;font-weight:600!important;font-size:.78rem!important;letter-spacing:.02em!important;text-transform:none!important;background:none!important;padding:0!important}
 .flip .face:not(.back){font-size:1.3rem;line-height:1.35}
-/* review tallies: fixed meaning, fixed color */
-.rv-tally span{transition:none!important}
-.rv-tally span:nth-child(1){background:color-mix(in srgb,#34C759 14%,var(--surface))!important;color:#248A3D!important}
-.rv-tally span:nth-child(2){background:color-mix(in srgb,#E5484D 12%,var(--surface))!important;color:#C8292F!important}
-.rv-tally span:nth-child(3){background:color-mix(in srgb,#F5B800 16%,var(--surface))!important;color:#7A5800!important}
-/* grade buttons: one shape, one surface; only the label color differs */
-.grades button[data-g]{background:var(--surface)!important;border:0!important;box-shadow:var(--shadow)!important;border-radius:14px!important;font-weight:700!important;min-height:56px}
-.grades button[data-g="1"]{color:#C8292F!important}.grades button[data-g="2"]{color:#B25E00!important}.grades button[data-g="3"]{color:#248A3D!important}.grades button[data-g="4"]{color:#2F6FB5!important}
-.grades button[data-g]:hover{box-shadow:0 0 0 2px currentColor,var(--shadow)!important}
+/* review tallies: quiet, neutral chips */
+.rv-tally span,.rv-tally span:nth-child(n){background:var(--surface)!important;color:var(--ink-2)!important;box-shadow:inset 0 0 0 .5px var(--line-2)!important;font-weight:600!important}
+/* grade buttons: bright, raised, on brand, all four alike */
+.grades button[data-g]{--g:#7B4FE0;--gd:#5B33C0;border:0!important;border-radius:14px!important;min-height:58px;color:#fff!important;font-weight:800!important;letter-spacing:.01em;background:linear-gradient(180deg,color-mix(in srgb,var(--g) 82%,#fff) 0%,var(--g) 55%)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 3px 0 var(--gd),0 8px 18px color-mix(in srgb,var(--g) 30%,transparent)!important;transition:transform .08s,box-shadow .08s}
+.grades button[data-g] *{color:#fff!important}.grades button[data-g] small,.grades button[data-g] .k{opacity:.75}
+.grades button[data-g]:active{transform:translateY(2px);box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 1px 0 var(--gd),0 4px 10px color-mix(in srgb,var(--g) 25%,transparent)!important}
+.grades button[data-g]:hover{filter:brightness(1.04)}
+.grades button[data-g="1"]{--g:#E5484D;--gd:#B52F34}.grades button[data-g="2"]{--g:#F29A1F;--gd:#C27510}.grades button[data-g="3"]{--g:#34C759;--gd:#24963F}.grades button[data-g="4"]{--g:#7B4FE0;--gd:#5B33C0}
 /* rings */
 .rg3d .rg-cap{transition:none}
-/* settings */
-.setgroups{display:flex;flex-direction:column;gap:26px;margin-top:8px}
-.setgroup .sg-h{margin:0 4px 10px}.setgroup .sg-h h2{margin:0;font-size:1.15rem;font-weight:800}.setgroup .sg-h p{margin:2px 0 0;font-size:.85rem;color:var(--ink-3)}
-.setgroup .sg-body{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px;align-items:start}
-@media (max-width:700px){.setgroup .sg-body{grid-template-columns:1fr}}
-.setgroup .panel{margin:0!important;border-radius:var(--r-cell)!important}
+/* settings: one clean column */
+.setgroups{display:flex;flex-direction:column;gap:22px;margin-top:6px;max-width:760px}
+.setgroup .sg-h{margin:0 4px 8px}.setgroup .sg-h h2{margin:0;font-size:1.05rem;font-weight:800}.setgroup .sg-h p{margin:1px 0 0;font-size:.82rem;color:var(--ink-3)}
+.setgroup .sg-body{display:flex;flex-direction:column;gap:10px}
+.setgroup .panel{margin:0!important;border-radius:var(--r-cell)!important;padding:16px 18px!important}
+.setgroup .panel h3{margin:0 0 6px!important;font-size:1rem!important}
 .set-action{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px;padding-top:12px;border-top:.5px solid var(--line-2)}.set-action span{display:flex;flex-direction:column}.set-action small{color:var(--ink-3);font-size:.8rem}
-.grades button[data-g] *{color:inherit!important}.grades button[data-g] small,.grades button[data-g] .k{opacity:.6}
+
+/* practice: one color per section */
+.hubwrap .hubsec:nth-of-type(1) .a3sym{background:#E5484D!important}
+.hubwrap .hubsec:nth-of-type(2) .a3sym{background:#7B4FE0!important}
+.hubwrap .hubsec:nth-of-type(3) .a3sym{background:#2F6FB5!important}
+.hubwrap .hubsec:nth-of-type(1) .hub-meta{color:#C8292F}.hubwrap .hubsec:nth-of-type(3) .hub-meta{color:#2F6FB5}
+/* delete inside the edit window */
+.btn.danger-ghost{background:color-mix(in srgb,#E5484D 10%,var(--surface))!important;color:#C8292F!important;border:0!important}
+.btn.danger-ghost svg{width:16px;height:16px;margin-right:4px}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -3190,7 +3197,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "50.0";
+const APP_VERSION = "50.1";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -4437,7 +4444,7 @@ function startLearn(deck, opts = {}) {
   let total = queue.length; let doneN = 0, i = 0, flipped = false, again = 0, good = 0;
   const seenNew = new Set(); const undo = []; let SESS = {};
   function topRight() {
-    ST.right.innerHTML = `<button class="btn ghost icon sm star ${(queue[i] && queue[i].card.star) ? "on" : ""}" id="sBtn" aria-label="Star this card">${icon("star")}</button><button class="btn ghost icon sm" id="uBtn" aria-label="Undo last grade" ${undo.length ? "" : "disabled"}>${icon("undo")}</button><button class="btn ghost icon sm" id="dBtn" aria-label="Delete this card" title="Delete this card">${icon("trash")}</button><button class="btn ghost icon sm" id="eBtn" aria-label="Edit this card" title="Edit this card">${icon("edit")}</button><button class="btn ghost icon sm" id="nBtn" aria-label="New card in this deck" title="New card in this deck">${icon("plus")}</button><span class="small muted">${ST.finalPhase ? "Final check · " : ""}${Math.max(0, queue.length - i)} left</span>`;
+    ST.right.innerHTML = `<button class="btn ghost icon sm star ${(queue[i] && queue[i].card.star) ? "on" : ""}" id="sBtn" aria-label="Star this card">${icon("star")}</button><button class="btn ghost icon sm" id="uBtn" aria-label="Undo last grade" ${undo.length ? "" : "disabled"}>${icon("undo")}</button><button class="btn ghost icon sm" id="eBtn" aria-label="Edit this card" title="Edit this card">${icon("edit")}</button><button class="btn ghost icon sm" id="nBtn" aria-label="New card in this deck" title="New card in this deck">${icon("plus")}</button><span class="small muted">${ST.finalPhase ? "Final check · " : ""}${Math.max(0, queue.length - i)} left</span>`;
     $("#uBtn").onclick = doUndo; $("#eBtn").onclick = editCurrent; $("#dBtn") && ($("#dBtn").onclick = deleteCurrent);
     $("#nBtn").onclick = () => { const cur = queue[i] || queue[queue.length - 1]; if (!cur) return; const d = cur.deck; const before = new Set(d.cards.map(c => c.id));
       editCardModal(d, null, () => { const fresh = factsOf(d).filter(f => !before.has(f.card.id)); d.cards.forEach(c => before.add(c.id)); if (fresh.length && !opts.browse) { queue.push(...fresh); total += fresh.length; } topRight(); toast(`Card added to ${d.name}${fresh.length && !opts.browse ? ". It’s at the end of this session." : ""}`); }); }; $("#sBtn").onclick = () => { const f = queue[i]; if (!f) return; f.card.star = !f.card.star; saveDeck(f.deck); topRight(); toast(f.card.star ? "Starred" : "Unstarred"); };
@@ -4523,6 +4530,7 @@ function startLearn(deck, opts = {}) {
   }
   function editCurrent() {
     const f = queue[i]; if (!f) return;
+    setTimeout(() => { const m = document.querySelector(".scrim:last-of-type .modal"); const save = m && m.querySelector("#saveC"); if (save && !m.querySelector("#edDel")) { save.insertAdjacentHTML("beforebegin", `<button class="btn danger-ghost" id="edDel">${icon("trash")}Delete card</button><div class="spacer"></div>`); m.querySelector("#edDel").onclick = () => { m.closest(".scrim").remove(); document.documentElement.classList.remove("modal-open"); deleteCurrent(); }; } }, 0);
     editCardModal(S.decks[f.deck.id] || f.deck, f.card, () => {
       const fresh = factsOf(S.decks[f.deck.id] || f.deck);
       const ids = new Set((S.decks[f.deck.id] || f.deck).cards.map(c => c.id)); queue = queue.map(q => { const nf = fresh.find(x => x.key === q.key); if (nf) { if (q._inst) { const x = Object.create(nf); x._inst = q._inst; x._base = nf; return x; } return nf; } return ids.has(q.card.id) ? q : null; }).filter(Boolean);
@@ -14304,7 +14312,7 @@ GAMES.forEach(g => { const m = String(g[3]).match(/start[A-Za-z]+/); if (m) NAV_
 [...new Set(NAV_SCREENS)].forEach(navWrap);
 /* screens that open from a tracked screen (a practice mode, a lesson, a session) remember where they came from */
 { const os = openStudy; openStudy = function (...a) { if (!NAV.inWrap && !NAV.reopening && navOpen() && NAV.cur) { NAV.stack.push(NAV.cur); NAV.cur = null; } return os.apply(this, a); }; }
-function navReopen(entry) { const h0 = location.hash; setTimeout(() => { if ((ST && ST.el && ST.el.isConnected) || document.querySelector(".scrim") || location.hash !== h0) { NAV.stack = []; NAV.cur = null; return; } NAV.reopening = true; try { entry.raw.apply(null, entry.args); NAV.cur = { ...entry, sig: navSig() }; } catch (e) { NAV.stack = []; NAV.cur = null; } finally { NAV.reopening = false; } }, 0); }
+function navReopen(entry) { const h0 = location.hash; setTimeout(() => { if ((ST && ST.el && ST.el.isConnected) || document.querySelector(".scrim") || location.hash !== h0) { NAV.stack = []; NAV.cur = null; return; } NAV.reopening = true; try { (window[entry.name] || entry.raw).apply(null, entry.args); NAV.cur = { ...entry, sig: navSig() }; } catch (e) { NAV.stack = []; NAV.cur = null; } finally { NAV.reopening = false; } }, 0); }
 { const cs = closeStudy; closeStudy = function (arg, ...rest) {
     if (arg === true) { NAV.softAt = Date.now(); return cs.call(this, arg, ...rest); }
     const cur = NAV.cur, sig = navSig(); const out = cs.call(this, arg, ...rest);
@@ -14333,7 +14341,7 @@ splitSent = function (t) {
     if (cur && GAME_STARTS.has(cur.name) && sig && sig !== cur.sig) target = cur; else if (NAV.stack.length) target = NAV.stack.pop();
     if (!target) { NAV.cur = null; NAV.stack = []; return cs0.call(this, arg, ...rest); }
     const before = ST && ST.el; const out = cs0.call(this, true); if (ST && ST.el && ST.el !== before && ST.el.isConnected) return out;
-    NAV.reopening = true; try { target.raw.apply(null, target.args); NAV.cur = { ...target, sig: navSig() }; } catch { NAV.stack = []; NAV.cur = null; cs0.call(this, arg); } finally { NAV.reopening = false; }
+    NAV.reopening = true; try { (window[target.name] || target.raw).apply(null, target.args); NAV.cur = { ...target, sig: navSig() }; } catch { NAV.stack = []; NAV.cur = null; cs0.call(this, arg); } finally { NAV.reopening = false; }
     return out; }; }
 
 /* ---------- smart difficulty: cards you keep nailing space out a little faster ---------- */
@@ -14784,7 +14792,7 @@ function hubSection(title, rows) { const s = document.createElement("section"); 
     const R = k => st.querySelector(`[data-m="${k}"]`) || g.querySelector(`[data-m="${k}"]`);
     const weakN = (() => { try { return weakFacts(null, 25).length; } catch { return 0; } })(), leechN = (() => { try { return leechFacts().length; } catch { return 0; } })(), fieldN = (() => { try { return profileFields().length; } catch { return 0; } })();
     const decks = Object.values(S.decks).filter(d => !d.hidden).length;
-    const rec = leechN ? { k: "leech", t: `Clear ${plural(leechN, "leech", "leeches")}`, s: "These keep slipping. A focused round now saves you the most time later.", c: "#C8292F" } : weakN ? { k: "weak", t: `Shore up ${plural(weakN, "weak spot")}`, s: "Your shakiest cards across every deck, in one short session.", c: "#E5484D" } : { k: "mix", t: "Mixed practice", s: "Twenty questions across your decks. Switching topics makes it stick.", c: "#7B4FE0" };
+    const rec = leechN ? { k: "leech", t: `Clear ${plural(leechN, "leech", "leeches")}`, s: "These keep slipping. A focused round now saves you the most time later.", c: "#E5484D" } : weakN ? { k: "weak", t: `Shore up ${plural(weakN, "weak spot")}`, s: "Your shakiest cards across every deck, in one short session.", c: "#E5484D" } : { k: "mix", t: "Mixed practice", s: "Twenty questions across your decks. Switching topics makes it stick.", c: "#7B4FE0" };
     const recEl = document.createElement("button"); recEl.className = "hubrec"; recEl.style.setProperty("--rc", rec.c); recEl.innerHTML = `<span class="hr-k">RECOMMENDED FOR YOU</span><b>${esc(rec.t)}</b><span class="hr-s">${esc(rec.s)}</span><span class="hr-go">Start ${icon("right")}</span>`; recEl.onclick = () => R(rec.k)?.click();
     hubTile(R("weak"), weakN ? plural(weakN, "card") : "All solid"); hubTile(R("leech"), leechN ? plural(leechN, "leech", "leeches") : "None right now"); R("field") && hubTile(R("field"), fieldN ? plural(fieldN, "detail") : null);
     hubTile(R("mix"), `${plural(decks, "deck")}`); hubTile(R("look"), `${LOOKALIKES.length} pairs`); hubTile(R("range"), "Labs and ranges"); hubTile(R("math"), "Leveled"); hubTile(R("flow"), `${Object.keys(FLOWS).length} charts`);
