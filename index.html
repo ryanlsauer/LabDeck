@@ -3180,6 +3180,26 @@ textarea#icIn{resize:none;overflow:hidden;line-height:1.45;padding:12px 14px!imp
 :root[data-theme="dark"] .g2-key{background:linear-gradient(180deg,#3A3A42,#2E2E35);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 3px 0 #1B1B20;color:var(--ink)}
 .g2-mm,.g2-term,.g2-proc,.g2-dil,.g2-sort,.g2-hemo,.g2-diff{width:100%;box-sizing:border-box}
 .g2-mm-grid{width:100%}.g2-card{min-height:96px}
+/* ===================== v52 ===================== */
+/* Settings: everything in one centered column */
+#view.setpage>*:not(.topbar){max-width:760px;margin-left:auto!important;margin-right:auto!important;box-sizing:border-box}
+#view.setpage>h1{width:100%}
+/* add a card inside lessons */
+#lsAdd{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px!important;border-radius:999px!important;background:var(--violet-soft)!important;color:var(--violet-ink)!important;border:0!important;font-weight:600;font-size:.85rem;margin-right:8px}
+#lsAdd svg{width:16px;height:16px}
+@media (max-width:600px){#lsAdd span{display:none}#lsAdd{width:32px;padding:0!important;justify-content:center}}
+/* cell counter summary */
+.g2-dsum{width:100%;max-width:520px}.g2-dtab{width:100%;border-collapse:collapse;margin:8px 0 12px;font-size:.9rem}.g2-dtab th{text-align:left;font-size:.72rem;color:var(--ink-3);text-transform:uppercase;letter-spacing:.05em;padding:4px 6px}.g2-dtab td{padding:6px;border-top:.5px solid var(--line-2)}.g2-dtab td:nth-child(n+2),.g2-dtab th:nth-child(n+2){text-align:right}
+/* dilution chain builder and pipettes */
+.g2-total{text-align:center;font-size:1rem;margin:6px 0 10px}.g2-stepbtn{width:auto;min-width:62px;padding:0 12px}
+.g2-pips{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:12px}
+.g2-pip{display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 6px;border:0;border-radius:14px;background:var(--surface);box-shadow:var(--shadow);cursor:pointer;font:inherit;color:var(--ink)}
+.g2-pip small{font-size:.68rem;color:var(--ink-3)}.g2-pip.hit{box-shadow:inset 0 0 0 3px #34C759}.g2-pip.miss{box-shadow:inset 0 0 0 3px #E5484D}
+.g2-pipbody{width:14px;height:54px;border-radius:7px 7px 3px 3px;background:linear-gradient(180deg,#7B4FE0 0 26%,#D9D9E3 26% 100%);position:relative}.g2-pipbody i{position:absolute;bottom:-12px;left:50%;transform:translateX(-50%);width:4px;height:14px;background:#C9C9D3;border-radius:0 0 2px 2px}
+@media (max-width:520px){.g2-pips{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.g2-bins.four{grid-template-columns:repeat(2,minmax(0,1fr))}
+.tprose{margin:8px 0 0;font-size:1rem;line-height:1.6;color:var(--ink-2)}
+.g2-card{aspect-ratio:4/3!important;min-height:0!important}.g2-mm{max-width:620px}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -3267,7 +3287,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "51.0";
+const APP_VERSION = "52.0";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -15071,12 +15091,20 @@ function wbcSvg(t) {
 }
 function diffRound(types, n, timed) {
   return done => {
-    const sc = makeScorer("diff"); let i = 0, score = 0; const counts = {}; types.forEach(t => counts[t] = 0); const t0 = Date.now(); let tick = null;
+    const sc = makeScorer("diff"); let i = 0, score = 0; const counts = {}, truth = {}; types.forEach(t => { counts[t] = 0; truth[t] = 0; }); const t0 = Date.now(); let tick = null, ended = false;
     const keys = types.map((t, k) => [t, String(k + 1)]);
-    const end = () => { clearInterval(tick); g2finish(sc, done, score, n); };
+    /* a differential isn’t just naming cells: finish by turning the count into numbers */
+    const end = () => { if (ended) return; ended = true; clearInterval(tick); const seen = Object.values(truth).reduce((a, b) => a + b, 0) || 1; const main = types.slice().sort((a, b) => truth[b] - truth[a])[0]; const pct = Math.round(truth[main] / seen * 100);
+      const wbc = +(g2rand(4.5, 14)).toFixed(1); const absQ = types.length > 2; const ans = absQ ? +(wbc * pct / 100).toFixed(1) : pct; setProg(1);
+      ST.stage.innerHTML = `<div class="g2-diff"><div class="qcard g2-dsum"><div class="kicker">Your differential</div><table class="g2-dtab"><tr><th>Cell</th><th>Counted</th><th>%</th></tr>${types.filter(t => truth[t]).map(t => `<tr><td>${WBC[t].name}</td><td>${truth[t]}</td><td>${Math.round(truth[t] / seen * 100)}%</td></tr>`).join("")}</table>
+        <div class="qtext">${absQ ? `The WBC is <b>${wbc} ×10³/µL</b>. What’s the absolute ${WBC[main].name.toLowerCase()} count?` : `What percent of the cells were ${WBC[main].name.toLowerCase()}s?`}</div>
+        <label class="g2-numrow"><input class="input" id="gNum" inputmode="decimal" autocomplete="off" placeholder="${absQ ? "×10³/µL" : "%"}"><span>${absQ ? "×10³/µL" : "%"}</span></label><button class="btn primary" id="gChk">Check</button><div id="gFb" class="g2-fb"></div></div></div>`;
+      const chk = () => { const v = +String($("#gNum").value).replace(/[%, ]/g, ""); const ok = Math.abs(v - ans) <= (absQ ? .15 : 1); sc.hit(ok); if (ok) score++; else logMistake({ q: absQ ? `Absolute ${WBC[main].name.toLowerCase()} count, WBC ${wbc}, ${pct}%` : `Percent ${WBC[main].name.toLowerCase()}s in the diff`, right: absQ ? `${ans} ×10³/µL` : `${ans}%`, src: "Cell counter" });
+        $("#gFb").innerHTML = (ok ? `<span class="ok">✓ ${ans}${absQ ? " ×10³/µL" : "%"}</span> ` : `<span class="no">${ans}${absQ ? " ×10³/µL" : "%"}.</span> `) + `<span class="muted">${absQ ? `${wbc} × ${pct}% = ${ans}` : `${truth[main]} of ${seen} cells`}</span>`; $("#gChk").textContent = "See results"; $("#gChk").onclick = () => g2finish(sc, done, score, n + 1); };
+      $("#gChk").onclick = chk; ST.onKey = e => { if (e.key === "Enter") { e.preventDefault(); $("#gChk").click(); } }; setTimeout(() => $("#gNum")?.focus(), 50); };
     const next = () => {
       if (i >= n || (timed && Date.now() - t0 > timed * 1000)) return end();
-      const t = g2pick(types); i++; g2top(sc, i, n); sc.start();
+      const t = g2pick(types); truth[t]++; i++; g2top(sc, i, n); sc.start();
       ST.stage.innerHTML = `<div class="g2-diff"><div class="g2-scope"><div class="g2-field">${wbcSvg(t)}</div>${timed ? `<div class="g2-timer" id="gTim"></div>` : ""}</div>
         <div class="g2-pad">${keys.map(([k, n]) => `<button class="g2-key" data-t="${k}"><span class="g2-kn">${n}</span><b>${WBC[k].name}</b><span class="g2-cnt">${counts[k]}</span></button>`).join("")}</div><div id="gFb" class="g2-fb"></div></div>`;
       if (timed) { const upd = () => { const left = Math.max(0, timed - Math.round((Date.now() - t0) / 1000)); const e = $("#gTim"); if (e) e.textContent = `${left}s`; if (!left) end(); }; clearInterval(tick); tick = setInterval(upd, 250); upd(); }
@@ -15094,7 +15122,7 @@ function diffRound(types, n, timed) {
 }
 function startDiffCounter() {
   leveledGame("diff", "Cell counter", ["Neutrophil or lymphocyte", "The full differential", "Timed 30-cell diff"],
-    ["Cells come up one at a time, like scanning a smear. Tap the key (or press 1 or 2) to count each one.", "All five normal white cells. Watch for granule color and nucleus shape.", "Thirty cells, 75 seconds, bands included. Speed and accuracy both count."],
+    ["Count cells on the keypad like a manual diff, then work out the percentage.", "All five normal white cells, then turn your count into an absolute count.", "A timed 30-cell diff with bands, finished with an absolute count."],
     [diffRound(["neut", "lymph"], 12), diffRound(["neut", "lymph", "mono", "eos", "baso"], 15), diffRound(["neut", "band", "lymph", "mono", "eos", "baso"], 30, 75)]);
 }
 
@@ -15141,23 +15169,24 @@ function startHemocyt() {
 }
 /* ===================== v51 · new games, part 2 ===================== */
 /* ---------- Specimen sort: drag each specimen to the right bench ---------- */
-const SORT_BINS = { heme: ["Hematology", "#E5484D"], coag: ["Coagulation", "#3AA0FF"], chem: ["Chemistry", "#F5B800"], bb: ["Blood bank", "#E07AA6"], micro: ["Microbiology", "#34C759"], ua: ["Urinalysis", "#C9A227"], reject: ["Reject", "#6B7280"], accept: ["Accept", "#34C759"] };
+const SORT_BINS = { ice: ["On ice", "#3AA0FF"], dark: ["Protect from light", "#7B4FE0"], warm: ["Keep at 37 °C", "#E5484D"], room: ["Room temperature", "#34C759"], heme: ["Hematology", "#E5484D"], coag: ["Coagulation", "#3AA0FF"], chem: ["Chemistry", "#F5B800"], bb: ["Blood bank", "#E07AA6"], micro: ["Microbiology", "#34C759"], ua: ["Urinalysis", "#C9A227"], reject: ["Reject", "#6B7280"], accept: ["Accept", "#34C759"] };
 const SORT_L1 = [["lavender", "tube", "Lavender top (EDTA)", "heme"], ["lightblue", "tube", "Light blue top (citrate)", "coag"], ["gold", "tube", "Gold top (SST)", "chem"], ["green", "tube", "Green top (heparin)", "chem"], ["pink", "tube", "Pink top (EDTA)", "bb"], ["gray", "tube", "Gray top (fluoride)", "chem"], ["#C9A227", "cup", "Urine cup", "ua"], ["#2E7D5B", "bottle", "Blood culture bottles", "micro"], ["red", "tube", "Red top (serum, no additive)", "chem"]];
 const SORT_L2 = [["PT/INR", "coag"], ["aPTT", "coag"], ["D-dimer", "coag"], ["Fibrinogen", "coag"], ["CBC with diff", "heme"], ["Reticulocyte count", "heme"], ["ESR", "heme"], ["Peripheral smear review", "heme"], ["CMP", "chem"], ["Troponin", "chem"], ["Lipid panel", "chem"], ["TSH", "chem"], ["Lactate", "chem"], ["Type and screen", "bb"], ["Antibody identification", "bb"], ["DAT (direct Coombs)", "bb"], ["Crossmatch", "bb"], ["Blood culture", "micro"], ["Gram stain", "micro"], ["Throat culture", "micro"], ["Urine culture", "micro"], ["Urine dipstick", "ua"], ["Urine microscopic", "ua"]];
+const SORT_HANDLE = [["Ammonia", "ice", "Ammonia keeps rising as the sample sits warm."], ["Lactate", "ice", "Cells keep making lactate at room temperature."], ["Arterial blood gas (delayed testing)", "ice", "Ice slows cell metabolism if it can’t be run right away."], ["PTH", "ice", "PTH is unstable warm; chill it."], ["Bilirubin", "dark", "Light breaks bilirubin down."], ["Vitamin A", "dark", "Light-sensitive vitamin."], ["Porphyrins", "dark", "Light-sensitive; wrap the tube."], ["Folate", "dark", "Light-sensitive; protect it."], ["Cold agglutinin titer", "warm", "Keep at 37 °C so the antibody stays in the serum."], ["Cryoglobulins", "warm", "Cryoglobulins drop out if the sample cools."], ["CBC", "room", "Room temperature is right for a CBC."], ["PT/INR", "room", "Coag samples stay at room temperature; cold activates factor VII."], ["Potassium", "room", "Chilling whole blood makes potassium leak out of cells."], ["Glucose (gray top)", "room", "Fluoride keeps it stable at room temperature."]];
 const SORT_L3 = [["Lavender top for a CBC, clotted", "reject", "Clots trap cells and platelets, so counts are wrong."], ["Light blue top for a PT, half full", "reject", "Citrate tubes must be filled to the line; the 9:1 blood-to-anticoagulant ratio matters."], ["Gold top for potassium, grossly hemolyzed", "reject", "Lysed red cells release potassium and falsely raise it."], ["Unlabeled tube from the ED", "reject", "No label, no test. Specimens need two identifiers."], ["Type and screen tube labeled at the bedside with two identifiers", "accept", "Exactly how blood bank samples should arrive."], ["Ammonia on ice, delivered within 15 minutes", "accept", "Ammonia rises at room temperature, so ice and speed are right."], ["Urine for culture, at room temperature for 4 hours", "reject", "Bacteria multiply; culture urine within 2 hours or refrigerate it."], ["Gray top for glucose, 2 hours at room temperature", "accept", "Fluoride stops glycolysis, so glucose stays stable."], ["Pink top where the name doesn’t match the requisition", "reject", "Any ID mismatch is a reject, especially in blood bank."], ["Lipemic gold top for triglycerides", "accept", "Lipemia is the result here, not an interference."], ["Blood culture bottles drawn after the lavender top", "accept", "Accept it, but note it: cultures should be drawn first."], ["CSF tube 3 sent to hematology for a cell count", "accept", "Tube 3 is the right one for cell counts."], ["Light blue top drawn first with a butterfly, no discard tube", "reject", "The tubing’s air underfills the first tube; a discard tube is needed."], ["Serum left on cells overnight for a potassium", "reject", "Cells leak potassium over time; separate within 2 hours."]];
 function sortRound(level) {
   return done => {
     const sc = makeScorer("sort"); let items, bins;
-    if (level === 1) { items = shuffle(SORT_L1.slice()).slice(0, 8).map(([c, sh, label, b]) => ({ label, b, ic: capIcon(c, sh, 34) })); bins = ["heme", "coag", "chem", "bb", "micro", "ua"]; }
-    else if (level === 2) { items = shuffle(SORT_L2.slice()).slice(0, 10).map(([label, b]) => ({ label, b })); bins = ["heme", "coag", "chem", "bb", "micro", "ua"]; }
+    if (level === 1) { items = shuffle(SORT_L2.slice()).slice(0, 10).map(([label, b]) => ({ label, b })); bins = ["heme", "coag", "chem", "bb", "micro", "ua"]; }
+    else if (level === 2) { items = shuffle(SORT_HANDLE.slice()).slice(0, 9).map(([label, b, why]) => ({ label, b, why })); bins = ["ice", "dark", "warm", "room"]; }
     else { items = shuffle(SORT_L3.slice()).slice(0, 8).map(([label, b, why]) => ({ label, b, why })); bins = ["accept", "reject"]; }
     let i = 0, score = 0;
     const next = () => {
       if (i >= items.length) return g2finish(sc, done, score, items.length); const it = items[i]; i++; g2top(sc, i, items.length); sc.start();
-      ST.stage.innerHTML = `<div class="g2-sort"><div class="g2-sort-top"><div class="g2-chip-drag" id="gItem" draggable="false">${it.ic || ""}<span>${esc(it.label)}</span></div><p class="g2-hint">${level === 3 ? "Accept or reject this specimen?" : "Drag it to the right bench, or tap a bench."}</p></div>
-        <div class="g2-bins ${bins.length === 2 ? "two" : ""}">${bins.map(b => `<button class="g2-bin" data-b="${b}" style="--bc:${SORT_BINS[b][1]}"><b>${SORT_BINS[b][0]}</b></button>`).join("")}</div><div id="gFb" class="g2-fb"></div></div>`;
+      ST.stage.innerHTML = `<div class="g2-sort"><div class="g2-sort-top"><div class="g2-chip-drag" id="gItem" draggable="false">${it.ic || ""}<span>${esc(it.label)}</span></div><p class="g2-hint">${level === 3 ? "Accept or reject this specimen?" : level === 2 ? "How should this specimen travel to the lab?" : "Drag it to the right bench, or tap a bench."}</p></div>
+        <div class="g2-bins ${bins.length === 2 ? "two" : bins.length === 4 ? "four" : ""}">${bins.map(b => `<button class="g2-bin" data-b="${b}" style="--bc:${SORT_BINS[b][1]}"><b>${SORT_BINS[b][0]}</b></button>`).join("")}</div><div id="gFb" class="g2-fb"></div></div>`;
       let answered = false;
-      const drop = b => { if (answered) return; answered = true; const ok = b === it.b; sc.hit(ok); if (ok) score++; else logMistake({ q: level === 3 ? `Accept or reject: ${it.label}` : `Which bench: ${it.label}`, right: SORT_BINS[it.b][0], src: "Specimen sort" });
+      const drop = b => { if (answered) return; answered = true; const ok = b === it.b; sc.hit(ok); if (ok) score++; else logMistake({ q: level === 3 ? `Accept or reject: ${it.label}` : level === 2 ? `How to handle: ${it.label}` : `Which bench: ${it.label}`, right: SORT_BINS[it.b][0], src: "Specimen sort" });
         const bb = ST.stage.querySelector(`[data-b="${b}"]`); bb.classList.add(ok ? "hit" : "miss"); if (!ok) ST.stage.querySelector(`[data-b="${it.b}"]`).classList.add("hit");
         const item = $("#gItem"); item.classList.add(ok ? "in" : "bounce");
         $("#gFb").innerHTML = (ok ? `<span class="ok">✓ ${SORT_BINS[it.b][0]}</span>` : `<span class="no">${SORT_BINS[it.b][0]}.</span>`) + (it.why ? ` <span class="muted">${esc(it.why)}</span>` : "");
@@ -15174,8 +15203,8 @@ function sortRound(level) {
   };
 }
 function startSort() {
-  leveledGame("sort", "Specimen sort", ["Tubes to benches", "Tests to benches", "Accept or reject"],
-    ["Each specimen goes to one bench. Drag the tube to where it belongs, or tap the bench.", "Now it’s the test name. Which department runs it?", "Specimen processing: should this one be accepted or rejected? You’ll get the reason either way."],
+  leveledGame("sort", "Specimen sort", ["Tests to benches", "Special handling", "Accept or reject"],
+    ["Which department runs this test? Drag it to the bench, or tap the bench.", "Some specimens need special care on the way to the lab: ice, darkness or body temperature. Sort each one.", "Specimen processing: should this one be accepted or rejected? You’ll get the reason either way."],
     [sortRound(1), sortRound(2), sortRound(3)]);
 }
 
@@ -15198,6 +15227,21 @@ function dilRound(level) {
           $("#gFb").innerHTML = ok ? `<span class="ok">✓ ${need} µL sample + ${total - need} µL diluent</span>` : `<span class="no">${need} µL sample + ${total - need} µL diluent.</span> <span class="muted">1:${ratio} means 1 part sample in ${ratio} parts total: ${total} ÷ ${ratio} = ${need}.</span>`; $("#gChk").textContent = "Next"; $("#gChk").onclick = next; };
         draw(); return;
       }
+      if (level === 2) { /* build a serial dilution chain to hit the target */
+        const target = g2pick([100, 200, 400, 500, 1000, 50, 250]); const STEPS = [2, 4, 5, 10]; let chain = [];
+        const draw = (over) => { const tot = chain.reduce((a, b) => a * b, 1); ST.stage.innerHTML = `<div class="g2-dil"><div class="qcard"><div class="kicker">Build a serial dilution</div><div class="qtext">Reach a final dilution of <b>1:${target}</b> using up to 4 tubes.</div></div>
+          <div class="g2-chain">${chain.length ? chain.map((x, k) => `<div class="g2-ch">${dilTube(100, 100 * (x - 1), 100 * x)}<small>1:${x}</small></div>${k < chain.length - 1 ? `<span class="g2-arrow">→</span>` : ""}`).join("") : `<p class="muted small">Tap a dilution to add the first tube.</p>`}</div>
+          <div class="g2-total">Final: <b>1:${tot}</b></div><div class="g2-tiles">${STEPS.map(x => `<button class="g2-tile g2-stepbtn" data-x="${x}" ${over || chain.length >= 4 ? "disabled" : ""}>1:${x}</button>`).join("")}</div>
+          <div class="row" style="justify-content:center;gap:8px;margin-top:10px"><button class="btn sm" id="gUndo" ${over || !chain.length ? "disabled" : ""}>Remove last</button><button class="btn primary" id="gChk">${over ? "Next" : "Check"}</button></div><div id="gFb" class="g2-fb"></div></div>`;
+          $$(".g2-stepbtn").forEach(b => b.onclick = () => { chain.push(+b.dataset.x); draw(); }); $("#gUndo").onclick = () => { chain.pop(); draw(); };
+          $("#gChk").onclick = () => { if (over) return next(); const ok = tot === target; sc.hit(ok); if (ok) score++; else logMistake({ q: `Serial dilution to reach 1:${target}`, right: "Steps that multiply to " + target, src: "Dilution bench" }); draw(true); $("#gFb").innerHTML = ok ? `<span class="ok">✓ ${chain.join(" × ")} = ${target}</span>` : `<span class="no">That makes 1:${tot}.</span> <span class="muted">Serial steps multiply, e.g. ${target === 1000 ? "10 × 10 × 10" : target === 500 ? "10 × 10 × 5" : target === 250 ? "5 × 5 × 10" : target === 400 ? "10 × 10 × 4" : target === 200 ? "10 × 10 × 2" : target === 100 ? "10 × 10" : "10 × 5"}.</span>`; }; };
+        draw(); return; }
+      if (level === 3) { /* pick the right pipette for the volume */
+        const PIP = [["P2", 0.2, 2], ["P10", 1, 10], ["P20", 2, 20], ["P200", 20, 200], ["P1000", 100, 1000]]; const vol = g2pick([0.5, 1.5, 5, 8, 15, 18, 25, 50, 150, 180, 250, 500, 750]); const best = PIP.find(p => vol >= p[1] && vol <= p[2] && (vol / p[2]) >= .1) || PIP.find(p => vol >= p[1] && vol <= p[2]);
+        ST.stage.innerHTML = `<div class="g2-dil"><div class="qcard"><div class="kicker">Pick the pipette</div><div class="qtext">You need to deliver <b>${vol} µL</b>. Which pipette is the most accurate choice?</div><p class="small muted" style="margin:6px 0 0">Use the smallest pipette whose range includes the volume.</p></div>
+          <div class="g2-pips">${PIP.map(p => `<button class="g2-pip" data-p="${p[0]}"><span class="g2-pipbody"><i></i></span><b>${p[0]}</b><small>${p[1]}–${p[2]} µL</small></button>`).join("")}</div><div id="gFb" class="g2-fb"></div><div class="row" style="justify-content:center"><button class="btn primary" id="gNx" style="display:none">Next</button></div></div>`;
+        $$(".g2-pip").forEach(b => b.onclick = () => { if ($("#gNx").style.display !== "none") return; const ok = b.dataset.p === best[0]; sc.hit(ok); if (ok) score++; else logMistake({ q: `Best pipette for ${vol} µL`, right: best[0], src: "Dilution bench" }); b.classList.add(ok ? "hit" : "miss"); ST.stage.querySelector(`[data-p="${best[0]}"]`).classList.add("hit"); $("#gFb").innerHTML = ok ? `<span class="ok">✓ ${best[0]}</span>` : `<span class="no">${best[0]}.</span> <span class="muted">Pipettes are most accurate near the top of their range, so use the smallest one that fits ${vol} µL.</span>`; $("#gNx").style.display = ""; $("#gNx").onclick = next; });
+        return; }
       let q, ans, why, tubes = "";
       if (level === 2) { const steps = Array.from({ length: g2pick([2, 3]) }, () => g2pick([2, 4, 5, 10])); ans = steps.reduce((a, b) => a * b, 1); q = `Final dilution after ${steps.map(x => `1:${x}`).join(", then ")}?`; why = `Multiply the steps: ${steps.join(" × ")} = ${ans}, so 1:${ans}.`;
         tubes = `<div class="g2-chain">${steps.map((x, k) => `<div class="g2-ch">${dilTube(100, 100 * (x - 1), 100 * x)}<small>1:${x}</small></div>${k < steps.length - 1 ? `<span class="g2-arrow">→</span>` : ""}`).join("")}</div>`; }
@@ -15211,16 +15255,16 @@ function dilRound(level) {
   };
 }
 function startDilBench() {
-  leveledGame("dilbench", "Dilution bench", ["Make the dilution", "Serial dilutions", "Correct the result"],
-    ["Set the sample and diluent volumes. The tube fills as you go: red is sample, blue is diluent.", "Dilutions in series multiply. Work out the final dilution of the chain.", "A result run on a dilution has to be multiplied back. What gets reported?"],
+  leveledGame("dilbench", "Dilution bench", ["Make the dilution", "Build a serial dilution", "Pick the pipette"],
+    ["Set the sample and diluent volumes. The tube fills as you go: red is sample, blue is diluent.", "Tap dilution steps to build a chain that hits the target. Serial steps multiply.", "Choose the right pipette for each volume, the way you would at the bench."],
     [dilRound(1), dilRound(2), dilRound(3)]);
 }
 /* ===================== v51 · new games, part 3 ===================== */
 /* ---------- Memory match: flip two, find the pairs ---------- */
 const MM_SETS = {
-  tubes: [["Lavender", "EDTA"], ["Light blue", "Sodium citrate"], ["Gray", "Sodium fluoride"], ["Green", "Heparin"], ["Gold", "Clot activator + gel"], ["Royal blue", "Trace elements"], ["Pink", "EDTA (blood bank)"], ["Yellow", "SPS (cultures)"]],
+  bugs: [["S. aureus", "Coagulase positive"], ["S. saprophyticus", "Novobiocin resistant"], ["S. pyogenes", "Bacitracin sensitive"], ["S. pneumoniae", "Optochin sensitive"], ["E. coli", "Lactose +, indole +"], ["Pseudomonas", "Oxidase +, grape odor"], ["Proteus", "Swarming, H₂S +"], ["Enterococcus", "Grows in 6.5% NaCl"], ["Klebsiella", "Mucoid lactose fermenter"], ["Neisseria", "Oxidase + diplococci"]],
   abbr: [["MCV", "Mean cell volume"], ["RDW", "Red cell distribution width"], ["PT", "Prothrombin time"], ["DAT", "Direct antiglobulin test"], ["BUN", "Blood urea nitrogen"], ["ESR", "Sed rate"], ["ALT", "Liver enzyme (hepatocellular)"], ["TIBC", "Total iron-binding capacity"], ["INR", "Standardized PT ratio"], ["CSF", "Cerebrospinal fluid"]],
-  ranges: [["Sodium", "135–145 mmol/L"], ["Potassium", "3.5–5.0 mmol/L"], ["Glucose (fasting)", "70–99 mg/dL"], ["Calcium", "8.5–10.5 mg/dL"], ["Hemoglobin (adult F)", "12–16 g/dL"], ["Platelets", "150–400 ×10³/µL"], ["WBC", "4.5–11 ×10³/µL"], ["Chloride", "98–107 mmol/L"], ["BUN", "7–20 mg/dL"], ["Creatinine", "0.6–1.2 mg/dL"]]
+  abs: [["Anti-K", "Severe HDFN, Kell system"], ["Anti-D", "Classic Rh HDFN"], ["Anti-Jka", "Delayed hemolytic reactions"], ["Anti-Fya", "Destroyed by enzymes"], ["Anti-Lea", "Lewis, not an HDFN risk"], ["Anti-I", "Cold autoantibody (Mycoplasma)"], ["Anti-M", "Cold, usually insignificant"], ["Anti-c", "Rh, can cause HDFN"], ["Anti-E", "Rh, warm and significant"], ["Anti-P1", "Cold, rarely significant"]],
 };
 function mmRound(set, n, timed) {
   return done => {
@@ -15237,19 +15281,22 @@ function mmRound(set, n, timed) {
   };
 }
 function startMemMatch() {
-  leveledGame("match2", "Memory match", ["Tubes and additives", "Abbreviations", "Reference ranges, timed"],
-    ["Flip two cards at a time and match each tube to its additive. Fewer misses, more points.", "Abbreviations you’ll see on every requisition. Match each to its meaning.", "Adult reference ranges against the clock: 10 pairs, 120 seconds."],
-    [mmRound("tubes", 6), mmRound("abbr", 8), mmRound("ranges", 10, 120)]);
+  leveledGame("match2", "Memory match", ["Abbreviations", "Organisms and key reactions", "Blood bank antibodies, timed"],
+    ["Flip two cards at a time. Match each abbreviation to its meaning; fewer misses, more points.", "Match each organism to the reaction that gives it away.", "Match each antibody to why it matters: 10 pairs, 120 seconds."],
+    [mmRound("abbr", 6), mmRound("bugs", 8), mmRound("abs", 10, 120)]);
 }
 
 /* ---------- Bench procedures: put the steps in order ---------- */
 const PROCS = [
-  ["Order of draw", 1, ["Blood culture bottles", "Light blue (citrate)", "Red or gold (serum)", "Green (heparin)", "Lavender (EDTA)", "Gray (fluoride)"]],
+  ["Urine dipstick testing", 1, ["Mix the urine well", "Dip the strip briefly, wetting every pad", "Blot the edge to remove excess", "Read each pad at its timed interval", "Compare against the color chart and record"]],
+  ["ESR (Westergren)", 1, ["Mix the EDTA sample well", "Fill the Westergren tube to the zero mark", "Stand it perfectly vertical", "Wait exactly 60 minutes", "Read the clear plasma in mm"]],
   ["CSF tubes", 1, ["Tube 1: chemistry and serology", "Tube 2: microbiology", "Tube 3: hematology cell count", "Tube 4: extra or additional micro"]],
   ["Gram stain", 2, ["Heat or methanol fix the smear", "Crystal violet (primary stain)", "Gram’s iodine (mordant)", "Decolorize with acetone-alcohol", "Safranin (counterstain)", "Rinse, dry, examine under oil"]],
   ["Hemostasis", 2, ["Vascular constriction", "Platelet adhesion (vWF)", "Platelet activation and aggregation", "Coagulation cascade makes thrombin", "Fibrin clot forms and stabilizes", "Fibrinolysis dissolves the clot"]],
   ["Neutrophil maturation", 2, ["Myeloblast", "Promyelocyte", "Myelocyte", "Metamyelocyte", "Band", "Segmented neutrophil"]],
   ["Red cell maturation", 2, ["Pronormoblast", "Basophilic normoblast", "Polychromatic normoblast", "Orthochromic normoblast", "Reticulocyte", "Mature red cell"]],
+  ["Kirby-Bauer susceptibility", 3, ["Make a 0.5 McFarland suspension", "Swab a lawn across the Mueller-Hinton plate", "Apply the antibiotic disks within 15 minutes", "Incubate at 35 °C for 16–18 hours", "Measure each zone of inhibition in mm", "Interpret S, I or R with the breakpoint table"]],
+  ["Acid-fast stain (Ziehl-Neelsen)", 2, ["Heat-fix the smear", "Flood with carbol fuchsin and steam it", "Decolorize with acid-alcohol", "Counterstain with methylene blue", "Rinse, dry and examine under oil"]],
   ["Pretransfusion testing", 3, ["Verify patient ID on the sample", "ABO and Rh typing", "Antibody screen", "Select ABO/Rh-compatible units", "Crossmatch", "Tag the unit and release it"]],
   ["Venipuncture", 3, ["Identify the patient with two identifiers", "Hand hygiene and gloves", "Apply the tourniquet and choose a vein", "Clean the site and let it dry", "Insert the needle and fill tubes in order of draw", "Release the tourniquet", "Remove the needle, apply pressure, engage the safety", "Label the tubes at the bedside"]],
   ["Blood culture collection", 3, ["Identify the patient", "Disinfect the bottle tops", "Prep the skin and let it dry fully", "Draw without re-touching the site", "Inoculate the aerobic bottle, then anaerobic (syringe draw)", "Label and send promptly"]]
@@ -15277,7 +15324,7 @@ function procRound(level) {
 }
 function startProcs() {
   leveledGame("procs", "Bench procedures", ["Short sequences", "Stains, stages and cascades", "Full procedures"],
-    ["Order of draw and CSF tubes. Put every step in the right place.", "Gram stain, hemostasis and the cell maturation series.", "Venipuncture, blood cultures and pretransfusion testing, start to finish."],
+    ["CSF tubes, urine dipsticks and the ESR. Put every step in the right place.", "Gram stain, hemostasis and the cell maturation series.", "Kirby-Bauer, venipuncture, blood cultures and pretransfusion testing, start to finish."],
     [procRound(1), procRound(2), procRound(3)]);
 }
 
@@ -15337,11 +15384,157 @@ function startSpep() {
 /* ---------- register the new games ---------- */
 GAMES.push(["diff", "Cell counter", "Hematology & coag", () => startDiffCounter()], ["hemocyt", "Hemocytometer", "Hematology & coag", () => startHemocyt()], ["sort", "Specimen sort", "Lab basics", () => startSort()], ["dilbench", "Dilution bench", "Lab basics", () => startDilBench()], ["procs", "Bench procedures", "Lab basics", () => startProcs()], ["spep", "Electrophoresis reader", "Chemistry & urinalysis", () => startSpep()], ["match2", "Memory match", "Review & recall", () => startMemMatch()], ["terms", "Term builder", "Review & recall", () => startTerms()]);
 Object.assign(GAME_NAMES, { diff: "Cell counter", hemocyt: "Hemocytometer", sort: "Specimen sort", dilbench: "Dilution bench", procs: "Bench procedures", spep: "Electrophoresis reader", match2: "Memory match", terms: "Term builder" });
-Object.assign(GAME_META, { diff: ["🔬", "Classify white cells on a counter keypad, like a real manual diff"], hemocyt: ["🧮", "Count cells on the grid, apply the border rule, do the math"], sort: ["📦", "Drag specimens to the right bench, then accept or reject"], dilbench: ["🧪", "Set the volumes, watch the tube fill, correct the results"], procs: ["🧭", "Drag the steps of real procedures into order"], spep: ["📈", "Read protein electrophoresis curves and name the pattern"], match2: ["🃏", "Flip and match tubes, abbreviations and reference ranges"], terms: ["🔤", "Spell lab terms from their definitions"] });
+Object.assign(GAME_META, { diff: ["🔬", "Classify white cells on a counter keypad, like a real manual diff"], hemocyt: ["🧮", "Count cells on the grid, apply the border rule, do the math"], sort: ["📦", "Route tests to benches, handle specimens right, accept or reject"], dilbench: ["🧪", "Set volumes, build serial dilutions, pick the right pipette"], procs: ["🧭", "Drag the steps of stains, tests and procedures into order"], spep: ["📈", "Read protein electrophoresis curves and name the pattern"], match2: ["🃏", "Flip and match abbreviations, organisms and blood bank antibodies"], terms: ["🔤", "Spell lab terms from their definitions"] });
 Object.assign(GAME_REQ, { diff: ["b-heme1", "l-wbc"], hemocyt: ["b-cbc", "l-blood"], sort: ["b-collect", "l-collect"], dilbench: ["b-dil", "l-dil"], procs: ["b-collect", "l-collect"], spep: ["b-proteins", "l-markers"], match2: [], terms: [] });
 Object.assign(GAME_CAP, { diff: "#A48BDB", hemocyt: "#E5484D", sort: "#3AA0FF", dilbench: "#C0392B", procs: "#2F6FB5", spep: "#1FA2A0", match2: "#7B4FE0", terms: "#34C759" });
 GAMES.slice(-8).forEach(([id, n, , fn]) => { GAME_OPEN[id] = [n, fn]; TOOL_FN["g_" + id] = () => gated(id, n, fn)(); });
 ["startDiffCounter", "startHemocyt", "startSort", "startDilBench", "startProcs", "startSpep", "startMemMatch", "startTerms"].forEach(n => { try { navWrap(n); } catch { } });
+/* ===================== v52 · program lessons rewritten as walkthroughs (batch 1) =====================
+   Same lesson ids, so completion and progress carry over. Each beat: one idea, then a quick check. */
+const LESSON_BEATS_1 = {
+"l-lab": [
+ ["The clinical lab turns specimens into results that drive care. Roughly {{70%}} of medical decisions lean on a lab result somewhere.", ["About how many medical decisions rely on lab results?", ["Around 70%", "Around 10%", "Around 30%", "Nearly none"], 0, "The lab is behind most diagnoses, treatment changes and discharges."]],
+ ["Every test moves through three phases: {{preanalytical}} (ordering, collecting, transporting), {{analytical}} (running the test) and {{postanalytical}} (reporting and interpreting).", ["Labeling a tube happens in which phase?", ["Preanalytical", "Analytical", "Postanalytical", "Quality phase"], 0, "Anything before the analyzer touches the sample is preanalytical."]],
+ ["Most lab errors happen {{before}} testing even starts: wrong patient, wrong tube, hemolysis, clots, delays. Analyzers rarely make the mistake.", ["Where do most lab errors happen?", ["Before testing (preanalytical)", "Inside the analyzer", "After the result is released", "In billing"], 0, "Specimen problems cause far more errors than instruments do."]],
+ ["The lab is split into departments: {{hematology}} (cells), {{chemistry}} (dissolved substances), {{microbiology}} (organisms), {{blood bank}} (transfusion) and {{urinalysis}}.", ["A potassium level is run in:", ["Chemistry", "Hematology", "Microbiology", "Blood bank"], 0, "Electrolytes are dissolved substances, so chemistry runs them."]],
+ ["A {{STAT}} order means urgent: the result is needed now because it may change treatment immediately. Routine tests run in normal batches.", ["A STAT troponin should be:", ["Run ahead of routine work", "Batched with the morning run", "Sent to a reference lab", "Held until the doctor calls"], 0, "STAT means right away."]],
+ ["The {{turnaround time}} (TAT) is the time from order (or collection) to reported result. Labs track it because slow results delay care.", ["Turnaround time measures:", ["Time from order to reported result", "How long a tube can sit before spinning", "Analyzer warm-up time", "Shift length"], 0, "TAT is the clock the clinician feels."]],
+ ["The {{LIS}} (laboratory information system) tracks orders, specimens and results, and sends results to the patient chart.", ["What does the LIS do?", ["Tracks orders and results and sends them to the chart", "Calibrates analyzers", "Stores blood units", "Cleans pipettes"], 0, "The LIS is the lab’s data backbone."]],
+ ["An {{MLS}} performs and interprets complex testing, troubleshoots, and releases results. An MLT does routine testing under supervision.", ["Who usually troubleshoots a failed QC run?", ["The MLS", "The phlebotomist", "The courier", "The ordering provider"], 0, "Troubleshooting and judgment are core MLS work."]],
+ ["{{Critical values}} are results so far from normal that the patient may be in danger. They must be called to a licensed caregiver quickly, with a read-back.", ["A critical value must be:", ["Called promptly with a read-back", "Emailed at the end of the shift", "Repeated three times first", "Held for review"], 0, "Fast, confirmed communication protects the patient."]]
+],
+"l-safety": [
+ ["{{Standard precautions}} treat every specimen as if it could be infectious, because you can’t tell by looking.", ["Standard precautions apply to:", ["Every specimen", "Only known HIV samples", "Only blood bank samples", "Only STAT samples"], 0, "Assume everything is infectious."]],
+ ["Your {{PPE}} in the lab: a fluid-resistant lab coat, gloves, and eye and face protection whenever splashes are possible.", ["Opening a tube can spray aerosols. What should you wear?", ["Gloves, coat and face/eye protection", "Gloves only", "Nothing if you’re careful", "A paper mask only"], 0, "Splash risk means protecting your eyes and face too."]],
+ ["{{Hand hygiene}} is the single most effective way to stop the spread of infection. Wash after removing gloves, every time.", ["After taking off gloves, you should:", ["Wash or sanitize your hands", "Put on a new coat", "Wipe hands on your coat", "Nothing; gloves protected you"], 0, "Gloves can have tiny holes, and removal can contaminate hands."]],
+ ["{{Sharps}} go straight into a puncture-resistant sharps container. Never recap a used needle by hand.", ["A used needle should be:", ["Dropped in the sharps container, not recapped", "Recapped with two hands", "Put in the regular trash", "Bent first"], 0, "Recapping causes needlesticks."]],
+ ["After a {{needlestick}}: wash the site with soap and water, report it right away, and get evaluated. Timing matters for preventive treatment.", ["First step after a needlestick?", ["Wash the site and report it immediately", "Finish your work, then report", "Squeeze it and ignore it", "Apply bleach to the wound"], 0, "Fast reporting allows preventive treatment."]],
+ ["Clean spills with a disinfectant like a fresh {{10% bleach}} solution, which kills bloodborne viruses. Leave it in contact for the full time.", ["The classic disinfectant for blood spills is:", ["10% bleach", "Plain water", "70% bleach", "Hand lotion"], 0, "A 1:10 bleach dilution is standard."]],
+ ["{{SDS}} (safety data sheets) describe each chemical’s hazards, PPE and first aid. Every lab must keep them where staff can reach them.", ["Where do you find a chemical’s hazards and first aid?", ["Its SDS", "The LIS", "The QC log", "The requisition"], 0, "SDS are the chemical reference."]],
+ ["For fire, remember {{RACE}}: Rescue, Alarm, Contain, Extinguish. For using the extinguisher, {{PASS}}: Pull, Aim, Squeeze, Sweep.", ["In RACE, what does the A stand for?", ["Alarm", "Aim", "Assess", "Assist"], 0, "Rescue, Alarm, Contain, Extinguish."]],
+ ["A {{biosafety cabinet}} protects you and the sample with filtered airflow. Work inside it for anything that might make infectious aerosols.", ["When do you use the biosafety cabinet?", ["When a task might create infectious aerosols", "For all chemistry", "Only for paperwork", "To store reagents"], 0, "Aerosol-producing work belongs in the cabinet."]]
+],
+"l-collect": [
+ ["Every specimen starts with patient ID: at least {{two identifiers}}, like full name and date of birth, checked against the requisition.", ["How many identifiers confirm a patient’s ID?", ["At least two", "One", "Room number only", "None if they’re asleep"], 0, "Two identifiers, never a room number."]],
+ ["Label tubes {{at the bedside}}, after collection, in front of the patient. Pre-labeled tubes are how wrong-blood-in-tube errors happen.", ["When should tubes be labeled?", ["At the bedside, right after collection", "Before entering the room", "Back in the lab", "Whenever convenient"], 0, "Labeling with the patient present prevents mix-ups."]],
+ ["The {{order of draw}} stops additives from carrying over between tubes: blood cultures, light blue, red/gold, green, lavender, gray.", ["Which tube is drawn first?", ["Blood culture bottles", "Lavender", "Gray", "Green"], 0, "Sterile cultures go first, to avoid contamination."]],
+ ["Why order matters: {{EDTA}} from a lavender tube carried into a gold tube can falsely raise potassium and lower calcium.", ["EDTA carryover into a chemistry tube can cause:", ["False high potassium, false low calcium", "False high glucose", "Clotted CBC", "No effect"], 0, "EDTA is potassium salt and binds calcium."]],
+ ["Leave the {{tourniquet}} on for less than a minute. Longer causes hemoconcentration, which falsely raises proteins and other analytes.", ["Maximum tourniquet time?", ["About 1 minute", "5 minutes", "10 minutes", "No limit"], 0, "Long tourniquet time concentrates the blood."]],
+ ["Light blue (citrate) tubes must be {{filled to the line}}: the 9:1 blood-to-citrate ratio controls coagulation results.", ["An underfilled light blue tube makes PT and aPTT:", ["Falsely long", "Falsely short", "Unchanged", "Impossible to run"], 0, "Too much citrate for the blood leaves clotting times falsely prolonged."]],
+ ["{{Hemolysis}} (broken red cells) releases potassium, LD and AST. Rough draws, small needles and shaking tubes cause it.", ["Hemolysis falsely raises:", ["Potassium", "Sodium", "Glucose", "Albumin"], 0, "Red cells are full of potassium."]],
+ ["Some specimens need special handling: {{ammonia}} on ice, {{bilirubin}} protected from light, cold agglutinins kept at body temperature.", ["Ammonia should be transported:", ["On ice, quickly", "At room temperature", "In the dark only", "Frozen solid"], 0, "Ammonia keeps rising as the sample sits warm."]],
+ ["Serum or plasma must be {{separated from cells}} within about 2 hours, or glucose drops and potassium leaks out of the cells.", ["Serum left on cells for hours will show:", ["Low glucose, high potassium", "High glucose, low potassium", "No change", "High sodium"], 0, "Cells keep using glucose and leak potassium."]]
+],
+"l-dil": [
+ ["A dilution is written {{sample : total}}. A 1:5 dilution is 1 part sample in 5 parts total, which means 1 part sample plus 4 parts diluent.", ["1 mL serum + 9 mL saline makes:", ["1:10", "1:9", "1:8", "1:1"], 0, "Total is 10 mL, and 1 of it is sample."]],
+ ["The {{dilution factor}} is the total divided by the sample. It’s the number you multiply by to undo the dilution.", ["The dilution factor of 1:20 is:", ["20", "1/20", "19", "21"], 0, "Total ÷ sample = 20."]],
+ ["Results run on a diluted sample must be {{multiplied back}}: a glucose read at 60 on a 1:10 dilution is reported as 600.", ["You read 45 on a 1:5 dilution. Report:", ["225", "45", "9", "50"], 0, "45 × 5 = 225."]],
+ ["In a {{serial dilution}}, each tube is diluted from the one before. Multiply the steps: 1:2, then 1:2, then 1:2 gives 1:8.", ["1:5 then 1:10 gives:", ["1:50", "1:15", "1:2", "1:500"], 0, "5 × 10 = 50."]],
+ ["A {{titer}} is the reciprocal of the highest dilution that still reacts. Reactions through 1:64 mean a titer of 64.", ["Reactions at 1:2 through 1:32, none at 1:64. The titer is:", ["32", "64", "2", "16"], 0, "The last positive dilution was 1:32."]],
+ ["To make a weaker solution from a stronger one, use {{C₁V₁ = C₂V₂}}: concentration times volume stays the same before and after.", ["To make 100 mL of 2% from 10% stock you need:", ["20 mL of stock", "2 mL of stock", "50 mL of stock", "10 mL of stock"], 0, "10 × V₁ = 2 × 100, so V₁ = 20 mL."]],
+ ["{{Percent weight/volume}} is grams per 100 mL. A 0.9% saline solution has 0.9 g of salt in every 100 mL.", ["How much NaCl is in 1 L of 0.9% saline?", ["9 g", "0.9 g", "90 g", "0.09 g"], 0, "0.9 g per 100 mL × 10 = 9 g per liter."]],
+ ["{{Molarity}} is moles per liter. Grams needed = molarity × molecular weight × liters.", ["1 L of 1 M NaCl (MW 58.5) needs:", ["58.5 g", "5.85 g", "1 g", "585 g"], 0, "1 × 58.5 × 1 = 58.5 g."]],
+ ["Always check a calculated result makes sense: a {{dilution}} should never make the reported value smaller than what you read.", ["You read 30 on a 1:4 dilution and calculate 7.5. What went wrong?", ["You divided instead of multiplying", "Nothing", "You forgot to add 4", "The titer is wrong"], 0, "Undoing a dilution always makes the number bigger."]]
+],
+"l-qc": [
+ ["{{Quality control}} (QC) samples have known expected values. Running them proves the test system works before you trust patient results.", ["Why run QC?", ["To prove the test system works before reporting patients", "To calibrate the patient", "To bill the test", "To replace calibration"], 0, "QC is your check that results can be trusted."]],
+ ["Each control has a {{mean}} and a {{standard deviation}} (SD) from repeated runs. The SD measures how much results normally wobble.", ["The SD of a control describes:", ["Its normal run-to-run variation", "Its exact true value", "The reagent lot", "Patient range"], 0, "Bigger SD, more spread."]],
+ ["The {{Levey-Jennings chart}} plots each control result against its mean and ±1, 2 and 3 SD lines, so patterns jump out.", ["A Levey-Jennings chart plots:", ["Control results over time against SD lines", "Patient results by age", "Turnaround time", "Reagent costs"], 0, "It shows drift and shifts at a glance."]],
+ ["{{Westgard rules}} decide accept or reject. 1-3s: one control beyond ±3 SD means reject; it signals random error.", ["One control at +3.4 SD. Under 1-3s you:", ["Reject the run", "Accept the run", "Average it with yesterday", "Report and fix later"], 0, "Beyond 3 SD is a rejection."]],
+ ["2-2s: two controls in a row (or two levels at once) beyond the same 2 SD limit means reject. It signals {{systematic error}}.", ["Two consecutive controls at +2.3 SD:", ["Reject (2-2s)", "Accept", "Warning only", "Recalibrate the patient"], 0, "Same side, beyond 2 SD, twice."]],
+ ["R-4s: one control above +2 SD and another below −2 SD in the same run means a 4 SD spread. That’s {{random error}}.", ["Level 1 at +2.2 SD, level 2 at −2.1 SD, same run:", ["Reject (R-4s)", "Accept", "Warning only", "Rerun one level"], 0, "Opposite sides, more than 4 SD apart."]],
+ ["A {{shift}} is a sudden jump to a new level (new reagent lot, recalibration). A {{trend}} is a gradual drift in one direction (aging lamp or reagent).", ["Six results creeping steadily upward is a:", ["Trend", "Shift", "Random error", "Calibration"], 0, "Gradual and one-directional means a trend."]],
+ ["When QC fails, {{don’t report patients}}. Troubleshoot (reagents, calibration, instrument), fix it, rerun QC, then rerun affected patients.", ["After a QC rejection, patient results from that run should be:", ["Held until QC passes, then rerun", "Released as usual", "Deleted", "Reported with a comment only"], 0, "Results are only reportable when QC is in control."]],
+ ["{{Calibration}} sets the instrument’s scale using standards of known value; QC checks that the calibration is still holding.", ["Calibration differs from QC because calibration:", ["Sets the measuring scale", "Checks the scale", "Is done every patient", "Is optional"], 0, "Calibrate to set, QC to check."]]
+],
+"l-ref": [
+ ["A {{reference interval}} is the range of results seen in healthy people, usually the middle 95%. So 1 healthy person in 20 falls outside it.", ["A reference interval usually covers:", ["The middle 95% of healthy people", "Every healthy person", "The middle 50%", "Only sick people"], 0, "2.5% fall below and 2.5% above."]],
+ ["Being outside the interval doesn’t automatically mean disease, and being inside it doesn’t rule disease out. Results are {{interpreted in context}}.", ["A result just outside the reference interval means:", ["It needs context; it isn’t automatically disease", "Definite disease", "Lab error", "The patient must be retested STAT"], 0, "Healthy people land outside sometimes."]],
+ ["Intervals depend on {{age, sex}} and sometimes pregnancy. Hemoglobin runs higher in adult men than women; alkaline phosphatase runs high in growing kids.", ["Why is alkaline phosphatase high in children?", ["Bone growth", "Kidney disease", "Lab error", "Fasting"], 0, "Growing bone makes ALP."]],
+ ["Each lab {{verifies}} or establishes its own intervals for its methods and population, so intervals differ between labs.", ["Why can two labs have different intervals for the same test?", ["Different methods and populations", "One of them is wrong", "Intervals are random", "Only one is accredited"], 0, "Method and population both shape the range."]],
+ ["A {{critical value}} is a result so abnormal it may be life-threatening, like potassium above about 6.0 or glucose below about 40 mg/dL.", ["Potassium of 6.8 mmol/L is:", ["A critical value", "Normal", "Mildly high only", "A delta check"], 0, "High potassium can stop the heart."]],
+ ["Critical values are {{called}} to a licensed caregiver right away, who reads the value back. Document who, when and the read-back.", ["What makes a critical call complete?", ["The receiver reads it back, and you document it", "Leaving a voicemail", "An email", "Telling the courier"], 0, "Read-back confirms the result was heard correctly."]],
+ ["A {{delta check}} compares a result with the patient’s previous one. A big unexplained jump can reveal a mislabeled specimen.", ["Yesterday’s MCV was 82, today’s is 104. That may point to:", ["A mislabeled specimen (failed delta check)", "Normal variation", "Better QC", "Dehydration"], 0, "MCV barely changes day to day."]],
+ ["{{Panic}} and critical mean the same thing in most labs. Your lab’s critical list is the one that counts.", ["Whose critical value list do you follow?", ["Your own lab’s", "Any textbook’s", "The physician’s preference", "The analyzer manual’s"], 0, "Policies are set locally."]]
+],
+"l-blood": [
+ ["Blood is {{plasma}} (about 55%, mostly water with proteins, salts and nutrients) plus cells (about 45%).", ["Plasma makes up about how much of blood?", ["55%", "10%", "90%", "25%"], 0, "Cells are the other ~45%."]],
+ ["Spin {{anticoagulated}} blood and you get plasma on top. Let blood {{clot}} and you get serum, which is plasma without the clotting factors.", ["Serum differs from plasma because it lacks:", ["Clotting factors like fibrinogen", "Water", "Glucose", "Electrolytes"], 0, "Clotting uses up fibrinogen."]],
+ ["The {{hematocrit}} is the percent of blood volume made of red cells, about 40–50% in adults.", ["Hematocrit measures:", ["The percent of blood that is red cells", "Hemoglobin concentration", "White cell count", "Plasma proteins"], 0, "It’s the packed red cell fraction."]],
+ ["All blood cells come from {{hematopoietic stem cells}} in the bone marrow, a process called hematopoiesis.", ["Where are adult blood cells made?", ["Bone marrow", "Liver", "Spleen", "Kidney"], 0, "Marrow is the adult factory."]],
+ ["Stem cells split into two lines: {{myeloid}} (red cells, platelets, granulocytes, monocytes) and {{lymphoid}} (lymphocytes).", ["Lymphocytes come from the:", ["Lymphoid line", "Myeloid line", "Erythroid line", "Megakaryocyte line"], 0, "Everything else is myeloid."]],
+ ["{{Erythropoietin}} (EPO), made by the kidneys when oxygen is low, tells the marrow to make more red cells.", ["Which organ makes erythropoietin?", ["Kidney", "Liver", "Bone marrow", "Spleen"], 0, "Kidneys sense low oxygen."]],
+ ["Red cells live about {{120 days}}; platelets about 7–10 days; neutrophils only hours in the blood.", ["Red cell lifespan:", ["About 120 days", "About 7 days", "About 1 year", "About 24 hours"], 0, "That’s why A1c reflects ~3 months."]],
+ ["Old red cells are removed by the {{spleen}}, which recycles iron and turns heme into bilirubin.", ["Heme is broken down into:", ["Bilirubin", "Urea", "Creatinine", "Albumin"], 0, "Bilirubin is the yellow pigment of jaundice."]],
+ ["A {{CBC}} counts and sizes the cells: WBC, RBC, hemoglobin, hematocrit, indices and platelets, often with a differential.", ["A CBC is drawn in which tube?", ["Lavender (EDTA)", "Light blue", "Gold", "Gray"], 0, "EDTA preserves cell shape."]]
+],
+"l-wbc": [
+ ["White cells fight infection. The five normal types are {{neutrophils}}, {{lymphocytes}}, {{monocytes}}, eosinophils and basophils.", ["Which is NOT a normal white cell?", ["Reticulocyte", "Neutrophil", "Monocyte", "Basophil"], 0, "Reticulocytes are young red cells."]],
+ ["{{Neutrophils}} are the most common (about 50–70%). They have 3–5 nuclear lobes and fight bacteria.", ["The most common white cell in adults:", ["Neutrophil", "Lymphocyte", "Monocyte", "Eosinophil"], 0, "Over half of adult WBCs."]],
+ ["A {{band}} is a young neutrophil with a curved, unsegmented nucleus. More bands (a left shift) suggests acute infection.", ["Increased bands suggest:", ["Acute bacterial infection", "Allergy", "Viral infection", "Normal aging"], 0, "The marrow releases young cells under demand."]],
+ ["{{Lymphocytes}} (about 20–40%) are small, with a round dense nucleus and a thin blue rim. They drive immunity: B cells, T cells, NK cells.", ["A small cell with a round, dense nucleus and thin blue rim:", ["Lymphocyte", "Monocyte", "Neutrophil", "Basophil"], 0, "Classic lymph look."]],
+ ["{{Reactive lymphocytes}} are larger with abundant blue cytoplasm that hugs neighboring red cells. Think viral infection, like mono.", ["Reactive lymphocytes are classic in:", ["Infectious mononucleosis", "Iron deficiency", "Bacterial pneumonia", "Allergy"], 0, "EBV drives them."]],
+ ["{{Monocytes}} are the largest, with a folded nucleus and gray-blue cytoplasm with vacuoles. In tissue they become macrophages.", ["Monocytes become ______ in tissue.", ["Macrophages", "Plasma cells", "Mast cells", "Platelets"], 0, "Same cell, different address."]],
+ ["{{Eosinophils}} have bright orange-red granules and a bilobed nucleus. They rise with allergies and parasites.", ["High eosinophils suggest:", ["Allergy or parasites", "Bacterial infection", "Viral infection", "Bleeding"], 0, "Think allergy or worms."]],
+ ["{{Basophils}} are rare, with dark purple granules full of histamine. Many basophils point toward CML.", ["Basophil granules contain:", ["Histamine", "Hemoglobin", "Fibrinogen", "Bilirubin"], 0, "Histamine drives allergic reactions."]],
+ ["The {{absolute count}} = WBC × percent. A 10 ×10³/µL WBC with 60% neutrophils means 6.0 ×10³/µL neutrophils.", ["WBC 8.0, lymphs 25%. Absolute lymphs:", ["2.0 ×10³/µL", "25 ×10³/µL", "0.32 ×10³/µL", "8.25 ×10³/µL"], 0, "8.0 × 0.25 = 2.0."]]
+],
+"l-rbc": [
+ ["Red cell {{indices}} describe the average red cell: MCV (size), MCH (hemoglobin per cell) and MCHC (hemoglobin concentration).", ["MCV tells you the average red cell’s:", ["Size", "Color", "Lifespan", "Shape"], 0, "Mean cell volume."]],
+ ["{{MCV}} = Hct × 10 ÷ RBC. Normal is about 80–100 fL. Under 80 is microcytic, over 100 is macrocytic.", ["MCV of 72 fL is:", ["Microcytic", "Normocytic", "Macrocytic", "Hyperchromic"], 0, "Below 80 is small."]],
+ ["{{MCHC}} = Hgb ÷ Hct × 100, normally about 32–36 g/dL. Low means hypochromic (pale); high usually means spherocytes.", ["A high MCHC suggests:", ["Spherocytes", "Iron deficiency", "B12 deficiency", "Normal cells"], 0, "Spherocytes are dense with no central pallor."]],
+ ["The {{RDW}} measures variation in size (anisocytosis). A high RDW means the cells are mixed sizes, common in early iron deficiency.", ["A high RDW means:", ["Variable cell sizes", "Large cells", "Pale cells", "Too many cells"], 0, "RDW = spread of sizes."]],
+ ["{{Poikilocytosis}} means variation in shape. The shape often names the cause.", ["Poikilocytosis describes changes in red cell:", ["Shape", "Size", "Color", "Number"], 0, "Poikilo = varied."]],
+ ["{{Schistocytes}} are fragments sheared in damaged vessels: DIC, TTP, HUS or mechanical valves. They’re an urgent finding.", ["Schistocytes suggest:", ["Microangiopathic hemolysis (DIC, TTP)", "Iron deficiency", "Normal aging", "Vitamin C deficiency"], 0, "Red cells torn apart in small vessels."]],
+ ["{{Target cells}} have a bull’s-eye look: liver disease, thalassemia and hemoglobin C.", ["Target cells are common in:", ["Thalassemia and liver disease", "Iron overload only", "Lead poisoning only", "Normal smears"], 0, "Extra membrane relative to hemoglobin."]],
+ ["{{Inclusions}} have meanings: Howell-Jolly bodies (no spleen), basophilic stippling (lead, thalassemia), Heinz bodies (G6PD; need a supravital stain).", ["Howell-Jolly bodies suggest:", ["No functioning spleen", "Lead poisoning", "Iron deficiency", "Infection"], 0, "The spleen normally pits them out."]],
+ ["A {{reticulocyte}} count shows marrow response. High = the marrow is replacing lost cells (bleeding, hemolysis). Low = the marrow isn’t keeping up.", ["Anemia with a high retic count points to:", ["Blood loss or hemolysis", "Marrow failure", "B12 deficiency", "Kidney disease"], 0, "The marrow is working hard to replace cells."]]
+],
+"l-anemia": [
+ ["{{Anemia}} means low hemoglobin or red cell mass, which means less oxygen delivery: fatigue, pallor, shortness of breath.", ["Anemia is defined by low:", ["Hemoglobin or red cell mass", "White count", "Platelets", "Iron only"], 0, "It’s about oxygen-carrying capacity."]],
+ ["Start the workup with the {{MCV}}: microcytic, normocytic or macrocytic narrows the causes fast.", ["The first index to sort an anemia:", ["MCV", "RDW", "Platelet count", "WBC"], 0, "Size points to the cause."]],
+ ["{{Microcytic}} anemias: iron deficiency, thalassemia, anemia of chronic disease (sometimes) and sideroblastic anemia.", ["Which is a microcytic anemia?", ["Iron deficiency", "B12 deficiency", "Folate deficiency", "Acute blood loss"], 0, "Not enough iron, so smaller cells."]],
+ ["Iron deficiency: low {{ferritin}} (the earliest sign), low serum iron, high TIBC and a high RDW.", ["The earliest lab sign of iron deficiency:", ["Low ferritin", "High MCV", "Low TIBC", "High reticulocytes"], 0, "Stores empty first."]],
+ ["{{Thalassemia}} trait: very microcytic, but the RBC count is normal or high and the RDW is usually normal. Iron studies are normal.", ["Microcytic, high RBC count, normal ferritin:", ["Thalassemia trait", "Iron deficiency", "B12 deficiency", "Aplastic anemia"], 0, "Lots of small cells, iron is fine."]],
+ ["{{Macrocytic}} anemias: B12 or folate deficiency (megaloblastic, with hypersegmented neutrophils), and also liver disease and alcohol.", ["Hypersegmented neutrophils point to:", ["B12 or folate deficiency", "Iron deficiency", "Thalassemia", "Hemolysis"], 0, "Faulty DNA synthesis."]],
+ ["{{B12 deficiency}} can cause nerve damage; folate deficiency doesn’t. Pernicious anemia is B12 deficiency from missing intrinsic factor.", ["Which deficiency can cause neurologic problems?", ["B12", "Folate", "Iron", "Vitamin C"], 0, "B12 is needed for myelin."]],
+ ["{{Normocytic}} anemias: acute blood loss, hemolysis, kidney disease (low EPO), marrow failure. The retic count splits them.", ["Normocytic anemia with low retics in kidney disease is from:", ["Low erythropoietin", "Hemolysis", "Iron overload", "Bleeding"], 0, "Kidneys make EPO."]],
+ ["{{Hemolysis}} clues: high retics, high indirect bilirubin, high LD, low haptoglobin. Spherocytes or schistocytes hint at the cause.", ["Low haptoglobin with high LD and bilirubin suggests:", ["Hemolysis", "Iron deficiency", "B12 deficiency", "Marrow failure"], 0, "Haptoglobin is used up mopping free hemoglobin."]]
+]
+};
+Object.entries(LESSON_BEATS_1).forEach(([id, beats]) => { const l = LESSONS.find(x => x.id === id); if (l) { l.beats = beats; l._ready = false; l.rewritten = 1; } });
+/* ===================== v52 ===================== */
+/* ---------- rewritten program lessons use the walkthrough player, under their own name ---------- */
+{ const sb = startBootcamp; startBootcamp = function (l, ...a) { const out = sb.call(this, l, ...a); try { ST.lessonRef = l; if (!l.boot) { const t = ST.el.querySelector(".study-top .t"); if (t) t.textContent = l.title; } } catch { } return out; }; }
+{ const sl = startLesson; startLesson = function (l, ...a) { const out = sl.call(this, l, ...a); try { if (ST) ST.lessonRef = l; } catch { } return out; }; }
+{ const os = openStudy; openStudy = function (...a) { const keep = (ST && ST.lessonRef) || null; const out = os.apply(this, a); ST.lessonRef = null; return out; }; }
+
+/* ---------- add a card from inside any lesson or module ---------- */
+function lessonDeckFor(l) { const ids = [].concat((l && l.unlock) || []); for (const u of ids) { const id = u && typeof u === "object" ? u.pack : u; try { const d = findPackDeck(id); if (d && !d.hidden) return d; } catch { } } return null; }
+function addCardFromLesson() {
+  const l = ST && ST.lessonRef; const def = lessonDeckFor(l); const decks = Object.values(S.decks).filter(d => !d.hidden).sort((a, b) => a.name.localeCompare(b.name));
+  modal(`<h2>Add a card</h2><p class="muted" style="margin-top:0">Capture something from ${l ? `“${esc(l.title)}”` : "this lesson"} while it’s fresh. You’ll come right back here.</p>
+    <div class="field"><label for="acDeck">Deck</label><select class="input" id="acDeck">${def ? "" : `<option value="__new">Lesson notes (new deck)</option>`}${decks.map(d => `<option value="${d.id}" ${def && d.id === def.id ? "selected" : ""}>${esc(d.name)}</option>`).join("")}</select></div>
+    <div class="modal-foot"><button class="btn" data-close>Cancel</button><div class="spacer"></div><button class="btn primary" id="acGo">Continue</button></div>`, (s, close) => {
+    $$("[data-close]", s).forEach(b => b.onclick = close);
+    $("#acGo", s).onclick = () => { const v = $("#acDeck", s).value; close(); let d = S.decks[v];
+      if (!d) { d = Object.values(S.decks).find(x => x.name === "Lesson notes"); if (!d) { d = { id: "d" + Date.now().toString(36), name: "Lesson notes", cards: [], fields: [], updated: Date.now() }; S.decks[d.id] = d; saveDeck(d); saveMeta(true); } }
+      editCardModal(d, null, () => toast(`Added to ${d.name}`)); };
+  });
+}
+new MutationObserver(() => { const el = ST && ST.el; if (!el || !el.isConnected || !ST.lessonRef) return; const top = el.querySelector(".study-top"); if (!top || top.querySelector("#lsAdd")) return; const sr = top.querySelector("#sr");
+  (sr || top).insertAdjacentHTML(sr ? "beforebegin" : "beforeend", `<button class="btn ghost sm" id="lsAdd" title="Add a card">${icon("plus")}<span>Add card</span></button>`); top.querySelector("#lsAdd").onclick = addCardFromLesson; }).observe(document.documentElement, { childList: true, subtree: true });
+
+/* ---------- Settings: one centered column ---------- */
+{ const r = render; render = function (...a) { const out = r.apply(this, a); const v = $("#view"); if (v) v.classList.toggle("setpage", (location.hash || "") === "#more"); return out; }; }
+/* ---------- lesson text reads like teaching, not a list: no automatic bullets ---------- */
+formatTeach = function (raw, seen = new Set()) {
+  const t = raw.replace(/\{\{(.+?)\}\}/g, "$1"); const sents = splitSent(t); const G = s => hiNums(gloss(esc(s), seen, true));
+  const defRe = /^([A-Z][^,.:;]{0,42}?)\s(is|are|means)\s(.+)$/; const defs = sents.filter(s => defRe.test(s) && !/^(This|That|It|They|There|These|Those|A|An|The|Most|Many|Some|Labs?|Your|Each|Every|When|If)\b/.test(s));
+  if (defs.length >= 3 && defs.length >= sents.length - 1) return `<div class="tdefs">${sents.map(s => { const m = s.match(defRe); if (m && defs.includes(s)) return `<div class="tdef"><b>${G(m[1])}</b><span>${G(m[2] + " " + m[3])}</span></div>`; return `<p class="tline">${G(s)}</p>`; }).join("")}</div>`;
+  if (sents.length === 1) return `<p class="tlead">${G(sents[0])}</p>`;
+  return `<p class="tlead">${G(sents[0])}</p><p class="tprose">${sents.slice(1).map(G).join(" ")}</p>`;
+};
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
