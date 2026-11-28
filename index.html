@@ -3200,6 +3200,20 @@ textarea#icIn{resize:none;overflow:hidden;line-height:1.45;padding:12px 14px!imp
 .g2-bins.four{grid-template-columns:repeat(2,minmax(0,1fr))}
 .tprose{margin:8px 0 0;font-size:1rem;line-height:1.6;color:var(--ink-2)}
 .g2-card{aspect-ratio:4/3!important;min-height:0!important}.g2-mm{max-width:620px}
+/* module text: one full-size paragraph again */
+.tprose{font-size:inherit!important;color:inherit!important;margin:0!important}
+/* key point and memory hook boxes */
+.tkey,.thook{margin-top:12px;padding:10px 12px;border-radius:12px;font-size:.92rem;line-height:1.5}
+.tkey{background:var(--violet-soft);color:var(--ink)}.tkey span{display:block;font-size:.7rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--violet-ink);margin-bottom:2px}
+.thook{background:color-mix(in srgb,#F5B800 16%,var(--surface));color:var(--ink)}.thook span{display:block;font-size:.7rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#7A5800;margin-bottom:2px}
+/* word bank and show me: real pill buttons */
+.study #wb.btn,.study #show.btn.ghost{background:var(--violet-soft)!important;color:var(--violet-ink)!important;border:0!important;border-radius:999px!important;height:34px;padding:0 14px!important;font-weight:600}
+.study #wb.btn:hover,.study #show.btn.ghost:hover{background:color-mix(in srgb,var(--violet) 18%,var(--surface))!important}
+/* bench procedures: handle, arrows, live drag */
+.g2-mv{display:flex;flex-direction:column;gap:2px}.g2-ar{width:28px;height:20px;border:0;border-radius:6px;background:var(--surface-2);color:var(--ink-3);font-size:.6rem;cursor:pointer;padding:0;line-height:1}.g2-ar:hover{background:var(--violet-soft);color:var(--violet-ink)}
+.g2-grip{cursor:grab;padding:8px 6px;touch-action:none;font-size:1.05rem}.g2-step.drag{box-shadow:0 0 0 2px var(--violet),0 12px 26px rgba(0,0,0,.16)!important;background:var(--surface)}.g2-step.drag .g2-grip{cursor:grabbing}
+.g2-step{cursor:default!important;touch-action:auto!important}.g2-step.bump{background:var(--violet-soft)}
+body.g2-dragging{user-select:none;-webkit-user-select:none;cursor:grabbing}body.g2-dragging .study{touch-action:none}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -3287,7 +3301,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "52.1";
+const APP_VERSION = "52.2";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -15270,9 +15284,9 @@ function mmRound(set, n, timed) {
   return done => {
     const sc = makeScorer("match2"); const pairs = shuffle(MM_SETS[set].slice()).slice(0, n); const cards = shuffle(pairs.flatMap((p, k) => [{ k, t: p[0], side: "a" }, { k, t: p[1], side: "b" }]));
     let open = [], found = 0, misses = 0, lock = false; const t0 = Date.now(); let tick = null;
-    ST.stage.innerHTML = `<div class="g2-mm"><div class="g2-mm-bar"><span>Pairs <b id="mmF">0</b>/${n}</span><span>Misses <b id="mmM">0</b></span>${timed ? `<span id="mmT"></span>` : ""}</div><div class="g2-mm-grid" style="--cols:${n <= 8 ? 4 : 5}">${cards.map((c, i) => `<button class="g2-card" data-i="${i}"><span class="g2-face g2-back"></span><span class="g2-face g2-front ${c.side}">${esc(c.t)}</span></button>`).join("")}</div></div>`;
+    ST.stage.innerHTML = `<div class="g2-mm"><div class="g2-mm-bar"><span>Pairs <b id="mmF">0</b>/${n}</span><span>Misses <b id="mmM">0</b> <small class="muted">(up to ${n} is still perfect)</small></span>${timed ? `<span id="mmT"></span>` : ""}</div><div class="g2-mm-grid" style="--cols:${n <= 8 ? 4 : 5}">${cards.map((c, i) => `<button class="g2-card" data-i="${i}"><span class="g2-face g2-back"></span><span class="g2-face g2-front ${c.side}">${esc(c.t)}</span></button>`).join("")}</div></div>`;
     g2top(sc, 1, 1); sc.start();
-    const end = () => { clearInterval(tick); const score = Math.max(0, n - Math.max(0, misses - Math.ceil(n / 2))); g2finish(sc, done, Math.min(n, score), n); };
+    const end = () => { clearInterval(tick); const score = Math.max(0, n - Math.ceil(Math.max(0, misses - n) / 2)); g2finish(sc, done, Math.min(n, score), n); };
     if (timed) { tick = setInterval(() => { const left = Math.max(0, timed - Math.round((Date.now() - t0) / 1000)); const e = $("#mmT"); if (e) e.innerHTML = `Time <b>${left}s</b>`; if (!left) end(); }, 250); }
     $$(".g2-card").forEach(b => b.onclick = () => { if (lock || b.classList.contains("up") || b.classList.contains("done")) return; b.classList.add("up"); open.push(b);
       if (open.length === 2) { lock = true; const [x, y] = open.map(e => cards[+e.dataset.i]);
@@ -15307,15 +15321,17 @@ function procRound(level) {
     const next = () => {
       if (r >= list.length) return g2finish(sc, done, score, list.length); const [name, , steps] = list[r]; r++; g2top(sc, r, list.length); sc.start();
       let order = shuffle(steps.map((s, k) => k)); while (order.every((v, k) => v === k)) order = shuffle(order); let tries = 0, sel = null;
-      const draw = (mark) => { ST.stage.innerHTML = `<div class="g2-proc"><div class="qcard"><div class="kicker">Put it in order</div><div class="qtext">${esc(name)}</div><p class="small muted" style="margin:4px 0 0">Drag a step to move it, or tap two steps to swap them.</p></div><ol class="g2-steps">${order.map((k, pos) => `<li class="g2-step ${mark ? (k === pos ? "ok" : "no") : ""} ${sel === pos ? "sel" : ""}" data-pos="${pos}"><span class="g2-n">${pos + 1}</span><span class="g2-t">${esc(steps[k])}</span><span class="g2-grip">⋮⋮</span></li>`).join("")}</ol><button class="btn primary" id="gChk">${mark ? "Next" : "Check order"}</button><div id="gFb" class="g2-fb"></div></div>`;
-        const lis = $$(".g2-step");
-        lis.forEach(li => { li.onclick = () => { if (mark) return; const p = +li.dataset.pos; if (sel == null) { sel = p; draw(); } else { [order[sel], order[p]] = [order[p], order[sel]]; sel = null; draw(); } };
-          li.addEventListener("pointerdown", e => { if (mark || e.target.closest(".g2-t") && e.pointerType === "mouse" && false) return; const start = +li.dataset.pos; let moved = false; const y0 = e.clientY; li.setPointerCapture(e.pointerId);
-            const mv = ev => { if (Math.abs(ev.clientY - y0) > 6) { moved = true; li.classList.add("drag"); li.style.transform = `translateY(${ev.clientY - y0}px)`; } };
-            const up = ev => { li.removeEventListener("pointermove", mv); li.removeEventListener("pointerup", up); if (!moved) return; li.style.visibility = "hidden"; const t = document.elementFromPoint(ev.clientX, ev.clientY); li.style.visibility = ""; const tgt = t && t.closest && t.closest(".g2-step"); if (tgt) { const to = +tgt.dataset.pos; const [m] = order.splice(start, 1); order.splice(to, 0, m); } sel = null; li.onclick = null; setTimeout(() => draw(), 0); };
-            li.addEventListener("pointermove", mv); li.addEventListener("pointerup", up); }); });
-        $("#gChk").onclick = () => { if (mark) return next(); tries++; const ok = order.every((v, k) => v === k); if (ok || tries >= 2) { const first = ok && tries === 1; sc.hit(first); if (first) score++; else logMistake({ q: `Order: ${name}`, right: steps.join(" → "), src: "Bench procedures" }); order = ok ? order : steps.map((s, k) => k); draw(true); $("#gFb").innerHTML = first ? `<span class="ok">✓ Perfect order</span>` : ok ? `<span class="ok">Got it on the second try.</span>` : `<span class="no">Here’s the right order.</span>`; }
-          else { draw(true); $("#gFb").innerHTML = `<span class="no">${order.filter((v, k) => v !== k).length} steps out of place.</span> <span class="muted">Fix the red ones and check again.</span>`; setTimeout(() => { if (!$(".g2-step.ok, .g2-step.no")) return; draw(); $("#gFb").innerHTML = `<span class="muted">One more try.</span>`; }, 1400); } };
+      const draw = (mark) => { ST.stage.innerHTML = `<div class="g2-proc"><div class="qcard"><div class="kicker">Put it in order</div><div class="qtext">${esc(name)}</div><p class="small muted" style="margin:4px 0 0">Drag a step by its handle, or use the arrows.</p></div><ol class="g2-steps" id="gSteps">${order.map((k, pos) => `<li class="g2-step ${mark ? (k === pos ? "ok" : "no") : ""}" data-k="${k}"><span class="g2-n">${pos + 1}</span><span class="g2-t">${esc(steps[k])}</span>${mark ? "" : `<span class="g2-mv"><button class="g2-ar" data-d="-1" aria-label="Move up">▲</button><button class="g2-ar" data-d="1" aria-label="Move down">▼</button></span><span class="g2-grip" aria-label="Drag to reorder">⋮⋮</span>`}</li>`).join("")}</ol><button class="btn primary" id="gChk">${mark ? "Next" : "Check order"}</button><div id="gFb" class="g2-fb"></div></div>`;
+        const list = $("#gSteps"); const sync = () => { order = $$(".g2-step", list).map(li => +li.dataset.k); $$(".g2-step", list).forEach((li, p) => li.querySelector(".g2-n").textContent = p + 1); };
+        if (!mark) {
+          $$(".g2-ar", list).forEach(b => b.onclick = e => { e.stopPropagation(); const li = b.closest(".g2-step"); const d = +b.dataset.d; if (d < 0 && li.previousElementSibling) list.insertBefore(li, li.previousElementSibling); else if (d > 0 && li.nextElementSibling) list.insertBefore(li.nextElementSibling, li); li.classList.add("bump"); setTimeout(() => li.classList.remove("bump"), 200); sync(); });
+          $$(".g2-grip", list).forEach(g => g.addEventListener("pointerdown", e => { e.preventDefault(); const li = g.closest(".g2-step"); li.classList.add("drag"); document.body.classList.add("g2-dragging");
+            /* track the pointer on the whole page: moving the step in the list can’t interrupt the drag */
+            const mv = ev => { ev.preventDefault(); const sibs = $$(".g2-step", list).filter(x => x !== li); let before = null; for (const x of sibs) { const r = x.getBoundingClientRect(); if (ev.clientY < r.top + r.height / 2) { before = x; break; } } if (before !== li.nextElementSibling) { list.insertBefore(li, before); sync(); } };
+            const up = () => { document.removeEventListener("pointermove", mv); document.removeEventListener("pointerup", up); document.removeEventListener("pointercancel", up); li.classList.remove("drag"); document.body.classList.remove("g2-dragging"); sync(); };
+            document.addEventListener("pointermove", mv, { passive: false }); document.addEventListener("pointerup", up); document.addEventListener("pointercancel", up); })); }
+        $("#gChk").onclick = () => { if (mark) return next(); sync(); tries++; const ok = order.every((v, k) => v === k); if (ok || tries >= 2) { const first = ok && tries === 1; sc.hit(first); if (first) score++; else logMistake({ q: `Order: ${name}`, right: steps.join(" → "), src: "Bench procedures" }); order = ok ? order : steps.map((x, k) => k); draw(true); $("#gFb").innerHTML = first ? `<span class="ok">✓ Perfect order</span>` : ok ? `<span class="ok">Got it on the second try.</span>` : `<span class="no">Here’s the right order.</span>`; }
+          else { const wrong = order.filter((v, k) => v !== k).length; $$(".g2-step", list).forEach((li, p) => li.classList.toggle("no", +li.dataset.k !== p)); $("#gFb").innerHTML = `<span class="no">${wrong} step${wrong === 1 ? "" : "s"} out of place.</span> <span class="muted">Fix the red ones and check again.</span>`; } };
       };
       draw();
     };
@@ -15502,7 +15518,343 @@ const LESSON_BEATS_1 = {
  ["{{Hemolysis}} clues: high retics, high indirect bilirubin, high LD, low haptoglobin. Spherocytes or schistocytes hint at the cause.", ["Low haptoglobin with high LD and bilirubin suggests:", ["Hemolysis", "Iron deficiency", "B12 deficiency", "Marrow failure"], 0, "Haptoglobin is used up mopping free hemoglobin."]]
 ]
 };
-Object.entries(LESSON_BEATS_1).forEach(([id, beats]) => { const l = LESSONS.find(x => x.id === id); if (l) { l.beats = beats; l._ready = false; l.rewritten = 1; } });
+
+/* ===================== v52.2 · program lessons as walkthroughs (batch 2) ===================== */
+const LESSON_BEATS_2 = {
+"l-hemostasis": [
+ ["When a vessel is injured, it first narrows: {{vasoconstriction}} slows the bleeding within seconds.", ["The very first response to a cut vessel is:", ["Vasoconstriction", "Fibrin formation", "Fibrinolysis", "Platelet production"], 0, "The vessel clamps down first."]],
+ ["{{Primary hemostasis}} is the platelet plug. Platelets stick to exposed collagen with help from {{von Willebrand factor}}.", ["Platelets stick to collagen with the help of:", ["von Willebrand factor", "Fibrinogen alone", "Factor VIII alone", "Plasmin"], 0, "vWF is the glue between platelets and collagen."]],
+ ["Activated platelets release ADP and thromboxane, which recruit more platelets. They link together through {{fibrinogen}} bridges: aggregation.", ["Platelets aggregate by linking through:", ["Fibrinogen", "Albumin", "Hemoglobin", "Plasmin"], 0, "Fibrinogen bridges GP IIb/IIIa receptors."]],
+ ["{{Secondary hemostasis}} is the coagulation cascade: clotting factors activate each other until {{thrombin}} turns fibrinogen into fibrin.", ["Thrombin converts fibrinogen into:", ["Fibrin", "Plasmin", "Prothrombin", "Factor X"], 0, "Fibrin is the mesh that holds the clot."]],
+ ["The cascade is taught in pathways: the {{extrinsic}} (tissue factor and factor VII), the {{intrinsic}} (XII, XI, IX, VIII) and the common pathway (X, V, II, I).", ["Factor VII belongs to the:", ["Extrinsic pathway", "Intrinsic pathway", "Common pathway", "Fibrinolytic system"], 0, "Tissue factor plus VII starts the extrinsic side."]],
+ ["Most clotting factors need {{calcium}}, which is why citrate (it binds calcium) keeps blue-top samples from clotting.", ["Citrate prevents clotting by:", ["Binding calcium", "Destroying platelets", "Activating plasmin", "Blocking vitamin K"], 0, "No free calcium, no cascade."]],
+ ["Factors II, VII, IX and X need {{vitamin K}} to work. Warfarin blocks vitamin K, so those factors drop.", ["Warfarin lowers which factors?", ["II, VII, IX and X", "VIII and IX only", "I and XIII", "All of them equally"], 0, "The vitamin K–dependent factors."]],
+ ["Once healing starts, {{plasmin}} breaks the fibrin clot down. That releases fibrin fragments, including {{D-dimer}}.", ["D-dimer comes from:", ["Breakdown of cross-linked fibrin", "Platelet granules", "Damaged red cells", "The liver directly"], 0, "D-dimer means a clot formed and is being broken down."]]
+],
+"l-coagtests": [
+ ["Coag tests use {{citrated plasma}} from a light blue tube, filled to the line so the 9:1 blood-to-citrate ratio is right.", ["Coag tests are run on:", ["Citrated plasma", "Serum", "EDTA whole blood", "Heparinized plasma"], 0, "Light blue top, filled properly."]],
+ ["The {{PT}} (prothrombin time) tests the extrinsic and common pathways. It’s the test for monitoring warfarin.", ["Warfarin therapy is monitored with the:", ["PT/INR", "aPTT", "Platelet count", "D-dimer"], 0, "Warfarin hits factor VII first, which PT catches."]],
+ ["The {{INR}} standardizes the PT across labs and reagents, so a patient’s warfarin dose can be managed anywhere.", ["Why report an INR?", ["So PT results compare across labs", "It’s faster than the PT", "It measures heparin", "It replaces the platelet count"], 0, "Different reagents give different PTs; the INR evens that out."]],
+ ["The {{aPTT}} tests the intrinsic and common pathways. It’s used to monitor unfractionated heparin.", ["Unfractionated heparin is monitored with:", ["aPTT (or anti-Xa)", "PT/INR", "Bleeding time", "Fibrinogen"], 0, "Heparin mostly affects intrinsic-pathway factors."]],
+ ["A prolonged clotting time is either a {{factor deficiency}} or an {{inhibitor}}. A mixing study tells them apart.", ["A mixing study helps tell a factor deficiency from:", ["An inhibitor", "A platelet defect", "Anemia", "Hemolysis"], 0, "Normal plasma fixes a deficiency, not an inhibitor."]],
+ ["Mix patient plasma 1:1 with normal plasma. If the time {{corrects}}, a factor was missing. If it stays long, an inhibitor (like lupus anticoagulant) is present.", ["The aPTT stays prolonged after a 1:1 mix. This suggests:", ["An inhibitor", "A factor deficiency", "Vitamin K deficiency", "A normal result"], 0, "Something in the patient plasma blocks the normal factors."]],
+ ["{{Fibrinogen}} is measured directly; it drops in DIC and severe liver disease. D-dimer rises whenever clots form and break down.", ["Low fibrinogen with high D-dimer suggests:", ["DIC", "Hemophilia A", "Vitamin K deficiency", "von Willebrand disease"], 0, "Clotting everywhere uses up fibrinogen."]],
+ ["A {{clotted}}, hemolyzed or underfilled light blue tube must be rejected and redrawn; it will give false results.", ["An underfilled light blue tube should be:", ["Rejected and redrawn", "Run with a correction", "Topped up with saline", "Run as normal"], 0, "Excess citrate falsely prolongs times."]]
+],
+"l-plt": [
+ ["Normal platelets run about {{150–400 ×10³/µL}}. Below 150 is thrombocytopenia; above 400 is thrombocytosis.", ["A platelet count of 90 ×10³/µL is:", ["Thrombocytopenia", "Normal", "Thrombocytosis", "A critical high"], 0, "Below 150 is low."]],
+ ["Before calling a low count real, rule out {{platelet clumping}}: EDTA can make platelets clump and the analyzer undercounts them.", ["A low platelet count with clumps on the smear is probably:", ["Pseudothrombocytopenia from clumping", "True ITP", "Leukemia", "Hemolysis"], 0, "Redraw in a citrate tube to confirm."]],
+ ["Low platelets come from {{decreased production}} (marrow failure, chemo), {{increased destruction}} (ITP, DIC, TTP, heparin) or sequestration (big spleen).", ["ITP lowers platelets by:", ["Increased destruction", "Decreased production", "Sequestration", "Dilution"], 0, "Autoantibodies clear platelets."]],
+ ["{{ITP}} is immune destruction of platelets. The smear shows few, often large, platelets and otherwise normal cells.", ["Large platelets in ITP mean:", ["The marrow is releasing young platelets", "Lab error", "Clumping", "Iron deficiency"], 0, "The marrow is pumping out new ones."]],
+ ["{{HIT}} (heparin-induced thrombocytopenia) drops platelets 5–10 days after heparin starts, and paradoxically causes clots.", ["HIT causes:", ["Low platelets and clotting", "High platelets and bleeding", "Only bleeding", "Only anemia"], 0, "Antibodies activate platelets."]],
+ ["{{TTP}} gives low platelets, schistocytes and organ damage from tiny clots. It’s an emergency, linked to low ADAMTS13.", ["Low platelets with schistocytes suggest:", ["TTP or another microangiopathy", "ITP", "Iron deficiency", "Pseudothrombocytopenia"], 0, "Tiny clots shred the red cells."]],
+ ["{{von Willebrand disease}} is the most common inherited bleeding disorder: easy bruising and nosebleeds, with a normal or slightly long aPTT.", ["The most common inherited bleeding disorder:", ["von Willebrand disease", "Hemophilia A", "Hemophilia B", "Glanzmann thrombasthenia"], 0, "vWF also carries factor VIII."]],
+ ["{{Aspirin}} blocks platelet thromboxane for the platelet’s whole life (about 7–10 days), so function tests stay abnormal that long.", ["Aspirin’s effect on platelets lasts:", ["The life of the platelet", "A few hours", "One day", "Forever"], 0, "Platelets can’t make new enzyme."]]
+],
+"l-lytes": [
+ ["{{Sodium}} is the main extracellular cation (135–145 mmol/L) and drives water balance.", ["The main extracellular cation is:", ["Sodium", "Potassium", "Calcium", "Magnesium"], 0, "Sodium sets where water goes."]],
+ ["{{Potassium}} lives mainly inside cells (3.5–5.0 mmol/L in serum). Small changes can disturb the heart’s rhythm.", ["Why is potassium a critical value?", ["It affects heart rhythm", "It colors urine", "It clots blood", "It carries oxygen"], 0, "High or low potassium can cause arrhythmias."]],
+ ["{{Chloride}} follows sodium, and {{bicarbonate}} (measured as total CO₂) is the main blood buffer.", ["Total CO₂ on a chemistry panel mostly reflects:", ["Bicarbonate", "Dissolved oxygen", "Carbon monoxide", "Chloride"], 0, "Most CO₂ in blood travels as bicarbonate."]],
+ ["The {{anion gap}} = Na − (Cl + HCO₃), normally about 8–12. A high gap points to extra acids like lactate or ketones.", ["Na 140, Cl 100, HCO₃ 15. The anion gap is:", ["25", "15", "40", "5"], 0, "140 − (100 + 15) = 25, which is high."]],
+ ["Blood pH stays between {{7.35 and 7.45}}. Below that is acidosis; above it is alkalosis.", ["A pH of 7.28 is:", ["Acidosis", "Alkalosis", "Normal", "Compensated"], 0, "Below 7.35 is acidic."]],
+ ["{{Respiratory}} problems change pCO₂; {{metabolic}} problems change bicarbonate. Match the change to the pH direction.", ["pH 7.30, pCO₂ 55 (high), HCO₃ normal:", ["Respiratory acidosis", "Metabolic acidosis", "Respiratory alkalosis", "Metabolic alkalosis"], 0, "High CO₂ makes the blood acidic."]],
+ ["The body {{compensates}}: lungs adjust CO₂ for metabolic problems, and kidneys adjust bicarbonate for respiratory ones.", ["In metabolic acidosis, the lungs compensate by:", ["Breathing faster to blow off CO₂", "Holding CO₂", "Making bicarbonate", "Stopping breathing"], 0, "Lower CO₂ raises the pH back toward normal."]],
+ ["Blood gases are drawn {{anaerobically}} (no air bubbles), mixed, and run quickly or kept on ice if delayed.", ["Air bubbles in a blood gas sample will:", ["Change pO₂ and pCO₂", "Have no effect", "Raise sodium", "Clot the sample"], 0, "Room air contaminates the gas values."]]
+],
+"l-glu": [
+ ["Fasting glucose of {{70–99 mg/dL}} is normal; 100–125 is prediabetes; 126 or higher on two occasions means diabetes.", ["A fasting glucose of 132 mg/dL (repeated) indicates:", ["Diabetes", "Normal", "Prediabetes", "Hypoglycemia"], 0, "126 or higher, twice."]],
+ ["{{Hemoglobin A1c}} shows average glucose over about 3 months, because glucose sticks to hemoglobin for the red cell’s life.", ["A1c reflects average glucose over about:", ["3 months", "1 day", "1 week", "1 year"], 0, "Red cells live about 120 days."]],
+ ["Glucose keeps dropping in a sample as cells use it. A {{gray top}} (fluoride) stops glycolysis.", ["Which tube preserves glucose?", ["Gray (fluoride)", "Lavender", "Light blue", "Red"], 0, "Fluoride stops cells from eating the glucose."]],
+ ["The kidneys filter waste. {{Creatinine}} comes from muscle at a steady rate, so a rising creatinine means falling filtration.", ["A rising creatinine suggests:", ["Declining kidney function", "Liver disease", "Dehydration only", "Muscle growth only"], 0, "Creatinine builds up when filtration drops."]],
+ ["{{BUN}} (urea) also rises in kidney disease, but dehydration and GI bleeding raise it too. A BUN:creatinine ratio over 20 suggests a prerenal cause.", ["BUN 40, creatinine 1.0. This pattern suggests:", ["A prerenal cause like dehydration", "Kidney failure", "Liver failure", "Normal"], 0, "Ratio 40:1 is high."]],
+ ["The {{eGFR}} estimates kidney filtration from creatinine, age and sex. Below 60 for 3 months signals chronic kidney disease.", ["eGFR is calculated from:", ["Creatinine plus age and sex", "Glucose", "Bilirubin", "Albumin only"], 0, "It’s an estimate built on creatinine."]],
+ ["Liver injury shows up as {{ALT}} and AST leaking from damaged liver cells. ALT is more liver-specific.", ["The more liver-specific enzyme:", ["ALT", "AST", "CK", "Amylase"], 0, "AST is also in heart and muscle."]],
+ ["{{Bilirubin}} comes from broken-down heme. High indirect (unconjugated) bilirubin points to hemolysis; high direct (conjugated) points to liver or bile duct problems.", ["High direct bilirubin with dark urine suggests:", ["Liver or bile duct obstruction", "Hemolysis", "Normal newborn jaundice", "Iron deficiency"], 0, "Conjugated bilirubin backs up and spills into urine."]]
+],
+"l-markers": [
+ ["{{Troponin}} is the main marker of heart muscle injury. It rises within hours of a heart attack and stays up for days.", ["The preferred marker of heart muscle injury:", ["Troponin", "CK total", "LD", "Myoglobin"], 0, "Troponin is heart-specific."]],
+ ["{{BNP}} rises when the heart is stretched by fluid, which makes it useful for diagnosing heart failure.", ["High BNP suggests:", ["Heart failure", "Liver disease", "Anemia", "Diabetes"], 0, "Stretched heart muscle releases BNP."]],
+ ["Thyroid testing starts with {{TSH}}. The pituitary raises TSH when thyroid hormone is low, so high TSH usually means hypothyroidism.", ["High TSH with low free T4 means:", ["Primary hypothyroidism", "Hyperthyroidism", "Normal", "Pituitary failure"], 0, "The pituitary is pushing a sluggish thyroid."]],
+ ["Low TSH with high {{free T4}} means hyperthyroidism, as in Graves disease.", ["Low TSH, high free T4:", ["Hyperthyroidism", "Hypothyroidism", "Euthyroid", "Lab error"], 0, "Too much hormone shuts TSH off."]],
+ ["{{Albumin}} is the main plasma protein, made by the liver. It drops in liver disease, malnutrition and kidney protein loss.", ["Albumin is made in the:", ["Liver", "Kidney", "Bone marrow", "Spleen"], 0, "Low albumin can reflect liver failure."]],
+ ["{{Serum protein electrophoresis}} separates proteins into albumin, alpha-1, alpha-2, beta and gamma bands.", ["A tall narrow spike in the gamma region suggests:", ["Monoclonal gammopathy (like myeloma)", "Normal pattern", "Nephrotic syndrome", "Liver failure"], 0, "One clone, one protein, one spike."]],
+ ["{{Tumor markers}} like PSA, CEA, CA-125 and AFP help monitor cancers but aren’t good screening tests alone; benign conditions raise them too.", ["Tumor markers are best used to:", ["Monitor known cancers over time", "Screen everyone for cancer", "Diagnose infections", "Replace biopsies"], 0, "Trends matter more than one value."]],
+ ["{{hCG}} detects pregnancy and is also a tumor marker for some germ cell tumors.", ["hCG is used to detect:", ["Pregnancy", "Heart attack", "Liver failure", "Anemia"], 0, "The placenta makes hCG."]]
+],
+"l-lipids": [
+ ["{{Enzymes}} leak into blood when tissue is damaged, so their levels hint at which organ is hurt.", ["Why measure enzymes in blood?", ["They leak out of damaged tissue", "They carry oxygen", "They clot blood", "They fight infection"], 0, "The pattern points to the organ."]],
+ ["{{Amylase}} and {{lipase}} rise in pancreatitis. Lipase is more specific to the pancreas.", ["The most specific test for pancreatitis:", ["Lipase", "Amylase", "ALT", "CK"], 0, "Amylase also comes from salivary glands."]],
+ ["{{CK}} (creatine kinase) rises with muscle injury, including heavy exercise, crush injury and rhabdomyolysis.", ["Very high CK after a crush injury suggests:", ["Rhabdomyolysis", "Pancreatitis", "Hepatitis", "Heart failure"], 0, "Muscle breakdown releases CK."]],
+ ["{{Alkaline phosphatase}} (ALP) rises with bile duct obstruction and bone growth or disease; GGT helps show it’s from the liver.", ["High ALP with high GGT points to:", ["Liver or bile duct source", "Bone source", "Heart source", "Kidney source"], 0, "GGT confirms the liver."]],
+ ["A lipid panel measures {{total cholesterol}}, {{HDL}}, {{triglycerides}} and calculates LDL.", ["Which is the ‘good’ cholesterol?", ["HDL", "LDL", "Triglycerides", "VLDL"], 0, "HDL carries cholesterol away from arteries."]],
+ ["{{LDL}} is the main target for heart disease risk. It’s often calculated: LDL = TC − HDL − TG/5 (in mg/dL).", ["TC 200, HDL 50, TG 150. Calculated LDL:", ["120", "150", "100", "50"], 0, "200 − 50 − 30 = 120."]],
+ ["The calculation fails when {{triglycerides}} are very high (over about 400 mg/dL); then LDL must be measured directly.", ["Calculated LDL becomes unreliable when triglycerides are:", ["Very high (over about 400)", "Normal", "Low", "Measured fasting"], 0, "TG/5 no longer estimates VLDL well."]],
+ ["Triglycerides rise sharply after eating, so a {{fasting}} sample gives the most reliable triglyceride value.", ["A milky (lipemic) sample usually means high:", ["Triglycerides", "HDL", "Bilirubin", "Protein"], 0, "Chylomicrons make serum look milky."]]
+],
+"l-tdm": [
+ ["{{Therapeutic drug monitoring}} measures drug levels so the dose stays effective but not toxic.", ["TDM is used for drugs with:", ["A narrow window between effective and toxic", "No side effects", "Only oral forms", "Over-the-counter use"], 0, "Examples: digoxin, vancomycin, lithium."]],
+ ["A {{trough}} is drawn just before the next dose (the lowest level); a peak is drawn after absorption (the highest).", ["A trough level is drawn:", ["Just before the next dose", "Right after the dose", "Any time", "One week later"], 0, "It’s the lowest point."]],
+ ["Timing matters: a level drawn at the wrong time can look falsely high or low, so the {{collection time}} must be recorded.", ["Why record the exact draw time on a drug level?", ["Interpretation depends on timing", "For billing only", "It isn’t needed", "To pick the tube"], 0, "Peak versus trough changes everything."]],
+ ["{{Acetaminophen}} overdose damages the liver. Levels plotted against time since ingestion guide antidote treatment.", ["Acetaminophen overdose mainly harms the:", ["Liver", "Kidneys", "Lungs", "Bone marrow"], 0, "That’s why timing and levels matter."]],
+ ["{{Urine drug screens}} are immunoassays: fast, but they can cross-react, so positives may need confirmation by mass spectrometry.", ["A positive urine drug screen should be confirmed by:", ["Mass spectrometry", "A second immunoassay strip", "Repeating tomorrow", "A blood smear"], 0, "Confirmation rules out cross-reactions."]],
+ ["{{Hormones}} work in feedback loops: the pituitary signals a gland, and the gland’s hormone turns the signal down.", ["When thyroid hormone is high, TSH:", ["Falls", "Rises", "Stays the same", "Doubles"], 0, "Negative feedback."]],
+ ["{{Cortisol}} has a daily rhythm: highest in the morning, lowest at night, so the draw time matters.", ["Cortisol is normally highest:", ["In the morning", "At midnight", "After dinner", "It doesn’t vary"], 0, "Diurnal rhythm."]],
+ ["Forensic and workplace samples use {{chain of custody}}: every hand-off is documented so the result holds up legally.", ["Chain of custody documents:", ["Every person who handles the sample", "Only the result", "The patient’s diet", "Analyzer settings"], 0, "Unbroken documentation."]]
+],
+"l-instr": [
+ ["Many chemistry tests measure color: {{spectrophotometry}} shines light through a sample and measures how much is absorbed.", ["Spectrophotometry measures:", ["Light absorbed by a sample", "Electrical charge", "Weight", "Temperature"], 0, "More analyte, more absorbance."]],
+ ["{{Beer’s law}}: absorbance is proportional to concentration (A = abc). Double the concentration, double the absorbance.", ["Under Beer’s law, if concentration doubles, absorbance:", ["Doubles", "Halves", "Stays the same", "Squares"], 0, "Linear relationship."]],
+ ["Beer’s law holds only within the {{linear range}}. Results above it must be diluted and rerun.", ["A result above the linear range should be:", ["Diluted and rerun", "Reported as is", "Discarded", "Halved"], 0, "Then multiply by the dilution factor."]],
+ ["A {{blank}} (reagent with no sample) zeroes the instrument, so only the analyte’s color is measured.", ["Why run a reagent blank?", ["To subtract the reagent’s own absorbance", "To calibrate the patient", "To clean the cuvet", "To warm the lamp"], 0, "It isolates the analyte signal."]],
+ ["{{Ion-selective electrodes}} measure sodium, potassium and chloride using membranes that respond to one ion.", ["Electrolytes are usually measured by:", ["Ion-selective electrodes", "Spectrophotometry", "Flow cytometry", "Microscopy"], 0, "Each electrode senses one ion."]],
+ ["{{Immunoassays}} use antibodies to detect hormones, drugs and markers, often with a light-producing label.", ["Troponin and TSH are usually measured by:", ["Immunoassay", "Ion-selective electrode", "Refractometry", "Gram stain"], 0, "Antibodies grab the target."]],
+ ["The {{hook effect}}: extremely high analyte levels can saturate an immunoassay and give a falsely low result. Diluting reveals the truth.", ["A falsely low result from an extremely high level is the:", ["Hook effect", "Matrix effect", "Carryover", "Drift"], 0, "Dilution unmasks it."]],
+ ["{{Flow cytometry}} and cell counters pass cells single-file through a laser or electrical aperture to count and classify them.", ["Cells pass single-file through a laser in:", ["Flow cytometry", "Spectrophotometry", "Electrophoresis", "Refractometry"], 0, "Light scatter and fluorescence classify each cell."]]
+],
+"l-ua1": [
+ ["A good urinalysis starts with a fresh {{first morning}} or clean-catch midstream sample, tested within 2 hours or refrigerated.", ["Urine should be tested within about:", ["2 hours (or refrigerated)", "24 hours at room temperature", "1 week", "It doesn’t matter"], 0, "Cells break down and bacteria grow."]],
+ ["Physical exam: {{color}}, clarity and specific gravity. Cloudy urine can mean cells, bacteria, crystals or mucus.", ["Cloudy urine may contain:", ["Cells, bacteria or crystals", "Only water", "Only glucose", "Only urea"], 0, "Particles scatter light."]],
+ ["{{Specific gravity}} reflects concentration: high when dehydrated, low with lots of fluid or when the kidneys can’t concentrate.", ["A very high specific gravity suggests:", ["Dehydration", "Overhydration", "Diabetes insipidus", "Normal kidneys only"], 0, "Concentrated urine."]],
+ ["The dipstick pads change color at {{timed intervals}}; reading too early or late gives wrong results.", ["Why read each pad at its timed interval?", ["Colors keep developing over time", "To save strips", "For billing", "It doesn’t matter"], 0, "Timing makes the color meaningful."]],
+ ["{{Glucose}} spills into urine when blood glucose passes the kidney threshold (about 160–180 mg/dL).", ["Urine glucose usually means blood glucose is above about:", ["160–180 mg/dL", "70 mg/dL", "100 mg/dL", "400 mg/dL"], 0, "The renal threshold."]],
+ ["{{Ketones}} appear when the body burns fat: diabetic ketoacidosis, starvation or a low-carb diet.", ["Ketones in urine suggest the body is burning:", ["Fat", "Protein only", "Glucose normally", "Alcohol"], 0, "Ketones come from fat breakdown."]],
+ ["{{Nitrite}} positive means bacteria that convert nitrate, usually gram-negative rods. {{Leukocyte esterase}} means white cells. Together they suggest UTI.", ["Positive nitrite and leukocyte esterase suggest:", ["Urinary tract infection", "Diabetes", "Kidney stones only", "Dehydration"], 0, "Bacteria plus white cells."]],
+ ["A positive {{blood}} pad can mean red cells, free hemoglobin or myoglobin. The microscope tells intact red cells apart.", ["Blood pad positive but no red cells seen suggests:", ["Hemoglobin or myoglobin", "Lab error always", "Glucose", "Nitrite"], 0, "Free pigments react without intact cells."]]
+],
+"l-ua2": [
+ ["The sediment exam looks at the spun urine pellet under the microscope: cells, {{casts}}, crystals and organisms.", ["The urine sediment is examined:", ["Under the microscope after spinning", "By dipstick", "By smell", "By refractometer"], 0, "Spin, pour off, look at the pellet."]],
+ ["A few {{red cells}} and white cells per high-power field are normal. More suggest bleeding, infection or inflammation.", ["Many white cells in urine suggest:", ["Infection or inflammation", "Dehydration", "Diabetes", "Normal"], 0, "Pyuria."]],
+ ["{{Casts}} form in the kidney tubules, so they point to a kidney source. Hyaline casts can be normal after exercise.", ["Casts tell you the problem is in the:", ["Kidney tubules", "Bladder", "Urethra", "Blood"], 0, "Tubules are the mold."]],
+ ["{{RBC casts}} mean glomerular bleeding (glomerulonephritis); {{WBC casts}} mean kidney infection or inflammation (pyelonephritis).", ["WBC casts suggest:", ["Pyelonephritis", "Cystitis only", "Normal urine", "Kidney stones"], 0, "White cells in the tubules."]],
+ ["Squamous {{epithelial cells}} mean contamination from the skin; many of them suggest a poorly collected sample.", ["Many squamous epithelial cells suggest:", ["Contamination", "Kidney failure", "Infection", "Glomerulonephritis"], 0, "Recollect a clean catch."]],
+ ["Crystals depend on pH. {{Calcium oxalate}} (envelope shape) is common; {{uric acid}} forms in acidic urine.", ["Envelope-shaped crystals are:", ["Calcium oxalate", "Uric acid", "Triple phosphate", "Cystine"], 0, "The classic envelope."]],
+ ["Some crystals are always abnormal: {{cystine}} (hexagons) points to cystinuria, an inherited disorder.", ["Hexagonal crystals suggest:", ["Cystinuria", "Normal diet", "Dehydration", "UTI"], 0, "Always report cystine."]],
+ ["{{Yeast}}, bacteria and Trichomonas can be seen. Trichomonas is identified by its jerky motion in fresh urine.", ["Trichomonas is recognized by:", ["Its jerky movement", "Its color", "Its crystals", "Its odor only"], 0, "Look quickly, before it stops moving."]]
+],
+"l-fluids": [
+ ["{{CSF}} (cerebrospinal fluid) is normally crystal clear and colorless, with very few cells.", ["Normal CSF is:", ["Clear and colorless", "Cloudy", "Yellow", "Red"], 0, "Any cloudiness is abnormal."]],
+ ["CSF is collected in numbered tubes: {{tube 1}} chemistry, tube 2 microbiology, tube 3 cell count.", ["Which CSF tube goes for the cell count?", ["Tube 3", "Tube 1", "Tube 2", "Any tube"], 0, "Least likely to have traumatic-tap blood."]],
+ ["{{Bacterial meningitis}}: many neutrophils, high protein, low glucose. Viral: lymphocytes, normal glucose.", ["High neutrophils with low CSF glucose suggests:", ["Bacterial meningitis", "Viral meningitis", "Normal CSF", "Traumatic tap"], 0, "Bacteria use up glucose."]],
+ ["{{Xanthochromia}} (yellow CSF after spinning) points to an older bleed, not a traumatic tap.", ["Yellow CSF supernatant suggests:", ["An earlier bleed", "A traumatic tap", "Bacterial meningitis", "Normal CSF"], 0, "Broken-down hemoglobin turns it yellow."]],
+ ["{{Synovial fluid}} (joint fluid) is normally clear and very viscous. Crystals identify gout and pseudogout.", ["Needle-shaped crystals in joint fluid suggest:", ["Gout (monosodium urate)", "Pseudogout", "Infection", "Normal"], 0, "Needles that are negatively birefringent."]],
+ ["{{Pseudogout}} crystals (calcium pyrophosphate) are rhomboid and positively birefringent.", ["Rhomboid, positively birefringent crystals are:", ["Calcium pyrophosphate (pseudogout)", "Urate (gout)", "Cholesterol", "Oxalate"], 0, "CPPD."]],
+ ["Pleural and peritoneal fluids are classed as {{transudates}} (pressure or low protein, like heart failure) or {{exudates}} (inflammation, infection, cancer).", ["Pneumonia with pleural fluid usually makes:", ["An exudate", "A transudate", "Normal fluid", "CSF"], 0, "Inflammation leaks protein."]],
+ ["{{Light’s criteria}} call fluid an exudate if the fluid-to-serum protein ratio is over 0.5 or the LD ratio is over 0.6.", ["Fluid protein 4.0, serum 6.0 (ratio 0.67) means:", ["Exudate", "Transudate", "Normal", "Can’t tell"], 0, "Above 0.5 is exudative."]]
+],
+"l-hgb": [
+ ["Adult hemoglobin is mostly {{Hb A}} (two alpha and two beta chains), with a little Hb A₂ and fetal Hb F.", ["Normal adult hemoglobin is mostly:", ["Hb A", "Hb F", "Hb S", "Hb C"], 0, "Two alpha, two beta chains."]],
+ ["{{Hemoglobinopathies}} are changes in the globin chain structure, like sickle cell; thalassemias are changes in how much chain is made.", ["Sickle cell disease is a problem of hemoglobin:", ["Structure", "Quantity", "Iron", "Heme"], 0, "One amino acid swap in the beta chain."]],
+ ["{{Hb S}} (sickle) polymerizes when oxygen is low, bending red cells into sickles that block small vessels.", ["Sickling is triggered by:", ["Low oxygen", "High oxygen", "Cold only", "Iron"], 0, "Deoxygenated Hb S polymerizes."]],
+ ["Sickle {{trait}} (Hb AS) usually causes no symptoms; sickle cell disease (Hb SS) causes anemia and painful crises.", ["Hb AS is called:", ["Sickle cell trait", "Sickle cell disease", "Thalassemia major", "Hb C disease"], 0, "One normal gene protects."]],
+ ["A {{solubility test}} screens for Hb S, but electrophoresis or HPLC is needed to tell trait from disease and find other variants.", ["To tell sickle trait from disease, use:", ["Hemoglobin electrophoresis or HPLC", "A solubility test alone", "A CBC alone", "A blood smear alone"], 0, "Solubility is positive in both."]],
+ ["{{Hb C}} forms crystals and target cells; Hb SC disease is a milder sickling disorder.", ["Target cells and hexagonal crystals in red cells suggest:", ["Hb C", "Iron deficiency", "B12 deficiency", "Lead poisoning"], 0, "Hb C crystals."]],
+ ["{{Thalassemias}} are named for the missing chain: alpha or beta. Beta-thal trait shows a raised Hb A₂.", ["Beta-thalassemia trait typically shows:", ["Raised Hb A₂", "Raised Hb S", "Absent Hb A", "Normal everything"], 0, "Extra A₂ makes up for less beta chain."]],
+ ["{{Hb F}} is high at birth and falls over the first year; persistently high Hb F reduces sickling.", ["Why do newborns with sickle cell rarely sickle?", ["High fetal hemoglobin", "Low iron", "Low oxygen", "Small cells"], 0, "Hb F doesn’t sickle."]]
+],
+"l-wbcdis": [
+ ["{{Leukocytosis}} (high WBC) is usually reactive: infection, inflammation, stress or steroids.", ["The most common cause of high WBC:", ["Infection or inflammation", "Leukemia", "Lab error", "Anemia"], 0, "Reactive causes are far more common."]],
+ ["A {{left shift}} means more young neutrophils (bands, metamyelocytes) in blood, typical of bacterial infection.", ["A left shift suggests:", ["Bacterial infection", "Viral infection", "Allergy", "Normal"], 0, "The marrow releases younger cells."]],
+ ["{{Toxic changes}} in neutrophils (toxic granulation, Döhle bodies, vacuoles) also point to severe infection.", ["Döhle bodies and toxic granulation suggest:", ["Severe infection", "Leukemia", "Allergy", "Iron deficiency"], 0, "Neutrophils working overtime."]],
+ ["A {{leukemoid reaction}} is a very high reactive WBC that can mimic leukemia; the LAP score is high (low in CML).", ["High LAP score with a very high WBC suggests:", ["Leukemoid reaction", "CML", "ALL", "CLL"], 0, "CML has a low LAP."]],
+ ["{{Cytochemical stains}} help classify leukemias: myeloperoxidase (MPO) and Sudan black stain myeloid blasts.", ["MPO-positive blasts are:", ["Myeloid", "Lymphoid", "Erythroid", "Megakaryocytic"], 0, "Lymphoblasts are MPO negative."]],
+ ["{{Nonspecific esterase}} marks monocytic cells; {{TRAP}} positivity is classic for hairy cell leukemia.", ["TRAP-positive cells suggest:", ["Hairy cell leukemia", "CML", "AML M3", "Normal lymphocytes"], 0, "Tartrate-resistant acid phosphatase."]],
+ ["Inherited anomalies: {{Pelger-Huët}} (bilobed ‘pince-nez’ neutrophils), May-Hegglin (Döhle-like bodies, giant platelets), Chédiak-Higashi (giant granules).", ["Bilobed ‘pince-nez’ neutrophils describe:", ["Pelger-Huët anomaly", "May-Hegglin anomaly", "Chédiak-Higashi syndrome", "Alder-Reilly anomaly"], 0, "Two lobes linked like glasses."]],
+ ["{{Infectious mononucleosis}} shows reactive lymphocytes and a positive heterophile (Monospot) test.", ["A positive Monospot points to:", ["Infectious mononucleosis", "Leukemia", "Strep throat", "Allergy"], 0, "EBV infection."]]
+],
+"l-leuk": [
+ ["{{Leukemia}} is cancer of blood-forming cells. Acute leukemias have many immature {{blasts}}; chronic ones have more mature cells.", ["Acute leukemia is defined by many:", ["Blasts", "Mature neutrophils", "Platelets", "Red cells"], 0, "Immature cells crowd the marrow."]],
+ ["Acute leukemia needs at least {{20% blasts}} in the marrow or blood (WHO).", ["The WHO blast threshold for acute leukemia:", ["20%", "5%", "50%", "2%"], 0, "20% or more."]],
+ ["{{AML}} (acute myeloid) is common in adults; {{Auer rods}} in blasts are a giveaway.", ["Auer rods point to:", ["AML", "ALL", "CLL", "Reactive lymphocytes"], 0, "Fused myeloid granules."]],
+ ["{{ALL}} (acute lymphoblastic) is the most common childhood leukemia.", ["The most common leukemia in children:", ["ALL", "AML", "CML", "CLL"], 0, "Peak age around 2–5."]],
+ ["{{APL}} (acute promyelocytic, AML M3) is an emergency because it causes DIC; it carries t(15;17).", ["Which leukemia is linked to DIC and t(15;17)?", ["APL", "CML", "CLL", "ALL"], 0, "Granules trigger clotting."]],
+ ["{{CML}} shows a very high WBC with all stages of granulocytes and the {{Philadelphia chromosome}}, t(9;22), BCR-ABL.", ["The Philadelphia chromosome is:", ["t(9;22)", "t(15;17)", "t(8;14)", "t(14;18)"], 0, "BCR-ABL fusion."]],
+ ["{{CLL}} is the most common adult leukemia in Western countries: many small mature lymphocytes and {{smudge cells}}.", ["Smudge cells are typical of:", ["CLL", "AML", "APL", "CML"], 0, "Fragile lymphocytes smear apart."]],
+ ["{{Flow cytometry}} confirms the cell line by surface markers, like CD19/CD20 for B cells and CD13/CD33 for myeloid cells.", ["CD13 and CD33 indicate a:", ["Myeloid line", "B-cell line", "T-cell line", "Red cell line"], 0, "Myeloid markers."]]
+],
+"l-regs": [
+ ["{{CLIA}} (1988) sets federal quality standards for every US lab that tests human specimens.", ["CLIA regulates:", ["All US labs testing human specimens", "Only research labs", "Only blood banks", "Only hospitals"], 0, "Every clinical lab."]],
+ ["CLIA sorts tests by complexity: {{waived}}, moderate and high complexity. Personnel rules get stricter as complexity rises.", ["A home glucose meter is usually:", ["Waived", "High complexity", "Moderate only", "Unregulated"], 0, "Simple, low-risk tests."]],
+ ["Labs are inspected by accrediting groups like {{CAP}} or The Joint Commission, which hold them to CLIA standards or higher.", ["CAP is a lab:", ["Accrediting organization", "Supply company", "Billing agency", "Research lab"], 0, "Inspections every two years."]],
+ ["{{Proficiency testing}} sends unknown samples to labs; results are compared with other labs to prove accuracy.", ["Proficiency testing checks:", ["Accuracy against other labs", "Turnaround time", "Billing accuracy", "Staff attendance"], 0, "Unknowns graded externally."]],
+ ["Treat PT samples exactly like patients: never send them to another lab or share results. That’s a serious {{violation}}.", ["Sending a PT sample to another lab is:", ["A serious violation", "Allowed for hard tests", "Encouraged", "Required"], 0, "It can cost the lab its certificate."]],
+ ["{{HIPAA}} protects patient health information; share results only with people who need them for care.", ["HIPAA protects:", ["Patient health information", "Lab equipment", "Reagent pricing", "Staff schedules"], 0, "Privacy and security."]],
+ ["{{OSHA}} protects workers: bloodborne pathogen rules, chemical hazard communication and PPE.", ["Bloodborne pathogen rules come from:", ["OSHA", "CLIA", "CAP", "FDA"], 0, "Worker safety."]],
+ ["Professionalism means accuracy, honesty and confidentiality. If you make an error, {{report it}} right away; patients depend on it.", ["You discover you released a wrong result. You should:", ["Report it right away so it can be corrected", "Hide it", "Wait to see if anyone notices", "Delete the record"], 0, "Fast correction protects the patient."]]
+],
+"l-mgmt": [
+ ["Lab management covers people, money, quality and workflow, all aimed at {{accurate, timely}} results.", ["The core goal of lab management is:", ["Accurate, timely results", "Lowest possible cost only", "Fewest staff", "Most tests ordered"], 0, "Quality and speed for patients."]],
+ ["A {{procedure manual}} documents every test step by step; staff must follow the current, approved version.", ["Which procedure version should you follow?", ["The current approved version", "Any version you prefer", "A coworker’s notes", "The oldest version"], 0, "Consistency and compliance."]],
+ ["{{Competency assessment}} confirms each person can perform each test correctly: initially, at 6 months, then yearly.", ["New staff competency is checked:", ["Initially, at 6 months, then yearly", "Only once", "Every 5 years", "Never"], 0, "CLIA timing."]],
+ ["{{Quality management}} tracks errors and near-misses, finds root causes and fixes the system, not just the person.", ["After an error, root cause analysis looks for:", ["System causes that let it happen", "Someone to blame", "A new analyzer only", "Nothing"], 0, "Fix the process."]],
+ ["{{Turnaround time}} and other metrics are monitored to spot bottlenecks, like specimens waiting for transport.", ["A metric often tracked to measure lab service:", ["Turnaround time", "Lunch length", "Parking use", "Paper color"], 0, "Clinicians feel TAT."]],
+ ["Good teaching uses clear {{objectives}}: what the learner should be able to do at the end.", ["A learning objective should describe:", ["What the learner can do afterward", "The teacher’s résumé", "The room size", "The test price"], 0, "Measurable outcomes."]],
+ ["Adults learn best by {{doing}}: demonstrate, let them practice, then give specific feedback.", ["The best way to teach a bench skill:", ["Demonstrate, then supervised practice with feedback", "Hand them the manual only", "Lecture for an hour", "Let them guess"], 0, "Show, do, review."]],
+ ["{{Communication}} with nurses and providers (calling criticals, explaining rejections) is a core MLS skill.", ["When rejecting a specimen, you should:", ["Explain why and request a recollection", "Throw it away silently", "Run it anyway", "Blame the nurse"], 0, "Clear, respectful communication."]]
+]
+};
+/* ===================== v52.2 · program lessons as walkthroughs (batch 3) ===================== */
+const LESSON_BEATS_3 = {
+"l-micro": [
+ ["The {{Gram stain}} sorts bacteria by cell wall: gram-positive stain purple (thick peptidoglycan); gram-negative stain pink (thin wall, outer membrane).", ["Gram-positive bacteria stain:", ["Purple", "Pink", "Green", "Unstained"], 0, "The thick wall holds crystal violet."]],
+ ["Shape matters too: {{cocci}} are round, {{bacilli}} (rods) are elongated. ‘Gram-positive cocci in clusters’ already narrows the list.", ["Round bacteria are called:", ["Cocci", "Bacilli", "Spirochetes", "Vibrios"], 0, "Coccus means berry."]],
+ ["Bacteria differ in oxygen needs: {{aerobes}} need it, {{anaerobes}} are harmed by it, facultative ones handle both.", ["An organism that dies in oxygen is a:", ["Strict anaerobe", "Strict aerobe", "Facultative anaerobe", "Microaerophile"], 0, "Anaerobes need oxygen-free conditions."]],
+ ["{{Culture media}} can be enriched (blood agar), selective (MacConkey grows gram-negatives) or differential (shows a trait, like lactose fermentation).", ["MacConkey agar is selective for:", ["Gram-negative rods", "Gram-positive cocci", "Fungi", "Anaerobes"], 0, "Crystal violet and bile salts block gram-positives."]],
+ ["On {{MacConkey}}, lactose fermenters turn pink; non-fermenters stay colorless.", ["Pink colonies on MacConkey mean:", ["Lactose fermenter", "Non-fermenter", "Gram-positive", "Contamination"], 0, "Acid from lactose turns the indicator pink."]],
+ ["{{Blood agar}} shows hemolysis: beta (clear zone), alpha (green) or gamma (none).", ["A clear zone around colonies on blood agar is:", ["Beta-hemolysis", "Alpha-hemolysis", "Gamma-hemolysis", "Swarming"], 0, "Complete lysis of red cells."]],
+ ["{{Catalase}} splits hydrogen peroxide into bubbles. It separates staph (positive) from strep (negative).", ["Bubbles with hydrogen peroxide mean:", ["Catalase positive", "Oxidase positive", "Coagulase positive", "Lactose fermenter"], 0, "Staph bubble; strep don’t."]],
+ ["Specimen quality drives culture quality: a {{sputum}} full of squamous cells is spit, not lung, and should be rejected.", ["Many squamous cells in sputum mean:", ["Saliva contamination; recollect", "Pneumonia", "A perfect sample", "Fungal infection"], 0, "Lung samples shouldn’t be mostly mouth cells."]]
+],
+"l-gpc": [
+ ["Gram-positive cocci split by {{catalase}}: staphylococci are positive, streptococci and enterococci are negative.", ["Catalase-positive gram-positive cocci are:", ["Staphylococci", "Streptococci", "Enterococci", "Neisseria"], 0, "Staph bubble."]],
+ ["{{Coagulase}} identifies Staphylococcus aureus, the major staph pathogen.", ["Coagulase positive staph is:", ["S. aureus", "S. epidermidis", "S. saprophyticus", "Micrococcus"], 0, "Coagulase clots plasma."]],
+ ["Among coagulase-negative staph, {{novobiocin}} resistance identifies S. saprophyticus, a urinary pathogen in young women.", ["Novobiocin-resistant coagulase-negative staph is:", ["S. saprophyticus", "S. epidermidis", "S. aureus", "S. lugdunensis"], 0, "Think UTI."]],
+ ["{{MRSA}} is S. aureus resistant to methicillin (oxacillin), detected with a cefoxitin disk or the mecA gene.", ["MRSA resistance is caused by the:", ["mecA gene", "vanA gene", "KPC enzyme", "Beta-lactamase only"], 0, "mecA makes an altered PBP."]],
+ ["Strep are grouped by hemolysis. Beta-hemolytic {{group A}} (S. pyogenes) is bacitracin sensitive and causes strep throat.", ["Bacitracin-sensitive beta strep is:", ["Group A (S. pyogenes)", "Group B", "Enterococcus", "S. pneumoniae"], 0, "The A disk test."]],
+ ["{{Group B strep}} (S. agalactiae) is CAMP positive and hippurate positive; it threatens newborns, so pregnant patients are screened.", ["CAMP-positive beta strep is:", ["Group B (S. agalactiae)", "Group A", "S. pneumoniae", "Viridans strep"], 0, "Arrowhead hemolysis."]],
+ ["{{S. pneumoniae}} is alpha-hemolytic, optochin sensitive and bile soluble; it causes pneumonia and meningitis.", ["Optochin sensitivity identifies:", ["S. pneumoniae", "Viridans strep", "Enterococcus", "Group B"], 0, "Viridans strep are optochin resistant."]],
+ ["{{Enterococcus}} grows in 6.5% salt and hydrolyzes bile esculin (PYR positive); it’s a common cause of UTIs and resists many antibiotics.", ["Growth in 6.5% NaCl suggests:", ["Enterococcus", "S. pneumoniae", "Group A strep", "Viridans strep"], 0, "Tough in salt."]]
+],
+"l-gnr": [
+ ["Gram-negative rods start with {{lactose fermentation}} on MacConkey and the {{oxidase}} test.", ["Two first steps for gram-negative rods:", ["Lactose fermentation and oxidase", "Catalase and coagulase", "Optochin and bacitracin", "Acid-fast stain"], 0, "Sort by these first."]],
+ ["{{Enterobacterales}} (E. coli, Klebsiella, Proteus, Salmonella) are oxidase negative and ferment glucose.", ["Enterobacterales are oxidase:", ["Negative", "Positive", "Variable", "Not tested"], 0, "A key separator from Pseudomonas."]],
+ ["{{E. coli}} ferments lactose and is indole positive; it’s the top cause of urinary tract infections.", ["The most common cause of UTI:", ["E. coli", "Proteus", "Pseudomonas", "Klebsiella"], 0, "Lactose +, indole +."]],
+ ["{{Klebsiella}} makes mucoid, lactose-fermenting colonies and is a common cause of pneumonia and hospital infections.", ["Mucoid pink colonies on MacConkey suggest:", ["Klebsiella", "Proteus", "Salmonella", "Shigella"], 0, "Thick capsule makes them mucoid."]],
+ ["{{Proteus}} swarms across blood agar, smells burnt, and makes H₂S; it’s urease positive.", ["Swarming growth on blood agar suggests:", ["Proteus", "E. coli", "Klebsiella", "Pseudomonas"], 0, "Waves of motility."]],
+ ["{{Salmonella}} and {{Shigella}} don’t ferment lactose and cause GI infections. Salmonella makes H₂S; Shigella doesn’t.", ["A non-lactose fermenter making H₂S on HE agar is likely:", ["Salmonella", "Shigella", "E. coli", "Klebsiella"], 0, "Black centers from H₂S."]],
+ ["{{Pseudomonas aeruginosa}} is oxidase positive, a non-fermenter, with a grape-like odor and green pigment.", ["Oxidase-positive non-fermenter with a grape odor:", ["Pseudomonas aeruginosa", "E. coli", "Proteus", "Salmonella"], 0, "Classic Pseudomonas."]],
+ ["Resistance is a big deal in gram-negatives: {{ESBLs}} break down many beta-lactams, and carbapenemases (like KPC) break even carbapenems.", ["KPC enzymes destroy:", ["Carbapenems", "Only penicillin", "Vancomycin", "Nothing"], 0, "Carbapenem-resistant Enterobacterales."]]
+],
+"l-ast": [
+ ["{{Susceptibility testing}} tells clinicians which antibiotics will work against a patient’s isolate.", ["AST answers which question?", ["Which antibiotics will work", "What organism it is", "How old the patient is", "Whether it’s a virus"], 0, "It guides treatment."]],
+ ["The {{MIC}} (minimum inhibitory concentration) is the lowest drug concentration that stops visible growth.", ["The MIC is the lowest concentration that:", ["Stops visible growth", "Kills every cell", "Causes side effects", "Grows the organism"], 0, "Inhibits, not necessarily kills."]],
+ ["MICs are read as {{S, I or R}} (susceptible, intermediate, resistant) using CLSI breakpoints.", ["S, I and R are assigned using:", ["Breakpoints", "Colony color", "Gram stain", "Patient age"], 0, "Breakpoints are set by standards groups."]],
+ ["{{Kirby-Bauer}} disk diffusion: antibiotic disks on a lawn of bacteria; a bigger zone of inhibition means more susceptible.", ["In disk diffusion, a larger zone means:", ["More susceptible", "More resistant", "Contamination", "No effect"], 0, "The drug spread and stopped growth farther out."]],
+ ["The inoculum must match a {{0.5 McFarland}} standard; too heavy makes zones small (false resistance), too light makes them big.", ["Too heavy an inoculum causes:", ["Falsely small zones", "Falsely large zones", "No change", "Swarming"], 0, "More bacteria overwhelm the drug."]],
+ ["{{Mueller-Hinton agar}} is the standard medium, poured to 4 mm depth, incubated at 35 °C.", ["The standard agar for disk diffusion:", ["Mueller-Hinton", "MacConkey", "Chocolate", "Thayer-Martin"], 0, "Standardized and nonselective."]],
+ ["Some resistance needs special tests: {{beta-lactamase}} for Haemophilus and Neisseria, the D-test for inducible clindamycin resistance.", ["The D-test detects:", ["Inducible clindamycin resistance", "MRSA", "VRE", "ESBL"], 0, "Erythromycin induces clindamycin resistance."]],
+ ["QC strains with known results are tested alongside, so you know the {{system}} is giving correct answers.", ["Why test ATCC QC strains with AST?", ["To verify the test system is working", "To grow the patient isolate", "To bill the test", "To replace breakpoints"], 0, "Known strains, known results."]]
+],
+"l-afb": [
+ ["{{Mycobacteria}} have waxy, lipid-rich walls, so they resist Gram staining and need an acid-fast stain.", ["Mycobacteria are detected with:", ["An acid-fast stain", "A Gram stain", "India ink", "Wright stain"], 0, "Mycolic acid resists decolorizing."]],
+ ["In the {{Ziehl-Neelsen}} stain, acid-fast bacilli stay red after acid-alcohol; everything else takes the blue counterstain.", ["Acid-fast bacilli appear:", ["Red on a blue background", "Blue on red", "Purple", "Green"], 0, "Carbol fuchsin is retained."]],
+ ["{{M. tuberculosis}} grows very slowly (weeks) and is handled in a BSL-3 setting because it spreads by aerosol.", ["TB cultures take about:", ["Weeks", "Hours", "One day", "One year"], 0, "Slow growers."]],
+ ["Sputum for TB is collected as {{three}} samples, ideally early morning, to improve detection.", ["How many sputum samples are typically collected for TB?", ["Three", "One", "Ten", "Two blood samples"], 0, "Improves sensitivity."]],
+ ["{{Molecular tests}} (like NAAT) detect TB DNA in hours and can flag rifampin resistance.", ["NAAT for TB can detect:", ["TB DNA and rifampin resistance", "Only fungi", "Only viruses", "Blood type"], 0, "Fast and specific."]],
+ ["Fungi are {{yeasts}} (single cells, like Candida) or {{molds}} (hyphae, like Aspergillus).", ["Candida is a:", ["Yeast", "Mold", "Bacterium", "Parasite"], 0, "Single budding cells."]],
+ ["{{Dimorphic}} fungi switch forms: mold in the environment, yeast in the body (Histoplasma, Blastomyces, Coccidioides).", ["Dimorphic fungi are yeast at:", ["Body temperature", "Room temperature", "Freezing", "Any temperature"], 0, "Mold at 25 °C, yeast at 37 °C."]],
+ ["{{KOH}} dissolves human cells so fungal elements stand out; {{India ink}} outlines Cryptococcus’s capsule.", ["India ink highlights the capsule of:", ["Cryptococcus", "Candida", "Aspergillus", "Histoplasma"], 0, "A halo around the yeast."]]
+],
+"l-mycopara": [
+ ["Fungal ID starts with {{growth rate}}, colony look and microscopic shape: yeast cells or branching hyphae.", ["Two main fungal forms:", ["Yeasts and molds", "Cocci and rods", "Spores and cysts", "Viruses and prions"], 0, "Single cells versus hyphae."]],
+ ["{{Candida albicans}} forms germ tubes within about 2 hours in serum, a quick way to identify it.", ["A positive germ tube test identifies:", ["Candida albicans", "Cryptococcus", "Aspergillus", "Histoplasma"], 0, "Rapid ID."]],
+ ["{{Aspergillus}} has septate hyphae branching at acute angles and causes lung infections in immunocompromised patients.", ["Septate hyphae branching at acute angles suggest:", ["Aspergillus", "Mucor", "Candida", "Cryptococcus"], 0, "Mucor is broad and aseptate."]],
+ ["Parasites are {{protozoa}} (single cells like Giardia) or {{helminths}} (worms).", ["Giardia is a:", ["Protozoan", "Helminth", "Bacterium", "Fungus"], 0, "Single-celled parasite."]],
+ ["The {{O&P}} (ova and parasites) exam looks for eggs, cysts and trophozoites in stool, ideally three samples on different days.", ["An O&P exam looks for:", ["Eggs, cysts and trophozoites", "Bacteria only", "Fungi only", "Viruses"], 0, "Parasites shed intermittently."]],
+ ["{{Malaria}} is diagnosed on thick and thin blood smears: thick smears find parasites, thin smears identify the species.", ["Thin blood smears for malaria are used to:", ["Identify the species", "Find parasites quickly", "Count white cells", "Measure hemoglobin"], 0, "Thick screens, thin identifies."]],
+ ["{{Plasmodium falciparum}} is the most dangerous species; banana-shaped gametocytes and many ring forms point to it.", ["Banana-shaped gametocytes suggest:", ["P. falciparum", "P. vivax", "P. malariae", "Babesia"], 0, "Falciparum is the emergency."]],
+ ["{{Pinworm}} (Enterobius) is diagnosed with clear tape pressed to the perianal skin in the morning.", ["The test for pinworm:", ["Tape prep in the morning", "Stool O&P", "Blood smear", "Urine culture"], 0, "Eggs are laid around the anus at night."]]
+],
+"l-para": [
+ ["Parasites live on or in a host. {{Protozoa}} are single-celled; {{helminths}} are worms: roundworms, tapeworms and flukes.", ["A tapeworm is a:", ["Helminth", "Protozoan", "Bacterium", "Fungus"], 0, "Worms are helminths."]],
+ ["Protozoa have a feeding {{trophozoite}} stage and a resistant {{cyst}} stage that spreads infection.", ["The infective, resistant stage of many protozoa is the:", ["Cyst", "Trophozoite", "Egg", "Larva"], 0, "Cysts survive outside the host."]],
+ ["{{Giardia}} causes greasy diarrhea; its trophozoite looks like a face with two nuclei (‘eyes’).", ["Pear-shaped trophozoites with two nuclei suggest:", ["Giardia", "Entamoeba", "Cryptosporidium", "Trichomonas"], 0, "The famous face."]],
+ ["{{Cryptosporidium}} is acid-fast and spreads through water; it’s severe in immunocompromised patients.", ["Cryptosporidium oocysts stain with:", ["A modified acid-fast stain", "Gram stain", "India ink", "Wright stain"], 0, "They show up red."]],
+ ["{{Entamoeba histolytica}} can invade the gut and liver; trophozoites may contain ingested red cells.", ["Amoebae with ingested red cells suggest:", ["Entamoeba histolytica", "Giardia", "Pinworm", "Toxoplasma"], 0, "Invasive amoeba."]],
+ ["Helminths are usually found as {{eggs}} in stool, identified by size and shape.", ["Most helminth infections are diagnosed by:", ["Eggs in stool", "Blood culture", "Urine dipstick", "Throat swab"], 0, "Ova in O&P."]],
+ ["{{Ascaris}} is the large roundworm; its eggs are bumpy (mammillated).", ["Bumpy (mammillated) eggs suggest:", ["Ascaris", "Pinworm", "Hookworm", "Taenia"], 0, "Classic Ascaris egg."]],
+ ["Parasitic infection often raises {{eosinophils}}, especially when worms invade tissue.", ["Which cell often rises in worm infections?", ["Eosinophils", "Basophils", "Neutrophils", "Lymphocytes"], 0, "Eosinophils target parasites."]]
+],
+"l-immune": [
+ ["{{Innate immunity}} is fast and general (skin, neutrophils, complement). {{Adaptive immunity}} is slower but specific and remembers.", ["Which immunity has memory?", ["Adaptive", "Innate", "Both equally", "Neither"], 0, "Memory B and T cells."]],
+ ["{{B cells}} become plasma cells that make antibodies. {{T cells}} kill infected cells or help coordinate the response.", ["Antibodies are made by:", ["Plasma cells (from B cells)", "T cells", "Neutrophils", "Red cells"], 0, "B cells mature into plasma cells."]],
+ ["An {{antigen}} is anything the immune system recognizes; an {{antibody}} binds a specific antigen.", ["An antibody binds:", ["A specific antigen", "Any protein", "Only bacteria", "Only viruses"], 0, "Lock and key."]],
+ ["{{IgM}} is the first antibody made in an infection; it’s a big pentamer that’s good at agglutination.", ["The first antibody produced in a new infection:", ["IgM", "IgG", "IgA", "IgE"], 0, "IgM means recent."]],
+ ["{{IgG}} comes later, is the most abundant, and is the only antibody that crosses the placenta.", ["Which antibody crosses the placenta?", ["IgG", "IgM", "IgA", "IgE"], 0, "Protects the newborn."]],
+ ["{{IgA}} protects mucous membranes and is in breast milk; {{IgE}} drives allergies.", ["Allergic reactions are driven by:", ["IgE", "IgA", "IgM", "IgD"], 0, "IgE triggers mast cells."]],
+ ["The {{complement}} system punches holes in microbes and tags them for destruction.", ["Complement helps by:", ["Lysing and tagging microbes", "Carrying oxygen", "Clotting blood", "Making antibodies"], 0, "A cascade of proteins."]],
+ ["{{Agglutination}} (clumping) shows antibody binding antigen on particles, the basis of blood typing and many tests.", ["Clumping of red cells by antibody is called:", ["Agglutination", "Hemolysis", "Precipitation", "Coagulation"], 0, "Visible clumps."]]
+],
+"l-hyper": [
+ ["{{Hypersensitivity}} is the immune system overreacting. There are four types, I to IV.", ["How many hypersensitivity types are there?", ["Four", "Two", "Six", "Ten"], 0, "Types I to IV."]],
+ ["{{Type I}} is immediate and IgE-mediated: allergies, hay fever, anaphylaxis.", ["Anaphylaxis is type:", ["I", "II", "III", "IV"], 0, "IgE and mast cells."]],
+ ["{{Type II}} is antibody against cells: transfusion reactions, hemolytic disease of the newborn, autoimmune hemolysis.", ["A hemolytic transfusion reaction is type:", ["II", "I", "III", "IV"], 0, "Antibody against red cells."]],
+ ["{{Type III}} is immune complexes depositing in tissues: lupus, serum sickness, post-strep glomerulonephritis.", ["Immune complexes in tissue cause type:", ["III", "I", "II", "IV"], 0, "Complexes trigger inflammation."]],
+ ["{{Type IV}} is delayed, T-cell mediated: TB skin test, poison ivy, contact dermatitis.", ["A positive TB skin test after 48 hours is type:", ["IV", "I", "II", "III"], 0, "Delayed, cell-mediated."]],
+ ["{{Autoimmunity}} is the immune system attacking self. Autoantibodies help diagnose it.", ["Autoimmune disease involves immunity against:", ["Self", "Only bacteria", "Only viruses", "Transfused cells only"], 0, "Loss of self-tolerance."]],
+ ["The {{ANA}} (antinuclear antibody) screen is sensitive for lupus; anti-dsDNA and anti-Smith are more specific.", ["The most specific antibody for lupus:", ["Anti-Smith (or anti-dsDNA)", "ANA screen", "RF", "Anti-CCP"], 0, "ANA is sensitive, not specific."]],
+ ["Rheumatoid arthritis is supported by {{RF}} and the more specific {{anti-CCP}} antibody.", ["The more specific test for rheumatoid arthritis:", ["Anti-CCP", "RF", "ANA", "ASO"], 0, "Anti-CCP rarely appears in other diseases."]]
+],
+"l-sero": [
+ ["{{Serology}} detects antibodies (or antigens) in serum to diagnose infections, especially ones hard to culture.", ["Serology mainly detects:", ["Antibodies or antigens in serum", "Bacteria on agar", "Cells under the microscope", "Crystals"], 0, "Indirect evidence of infection."]],
+ ["{{IgM}} suggests a recent infection; {{IgG}} suggests a past infection or immunity.", ["Positive IgM, negative IgG suggests:", ["Recent infection", "Past infection", "Vaccination long ago", "No infection"], 0, "IgM comes first."]],
+ ["A {{fourfold rise}} in titer between acute and convalescent samples confirms a current infection.", ["A titer rising from 1:8 to 1:64 indicates:", ["Current infection", "Past infection", "Lab error", "No change"], 0, "Fourfold or greater rise."]],
+ ["Syphilis screening uses nontreponemal tests ({{RPR}}), confirmed with treponemal tests (like FTA-ABS or TP-PA).", ["A positive RPR should be confirmed with:", ["A treponemal test", "Another RPR", "A Gram stain", "A blood culture"], 0, "RPR can be falsely positive."]],
+ ["{{RPR}} titers fall with treatment, so they track therapy; treponemal tests usually stay positive for life.", ["Which syphilis test tracks treatment response?", ["RPR titer", "FTA-ABS", "TP-PA", "Dark-field"], 0, "Titers fall after treatment."]],
+ ["HIV testing starts with a {{4th-generation}} antigen/antibody combo test, which detects p24 antigen early.", ["4th-generation HIV tests detect:", ["p24 antigen and antibodies", "Only antibodies", "Only viral RNA", "Only CD4"], 0, "Catches earlier infection."]],
+ ["Hepatitis B markers tell the story: {{HBsAg}} means current infection; anti-HBs means immunity.", ["Anti-HBs alone (after vaccination) means:", ["Immunity", "Active infection", "Chronic carrier", "Window period"], 0, "Surface antibody protects."]],
+ ["The {{window period}} is the time after infection before tests turn positive, which can cause false negatives.", ["A test done in the window period may be:", ["Falsely negative", "Falsely positive", "Always correct", "Invalid"], 0, "Antibodies haven’t formed yet."]]
+],
+"l-virus": [
+ ["{{Viruses}} can only reproduce inside living cells, so they don’t grow on regular agar.", ["Why don’t viruses grow on agar?", ["They need living cells", "They’re too big", "Agar kills them", "They need light"], 0, "Obligate intracellular."]],
+ ["Viruses carry either {{DNA}} or {{RNA}}, inside a protein coat, sometimes with an envelope.", ["A virus’s genome is:", ["DNA or RNA", "Both always", "Protein only", "Lipid only"], 0, "Never both."]],
+ ["Most viral diagnosis today uses {{molecular tests}} like PCR, which detect viral nucleic acid quickly.", ["The most common way to detect viruses today:", ["PCR / molecular tests", "Gram stain", "Blood agar culture", "Urine dipstick"], 0, "Fast and sensitive."]],
+ ["{{Antigen tests}} (like rapid flu or COVID tests) are fast but less sensitive than PCR.", ["Compared with PCR, rapid antigen tests are:", ["Faster but less sensitive", "Slower and more sensitive", "Identical", "Only for bacteria"], 0, "Negative antigen tests may need PCR."]],
+ ["Viral specimens go in {{viral transport media}} and are kept cold to protect the virus.", ["Viral swabs should be placed in:", ["Viral transport media", "Dry tubes", "Blood culture bottles", "Formalin"], 0, "Keeps the virus intact."]],
+ ["{{Hepatitis}} viruses infect the liver: HAV and HEV spread fecal-orally; HBV, HCV and HDV spread through blood and body fluids.", ["Which hepatitis viruses spread through blood?", ["B, C and D", "A and E", "Only A", "None"], 0, "Bloodborne hepatitis."]],
+ ["{{HIV}} infects CD4 T cells; viral load and CD4 counts track the disease and treatment.", ["HIV mainly infects:", ["CD4 T cells", "Red cells", "Platelets", "Neutrophils"], 0, "Helper T cells."]],
+ ["Some viruses cause {{latent}} infections that reactivate later, like herpes simplex and varicella-zoster (shingles).", ["Shingles is reactivation of:", ["Varicella-zoster virus", "HIV", "Influenza", "HPV"], 0, "Chickenpox virus waking up."]]
+],
+"l-mol": [
+ ["{{Molecular diagnostics}} detect DNA or RNA directly: infections, genetic mutations and cancers.", ["Molecular tests detect:", ["DNA or RNA", "Only proteins", "Only antibodies", "Only cells"], 0, "Nucleic acids."]],
+ ["{{PCR}} copies a target DNA sequence over and over: denature (separate strands), anneal primers, extend.", ["The three PCR steps are:", ["Denature, anneal, extend", "Spin, stain, read", "Mix, heat, freeze", "Grow, isolate, identify"], 0, "Repeated in cycles."]],
+ ["Each cycle roughly {{doubles}} the target, so 30 cycles make about a billion copies.", ["Each PCR cycle roughly:", ["Doubles the target", "Halves the target", "Adds one copy", "Does nothing"], 0, "Exponential growth."]],
+ ["{{Primers}} are short sequences that pick out the exact target region to copy.", ["What determines which DNA PCR copies?", ["The primers", "The polymerase color", "The tube size", "The temperature only"], 0, "Primers bind the target edges."]],
+ ["{{Real-time PCR}} measures product as it forms using fluorescence; fewer cycles to turn positive means more target.", ["A lower Ct value means:", ["More starting target", "Less target", "No target", "Contamination always"], 0, "It crossed the threshold sooner."]],
+ ["{{RT-PCR}} first converts RNA to DNA with reverse transcriptase, so RNA viruses can be detected.", ["RT-PCR is needed for:", ["RNA targets", "DNA targets only", "Proteins", "Antibodies"], 0, "Reverse transcription first."]],
+ ["{{Contamination}} is the biggest risk: tiny amounts of amplified product can cause false positives, so labs separate work areas.", ["Why separate pre- and post-PCR areas?", ["To prevent amplicon contamination", "To save space", "For temperature", "For lighting"], 0, "One-way workflow."]],
+ ["{{Sequencing}} reads the exact DNA bases, finding mutations that guide cancer treatment or identify organisms.", ["Sequencing determines:", ["The exact order of DNA bases", "Blood type", "Antibody titer", "Cell count"], 0, "Base by base."]]
+],
+"l-abo": [
+ ["Your {{ABO}} type depends on A and B antigens on red cells: type A has A, type B has B, AB has both, O has neither.", ["Type O red cells have:", ["Neither A nor B antigen", "Both antigens", "Only A", "Only B"], 0, "O lacks both."]],
+ ["People naturally have {{antibodies}} against the ABO antigens they lack: type A has anti-B, type O has both anti-A and anti-B.", ["A type B person has:", ["Anti-A", "Anti-B", "Both", "Neither"], 0, "Antibodies against what you lack."]],
+ ["{{Forward typing}} tests the patient’s red cells with anti-A and anti-B reagents.", ["Forward typing tests:", ["Patient red cells with anti-A and anti-B", "Patient serum with A and B cells", "Only Rh", "Antibody screen"], 0, "Cells meet reagent antibody."]],
+ ["{{Reverse typing}} tests the patient’s plasma with known A1 and B cells. Forward and reverse must agree.", ["Reverse typing uses:", ["Patient plasma with A1 and B cells", "Patient cells with anti-A", "Anti-D", "AHG"], 0, "It confirms the forward type."]],
+ ["A {{discrepancy}} (forward and reverse don’t match) must be resolved before blood is given. Causes include weak antibodies in newborns and the elderly.", ["Forward and reverse types disagree. You should:", ["Resolve it before transfusing", "Go with the forward type", "Give type AB", "Ignore it"], 0, "Discrepancies must be explained."]],
+ ["The {{Rh(D)}} antigen makes you Rh positive. Rh-negative people don’t naturally have anti-D, but can make it after exposure.", ["Anti-D usually forms after:", ["Exposure to D-positive cells", "Birth naturally", "Viral infection", "Exercise"], 0, "Transfusion or pregnancy."]],
+ ["{{Type O negative}} red cells can be given to anyone in an emergency; {{type AB}} plasma is the universal plasma.", ["The universal red cell donor type:", ["O negative", "AB positive", "A negative", "B positive"], 0, "No A, B or D antigens."]],
+ ["{{RhIG}} (Rh immune globulin) is given to Rh-negative mothers to prevent anti-D from forming against an Rh-positive baby.", ["RhIG prevents:", ["Formation of anti-D", "ABO incompatibility", "All antibodies", "Anemia"], 0, "Protects future pregnancies."]]
+],
+"l-xm": [
+ ["Before transfusion: confirm the patient, {{type}} the sample, run an {{antibody screen}}, then crossmatch the unit.", ["Which comes first in pretransfusion testing?", ["Confirming patient ID on the sample", "Crossmatch", "Issuing the unit", "Antibody ID"], 0, "Everything rests on correct ID."]],
+ ["The {{antibody screen}} tests patient plasma against reagent screening cells to detect unexpected antibodies.", ["The antibody screen detects:", ["Unexpected red cell antibodies", "ABO type", "Hemoglobin level", "Infections"], 0, "Beyond anti-A and anti-B."]],
+ ["A positive screen needs {{antibody identification}} with a panel, then antigen-negative units for that antibody.", ["After identifying anti-K, you give:", ["K-negative units", "Any units", "Only O negative", "Plasma only"], 0, "Avoid the antigen."]],
+ ["The {{crossmatch}} checks patient plasma against the actual donor cells; incompatibility shows as agglutination or hemolysis.", ["The crossmatch tests patient plasma against:", ["Donor red cells", "Reagent screening cells", "Patient’s own cells", "Plasma only"], 0, "The final compatibility check."]],
+ ["An {{immediate-spin}} crossmatch confirms ABO compatibility when the screen is negative; an AHG crossmatch is used when antibodies are present.", ["When antibodies are present, use the:", ["AHG (full) crossmatch", "Immediate-spin only", "No crossmatch", "Electronic only"], 0, "Detects IgG antibodies."]],
+ ["{{Platelets}} are stored at room temperature with agitation; red cells refrigerated at 1–6 °C; plasma frozen.", ["Red cells are stored at:", ["1–6 °C", "Room temperature", "−18 °C", "37 °C"], 0, "Refrigerated."]],
+ ["Units are issued with {{two-person}} verification of patient and unit identifiers.", ["Why use two-person checks when issuing blood?", ["To prevent wrong-patient transfusion", "For billing", "To warm the unit", "To save time"], 0, "Misidentification is the top fatal error."]],
+ ["{{Irradiated}} units prevent graft-versus-host disease in vulnerable patients; leukoreduced units reduce fever and CMV risk.", ["Irradiation of blood prevents:", ["Transfusion-associated GVHD", "Hemolysis", "Allergic reactions", "Iron overload"], 0, "Inactivates donor lymphocytes."]]
+],
+"l-txrxn": [
+ ["A {{transfusion reaction}} is any bad response to blood. At the first sign, stop the transfusion and keep the IV open with saline.", ["First step if a reaction is suspected:", ["Stop the transfusion", "Speed it up", "Finish the unit", "Give more blood"], 0, "Stop, then investigate."]],
+ ["The lab workup starts with a {{clerical check}}: right patient, right unit, matching labels.", ["The first lab step in a reaction workup:", ["Clerical check", "Antibody panel", "Culture", "Electrophoresis"], 0, "Most fatal reactions are ID errors."]],
+ ["Then a {{DAT}} on a post-transfusion sample: positive suggests antibody-coated red cells (hemolytic reaction).", ["A positive DAT after transfusion suggests:", ["Immune hemolysis", "Allergy", "Fluid overload", "Normal"], 0, "Antibody on red cells."]],
+ ["{{Acute hemolytic}} reactions (usually ABO errors) cause fever, back pain, red urine and shock; they can be fatal.", ["Red urine and back pain during transfusion suggest:", ["Acute hemolytic reaction", "Allergic reaction", "TRALI", "Febrile reaction"], 0, "ABO mismatch."]],
+ ["{{Febrile nonhemolytic}} reactions are fever from donor white cell cytokines; leukoreduced blood reduces them.", ["Leukoreduction prevents:", ["Febrile nonhemolytic reactions", "ABO reactions", "TACO", "Iron overload"], 0, "Fewer white cells, fewer cytokines."]],
+ ["{{Allergic}} reactions cause hives; severe {{anaphylaxis}} can happen in IgA-deficient patients with anti-IgA.", ["Anaphylaxis can occur in patients deficient in:", ["IgA", "IgG", "IgM", "Iron"], 0, "Anti-IgA reacts with donor plasma."]],
+ ["{{TRALI}} (lung injury from donor antibodies) and {{TACO}} (fluid overload) both cause breathing trouble; TACO responds to diuretics.", ["Breathing trouble that improves with diuretics suggests:", ["TACO", "TRALI", "Allergic reaction", "Hemolysis"], 0, "Too much volume."]],
+ ["{{Delayed hemolytic}} reactions appear days later as an anamnestic antibody response (often anti-Jka); hemoglobin falls and the DAT turns positive.", ["Delayed hemolytic reactions are often due to:", ["Kidd antibodies (anti-Jka)", "ABO antibodies", "IgE", "Platelets"], 0, "Kidd antibodies fade and return."]]
+],
+"l-bbid": [
+ ["Beyond ABO and Rh there are dozens of {{blood group systems}}: Kell, Duffy, Kidd, MNS, Lewis and more.", ["Which is a blood group system besides ABO and Rh?", ["Kell", "HLA-B27", "Factor V", "CD4"], 0, "Kell is clinically important."]],
+ ["{{Clinically significant}} antibodies are usually IgG, react at 37 °C/AHG and can cause transfusion reactions or HDFN.", ["Clinically significant antibodies usually react at:", ["37 °C / AHG phase", "Room temperature only", "4 °C only", "Never"], 0, "Warm IgG antibodies."]],
+ ["{{Anti-K}} (Kell) is highly significant: it causes severe HDFN and transfusion reactions.", ["Anti-K is known for causing:", ["Severe HDFN", "No problems", "Only cold reactions", "Platelet loss"], 0, "Kell is very immunogenic."]],
+ ["{{Kidd}} antibodies (anti-Jka, anti-Jkb) often fade below detection and then return, causing delayed hemolytic reactions.", ["Antibodies notorious for delayed hemolytic reactions:", ["Kidd", "Lewis", "P1", "I"], 0, "Here today, gone tomorrow."]],
+ ["{{Duffy}} antigens are destroyed by enzymes (like ficin); Fy(a−b−) cells resist P. vivax malaria.", ["Enzyme treatment destroys which antigens?", ["Duffy (Fya, Fyb)", "Kidd", "Rh", "Kell"], 0, "Enzymes cleave Duffy and MNS."]],
+ ["{{Lewis}}, P1 and I antibodies are often cold IgM and usually not clinically significant.", ["Anti-Lea is usually:", ["Cold and not clinically significant", "A major HDFN risk", "Warm IgG", "Lethal"], 0, "Lewis antibodies are mostly IgM."]],
+ ["Antibody ID uses a {{panel}} of typed cells: rule out antigens on nonreacting cells, then match the reaction pattern.", ["In a panel, antibodies are ruled out using:", ["Cells that don’t react", "Cells that do react", "Patient cells only", "The DAT"], 0, "No reaction with an antigen-positive cell rules it out."]],
+ ["Confirm with the {{rule of three}}: at least three antigen-positive cells react and three antigen-negative cells don’t.", ["The rule of three confirms:", ["The antibody identification is reliable", "The blood type", "The DAT", "The crossmatch"], 0, "About 95% confidence."]]
+]
+};
 /* ===================== v52 ===================== */
 /* ---------- rewritten program lessons use the walkthrough player, under their own name ---------- */
 { const sb = startBootcamp; startBootcamp = function (l, ...a) { const out = sb.call(this, l, ...a); try { ST.lessonRef = l; if (!l.boot) { const t = ST.el.querySelector(".study-top .t"); if (t) t.textContent = l.title; } } catch { } return out; }; }
@@ -15528,17 +15880,27 @@ new MutationObserver(() => { const el = ST && ST.el; if (!el || !el.isConnected 
 
 /* ---------- Settings: one centered column ---------- */
 { const r = render; render = function (...a) { const out = r.apply(this, a); const v = $("#view"); if (v) v.classList.toggle("setpage", (location.hash || "") === "#more"); return out; }; }
-/* ---------- lesson text reads like teaching, not a list. Key terms still become blanks in recall mode. ---------- */
+/* ---------- lesson text: one full-size paragraph (as before), key terms become blanks in recall mode,
+   no chopping sentences into bullet fragments, and each beat’s key point and memory hook shown in their boxes ---------- */
+const BEAT_NOTES = new Map();
 formatTeach = function (raw, mode = "read") {
   const seen = new Set();
   const R = str => str.split(/(\{\{.+?\}\})/).map(part => { const m = part.match(/^\{\{(.+)\}\}$/); if (m) return mode === "recall" ? blankInputs(m[1]) : gloss(esc(m[1]), seen, true); return gloss(esc(part), seen, true); }).join("");
   const sents = splitSent(raw);
   const defRe = /^((?:\{\{[^}]+\}\}|[A-Z])[^,.:;]{0,42}?)\s(is|are|means)\s(.+)$/;
   const defs = sents.filter(x => defRe.test(x) && !/^(This|That|It|They|There|These|Those|A|An|The|Most|Many|Some|Labs?|Your|Each|Every|When|If|Below|Above|Normal)\b/.test(x.replace(/[{}]/g, "")));
-  if (defs.length >= 3 && defs.length >= sents.length - 1) return `<div class="tb">${sents.map(x => { const m = x.match(defRe); return m && defs.includes(x) ? `<div class="tdef"><span class="tterm">${R(m[1])}</span><span class="tdesc">${R(m[2] + " " + m[3])}</span></div>` : `<p class="tp">${R(x)}</p>`; }).join("")}</div>`;
-  if (sents.length <= 1) return `<div class="tb"><p class="tp">${R(raw)}</p></div>`;
-  return `<div class="tb"><p class="tp">${R(sents[0])}</p><p class="tp tprose">${R(sents.slice(1).join(" "))}</p></div>`;
+  const notes = BEAT_NOTES.get(raw) || {}; const extra = `${notes.key ? `<div class="tkey"><span>Key point</span>${gloss(esc(notes.key), seen, true)}</div>` : ""}${notes.hook ? `<div class="thook"><span>💡 Memory hook</span>${gloss(esc(notes.hook), seen, true)}</div>` : ""}`;
+  if (defs.length >= 2) return `<div class="tb">${sents.map(x => { const m = x.match(defRe); return m && defs.includes(x) ? `<div class="tdef"><span class="tterm">${R(m[1])}</span><span class="tdesc">${R(m[2] + " " + m[3])}</span></div>` : `<p class="tp">${R(x)}</p>`; }).join("")}${extra}</div>`;
+  return `<div class="tb"><p class="tp">${R(sents.join(" "))}</p>${extra}</div>`;
 };
+/* ===================== v52.2 · apply rewritten lessons (keeps ids → keeps progress) ===================== */
+[typeof LESSON_BEATS_1 !== "undefined" ? LESSON_BEATS_1 : {}, typeof LESSON_BEATS_2 !== "undefined" ? LESSON_BEATS_2 : {}, typeof LESSON_BEATS_3 !== "undefined" ? LESSON_BEATS_3 : {}].forEach(M => Object.entries(M).forEach(([id, beats]) => {
+  const l = LESSONS.find(x => x.id === id); if (!l || !beats.length) return;
+  /* carry over each original section’s key point and memory hook */
+  const notes = (l.steps || []).filter(s => s && (s.key || s.hook) && !s.q).map(s => ({ key: s.key || "", hook: s.hook || "" }));
+  notes.forEach((n, k) => { const at = Math.min(beats.length - 1, Math.max(0, Math.round((k + 1) * beats.length / notes.length) - 1)); const prev = BEAT_NOTES.get(beats[at][0]) || {}; BEAT_NOTES.set(beats[at][0], { key: [prev.key, n.key].filter(Boolean).join(" "), hook: [prev.hook, n.hook].filter(Boolean).join(" ") }); });
+  l.beats = beats; l._ready = false; l.rewritten = 1;
+}));
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
