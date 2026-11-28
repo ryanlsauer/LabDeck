@@ -3287,7 +3287,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "52.0";
+const APP_VERSION = "52.1";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -15507,7 +15507,8 @@ Object.entries(LESSON_BEATS_1).forEach(([id, beats]) => { const l = LESSONS.find
 /* ---------- rewritten program lessons use the walkthrough player, under their own name ---------- */
 { const sb = startBootcamp; startBootcamp = function (l, ...a) { const out = sb.call(this, l, ...a); try { ST.lessonRef = l; if (!l.boot) { const t = ST.el.querySelector(".study-top .t"); if (t) t.textContent = l.title; } } catch { } return out; }; }
 { const sl = startLesson; startLesson = function (l, ...a) { const out = sl.call(this, l, ...a); try { if (ST) ST.lessonRef = l; } catch { } return out; }; }
-{ const os = openStudy; openStudy = function (...a) { const keep = (ST && ST.lessonRef) || null; const out = os.apply(this, a); ST.lessonRef = null; return out; }; }
+{ const os = openStudy; openStudy = function (...a) { const out = os.apply(this, a); try { const title = String(a[0] || ""); const L = LESSONS.find(l => title === l.title || title === "Bootcamp: " + l.title); ST.lessonRef = L || null;
+      if (L && !L.boot) { const t = ST.el.querySelector(".study-top .t"); if (t) t.textContent = L.title; } } catch { ST.lessonRef = null; } return out; }; }
 
 /* ---------- add a card from inside any lesson or module ---------- */
 function lessonDeckFor(l) { const ids = [].concat((l && l.unlock) || []); for (const u of ids) { const id = u && typeof u === "object" ? u.pack : u; try { const d = findPackDeck(id); if (d && !d.hidden) return d; } catch { } } return null; }
@@ -15527,13 +15528,16 @@ new MutationObserver(() => { const el = ST && ST.el; if (!el || !el.isConnected 
 
 /* ---------- Settings: one centered column ---------- */
 { const r = render; render = function (...a) { const out = r.apply(this, a); const v = $("#view"); if (v) v.classList.toggle("setpage", (location.hash || "") === "#more"); return out; }; }
-/* ---------- lesson text reads like teaching, not a list: no automatic bullets ---------- */
-formatTeach = function (raw, seen = new Set()) {
-  const t = raw.replace(/\{\{(.+?)\}\}/g, "$1"); const sents = splitSent(t); const G = s => hiNums(gloss(esc(s), seen, true));
-  const defRe = /^([A-Z][^,.:;]{0,42}?)\s(is|are|means)\s(.+)$/; const defs = sents.filter(s => defRe.test(s) && !/^(This|That|It|They|There|These|Those|A|An|The|Most|Many|Some|Labs?|Your|Each|Every|When|If)\b/.test(s));
-  if (defs.length >= 3 && defs.length >= sents.length - 1) return `<div class="tdefs">${sents.map(s => { const m = s.match(defRe); if (m && defs.includes(s)) return `<div class="tdef"><b>${G(m[1])}</b><span>${G(m[2] + " " + m[3])}</span></div>`; return `<p class="tline">${G(s)}</p>`; }).join("")}</div>`;
-  if (sents.length === 1) return `<p class="tlead">${G(sents[0])}</p>`;
-  return `<p class="tlead">${G(sents[0])}</p><p class="tprose">${sents.slice(1).map(G).join(" ")}</p>`;
+/* ---------- lesson text reads like teaching, not a list. Key terms still become blanks in recall mode. ---------- */
+formatTeach = function (raw, mode = "read") {
+  const seen = new Set();
+  const R = str => str.split(/(\{\{.+?\}\})/).map(part => { const m = part.match(/^\{\{(.+)\}\}$/); if (m) return mode === "recall" ? blankInputs(m[1]) : gloss(esc(m[1]), seen, true); return gloss(esc(part), seen, true); }).join("");
+  const sents = splitSent(raw);
+  const defRe = /^((?:\{\{[^}]+\}\}|[A-Z])[^,.:;]{0,42}?)\s(is|are|means)\s(.+)$/;
+  const defs = sents.filter(x => defRe.test(x) && !/^(This|That|It|They|There|These|Those|A|An|The|Most|Many|Some|Labs?|Your|Each|Every|When|If|Below|Above|Normal)\b/.test(x.replace(/[{}]/g, "")));
+  if (defs.length >= 3 && defs.length >= sents.length - 1) return `<div class="tb">${sents.map(x => { const m = x.match(defRe); return m && defs.includes(x) ? `<div class="tdef"><span class="tterm">${R(m[1])}</span><span class="tdesc">${R(m[2] + " " + m[3])}</span></div>` : `<p class="tp">${R(x)}</p>`; }).join("")}</div>`;
+  if (sents.length <= 1) return `<div class="tb"><p class="tp">${R(raw)}</p></div>`;
+  return `<div class="tb"><p class="tp">${R(sents[0])}</p><p class="tp tprose">${R(sents.slice(1).join(" "))}</p></div>`;
 };
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
