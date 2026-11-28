@@ -3214,6 +3214,71 @@ textarea#icIn{resize:none;overflow:hidden;line-height:1.45;padding:12px 14px!imp
 .g2-grip{cursor:grab;padding:8px 6px;touch-action:none;font-size:1.05rem}.g2-step.drag{box-shadow:0 0 0 2px var(--violet),0 12px 26px rgba(0,0,0,.16)!important;background:var(--surface)}.g2-step.drag .g2-grip{cursor:grabbing}
 .g2-step{cursor:default!important;touch-action:auto!important}.g2-step.bump{background:var(--violet-soft)}
 body.g2-dragging{user-select:none;-webkit-user-select:none;cursor:grabbing}body.g2-dragging .study{touch-action:none}
+/* ===================== v53 ===================== */
+/* Profile studio */
+.ps-top{display:flex;gap:10px;align-items:flex-end;margin-bottom:6px}.ps-deck{flex:1;display:flex;flex-direction:column;gap:4px;font-weight:700;font-size:.85rem}
+.ps-why{margin:6px 2px 14px;font-size:.9rem;color:var(--ink-2);line-height:1.45}
+.ps-gridbar{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.ps-gridwrap{overflow-x:auto;border-radius:var(--r-cell);box-shadow:var(--shadow);background:var(--surface)}
+.ps-grid{border-collapse:separate;border-spacing:0;font-size:.85rem;min-width:100%}
+.ps-grid th,.ps-grid td{padding:9px 10px;border-bottom:.5px solid var(--line-2);text-align:left;vertical-align:top;max-width:220px}
+.ps-grid thead th{position:sticky;top:0;background:var(--surface-2);font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-3);z-index:1}
+.ps-grid tbody th{position:sticky;left:0;background:var(--surface);font-weight:700;font-style:italic;min-width:150px;z-index:1}
+.ps-grid td.sig{background:color-mix(in srgb,#34C759 13%,var(--surface));font-weight:600}
+.ps-grid .hid{background:var(--violet-soft)}.ps-grid td.ok{background:color-mix(in srgb,#34C759 18%,var(--surface))}.ps-grid td.no{background:color-mix(in srgb,#E5484D 14%,var(--surface))}.ps-grid td small{display:block;color:#C8292F;margin-top:3px}
+.ps-sel{width:100%;min-width:90px;border:0;border-radius:8px;padding:6px;background:var(--surface);font:inherit}
+.ps-reveal{border:0;background:var(--surface);border-radius:8px;padding:6px 8px;font:inherit;color:var(--violet-ink);cursor:pointer;text-align:left}.ps-reveal.on{color:var(--ink)}
+.ps-legend{font-size:.78rem;color:var(--ink-3);margin:8px 2px 0;display:flex;align-items:center;gap:6px}.sig-dot{width:12px;height:12px;border-radius:3px;background:color-mix(in srgb,#34C759 30%,var(--surface))}
+.ps-fields{display:flex;flex-direction:column;gap:10px;margin:12px 0}
+.ps-field{background:var(--surface);border-radius:14px;box-shadow:var(--shadow);padding:12px 14px}.ps-field b{display:block;font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-3);margin-bottom:8px}
+.ps-field.ok{box-shadow:inset 0 0 0 2px #34C759}.ps-field.no{box-shadow:inset 0 0 0 2px #E5484D}
+.ps-opts{display:flex;flex-wrap:wrap;gap:6px}.ps-opt{border:0;border-radius:10px;padding:8px 12px;background:var(--surface-2);font:inherit;font-size:.88rem;cursor:pointer;color:var(--ink);text-align:left}
+.ps-opt.on{background:var(--violet);color:#fff}.ps-opt.right{box-shadow:inset 0 0 0 2px #34C759}
+.ps-dfields{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px;margin:12px 0}
+.ps-df{display:flex;flex-direction:column;gap:6px;text-align:left;border:0;border-radius:14px;padding:12px;background:var(--surface);box-shadow:var(--shadow);font:inherit;cursor:pointer;color:var(--ink)}
+.ps-df b{font-size:.85rem}.ps-dv{display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:.82rem;color:var(--ink-3)}.ps-dv span{background:var(--surface-2);border-radius:8px;padding:5px 7px}
+.ps-df.on{box-shadow:0 0 0 2px var(--violet),var(--shadow)}.ps-df.isdiff{background:color-mix(in srgb,#F5B800 12%,var(--surface))}.ps-df.wrongpick{box-shadow:0 0 0 2px #E5484D,var(--shadow)}
+.ps-sigcard{display:flex;flex-direction:column;gap:6px;margin-top:8px}.ps-sigcard div{display:flex;justify-content:space-between;gap:12px;background:color-mix(in srgb,#34C759 12%,var(--surface));border-radius:10px;padding:9px 12px}.ps-sigcard span{color:var(--ink-3);font-size:.85rem}
+/* morning rounds, exam plans, week report */
+.mrcard{display:flex;align-items:center;gap:14px;background:var(--surface);border-radius:var(--r-cell);box-shadow:var(--shadow);padding:14px 16px;margin:12px 0 0}
+.mrcard .mr-ic{width:40px;height:40px;border-radius:12px;background:color-mix(in srgb,#C98A2E 18%,var(--surface));color:#8A5A12;display:flex;align-items:center;justify-content:center;flex:none}.mrcard .mr-ic svg{width:22px;height:22px}
+.mrcard div{flex:1;display:flex;flex-direction:column;gap:2px}.mrcard small{color:var(--ink-3);font-size:.85rem}.mrcard.done{opacity:.85}
+.results .mr-ic{width:56px;height:56px;border-radius:16px;background:color-mix(in srgb,#C98A2E 18%,var(--surface));color:#8A5A12;display:flex;align-items:center;justify-content:center;margin:0 auto 10px}.results .mr-ic svg{width:30px;height:30px}
+.mr-card .mr-face{font-size:1.2rem;margin-top:6px}.mr-back{margin-top:12px;padding-top:12px;border-top:.5px solid var(--line-2);font-size:1.05rem}
+.mr-grades{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.explan,.wrcard{margin-top:12px;padding:16px 18px!important}
+.ep-row{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) auto;gap:12px;align-items:center;padding:9px 0}.ep-row+.ep-row{border-top:.5px solid var(--line-2)}.ep-t{display:flex;flex-direction:column}.ep-t small{color:var(--ink-3);font-size:.8rem}.ep-n{font-weight:700;font-size:.85rem;color:var(--violet-ink);white-space:nowrap}.ep-n.warn{color:#B25E00}
+.ep-hint{margin:0 0 6px;font-size:.8rem;color:#B25E00}
+.wr-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}.wr-stats div{background:var(--surface-2);border-radius:12px;padding:10px;text-align:center;display:flex;flex-direction:column}.wr-stats b{font-size:1.25rem}.wr-stats span{font-size:.75rem;color:var(--ink-3)}
+.wr-line{margin:6px 0 0;font-size:.9rem}
+/* bench-to-report cases */
+.bc-list{margin-bottom:16px}.bc-track{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px}.bc-track span{font-size:.7rem;font-weight:700;padding:4px 9px;border-radius:999px;background:var(--surface-2);color:var(--ink-3)}.bc-track span.on{background:var(--violet);color:#fff}.bc-track span.done{background:var(--violet-soft);color:var(--violet-ink)}
+.bc-story{border-left:4px solid var(--bc)!important}.bc-story p{margin:4px 0 0;line-height:1.5}.bc-q{margin:14px 2px 10px;font-size:1.1rem;font-weight:700}
+/* illustrations */
+.illo-wrap{display:flex;justify-content:center;margin-top:12px}.illo,.illo-wrap .illo{width:120px;height:120px}.illo-wrap .illo svg{width:100%;height:100%}
+/* sources */
+.lsrc{margin-top:16px;text-align:left;max-width:520px;width:100%;background:var(--surface);border-radius:12px;padding:10px 14px;box-shadow:var(--shadow)}.lsrc summary{cursor:pointer;font-weight:700;font-size:.88rem}.lsrc p,.lsrc li{font-size:.85rem;color:var(--ink-2)}.lsrc ul{margin:6px 0;padding-left:18px}
+/* share */
+.sh-opts{display:flex;flex-direction:column;gap:8px;margin:10px 0}.sh-opt{display:grid;grid-template-columns:32px 1fr;grid-template-rows:auto auto;column-gap:10px;text-align:left;border:0;border-radius:14px;padding:12px 14px;background:var(--surface-2);font:inherit;color:var(--ink);cursor:pointer}
+.sh-opt svg{grid-row:1/3;width:22px;height:22px;align-self:center;color:var(--violet-ink)}.sh-opt small{color:var(--ink-3)}.sh-opt[disabled]{opacity:.5;cursor:default}
+/* weekly challenge */
+.ch-banner{display:flex;align-items:center;gap:14px;width:100%;border:0;cursor:pointer;text-align:left;padding:14px 16px;margin-bottom:14px;border-radius:var(--r-cell);background:linear-gradient(120deg,#FFF3C4,#EDE6FF);color:var(--ink);font:inherit;box-shadow:var(--shadow)}
+.ch-banner>span:first-child{width:40px;height:40px;border-radius:12px;background:#F5B800;color:#fff;display:flex;align-items:center;justify-content:center;flex:none}.ch-banner svg{width:22px;height:22px}.ch-banner div{flex:1;display:flex;flex-direction:column}.ch-banner small{color:var(--ink-2)}.ch-go{font-weight:700;color:var(--violet-ink)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .ch-banner{background:linear-gradient(120deg,#3A3216,#2A2152)}}:root[data-theme="dark"] .ch-banner{background:linear-gradient(120deg,#3A3216,#2A2152)}
+.ch-board{max-width:560px;margin:0 auto}.ch-list{list-style:none;padding:0;margin:12px 0;display:flex;flex-direction:column;gap:6px}.ch-list li{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:center;background:var(--surface);border-radius:12px;padding:10px 14px;box-shadow:var(--shadow)}.ch-list li span{font-weight:800;color:var(--violet-ink)}.ch-list li.me{box-shadow:0 0 0 2px var(--violet),var(--shadow)}.ch-list small{color:var(--ink-3)}
+/* onboarding */
+.ob{text-align:center}.ob-e{font-size:2.6rem}.ob-opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}.ob-opt{display:flex;flex-direction:column;gap:3px;text-align:left;border:0;border-radius:14px;padding:12px;background:var(--surface-2);font:inherit;color:var(--ink);cursor:pointer}.ob-opt small{color:var(--ink-3);font-size:.8rem}.ob-opt:hover{background:var(--violet-soft)}
+/* rotation mode */
+.benchcard{background:linear-gradient(120deg,color-mix(in srgb,#2F6FB5 14%,var(--surface)),var(--surface));border-radius:var(--r-hero,20px);box-shadow:var(--shadow);padding:16px 18px;margin:8px 0 12px}
+.bc-h{display:flex;gap:12px;align-items:center}.bc-h>span{width:40px;height:40px;border-radius:12px;background:#2F6FB5;color:#fff;display:flex;align-items:center;justify-content:center}.bc-h svg{width:22px;height:22px}.bc-h div{display:flex;flex-direction:column}.bc-h small{color:var(--ink-3)}
+.bc-btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.bc-btns .btn{flex:1;min-width:130px;justify-content:center;min-height:44px}
+.br-list{display:flex;flex-direction:column;gap:10px;margin-top:12px}.br-card{background:var(--surface);border-radius:var(--r-cell);box-shadow:var(--shadow);padding:4px 16px}.br-card summary{font-weight:800;font-size:1.05rem;padding:12px 0;cursor:pointer}
+.br-rows div{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-top:.5px solid var(--line-2);font-size:1.05rem}.br-rows span{color:var(--ink-2)}.br-rows b{text-align:right}.br-note{font-size:.82rem;color:var(--ink-3);margin:4px 0 12px}
+/* about */
+.about{max-width:600px;margin:0 auto;text-align:center}.ab-logo svg{width:64px;height:64px}.about h2{margin:10px 0}.about p{line-height:1.6;color:var(--ink-2);text-align:left}
+.ab-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:14px 0}.ab-facts div{background:var(--surface);border-radius:14px;box-shadow:var(--shadow);padding:12px;display:flex;flex-direction:column;gap:2px}.ab-facts span{font-size:.78rem;color:var(--ink-3)}
+@media (max-width:560px){.ab-facts{grid-template-columns:1fr}.ep-row{grid-template-columns:1fr auto}.ep-row .a3bar{grid-column:1/-1;grid-row:2}}
+label.search{flex:none!important;height:44px!important;min-height:0!important;align-self:stretch}.study .stage{align-content:start}
 </style></head><body><div id="app"></div><script>
 "use strict";
 /* ---------- utilities ---------- */
@@ -3301,7 +3366,7 @@ Object.assign(ICONS, {
 });
 
 /* ---------- state ---------- */
-const APP_VERSION = "52.2";
+const APP_VERSION = "53.0";
 const S = {
   decks: {},   // id -> deck
   srs: {},     // deckId -> { factKey: state }
@@ -15901,6 +15966,288 @@ formatTeach = function (raw, mode = "read") {
   notes.forEach((n, k) => { const at = Math.min(beats.length - 1, Math.max(0, Math.round((k + 1) * beats.length / notes.length) - 1)); const prev = BEAT_NOTES.get(beats[at][0]) || {}; BEAT_NOTES.set(beats[at][0], { key: [prev.key, n.key].filter(Boolean).join(" "), hook: [prev.hook, n.hook].filter(Boolean).join(" ") }); });
   l.beats = beats; l._ready = false; l.rewritten = 1;
 }));
+/* ===================== v53 · Profile studio: study profile cards as profiles, not as loose facts ===================== */
+const profDecks = () => Object.values(S.decks).filter(d => !d.hidden && d.cards.filter(c => c.type === "profile").length >= 2 && (d.fields || []).length);
+const profsOf = d => d.cards.filter(c => c.type === "profile");
+const pval = (c, f) => String((c.values || {})[f] ?? "").trim();
+const shortVal = v => v.length <= 18;
+const pfact = (d, c, f) => factsOf(d).find(x => x.card === c && x.field === f);
+const pnote = (d, c, f, ok) => { try { const x = pfact(d, c, f); if (x) { recordQuiz(x, ok); if (!ok) logMistake({ q: `${c.name}: ${f}`, right: pval(c, f), src: "Profile studio" }); } } catch { } };
+/* the values that make a profile unique within its deck */
+function signature(d, c) { const P = profsOf(d); return (d.fields || []).filter(f => { const v = pval(c, f); return v && P.filter(o => o !== c && pval(o, f).toLowerCase() === v.toLowerCase()).length === 0; }); }
+function similarity(d, a, b) { return (d.fields || []).filter(f => pval(a, f) && pval(a, f).toLowerCase() === pval(b, f).toLowerCase()).length; }
+function startProfileStudio(pre) {
+  openStudy("Profile studio"); setProg(0);
+  const decks = profDecks(); let d = pre && S.decks[pre] && profsOf(S.decks[pre]).length >= 2 ? S.decks[pre] : decks[0];
+  if (!d) { ST.stage.innerHTML = `<div class="empty"><p>Profile studio needs a deck with at least two profile cards.</p></div>`; return; }
+  const menu = () => { ST.right.innerHTML = ""; setProg(0); const P = profsOf(d);
+    ST.stage.innerHTML = `<div class="ps-top"><label class="ps-deck"><span>Deck</span><select class="input" id="psDeck">${decks.map(x => `<option value="${x.id}" ${x.id === d.id ? "selected" : ""}>${esc(x.name)} · ${profsOf(x).length}</option>`).join("")}</select></label></div>
+      <p class="ps-why">Profiles blend together when you learn them one fact at a time. These modes train you to see them whole and to tell them apart.</p>
+      <div class="hubgrid">${[["grid", "list", "#7B4FE0", "The grid", "Every profile and field in one table. Study it, then fill it in from memory.", `${P.length} × ${(d.fields || []).length}`],
+        ["build", "pen", "#2F6FB5", "Build the profile", "Recall a whole profile at once, every field together.", `${P.length} profiles`],
+        ["diff", "compare", "#E5484D", "Spot the difference", "Your most similar pairs side by side. Find what actually differs.", "Most-confused pairs"],
+        ["sig", "target", "#34C759", "Name it from its signature", "See only what’s unique to one profile, then name it.", "Key features"]].map(([k, ic, col, t, s, m]) => `<button class="a3row hubtile" data-ps="${k}"><span class="a3sym" style="background:${col}">${icon(ic)}</span><span class="a3rt"><b>${t}</b><small>${s}</small><span class="hub-meta">${m}</span></span></button>`).join("")}</div>`;
+    $("#psDeck").onchange = e => { d = S.decks[e.target.value]; menu(); };
+    $$("[data-ps]").forEach(b => b.onclick = () => ({ grid: gridMode, build: buildMode, diff: diffMode, sig: sigMode })[b.dataset.ps]()); };
+  const backRow = () => `<div class="row" style="justify-content:center;gap:8px;margin-top:14px"><button class="btn" id="psBack">All modes</button></div>`;
+  const wireBack = () => { const b = $("#psBack"); if (b) b.onclick = menu; };
+  /* ---- the grid ---- */
+  function gridMode() { const P = profsOf(d), F = d.fields || []; let hidden = null, picks = {};
+    const draw = (checked) => { ST.stage.innerHTML = `<div class="ps-gridbar"><span class="small muted">${hidden == null ? "Study the table, then hide a column and fill it in." : `Fill in <b>${esc(F[hidden])}</b> for every profile.`}</span><div class="pickchips">${F.map((f, k) => `<button class="chipbtn sm ${hidden === k ? "on" : ""}" data-col="${k}">Hide ${esc(f)}</button>`).join("")}${hidden != null ? `<button class="chipbtn sm" data-col="-1">Show all</button>` : ""}</div></div>
+      <div class="ps-gridwrap"><table class="ps-grid"><thead><tr><th></th>${F.map((f, k) => `<th class="${hidden === k ? "hid" : ""}">${esc(f)}</th>`).join("")}</tr></thead><tbody>${P.map((c, r) => { const sig = signature(d, c); return `<tr><th>${escG(c.name)}</th>${F.map((f, k) => { const v = pval(c, f); if (hidden === k) { const opts = [...new Set(P.map(o => pval(o, f)).filter(Boolean))]; const pick = picks[r]; const st = checked ? (pick != null && pick.toLowerCase() === v.toLowerCase() ? "ok" : "no") : ""; return `<td class="hid ${st}">${shortVal(v) && opts.length <= 6 ? `<select class="ps-sel" data-r="${r}" ${checked ? "disabled" : ""}><option value="">?</option>${opts.map(o => `<option ${pick === o ? "selected" : ""}>${esc(o)}</option>`).join("")}</select>` : `<button class="ps-reveal" data-r="${r}">${checked || pick === "__shown" ? esc(v) : "Tap to reveal"}</button>`}${checked && st === "no" ? `<small>${esc(v)}</small>` : ""}</td>`; } return `<td class="${sig.includes(f) ? "sig" : ""}">${escG(v) || "—"}</td>`; }).join("")}</tr>`; }).join("")}</tbody></table></div>
+      <p class="ps-legend"><span class="sig-dot"></span>Highlighted cells are unique to that profile in this deck, the details that tell it apart.</p>
+      ${hidden != null ? `<div class="row" style="justify-content:center;gap:8px;margin-top:10px"><button class="btn primary" id="psChk" ${checked ? "disabled" : ""}>Check column</button></div>` : ""}<div id="psFb" class="g2-fb"></div>${backRow()}`;
+      $$("[data-col]").forEach(b => b.onclick = () => { const k = +b.dataset.col; hidden = k < 0 ? null : k; picks = {}; draw(); });
+      $$(".ps-sel").forEach(s => s.onchange = () => { picks[+s.dataset.r] = s.value; });
+      $$(".ps-reveal").forEach(b => b.onclick = () => { picks[+b.dataset.r] = "__shown"; b.textContent = pval(P[+b.dataset.r], F[hidden]); b.classList.add("on"); });
+      $("#psChk") && ($("#psChk").onclick = () => { let ok = 0, n = 0; P.forEach((c, r) => { const v = pval(c, F[hidden]); if (!v) return; const p = picks[r]; if (p === "__shown") return; n++; const good = p && p.toLowerCase() === v.toLowerCase(); if (good) ok++; pnote(d, c, F[hidden], !!good); }); draw(true); $("#psFb").innerHTML = n ? `<span class="${ok === n ? "ok" : "no"}">${ok} of ${n} right</span>` : `<span class="muted">Revealed cells aren’t scored.</span>`; });
+      wireBack(); };
+    draw(); }
+  /* ---- build the whole profile ---- */
+  function buildMode() { const P = shuffle(profsOf(d).slice()); let i = 0, score = 0, total = 0;
+    const next = () => { if (i >= P.length) { setProg(1); ST.stage.innerHTML = `<div class="results">${ring(Math.round(score / Math.max(1, total) * 100))}<h2>${score} of ${total} details</h2><p class="muted">Across ${plural(P.length, "profile")}. Misses went to your mistake journal and your reviews.</p>${backRow()}</div>`; wireBack(); return; }
+      const c = P[i++]; setProg((i - 1) / P.length); ST.right.innerHTML = `<span class="small muted">${i}/${P.length}</span>`; const F = (d.fields || []).filter(f => pval(c, f)); const ans = {};
+      ST.stage.innerHTML = `<div class="ps-build"><div class="qcard"><div class="kicker">Build the profile</div><div class="qtext">${escG(c.name)}</div><p class="small muted" style="margin:4px 0 0">Fill in every field, then check them all at once.</p></div><div class="ps-fields">${F.map((f, k) => { const opts = shuffle([...new Set(profsOf(d).map(o => pval(o, f)).filter(Boolean))]).slice(0, 5); if (!opts.some(o => o.toLowerCase() === pval(c, f).toLowerCase())) opts[0] = pval(c, f); return `<div class="ps-field" data-k="${k}"><b>${esc(f)}</b><div class="ps-opts">${shuffle(opts).map(o => `<button class="ps-opt" data-v="${esc(o)}">${escG(o)}</button>`).join("")}</div></div>`; }).join("")}</div><button class="btn primary" id="psChk">Check the profile</button><div id="psFb" class="g2-fb"></div></div>`;
+      $$(".ps-field").forEach(row => row.querySelectorAll(".ps-opt").forEach(b => b.onclick = () => { if ($("#psChk").textContent !== "Check the profile") return; row.querySelectorAll(".ps-opt").forEach(x => x.classList.remove("on")); b.classList.add("on"); ans[+row.dataset.k] = b.dataset.v; }));
+      $("#psChk").onclick = () => { if ($("#psChk").textContent !== "Check the profile") return next(); let ok = 0; F.forEach((f, k) => { const good = (ans[k] || "").toLowerCase() === pval(c, f).toLowerCase(); if (good) ok++; pnote(d, c, f, good); const row = ST.stage.querySelector(`.ps-field[data-k="${k}"]`); row.classList.add(good ? "ok" : "no"); row.querySelectorAll(".ps-opt").forEach(b => { if (b.dataset.v.toLowerCase() === pval(c, f).toLowerCase()) b.classList.add("right"); }); });
+        score += ok; total += F.length; $("#psFb").innerHTML = `<span class="${ok === F.length ? "ok" : "no"}">${ok} of ${F.length} details right</span>`; $("#psChk").textContent = i >= P.length ? "See results" : "Next profile"; };
+    };
+    next(); }
+  /* ---- spot the difference between the most similar pairs ---- */
+  function diffMode() { const P = profsOf(d), F = (d.fields || []); const pairs = []; P.forEach((a, x) => P.forEach((b, y) => { if (y > x) pairs.push([a, b, similarity(d, a, b)]); })); pairs.sort((p, q) => q[2] - p[2]); const list = pairs.slice(0, Math.min(6, pairs.length)); let i = 0, score = 0;
+    const next = () => { if (i >= list.length) { setProg(1); ST.stage.innerHTML = `<div class="results">${ring(Math.round(score / Math.max(1, list.length) * 100))}<h2>${score} of ${list.length} pairs perfect</h2><p class="muted">These were your most similar profiles, the ones most likely to blend together.</p>${backRow()}</div>`; wireBack(); return; }
+      const [a, b] = list[i++]; setProg((i - 1) / list.length); ST.right.innerHTML = `<span class="small muted">${i}/${list.length}</span>`; const fs = F.filter(f => pval(a, f) || pval(b, f)); const truth = new Set(fs.filter(f => pval(a, f).toLowerCase() !== pval(b, f).toLowerCase())); const sel = new Set();
+      ST.stage.innerHTML = `<div class="ps-diff"><div class="qcard"><div class="kicker">Spot the difference</div><div class="qtext">${escG(a.name)} <span class="muted">vs</span> ${escG(b.name)}</div><p class="small muted" style="margin:4px 0 0">Tap every field where these two differ. Values are hidden until you check.</p></div><div class="ps-dfields">${fs.map(f => `<button class="ps-df" data-f="${esc(f)}"><b>${esc(f)}</b><span class="ps-dv"><span>?</span><span>?</span></span></button>`).join("")}</div><button class="btn primary" id="psChk">Check</button><div id="psFb" class="g2-fb"></div></div>`;
+      $$(".ps-df").forEach(x => x.onclick = () => { if ($("#psChk").textContent !== "Check") return; const f = x.dataset.f; sel.has(f) ? sel.delete(f) : sel.add(f); x.classList.toggle("on", sel.has(f)); });
+      $("#psChk").onclick = () => { if ($("#psChk").textContent !== "Check") return next(); let perfect = true; $$(".ps-df").forEach(x => { const f = x.dataset.f, diff = truth.has(f), picked = sel.has(f); x.querySelector(".ps-dv").innerHTML = `<span>${escG(pval(a, f)) || "—"}</span><span>${escG(pval(b, f)) || "—"}</span>`; x.classList.add(diff ? "isdiff" : "same"); if (diff !== picked) { perfect = false; x.classList.add("wrongpick"); } });
+        if (perfect) score++; else truth.forEach(f => { pnote(d, a, f, false); }); $("#psFb").innerHTML = perfect ? `<span class="ok">✓ Exactly the differences</span>` : `<span class="no">${truth.size} field${truth.size === 1 ? "" : "s"} differ.</span> <span class="muted">Red outline = missed or extra pick.</span>`; $("#psChk").textContent = i >= list.length ? "See results" : "Next pair"; };
+    };
+    next(); }
+  /* ---- name it from its signature ---- */
+  function sigMode() { const P = profsOf(d); const items = shuffle(P.filter(c => signature(d, c).length)).slice(0, 10); if (!items.length) { ST.stage.innerHTML = `<div class="empty"><p>No profile in this deck has a unique detail yet.</p></div>${backRow()}`; wireBack(); return; }
+    mcAll(items.map(c => { const sig = signature(d, c).slice(0, 3); const others = shuffle(P.filter(o => o !== c)).slice(0, 3).map(o => o.name); return { kicker: "Its signature", html: `<div class="ps-sigcard">${sig.map(f => `<div><span>${esc(f)}</span><b>${escG(pval(c, f))}</b></div>`).join("")}</div>`, q: "Which profile has this signature?", opts: [c.name, ...others], a: c.name, why: `Only ${c.name} has ${sig.map(f => `${f.toLowerCase()} “${pval(c, f)}”`).join(" and ")} in this deck.` }; }), "Profile studio", (s, t) => { setProg(1); ST.stage.innerHTML = `<div class="results">${ring(Math.round(s / t * 100))}<h2>${s} of ${t}</h2><p class="muted">Signatures are the details that let you tell profiles apart at a glance.</p>${backRow()}</div>`; wireBack(); }); }
+  menu();
+}
+PAGEHEAD.push(["Profile studio", "list", "#7B4FE0", "Study profile cards as whole profiles: compare them, rebuild them and learn what makes each one unique."]);
+navWrap("startProfileStudio");
+/* entry points: deck page for profile decks, and Practice */
+{ const rd = renderDeck; renderDeck = function (d, ...a) { const out = rd(d, ...a); try { if (profsOf(d).length >= 2 && (d.fields || []).length && !$("#psOpen")) { const anchor = $("#view .deck-head #deckLesson") || $("#view .deck-head"); anchor && anchor.insertAdjacentHTML(anchor.id === "deckLesson" ? "afterend" : "beforeend", `<button class="btn sm" id="psOpen">${icon("list")}Profile studio</button>`); $("#psOpen") && ($("#psOpen").onclick = () => startProfileStudio(d.id)); } } catch { } return out; }; }
+{ const sm = startMixed; startMixed = function (skip) { const out = sm(skip); try { if (skip !== true && profDecks().length) { const sec = [...ST.stage.querySelectorAll(".hubsec")].find(s => /Identify/.test(s.textContent)); const g = sec && sec.querySelector(".hubgrid"); if (g && !g.querySelector('[data-m="pstudio"]')) { g.insertAdjacentHTML("afterbegin", `<button class="a3row hubtile" data-m="pstudio"><span class="a3sym">${icon("list")}</span><span class="a3rt"><b>Profile studio</b><small>Compare, rebuild and tell profiles apart</small><span class="hub-meta">${profDecks().length} profile decks</span></span></button>`); g.querySelector('[data-m="pstudio"]').onclick = () => startProfileStudio(); } } } catch { } return out; }; }
+/* ===================== v53 · daily habit features ===================== */
+Object.assign(ICONS, { pen: ICONS.pen || '<path d="M4 20h4L19 9l-4-4L4 16v4z"/><path d="M13.5 6.5l4 4"/>', compare: ICONS.compare || '<rect x="3" y="5" width="7" height="14" rx="2"/><rect x="14" y="5" width="7" height="14" rx="2"/>', coffee: '<path d="M4 9h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V9z"/><path d="M16 11h2a2 2 0 0 1 0 4h-2M8 3v3M12 3v3"/>' });
+const dueFacts = () => { const now = Date.now(), out = []; Object.values(S.decks).filter(d => !d.hidden).forEach(d => factsOf(d).forEach(f => { const s = (S.srs[d.id] || {})[f.key]; if (s && s.d <= now && !isSus(f)) out.push([f, now - s.d]); })); return out.sort((a, b) => b[1] - a[1]).map(x => x[0]); };
+
+/* ---------- 1. Morning rounds: two minutes, every morning ---------- */
+function startMorningRounds() {
+  openStudy("Morning rounds"); const cards = dueFacts().slice(0, 5);
+  const qs = shuffle(LESSONS.filter(l => lessonState(l).passed && (l.quiz || []).length).flatMap(l => { try { if (l.beats && !l._ready) prepBootLesson(l); } catch { } return (l.quiz || []).slice(0, 3).map(q => ({ q, l })); })).slice(0, 2);
+  let i = 0, right = 0; const steps = cards.length + qs.length;
+  if (!steps) { ST.stage.innerHTML = `<div class="results"><h2>Nothing due this morning</h2><p class="muted">No reviews waiting and no lessons to quiz yet. Start a lesson or learn a few new cards.</p><button class="btn primary" id="mrDone">Done</button></div>`; $("#mrDone").onclick = () => closeStudy(); return; }
+  const finish = () => { setProg(1); ST.right.innerHTML = ""; ST.stage.innerHTML = `<div class="results"><span class="mr-ic">${icon("coffee")}</span><h2>Rounds done</h2><p class="muted">${right} of ${steps} solid. ${cards.length ? "Your reviews just got lighter." : ""}</p><button class="btn primary" id="mrDone">Done</button></div>`; $("#mrDone").onclick = () => closeStudy(); S.meta.lastRounds = dayKey(); saveMeta(true); };
+  const card = () => { const f = cards[i]; let flipped = false; ST.right.innerHTML = `<span class="small muted">${i + 1}/${steps}</span>`; setProg(i / steps);
+    const draw = () => { ST.stage.innerHTML = `<div class="mr-card qcard"><div class="kicker">Review · ${esc(f.deck.name)}</div><div class="mr-face">${factFront(f)}</div>${flipped ? `<div class="mr-back">${factBack(f)}</div>` : ""}</div>${flipped ? `<div class="grades mr-grades"><button data-g="1">Again</button><button data-g="3">Good</button><button data-g="4">Easy</button></div>` : `<button class="btn primary" id="mrShow" style="width:100%;justify-content:center">Show answer</button>`}`;
+      if (!flipped) $("#mrShow").onclick = () => { flipped = true; draw(); };
+      else $$(".mr-grades [data-g]").forEach(b => b.onclick = () => { const g = +b.dataset.g; recordReview(f.deck.id, f.key, g, false); if (g > 1) right++; i++; step(); }); };
+    ST.onKey = e => { if (e.key === " " && !flipped) { e.preventDefault(); flipped = true; draw(); } else if (flipped && ["1", "3", "4"].includes(e.key)) $(`.mr-grades [data-g="${e.key}"]`)?.click(); };
+    draw(); };
+  const quiz = () => { const { q, l } = qs[i - cards.length]; ST.right.innerHTML = `<span class="small muted">${i + 1}/${steps}</span>`; setProg(i / steps); const opts = shuffle(q[1].slice()); let done = false;
+    ST.stage.innerHTML = `<div class="qcard"><div class="kicker">From “${esc(l.title)}”</div><div class="qtext">${escG(q[0])}</div></div><div class="opts">${opts.map((o, k) => `<button class="opt" data-k="${k}"><span class="k">${k + 1}</span>${escG(o)}</button>`).join("")}</div><div id="mrFb" class="g2-fb"></div>`;
+    $$(".opt").forEach(b => b.onclick = () => { if (done) return; done = true; const ok = opts[+b.dataset.k] === q[1][q[2]]; if (ok) right++; b.classList.add(ok ? "right" : "wrong"); $$(".opt").forEach((x, k) => { if (opts[k] === q[1][q[2]]) x.classList.add("right"); }); $("#mrFb").innerHTML = `${ok ? `<span class="ok">✓ Right</span>` : `<span class="no">${escG(q[1][q[2]])}</span>`} <span class="muted">${escG(q[3] || "")}</span><div style="margin-top:10px"><button class="btn primary" id="mrNx">Continue</button></div>`; $("#mrNx").onclick = () => { i++; step(); }; }); };
+  const step = () => i >= steps ? finish() : i < cards.length ? card() : quiz();
+  step();
+}
+navWrap("startMorningRounds");
+
+/* ---------- 2. Exam plans: what it takes to be ready by exam day ---------- */
+function examPlan(e) { const days = Math.max(1, Math.ceil((new Date(e.date + "T12:00") - Date.now()) / DAY)); const ds = (e.decks && e.decks.length ? e.decks.map(id => S.decks[id]).filter(Boolean) : Object.values(S.decks).filter(d => !d.hidden));
+  let total = 0, seen = 0; ds.forEach(d => factsOf(d).forEach(f => { if (isSus(f)) return; total++; if ((S.srs[d.id] || {})[f.key]) seen++; })); const unseen = total - seen;
+  return { days, total, seen, unseen, perDay: Math.ceil(unseen / Math.max(1, days - 2)), pct: total ? Math.round(seen / total * 100) : 0 }; }
+function examPlansHtml() { const ex = (S.meta.exams || []).filter(e => e && e.date && new Date(e.date + "T23:59") >= Date.now()).sort((a, b) => a.date.localeCompare(b.date)); if (!ex.length) return "";
+  return `<section class="panel explan"><div class="fc-h"><h3 style="margin:0">Exam plans</h3><span class="fc-m">to see every card before exam day</span></div>${ex.slice(0, 3).map(e => { const p = examPlan(e); const npd = S.meta.settings.newPerDay || 20; return `<div class="ep-row"><div class="ep-t"><b>${esc(e.name)}</b><small>${plural(p.days, "day")} · ${p.pct}% of its cards started</small></div><i class="a3bar"><i style="width:${p.pct}%"></i></i><span class="ep-n ${p.perDay > npd ? "warn" : ""}">${p.unseen ? `${p.perDay} new/day` : "All started"}</span></div>${p.unseen && p.perDay > npd ? `<p class="ep-hint">That’s more than your ${npd} new cards a day. Raise the limit in Settings, or focus this exam’s decks.</p>` : ""}`; }).join("")}</section>`; }
+
+/* ---------- 3. Weekly report card ---------- */
+function weekReport() { const h = S.meta.history || {}, A = S.meta.revAcc || {}; const days = Array.from({ length: 7 }, (_, k) => dayKey(Date.now() - k * DAY));
+  const reviews = days.reduce((n, k) => n + (h[k] || 0), 0); const studied = days.filter(k => h[k] > 0).length; const acc = days.reduce((o, k) => { const x = A[k]; if (x) { o.r += x.r; o.a += x.a; } return o; }, { r: 0, a: 0 });
+  const wk = Date.now() - 7 * DAY; const per = Object.values(S.decks).filter(d => !d.hidden).map(d => { let lapses = 0, n = 0; Object.values(S.srs[d.id] || {}).forEach(s => { if (s.s && s.s >= wk) { n++; if (s.lg === 1) lapses++; } }); return { d, n, rate: n ? lapses / n : 0 }; }).filter(x => x.n >= 3);
+  const weak = per.slice().sort((a, b) => b.rate - a.rate).filter(x => x.rate > 0).slice(0, 3); const strong = per.slice().sort((a, b) => a.rate - b.rate || b.n - a.n)[0];
+  return { reviews, studied, acc: acc.r + acc.a ? Math.round(acc.r / (acc.r + acc.a) * 100) : null, weak, strong }; }
+function weekReportHtml(compact) { const w = weekReport(); if (!w.reviews) return ""; return `<section class="panel wrcard"><div class="fc-h"><h3 style="margin:0">Your week</h3><span class="fc-m">last 7 days</span></div><div class="wr-stats"><div><b>${w.reviews.toLocaleString()}</b><span>reviews</span></div><div><b>${w.studied}/7</b><span>days studied</span></div><div><b>${w.acc != null ? w.acc + "%" : "–"}</b><span>accuracy</span></div></div>
+  ${w.strong ? `<p class="wr-line">💪 Strongest: <b>${esc(w.strong.d.name)}</b></p>` : ""}${w.weak.length ? `<p class="wr-line">🎯 Focus next week: ${w.weak.map(x => `<b>${esc(x.d.name)}</b>`).join(", ")}</p>${compact ? "" : `<div class="row" style="margin-top:8px"><button class="btn sm" id="wrFocus">Practice these now</button></div>`}` : `<p class="wr-line">No trouble spots this week. Keep the rhythm.</p>`}</section>`; }
+{ const rs = renderStats; renderStats = function (...a) { const out = rs.apply(this, a); try { const v = $("#view"); if (v && !v.querySelector(".wrcard")) { const h = weekReportHtml(false); if (h) { (v.querySelector(".lablife") || v.firstElementChild).insertAdjacentHTML("afterend", h); const w = weekReport(); $("#wrFocus") && ($("#wrFocus").onclick = () => { const facts = w.weak.flatMap(x => weakFacts([x.d], 10)); if (facts.length) startLearn(null, { queue: facts, title: "This week’s focus" }); }); } } } catch (e) { console.warn(e); } return out; }; }
+
+/* ---------- home: morning rounds, exam plans, weekly report ---------- */
+{ const rh = renderHome; renderHome = function (decks) { rh(decks); try { const v = $("#view"); const dash = v && v.querySelector(".a3dash"); if (!dash) return;
+    if (!v.querySelector(".mrcard")) { const due = dueFacts().length; const done = S.meta.lastRounds === dayKey(); dash.insertAdjacentHTML("afterend", `<section class="mrcard ${done ? "done" : ""}"><span class="mr-ic">${icon("coffee")}</span><div><b>${done ? "Morning rounds done" : "Morning rounds"}</b><small>${done ? "Nice start. Come back tomorrow." : `Two minutes: ${Math.min(5, due)} review${Math.min(5, due) === 1 ? "" : "s"} plus a quick lesson check.`}</small></div><button class="btn sm ${done ? "" : "primary"}" id="mrGo">${done ? "Again" : "Start"}</button></section>`); $("#mrGo").onclick = () => startMorningRounds(); }
+    const ex = examPlansHtml(); if (ex && !v.querySelector(".explan")) { const exHead = [...v.querySelectorAll(".section-head")].find(x => /^Exams/.test(x.textContent.trim())); (exHead || v.querySelector(".mrcard")).insertAdjacentHTML("afterend", ex); }
+    const dow = new Date().getDay(); if ((dow === 0 || dow === 1) && !v.querySelector(".wrcard")) { const h = weekReportHtml(true); h && v.querySelector(".mrcard").insertAdjacentHTML("afterend", h); }
+  } catch (e) { console.warn("home extras", e); } }; }
+
+/* ---------- 4. Adaptive scheduling (FSRS-4.5), opt-in: converts existing intervals, never resets progress ---------- */
+const FSRS_W = [0.4, 0.6, 2.4, 5.8, 4.93, 0.94, 0.86, 0.01, 1.49, 0.14, 0.94, 2.18, 0.05, 0.34, 1.26, 0.29, 2.61];
+function fsrsNext(prev, g, now) { const W = FSRS_W, clampD = x => Math.min(10, Math.max(1, x)); const D0 = G => clampD(W[4] - (G - 3) * W[5]);
+  let S0 = prev && prev.fs, D = prev && prev.fd; const elapsed = prev && prev.s ? Math.max(0, (now - prev.s) / DAY) : 0;
+  if (prev && !S0) { S0 = Math.max(0.5, prev.i || 1); D = clampD(11 - ((prev.e || 2.5) - 1.3) / (2.8 - 1.3) * 9); }
+  if (!S0) return { fs: W[g - 1], fd: D0(g) };
+  const R = Math.pow(1 + elapsed / (9 * S0), -1); let nD = clampD(W[7] * D0(3) + (1 - W[7]) * (D - W[6] * (g - 3)));
+  const nS = g === 1 ? W[11] * Math.pow(D, -W[12]) * (Math.pow(S0 + 1, W[13]) - 1) * Math.exp(W[14] * (1 - R)) : S0 * (Math.exp(W[8]) * (11 - D) * Math.pow(S0, -W[9]) * (Math.exp(W[10] * (1 - R)) - 1) * (g === 2 ? W[15] : 1) * (g === 4 ? W[16] : 1) + 1);
+  return { fs: Math.max(0.1, nS), fd: nD }; }
+{ const rr = recordReview; recordReview = function (deckId, key, g, isNew) { const prev = ((S.srs[deckId] || {})[key]) ? { ...S.srs[deckId][key] } : null; const out = rr(deckId, key, g, isNew);
+    try { const s = (S.srs[deckId] || {})[key]; if (!s) return out; const now = Date.now(); const nx = fsrsNext(prev, g, now); s.fs = nx.fs; s.fd = nx.fd;
+      if (S.meta.settings.fsrs) { const ivl = g === 1 ? 1 : Math.max(1, Math.round(nx.fs)); s.i = ivl; s.d = new Date(new Date(dayKey(now + ivl * DAY) + "T04:00")).getTime(); saveSrs(deckId); } } catch { } return out; }; }
+/* ===================== v53 · learning content ===================== */
+/* ---------- 5. Bench-to-report cases ---------- */
+const BENCH_CASES = [
+ { id: "bc-heme", title: "The tired runner", area: "Hematology", color: "#E5484D", steps: [
+  ["Requisition", "A 24-year-old marathon runner has fatigue and craves ice. CBC ordered. The lavender tube arrives labeled with name and DOB, filled, no clots.", "What do you do with the specimen?", ["Accept it and run the CBC", "Reject it: wrong tube", "Reject it: needs a gray top", "Hold it for a doctor"], 0, "Lavender (EDTA) is right for a CBC, and it’s properly labeled and clot-free."],
+  ["Results", "Hgb 9.8 g/dL, MCV 71 fL, RDW 18.5%, RBC 4.1 ×10⁶/µL, platelets 455.", "What pattern is this?", ["Microcytic anemia with high RDW", "Macrocytic anemia", "Normocytic anemia", "Normal CBC"], 0, "MCV under 80 is microcytic; a high RDW means mixed cell sizes."],
+  ["The smear", "The smear shows small, pale red cells with wide central pallor and some pencil cells.", "Which is most likely?", ["Iron deficiency", "Thalassemia trait", "B12 deficiency", "Hemolysis"], 0, "Pale, small cells with a high RDW and a normal-to-low RBC count fit iron deficiency. Thal trait has a high RBC count and normal RDW."],
+  ["Next test", "The provider asks what would confirm it.", "Best confirming test?", ["Ferritin", "Hemoglobin electrophoresis", "B12 level", "Haptoglobin"], 0, "Low ferritin is the earliest and most specific sign of iron deficiency."],
+  ["Report", "Ferritin comes back 6 ng/mL. Nothing is critical.", "How is this reported?", ["Released normally through the LIS", "Called as a critical value", "Held for pathologist review", "Repeated before release"], 0, "Abnormal isn’t the same as critical. It’s reported routinely."]] },
+ { id: "bc-chem", title: "The potassium that wasn’t", area: "Chemistry", color: "#F5B800", steps: [
+  ["Requisition", "An outpatient’s BMP arrives from a clinic draw 5 hours ago. The serum looks pink to red after spinning.", "What does the pink serum mean?", ["Hemolysis", "Lipemia", "Icterus", "Normal serum"], 0, "Pink to red serum means broken red cells."],
+  ["Results", "The analyzer reports potassium 6.9 mmol/L. Sodium, glucose and creatinine are normal. The patient feels fine.", "What’s the best first thought?", ["Hemolysis is probably falsely raising potassium", "The patient is about to arrest", "The analyzer is broken", "Report it and move on"], 0, "Hemolysis and long contact with cells both push potassium up."],
+  ["Policy", "Your lab’s critical potassium is above 6.0. The specimen is grossly hemolyzed.", "What do you do?", ["Don’t report the potassium; request a redraw and tell the clinic", "Call 6.9 as critical", "Report it with no comment", "Dilute and rerun"], 0, "A grossly hemolyzed potassium isn’t valid. Communicate and redraw."],
+  ["Redraw", "The redraw is processed within an hour: no hemolysis, potassium 4.3 mmol/L.", "What caused the first result?", ["Hemolysis plus delayed processing", "Real hyperkalemia that resolved", "A QC failure", "Wrong patient"], 0, "Preanalytical error, the most common kind."]] },
+ { id: "bc-micro", title: "Clusters in the blood", area: "Microbiology", color: "#34C759", steps: [
+  ["Gram stain", "A blood culture bottle flags positive after 14 hours. The Gram stain shows gram-positive cocci in clusters.", "What do you do first?", ["Call the result to the provider", "Wait for the ID", "Reincubate quietly", "Discard the bottle"], 0, "A positive blood culture Gram stain is a critical call."],
+  ["Workup", "The colonies are white-to-gold and beta-hemolytic on blood agar.", "Which test comes first?", ["Catalase", "Oxidase", "Bacitracin", "Optochin"], 0, "Catalase separates staph from strep."],
+  ["Identify", "Catalase positive. Tube coagulase positive at 4 hours.", "The organism is:", ["Staphylococcus aureus", "S. epidermidis", "Streptococcus pyogenes", "Enterococcus"], 0, "Coagulase positive staph is S. aureus."],
+  ["Susceptibility", "The cefoxitin disk zone is 16 mm (resistant breakpoint is 21 mm or less).", "This means:", ["MRSA", "MSSA", "VRE", "ESBL"], 0, "Cefoxitin resistance predicts mecA-mediated methicillin resistance."],
+  ["Report", "The provider was already told about the Gram stain.", "What happens now?", ["Report MRSA and alert infection prevention", "Nothing; it was already called", "Hold until the final report", "Recollect"], 0, "MRSA in blood is reported promptly, and infection prevention is notified."]] },
+ { id: "bc-bb", title: "Two units for surgery", area: "Blood bank", color: "#E07AA6", steps: [
+  ["Sample", "A type and screen arrives for surgery tomorrow. The tube label’s middle initial doesn’t match the requisition.", "What do you do?", ["Reject it and request a new sample", "Fix the label yourself", "Accept it; close enough", "Call to confirm by phone and accept"], 0, "Blood bank has zero tolerance for ID mismatches."],
+  ["Typing", "The new sample: forward type A, reverse type A. Rh positive.", "The patient is:", ["A positive", "AB positive", "O positive", "Can’t tell"], 0, "Forward and reverse agree."],
+  ["Screen", "The antibody screen is positive in one cell at the AHG phase.", "Next step?", ["Antibody identification panel", "Give O negative", "Ignore it", "Repeat the type"], 0, "A positive screen needs an antibody ID."],
+  ["ID", "The panel shows anti-K, with the rule of three met.", "Which units do you give?", ["A-compatible, K-negative units", "Any A positive units", "O negative only", "Plasma"], 0, "Avoid the antigen the antibody targets."],
+  ["Crossmatch", "Two K-negative A positive units are found.", "Which crossmatch?", ["AHG crossmatch", "Immediate spin only", "Electronic only", "None"], 0, "With a clinically significant antibody, use a full AHG crossmatch."]] }
+];
+function startBenchCase(id) { const c = BENCH_CASES.find(x => x.id === id); openStudy("Case: " + c.title); let i = 0, right = 0;
+  const step = () => { if (i >= c.steps.length) { setProg(1); ST.right.innerHTML = ""; ST.stage.innerHTML = `<div class="results">${ring(Math.round(right / c.steps.length * 100))}<h2>Case closed</h2><p class="muted">${right} of ${c.steps.length} calls right, from requisition to report.</p><button class="btn primary" id="bcDone">Done</button></div>`; $("#bcDone").onclick = () => closeStudy(); stat("benchCases"); return; }
+    const [stage, story, q, opts, a, why] = c.steps[i]; setProg(i / c.steps.length); ST.right.innerHTML = `<span class="small muted">${i + 1}/${c.steps.length}</span>`; const sh = shuffle(opts.map((o, k) => [o, k])); let done = false;
+    ST.stage.innerHTML = `<div class="bc-wrap"><div class="bc-track">${c.steps.map((s, k) => `<span class="${k < i ? "done" : k === i ? "on" : ""}">${esc(s[0])}</span>`).join("")}</div><div class="qcard bc-story" style="--bc:${c.color}"><div class="kicker">${esc(stage)}</div><p>${escG(story)}</p></div><div class="qtext bc-q">${escG(q)}</div><div class="opts">${sh.map(([o], k) => `<button class="opt" data-k="${k}"><span class="k">${k + 1}</span>${escG(o)}</button>`).join("")}</div><div id="bcFb" class="g2-fb"></div></div>`;
+    const pick = k => { if (done) return; done = true; const ok = sh[k][1] === a; if (ok) right++; else logMistake({ q: `${c.title}: ${q}`, right: opts[a], src: "Case studies" }); $$(".opt").forEach((x, j) => { if (sh[j][1] === a) x.classList.add("right"); else if (j === k) x.classList.add("wrong"); }); $("#bcFb").innerHTML = `${ok ? `<span class="ok">✓ Right call</span>` : `<span class="no">${escG(opts[a])}</span>`} <span class="muted">${escG(why)}</span><div style="margin-top:10px"><button class="btn primary" id="bcNx">${i + 1 >= c.steps.length ? "Finish" : "Next step"}</button></div>`; $("#bcNx").onclick = () => { i++; step(); }; };
+    $$(".opt").forEach(b => b.onclick = () => pick(+b.dataset.k)); ST.onKey = e => { if (!done && /^[1-4]$/.test(e.key)) pick(+e.key - 1); else if (done && e.key === "Enter") $("#bcNx")?.click(); }; };
+  step(); }
+{ const sc = startCases; startCases = function (...a) { const out = sc.apply(this, a); try { if (ST && ST.stage && !ST.stage.querySelector(".bc-list")) { const first = ST.stage.querySelector(".pickchips") || ST.stage.firstElementChild; first.insertAdjacentHTML("beforebegin", `<section class="bc-list"><h3 class="hubsec-h">Bench-to-report cases</h3><div class="hubgrid">${BENCH_CASES.map(c => `<button class="a3row hubtile" data-bc="${c.id}"><span class="a3sym" style="background:${c.color}">${icon("flask")}</span><span class="a3rt"><b>${esc(c.title)}</b><small>${esc(c.area)} · requisition to report</small><span class="hub-meta">${c.steps.length} decisions</span></span></button>`).join("")}</div></section>`); $$("[data-bc]").forEach(b => b.onclick = () => { closeStudy(true); startBenchCase(b.dataset.bc); }); } } catch (e) { console.warn(e); } return out; }; }
+
+/* ---------- 7. Illustrated morphology ---------- */
+const ILLO = (inner, bg = "#FBEDEA") => `<svg viewBox="0 0 120 120" class="illo"><rect width="120" height="120" rx="16" fill="${bg}"/>${inner}</svg>`;
+const RBC = (x, y, r = 16) => `<circle cx="${x}" cy="${y}" r="${r}" fill="#E88A85"/><circle cx="${x}" cy="${y}" r="${r * .4}" fill="#F6C9C4"/>`;
+const ILLOS = {
+  "normal red cell": ILLO(RBC(60, 60, 26)),
+  "target cell": ILLO(`<circle cx="60" cy="60" r="26" fill="#E88A85"/><circle cx="60" cy="60" r="17" fill="#F6C9C4"/><circle cx="60" cy="60" r="8" fill="#E88A85"/>`),
+  "spherocyte": ILLO(`<circle cx="60" cy="60" r="20" fill="#C9433F"/>`),
+  "schistocyte": ILLO(`<path d="M34 72 L58 34 L86 52 L74 60 L84 82 Z" fill="#E07570"/>`),
+  "sickle cell": ILLO(`<path d="M24 70 Q60 20 96 52 Q62 44 30 76 Z" fill="#D9605B"/>`),
+  "teardrop cell": ILLO(`<path d="M44 60 a20 20 0 1 0 22 -18 L92 30 L58 42 a20 20 0 0 0 -14 18z" fill="#E88A85"/>`),
+  "elliptocyte": ILLO(`<ellipse cx="60" cy="60" rx="34" ry="16" fill="#E88A85"/><ellipse cx="60" cy="60" rx="18" ry="6" fill="#F6C9C4"/>`),
+  "echinocyte (burr cell)": ILLO(`<circle cx="60" cy="60" r="22" fill="#E88A85"/>${Array.from({ length: 14 }, (_, k) => { const a = k / 14 * 6.283; return `<circle cx="${(60 + 24 * Math.cos(a)).toFixed(1)}" cy="${(60 + 24 * Math.sin(a)).toFixed(1)}" r="3.4" fill="#E88A85"/>`; }).join("")}`),
+  "acanthocyte": ILLO(`<circle cx="60" cy="60" r="20" fill="#D9605B"/>${[[0.2, 8], [1.4, 11], [2.6, 7], [3.7, 12], [5.1, 9]].map(([a, l]) => `<circle cx="${(60 + (20 + l / 2) * Math.cos(a)).toFixed(1)}" cy="${(60 + (20 + l / 2) * Math.sin(a)).toFixed(1)}" r="4" fill="#D9605B"/>`).join("")}`),
+  "stomatocyte": ILLO(`<circle cx="60" cy="60" r="26" fill="#E88A85"/><rect x="46" y="56" width="28" height="8" rx="4" fill="#F6C9C4"/>`),
+  "howell-jolly body": ILLO(`${RBC(60, 60, 26)}<circle cx="70" cy="52" r="4.5" fill="#4B2A72"/>`),
+  "basophilic stippling": ILLO(`${RBC(60, 60, 26)}${Array.from({ length: 22 }, () => `<circle cx="${(60 + (Math.random() - .5) * 38).toFixed(1)}" cy="${(60 + (Math.random() - .5) * 38).toFixed(1)}" r="1.4" fill="#4B2A72"/>`).join("")}`),
+  "rouleaux": ILLO([30, 46, 62, 78, 94].map(x => `<ellipse cx="${x}" cy="60" rx="12" ry="22" fill="#E88A85" stroke="#C9605B" stroke-width="1.2"/>`).join(""))
+};
+["neutrophil", "lymphocyte", "monocyte", "eosinophil", "basophil", "band"].forEach(k => { ILLOS[k] = null; });
+function illoFor(name) { const n = String(name || "").toLowerCase().replace(/s\b/, ""); for (const k of Object.keys(ILLOS)) { const kk = k.toLowerCase(); if (n === kk || n.startsWith(kk) || kk.startsWith(n) && n.length > 4) { if (ILLOS[k]) return ILLOS[k]; const t = { neutrophil: "neut", lymphocyte: "lymph", monocyte: "mono", eosinophil: "eos", basophil: "baso", band: "band" }[kk]; return t ? `<div class="illo">${wbcSvg(t)}</div>` : null; } } return null; }
+new MutationObserver(() => { const face = document.querySelector(".study .flip .face:not(.back):not([data-illo])"); if (!face) return; face.dataset.illo = 1; const c = face.cloneNode(true); c.querySelectorAll(".kicker,.rv-pill,button").forEach(x => x.remove()); const name = c.textContent.replace(/\s+/g, " ").trim(); const card = (() => { try { return Object.values(S.decks).flatMap(d => d.cards).find(x => (x.name || x.front) === name); } catch { return null; } })(); const svg = card && card.illo ? (ILLOS[card.illo] || illoFor(card.illo)) : illoFor(name); if (svg && !face.querySelector(".illo")) face.insertAdjacentHTML("beforeend", `<div class="illo-wrap">${svg}</div>`); }).observe(document.documentElement, { childList: true, subtree: true });
+{ const ec = editCardModal; editCardModal = function (d, card, after, ...a) { const out = ec(d, card, after, ...a); setTimeout(() => { const m = document.querySelector(".scrim:last-of-type .modal"); const save = m && m.querySelector("#saveC"); if (!save || m.querySelector("#illoSel")) return; const foot = save.closest(".modal-foot") || save.parentElement;
+      foot.insertAdjacentHTML("beforebegin", `<div class="field"><label for="illoSel">Illustration <span class="small muted">(optional)</span></label><select class="input" id="illoSel"><option value="">None</option>${Object.keys(ILLOS).map(k => `<option value="${k}" ${card && card.illo === k ? "selected" : ""}>${k[0].toUpperCase() + k.slice(1)}</option>`).join("")}</select></div>`);
+      save.addEventListener("click", () => { const v = m.querySelector("#illoSel").value; setTimeout(() => { const before = new Set(); const target = card ? d.cards.find(c => c.id === card.id) : d.cards[d.cards.length - 1]; if (target) { if (v) target.illo = v; else delete target.illo; saveDeck(d); } }, 0); }, true); }, 0); return out; }; }
+
+/* ---------- 14. Sources for every lesson ---------- */
+const UNIT_SOURCES = { heme: ["Rodak’s Hematology: Clinical Principles and Applications", "CLSI H20 (leukocyte differential counts)"], coag: ["Rodak’s Hematology (hemostasis chapters)", "CLSI H21 (coagulation specimen collection)"], chem: ["Tietz Fundamentals of Clinical Chemistry and Molecular Diagnostics", "Bishop’s Clinical Chemistry"], micro: ["Bailey & Scott’s Diagnostic Microbiology", "CLSI M100 (susceptibility breakpoints)"], bb: ["AABB Technical Manual", "AABB Standards for Blood Banks and Transfusion Services"], immuno: ["Stevens’ Clinical Immunology and Serology"], ua: ["Strasinger’s Urinalysis and Body Fluids"], lab: ["Henry’s Clinical Diagnosis and Management by Laboratory Methods", "CLSI GP41 (venipuncture) and CLIA regulations (42 CFR 493)"], mol: ["Tietz (molecular chapters)", "Buckingham’s Molecular Diagnostics"] };
+function sourcesFor(l) { const u = String(l.unit || "") + " " + l.id; const k = /heme|wbc|rbc|anemia|leuk|hgb|blood|plt/.test(u) ? "heme" : /coag|hemostasis/.test(u) ? "coag" : /micro|gpc|gnr|ast|afb|para|myco|virus/.test(u) ? (/virus|sero/.test(u) ? "immuno" : "micro") : /abo|xm|bbid|txrxn/.test(u) ? "bb" : /immune|hyper|sero/.test(u) ? "immuno" : /ua|fluid/.test(u) ? "ua" : /mol/.test(u) ? "mol" : /lyte|glu|marker|lipid|tdm|instr|chem/.test(u) ? "chem" : "lab"; return UNIT_SOURCES[k]; }
+new MutationObserver(() => { const r = ST && ST.lessonRef && ST.stage && ST.stage.querySelector(".results:not([data-src])"); if (!r) return; r.dataset.src = 1; const src = sourcesFor(ST.lessonRef); r.insertAdjacentHTML("beforeend", `<details class="lsrc"><summary>Sources</summary><p>This lesson summarizes standard MLS references:</p><ul>${src.map(s => `<li>${esc(s)}</li>`).join("")}</ul><p class="small muted">Always follow your program’s materials and your lab’s procedures when they differ.</p></details>`); }).observe(document.documentElement, { childList: true, subtree: true });
+/* ===================== v53 · sharing, challenges, onboarding, rotation mode, about ===================== */
+Object.assign(ICONS, { flask: ICONS.flask || '<path d="M9 3h6M10 3v6L5 18a2 2 0 0 0 1.7 3h10.6A2 2 0 0 0 19 18l-5-9V3"/>', link: '<path d="M10 14a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1 1"/><path d="M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1-1"/>', share2: '<path d="M12 3v12M8 7l4-4 4 4"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/>', trophy: '<path d="M8 4h8v5a4 4 0 0 1-8 0V4z"/><path d="M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M10 17h4M9 21h6M12 13v4"/>', bench: '<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/>' });
+/* ---------- 10. Deck sharing: file or link; always imported as a fresh copy ---------- */
+const b64u = buf => btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+const unb64u = s => Uint8Array.from(atob(s.replace(/-/g, "+").replace(/_/g, "/") + "===".slice((s.length + 3) % 4)), c => c.charCodeAt(0));
+async function packDeck(d) { const clean = { v: 1, name: d.name, fields: d.fields || [], cards: d.cards.map(c => { const x = { ...c }; delete x.img; delete x.star; delete x.hook; return x; }) }; const json = JSON.stringify(clean);
+  try { const cs = new Blob([json]).stream().pipeThrough(new CompressionStream("gzip")); return { json, link: "z" + b64u(await new Response(cs).arrayBuffer()) }; } catch { return { json, link: "j" + b64u(new TextEncoder().encode(json)) }; } }
+async function unpackDeck(code) { try { if (code[0] === "z") { const ds = new Blob([unb64u(code.slice(1))]).stream().pipeThrough(new DecompressionStream("gzip")); return JSON.parse(await new Response(ds).text()); } return JSON.parse(new TextDecoder().decode(unb64u(code.slice(1)))); } catch { return null; } }
+function importSharedDeck(obj) { if (!obj || !Array.isArray(obj.cards)) { toast("That doesn’t look like a LabDeck deck"); return; }
+  modal(`<h2>Add “${esc(obj.name || "Shared deck")}”?</h2><p class="muted">${plural(obj.cards.length, "card")}${obj.fields && obj.fields.length ? ` · fields: ${esc(obj.fields.slice(0, 5).join(", "))}${obj.fields.length > 5 ? "…" : ""}` : ""}</p><p class="small muted">It’s added as a new deck. Your other decks and progress stay exactly as they are.</p><div class="modal-foot"><button class="btn" data-close>Cancel</button><div class="spacer"></div><button class="btn primary" id="impGo">Add deck</button></div>`, (s, close) => {
+    $$("[data-close]", s).forEach(b => b.onclick = close);
+    $("#impGo", s).onclick = () => { const id = "d" + Date.now().toString(36) + Math.random().toString(36).slice(2, 5); const exists = Object.values(S.decks).some(x => x.name === obj.name); const d = { id, name: (obj.name || "Shared deck") + (exists ? " (shared)" : ""), fields: obj.fields || [], cards: obj.cards.map(c => ({ ...c, id: Math.random().toString(36).slice(2, 12) })), updated: Date.now() }; S.decks[id] = d; saveDeck(d); saveMeta(true); close(); toast(`Added ${d.name}`); location.hash = "#d-" + id; render(); };
+  }); }
+async function deckShareModal(d) { const { json, link } = await packDeck(d); const url = location.origin + location.pathname + "#import=" + link; const tooLong = url.length > 6000;
+  modal(`<h2>Share “${esc(d.name)}”</h2><p class="muted">Classmates get their own copy. Pictures and your progress aren’t included.</p>
+    <div class="sh-opts"><button class="sh-opt" id="shFile">${icon("share2")}<b>Download deck file</b><small>Send the .labdeck file any way you like</small></button><button class="sh-opt" id="shOld">${icon("list")}<b>Other formats</b><small>Copy as text or export the classic way</small></button><button class="sh-opt" id="shLink" ${tooLong ? "disabled" : ""}>${icon("link")}<b>Copy share link</b><small>${tooLong ? "This deck is too big for a link; use the file" : "Opens LabDeck and offers to add the deck"}</small></button></div>
+    <div class="modal-foot"><div class="spacer"></div><button class="btn" data-close>Done</button></div>`, (s, close) => {
+    $$("[data-close]", s).forEach(b => b.onclick = close);
+    $("#shFile", s).onclick = () => { const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([json], { type: "application/json" })); a.download = d.name.replace(/[^\w\- ]+/g, "").trim().replace(/\s+/g, "-") + ".labdeck"; document.body.appendChild(a); a.click(); a.remove(); toast("Deck file downloaded"); };
+    $("#shOld", s).onclick = () => { close(); SHARE_OLD && SHARE_OLD(d); };
+    $("#shLink", s).onclick = async () => { try { await navigator.clipboard.writeText(url); toast("Share link copied"); } catch { prompt("Copy this link:", url); } };
+  }); }
+const SHARE_OLD = typeof shareModal === "function" ? shareModal : null; shareModal = function (d) { return deckShareModal(d); };
+const checkImportHash = async () => { const m = (location.hash || "").match(/^#import=([\w-]+)/); if (!m) return; const obj = await unpackDeck(m[1]); history.replaceState(null, "", location.pathname + "#"); importSharedDeck(obj); };
+addEventListener("hashchange", checkImportHash); setTimeout(checkImportHash, 1500);
+function pickDeckFile() { const inp = document.createElement("input"); inp.type = "file"; inp.accept = ".labdeck,.json,application/json"; inp.onchange = async () => { const f = inp.files[0]; if (!f) return; try { importSharedDeck(JSON.parse(await f.text())); } catch { toast("Couldn’t read that file"); } }; inp.click(); }
+{ const rh = renderHome; renderHome = function (decks) { rh(decks); try { const h = [...$$("#view .section-head")].find(x => /^Decks/.test(x.textContent.trim())); if (h && !h.querySelector("#impDeck")) { const nb = h.querySelector("button, a"); (nb || h).insertAdjacentHTML(nb ? "beforebegin" : "beforeend", `<button class="btn sm ghost" id="impDeck">${icon("share2")}Import a deck</button>`); $("#impDeck").onclick = pickDeckFile; } } catch { } }; }
+
+/* ---------- 11. Weekly challenge: same questions for everyone, scores shared as codes ---------- */
+const isoWeek = () => { const d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() + 3 - (d.getDay() + 6) % 7); const w1 = new Date(d.getFullYear(), 0, 4); return d.getFullYear() + "-" + String(1 + Math.round(((d - w1) / DAY - 3 + (w1.getDay() + 6) % 7) / 7)).padStart(2, "0"); };
+function seededPick(arr, n, seed) { let s = 0; for (const ch of seed) s = (s * 31 + ch.charCodeAt(0)) >>> 0; const a = arr.slice(); for (let i = a.length - 1; i > 0; i--) { s = (s * 1103515245 + 12345) >>> 0; const j = s % (i + 1); [a[i], a[j]] = [a[j], a[i]]; } return a.slice(0, n); }
+function challengeQuestions() { const pool = LESSONS.filter(l => l.id.startsWith("l-")).flatMap(l => { try { if (l.beats) return l.beats.map(b => b[1]).filter(Boolean); } catch { } return []; }); return seededPick(pool, 10, "labdeck-" + isoWeek()); }
+function startChallenge() { const w = isoWeek(); const qs = challengeQuestions(); const t0 = Date.now(); openStudy("Weekly challenge");
+  mcAll(qs.map(q => ({ kicker: `Week ${w.slice(5)} challenge`, q: q[0], opts: q[1], a: q[1][q[2]], why: q[3] })), "Weekly challenge", (s, t) => { const secs = Math.round((Date.now() - t0) / 1000); const name = S.meta.chName || ""; const C = S.meta.challenge = S.meta.challenge || {}; const mine = { name: name || "You", s, t: secs, me: 1 }; C[w] = (C[w] || []).filter(x => !x.me); C[w].push(mine); saveMeta(true); challengeBoard(); }); }
+const chCode = r => "LD" + btoa(unescape(encodeURIComponent(JSON.stringify({ w: isoWeek(), n: r.name, s: r.s, t: r.t })))).replace(/=+$/, "");
+function challengeBoard() { const w = isoWeek(); const C = S.meta.challenge = S.meta.challenge || {}; const list = (C[w] || []).slice().sort((a, b) => b.s - a.s || a.t - b.t); const me = list.find(x => x.me); setProg(1); ST.right.innerHTML = "";
+  ST.stage.innerHTML = `<div class="ch-board"><div class="qcard"><div class="kicker">Week ${w.slice(5)} · everyone gets the same 10 questions</div><div class="qtext">Leaderboard</div><p class="small muted" style="margin:4px 0 0">Private by design: scores travel only as codes you choose to share.</p></div>
+    <ol class="ch-list">${list.map((x, k) => `<li class="${x.me ? "me" : ""}"><span>${k + 1}</span><b>${esc(x.name || "Friend")}</b><small>${x.s}/10 · ${x.t}s</small></li>`).join("") || `<li class="muted">No scores yet. Play this week’s challenge.</li>`}</ol>
+    ${me ? `<div class="field"><label for="chName">Your name on codes</label><input class="input" id="chName" value="${esc(S.meta.chName || "")}" placeholder="e.g. Ryan"></div><div class="row" style="gap:8px"><button class="btn primary" id="chCopy">Copy my score code</button></div>` : `<button class="btn primary" id="chPlay">Play this week’s challenge</button>`}
+    <div class="field" style="margin-top:14px"><label for="chIn">Add a friend’s code</label><div class="row" style="gap:8px"><input class="input" id="chIn" placeholder="Paste a code starting with LD" style="flex:1"><button class="btn" id="chAdd">Add</button></div></div></div>`;
+  $("#chPlay") && ($("#chPlay").onclick = () => { closeStudy(true); startChallenge(); });
+  $("#chName") && ($("#chName").onchange = e => { S.meta.chName = e.target.value.trim().slice(0, 24); if (me) me.name = S.meta.chName || "You"; saveMeta(true); setTimeout(challengeBoard, 0); });
+  $("#chCopy") && ($("#chCopy").onclick = async () => { const code = chCode({ ...me, name: S.meta.chName || "Friend" }); try { await navigator.clipboard.writeText(code); toast("Score code copied"); } catch { prompt("Copy your code:", code); } });
+  $("#chAdd").onclick = () => { try { const v = $("#chIn").value.trim(); const o = JSON.parse(decodeURIComponent(escape(atob(v.replace(/^LD/, ""))))); if (o.w !== w) { toast("That code is from a different week"); return; } C[w] = (C[w] || []).filter(x => x.me || x.name !== o.n); C[w].push({ name: String(o.n || "Friend").slice(0, 24), s: Math.min(10, +o.s || 0), t: +o.t || 0 }); saveMeta(true); challengeBoard(); toast("Added"); } catch { toast("That code didn’t work"); } }; }
+function startChallengeHub() { openStudy("Weekly challenge"); challengeBoard(); }
+navWrap("startChallengeHub");
+{ const gh = startGamesHub; startGamesHub = function (...a) { const out = gh.apply(this, a); try { if (!ST.stage.querySelector(".ch-banner")) { const played = ((S.meta.challenge || {})[isoWeek()] || []).some(x => x.me); ST.stage.insertAdjacentHTML("afterbegin", `<button class="ch-banner" id="chGo"><span>${icon("trophy")}</span><div><b>Weekly challenge</b><small>${played ? "You’ve played this week. See the leaderboard." : "Same 10 questions for everyone this week. Share your score."}</small></div><span class="ch-go">${played ? "Leaderboard" : "Play"}</span></button>`); $("#chGo").onclick = () => { closeStudy(true); played ? startChallengeHub() : startChallenge(); }; } } catch { } return out; }; }
+
+/* ---------- 16. Onboarding for brand-new users only ---------- */
+function startOnboarding() { modal(`<div class="ob"><span class="ob-e">🧪</span><h2>Welcome to LabDeck</h2><p class="muted">Where are you in your program?</p><div class="ob-opts">${[["pre", "Before day one", "Get a head start with guided lessons"], ["prog", "In the program", "Lectures, exams and daily reviews"], ["rot", "On rotations", "Bench quick reference plus exam study"], ["board", "Board prep", "Practice exams and weak spots"]].map(([k, t, s]) => `<button class="ob-opt" data-k="${k}"><b>${t}</b><small>${s}</small></button>`).join("")}</div></div>`, (s, close) => {
+    $$(".ob-opt", s).forEach(b => b.onclick = () => { const k = b.dataset.k; const P = prep(); P.on = k === "pre"; S.meta.settings.bench = k === "rot"; S.meta.onboarded = 1; saveMeta(true); close(); render(); setTimeout(() => { try { packsModal(); } catch { } setTimeout(() => { const t = () => { if (!document.querySelector(".scrim")) startTour(); else setTimeout(t, 800); }; t(); }, 600); }, 300); }); }); }
+let OB_BUSY = false; ["pointerdown", "keydown"].forEach(ev => addEventListener(ev, () => { OB_BUSY = true; }, { capture: true, once: true }));
+/* only for a brand-new user who hasn’t started doing anything yet: never interrupt someone mid-action */
+setTimeout(() => { try { const fresh = !Object.keys(S.decks).length && !Object.keys(S.meta.history || {}).length && !Sync.token; if (S.meta.onboarded) return; if (!fresh) { S.meta.onboarded = 1; return; }
+    if (OB_BUSY || (ST && ST.el && ST.el.isConnected) || document.querySelector(".scrim") || ((location.hash || "#").replace("#", "") !== "")) return; startOnboarding(); } catch { } }, 2200);
+
+/* ---------- 19. Rotation mode: bench quick reference, with exam study one tap away ---------- */
+const BENCH_REF = [
+  ["Critical values (typical)", [["Potassium", "< 2.8 or > 6.2 mmol/L"], ["Sodium", "< 120 or > 160 mmol/L"], ["Glucose", "< 40 or > 450 mg/dL"], ["Calcium", "< 6.5 or > 13 mg/dL"], ["Hemoglobin", "< 6.5 g/dL"], ["Platelets", "< 20 ×10³/µL"], ["WBC", "< 2.0 or > 30 ×10³/µL"], ["INR", "> 5.0"], ["Positive blood culture", "Call the Gram stain"]], "Always use your lab’s own critical list."],
+  ["Order of draw", [["1", "Blood cultures"], ["2", "Light blue (citrate)"], ["3", "Red / gold (serum)"], ["4", "Green (heparin)"], ["5", "Lavender (EDTA)"], ["6", "Gray (fluoride)"]], ""],
+  ["Specimen rejection", [["Unlabeled or mislabeled", "Reject; recollect"], ["Clotted lavender / blue", "Reject"], ["Underfilled light blue", "Reject (9:1 ratio)"], ["Grossly hemolyzed", "Reject K⁺, LD, AST"], ["Wrong tube", "Reject"], ["Urine > 2 h unrefrigerated", "Reject for culture"]], "Document the reason and notify the unit."],
+  ["Westgard rules", [["1-2s", "Warning: inspect"], ["1-3s", "Reject: random error"], ["2-2s", "Reject: systematic"], ["R-4s", "Reject: random"], ["4-1s", "Reject: systematic"], ["10x̄", "Reject: systematic shift"]], "Don’t report patients until QC is in."],
+  ["Transfusion reaction", [["1", "Stop the transfusion; keep IV open with saline"], ["2", "Clerical check at bedside and in lab"], ["3", "Post-transfusion sample: visual hemolysis, DAT"], ["4", "Repeat ABO/Rh on pre and post samples"], ["5", "Send unit and tubing to blood bank"]], ""],
+  ["CSF tubes", [["Tube 1", "Chemistry, serology"], ["Tube 2", "Microbiology"], ["Tube 3", "Cell count"], ["Tube 4", "Extra / micro"]], ""],
+  ["Gram stain", [["1", "Crystal violet, 1 min"], ["2", "Gram’s iodine, 1 min"], ["3", "Decolorize (acetone-alcohol), few sec"], ["4", "Safranin, 30–60 s"], ["Result", "Purple = positive, pink = negative"]], ""]
+];
+function startBenchRef() { openStudy("Bench reference"); let q = "";
+  const draw = () => { ST.stage.innerHTML = `<label class="search"><span>${icon("search")}</span><input id="brQ" placeholder="Find a value or rule" value="${esc(q)}" autocomplete="off"></label><div class="br-list">${BENCH_REF.map(([t, rows, note]) => { const r = rows.filter(([a, b]) => !q || (t + a + b).toLowerCase().includes(q)); if (!r.length) return ""; return `<details class="br-card" ${q || t === "Critical values (typical)" ? "open" : ""}><summary>${esc(t)}</summary><div class="br-rows">${r.map(([a, b]) => `<div><span>${esc(a)}</span><b>${esc(b)}</b></div>`).join("")}</div>${note ? `<p class="br-note">${esc(note)}</p>` : ""}</details>`; }).join("")}</div>`;
+    const inp = $("#brQ"); inp.oninput = () => { q = inp.value.trim().toLowerCase(); clearTimeout(inp._t); inp._t = setTimeout(() => { const p = inp.selectionStart; draw(); const n = $("#brQ"); n.focus(); n.setSelectionRange(p, p); }, 150); }; };
+  draw(); }
+PAGEHEAD.push(["Bench reference", "bench", "#2F6FB5", "Quick reference for the bench: big text, one hand, nothing to scroll past."]);
+navWrap("startBenchRef");
+{ const rh = renderHome; renderHome = function (decks) { rh(decks); try { if (!S.meta.settings.bench) return; const v = $("#view"); const dash = v && v.querySelector(".a3dash"); if (!dash || v.querySelector(".benchcard")) return;
+    dash.insertAdjacentHTML("beforebegin", `<section class="benchcard"><div class="bc-h"><span>${icon("bench")}</span><div><b>Rotation mode</b><small>Quick reference at the bench, exam study when you have a minute.</small></div></div><div class="bc-btns"><button class="btn" id="bcRef">Bench reference</button><button class="btn primary" id="bcStudy">Study for exams</button><button class="btn" id="bcBoard">Board practice</button></div></section>`);
+    $("#bcRef").onclick = () => startBenchRef(); $("#bcStudy").onclick = () => startLearn(null); $("#bcBoard").onclick = () => startBoard(); } catch (e) { console.warn(e); } }; }
+
+/* ---------- 20. About LabDeck ---------- */
+function startAbout() { openStudy("About LabDeck");
+  ST.stage.innerHTML = `<div class="about"><span class="ab-logo">${BRAND}</span><h2>Built by an MLS student, for MLS students</h2><p>LabDeck started as one student’s answer to a hard program: too many facts, too little time, and study tools that weren’t made for the lab. So it was built around how the lab actually works, from order of draw and Westgard rules to the organisms that all start to look alike.</p>
+    <p>It uses what learning science says works: <b>retrieval</b> (recalling before you see the answer), <b>spacing</b> (reviews right before you’d forget) and <b>interleaving</b> (mixing topics so you learn to tell them apart).</p>
+    <div class="ab-facts"><div><b>Free</b><span>No ads, no subscriptions</span></div><div><b>Private</b><span>Your data stays on your devices and your own GitHub</span></div><div><b>Offline</b><span>Works on the bench without signal</span></div></div>
+    <p class="small muted">Content is drawn from standard MLS references. Always follow your program’s materials and your lab’s procedures.</p><button class="btn primary" id="abShare">${icon("share2")}Share LabDeck</button></div>`;
+  $("#abShare").onclick = async () => { const url = location.origin + location.pathname; try { if (navigator.share) await navigator.share({ title: "LabDeck", text: "A free study app built by an MLS student, for MLS students.", url }); else { await navigator.clipboard.writeText(url); toast("Link copied"); } } catch { } }; }
+navWrap("startAbout");
+/* Settings: rotation mode, adaptive scheduling, about */
+{ const r = render; render = function (...a) { const out = r.apply(this, a); if ((location.hash || "") === "#more") setTimeout(() => { try { const sv = document.getElementById("svBox"); if (sv && !sv.querySelector("#swFsrs")) { const list = sv.querySelector(".sw-list"); const sw = (id, on, t, s) => `<label class="sw-row"><span><b>${t}</b><small>${s}</small></span><input type="checkbox" class="ios-sw" id="${id}" ${on ? "checked" : ""}></label>`;
+      list.insertAdjacentHTML("beforeend", sw("swFsrs", !!S.meta.settings.fsrs, "Adaptive scheduling (FSRS)", "Learns your personal forgetting curve to space reviews. Your current intervals carry over; nothing resets.") + sw("swBench", !!S.meta.settings.bench, "Rotation mode", "Adds a bench quick-reference card to home. Exam and board study stay available."));
+      $("#swFsrs").onchange = e => { S.meta.settings.fsrs = e.target.checked; saveMeta(true); toast(e.target.checked ? "Adaptive scheduling on: it applies from your next review" : "Back to the standard schedule"); }; $("#swBench").onchange = e => { S.meta.settings.bench = e.target.checked; saveMeta(true); }; }
+    const help = [...document.querySelectorAll(".setgroup")].find(g => /Help/.test(g.textContent)); const body = help && help.querySelector(".sg-body"); if (body && !body.querySelector("#abBox")) { body.insertAdjacentHTML("afterbegin", `<div class="panel tourcard" id="abBox"><span class="tc-e">🧪</span><div><b>About LabDeck</b><small>The story, the science behind it, and a link to share.</small></div><button class="btn sm" id="abGo">Open</button></div>`); $("#abGo").onclick = startAbout; } } catch (e) { console.warn(e); } }, 30); return out; }; }
 /* ---------- Select all that apply ---------- */
 const itemsOf = (c, f) => splitItems((c.values || {})[f]);
 const hasItem = (c, f, item) => itemsOf(c, f).some(x => norm(x) === norm(item));
